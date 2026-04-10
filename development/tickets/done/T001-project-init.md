@@ -1,7 +1,7 @@
 # T001: Project Initialization
 
 **Scenario:** N/A (infrastructure)
-**Status:** Open
+**Status:** Complete
 
 ## Acceptance Criteria
 
@@ -41,5 +41,5 @@ Supabase client: create `src/lib/supabase.ts` using `createBrowserClient` from `
 
 ## Completion
 
-Date:
-Commit:
+Date: 2026-04-09
+Commit: a09a53b

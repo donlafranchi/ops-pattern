@@ -1,21 +1,21 @@
 # T004: Map View with Colored Ownership Pins
 
 **Scenario:** planning/scenarios/F001-map-view-colored-pins.md
-**Status:** Open
+**Status:** Complete
 
 ## Acceptance Criteria
 
-- [ ] Full-screen Mapbox map loads on `/` (home page)
-- [ ] Map centers on user's geolocation on first load
-- [ ] Geolocation denied: map defaults to US center (39.8283, -98.5795, zoom 4)
-- [ ] Business pins render with colors by ownership tier: gold (independent), deep green (co-op), amber (local franchise), bright blue (challenger), warm purple (mission-driven), flat grey (PE/corporate)
-- [ ] Pins are loaded from Supabase based on map viewport (bounding box query)
-- [ ] User can pan and zoom with standard touch/mouse gestures
-- [ ] Tapping a pin opens the business detail card (stub for now — T007 implements the card)
-- [ ] No businesses in viewport: map shows empty, no error
-- [ ] Map tiles load progressively on slow network
-- [ ] Tests passing
-- [ ] BUILD-LOG.md updated
+- [x] Full-screen Mapbox map loads on `/` (home page)
+- [x] Map centers on user's geolocation on first load
+- [x] Geolocation denied: map defaults to US center (39.8283, -98.5795, zoom 4)
+- [x] Business pins render with colors by ownership tier: gold (independent), deep green (co-op), amber (local franchise), bright blue (challenger), warm purple (mission-driven), flat grey (PE/corporate)
+- [x] Pins are loaded from Supabase based on map viewport (bounding box query)
+- [x] User can pan and zoom with standard touch/mouse gestures
+- [x] Tapping a pin opens the business detail card (stub for now — T007 implements the card)
+- [x] No businesses in viewport: map shows empty, no error
+- [x] Map tiles load progressively on slow network
+- [x] Tests passing
+- [x] BUILD-LOG.md updated
 
 ## Notes
 
@@ -38,5 +38,5 @@ Pin color map (must match Tailwind tokens from T001):
 
 ## Completion
 
-Date:
-Commit:
+Date: 2026-04-09
+Commit: f31d0d0

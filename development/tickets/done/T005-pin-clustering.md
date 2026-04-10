@@ -1,18 +1,18 @@
 # T005: Pin Clustering at Low Zoom Levels
 
 **Scenario:** planning/scenarios/F001-map-view-pin-clustering.md
-**Status:** Open
+**Status:** Complete
 
 ## Acceptance Criteria
 
-- [ ] Overlapping pins collapse into a cluster indicator showing the count
-- [ ] Zooming in expands clusters back into individual pins
-- [ ] Tapping a cluster zooms the map into that area
-- [ ] Single-business areas show as individual pin, never a cluster of 1
-- [ ] Dense areas (100+ pins) remain performant
-- [ ] Cluster threshold and radius are configurable
-- [ ] Tests passing
-- [ ] BUILD-LOG.md updated
+- [x] Overlapping pins collapse into a cluster indicator showing the count
+- [x] Zooming in expands clusters back into individual pins
+- [x] Tapping a cluster zooms the map into that area
+- [x] Single-business areas show as individual pin, never a cluster of 1
+- [x] Dense areas (100+ pins) remain performant
+- [x] Cluster threshold and radius are configurable
+- [x] Tests passing
+- [x] BUILD-LOG.md updated
 
 ## Notes
 
@@ -31,5 +31,5 @@ This modifies the map component from T004 — not a new component.
 
 ## Completion
 
-Date:
-Commit:
+Date: 2026-04-09
+Commit: 1384eb6

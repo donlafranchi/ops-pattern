@@ -1,7 +1,7 @@
 # T002: Database Schema and Supabase Setup
 
 **Scenario:** N/A (infrastructure, supports F001-F005)
-**Status:** Open
+**Status:** Complete
 
 ## Acceptance Criteria
 
@@ -32,5 +32,5 @@ Index `businesses` on `(latitude, longitude)` for spatial queries and on `catego
 
 ## Completion
 
-Date:
-Commit:
+Date: 2026-04-09
+Commit: 8efd0a3
