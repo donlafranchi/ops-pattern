@@ -178,6 +178,18 @@ The URL isn't strictly "secret" but Vault stores arbitrary text without complain
 
 **Resolution:** Migration `006_auth_signup_hook.sql` rewritten to read Vault. Test suite updated to assert Vault read + absence of GUC reads. User-facing setup steps in the T044 ticket Completion notes updated.
 
+## 2026-05-10 — T044 — `COMMENT ON TRIGGER on auth.users` dropped (table ownership boundary)
+
+**Deviation:** The migration's `comment on trigger on_auth_user_created on auth.users is '...'` statement fails with `42501: must be owner of relation users`. Supabase reserves the `auth` schema for the `supabase_auth_admin` role; the `postgres` role can `CREATE TRIGGER` (TRIGGER privilege is granted) but cannot `COMMENT` on objects whose underlying table it doesn't own.
+
+**Reason:** `COMMENT ON TRIGGER` requires ownership of the trigger's table per Postgres semantics. We don't have ownership of `auth.users`. The trigger itself is created fine because Supabase explicitly grants TRIGGER privilege to `postgres` for the auth hooks pattern.
+
+**Impact:** Cosmetic. The function `public.handle_new_auth_user` still carries a `comment on function ...` (no ownership boundary there). The trigger is self-describing through its name and the `create trigger` DDL.
+
+**Escalation:** None — fix-forward in the same migration. Documented inline so future developers don't try to re-add the comment.
+
+**Resolution:** Dropped the `comment on trigger` statement; left the `comment on function` in place. Migration applies cleanly on re-run.
+
 ## 2026-05-10 — T044 — Sentinel-proxy fix for the action-context pool-client leak
 
 **Deviation:** T043's `resolveActionContext` acquired a `PoolClient` from `getPool().connect()` for the route-layer ActionContext. That client was never released because the handler's `withTransaction` acquires its own client and ignores the route-side one. Net effect: every route invocation leaked one pool slot.
