@@ -20,6 +20,33 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-11 — T046 — RLS fix-forward closes three T045 ticket-vs-spec divergences
+
+**Deviation:** T045's acceptance criteria did not specify `locations_owner_read`, did not require the GIST index to be partial, and did not specify a search_path for `sync_area_centroid()`. The system spec (`product/systems/location.md` lines 136 + 165) was more complete than the ticket. T045 shipped exactly as written; T046 closes the gap.
+
+**Reason:** Three corrective items, all surfaced by the mandatory M2 `engineering:code-review` gate that runs after build and before eval-run during the rebuild phase. This is precisely the case the gate exists to catch.
+
+**Impact:**
+- `locations_owner_read` policy adds owner-read for `member_id = auth.uid() and deleted_at is null`. Owners can now SELECT their own non-deleted private Locations (previously unreadable by anyone including the owner). Latent-until-private-rows-exist, fixed before any handler creates them.
+- `idx_locations_geog` swapped from full to partial. Soft-deleted Locations no longer bloat the proximity index.
+- `sync_area_centroid()` rewritten with `set search_path = public, extensions`. Defensive against future Supabase PostGIS-relocation; no behavior change in current setup.
+
+**Escalation:** None. The T045 ticket scope was the divergence; the M2 review caught it and T046 closed it. The pipeline's design held.
+
+**Resolution:** Migration `008_locations_owner_read.sql` lands the three items. 6 file-shape assertions in `web/tests/migrations-t046.test.ts` cover the new state.
+
+## 2026-05-11 — Exploration doc — Locally-owned verification ladder captured (product-territory escalation)
+
+**Deviation:** The T045 code-review discussion surfaced a deeper product question about anti-doxxing posture for home-based businesses claiming "local" status. The PM directed the build agent to capture the reasoning in a document so the discussion is preserved.
+
+**Reason:** Build agent writing product-tier docs is technically outside its lane (per `pipeline-build/workflow.md` "Does NOT read product/foundation/, product/products/"). PM authorized the write because the alternative was losing the discussion. The file lives in `product/exploration/` (the spot for in-flight ideas) so `pipeline-product` can promote it to a system spec or fold it into `groups.md` / `policy-framework.md` when ready.
+
+**Impact:** New file `product/exploration/locally-owned-verification.md` captures: the doxxing problem, the available US tax/business-registration anchors, a three-tier verification ladder (Tier 0 self-attested at b1; Tiers 1-2 deferred to post-revenue), schema sketch for `member_business_jurisdictions`, the PM's six decisions (locality ≠ address; verification-source as public signal; Tier 0 is voluntary-but-incentivized), and six open questions parked for `pipeline-product`.
+
+**Escalation:** Doc seeds the next `pipeline-product` exploration. Routing list at the bottom of the doc: product → plan → review → ticket → build.
+
+**Resolution:** Doc written. Build agent stays in lane for everything else. Schema work for the verification ladder is a future ticket sequence, not a T045/T046 concern.
+
 ## 2026-05-11 — T045 — Phase 1 numbering: locations is 007, not 008
 
 **Deviation:** The rebuild plan (`notes/migration-to-primitives.md` § Phase 1) numbers locations migrations as 008_*. This ticket lands `web/supabase/migrations/007_locations.sql` instead.
