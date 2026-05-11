@@ -108,20 +108,31 @@ Lives in `web/evals/phase-0/floor.spec.ts` (Playwright). Will run end-to-end onc
 
 **What the user must run locally to close the build half:**
 
-1. **Set the DB GUCs** so the trigger can fire:
+1. **Populate Vault with the URL + secret** (one-time after `supabase db reset`). Studio's SQL Editor:
 
-   ```bash
-   psql "$(supabase status -o env | grep DB_URL | cut -d= -f2 | tr -d '\"')" -c "
-     alter database postgres set app.auth_signup_hook_url
-       = 'http://host.docker.internal:3000/api/internal/auth-signup';
-     alter database postgres set app.auth_signup_hook_secret
-       = 'local-dev-secret-must-be-at-least-16-chars-long';
-   "
+   ```sql
+   select vault.create_secret(
+     'http://host.docker.internal:3000/api/internal/auth-signup',
+     'auth_signup_hook_url',
+     'URL the post-signup hook POSTs to (Phase 0 — T044)'
+   );
+
+   select vault.create_secret(
+     'local-dev-secret-must-be-at-least-16-chars-long',
+     'auth_signup_hook_secret',
+     'HMAC-SHA256 signing key for the auth-signup hook (Phase 0 — T044)'
+   );
    ```
 
-   Or via Studio's SQL editor.
+   **Why Vault, not custom GUCs:** Supabase's `postgres` role can't `ALTER DATABASE ... SET app.*` — the CLI restricts that prefix. Vault is the documented Supabase pattern for trigger-readable secrets.
 
-   Note: this requires `psql` (or use podman exec). Alternatively, run the two `alter database` statements directly in Studio. After altering, `supabase db reset` re-applies these settings since they persist on the DB.
+   After `supabase db reset`, Vault rows persist on disk so the secrets survive between resets — populate once.
+
+   To update later:
+
+   ```sql
+   update vault.secrets set secret = '<new value>' where name = 'auth_signup_hook_secret';
+   ```
 
 2. **Set the matching env var in `web/.env.local`**:
 

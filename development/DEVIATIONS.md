@@ -155,26 +155,28 @@ Result: only the `members` table got created — `member_events` table did NOT e
 
 **Resolution:** Defer. Manual verification suffices for Phase 0 closure. The full eval run becomes operational when the helpers land.
 
-## 2026-05-10 — T044 — DB-side configuration GUCs instead of Supabase Vault
+## 2026-05-10 — T044 — Vault for trigger-readable config (custom GUC path blocked by Supabase)
 
-**Deviation:** T044's ticket recommends storing the shared secret in Supabase Vault (`vault.create_secret`). The migration uses Postgres custom-GUC parameters (`app.auth_signup_hook_secret`, `app.auth_signup_hook_url`) read via `current_setting()` instead.
+**Deviation:** T044's first build used Postgres custom-GUC parameters (`app.auth_signup_hook_secret`, `app.auth_signup_hook_url`) read via `current_setting()`. Caught at runtime: `ALTER DATABASE postgres SET app.auth_signup_hook_url = '...'` raises `42501: permission denied to set parameter`. Supabase's `postgres` role is not a superuser and the CLI restricts which GUC prefixes can be set — `app.*` is not whitelisted.
 
-**Reason:** GUCs are simpler to wire end-to-end for Phase 0:
-- Set once per database with `alter database postgres set app.auth_signup_hook_secret = '...'`.
-- Read inside plpgsql with `current_setting('app.auth_signup_hook_secret', true)`.
-- No additional extension dependency; no decryption step.
-- Local-dev secret can match the route's `AUTH_SIGNUP_HOOK_SECRET` env var without crossing the vault boundary.
+**Reason:** Fix-forward to Supabase Vault, which IS the documented pattern for trigger-readable secrets on Supabase. The migration now reads via `vault.decrypted_secrets where name in ('auth_signup_hook_url', 'auth_signup_hook_secret')`. The user populates Vault once via Studio's SQL Editor:
 
-Vault is preferable at production for at-rest encryption + key rotation tooling, but Phase 0's goal is the bootstrap path working end-to-end, not production-grade secret management.
+```sql
+select vault.create_secret('<url>',    'auth_signup_hook_url',    '...');
+select vault.create_secret('<secret>', 'auth_signup_hook_secret', '...');
+```
+
+The URL isn't strictly "secret" but Vault stores arbitrary text without complaint; one consistent mechanism beats two.
 
 **Impact:**
-- Local-dev setup adds two `alter database` commands to the user's `supabase db reset` flow.
-- Production deployment requires rotating the GUC value quarterly (per ADR-9) and matching the deploy env var.
-- Future Phase 1+ ticket can migrate to Vault when key rotation tooling is wired up.
+- One additional extension dependency (`supabase_vault`) — pre-installed on Supabase, declared via `create extension if not exists` defensively.
+- Search-path on the trigger function adds `vault` so `decrypted_secrets` resolves unqualified.
+- Vault rows persist across `supabase db reset` — populate once, then reset all you want.
+- Production rotation: `update vault.secrets set secret = '<new>' where name = '...'`.
 
-**Escalation:** None — flagged in the migration's leading comment for the eventual rotation/Vault migration.
+**Escalation:** None — fix-forward bundled with T044's commit.
 
-**Resolution:** GUCs at b1; Vault migration deferred to Phase 1+ alongside the broader secret-rotation surface.
+**Resolution:** Migration `006_auth_signup_hook.sql` rewritten to read Vault. Test suite updated to assert Vault read + absence of GUC reads. User-facing setup steps in the T044 ticket Completion notes updated.
 
 ## 2026-05-10 — T044 — Sentinel-proxy fix for the action-context pool-client leak
 
