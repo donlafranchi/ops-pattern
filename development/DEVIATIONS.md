@@ -20,6 +20,42 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-11 — T045 — Phase 1 numbering: locations is 007, not 008
+
+**Deviation:** The rebuild plan (`notes/migration-to-primitives.md` § Phase 1) numbers locations migrations as 008_*. This ticket lands `web/supabase/migrations/007_locations.sql` instead.
+
+**Reason:** Phase 0 used 001/002/004/005/006. The 003 slot is reserved for the app-layer scaffold (no SQL file). 007 is the next available SQL number. Locations has no FK dependency on the not-yet-existing 007_* member augmentations (privacy / interests / follows / threads / affinities); the planned dependency arrow is the other direction — `members.home_location_id` will FK to `locations.id` once locations exists. Locations is the most-independent Phase 1 schema and must land first.
+
+**Impact:** Phase 1's member-augmentation migrations (the rebuild plan's 007a–007j series) will renumber when they ticket. The action layer reads no migration filenames; nothing else cares.
+
+**Escalation:** None — purely a numbering reorder; the dependency graph remains the same.
+
+**Resolution:** `007_locations.sql` lands as the sixth migration. The plan's 008_* references in `notes/migration-to-primitives.md` are now historical labels; future tickets that touch this should reference `007_locations.sql` as the actual file.
+
+## 2026-05-11 — T045 — Per-child RLS uses EXISTS subquery, not IN subquery
+
+**Deviation:** The ticket suggests "approach 1: mirror per child" with a subquery to the spine. The implementation uses `where exists (select 1 from public.locations l where l.id = <child>.location_id and l.deleted_at is null and l.discoverability in ('listed','unlisted'))`. The ticket left the exact SQL shape open.
+
+**Reason:** EXISTS is the canonical Postgres pattern for predicate-only subqueries; planners handle it consistently and it avoids the multi-row case that `IN (subquery)` admits. Functionally identical for a primary-key join.
+
+**Impact:** None — the result set matches the ticket's intent. The matrix test (anon/auth-self/auth-other) lands in the F### eval set.
+
+**Escalation:** None.
+
+**Resolution:** EXISTS pattern applied uniformly across `location_permanent` / `location_recurring_temporary` / `location_areas` public-read policies.
+
+## 2026-05-11 — T045 — No COMMENT ON COLUMN statements on the reserved columns
+
+**Deviation:** Initial draft included `comment on column public.locations.parent_location_id is ...` etc. for `parent_location_id`, `embedding_id`, `federation_origin`. These were consolidated into a single table-level COMMENT.
+
+**Reason:** The file-shape test asserts `parent_location_id` does NOT match the regex `parent_location_id[^,]*references`. JavaScript character classes match newlines, so a column COMMENT statement (which carries no comma) lets the regex span into the next CREATE TABLE that contains `references`. Consolidating into a single table-level COMMENT keeps the metadata without tripping the negative assertion.
+
+**Impact:** The reserved-column rationale lives in the table COMMENT and in this DEVIATIONS entry rather than per-column. Future readers find it either way.
+
+**Escalation:** None.
+
+**Resolution:** Single `comment on table public.locations is '...'` covers all three reserved columns.
+
 ## 2026-05-10 — T041 — Migrations wipe absorbed into Phase 0 (rebuild-plan ordering bug)
 
 **Deviation:** The rebuild plan (`notes/migration-to-primitives.md`) places the "drop all existing migrations" pre-step in Phase 1, but the existing `web/supabase/migrations/001_initial_schema.sql` through `006_rollup_vendor_stats.sql` collide with Phase 0's new 001–006 numbering. T041 cannot land its migrations without the wipe happening first.
