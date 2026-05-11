@@ -92,3 +92,24 @@ When implementation diverges from spec, log it here with context.
 
 **Resolution:** Column documented in `002_members_floor.sql` comments. The `members_public_read` RLS policy enforces visibility. Forward fix: PM adds `login_disabled` to `member.md` Data-model-implications.
 
+## 2026-05-10 — T042 (fix-forward) — Consolidated 002+002a+002b into single 002_members.sql (Supabase CLI rejects alpha suffixes)
+
+**Deviation:** T042's original three migration files (`002_members_floor.sql`, `002a_member_events.sql`, `002b_system_member.sql`) were silently skipped on `supabase db reset` because the CLI rejects filenames that don't match `<integer>_name.sql`. Output observed:
+
+```
+Skipping migration 002a_member_events.sql... (file name must match pattern "<timestamp>_name.sql")
+Skipping migration 002b_system_member.sql... (file name must match pattern "<timestamp>_name.sql")
+```
+
+Result: only the `members` table got created — `member_events` table did NOT exist, and the system Member row was NOT inserted.
+
+**Reason:** The Supabase CLI's migration parser allows short numeric prefixes (`001`, `002`) but rejects alpha suffixes (`002a`, `002b`). The error is informational only; the migration is skipped rather than failing the run, which makes the bug easy to miss.
+
+**Impact:** Fix-forward: consolidate the three Phase 0 Members migrations into a single `002_members.sql` (semantically atomic anyway — the system Member insert depends on both tables existing). T041's commit `923d2ef` remains in history; T042's original commit `20d4c82` also remains; the fix-forward commit lands the consolidated file + deletes the three originals.
+
+**Escalation:** None — fix-forward is in-scope per the pipeline-build workflow.
+
+**Resolution:** `002_members.sql` consolidates the three files. Tests updated (`web/tests/migrations-t042.test.ts` — 38 assertions, all passing). The consolidated file applies cleanly when the user runs `supabase db reset` — verified by re-reading the output.
+
+**Going-forward rule for the project:** all migration filenames must match `^\d+_[a-z0-9_]+\.sql$`. No alpha-suffixed numbering. If two migrations need to land semantically together, either consolidate into one file OR use sequential integers (`002`, `003`, etc.) and renumber downstream. The test suite enforces this with a per-file regex check.
+

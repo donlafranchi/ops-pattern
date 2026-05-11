@@ -107,12 +107,13 @@ Date: 2026-05-10
 Commit: `20d4c82` (web repo)
 
 **What landed:**
-- `web/supabase/migrations/002_members_floor.sql` — `members` table with full b1 T1 column set per `member.md`, plus `login_disabled` (system-Member gate). Partial indexes on `home_location_id`, `primary_group_id`, `deleted_at`. `update_updated_at_column()` function + trigger. RLS enabled with `members_public_read` (filters out deleted + login_disabled rows) and `members_owner_update` (`id = auth.uid()`). No INSERT or DELETE policy.
-- `web/supabase/migrations/002a_member_events.sql` — `member_events` table partitioned monthly by `created_at`, composite PK `(id, created_at)`. Audit fields: `acting_member_id NOT NULL` FK + `via_delegation_id` (FK deferred to Phase 1). Full b1 event-kind enum CHECK. RLS read-only (`member_id = auth.uid() OR acting_member_id = auth.uid()`). Partition-rotation functions defined (`ensure_member_events_partition`, `rotate_member_events_partitions`); current + 2 future months seeded. pg_cron schedule deferred (documented inline).
-- `web/supabase/migrations/002b_system_member.sql` — Inserts system Member row (`id='00000000-0000-0000-0000-000000000001'`, `handle='system'`, `display_name='System'`, `login_disabled=true`). Self-bootstrap `member.created` event with `acting_member_id = member_id` (the one documented ADR-6 exception). Idempotent (`on conflict (id) do nothing`).
+- `web/supabase/migrations/002_members.sql` — **single consolidated migration** (originally split into 002 + 002a + 002b; consolidated when Supabase CLI was found to silently skip alpha-suffixed filenames). Three logical sections in one file:
+  - **members section:** full b1 T1 column set per `member.md`, plus `login_disabled` (system-Member gate). Partial indexes on `home_location_id`, `primary_group_id`, `deleted_at`. `update_updated_at_column()` function + trigger. RLS with `members_public_read` (filters deleted + login_disabled) and `members_owner_update` (`id = auth.uid()`). No INSERT or DELETE policy.
+  - **member_events section:** partitioned monthly by `created_at`, composite PK `(id, created_at)`. Audit fields (`acting_member_id NOT NULL` FK + `via_delegation_id` FK deferred to Phase 1). Full b1 event-kind enum CHECK. RLS read-only. Partition-rotation functions defined; current + 2 future months seeded. pg_cron schedule deferred.
+  - **system Member section:** Inserts row (`id='00000000-0000-0000-0000-000000000001'`, `handle='system'`, `display_name='System'`, `login_disabled=true`). Self-bootstrap `member.created` event. Idempotent.
 - `web/src/lib/system-member.ts` — TS constants (`SYSTEM_MEMBER_ID`, `SYSTEM_MEMBER_HANDLE`) mirroring the SQL well-known UUID.
-- `web/tests/migrations-t042.test.ts` — 49 file-shape assertions covering all three migrations + the TS constants. All passing (sandbox, plain node).
-- DEVIATIONS.md: four entries (sequencing reinterpretation, no auth.users FK at Phase 0, raw INSERT in 002b as ADR-7 exception, `login_disabled` column addition).
+- `web/tests/migrations-t042.test.ts` — 38 file-shape assertions covering all three sections + TS constants + the new "no alpha-suffix filenames" rule. All passing (sandbox, plain node).
+- DEVIATIONS.md: five entries (sequencing reinterpretation, no auth.users FK at Phase 0, raw INSERT in 002 as ADR-7 exception, `login_disabled` column addition, **consolidation fix-forward**).
 
 **What the user must run locally to close the loop:**
 1. `cd web && supabase db reset` — applies all six migrations (001, 002, 002a, 002b, 004, 005) against a fresh dev DB.
