@@ -155,3 +155,36 @@ Result: only the `members` table got created — `member_events` table did NOT e
 
 **Resolution:** Defer. Manual verification suffices for Phase 0 closure. The full eval run becomes operational when the helpers land.
 
+## 2026-05-10 — T044 — DB-side configuration GUCs instead of Supabase Vault
+
+**Deviation:** T044's ticket recommends storing the shared secret in Supabase Vault (`vault.create_secret`). The migration uses Postgres custom-GUC parameters (`app.auth_signup_hook_secret`, `app.auth_signup_hook_url`) read via `current_setting()` instead.
+
+**Reason:** GUCs are simpler to wire end-to-end for Phase 0:
+- Set once per database with `alter database postgres set app.auth_signup_hook_secret = '...'`.
+- Read inside plpgsql with `current_setting('app.auth_signup_hook_secret', true)`.
+- No additional extension dependency; no decryption step.
+- Local-dev secret can match the route's `AUTH_SIGNUP_HOOK_SECRET` env var without crossing the vault boundary.
+
+Vault is preferable at production for at-rest encryption + key rotation tooling, but Phase 0's goal is the bootstrap path working end-to-end, not production-grade secret management.
+
+**Impact:**
+- Local-dev setup adds two `alter database` commands to the user's `supabase db reset` flow.
+- Production deployment requires rotating the GUC value quarterly (per ADR-9) and matching the deploy env var.
+- Future Phase 1+ ticket can migrate to Vault when key rotation tooling is wired up.
+
+**Escalation:** None — flagged in the migration's leading comment for the eventual rotation/Vault migration.
+
+**Resolution:** GUCs at b1; Vault migration deferred to Phase 1+ alongside the broader secret-rotation surface.
+
+## 2026-05-10 — T044 — Sentinel-proxy fix for the action-context pool-client leak
+
+**Deviation:** T043's `resolveActionContext` acquired a `PoolClient` from `getPool().connect()` for the route-layer ActionContext. That client was never released because the handler's `withTransaction` acquires its own client and ignores the route-side one. Net effect: every route invocation leaked one pool slot.
+
+**Reason:** T043 was modeled on a "ctx.db is always a real client" assumption. In practice, route handlers never read ctx.db directly — they always go through `withTransaction`, which creates a new client. The route-layer ctx.db is a placeholder for type safety, not a live connection.
+
+**Impact:** Pool slots leak (default Pool size 10) — handful of requests would exhaust the pool. Caught while wiring T044's route handler.
+
+**Escalation:** Fix-forward bundled with T044's commit. No separate ticket.
+
+**Resolution:** `resolveActionContext` now passes a `Proxy<PoolClient>` sentinel that throws on any access. Type safety preserved; pool slots not consumed; any accidental direct use of ctx.db outside `withTransaction` raises a clear error rather than producing subtle bugs. Sandbox-verified: 33/33 file-shape checks pass; Vitest runtime check defers to the user's darwin run.
+
