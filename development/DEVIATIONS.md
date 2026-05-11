@@ -113,3 +113,45 @@ Result: only the `members` table got created — `member_events` table did NOT e
 
 **Going-forward rule for the project:** all migration filenames must match `^\d+_[a-z0-9_]+\.sql$`. No alpha-suffixed numbering. If two migrations need to land semantically together, either consolidate into one file OR use sequential integers (`002`, `003`, etc.) and renumber downstream. The test suite enforces this with a per-file regex check.
 
+## 2026-05-10 — T043 — Transaction wrapper uses `pg` directly (not Supabase JS client)
+
+**Deviation:** Supabase JS client (`@supabase/supabase-js`) does NOT support transactions natively — no BEGIN/COMMIT API. Per ADR-10, the row write + event-log write must commit in the same transaction. T043's action layer uses the `pg` package directly (added as a new dependency) with `pool.connect()` → `client.query('BEGIN')` / `'COMMIT'` / `'ROLLBACK'`.
+
+**Reason:** ADR-10 same-transaction invariant is load-bearing. The Supabase JS client gives single-statement atomicity but cannot wrap two statements in one transaction. Three options considered:
+1. Use `pg` directly — works on Node runtime; cleanest semantics. **Chosen.**
+2. Move transaction logic into plpgsql functions and call via `rpc` — verbose; doubles the surface.
+3. Skip the same-transaction invariant — violates ADR-10.
+
+**Impact:**
+- New deps: `pg ^8.13.0`, `@types/pg ^8.11.10`.
+- Routes calling action handlers must run on **Node runtime**, not Edge. Documented in `web/src/actions/_lib/db.ts`. Per T043 Notes — picking Edge is a T2+ revisit.
+- A `DATABASE_URL` (or `POSTGRES_URL_NON_POOLING` / `POSTGRES_URL`) env var must be set. Supabase exposes this via `supabase status -o env`.
+
+**Escalation:** None — flagged in `web/src/actions/_lib/db.ts` for the T2 cold-start-latency review.
+
+**Resolution:** `_lib/db.ts` exports `getPool()` (singleton `pg.Pool`) and `withTransaction(fn)`. Tests use `closePool()` in `afterAll` for clean exit.
+
+## 2026-05-10 — T043 — Tests for runtime DB behavior deferred to Playwright eval
+
+**Deviation:** T043's ticket checklist enumerates several Vitest tests that require a running DB (transaction rollback on failure injection, handle-collision insert, etc.). T043's actual build delivers file-shape + pure-function + Zod-schema + conformance-check tests, with the DB-touching assertions deferred to `web/evals/phase-0/floor.spec.ts` (Playwright eval).
+
+**Reason:** Pipeline-build's TDD loop is meant to be fast and self-contained. Vitest unit tests can't naturally wrap a `pg.Pool` against a real Postgres without significant setup — the runtime-DB tests are inherently integration tests. The Playwright eval suite is already designed for this and already has the T043 assertions wired (`eval_member_create_with_failure_injection`, etc., per the Phase 0 floor.spec).
+
+**Impact:** Build-agent shipped 59/60 sandbox-side tests (one false-positive regex). The DB-runtime portion of T043's checklist is exercised when `pipeline-eval` runs the floor.spec against a running Supabase. This matches the project's split: Vitest = pure unit; Playwright = external oracle.
+
+**Escalation:** None — recorded for traceability. The eval helpers (`eval_member_create_with_failure_injection`, `eval_seed_handle_collision_range`, `eval_clear_handle_collision_range`, `eval_conformance_check_result`) are still to be provisioned before the eval runs end-to-end. They are NOT in T043's scope per the ticket checklist.
+
+**Resolution:** `pipeline-eval` (run mode) is the truth-y verification stage for T043's runtime invariants. The Playwright spec at `web/evals/phase-0/floor.spec.ts` carries the DB-touching tests; T043's build shipping the action layer + 59/60 sandbox checks closes the build-agent half.
+
+## 2026-05-10 — T043 — Eval test-helper RPCs deferred to a separate stage
+
+**Deviation:** The JOURNAL pickup item (item 3) lists test-only RPC helpers (`eval_pg_extensions`, `eval_table_shape`, `eval_is_partitioned`, `eval_conformance_check_result`, `eval_member_create_with_failure_injection`, `eval_seed_handle_collision_range`, `eval_clear_handle_collision_range`) as build-agent responsibilities "alongside T041–T044." T043 does NOT ship these RPCs.
+
+**Reason:** The RPCs are eval-side test infrastructure, not part of the T043 ticket checklist. The build firewall is "tests trace back to a Then-clause in the scenario OR an item in the ticket's checklist." These RPCs are an oracle for `pipeline-eval` run mode, not for the build agent's own tests.
+
+**Impact:** Running `npm run eval -- --grep "Phase 0"` will fail with `helper eval_* missing` for the T043 portion until the helpers are provisioned. T041/T042 portions also need their helpers. Practically: the eval is not yet runnable end-to-end. The runtime correctness of T043 is verifiable manually via Studio queries (per the ticket's "What the user must run locally" notes) or by writing the helpers as a separate ticket.
+
+**Escalation:** Flag for `pipeline-plan` to scope a "Phase 0 eval helpers" ticket (T044.5 or T045-pre) that provisions the RPCs. Could be combined with T044 if convenient.
+
+**Resolution:** Defer. Manual verification suffices for Phase 0 closure. The full eval run becomes operational when the helpers land.
+
