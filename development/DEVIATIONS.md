@@ -20,6 +20,22 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-11 — T048 — No deviations
+
+`010_member_interests_follows.sql` implements `member_interests` and `member_follows` exactly as specced in the ticket and `member.md` lines 230 + 243. The privacy-conditional `member_follows_public_read` policy uses the two-EXISTS-against-`member_privacy` pattern the ticket called for. No surprises. (Rebuild-phase rule: empty-deviations line is mandatory at close.)
+
+## 2026-05-11 — T047 M2 follow-up — Build agent wrote to product/systems/member.md (PM-authorized escalation)
+
+**Deviation:** The T047 M2 code review surfaced a spec-level question about `member_handle_history`'s composite PK on `(member_id, handle)` preventing handle re-claim. Build agent recommended capturing the open product question in the system spec before it's lost; PM authorized. Build agent appended a paragraph under `product/systems/member.md` § `member_handle_history` flagging the two product options (permanently retired vs. re-claimable) for `pipeline-product` to decide before the b2 `member.handle.set` surface scopes.
+
+**Reason:** Same out-of-lane pattern as T046's `product/exploration/locally-owned-verification.md` escalation. Per `pipeline-build/workflow.md`, the build agent does not write to `product/`. PM authorized this exception because the alternative was losing the discussion. The doc edit is a flag, not a decision — the actual product call belongs to `pipeline-product`.
+
+**Impact:** `member.md` now carries an "Open product question" note under the `member_handle_history` section. `pipeline-product` will see it when the b2 handle-change surface scopes. No schema change at b1 — the table is placeholder-only and the PK shape can still change up until the b2 ticket lands its first row.
+
+**Escalation:** Doc seeds the next `pipeline-product` exploration on the b2 handle-change surface. The b2 ticket (whenever it scopes) will either keep the composite PK or widen it; that decision drives any migration.
+
+**Resolution:** Paragraph added. Build agent stays in lane for everything else. The flag pattern matches T046's exploration-doc precedent — build agent writes product/ only under PM authorization, only to surface decisions for the next pipeline-product pass.
+
 ## 2026-05-11 — T047 — Phase 1 numbering: members augmentation is 009, not 007
 
 **Deviation:** The rebuild plan (`notes/migration-to-primitives.md` § Phase 1) numbers the Member augmentation series as `007a–007j`. T047 lands `web/supabase/migrations/009_members_phase1.sql` instead, consolidating the Phase 1 augmentation work that this ticket scope covers (FK fortification + member_privacy + member_handle_history).
