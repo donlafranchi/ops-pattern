@@ -1,100 +1,180 @@
 # JOURNAL.md — PM Reverse-Chronological Log
 
-**Latest entries at top.** Start here every session to understand project state.
+**Latest entry at top.** Start here every session to understand project state.
+
+> **Archive policy.** This file keeps only the most recent entry plus the pinned "Next session pickup" block. Older entries rotate to monthly archives so the live file stays fast to scan.
+>
+> Archives: [`planning/archive/JOURNAL-2026-05.md`](planning/archive/JOURNAL-2026-05.md) · [`planning/archive/JOURNAL-pre-mission-clarity-2026-05-08.md`](planning/archive/JOURNAL-pre-mission-clarity-2026-05-08.md)
 
 ---
 
-## 2026-04-09 — Community Accountability Model: BBB With Teeth
+## Next session pickup
 
-**What's Done:**
-- Added `product/exploration/community-accountability-model.md` — the definitive interaction model
-- Replaces "I visited here" entirely
+*(Pinned. Rewritten at the close of every session. The list below is the *current* set, not history.)*
 
-**Key Decisions:**
-- **❤️ Endorse** replaces visit/check-in. One tap, means "this business and its people are worth supporting." Not a visit, not a review — a stance.
-- **Report a concern** replaces text notes. Structured around four pillars: Customers, Employees, Community, Planet. Private, never displayed individually. Pattern + volume triggers review.
-- **Business Standing** system: Good Standing → Concerns Raised → Under Review → Questionable → Cleared. One person can never damage a business. Only verified concerns change standing.
-- No public text, no reviews, no stars, no check-ins. Ever.
+1. **Phase 0 — DONE 2026-05-10.** All four tickets shipped, runtime-verified end-to-end. Substrate installed: pgvector + postgis; members + member_events with audit fields; system Member; action layer + `member.create` handler with conformance check; auth signup hook reading Vault. Smoke test (curl-spawn fresh auth user → row + event appear in 2s with correct audit fields) passes. See `web/BUILD-LOG.md` for the full closing record.
 
-**b1 impact:** F005 "Visit Interaction" needs to become "Endorse + Report" in the bundle, capabilities, and scenarios. The founding scenarios (Maria's "I visited here" note) need updating to use the endorse model instead.
+2. **Phase 1 ticket queue (renumbered by dependency, not by rebuild-plan section):**
+   - **T045 — `007_locations.sql`** — Location spine + 3 children (permanent / recurring_temporary / areas) + events. Per `location.md` + ADR-14.
+   - **T046 — `008_groups.sql`** — Groups spine + `group_businesses` + `group_event_anchored` + memberships + events. Per `groups.md` + ADR-13. Depends on T045 (`anchor_location_id` FK).
+   - **T047 — `009_items.sql`** — Items spine + 4 kind children (product/service/gathering/wonder) + `item_locations` + `item_responses` + `item_tags` + `item_hashtags` + events. Per `item.md`. Depends on T045 + T046.
+   - **T048 — `010_members_augment.sql`** — Adds FKs from `members.home_location_id` → locations and `members.primary_group_id` → groups; adds child tables (privacy, interests, follows, handle history, threads + messages + participants, self-records, delegations, location affinities). Depends on T045 + T046.
+   - **T049 — `011_discoverable_items.sql`** — Materialized view + `item.published` refresh trigger + indexes. Depends on T045 + T046 + T047 + T048.
 
-**Supersedes:** `community-signals.md` (earlier exploration, now outdated by this model)
+3. **Phase 1 numbering note** — the rebuild plan listed Phase 1 by primitive (007 members augmentation, 008 locations, 009 items, 010 groups, 011 discoverable_items). The dependency graph (members.home_location_id → locations; groups.anchor_location_id → locations; items.group_id → groups) requires the order above. Numbering shift recorded in DEVIATIONS at T045 ticket open.
 
----
+4. **Build-agent provisions test-only RPC helpers** alongside the Phase 1 tickets (called from the Phase 0 eval, never inspected per the firewall): `eval_pg_extensions`, `eval_table_shape`, `eval_is_partitioned`, `eval_conformance_check_result`, `eval_member_create_with_failure_injection`, `eval_seed_handle_collision_range`, `eval_clear_handle_collision_range`. Could fold into T048 (members augmentation) since it touches the same surface.
 
-## 2026-04-09 — Product Identity: We Are Not Yelp
+4. **All pre-primitives scenarios archived as of 2026-05-11.** F019-F024 scrapped 2026-05-10; F001-F017 scrapped 2026-05-11 (PRE-PRIMITIVES-AUDIT-2026-05-11.md in `planning/scenarios-backlog/archive/` documents the mapping). Live `planning/scenarios/` contains only F018 (canonical post-primitives example). Fresh Phase 2/3 scenarios will be authored under the current primitives when those phases open. F-numbers continue from F025+.
 
-**What's Done:**
-- Added `product/exploration/business-accountability.md` — public record transparency (verifiable actions only, not opinions)
-- Added `product/exploration/product-identity-what-we-are-not.md` — foundational product strategy doc
+5. **Phase 2/3 scenarios to author fresh** (when Phase 0+1 close): per the rebuild plan, the Phase 2 surfaces are `/m/[handle]`, kind-specific Item URLs (`/e/`, `/p/`, `/s/`, `/i/`, `/o/`, `/a/`, `/initiative/` per `item.md` naming table), `/l/[slug]`, `/g/[slug]`, surface-specific composers (event / product / service), "Become a Maker" walkthrough, Item-level QR card affordance. Phase 3 surfaces are `/explore` (no-login), `/g`, `/g/new`, `/why`, Wonder composer, Concerts-in-the-Park feed, anonymous Loop 3 path. Each gets a fresh F-numbered scenario authored under the new primitives via `pipeline-product` → `pipeline-plan`.
 
-**Key Decision:**
-Main Street Market classifies businesses by ownership structure and verifiable facts. It does NOT rate businesses on subjective experience. The one-line test: "Is this about structure/facts or opinions?" If opinions, it doesn't belong.
+6. **Phase 4 doc cleanup — DONE 2026-05-11.** All items completed in the 2026-05-11 session: action-layer.md graduation; producer-* re-anchor (producer-bulletin.md, producer-growth.md); vendor-self-service.md retired as superseded; community/cooperative/member-operations archived; primitives.md Community section rewritten on Group; community-platform.md broader Member/Producer rewrite; 4 capabilities rewritten (consumer-feed.md → Locality Feed, landing-page.md, shareable-listing.md → Shareable Entity Pages, community-create-join.md → group-create-join.md); F001-F017 scenarios archived. Live `product/` tree has no stale pre-primitives framing.
 
-**Product Identity:**
-- We are an ownership transparency platform, not a review platform
-- Core unit = structure (who owns it), not opinion (was it good)
-- No public reviews, no star ratings, no subjective comments — ever
-- Behavior signals (if added in b3) must be private/aggregate or based on public records only
-- Revenue must come from consumers, not businesses — selling visibility to businesses poisons trust
+7. **Forward-looking ADRs to write when ready:** ADR-13 (Group consolidation), ADR-14 (Location spine+child). The spec status banners carry the decisions in the meantime.
 
-**Revenue direction:** Consumer subscription, city sponsorship, data licensing, incubator/food-network transaction fees. NOT Yelp-style pay-for-visibility.
+8. **Deferred doc cleanup — pick up at the Phase 1 → Phase 2 boundary (after T049 closes).** The notes/ → planning/ migration is half-done as of 2026-05-11; the riskiest piece (moving `notes/migration-to-primitives.md` itself, which every STALE-banned ticket and the active T045–T049 tickets reference) was deferred to avoid mid-phase reference breakage. Remaining work: (a) `mv notes/migration-to-primitives.md planning/migration-to-primitives.md`; (b) update ~25 references in `STALE` banners on tickets T028–T040, T028's pre-rebuild references in DEVIATIONS.md (line 60 + 112), PIPELINE-AUDIT.md (5 spots), DECISIONS.md (ADR-10 row), `product/foundation/platform-promise.md` (line 11), `product/systems/location.md` (line 166), and the CLAUDE.md "What ships in the rebuild MVP" row; (c) `rmdir notes/` once empty; (d) move `notes/archive/skills-migration-plan.md` → `planning/archive/skills-migration-plan.md`. The other two notes/ files have already moved: `agent-assistance-handoff-2026-05-09.md` → `planning/handoffs/`, `idea-intake-template.md` → `product/templates/idea-intake.md`.
 
 ---
 
-## 2026-04-09 — New Ownership Tier: Mission-Driven
+## 2026-05-11 (latest) — ADR-15 + ADR-16 ratified; verification-ladder promoted
 
-**What's Done:**
-- Added 6th ownership tier: **Mission-driven** (warm purple) — for B Corps, public benefit corporations, and large companies with demonstrated commitment to customers/community (Patagonia, REI, Costco)
-- Updated `product/systems/ownership-classification.md`, `product/products/ownership.md`, `product/foundation/founding-scenarios.md`
+**What.** Three product-agent moves landed in one session:
 
-**Rationale:**
-Not every big company is the enemy. Some are genuinely trying to do right — B Corp certified, registered as PBCs, or just consistently pro-customer. Consumers want to know about these too. They're not gold-pin independent, but they're not grey-pin extractive either. Warm purple = "honorable mention."
+1. **ADR-15 written up** — `public.members.id = auth.users.id`; Supabase Auth post-signup trigger is the only path to Member creation. Documents the decision that T042 + T043 + T044 implemented during Phase 0. The PK-equality coupling, the trigger → Next.js route → action-handler flow, the `login_disabled = true` system-Member exception, the failure modes (hook unreachable / signature invalid / handler error), and the Supabase-replacement foreclosure cost are all captured. Lives cross-cutting in [`planning/DECISIONS.md`](planning/DECISIONS.md) since the auth model shapes RLS across every spec.
 
-**Open Question:**
-What qualifies? B Corp certification and PBC registration are verifiable. But companies like Costco have no formal certification — just reputation. Need clear criteria before b1 ships.
+2. **ADR-16 propagated to the three load-bearing specs** — `member.md` (RLS sketch now declares `member_location_affinities` owner-only; substrate section adds the three SECURITY DEFINER function paths and the no-similarity-matching-opt-out note); `groups.md` (Locality and promotion now calls `public.member_is_local_to_location()` instead of JOINing against affinities directly; reference pseudocode added); `policy-framework.md` (anti-Nextdoor commitment §1 upgraded from three-layer to four-layer enforcement — RLS is now the third layer; the structural-enforcement-not-discipline framing made explicit). Decisions-encoded footers updated in all three files.
 
----
+3. **Verification-ladder doc promoted** — `product/exploration/locally-owned-verification.md` → new `product/systems/business-jurisdiction.md` (T1/T2/T3 tiered, with the `member_business_jurisdictions` schema, the `public.zip_is_proximal_to_location()` derivation path, the four `member.business_jurisdiction.*` action handlers, and the full three-filter policy-posture analysis). The exploration doc retains its source-conversation context but is now marked PROMOTED. The locality-derivation question that ADR-16 left open (how does the platform know a business is local without exposing the home address?) is structurally answered by the jurisdiction ladder — affinity is owner-only and serves the Member's own surfaces; jurisdiction is public and serves the Group's locality claim. CLAUDE.md and MAP.md updated with the new spec.
 
-## 2026-04-09 — Exploration: Incubator + Local Food Network
+**Why.** ADR-16 changed the locality-derivation contract — `groups.md`'s previous "JOIN against `member_location_affinities`" approach no longer typechecks against owner-only RLS. Two patches needed in sequence: (a) replace the JOIN with the SECURITY DEFINER function path (ADR-16's prescribed access pattern); (b) introduce the public floor of evidence so the locally-owned claim survives the loss of affinity as a public signal (the jurisdiction ladder). ADR-15 was written up separately because the auth coupling is its own load-bearing decision and was previously documented only in ticket bodies — the ADR makes it discoverable in the cross-cutting register.
 
-**What's Done:**
-- Added `product/exploration/small-business-incubator.md` — community demand signaling and crowdfunding for aspiring independent business owners. Demand signaling (no money) is b2, crowdfunding is b3.
-- Added `product/exploration/local-food-network.md` — "know your farmer" infrastructure connecting consumers with local food producers. Strong b2 candidate.
+**What's next.** The jurisdiction Tier 0 surface (b1) needs scenarios in `planning/scenarios-backlog/` — likely three scenarios: F02X-locally-owned-claim, F02X-business-jurisdiction-set, F02X-jurisdiction-tier-display. These are not in the current Phase 1 ticket queue and shouldn't block T045-T049; they ship in a Phase 2 sub-bundle alongside the Maker walkthrough surface. The schema (`member_business_jurisdictions`) is reserved by the spec but does not need to land in T048's members-augment migration — it can land in a later phase as `012_business_jurisdictions.sql` after T048 → T049 closes.
 
-**Key Decision:**
-Local Food Network is a strategic priority for b2. The b1 data model and architecture MUST be built with extensibility toward food producers in mind. See ADR-2 in planning/DECISIONS.md. No b1 ticket should create a schema, category system, or business model that would require a rewrite to accommodate farms, ranches, and seasonal food producers.
+**Files touched (parent repo):**
+- `planning/DECISIONS.md` — ADR-15 inserted between ADR-16 and ADR-4.
+- `product/systems/member.md` — RLS sketch + affinity substrate section + Decisions-encoded header/footer updated.
+- `product/systems/groups.md` — Locality and promotion section rewritten to use the SECURITY DEFINER function; Decisions-encoded footer adds ADR-16.
+- `product/foundation/policy-framework.md` — anti-Nextdoor §1 upgraded to four-layer enforcement; Decisions-encoded footer adds ADR-16.
+- `product/systems/business-jurisdiction.md` — new spec.
+- `product/exploration/locally-owned-verification.md` — Status banner flipped to PROMOTED.
+- `CLAUDE.md` — authoritative-docs index adds the new spec row.
+- `product/MAP.md` — Live system specs section adds the new spec.
 
-**What Needs Attention:**
-- Scenario Writer and Build Agent need to see ADR-2 so b1 implementation stays extensible
-- Review b1 systems (business-data, ownership-classification) for food-network compatibility before writing scenarios
-
-**What's Next:**
-- Proceed to Scenario Writer for b1 MVP
+No web/ changes. No tickets touched. Pipeline state unaffected — Phase 1 queue (T045-T049) is still the active build path.
 
 ---
 
-## 2026-04-09 — Project Scaffolding
+## 2026-05-11 (later) — Root-level philosophy docs moved into `product/foundation/`; `product/products/` renamed to `product/surfaces/`; partial notes/ distribution
 
-**What's Done:**
-- Initialized project structure per agent pipeline template
-- Created CLAUDE.md files (root, product, planning, development, web)
-- Set up planning/AGENTS.md with four-agent pipeline
-- Created planning/bundles/b1-mvp.md with MVP scope (F001–F005)
-- Wrote 3 systems: map-system, business-data, ownership-classification
-- Wrote 5 capabilities: map-search, business-detail-view, business-registration, shareable-listing, visit-interaction
-- ADR-1: Tech stack — Next.js + Tailwind + Supabase + Mapbox + Vercel
-- Copied founding scenarios to product/foundation/
+**What.** Two root-level docs (`community-design-philosophy.md` brand-new, `foundational-principles.md` existing) didn't belong at the root — both are foundation-grade. CDP is a structured measuring stick (Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon) with 0-3 scoring across 5 sections; foundational-principles is the P1-P8 constitution + Decision Test + categorical failures + metrics/privacy/monetization baseline. Audit found neither was pure-duplicative of existing foundation docs (people-first / policy-framework / loops / primitives / platform-promise each carry unique *structural* commitments — schema-level refusals, three-filter methodology, the 13 loops, the data spine, the public producer commitments). Decision: keep all of them, make CDP the top-level measuring stick, cross-link aggressively, no deletions.
 
-**What Needs Attention:**
-- Write product files to `product/products/` (one per major system)
-- Populate product/foundation/ with mission and guiding principles
-- Review systems and capabilities for completeness before scenario writing
+**Moves done in this session:**
+- `community-design-philosophy.md` → `product/foundation/community-design-philosophy.md` with a Status banner explaining its role as the structured measuring stick; cross-links into loops.md / people-first.md / policy-framework.md / platform-promise.md / groups.md / item.md / action-layer.md added inline as "in the platform" callouts at the end of each section. Root copy archived at `archive/community-design-philosophy-root-stub.md` (stub, not the original content — original is in git history).
+- `foundational-principles.md` → `product/foundation/foundational-principles.md` with a Status banner explaining its role as the constitution + binary pass/fail filter; banner pairs it with CDP (CDP wins on "what good looks like"; foundational-principles wins on "does this proposal pass"). Original moved to `archive/foundational-principles.md`.
+- `product/products/` → `product/surfaces/`. The directory's one live file (`community-platform.md`) is a consumer-surface description, not a "PM dashboard" per the global template — `surfaces/` is the accurate name. All live references updated (CLAUDE.md, AGENTS.md, MAP.md, T023 + T024 tickets, DEVIATIONS.md line 42, product/exploration/business-intelligence-platform.md, skills/pipeline-product/workflow.md, skills/pipeline-build/workflow.md, notes/migration-to-primitives.md Phase 4 doc-cleanup list).
+- `notes/agent-assistance-handoff-2026-05-09.md` → `planning/handoffs/agent-assistance-2026-05-09.md`. CLAUDE.md forward-looking row updated.
+- `notes/idea-intake-template.md` → `product/templates/idea-intake.md`. AGENTS.md pipeline-product write list updated to include `product/templates/`.
 
-**What's Next:**
-1. Write product files for map, business data, ownership systems
-2. Hand off to Scenario Writer to create scenarios for b1 MVP
-3. PM reviews and approves scenarios (move to `planning/scenarios/`)
-4. Evaluator writes tests
-5. Ticket Writer creates tickets
-6. Build Agent implements
+**What deferred.** The biggest remaining move — `notes/migration-to-primitives.md` → `planning/migration-to-primitives.md` — was deferred to the Phase 1 → Phase 2 boundary (after T049 closes). The file is the active reference for every Phase 1 ticket (T045 through T049) and is cited by every STALE-banned ticket (T028–T040), DEVIATIONS.md, PIPELINE-AUDIT.md, DECISIONS.md ADR-10, platform-promise.md, and location.md. Moving it mid-phase risks broken paths in the daily reference doc; pickup item #8 above captures the remaining work.
+
+**What didn't change.** No web/ code. No schema. No new tickets. No new system specs. The CDP banner asserts conflict-resolution order: CDP wins on principle/rubric; system specs win on structural mechanism; foundational-principles wins on binary pass/fail. People-first / policy-framework / platform-promise / loops / primitives / canonical-examples / agent-assistance remain unchanged in content — they're cross-linked from CDP, not absorbed.
+
+**Why it matters.** The root used to hold three docs that read as load-bearing but weren't visibly indexed (no CLAUDE.md or MAP.md entry). The agent pipeline could miss them entirely. Now CDP and foundational-principles are first-class entries in CLAUDE.md's authoritative-docs table and MAP.md's Foundation section, scored alongside loops/primitives/people-first. The renamed `surfaces/` removes the `product/products/` reading confusion (the directory name was a hold-over from the global template that never matched what the project actually put there).
+
+---
+
+## 2026-05-11 — Action layer graduated · vendor-* re-anchored as producer-* on Members · vendor-self-service retired · Phase 4 doc cleanup completed · platform-wide naming pass (Assistant Context, kind-specific URLs, two-name pattern for gathering→Event and wonder→Idea, no umbrella word for Items in copy)
+
+**What.** A conversation about a Vercel talk on agent safety ("prompting an agent to be careful is not least privilege" — scoped tokens, permission catalogs, approval gates, sandbox isolation, network-layer credential injection, per-turn credential selection) surfaced a real gap in the spec tree: the runtime enforcement story for agent assistance had no clean home. ADR-7 (action layer) lived as inline full-text in `DECISIONS.md`; individual primitive specs gestured at "the action layer enforces"; nothing pulled it together. Today's session closed that gap by graduating ADR-7 to a spec-resident document and expanding it with the runtime trust substrate.
+
+**1. `product/systems/action-layer.md` created.** New system spec. Owns ADR-7 in full. The b1 commitment (handler invariant, audit fields, system Member, same-transaction commit) is unchanged — that's what already shipped at Phase 0. The expansion is the T2/T3 substrate: scoped capability vending, closed-world permission catalog, unbypassable approval gates, network-layer credential injection (the agent never holds credentials — the edge mints and applies per turn), per-turn capability selection, and sandboxed Skill execution. All of this is forward-looking; no T2/T3 surfaces ship at b1. The spec gives b2 agent-assistance design a clean reference.
+
+**2. Member-facing vs platform-substrate split clarified.** The conversation surfaced that `delegation.md` describes a Member primitive (the grant a Member authors); the runtime enforcement (capability minting, credential injection, sandbox) is platform substrate that honors the grant. Trying to put the Vercel-talk strategies in `delegation.md` would conflate the two. The split is now load-bearing: `delegation.md` is "what the Member does"; `action-layer.md` is "what the platform does to make that safe."
+
+**3. `agent-assistance.md` commitment #3 refined.** Added one paragraph: "The assistant never holds the credential it acts under. The action layer mints a scoped capability per turn, bound to the stated intent, and applies it at the network edge as the call crosses into the handler — the capability never enters the agent's context window, never appears in tool arguments. This is what makes prompt injection structurally non-exfiltrating: a malicious user-content payload cannot leak credentials the agent never had. Read/write asymmetry is the *policy*; per-turn credential vending is the *enforcement*." The umbrella also now names `action-layer.md` as the runtime substrate alongside the three Member primitives.
+
+**4. `delegation.md` repositioned as Member-facing only.** The "encodes ADR-7" footer became "consumes ADR-7 (the action-layer contract)"; ADR-7's full ratification now lives in `action-layer.md`. Two inline references corrected to point at the new spec. Pre-existing minor error fixed (`per ADR-6` on the action-layer handler reference → `per ADR-7` and `action-layer.md`).
+
+**5. `DECISIONS.md`, `MAP.md`, `CLAUDE.md` updated.** ADR-7's full text removed from the cross-cutting section (now one cross-cutting ADR full-text instead of two); ADR-7 added to the pointer index referencing `action-layer.md`. `MAP.md` lists `action-layer.md` under Live system specs. Root `CLAUDE.md` authoritative-docs table gained a row keyed "anything write-shaped or runtime-trust-shaped."
+
+**What didn't change.** No schema. No new tickets. No new scenarios. No b1 surface affected. The Phase 0 floor (handlers, audit fields, system Member, same-transaction commit) is exactly what ADR-7 already ratified — that's still ground truth. The T2 substrate is documented but not implemented; sandbox runtime choice (V8 isolate / WASM / managed runtime) and edge-function placement (middleware / separate function / in-process) are deferred to b2 design with follow-up ADRs.
+
+**Why it matters.** The Vercel talk framed something true: a Member's grant is meaningless if the runtime can't honor it safely. We have agent assistance as a foundational commitment (ADR-6) and Delegation as the Member-facing primitive — but until today the runtime enforcement story was scattered across two-line gestures in three specs. `action-layer.md` is the integrated answer. When `delegation.md` Phase 2 surfaces ship and Skills surfaces follow at b2, the architectural reference for *how* the substrate enforces the policy is now one document.
+
+---
+
+**Part 2 — `product/` tree audit + vendor-* re-anchor on Members.**
+
+**What.** After the action-layer.md graduation landed, asked which `product/` files still belong in the live tree. Audit produced a category list: some files clearly stale (vendor-* framing, pre-primitives capabilities), some load-bearing-but-stale-framed (community-platform.md), some correctly retired with banners (community/cooperative/member-operations). Critical finding during the audit: `vendor-intelligence.md` is the only home for the BI monetization story — `platform-promise.md` line 49 points at it as the home of "the founder dashboard, bulletins, follower analytics, listing health, peer benchmarks, weekly digest." Archiving without re-anchoring would have severed a load-bearing platform promise. Re-anchored instead.
+
+**6. `product/systems/producer-bulletin.md` written** (rewrite of `vendor-bulletin.md`). Anchored on Members: a Member operating in producer capacity (`maker_mode_enabled = true` OR `member_has_standing_presence` true) authors a bulletin; the bulletin can be **branded** with the Member's kind='business' Group affiliation for display ("Aaron from Drake's Bakery") but the social connection (followers, replies) is Member-to-Member. T1 (b2): plain text, in-app + email delivery, rate limit 3/week, mute, unsubscribe. T2 (b3): rich composition, scheduling, welcome bulletin, deeper stats. T3: segmentation (geographic via `home_location_id`, never demographic), drip sequences, two-way replies via `member_threads`, cross-promotion, peer benchmarks. Anti-Nextdoor commitment respected structurally: no `bulletin.location_id` field exists, no Location-scoped bulletin surface, no handler accepts a Location as delivery target.
+
+**7. `product/systems/producer-growth.md` written** (rewrite of `vendor-intelligence.md`). The BI monetization story, anchored on Members + kind='business' Groups. The producer-recruitment pitch ("we'll help you compete with bigger players") and the platform-promise commitment route through here. T1 (b2): Founder dashboard (followers tab, activity tab, top tasks, profile health). T2 (b3): bulletin analytics, follower segmentation (read-only, N≥10), discovery insights, peer benchmarks (anonymized), gathering insights, weekly digest. T3: customer LTV proxy, search & discovery optimization, predictive recommendations, multi-Location producer tools, marketing automation, opt-in revenue context (Member-owned, stored in Assistant Context). Data substrate is event-sourced through ADR-7's action layer (b1 already commits every action to the event log) + a nightly `member_growth_stats_daily` rollup table for fast dashboards. Categorical refusals retained: no ad sales, no demographic targeting, no data sales to third parties, no named-competitor benchmarks.
+
+**8. `vendor-self-service.md` retired as superseded — no rewrite.** Analysis showed substantial overlap with the now-shipped `location.md`: Member-authored Locations, no admin queue, geocoding posture, same-coords-or-flag rule on update, claim flow. Surviving fragments absorbed: (a) **community pin flagging** added to `location.md` T2 ("any authenticated Member can flag a Location's pin as wrong; flagged Locations surface to maintainer's dashboard"); (b) **profile-completeness scoring** already in `producer-growth.md` T1; (c) **bulk CSV import for multi-Location producers** deferred (not yet load-bearing). The "Members enter their own data, no admin queue" principle is platform-wide and already encoded in location.md's data-model posture. The file is archived in `product/systems/archive/`.
+
+**9. References updated.** `platform-promise.md` line 49 now points at `producer-growth.md` + `producer-bulletin.md`. `community-platform.md` C7 / Producer panel rows / bulletin notes updated to producer-* names with Member-anchored framing (Shopper/Business-tab broader rewrite remains deferred). `design-language.md` Maker page reference repointed at `member.md` / `groups.md`. `MAP.md` lists the new specs under Live system specs and replaces the "Pending re-anchor on Members" section with a "Re-anchored on Members (2026-05-11)" note. Root `CLAUDE.md` gains two rows in the authoritative-docs table; the "Vendor-shaped systems" callout is replaced with the "Producer-shaped systems" re-anchor note. `notes/migration-to-primitives.md` Phase 4 plan updated — three vendor-* moves and pin-accuracy-verification archive are now done; remaining Phase 4 items (community/cooperative/member-operations moves, primitives.md Community section, community-platform.md broader rewrite, capabilities audit) are still pending.
+
+**10. Archive moves (4 files).** `vendor-bulletin.md`, `vendor-intelligence.md`, `vendor-self-service.md` → `product/systems/archive/`. `pin-accuracy-verification.md` → `product/capabilities/archive/`. No `git mv` because the parent repo's working tree isn't clean enough for it; plain `mv` used. Originals preserved verbatim for historical reference per existing archive/ practice (no RETIRING banners on archive-resident files — archive location is the structural signal).
+
+**What didn't change in Part 2.** No b1 schema. No new tickets. The producer-* specs ship at b2 (T1) → b3 (T2/T3); the b1 substrate (action-layer event log, follow timestamps, audit fields) is already in place. No b1 surface affected.
+
+**Why it matters.** The platform-promise commitment ("we'll help you compete with bigger players") now has a Member-anchored architectural home that doesn't conflict with the people-first refusal of a Business entity. The BI monetization pathway is preserved with its tier structure intact; the framing is Member + kind='business' Group, not "vendor profile." Future spec work on the producer dashboard and the bulletin surface can proceed without re-litigating the vendor-shaped vs Member-shaped question.
+
+Next session still opens cleanly on Phase 1 ticket queue (T045 — locations migration) per the pinned pickup above.
+
+---
+
+**Part 3 — Phase 4 doc cleanup completed.**
+
+**What.** After the producer-* re-anchor landed, the user directed the remaining Phase 4 doc-cleanup items in one batch — not staged across sessions. Five workstreams ran end to end without commit between them.
+
+**11. Three retiring specs archived.** `product/systems/community.md`, `cooperative.md`, `member-operations.md` moved from live tree to `product/systems/archive/`. RETIRING banners no longer needed — archive location is the structural signal. `CLAUDE.md` retiring-specs callout updated to "Retired specs (archived 2026-05-11)."
+
+**12. `primitives.md` Community section rewritten as Group section.** The "fourth primitive" section now describes Group with six kinds at b1 (five affiliate: `place`/`interest`/`practice`/`event_anchored`/`family` + one operate: `business`). Updated: Status banner spec list (removed retired/forthcoming references); Person section (added "memberships in kind='business' Groups" framing); Location section (already had Group framing); the entire Community subsection (rewritten as Group); "Why no Business entity" section (Business shells → kind='business' Groups); relationships table (Person↔Group, Item↔Group, Location↔Group); closing paragraph. Cooperative-as-separate-entity refusal made explicit, pointing at the archived ADR-11.
+
+**13. `community-platform.md` broader rewrite.** Replaced "Nextdoor-style location-locked feed" hypothesis with "locality-aware-but-not-Location-scoped" framing (aligned with the anti-Nextdoor commitment in policy-framework.md). Replaced "Shopper tab" / "Business tab" with "Member tab" / "Producer panel." Replaced "vendor" references with "Member operating in producer capacity" / "producer Member" throughout. Updated C10 (Maker section) to reference kind='business' Group creation walkthrough (per ADR-13) rather than the retired `member-operations.md`. Archived C2 (Business Events) and C3 (Business Updates) capability rows as obsolete; their successors are gathering Items (ADR-5) and producer-bulletin.md respectively. Added Group/Location-follow card types to the T2 feed scope. Added Group panel to T2 You-tab. Added DM inbox to T3 You-tab. Added data export to T1 You-tab (substrate already at b1 per ADR-6). Added structural note explaining how the locality-aware feed honors anti-Nextdoor by absence: no Location-scoped messaging handler exists in the action layer.
+
+**14. Four capabilities rewritten on primitives.** `consumer-feed.md` → renamed "Locality Feed"; Item-primitive anchored; card types updated to current Item kinds (Gathering / Wonder / Maker update / Featured / Followed); anti-Nextdoor commitment encoded structurally. `landing-page.md` → Member-primitive anchored; replaced "discovering independent businesses" with "what's happening near you, declared by the people doing it"; added anonymous Loop 3 path. `shareable-listing.md` → renamed "Shareable Entity Pages"; generalized from `/business/{slug}` to the canonical `/i/`, `/m/`, `/l/`, `/g/` routes; added anti-spam note. `community-create-join.md` → renamed to `group-create-join.md` and rewritten on Group primitive; routes from `/c` to `/g`; `community_memberships` to `group_memberships`; six-kind list. Original at `capabilities/archive/community-create-join.md`.
+
+**15. F001-F017 scenarios archived as pre-primitives.** Seventeen pre-primitives scenarios moved from `planning/scenarios/` to `planning/scenarios-backlog/archive/`. They reference retired specs (`map-system.md`, `business-data.md`, `ownership-classification.md`, `community-signals.md`) and encode mental models the rebuild replaces — ownership tier classification, "support a business" Trade-loop framing, "select your market" pre-ADR-5, vendor entities as standalone records. New file `planning/scenarios-backlog/archive/PRE-PRIMITIVES-AUDIT-2026-05-11.md` documents the mapping table: each archived scenario → what current spec/surface replaces it. Same pattern as the F019-F024 scrap on 2026-05-10. Live `planning/scenarios/` now contains only F018 (the canonical post-primitives scenario).
+
+**16. Cross-reference cleanup.** Live broken pointers fixed: `MAP.md` Retiring section → Retired section (six entries pointing at archive paths); `canonical-examples.md` lines 31, 90, 105, 109, 111, 113 (Community references → Group); `discovery.md` lines 100, 101, 110, 115 (community-scoped ranking and `systems/community.md` reads → group equivalents with [`groups.md`](product/systems/groups.md) pointer); `F018-brian-declares-run-club.md` lines 49, 110 (community references → group); `agent-assistance-handoff-2026-05-09.md` line 22 (member-operations.md pointer marked archived with pointer at groups.md); `reciprocity-and-goodwill.md` line 38 (Community-scoped trust → Group-scoped trust); `skills.md` line 98 (`author_community_id` → `author_group_id`); `item-view.md` line 19 (Community chip → Group chip; brand resolve-up updated to kind='business' Group); `gathering-host.md` line 24 (`community_id` / `primary_community_id` → `group_id` / `primary_group_id`).
+
+**What didn't change in Part 3.** No b1 schema (the renames `community_id → group_id`, `primary_community_id → primary_group_id` were already in the live specs from the 2026-05-10 ratification; this session updated downstream references). No new tickets. No b1 surface affected. The migration plan's Phase 4 was effectively completed in this session, freeing the rebuild plan to focus on Phase 1-3 ticket execution.
+
+**Why it matters.** The live `product/` tree no longer contains stale pre-primitives framing in load-bearing docs. A new contributor (or future-me, or an agent picking up the project) can read CLAUDE.md → MAP.md → any system spec and find consistent primitives terminology throughout. The remaining stale references are in `archive/` (intentional historical record) or in worktree-internal `.claude/worktrees/` (git internal). The exit criterion from `notes/migration-to-primitives.md` Phase 4 ("a new contributor reading the project from CLAUDE.md can reach all canonical docs without encountering a 'vendor', 'Community', 'Member Operations', or 'cooperative' reference outside `archive/` folders") is met for the live tree.
+
+---
+
+**Part 4 — Platform-wide naming pass.**
+
+**What.** A conversation about three awkward terms — "Member Self-Record" felt clinical, "declare" felt legalistic in UI copy, and "Item" was the right schema name but the wrong UI noun — produced a three-layer naming convention that splits **schema (durable code)** from **URL (public route)** from **UI label (user-facing copy)** from **UI verb (CTA)**. The four-layer map is now load-bearing for every future surface decision.
+
+**17. CLAUDE.md gained a Naming conventions section** with the canonical mapping table. Key rules: schema names are durable and don't migrate; "declare" stays as the spec/conceptual verb but never appears in UI; "Item" is the database term and never appears in user copy; kind-specific verbs (Host, Sell, Offer, Wonder, Ask, Lead) replace any generic "create an item" CTA. The section is the load-bearing reference for every other doc — when in doubt, every spec defers to it.
+
+**18. `member-self-record.md` → `assistant-context.md`.** The user-facing label is "Assistant Context"; schema name `member_self_records` is preserved (two-name pattern). The rename propagated across 16 live files via a single Python pass that replaced the proper noun "Self-Record" / "Member Self-Record" / `member-self-record.md` filename references while preserving the underscore-style schema identifiers (`member_self_records`, `member_self_record_entries`, `self_record.entry_*` events). The spec itself gained a Naming banner at the top pointing back at CLAUDE.md.
+
+**19. Kind-specific URLs for all Items.** The unified `/i/[slug]` Item URL retires. Each kind gets a single-letter route (with one full-word exception for Initiative):
+- `/e/[slug]` Event (schema `gathering`)
+- `/p/[slug]` Product (schema `product`)
+- `/s/[slug]` Service (schema `service`)
+- `/i/[slug]` Idea (schema `wonder`)
+- `/o/[slug]` Offer (schema `offer`)
+- `/a/[slug]` Ask (schema `ask`)
+- `/initiative/[slug]` Initiative (full word; single letters exhausted by higher-frequency kinds)
+
+The `/i/` slot is reused: previously the unified Item URL, now exclusively the Idea URL. Two schema-vs-URL mismatches (`gathering` → Event, `wonder` → Idea) keep code stable while UI uses friendlier terms. The `item.md` Item Kinds section gained a naming table; every reference to the old unified `/i/[slug]` route was updated to either the kind-specific route or "the Item's kind-specific URL per `item.md` naming table." Affected files: `MAP.md`, `design-language.md`, `qr-onboarding.md`, `item-view.md`, `item-create.md`, `shareable-listing.md`, `consumer-feed.md`, `JOURNAL.md` pinned pickup, `notes/migration-to-primitives.md`.
+
+**20. `gathering-host.md` → `event-host.md`** capability renamed for consistency. Spec content updated: title is now "Event Host"; references to `/i/[slug]` updated to `/e/[slug]`; URL switched in the acceptance scenario (Brian lands on `/e/unofficial-run-club-drakes`); user-facing "gathering" updated to "Event" throughout; schema enum `items.kind = 'gathering'` preserved with a banner note explaining the two-name pattern. Inbound references in F018 pipeline trace, design-language.md, group-create-join.md, item-create.md all updated.
+
+**21. `community-platform.md` user-facing label updates.** Filter labels switched from "Gatherings / Wonders" → "Events / Ideas." Card type labels updated. Composer references switched ("Event composer" not "gathering composer"). Schema references kept in place where they appear inline (e.g., `category=community-project` and `items.kind = 'gathering'` retained as code anchors). A header note added: *"This doc uses 'Event' for `items.kind = 'gathering'` and 'Idea' for `items.kind = 'wonder'` per the platform-wide Naming conventions."*
+
+**22. UI verbs locked per kind.** "Declare" stays as the spec/conceptual verb (used in `primitives.md`, `loops.md`, system specs) but never appears in UI. Composer CTAs are kind-specific: *Host* (Event), *Sell* / *Share* (Product), *Offer* (Service), *Wonder* / *Float* (Idea), *Offer up* (Offer), *Ask* (Ask), *Lead* / *Start* (Initiative). The CTA on a Location's venue page becomes "Host something here" — already in use for F018, now codified across all Item-kind CTAs.
+
+**What didn't change in Part 4.** No schema changes (the renames are URL and UI labels only; durable code identifiers like `items.kind = 'gathering'`, `members.maker_mode_enabled`, `member_self_records` are unchanged). No new tickets. No b1 surface affected at the code level. Loop names stay as conceptual spec language (Loop 2 is still "Wonder," Loop 4 is still "Gather regularly"); they don't migrate to UI labels.
+
+**Why it matters.** Every future composer, route file, scenario, marketing page, and onboarding flow now has a single source of truth for naming. The pattern (schema / URL / label / verb) prevents the most common drift mode — code identifiers leaking into UI, or UI labels accidentally renaming database columns. The exit criterion is: any new entity proposal must name all four layers before approval. The naming section in CLAUDE.md is what enforces that.
+
+Next session still opens cleanly on Phase 1 ticket queue (T045 — locations migration) per the pinned pickup above. Phase 4 doc-cleanup and the naming pass are both complete.

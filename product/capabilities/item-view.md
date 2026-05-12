@@ -11,12 +11,12 @@ Any visitor — logged in or not — views an Item's public page. The page shows
 
 ## T1 scope (ships at b1)
 
-- Public page at `/i/[slug]` — accessible without login
+- Public page at the Item's kind-specific URL (`/e/[slug]` Event · `/p/[slug]` Product · `/s/[slug]` Service · `/i/[slug]` Idea · `/o/[slug]` Offer · `/a/[slug]` Ask · `/initiative/[slug]` Initiative — per [`../systems/item.md`](../systems/item.md) naming table) — accessible without login
 - Kind chip and kind-specific detail section (see item-create.md for per-kind fields)
-- Owner line: Member display name linked to `/p/[member-slug]`
-- Brand resolve-up (three states): solo → nothing extra; same member_id + same brand_label → "Locally owned" badge + sibling links; different member_ids + same brand_label → "Franchise — local operator" badge
+- Owner line: Member display name linked to `/m/[handle]`
+- Brand resolve-up (three states): solo → nothing extra; same member_id + same kind='business' Group → "Locally owned" badge + sibling links; different member_ids + same kind='business' Group → "Franchise — local operator" badge
 - Attached Location(s) with name and schedule kind
-- Community chip if `community_id` is set
+- Group chip if `group_id` is set (per [`groups.md`](../systems/groups.md) — replaces the prior `community_id` reference per the 2026-05-10 ratification)
 - Kind-appropriate response action (Follow / Save / RSVP / "I'd be in")
 - Inactive banner for `state=withdrawn` or `fulfilled` (page stays up, no 404)
 - Server-side OG metadata for link previews
@@ -31,4 +31,4 @@ Any visitor — logged in or not — views an Item's public page. The page shows
 
 ## Acceptance signal
 
-An unauthenticated visitor navigates to `/i/[slug]`, sees the Item details and the correct resolve-up badge, and can tap the response action to be prompted to sign up.
+An unauthenticated visitor navigates to the Item's kind-specific URL, sees the Item details and the correct resolve-up badge, and can tap the response action to be prompted to sign up.
