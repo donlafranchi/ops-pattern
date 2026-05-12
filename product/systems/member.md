@@ -228,6 +228,8 @@ create table member_privacy (
 
 A trigger on `members` insert creates the matching `member_privacy` row with defaults. Changes append `member.privacy_changed` events with a JSON diff so the audit log is complete.
 
+**Scope shift — follow visibility is public-by-default at b1** (2026-05-11 product decision, surfaced at T048 M2 review; flagged here for `pipeline-product` to memorialize when convenient). The `show_following` and `show_followers` columns ship at b1 as reserved substrate, but the **schema does not enforce them**: `member_follows.member_follows_public_read` is `using (true)`. Rationale: the threat model behind ADR-9's opt-out posture is *cross-community discovery by bad actors*, not intra-community visibility. Follow graph is social fabric — same-community Members already know who hangs out with whom. The privacy investment ADR-9 targets earns its keep on `member_location_affinities` (T049): the `lives` and `works` affinity rows are owner-only at the row level, with cross-Member computation only via the three SECURITY DEFINER functions named below (see "Structural enforcement"). If real-Member feedback at b2 surfaces follow-graph opt-out as a need, the action layer can wire the existing toggles in — action-layer-applied gating, not RLS-applied. If the b2 surface never asks for them, these two columns become candidates for deletion at the next privacy-spec consolidation.
+
 ### `member_interests` (one row per interest tag a Member declares)
 
 ```sql

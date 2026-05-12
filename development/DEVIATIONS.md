@@ -20,9 +20,27 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
-## 2026-05-11 — T048 — No deviations
+## 2026-05-11 — T048 — Follow visibility simplified to public-by-default (M2-driven product re-scope)
 
-`010_member_interests_follows.sql` implements `member_interests` and `member_follows` exactly as specced in the ticket and `member.md` lines 230 + 243. The privacy-conditional `member_follows_public_read` policy uses the two-EXISTS-against-`member_privacy` pattern the ticket called for. No surprises. (Rebuild-phase rule: empty-deviations line is mandatory at close.)
+**Deviation:** The ticket called for `member_follows_public_read` to be gated by `member_privacy.show_following` + `show_followers` (both default `false` per T047), with `member_follows_self_read` always-on for the owner. The shipped migration drops the privacy gate entirely: `member_follows_public_read` is now `using (true)` and the separate self-read policy is removed (subsumed by public_read).
+
+**Reason:** Two forces converged at M2:
+
+1. **Critical RLS bug found.** The original dual-EXISTS pattern referenced `public.member_privacy` from inside the policy's USING clause. `member_privacy`'s own RLS (`member_privacy_owner_read` = `member_id = auth.uid()`) blocks the subquery for any non-owner caller, so the EXISTS returns false in every cross-Member case. Net effect: the spec'd "publicly readable when both endpoints opt in" never fires. The canonical fix is a SECURITY DEFINER function per the pattern at `member.md` lines 295-298 (`public.count_followers_for_location`, `public.member_is_local_to_location`).
+
+2. **Product re-scope from the PM at M2.** Before deciding which fix path to take, the PM pushed back on the privacy posture itself: "Follow graph is social fabric — community members already know who hangs out with whom. The real privacy concern is *where Members live and work* — and only for hostile cross-community actors. The follow-gating is over-locked-down for the actual threat model."
+
+   The product decision: follow visibility becomes public-by-default at b1. The strict ADR-9 opt-out posture lives where it earns its keep — on `member_location_affinities` (T049), where `lives` and `works` affinity rows are owner-only at the row level with SECURITY DEFINER functions for cross-Member computation (the exact pattern `member.md` line 296-298 already specifies). The `member_privacy.show_following` / `show_followers` columns from T047 remain as reserved substrate; the action layer / a future b2 surface composer may wire them in later if real-Member feedback warrants a per-Member opt-out, but the schema does not enforce them at b1.
+
+**Impact:**
+- The RLS bug becomes moot — there's nothing to gate.
+- Schema simplifies: single permissive SELECT policy on `member_follows`, no SECURITY DEFINER function needed for the follow graph.
+- T049 (Location affinities) inherits the harder privacy work. The ticket for T049 should call out the SECURITY DEFINER pattern at member.md lines 295-298 explicitly when it ratifies through `pipeline-plan`.
+- `member.md` lines 211-228 still spec `show_following` + `show_followers` as `default false`. The columns + defaults match the spec; the new design call is that the *follow visibility* doesn't enforce them at b1. A one-line flag added to `member.md` under the `member_privacy` section so `pipeline-product` sees the scope shift.
+
+**Escalation:** Product decision is the PM's call (in-conversation 2026-05-11). Flagged in `member.md` for `pipeline-product` to memorialize the shift if the design holds through b2 — at which point the `show_following`/`show_followers` columns can either be deleted (clean removal) or re-wired into the action layer (action-layer-applied gating, not RLS-applied).
+
+**Resolution:** `010_member_interests_follows.sql` updated: dual-policy structure → single `using (true)`. Migration header + table comment + `member.md` flag all carry the same explanation. T049 will pick up the load-bearing privacy work on Location affinities.
 
 ## 2026-05-11 — T047 M2 follow-up — Build agent wrote to product/systems/member.md (PM-authorized escalation)
 

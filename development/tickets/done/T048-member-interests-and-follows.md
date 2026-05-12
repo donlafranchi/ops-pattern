@@ -72,18 +72,21 @@ Date: 2026-05-11
 Commit: (web/) T048 — see web repo HEAD
 
 **Files shipped:**
-- `web/supabase/migrations/010_member_interests_follows.sql` — two tables in one migration. `member_interests` (composite PK, tag CHECK, idx_member_interests_tag, public-read RLS). `member_follows` (composite PK, no-self-follow CHECK, soft-unfollow via `unfollowed_at`, two partial indexes, two SELECT policies: `member_follows_self_read` always-on for owner + `member_follows_public_read` gated by both endpoints' `member_privacy.show_following` + `show_followers` via dual EXISTS).
-- `web/tests/migrations-t048.test.ts` — 18 file-shape Vitest assertions across 3 describe blocks (directory state, member_interests, member_follows).
+- `web/supabase/migrations/010_member_interests_follows.sql` — two tables in one migration. `member_interests` (composite PK, tag CHECK, idx_member_interests_tag, public-read RLS). `member_follows` (composite PK, no-self-follow CHECK, soft-unfollow via `unfollowed_at`, two partial indexes, single `member_follows_public_read` policy `using (true)` per the 2026-05-11 product re-scope on follow visibility — see DEVIATIONS).
+- `web/tests/migrations-t048.test.ts` — 19 file-shape Vitest assertions across 3 describe blocks.
 
 **Build-side verification:**
-- Plain-node smoke run (sandbox): 18/18 passing. Mirrors the Vitest suite one-for-one (sandbox can't run Vitest due to rolldown's darwin-vs-linux binding mismatch — same pattern as T047).
+- Plain-node smoke run (sandbox): 19/19 passing. Mirrors the Vitest suite one-for-one (sandbox can't run Vitest due to rolldown's darwin-vs-linux binding mismatch — same pattern as T047).
+
+**M2 code review (engineering:code-review, 2026-05-11) — REQUEST CHANGES → resolved in-place pre-commit:**
+The original migration gated `member_follows_public_read` on `member_privacy.show_following` + `show_followers` via dual EXISTS. M2 caught a critical RLS bug: the EXISTS subqueries are blocked by `member_privacy`'s own owner-only RLS, so the policy returned false in every non-owner case. The PM used the review window to push back on the privacy posture itself — follow graph is community-fabric; the real privacy work belongs on `member_location_affinities` (T049, where `lives`/`works` rows go through SECURITY DEFINER functions per `member.md` lines 295-298). Migration updated in-place to `using (true)`; the `show_following` / `show_followers` columns from T047 remain as reserved substrate. Recorded in DEVIATIONS; flagged in `member.md` under the `member_privacy` section for `pipeline-product` to memorialize.
 
 **Runtime verification (deferred to local + eval):**
 - `supabase db reset` with all nine migrations — user runs locally.
-- Studio smoke: `select count(*) from public.member_interests` = 0; `select count(*) from public.member_follows` = 0; attempt self-follow INSERT — CHECK rejects; `select polname from pg_policies where tablename = 'member_follows'` confirms both SELECT policies present.
+- Studio smoke: `select count(*) from public.member_interests` = 0; `select count(*) from public.member_follows` = 0; attempt self-follow INSERT — CHECK rejects; `select polname from pg_policies where tablename = 'member_follows'` returns `member_follows_public_read` only.
 
 **Workflow gates:**
-- [ ] **M2 — `engineering:code-review`** — pending; invoke before handing to `pipeline-eval` (run mode).
+- [x] **M2 — `engineering:code-review`** — REQUEST CHANGES 2026-05-11; resolved in-place pre-commit (privacy gate dropped per PM product decision; member.md flagged for product memorialization).
 - [x] **M3 — `design:accessibility-review`** — N/A (no UI surface).
 - [ ] **M4 — `engineering:deploy-checklist`** — pending; invoke before any merge to main.
-- [x] **DEVIATIONS.md entry** — appended at ticket close ("no deviations").
+- [x] **DEVIATIONS.md entry** — appended at ticket close (full entry — schema deviates from spec's strict opt-out posture for follow visibility).
