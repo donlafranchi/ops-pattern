@@ -20,6 +20,39 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-11 — T047 — Phase 1 numbering: members augmentation is 009, not 007
+
+**Deviation:** The rebuild plan (`notes/migration-to-primitives.md` § Phase 1) numbers the Member augmentation series as `007a–007j`. T047 lands `web/supabase/migrations/009_members_phase1.sql` instead, consolidating the Phase 1 augmentation work that this ticket scope covers (FK fortification + member_privacy + member_handle_history).
+
+**Reason:** Locations took `007_locations.sql` (T045) and `008_locations_owner_read.sql` (T046) per the Phase 1 dependency reorder recorded in T045's DEVIATIONS entry — Locations is the most-independent Phase 1 schema and had to land first so `members.home_location_id` could FK into it. `009` is the next available SQL number after the locations pair. Alpha-suffixed numbering was previously rejected by Supabase CLI per T042's consolidation lesson, so the augmentation work consolidates rather than splitting `009a/009b/009c`.
+
+**Impact:** Future Phase 1 augmentation tickets (member_interests, member_follows, member_threads + messages + participants, member_self_records, member_delegations, member_location_affinities, the deferred primary_group_id FK closeout) renumber to `010_*` and onward. The rebuild plan's `007a–007j` references are now historical labels. No production code reads migration filenames.
+
+**Escalation:** Flag for `pipeline-plan` to amend the rebuild plan's section ordering when convenient. The work itself is unblocked.
+
+**Resolution:** `009_members_phase1.sql` lands the FK + privacy + handle-history scope from this ticket. Subsequent augmentation tickets pick from `010_*`.
+
+## 2026-05-11 — T047 — `members.id` validated via constraint trigger, not a real FK
+
+**Deviation:** Per `member.md` line 181, `members.id` is declared as `uuid primary key references auth.users(id) on delete cascade`. T047's `009_members_phase1.sql` instead defines a constraint trigger (`members_assert_id_in_auth_users`, DEFERRABLE INITIALLY DEFERRED) that runs `assert_member_id_in_auth_users()` and raises when the inserted id is neither the system-Member id nor an existing `auth.users.id`. There is no `ALTER TABLE … ADD CONSTRAINT … FOREIGN KEY (id) REFERENCES auth.users(id)` statement.
+
+**Reason:** Three forces collide:
+
+1. A real Postgres FK would reject the system-Member row (id `00000000-0000-0000-0000-000000000001`), which lives in `public.members` without an `auth.users` counterpart. The system Member is the documented ADR-6 audit-field anchor (T042).
+2. A `CHECK` constraint cannot subquery — `CHECK (id = '0000…0001' or id in (select id from auth.users))` is invalid SQL.
+3. Skipping the constraint entirely and relying on the action layer leaves no schema-level guarantee.
+
+The constraint trigger is the realistic third path: it expresses the predicate as procedural code, exempts the system-Member id explicitly, and stays DEFERRABLE INITIALLY DEFERRED so the action handler can insert `auth.users` and `public.members` in either order inside a single transaction (the auth signup hook's natural pattern — Postgres creates the `auth.users` row first, then the trigger calls into the Next.js route which calls `member.create`).
+
+**Impact:**
+- Phase 0 + early Phase 1 inserters (T044 auth signup hook → `member.create`) now have a schema-level assertion that the action handler is honoring its contract. Previously (T042 DEVIATIONS), this invariant was action-layer-only.
+- The deferred-trigger semantics need to be respected: if a future write path inserts both `auth.users` and `members` in the same transaction, ordering is free; if they cross transactions, `auth.users` must commit first.
+- Schema-spec divergence: `member.md` line 181 should be amended to describe the constraint-trigger pattern. Filed below for `pipeline-product` to fold into the spec.
+
+**Escalation:** None — recorded for traceability. The schema invariant matches the spec's intent; only the mechanism differs.
+
+**Resolution:** `009_members_phase1.sql` defines `public.assert_member_id_in_auth_users()` (security definer, `search_path = public, auth`) and attaches it as a constraint trigger. The system-Member id is exempted explicitly inside the function body. Documented inline in the migration's section-1 header and in the function's `COMMENT ON FUNCTION`.
+
 ## 2026-05-11 — T046 — RLS fix-forward closes three T045 ticket-vs-spec divergences
 
 **Deviation:** T045's acceptance criteria did not specify `locations_owner_read`, did not require the GIST index to be partial, and did not specify a search_path for `sync_area_centroid()`. The system spec (`product/systems/location.md` lines 136 + 165) was more complete than the ticket. T045 shipped exactly as written; T046 closes the gap.
@@ -39,7 +72,7 @@ When implementation diverges from spec, log it here with context.
 
 **Deviation:** The T045 code-review discussion surfaced a deeper product question about anti-doxxing posture for home-based businesses claiming "local" status. The PM directed the build agent to capture the reasoning in a document so the discussion is preserved.
 
-**Reason:** Build agent writing product-tier docs is technically outside its lane (per `pipeline-build/workflow.md` "Does NOT read product/foundation/, product/products/"). PM authorized the write because the alternative was losing the discussion. The file lives in `product/exploration/` (the spot for in-flight ideas) so `pipeline-product` can promote it to a system spec or fold it into `groups.md` / `policy-framework.md` when ready.
+**Reason:** Build agent writing product-tier docs is technically outside its lane (per `pipeline-build/workflow.md` "Does NOT read product/foundation/, product/surfaces/"). PM authorized the write because the alternative was losing the discussion. The file lives in `product/exploration/` (the spot for in-flight ideas) so `pipeline-product` can promote it to a system spec or fold it into `groups.md` / `policy-framework.md` when ready.
 
 **Impact:** New file `product/exploration/locally-owned-verification.md` captures: the doxxing problem, the available US tax/business-registration anchors, a three-tier verification ladder (Tier 0 self-attested at b1; Tiers 1-2 deferred to post-revenue), schema sketch for `member_business_jurisdictions`, the PM's six decisions (locality ≠ address; verification-source as public signal; Tier 0 is voluntary-but-incentivized), and six open questions parked for `pipeline-product`.
 
