@@ -143,7 +143,7 @@ These are nullable columns now; the FKs / population pipelines land at their res
 ## Completion
 
 Date: 2026-05-11
-Commit: (pending — sandbox could not remove `web/.git/index.lock`; please run the commit manually, see below)
+Commit: fab7fd9
 
 **Commit ceremony (manual):**
 

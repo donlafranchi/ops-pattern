@@ -1,12 +1,12 @@
 # Locally-Owned Verification — Ladder, Options, Reasoning
 
-**Status:** Exploration. Not ratified. Captured 2026-05-11 during the T045 code-review discussion, before any spec or scenario work. Move to `product/systems/` or fold into `groups.md` / `policy-framework.md` when `pipeline-product` ratifies.
+**Status:** **PROMOTED 2026-05-11** — superseded by [`product/systems/business-jurisdiction.md`](../systems/business-jurisdiction.md). This exploration doc is the historical record of the reasoning that produced the spec. Live reference for the verification ladder is now the system spec; this doc is retained for the source-conversation context and the open-questions list that the spec inherits.
 
-**Owners:** PM (this doc) → `pipeline-product` when promoted → `pipeline-plan` for scoping.
+**Owners:** PM (this doc, historical) → `pipeline-product` (promoted to `business-jurisdiction.md` on 2026-05-11) → `pipeline-plan` for scoping (next: scenarios in `planning/scenarios-backlog/` per the system spec's "Decisions encoded here" footer).
 
 **Source conversation:** the T045 M2 code review surfaced a missing `locations_owner_read` policy (private Locations unreadable by owners). The follow-on discussion identified the deeper doxxing problem — home-based businesses leaking residential addresses through their public surfaces — and the locality-derivation question: *how does the platform know a business is "local" without forcing the owner to expose their home?*
 
-This doc captures the answer the PM converged on so it doesn't get lost.
+This doc captures the answer the PM converged on. The system spec at `product/systems/business-jurisdiction.md` is the live ratification; the rest of this doc is the working draft that produced it.
 
 ---
 
