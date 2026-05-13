@@ -137,12 +137,52 @@ Agent: when in doubt, prefer delete over exempt. The exemption ledger is a tempo
 
 ## Completion
 
-Date: _(filled in by build agent)_
-Commit: _(filled in by build agent — list each rule's commit hash)_
+Date: 2026-05-12
+Commit (web): `10ccdfd` — `T051: action layer CI enforcement (four rules)`
+Commit (parent): `d6bdd37` — `docs(pipeline): T051 ratification`
 
 **What landed:**
 
-_(filled in by build agent)_
+*Rule 1 — ESLint credential boundary (`web/eslint.config.mjs`):*
+- `no-restricted-imports` for `pg` runtime (type-imports allowed), bare `createClient` from `@supabase/supabase-js`, scoped to `src/**` with `src/actions/_lib/**` ignored.
+- `no-restricted-syntax` selectors for `process.env.SUPABASE_SERVICE_ROLE_KEY` and `process.env.SUPABASE_SECRET_KEY` access (dot-notation form).
+- Error messages cite "Rule 1 (T051)" and explain the action-layer migration path.
+
+*Rules 2 + 4 — extended conformance script (`web/scripts/check-action-layer-conformance.ts`):*
+- `checkRouteHandlerImports` greps `src/app/api/**/route.ts` for non-GET exports; requires `from '@/actions/...'` import or a valid `// action-layer:exempt` annotation backed by a ledger entry.
+- `checkParameterizedQueries` finds `.query`/`.rpc` template literals with `${...}` interpolations; requires `// sql-injection-safe: enum-constrained by <TypeName>` annotation within 3 lines above the call site.
+- `loadExemptionLedger` validates `web/scripts/action-layer-exemptions.json` schema: `path` (string), `reason` (≥10 chars), `expires_at` (ISO-8601, not past), `follow_up_ticket` (`T\d{3}`).
+- Probe directories under `src/__lint_probe__/`, `src/__sql_probe__/`, `src/app/api/__probe__/` are walked even when gitignored so negative-test probes fire the rules.
+
+*Rule 3 — RLS coverage test (`web/tests/rls-coverage.test.ts`):*
+- Vitest test, skipped when `DATABASE_URL` is unset. Queries `pg_tables` for `schemaname = 'public' and rowsecurity = false`. Empty allowlist; every public table must opt in.
+
+*Annotation on `web/src/actions/_lib/event-log.ts`:* line 55 — `// sql-injection-safe: enum-constrained by EventTable` above the `.query` call.
+
+*Tests (Vitest, all under `web/tests/`):* `ci-enforcement-rule-1.test.ts` (4 cases), `ci-enforcement-rule-2.test.ts` (5 cases), `ci-enforcement-rule-4.test.ts` (5 cases), `rls-coverage.test.ts` (1 case, skipped without DB).
+
+*Zombie sweep (17 files deleted):* 9 API routes (`/api/admin/{geocode,markets,vendors}`, `/api/vendor/{followers/export,bulletins/publish}`, `/api/bulletins/[id]/{open,unsubscribe}`, `/api/cron/follow-notifications`, `/api/jobs/generate-market-sessions`), 7 admin pages (orphans of `src/lib/admin.ts`), `src/lib/admin.ts`. Exemption ledger ships as `[]`.
+
+*Docs:* `web/CLAUDE.md` § "Writing a new API route" added; `web/BUILD-LOG.md` updated; `development/DEVIATIONS.md` — three T051 entries (Rule 4 annotation lookback, admin/ UI sweep extension, Vitest sandbox segfault).
+
+## M2 code-review (2026-05-12, post-build)
+
+**Verdict:** APPROVE WITH FOLLOW-UPS. Reviewer confirmed the four rules structurally close the McKinsey/Lily failure mode (unauthenticated endpoints + SQL injection). Three follow-ups noted, none load-bearing:
+
+1. **Rule 1 bracket-notation bypass.** `process.env["SUPABASE_SERVICE_ROLE_KEY"]` and `const { SUPABASE_SERVICE_ROLE_KEY } = process.env` lint clean today. Dot-notation is the accidental form (which the rule catches); these are deliberate-bypass forms. **Follow-up:** add bracket-notation + destructuring selectors. Cheap. Land in a separate ticket when convenient.
+
+2. **`event-log.ts` annotation covers two interpolations.** The annotation claims `enum-constrained by EventTable`; the literal also contains `${targetColumn}` which is loosely typed `string` (return of `targetColumnFor`). Safe at Phase 0 (switch is closed; only returns `'member_id'`). Will need attention when Phase 1 adds more event tables. **Follow-up:** tighten `targetColumnFor` return type to a union, update the annotation to reference both type names.
+
+3. **Six orphaned frontend callers** to deleted routes survive in `src/app/you/vendor/*`, `src/components/HomeFeed.tsx`, `src/components/admin/{MarketForm,VendorForm}.tsx`. Will 404 at runtime. **Follow-up:** sweep these in the next rebuild-cleanup ticket (already PM-flagged as a separate concern).
+
+**Strengths confirmed:** namespace-import bypass for `@supabase/supabase-js` is caught; 4-line annotation lookback is bounded; ledger validation rejects past dates, malformed dates, missing tickets; script self-exemption is narrow and appropriate; empty exemption ledger is the strongest posture.
+
+## Verification status
+
+- ✅ `npm run check:action-layer` — passes (111 files, 32 protected tables, 0 exemptions).
+- ✅ `npm run lint` — passes for all T051-touched files. Pre-existing 17 errors / 24 warnings in untouched zombie files (`RecruitmentGrid`, `useSupportCount`, etc.) — separate cleanup ticket needed; NOT introduced by T051.
+- ⏸ `npm test` — Vitest segfaults in the Linux sandbox (rolldown native binding bug, documented in DEVIATIONS). All four test files are structurally sound; user must run on macOS to close the test-pass loop.
+- ⏸ Rule 3 RLS test — requires `supabase start` + `DATABASE_URL`; deferred to user's local run.
 
 **What the user must run locally to verify:**
 
