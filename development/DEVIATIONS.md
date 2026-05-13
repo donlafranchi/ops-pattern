@@ -20,6 +20,44 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-12 — T051 — Rule 4 annotation placement: above the call, not inline-on-interpolation-line
+
+**Deviation:** The ticket spec (§ Rule 4) requires the `// sql-injection-safe: enum-constrained by <TypeName>` annotation "on the same line as the `${...}` interpolation." For a multi-line template literal — which is the only realistic shape for Postgres DDL/DML inside `.query` — the `${table}` interpolation lives on a SQL-syntax line inside the backticks where `//` cannot appear without being parsed as part of the SQL identifier (e.g., `insert into public.${table} // sql-injection-safe...` would resolve as `insert into public.member_events // sql-injection-safe...` which is not valid SQL).
+
+The conformance script accepts the annotation on the call's source line OR on any of the 3 lines immediately above (walking back through whitespace and comment-only lines). `src/actions/_lib/event-log.ts` carries `// sql-injection-safe: enum-constrained by EventTable` on the line immediately above the `ctx.db.query` call.
+
+**Reason:** The ticket's literal placement requirement is impossible to satisfy for multi-line template literals (the realistic case). The looser placement preserves the rule's intent (reviewer-visible annotation pinned to the call) without contradicting valid SQL syntax. A future AST-based check (ts-morph) could enforce the placement at the source-AST level and treat the annotation as a leading comment on the CallExpression — the regex approximation here matches that future shape.
+
+**Impact:** Reviewers reading a flagged annotation see the same annotation text and the same TypeName claim; the diff is only the vertical position. The script's negative-tests verify that the annotation must still match `enum-constrained by [A-Z][A-Za-z0-9_]+` — single-letter TypeNames are still rejected per the ticket's regex.
+
+**Escalation:** None — fix-forward inline. The placement loosening is documented in `web/scripts/check-action-layer-conformance.ts` Rule 4 commentary and in `web/CLAUDE.md` § "Writing a new API route."
+
+**Resolution:** Annotation lives above the call; the script searches a small upward window. `src/actions/_lib/event-log.ts` carries one annotation covering both `${table}` and `${targetColumn}` interpolations — both are constrained by `EventTable` (the enum-narrowed parameter type).
+
+## 2026-05-12 — T051 — Zombie sweep extended to admin/ UI surface (orphans of admin.ts deletion)
+
+**Deviation:** The ticket's Step 0 lists nine API routes for deletion plus `src/lib/admin.ts` "if no surviving code imports it." After deleting the listed routes, `@/lib/admin` was still imported by `src/app/admin/{layout,page,markets/**,vendors/**}.tsx` (six files). Those pages also query `markets` / `businesses` tables that no longer exist in the rebuild schema. Build agent deleted the entire `src/app/admin/` tree to resolve the orphaned imports, exceeding the ticket's literal route-deletion list.
+
+**Reason:** Step 0 explicitly says "Run `npm run lint && npm run build` after deletion to surface any orphaned imports; delete those too." The admin/ UI surface is in the rebuild plan's deletion list (`notes/migration-to-primitives.md` § "What we delete from current web/" — "all routes tied to old schema"). Keeping the orphans would either (a) leak a live `@/lib/admin` import that no longer resolves, breaking `npm run build`, or (b) require re-introducing `src/lib/admin.ts` to keep imports resolving — defeating the deletion. The cleanest path is the rebuild plan's own path.
+
+**Impact:** `/admin`, `/admin/markets`, `/admin/markets/new`, `/admin/markets/[id]`, `/admin/vendors`, `/admin/vendors/[slug]` all 404 going forward. No surviving code references the deleted modules. The pre-rebuild admin panel is gone; the rebuild's admin surfaces (whenever scoped) will be greenfield.
+
+**Escalation:** None — fix-forward extends the ticket's "delete orphans too" directive consistently. The rebuild-phase rule that build agent cannot read `planning/scenarios-backlog/` is still honored — the admin/ surface deletion is plain rebuild-plan execution, not new design.
+
+**Resolution:** `src/app/admin/` deleted (8 files); `src/lib/admin.ts` deleted (1 file). Total zombie sweep: 9 API routes + 1 lib + 8 admin pages = 18 files removed. Documented in the Zombies-deleted section of this T051 report.
+
+## 2026-05-12 — T051 — Vitest 4 + rolldown segfault under sandbox Linux x86_64 (verification deferred to darwin)
+
+**Deviation:** The ticket calls for `npm test -- ci-enforcement` and `npm test -- rls-coverage` to pass green at close. In the Linux build sandbox, Vitest 4.1.4 (which depends on a native rolldown binding) reproduces `Bus error (core dumped)` for any test invocation — even simple file-shape tests that were green on darwin in T048's close. The failure is a binary-compatibility issue between rolldown's prebuilt native module and the sandbox's libc/kernel; it is not a code defect and is not specific to T051's test files.
+
+**Reason:** Build agent's standard practice for T041+ has been to write Vitest assertions, verify them via plain-node parity checks in the sandbox, and rely on the user's darwin terminal to run the actual Vitest suite. T051's test files were written to the same standard and each negative case was reproduced manually by writing the same probe file into the tree, running `npm run check:action-layer` (or `npx eslint`), and observing the matching FAIL output and the expected violation message. Every probe path covered by a Vitest assertion has a matching manual reproduction logged below.
+
+**Impact:** Build-side verification is by-script, not by-Vitest. User darwin run is the truth-y verification stage. If any of the four CI rules' Vitest tests fail on darwin for non-binary reasons, that's a real T051 defect; fix-forward applies.
+
+**Escalation:** Flag for `pipeline-eval` (run mode) — the Playwright eval already runs in CI's Postgres-services container, so Rule 3's `rls-coverage.test.ts` will fire at eval time. Rules 1, 2, 4 are pure-Node and the darwin Vitest run handles them.
+
+**Resolution:** Manual reproductions captured: Rule 1 — `pg` import probe fires `no-restricted-imports`; `SUPABASE_SERVICE_ROLE_KEY` env access fires `no-restricted-syntax`; bare `createClient` import fires `no-restricted-imports` via pattern. Rule 2 — probe route with `POST` but no `@/actions` import fires; probe with `// action-layer:exempt` annotation but no ledger entry fires; probe annotated + ledger entry passes; ledger entry with past `expires_at` fires. Rule 4 — probe with `${userInput}` fires; probe with `// sql-injection-safe: trust me` (bare payload) fires; probe with `// sql-injection-safe: enum-constrained by AllowedTable` passes; probe with `$1` parameterization passes. All four CLI invocations match the expected FAIL/OK shape. Rule 3 — DB test will run when the user invokes `supabase start && npm test -- rls-coverage`.
+
 ## 2026-05-11 — T048 — Follow visibility simplified to public-by-default (M2-driven product re-scope)
 
 **Deviation:** The ticket called for `member_follows_public_read` to be gated by `member_privacy.show_following` + `show_followers` (both default `false` per T047), with `member_follows_self_read` always-on for the owner. The shipped migration drops the privacy gate entirely: `member_follows_public_read` is now `using (true)` and the separate self-read policy is removed (subsumed by public_read).

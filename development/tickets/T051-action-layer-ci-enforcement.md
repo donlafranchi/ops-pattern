@@ -1,7 +1,7 @@
 # T051 — Action layer CI enforcement: four structural rules
 
 **Scenario:** None. Direct security hardening on ADR-7 / `product/systems/action-layer.md`. Source: audit conversation 2026-05-12 against the McKinsey/Lily failure mode (22-of-200 endpoints shipped without auth; SQL injection vector). The action-layer spec already commits to these protections in prose; this ticket lands the CI assertions that enforce them.
-**Status:** Draft
+**Status:** Ready for build (pipeline-review PROCEED after revisions 2026-05-12)
 **Bundle:** b1 (Phase 0 hardening — extends T043's conformance script)
 **Depends on:** T043 (action-layer scaffold), T044 (auth signup hook). All current write paths must go through `web/src/actions/` before this ticket lands, OR each pre-action-layer route must be added to the exemption list with a `// action-layer:exempt` annotation and a follow-up ticket to migrate it. Agent: verify by running the existing `npm run check:action-layer` and resolving any violations before starting Rule 2 work.
 
@@ -41,7 +41,7 @@ The ESLint config forbids any code path outside `web/src/actions/_lib/` from acq
 - [ ] Update `web/src/lib/supabase-server.ts` if it currently re-exports a service-role client; the service-role client moves to `web/src/actions/_lib/supabase-admin.ts` (new file). `supabase-server.ts` keeps only session-bound clients.
 - [ ] Tests (Vitest, `web/tests/ci-enforcement-rule-1.test.ts`):
   - [ ] **Positive**: running `npx eslint web/src` on the current `main` passes (after the rule is added — adjust any sanctioned import locations first).
-  - [ ] **Negative**: write a temp file `web/src/__lint_probe__/probe-rule-1.ts` that imports `pg`, run `npx eslint --no-eslintrc --config eslint.config.mjs web/src/__lint_probe__/`, expect exit code 1 and the rule name in stderr. Delete the probe file after the assertion. Commit only the passing state.
+  - [ ] **Negative**: write a temp file `web/src/__lint_probe__/probe-rule-1.ts` that imports `pg`, run `npx eslint web/src/__lint_probe__/probe-rule-1.ts` (flat config is auto-loaded from `web/eslint.config.mjs`; do not pass `--no-eslintrc` — that flag is legacy-config-only and errors under flat config). Expect non-zero exit and the rule name (`no-restricted-imports`) in stderr along with the probe path. Wrap the run in `try { ... } finally { fs.unlinkSync(probePath) }` so the probe is deleted even if assertions throw. Commit only the passing state.
 
 ### Rule 2 — Every non-GET API route must import from `@/actions/`
 
@@ -53,8 +53,12 @@ A `route.ts` under `web/src/app/api/**` that exports any of `POST | PUT | PATCH 
   - [ ] If any of POST/PUT/PATCH/DELETE is exported, assert the file contains a line matching `from\s+['"]@/actions(/|['"])`.
   - [ ] Allow per-file exemption via top-of-file comment annotation: `// action-layer:exempt — {reason}`. Exempt files are logged but pass.
   - [ ] Maintain an exemption ledger at `web/scripts/action-layer-exemptions.json` listing each exempt route with `{ path, reason, expires_at, follow_up_ticket }`. CI fails if a file annotation exists without a ledger entry, or if `expires_at` is in the past.
-- [ ] Initial exemption ledger entries (audit the codebase now and pre-populate):
-  - [ ] Every `web/src/app/api/**/route.ts` that currently writes outside the action layer — list in the ledger with `expires_at` ≤ 6 weeks and a `follow_up_ticket` field set to `'TBD-migrate-to-action-layer'`. (Agent: if no such routes exist after T044, the ledger may start empty.)
+- [ ] Initial exemption ledger entries — populate by running `npm run check:action-layer` after T044 has landed and Rule 2 is wired. For each route the new rule flags, decide per the "Migration path for old routes" section below: prefer delete; only add a ledger entry if the route must survive this ticket. The ledger lands only entries for routes that survive — never placeholder `TBD-*` follow-up-ticket names (those would themselves fail validation). If every flagged route is deletable, the ledger ships empty.
+- [ ] Exemption ledger entry schema (validated by the conformance script):
+  - [ ] `path` — string, repo-relative path to the `route.ts`.
+  - [ ] `reason` — non-empty string, ≥ 10 chars.
+  - [ ] `expires_at` — ISO-8601 date string. Missing, malformed, or in the past → fail.
+  - [ ] `follow_up_ticket` — string matching `T\d{3}` (an existing ticket). Missing or non-matching → fail.
 - [ ] Wire the new check into the existing `npm run check:action-layer` script — same exit code, same CI integration.
 - [ ] Tests (`web/tests/ci-enforcement-rule-2.test.ts`):
   - [ ] **Positive**: the check passes on the current tree (after pre-populating the ledger).
@@ -83,8 +87,9 @@ Prevents SQL injection via string-concatenated queries. Parameterized `$1, $2` i
   - [ ] Glob `web/src/**/*.ts` and `web/src/**/*.tsx`.
   - [ ] Match the pattern `\.(query|rpc)\s*\(\s*`` — i.e., `.query(` or `.rpc(` followed by an opening backtick.
   - [ ] For each match, examine the template literal between the backticks. If it contains `${` (any interpolation), flag it.
-  - [ ] Allow exemption via inline comment: `// sql-injection-safe: {reason}` on the same line as the `${...}` interpolation. Use sparingly — the only legitimate use is interpolating known-safe table or column identifiers (e.g., a constant from a TS enum) where parameter binding can't help (Postgres doesn't bind identifiers).
-  - [ ] Allowed-identifier whitelist: `_lib/event-log.ts`'s table-name interpolation (which interpolates from a hardcoded union type `'member_events' | 'item_events' | ...`). Annotate that line and confirm the identifier comes from a closed set.
+  - [ ] Allow exemption via inline comment on the same line as the `${...}` interpolation, with required form: `// sql-injection-safe: enum-constrained by {TypeName}` — the annotation MUST name the TypeScript union or enum that constrains the interpolated identifier. A bare `// sql-injection-safe: trust me` passes the regex but defeats the rule; the conformance script rejects annotations whose payload does not match `enum-constrained by [A-Z][A-Za-z0-9_]+`.
+  - [ ] The only legitimate use is interpolating table or column identifiers from a closed TypeScript union type (Postgres cannot parameterize identifiers).
+  - [ ] Allowed-identifier whitelist: `_lib/event-log.ts`'s table-name interpolation. Constrain the parameter type to a named union (e.g., `type EventTableName = 'member_events' | 'item_events' | ...`) and annotate the interpolation `// sql-injection-safe: enum-constrained by EventTableName`. Code review verifies the union is exhaustive against the schema.
 - [ ] Tests (`web/tests/ci-enforcement-rule-4.test.ts`):
   - [ ] **Positive**: the check passes on the current tree (after annotating `_lib/event-log.ts`).
   - [ ] **Negative**: create temp file with `client.query(\`select * from t where id = ${'${userInput}'}\`)`. Run the check. Expect exit code 1. Delete probe.
@@ -106,7 +111,7 @@ The tests above are itemized per rule; restating here for the agent's TDD planni
 - `rls-coverage.test.ts` — pg_tables RLS coverage; runs against the local DB.
 - `ci-enforcement-rule-4.test.ts` — SQL interpolation grep positive + 3 negative variants (probe).
 
-Each probe file goes under `web/src/__lint_probe__/` or `web/src/app/api/__probe__/` and is created + deleted within the test. Probe directories themselves stay out of git (add to `.gitignore`).
+Each probe file goes under `web/src/__lint_probe__/` or `web/src/app/api/__probe__/` and is created + deleted within the test. Wrap every probe lifecycle in `try { /* write probe, run check, assert */ } finally { fs.rmSync(probePath, { force: true }) }` so a failed assertion never leaves a probe in the tree (which would break subsequent test runs and CI). Probe directories themselves stay out of git (add to `.gitignore`).
 
 ## Notes
 
@@ -128,7 +133,7 @@ Agent: when in doubt, prefer delete over exempt. The exemption ledger is a tempo
 
 **Failure messages matter.** When a probe fires the rule, the error message the agent sees must name the rule and the file. A generic "ESLint error" or "check failed" is not enough — the failure-under-deadline scenario is exactly when the agent needs to know what to fix without re-reading the spec. Test the failure message text explicitly in the negative tests.
 
-**Commit hygiene.** Commit each rule as its own change inside this ticket — separate commits for Rule 1, Rule 2, Rule 3, Rule 4, and docs. Commit message format: `T051: rule-{n} {short description}`. Final commit: `T051: docs + completion`.
+**Commit hygiene.** Per the root `CLAUDE.md` § Commit Rules: single commit on close, one-line message, no body. Use `T051: action layer CI enforcement (four rules)`. If incremental local commits help during development, squash before push — do not ship a multi-commit history.
 
 ## Completion
 
