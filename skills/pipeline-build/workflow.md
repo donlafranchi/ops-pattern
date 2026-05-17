@@ -10,6 +10,7 @@
 | **Does NOT read** | `planning/scenarios-backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/`, `product/surfaces/` |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
 | **Hands to** | `pipeline-eval` (run mode) — verifies F### evals pass against the scenario |
+| **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and commit per CLAUDE.md rebuild-phase rule #3. The reviewed state is what commits; fixes happen in the same loop, not as follow-up commits |
 
 ## TDD loop (every ticket)
 
@@ -23,10 +24,11 @@
 8. Write minimal code to pass.
 9. Run tests — confirm PASS (green).
 10. Refactor if needed.
-11. Update the ticket's Completion section (Date, Commit hash).
-12. Move the ticket file to `development/tickets/done/`.
-13. Update `BUILD-LOG.md`.
-14. Commit (to app repo if two-repo setup): `T{NNN}: {Title}` — one line, no body.
+11. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (staged + unstaged files for this ticket). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `pipeline-plan`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward (amend / extra commit churn). Per CLAUDE.md rebuild-phase rule #3.
+12. Update the ticket's Completion section (Date, Commit hash — the hash gets filled in after step 15).
+13. Move the ticket file to `development/tickets/done/`.
+14. Update `BUILD-LOG.md`.
+15. Commit (to app repo if two-repo setup): `T{NNN}: {Title}` — one line, no body. Backfill the commit hash into the ticket's Completion section.
 
 ## What you do NOT do
 - Write tickets. (`pipeline-ticket` does.)
@@ -73,9 +75,43 @@ T{NNN}: {Title}
 
 One line. No body. No co-author tag. The ticket and the journal carry the long form.
 
+## Co-locate `why` with `what` (per AGENTS.md → PIPELINE-AUDIT F13)
+
+Every entry in `development/DEVIATIONS.md` carries its **why** alongside its **what** — mandatory per CLAUDE.md rebuild rule #6, which already requires an entry per ticket (even a one-line *"no deviations"*). The Why-discipline extends that: when an entry exists, it explains *what changed*; the Why explains *why this deviation was necessary* — the constraint that forced the path, the spec ambiguity that required a judgment call, the implementation surprise that revealed a hidden assumption.
+
+**Why this matters.** A `DEVIATIONS.md` entry without its Why is a record that something diverged. With its Why, it's a record that future agents (or future-you) can read to understand *the constraint*, which is what determines whether the deviation should be reverted, generalized, or flagged for spec revision. Without the Why, every revisit re-derives the constraint from the code — lossy and drift-prone, exactly the F13 failure mode.
+
+**Where to apply.** Every DEVIATIONS.md entry. Also: any line in the ticket's **Completion** section where you departed from the literal acceptance-criteria language (renamed a function, moved a file, used a different pattern than the ticket suggested). The acceptance text itself doesn't change; the Completion note records the deviation.
+
+**Format.**
+
+```markdown
+### T{NNN}: {one-line summary of the deviation}
+
+**What:** {one sentence on what diverged from the spec.}
+
+**Why:** {one to two sentences on the constraint that forced the deviation — the implementation surprise, the spec ambiguity, the upstream-system property the spec didn't account for. Anchor to the file / handler / ADR that constrains the choice.}
+
+**Disposition:** {one of: accepted-as-is | flag-for-spec-revision | flag-for-ticket-rewrite | revert-on-next-pass.}
+```
+
+The "no deviations" entry still requires a Why — even if the Why is *"the ticket implementation matched the spec exactly; no design judgment required."* Empty Why is the same failure mode as a missing entry.
+
+**Example.**
+
+> ### T051: Used Postgres trigger instead of action-handler middleware for same-transaction event-row commit
+>
+> **What:** Per the ticket's literal acceptance criterion, the same-transaction guarantee was to be enforced by middleware in `web/lib/action-layer/middleware.ts`. Implementation uses a Postgres trigger on `members` instead.
+>
+> **Why:** The middleware doesn't fire on bulk inserts (per `web/lib/action-layer/middleware.ts` line 47 — single-row paths only). The trigger is the only point that catches every insert path, including the future migration-time bulk seeds. Acceptable per ADR-7's same-transaction invariant because trigger is single-purpose and event-row writes are idempotent.
+>
+> **Disposition:** flag-for-spec-revision — `action-layer.md` should clarify whether the same-transaction guarantee is enforced at the application or database layer; the spec is ambiguous.
+
+**Verification.** Before completing the ticket: confirm `DEVIATIONS.md` carries an entry for this T-number, the entry has both a What and a Why line, and the Why anchors to a specific constraint (file:line, ADR, system-spec section, or observed test failure). If the entry is "no deviations," confirm the Why says *why* nothing diverged in one sentence. Empty Why → not done.
+
 ## Hand off
 
-**You produced:** code, tests, updated ticket, updated `BUILD-LOG.md`, and a commit.
+**You produced:** code, tests, updated ticket, a `DEVIATIONS.md` entry with `Why:` and `Disposition:` lines, updated `BUILD-LOG.md`, and a commit.
 
 **You hand to:** `pipeline-eval` (run mode) — confirms F### evals pass against the scenario this ticket served.
 
