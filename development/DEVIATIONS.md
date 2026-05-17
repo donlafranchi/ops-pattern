@@ -20,6 +20,30 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-17 — T049 — Sandbox smoke runner committed alongside the Vitest suite
+
+**What:** Vitest 4 + rolldown segfaults under Linux x86_64 in the build sandbox (BUILD-LOG T051 note). T049's file-shape assertions live in `web/tests/migrations-t049.test.ts` (Vitest, the user-side suite) and `web/scripts/t049-sandbox-check.mjs` (plain-node mirror that exercises identical regexes). The script is committed so future agents can re-run the ~49 assertions inside the sandbox without booting Vitest.
+
+**Why:** The pattern is already established by T047 / T048 ("sandbox plain-node mirroring `web/tests/migrations-t04N.test.ts`") but prior tickets did not commit the mirror file — each ticket re-derived the regex set inline. Committing the script makes the convention explicit and keeps the sandbox check reproducible. Anchors to `BUILD-LOG.md` T051's "Sandbox note" + ADR-7's CI-enforcement framing.
+
+**Disposition:** accepted-as-is — the script duplicates the test file's regexes by design (independent verification). If a future ticket adds a single shared regex inventory, the script becomes a thin runner over it; the parallel pair is the right shape until then.
+
+## 2026-05-17 — T049 — Functions implemented as `language sql` not `language plpgsql`
+
+**What:** The three SECURITY DEFINER access functions (`member_is_local_to_location`, `count_likes_for_location`, `count_followers_for_location`) use `language sql` with a single-statement body. The ticket doesn't mandate a language; ADR-16 doesn't either. T045's `sync_area_centroid` uses `plpgsql` because it executes an `update` with side effects; T049's functions are pure read scalars.
+
+**Why:** `language sql` is the right shape for inline scalar functions — Postgres inlines them at plan time, which removes one stack frame per `member_is_local_to_location` call inside hot derivation queries (groups.md's locally-owned badge fires on every Group surface). `STABLE` and `set search_path = public` apply identically across both languages, so the ADR-16 guarantees are unchanged. Anchored to Postgres planner inlining behavior (only applies to `language sql` functions, never `plpgsql`).
+
+**Disposition:** accepted-as-is — performance wins; semantics identical. If a future use case needs multi-statement logic inside a function, that function moves to `plpgsql`; existing three stay `sql`.
+
+## 2026-05-17 — T049 — Schema-spec divergence noted but not patched (RLS shape)
+
+**What:** The T049 ticket § Notes flags that `member.md`'s RLS section is sketchier than ADR-16 mandates and that `groups.md`'s locally-owned-derivation pseudocode needs an update to call `public.member_is_local_to_location()` instead of JOINing directly. T049 implements the schema correctly; the spec patches are `pipeline-product`'s job and are recorded here, not landed.
+
+**Why:** Per CLAUDE.md rebuild rule firewall — build agents implement to the ticket and escalate spec divergence rather than rewriting upstream specs. Anchors to ticket § Notes ("Schema-spec divergence — RLS shape") and AGENTS.md escalation table.
+
+**Disposition:** flag-for-spec-revision — `pipeline-product` to patch `member.md` (RLS section), `groups.md` (locally-owned pseudocode), and `policy-framework.md` (anti-doxxing language) against ADR-16. JOURNAL.md entry at ticket close carries the forward-pointer.
+
 ## 2026-05-12 — T051 — Rule 4 annotation placement: above the call, not inline-on-interpolation-line
 
 **Deviation:** The ticket spec (§ Rule 4) requires the `// sql-injection-safe: enum-constrained by <TypeName>` annotation "on the same line as the `${...}` interpolation." For a multi-line template literal — which is the only realistic shape for Postgres DDL/DML inside `.query` — the `${table}` interpolation lives on a SQL-syntax line inside the backticks where `//` cannot appear without being parsed as part of the SQL identifier (e.g., `insert into public.${table} // sql-injection-safe...` would resolve as `insert into public.member_events // sql-injection-safe...` which is not valid SQL).
