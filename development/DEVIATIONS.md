@@ -20,6 +20,30 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-17 — T050 — Partial-index predicate simplified (no now() in WHERE)
+
+**What:** `member.md` line 393 declares the partial index `idx_delegations_member_active` with `where revoked_at is null and (expires_at is null or expires_at > now())`. The shipped migration drops the time predicate: `where revoked_at is null` only.
+
+**Why:** Postgres evaluates partial-index predicates at INSERT time, not query time. A row inserted today with `expires_at = today + 1day` enters the index, and tomorrow when `now()` has advanced past `expires_at`, the row is still in the index until the next INSERT recomputes — which it won't, for that row. The predicate is misleading at best, incorrect at worst. The action layer applies the `expires_at` filter at query time. Slightly larger index, but correct. Anchored to Postgres partial-index semantics (predicate is a constant once the row is committed).
+
+**Disposition:** flag-for-spec-revision — `pipeline-product` to patch `member.md` line 393 to match the shipped predicate, or note that the spec line is a behavioral intent ("active = unrevoked AND unexpired") that the index alone cannot enforce and the action layer must filter at query time. Either resolution is fine; spec-vs-implementation drift is the only issue.
+
+## 2026-05-17 — T050 — Consolidated 007g_ + 007h_ from rebuild plan into single 012_*
+
+**What:** `notes/migration-to-primitives.md` § Phase 1 labels the agent-assistance substrate as two files: `007g_member_self_records.sql` + `007h_member_delegations.sql`. The shipped migration consolidates both tables (plus the FK retrofits on `member_events` and `location_events`) into a single `012_member_agent_assistance.sql`.
+
+**Why:** Two reasons converge — (a) Supabase CLI rejects alpha-suffixed numbering (`002a` / `002b` / `007g` / `007h`) and silently skips those files; the going-forward rule from T042 mandates `^\d+_[a-z0-9_]+\.sql$`; (b) the two tables ship together because the FK retrofits on `member_events.via_delegation_id` and `location_events.via_delegation_id` reference `member_delegations(id)` — splitting them would either leave the FK column without its FK for a release cycle or require a third migration just for the retrofit. Single-file is the right shape. Anchored to T042's DEVIATIONS entry that established the alpha-suffix prohibition.
+
+**Disposition:** accepted-as-is — same pattern as T042 (consolidated 002 + 002a + 002b → 002_members.sql) and T047 (rebuild plan's 007_* renumbered to 009_*). The rebuild plan's filename hints are advisory; the constraint is the regex.
+
+## 2026-05-17 — T050 — No bootstrap trigger on members for member_self_records
+
+**What:** Other Member-related tables added in Phase 1 (e.g., `member_privacy` in T047) carry a bootstrap trigger on `public.members` so every signup gets a row with defaults. `member_self_records` deliberately has no such trigger; rows exist only when a Member opts into agent assistance (b2+ surface) via the action handler `member.self_record.update`.
+
+**Why:** Most Members at b1 will never opt into agent assistance — the surface ships b2+. Auto-creating a row per Member at signup would create N empty `'{}'::jsonb` documents for no purpose: storage cost, query-path complexity, and an asymmetry between Members who have a row and Members who don't that downstream consumers would have to defend against. Pattern: row exists when the Member writes to it; absent otherwise. The action handler does insert-or-update on first write. Anchored to ticket § Acceptance Criteria "No bootstrap trigger" and the supporting `_Intent:_` block.
+
+**Disposition:** accepted-as-is — flagged in the migration header (section 2 of the file comment) so future agents reading the schema don't add the trigger thinking it was an oversight.
+
 ## 2026-05-17 — T049 — Sandbox smoke runner committed alongside the Vitest suite
 
 **What:** Vitest 4 + rolldown segfaults under Linux x86_64 in the build sandbox (BUILD-LOG T051 note). T049's file-shape assertions live in `web/tests/migrations-t049.test.ts` (Vitest, the user-side suite) and `web/scripts/t049-sandbox-check.mjs` (plain-node mirror that exercises identical regexes). The script is committed so future agents can re-run the ~49 assertions inside the sandbox without booting Vitest.

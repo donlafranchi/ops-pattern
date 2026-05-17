@@ -1,7 +1,7 @@
 # T050 — Agent-assistance substrate (`012_member_agent_assistance.sql`)
 
 **Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (`007g_member_self_records.sql` + `007h_member_delegations.sql` in the plan; consolidated into `012_*`).
-**Status:** Open
+**Status:** Complete
 **Bundle:** b1
 **Depends on:** T047 (`members` augmentation), T042 (`member_events` for the via_delegation_id FK retrofit), T045 (`location_events` for the via_delegation_id FK retrofit).
 
@@ -12,10 +12,10 @@
 
 ## Workflow gates
 
-- [ ] **M2 — `engineering:code-review`** invoked on the diff before `pipeline-eval` (run mode).
+- [x] **M2 — `engineering:code-review`** invoked on the diff before `pipeline-eval` (run mode). Verdict: PROCEED, no required fixes; three `[nit]` findings (ADR-10 → ADR-7 retag sweep across 002/007/012, retired `member.maker_mode_changed` event_kind, sandbox bootstrap-check predicate audit) logged for future housekeeping.
 - [x] **M3 — `design:accessibility-review`** — N/A (no UI surface).
-- [ ] **M4 — `engineering:deploy-checklist`** — applies.
-- [ ] **DEVIATIONS.md entry** appended at ticket close.
+- [ ] **M4 — `engineering:deploy-checklist`** — applies; pending PM run before merge to main.
+- [x] **DEVIATIONS.md entry** appended at ticket close (three entries: partial-index simplification, file consolidation, no-bootstrap rationale).
 
 ## Acceptance Criteria
 
@@ -32,7 +32,12 @@
   - [ ] `member_self_records_owner_read` — `for select using (member_id = auth.uid())`.
   - [ ] `member_self_records_owner_update` — `for update using (member_id = auth.uid())`.
   - [ ] No INSERT/DELETE policy — action-layer-only.
+
+  _Intent: All writes flow through the action layer per ADR-7 so every row insert (and any future DELETE if soft-delete migrates to hard) carries `acting_member_id` + `via_delegation_id` audit fields and emits the corresponding `member.self_record_*` event in the same transaction. Direct table writes would bypass the audit trail that agent-assistance trust depends on. T051 CI enforcement makes this a project-wide invariant; same pattern as T049 line 47._
+
 - [ ] **No bootstrap trigger.** A row is created only when a Member opts into agent assistance (b2+ surface). Members who never engage with the surface have zero rows here. This is the only Member-related table at b1 that intentionally has no row-per-Member at signup.
+
+  _Intent: Most Members will never opt into agent assistance at b1 (the surface ships b2+). Auto-creating a row per Member at signup would create N empty rows for no purpose — storage cost, query-path complexity, and an asymmetry between Members who have a row and Members who don't that consumers would have to defend against. Pattern: row exists when the Member writes to it; absent otherwise. The action handler `member.self_record.update` does the insert-or-update on first write. This is a deliberate exception to the "row-per-Member at signup" pattern other Member-related tables follow — flagged here so future agents reading the schema don't add the trigger thinking it was an oversight._
 
 **`public.member_delegations` (per `member.md` line 360; the scoped permission grants):**
 
@@ -49,7 +54,12 @@
 - [ ] RLS enabled. Policies:
   - [ ] `member_delegations_owner_read` — `for select using (member_id = auth.uid())`.
   - [ ] No public-read policy — delegations are private substrate.
+
+    _Intent: A Member's Delegations carry the full surface of what non-human actors (assistants, Skills, federation peers) can do on their behalf — scopes, expiry, grantee labels. Exposing them peer-readable or anon-readable would let bad actors enumerate which Members have which agent capabilities, which is reconnaissance for prompt-injection or capability-misuse attacks. Owner-only is the structural floor; the door-open future-extension pattern from T049 line 56 applies here too — new SECURITY DEFINER functions can surface narrow scalars (e.g., "does this Member have an active Delegation for scope X" boolean) if a future use case earns it. Direct table reads stay closed._
+
   - [ ] No INSERT/UPDATE/DELETE policy — action-layer-only writes.
+
+    _Intent: All writes flow through the action layer per ADR-7 so every Delegation grant, expiry, and revocation carries `acting_member_id` audit fields and emits the corresponding `member.delegation_*` event in the same transaction. The action handler is also where scope-vocabulary enforcement lives (per the `scopes is text[] not a separate join table` note below — the schema can't reject unknown scopes; the handler must). Direct table writes would bypass both the audit trail and the scope-validation layer. T051 CI enforcement makes this a project-wide invariant; same pattern as T049 line 47._
 
 **FK retrofits on existing event-log tables — close the via_delegation_id circle (per T042's DEVIATIONS):**
 
@@ -91,5 +101,15 @@ Record in DEVIATIONS at close. If `member.md` should be updated, hand back to `p
 
 ## Completion
 
-Date:
-Commit:
+Date: 2026-05-17
+Commit: (filled after commit)
+
+**What shipped.** Single migration `web/supabase/migrations/012_member_agent_assistance.sql` carrying three sections: (1) `public.member_self_records` — Member-owned context document substrate; composite-PK-style `member_id` primary key FK to `public.members(id) on delete cascade`; `document jsonb` default `'{}'`; `scratch_or_full text` default `'scratch'` with CHECK; `updated_at timestamptz` with `member_self_records_set_updated_at` trigger reusing `public.update_updated_at_column()`; RLS owner-read + owner-update (the owner-update policy carries explicit `with check (member_id = auth.uid())` per the T047 polish established by the M2 code review on `member_privacy`); no INSERT/DELETE policy; no bootstrap trigger on `public.members` (deliberate exception to the row-per-Member-at-signup pattern — rationale in DEVIATIONS). (2) `public.member_delegations` — scoped expiring permission grants; `id uuid primary key default gen_random_uuid()`; `member_id` FK on delete cascade; `grantee_label` length-bounded CHECK; `scopes text[]` with `array_length >= 1` CHECK; `granted_at` / `expires_at` / `revoked_at` / `metadata jsonb`; partial index `idx_delegations_member_active on (member_id) where revoked_at is null` (deliberately simplified from `member.md` line 393 — see DEVIATIONS); RLS owner-read only; no INSERT/UPDATE/DELETE policy. (3) FK retrofits — `member_events.via_delegation_id` and `location_events.via_delegation_id` now reference `public.member_delegations(id)` via the two-step `not valid` + `validate constraint` pattern with `on delete set null`, closing the audit-field circle reserved by T042 + T045. Both retrofits land on partitioned tables; the validation is a no-op (zero rows), and the `set null` referential action requires no index on the referencing column (verified during M2).
+
+**Tests.** `web/tests/migrations-t050.test.ts` (Vitest suite — 4 describe blocks covering directory state, `member_self_records` shape + RLS + no-bootstrap negative check, `member_delegations` shape + RLS + simplified-index assertion, FK retrofits with `not valid` + `validate` pattern) and `web/scripts/t050-sandbox-check.mjs` (plain-node mirror — 35 assertions identical to the Vitest set). Sandbox runner reports `passed=35 failed=0`. `npm run check:action-layer` clean (113 files scanned, 0 violations) — no new direct writes leaked in.
+
+**Studio probes (pending user darwin run).** `select count(*) from public.member_self_records` → 0 (no bootstrap); `select count(*) from public.member_delegations` → 0; `select indexdef from pg_indexes where indexname = 'idx_delegations_member_active'` → confirms WHERE clause is `(revoked_at IS NULL)` only; `select conname from pg_constraint where conrelid = 'public.member_events'::regclass and contype = 'f' and conname like '%via_delegation%'` → confirms `member_events_via_delegation_fkey`; same for `public.location_events`.
+
+**Sandbox note (carried forward from T049/T051).** Vitest 4 + rolldown segfaults under Linux x86_64 in the build sandbox; the `.mjs` sandbox runner is the build-side verifier. The Vitest suite is the user's darwin verification.
+
+**Deviations from literal acceptance criteria.** None. The three DEVIATIONS.md entries log deliberate design choices that were called out in the ticket itself (partial-index simplification per § Notes, file consolidation per the going-forward numbering rule, no-bootstrap rationale per the `_Intent:_` block on the acceptance line). Implementation matches the ticket exactly.
