@@ -2,6 +2,7 @@
 
 **Scenario:** None. Direct security hardening on ADR-7 / `product/systems/action-layer.md`. Source: audit conversation 2026-05-12 against the McKinsey/Lily failure mode (22-of-200 endpoints shipped without auth; SQL injection vector). The action-layer spec already commits to these protections in prose; this ticket lands the CI assertions that enforce them.
 **Status:** Ready for build (pipeline-review PROCEED after revisions 2026-05-12)
+**Completed:** 2026-05-13T04:54:11+00:00
 **Bundle:** b1 (Phase 0 hardening — extends T043's conformance script)
 **Depends on:** T043 (action-layer scaffold), T044 (auth signup hook). All current write paths must go through `web/src/actions/` before this ticket lands, OR each pre-action-layer route must be added to the exemption list with a `// action-layer:exempt` annotation and a follow-up ticket to migrate it. Agent: verify by running the existing `npm run check:action-layer` and resolving any violations before starting Rule 2 work.
 

@@ -12,6 +12,8 @@ The platform is the missing coordination layer for that work. It is **not** an o
 
 This platform is **not designed to grow like Facebook**. It does not need to absorb every form of civic and economic life into a single product. Its trajectory is **outward, not inward**: as communities mature, the deeper specialized infrastructure they need — banking, insurance, education, business intelligence, payroll services, shared legal templates — should spawn into separate, federated, dedicated platforms. Mondragon is the model. Mondragon Corporation is not a single platform; it is a federation of cooperatives, a cooperative bank (Laboral Kutxa), a university, R&D centers, and social services — each with its own institution and its own focus.
 
+> **Intent:** Facebook's failure mode is consolidation — every social and economic verb absorbed into one product and optimized for attention. The platform's growth shape is the inverse: *outward spawning* into federated specialized infrastructure (Mondragon). Naming the anti-pattern explicitly is the way to keep "but we should add X" proposals legible as Facebook-shaped or not. When the proposed feature would absorb a verb that belongs in a future federated unit (banking, insurance, BI), the answer is "later, separately," not "yes, here."
+
 This platform's job is to seed and sustain the conditions under which that federation can emerge. When a community fund reaches scale, banking is a separate platform. When enough cooperatives form, shared services is a separate platform. When the volume of local economic data is meaningful, intelligence is a separate platform. This platform stays focused on the foundational work: making collective action visible, repeatable, and durable in a place. The spawning is a feature, not a failure of consolidation.
 
 ## The loops, in order
@@ -72,6 +74,8 @@ A person who has bought something good from a maker — at a market, from a Wond
 
 A person needs a plumber, a vet, an accountant, a mechanic, a hairdresser, an attorney, a piano teacher. The platform's surface: locality-first Service Provider profiles, with the Saved primitive (quiet, persistent, no notification stream) for building a personal local network of trusted contacts. The pain point: when a need arises, the existing tools (Yelp, Angi, HomeAdvisor) charge tradespeople for visibility, gate trust behind a star-rating system that hurts small operators, and surface aggregator-friendly results over neighbor-friendly ones. The community-anchored alternative — *the plumber your neighbor used and trusts* — has no clean digital surface.
 
+> **Intent:** This is the wedge claim. The platform's value here is in surfacing a relationship pattern that already works offline — neighbor-to-neighbor recommendation. If the digital surface adds friction (review forms, ranking algorithms, notification streams) or breaks the trust pattern (anonymous reviews, paid placement), the feature failed even if engagement metrics look fine. Score every service-provider proposal against "would the trusted-neighbor pattern still operate under this?" before shipping.
+
 ---
 
 ### Family 4 — Pooling (community ownership)
@@ -105,6 +109,8 @@ This loop is the platform's most important architectural commitment. It is the a
 ## Why this order
 
 The order is not arbitrary, and it is not stylistic. It reflects three concurrent gradients:
+
+> **Intent:** The order isn't a roadmap; it's a *constraint on which loops can be shipped before which*. A feature in Family 4 (Pool) that doesn't lean on Loops 1–9's accumulated participation is asking strangers for capital, which fails. Use the order to spot loop-skipping proposals — when a scenario advances a deeper-loop behavior without the upstream substrate present (or earning its way), the gradients below are the reason to push back.
 
 **Activation energy ascends.** Loop 1 (find your people) requires nothing of the user — they open the app, search a locality, and land on the page for a gathering they didn't previously know existed. Loop 13 (federate and spawn) requires a community that has already organized capital, founded businesses, and reached the threshold where dedicated infrastructure is justified. Each loop in the sequence asks slightly more of its participants than the one above it. Members enter at whatever loop matches their current readiness and move down the sequence, or not, at their own pace.
 

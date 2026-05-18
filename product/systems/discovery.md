@@ -11,6 +11,7 @@ Main Street Market is a place-based, people-first network — not an attention n
 **Hard constraints (from `foundation/people-first.md`):**
 
 - Never rank by business size, follower count alone, or anything that amplifies corporate shells over Members.
+  **Intent:** Discovery is the single highest-leverage place a chains-vs-locals bias could enter the platform — once it's in the score, it's in every surface that uses the score. Forcing the constraint into the *scoring formula itself* (rather than into review process or content moderation) makes "but it would just be more relevant to rank by popularity" structurally unavailable; the feature can't ship without modifying the scorer, which surfaces the policy review at the point of code change. Any future weight that correlates with size proxies (review counts, follower-count standalone, listing age treated as authority) should be read as the failure mode this constraint refuses.
 - Personal businesses are first-class; no "verified business" boost.
 - Communities are emergent — never auto-assign a Member to a Community-scoped feed.
 
@@ -61,6 +62,7 @@ score(item, member) =
 - `social_proof` — count of Member's follows who pledged/RSVPed/saved this Item, log-scaled.
 - `creation_recency` — `exp(-age_days / 14)`. New Items get a head start.
 - `already_seen_penalty` — applied if Item shown ≥3× without engagement.
+  **Intent:** 3× is the threshold below which "haven't decided yet" is plausible (Members often see a Gathering twice before clicking) and above which "not relevant" is the more likely explanation. The penalty catches stale candidates without suppressing slow-burn discovery. Tune this empirically once behavioral data exists at T2 — until then, the threshold is a deliberate hand-tune, not a placeholder.
 - `dismissal_penalty` — applied if Member explicitly dismissed.
 
 **Initial weights** (hand-tuned; documented in code, not config-driven yet):
@@ -69,6 +71,8 @@ score(item, member) =
 w_graph = 1.0, w_loop = 0.6, w_loc = 0.8, w_time = 0.7,
 w_social = 0.5, w_recency = 0.3, w_seen = 0.4, w_dismiss = 1.5
 ```
+
+> **Intent:** Weights are hand-tuned and in-code on purpose — keeping changes in code review (visible, diffable, reversible) is the only way to prevent silent drift until the platform has enough behavioral data to tune empirically. A config-driven knob would let weights change without explicit decision, which is the exact failure mode that lets engagement-optimization creep into a "we just nudged w_recency a little" change-log entry. Config moves to data-driven tuning at T2; until then, every weight change is a code-review event.
 
 **Diversity rule.** No more than 3 consecutive Items from the same creator or same Location. Reshuffle after scoring.
 

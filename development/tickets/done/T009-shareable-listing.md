@@ -2,6 +2,7 @@
 
 **Scenario:** planning/scenarios/F004-shareable-listing.md
 **Status:** Complete
+**Completed:** 2026-04-09T19:21:21-07:00
 
 ## Acceptance Criteria
 

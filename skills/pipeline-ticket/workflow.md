@@ -58,6 +58,25 @@ The scenario writes outcomes; the ticket writes the implementation contract. Com
 - [ ] Component takes `recurrence_rule` (RRULE string) + `starts_at` and returns the next future occurrence in the venue's tz
 - [ ] Test: given RRULE `FREQ=WEEKLY;BYDAY=TH` and current time Wednesday 8pm, returns Thursday 6pm of the same week
 
+## Co-locate `why` with `what` (per AGENTS.md → PIPELINE-AUDIT F13)
+
+Every acceptance-criteria item that encodes a design choice carries its **why** alongside its **what**. Mechanical implementation steps (file paths, table names, column types) don't need a Why — they're transcription. Items that encode a *judgment call* (which library, which pattern, which trade-off) do — without the Why, the build agent reading the ticket weeks later (or a future PM revisiting it) has to reconstruct the design intent from the surface text and risks getting it plausibly wrong.
+
+**Where to apply.** Any acceptance-criteria item that names *one specific approach when multiple would satisfy the literal requirement*. *"[ ] `members` table has `display_name` column, varchar(60), NOT NULL"* is mechanical — no Why. *"[ ] Use Postgres trigger (not action-layer middleware) to enforce same-transaction event-row commit"* encodes a choice between two paths that both satisfy the spec — needs a Why.
+
+**Format.** Italic line under the checkbox item, prefixed `_Why: {one-sentence rationale, anchored to an ADR / system spec / DECISIONS row / observed code constraint}._`
+
+**Example.**
+
+> *Without:*
+> - [ ] `<NextOccurrence>` component renders next computed occurrence using `formatGatheringDate`.
+>
+> *With:*
+> - [ ] `<NextOccurrence>` component renders next computed occurrence using `formatGatheringDate`.
+>   _Why: timezone correctness depends on the venue's tz, not the viewer's — `formatGatheringDate` already handles this; rolling our own date logic would re-introduce the bug fixed in T029._
+
+**Verification.** Before handing the ticket to `pipeline-build`, walk every acceptance-criteria item. For each item that encodes a judgment call (not pure transcription), confirm it carries a `Why:` line. If you can't write the Why because the scenario didn't supply the rationale, escalate to `pipeline-plan` to revise — don't guess and don't proceed.
+
 ## Escalation
 
 | Situation | Action |

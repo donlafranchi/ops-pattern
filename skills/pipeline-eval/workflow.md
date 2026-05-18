@@ -25,6 +25,31 @@
 3. Place tests under the project's eval directory (typical: `{app}/evals/features/F{NNN}.spec.ts` or framework equivalent).
 4. Preserve any `data-testid` / `data-extractive` attributes — evals may depend on them.
 
+## Co-locate `why` with `what` in tests (write mode, per AGENTS.md → PIPELINE-AUDIT F13)
+
+Every test you write carries its **why** alongside its **what**. The test's `name` / `it(...)` / `test(...)` string encodes the *what* (the assertion). A comment immediately above any non-obvious assertion encodes the *why* (the design intent the assertion is protecting). Without the Why, a future agent maintaining the test sees only the assertion — and when the surface text the test verifies changes, the agent silently updates the test to match the new surface, which deletes the protection the test was offering.
+
+**Where to apply.** Every assertion that verifies a *design choice* rather than a mechanical fact. *"Then the page returns 200"* is mechanical — no Why comment needed. *"Then the date 'Thursday, May 14, 6:00 PM' is visible"* encodes a timezone choice (venue's tz, not viewer's) that the literal text doesn't reveal — needs a Why comment.
+
+**Format.** A `// Why: {one sentence on what design intent this protects, anchored to the scenario clause's `Why:` line if one exists, or to a foundation/system doc if not}.` immediately above the assertion.
+
+**Example.**
+
+> *Without:*
+> ```ts
+> await expect(page.getByText('Thursday, May 14, 6:00 PM')).toBeVisible();
+> ```
+>
+> *With:*
+> ```ts
+> // Why: timezone is the venue's, not the viewer's — verifies F018 Then-clause #3 against the design intent in primitives.md, not just the literal text. If the rendered date drifts to the viewer's tz, this test must fail (and a future agent must NOT silently update the expected string to match — escalate to pipeline-plan).
+> await expect(page.getByText('Thursday, May 14, 6:00 PM')).toBeVisible();
+> ```
+
+**Inheriting from the scenario.** If the scenario clause carries a `Why:` annotation (per `pipeline-plan`'s discipline), copy or paraphrase it into the test's Why comment — don't restate from scratch. The scenario's Why is the authority; the test's Why is the propagation.
+
+**Verification.** Before declaring the spec done: walk every assertion. For each one that verifies a design choice, confirm a `// Why:` comment exists immediately above it. If the scenario clause that the assertion traces to has a `Why:` annotation, confirm the test's Why preserves the same intent. Missing Why on a non-obvious assertion → not done.
+
 ## When called to run evals
 
 1. Run the project's eval command — typically:

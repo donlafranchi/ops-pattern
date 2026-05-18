@@ -2,6 +2,7 @@
 
 **Scenario:** planning/scenarios/F009-market-selection.md
 **Status:** Complete
+**Completed:** 2026-04-24T09:40:49-07:00
 
 ## Acceptance Criteria
 

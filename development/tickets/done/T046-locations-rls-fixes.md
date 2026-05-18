@@ -2,6 +2,7 @@
 
 **Scenario:** Fix-forward from T045 M2 code-review. Three corrective items the review surfaced as spec divergences or robustness gaps.
 **Status:** Complete
+**Completed:** 2026-05-11T12:38:05-07:00
 **Bundle:** b1
 **Depends on:** T045 (`007_locations.sql`)
 

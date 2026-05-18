@@ -31,6 +31,7 @@ The boundaries here are load-bearing. Each negation is a structural commitment.
 - **Not a Person.** A Member's `home_location_id` is a soft pointer to their preferred locality scope (per ADR-4). It is not their address. The platform does not store addresses for Members. A Member's relationships to Locations beyond home (places they work, play, visit, follow) live in `member_location_affinities` (see member.md), not as columns on `members`.
 - **Not a Business.** A storefront is a Location. The Member who operates there is a Member. The Group they operate through is a kind='business' Group anchored to that Location. Three records, three primitives, one place. The platform never collapses them into a single "business listing" record — that is the directory failure mode named in `people-first.md`.
 - **Not auto-discovered.** The platform does not pre-populate Locations from third-party data sources (Google Places, OpenStreetMap, public business registries) at b1. Every Location row exists because a Member added it. The integrity guarantee is the same one Groups carry: presence on the platform reflects deliberate human declaration, not scraped inference. Auto-population from authoritative sources is a T2/T3 question, gated on policy review.
+  **Intent:** Pre-populating from Google Places would make the Location surface look "filled in" at b1, but at the cost of every Location row being a third-party-controlled fact — and once the rows exist, the platform inherits the third party's errors, biases, and update cadence. Forcing Member declaration keeps the deliberate-presence guarantee that everything else in the platform inherits (no auto-assignment, no scraped identities). The b1 cost is real (fewer rows on day one); the integrity payoff is permanent.
 
 ## Location kinds
 
@@ -48,6 +49,7 @@ The kind enum is intentionally narrow at b1. Future candidates if real cases war
 
 **Identity.**
 - `label` (required, text, 1–120 chars). The Location's display name. Member-authored, written naturally. ("Drake's", "California Family Fitness Parking Lot", "West Sacramento", "30-mile radius from Folsom").
+  **Intent:** 120 chars sits above "name" length (≈40) and below "tagline" length (≈200+) — the upper bound is deliberately positioned to leave room for "California Family Fitness Parking Lot" but discourage promotional copy in what's meant to be a declarative locator field. If a future proposal wants a taglines or short-bio field on Location, that's a different column — not a wider label.
 - `slug` (required, unique, lowercased alphanumeric + hyphen, derived from label at create with disambiguation). Powers the canonical Location URL `/l/[slug]`.
 - `description` (optional, text up to 1000 chars, written naturally for human + future embedding readability). What this place is, what happens here, what newcomers should know. Not a marketing pitch.
 - `kind` (required, enum: `permanent` / `recurring_temporary` / `area`).
@@ -66,6 +68,7 @@ The kind enum is intentionally narrow at b1. Future candidates if real cases war
 - `member_id` (required, FK to `members.id`). The Member who added this Location row. This is a *platform-record stewardship* relation, not an ownership claim — Drake's the bar is a real-world establishment that exists independent of whoever clicked "Add Location" on the platform.
 - The creator can edit the Location's label, description, and (for kind=area) polygon. They cannot move a permanent Location's coordinates without flagging the change for review (the address-drift problem — small movements look like fixes; large jumps look like vandalism). The action layer enforces a same-coords-or-flag rule on update.
 - **Locations are not transferred.** If the original creator stops maintaining a Location, the T2 claim flow (below) lets another Member become the maintainer. No transfer surface ships at b1.
+  **Intent:** Transfer flows are the surface adversarial actors use to take over established records — submit a transfer request for "Drake's" with a plausible cover story and the platform becomes the question's arbiter. The b1 cost of "creator-of-record can't hand off" is small (a T2 claim flow exists for the legitimate handoff case); the b1 risk of "anyone can claim Drake's by submitting a form" is large (one bad transfer corrupts the trust the locality index depends on). The T2 claim flow ships when the verification path is designed; until then, no transfer.
 
 **Person↔Location relationship — multi-belonging.**
 

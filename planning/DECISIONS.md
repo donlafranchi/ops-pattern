@@ -40,6 +40,48 @@ A decision lives where it is *read*. Three homes; pick the right one when writin
 
 Decisions here have no single-spec home and no foundation/UI/ops doc carries them.
 
+### ADR-17: `bounded_purchase` Delegation scope — agent-mediated one-time purchases within Member-stated bounds
+
+**Status:** Accepted (introduced 2026-05-12 via `agent-commerce-and-project-amendments.md` §8b)
+
+**Decision:**
+
+A new monetary-flow Delegation scope, `bounded_purchase`, authorizes a Member's assistant (or a subscribed Skill) to find and complete one-time purchases on the Member's behalf within stated bounds. The scope is schema-enforced (not policy-enforced): every Delegation row carries the required fields, and the action-layer handler validates each field against the live grant on every execution.
+
+Required schema fields per Delegation (no nullable):
+- `max_per_transaction_cents` — absolute cap per individual purchase
+- `max_per_period_cents` — rolling cap per period
+- `period_window` — period the rolling cap applies over (day / week / month / year)
+- `recipient_scope` — one or more of: `community_members`, `locality`, `specific_members`, `specific_groups`, `external_recipients`. Non-empty
+- `category_scope` — Item kind/category filter; required where the recipient is a Member or Group
+- `expires_at` — required (default subject to deep-dive ratification per the §7a Pending Ratifications list)
+- `reversibility_window_hours` — buyer's-remorse window; default 24–72 hours configurable at grant time
+- `first_recipient_confirmation` — boolean, default true
+- `prefer_local` — boolean, default true
+
+Required execution semantics:
+- Any transaction exceeding caps, scope, or category → auto-blocked at the action layer; surfaced as re-confirm.
+- Per-execution event: `delegation.bounded_purchase_executed` (records `amount_cents`, `recipient_ref`, `recipient_kind`, `item_id`, `caps_in_force`, `via_delegation_id`).
+- Reversal within the reversibility window: one-tap; writes `delegation.bounded_purchase_reversed`; recipient notified.
+- Both buyer and seller are identified in the audit trail. The agent (or Skill) is recorded as `via_delegation_id`, not as a party.
+- Caps and scope are immutable by the agent — only the Member can change them, via re-grant.
+
+**Consequences:**
+
+- `delegation.md` Policy posture carries the full `bounded_purchase` opt-in section (parallel to `recurring_payment`) with the three-filter analysis. Rules in / Rules out updated.
+- `action-layer.md` adds `delegation.bounded_purchase` to the closed-world scope catalog with handler invariants (cap enforcement, recipient validation against `recipient_scope`, category validation against `category_scope`, first-recipient-confirmation gate, reversibility-window state seeding, per-execution audit).
+- `agent-assistance.md` rewrites the money-flow umbrella commitment to name `recurring_payment` + `bounded_purchase` as the two schema-enforced monetary-flow scopes; pledges remain Member-direct.
+- `member.md` Delegation-scopes Policy posture mentions both scopes; the prior "categorically not delegable for one-time payments and pledges" framing is retired.
+- `policy-framework.md` ADR-9 status table includes `bounded_purchase` in the concrete opt-in shapes.
+- `skills.md` declarable-scopes vocabulary includes `bounded_purchase`; Rules in adds the "find local eggs and buy them" pattern.
+- `payments.md` Integration with agent commerce section is the rail for honoring this scope; the rail decision (closed-loop + chartered-partner ACH at b2) makes the scope economical at agent scale.
+- The introducing authority is `agent-commerce-and-project-amendments.md` §8b. That amendment is temporary; this ADR (plus the per-spec edits it ratifies) is the permanent record.
+- This ADR forecloses a path where agent-mediated one-time monetary actions are categorically refused. Other monetary scopes (variable invoicing, agent-initiated refunds, pledge scopes) still require their own three-filter analysis and ADR before introduction.
+
+**Date:** 2026-05-12
+
+---
+
 ### ADR-16: Per-row privacy on `member_location_affinities`; algorithms via privileged paths
 
 **Status:** Accepted
@@ -127,17 +169,18 @@ The default locality is the user's geolocation, if granted. If denied or unavail
 |---|---|---|---|
 | ADR-1 | Accepted | [`web/CLAUDE.md`](../web/CLAUDE.md) — "Tech Stack" section | Next.js (App Router) + TypeScript + Tailwind v4 + Supabase + Mapbox GL JS. Playwright for evals, Vitest for unit. Deploy on Vercel. |
 | ADR-2 | Accepted | [`design-language.md`](../product/ui/design-language.md) — Principles #6 + Surface patterns | Bottom-anchored, mobile-first, thumb-reachable. Primary controls anchor to viewport bottom; search bar expands upward; detail cards slide up; nav (when present) sits at the bottom. No top-anchored toolbars. Follow Google Maps / Apple Maps interaction patterns. |
-| ADR-3 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-3-maker-profile-is-implicit-not-claimed) · live successor: [`member.md`](../product/systems/member.md) | (rejected) | The implicit-from-behavior Maker model. Now superseded by ADR-12 (explicit, toggle-able) + the 2026-05-10 Groups ratification (underlying primitive is kind='business' Group memberships). |
+| ADR-3 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-3-maker-profile-is-implicit-not-claimed) · live successor: [`member.md`](../product/systems/member.md) | (rejected) | The implicit-from-behavior Maker model. Now superseded by the 2026-05-10 Groups ratification (selling tools surface from kind='business' Group membership) and the 2026-05-12 amendment (no Member-level mode at all). |
 | ADR-5 | Accepted | [`item.md`](../product/systems/item.md) — gathering kind | A market is a Gathering Item; categories distinguish kinds (farmers-market, swap, class, run-club, movie-night, etc.) via `item_tags`. |
 | ADR-6 | Accepted, refined by ADR-9 | [`agent-assistance.md`](../product/foundation/agent-assistance.md) — umbrella · [`delegation.md`](../product/systems/delegation.md) / [`assistant-context.md`](../product/systems/assistant-context.md) / [`skills.md`](../product/systems/skills.md) — per-primitive | Agent assistance is first-class. Three primitives (Delegation, Assistant Context, Skills). Five umbrella commitments: loop-shaped not role-shaped · standing-derived persistence · read-automatable, write-confirmed · Member-owned · federation-portable. b1 ships substrate only. |
 | ADR-7 | Accepted (graduated to spec-resident 2026-05-11) | [`action-layer.md`](../product/systems/action-layer.md) — entire document | The action layer is the single canonical write surface. Named, schema-validated, transactional handlers; same-transaction row+event commit; audit fields populated inside the handler; system Member as the platform actor. The runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution) is enforced here. Web composer, in-app assistant, MCP server, and federation peers are all thin clients over the same handlers. |
 | ADR-8 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-8-member-operations-supersedes-adr-3s-derived-maker_signal) · live successor: [`groups.md`](../product/systems/groups.md) | (retired) | `member_operations` primitive retires. Capacities (sole-prop / partner / staff / cooperative-member / volunteer-organizer) are now kind='business' Group memberships. |
-| ADR-9 | Accepted | [`policy-framework.md`](../product/foundation/policy-framework.md) — entire document | Three-filter test (helpful? harmless? abuse-resistant?) · opt-out default · "Policy posture" required on every spec touching privacy/revenue/data sharing · anti-Nextdoor commitments (messaging-scope item-or-group-only; complaint downvote/removal; "create an Item to lead the fix"). |
+| ADR-9 | Accepted (anti-Nextdoor framing softened 2026-05-12 per `agent-commerce-and-project-amendments.md` §4) | [`policy-framework.md`](../product/foundation/policy-framework.md) — entire document | Three-filter test (helpful? harmless? abuse-resistant?) · opt-out default · "Policy posture" required on every spec touching privacy/revenue/data sharing · anti-Nextdoor design intent (messaging item-or-group at b1; Location-scoped surfaces designed carefully when they appear; push-back-on-complaint-only behavior; fix-it path offered not forced). ADR-16 RLS commitment on `member_location_affinities` stays as the hard architectural floor inside ADR-9's scope. |
 | ADR-10 | Consolidated into ADR-7 (2026-05-10) | ADR-7 (action layer + atomicity) · [`item.md`](../product/systems/item.md) (view refresh) · [`migration-to-primitives.md`](../notes/migration-to-primitives.md) (system Member, observability) | The original ADR-10 (migration transactional model — dual-write, backfill, rollback, 2-week verification window) was retired when the 2026-05-10 PM decision flipped to a clean-slate rebuild. Surviving invariants moved to ADR-7. |
-| ADR-11 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-11-cooperative-is-a-separate-entity-from-community) · live successor: [`groups.md`](../product/systems/groups.md) | (deferred indefinitely) | Cooperative-style coordination deferred indefinitely. No `cooperatives` / `cooperative_assets` tables, no `cooperative_cohort` Item kind, no `pledge_intent` response_kind. Cooperative-shape use cases ship at b1 as kind='business' Groups with multiple owner-role memberships. |
-| ADR-12 | Accepted, reinterpreted 2026-05-10 | [`member.md`](../product/systems/member.md) status banner; [`groups.md`](../product/systems/groups.md) | Maker is **explicit, declared, toggle-able**. `members.maker_mode_enabled` boolean default false. "Become a Maker" CTA creates/joins a kind='business' Group via `member.maker_mode.activate`. Three off-states: Pause · End a Group · Stop entirely. |
+| ADR-11 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-11-cooperative-is-a-separate-entity-from-community) · live successor: [`groups.md`](../product/systems/groups.md) (framing softened 2026-05-12) | (deferred until real-world need) | Cooperative-style coordination deferred until real-world cooperative operations create a clear need + the user explicitly prioritizes building them (per `agent-commerce-and-project-amendments.md` §2). No `cooperatives` / `cooperative_assets` tables, no `cooperative_cohort` Item kind, no `pledge_intent` response_kind — these architectural decisions stand as current-scope. Cooperative-shape use cases ship at b1 as kind='business' Groups with multiple owner-role memberships. |
+| ADR-12 | **SUPERSEDED** 2026-05-12 by `agent-commerce-and-project-amendments.md` §6 | [`member.md`](../product/systems/member.md) status banner; [`groups.md`](../product/systems/groups.md) | Maker "mode" framing retired. `members.maker_mode_enabled` column dropped. Selling tools surface from Group membership (kind='business') and Item kind (`product` / `service`), not from a Member-level boolean. Auto-flip prohibition dissolves with the mode itself. Vocabulary: **Seller** generically; **Producer** in ag/food context. |
 | ADR-13 | **Pending formal write-up** — banner is the ratification | [`groups.md`](../product/systems/groups.md) status banner | Group consolidation. Community / Member Operations / Cooperative absorbed into one Group primitive (spine + child architecture, six kinds at b1: five affiliate + one operate). |
 | ADR-14 | **Pending formal write-up** — banner is the ratification | [`location.md`](../product/systems/location.md) status banner | Location spine + child architecture. `location_permanent`, `location_recurring_temporary`, `location_areas`. PostGIS geography on spine. Three kinds locked at create. |
+| ADR-17 | Accepted 2026-05-12 | Cross-cutting (full text above) · [`delegation.md`](../product/systems/delegation.md) · [`payments.md`](../product/systems/payments.md) · [`action-layer.md`](../product/systems/action-layer.md) · [`agent-assistance.md`](../product/foundation/agent-assistance.md) · [`policy-framework.md`](../product/foundation/policy-framework.md) · [`skills.md`](../product/systems/skills.md) | `bounded_purchase` Delegation scope — agent-mediated one-time purchases within Member-stated caps + `recipient_scope` + `category_scope` + reversibility window + first-recipient confirmation. Schema-enforced. Introduced 2026-05-12 via `agent-commerce-and-project-amendments.md` §8b. |
 
 When a "pending" ADR gets its formal write-up, it can either (a) collapse into the spec's banner (preferred — the spec is already the load-bearing ratification) or (b) join the cross-cutting section above if its reach turns out to be broader than one spec.
 

@@ -2,6 +2,7 @@
 
 **Scenario:** `notes/migration-to-primitives.md` § Phase 0 — AI-native floor (the `002_system_member.sql` step + its implicit prerequisite of a minimal `members` + `member_events` table pair)
 **Status:** Complete *(build-side; runtime verification pending `pipeline-eval` run-mode)*
+**Completed:** 2026-05-11T14:01:29+00:00
 **Bundle:** b1
 **Depends on:** T041
 

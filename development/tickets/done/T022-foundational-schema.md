@@ -1,5 +1,8 @@
 # T022 — Foundational schema (events, bulletins, vendor analytics, follow soft-delete)
 
+**Status:** Complete
+**Completed:** 2026-04-25T13:33:54-07:00
+
 ## Goal
 Land the database tables and column additions that the new system docs assume exist, **before** the UI work in T021–T027 starts depending on them. Per the build-for-future principle: these are cheap at MVP and impossible to backfill.
 

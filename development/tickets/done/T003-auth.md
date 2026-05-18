@@ -2,6 +2,7 @@
 
 **Scenario:** planning/scenarios/F003-registration-auth.md
 **Status:** Complete
+**Completed:** 2026-04-09T16:45:56-07:00
 
 ## Acceptance Criteria
 

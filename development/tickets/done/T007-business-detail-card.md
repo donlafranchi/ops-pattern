@@ -2,6 +2,7 @@
 
 **Scenario:** planning/scenarios/F002-business-detail-card.md
 **Status:** Complete
+**Completed:** 2026-04-09T19:09:58-07:00
 
 ## Acceptance Criteria
 

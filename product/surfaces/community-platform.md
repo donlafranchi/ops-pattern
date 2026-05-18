@@ -34,11 +34,11 @@ The labels in the nav stay simple ("Home" / "Explore" / "You") because every soc
 | ~~C6~~ | ~~Market-as-event~~ | — | **Resolved by ADR-5** | A market is an Event (`items.kind = 'gathering'`). No separate "market" entity or feed-card. |
 | C7 | Producer Bulletin (broadcast to followers) | T2 | Proposed | Substack-light; see [`systems/producer-bulletin.md`](../systems/producer-bulletin.md). Member-authored; gated on `member_has_standing_presence` (per ADR-12 + ADR-13). |
 | C8 | RSVP / "I'm going" | T2 | Proposed | Event social proof, attendee count. |
-| C9 | You — Member tab | T1 | Design | Follows, locality, settings. Every Member has the same surface, with Maker affordances appearing conditionally per ADR-12 — visible only when `maker_mode_enabled = true`. |
-| C10 | You — Maker section (conditional) | T1 | Design | **Per ADR-12 (supersedes ADR-3):** appears when `members.maker_mode_enabled = true`, set explicitly via the "Become a Maker" CTA (which walks the Member through kind='business' Group creation per [`../systems/groups.md`](../systems/groups.md)). List/edit Items, appearance schedule, followers count. Toggle-able from the profile to pause Maker surfaces without dissolving the kind='business' Group. Full producer panel defers to T2 (see [`../systems/producer-growth.md`](../systems/producer-growth.md)). |
+| C9 | You — Member tab | T1 | Design | Follows, locality, settings. Every Member has the same surface, with selling-tool affordances appearing conditionally per ADR-12 SUPERSEDED 2026-05-12 — visible when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. |
+| C10 | You — Seller section (conditional) | T1 | Design | **Per ADR-12 SUPERSEDED 2026-05-12:** appears when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. Entered via the "Sell" CTA (which walks the Member through kind='business' Group creation per [`../systems/groups.md`](../systems/groups.md)). List/edit Items, appearance schedule, followers count. To stop selling, the Member ends their owner-role membership; the kind='business' Group enters its 90-day dormancy window per `groups.md`. Full producer panel defers to T2 (see [`../systems/producer-growth.md`](../systems/producer-growth.md)). |
 | C11 | Active locality selector | T1 | Design | **Per ADR-4:** geolocate first, city-pick fallback, mutable from any locality-dependent surface. |
 | C12 | Following list (folded into You) | T1 | Design | `/following` route deprecated; surfaces as a section on /you. |
-| ~~C13~~ | ~~Maker activity signal (derived)~~ | — | **Resolved by ADR-12 + ADR-13** | The derived `maker_signal` from the original ADR-3 was rejected. Standing-tier surfaces gate on `member_has_standing_presence` (per groups.md — the view returns true if the Member has ≥1 active kind='business' Group membership OR steward-role membership in any non-business Group); Maker-mode surface visibility gates on `members.maker_mode_enabled` (per ADR-12 — explicit, declared, toggle-able). Curation surfaces ("Featured Maker of the week," etc.) read from those two signals plus engagement, not from a behavior-derived score. |
+| ~~C13~~ | ~~Maker activity signal (derived)~~ | — | **Resolved by ADR-12 SUPERSEDED 2026-05-12** | The derived `maker_signal` from the original ADR-3 was rejected. Standing-tier surfaces gate on `member_has_standing_presence` (per groups.md — the view returns true if the Member has ≥1 active kind='business' Group membership OR steward-role membership in any non-business Group); selling-tool surface visibility gates on the same Group / Item signals (`maker_mode_enabled` is dropped). Curation surfaces (e.g., "Featured Seller of the week") read from those signals plus engagement, not from a behavior-derived score. |
 
 ---
 
@@ -50,25 +50,25 @@ The labels in the nav stay simple ("Home" / "Explore" / "You") because every soc
 
 - **Event** — one card type covering farmers markets, swap meets, classes, run clubs, movie nights, community projects, etc. (per ADR-5 — "market session" is not a distinct card; it's an Event with `category=farmers-market`). Schema `items.kind = 'gathering'`.
 - **Idea** — a Member's open question or curiosity declared as an Item. Schema `items.kind = 'wonder'`.
-- **Maker update** — a text post from a Member with `maker_mode_enabled = true` who has at least one product or service Item. Maker mode is the explicit, opt-in gate per ADR-12.
-- **Featured Maker of the week** — curated.
+- **Seller update** — a text post from a Member who has ≥1 active kind='business' Group membership OR at least one product/service Item. The Group / Item state is the explicit gate per ADR-12 SUPERSEDED 2026-05-12.
+- **Featured Seller of the week** — curated.
 - **Followed-Member float** — content from Members the viewer follows surfaces above general locality content.
 
 Sort = recency + locality scope. No personalization algorithm at T1; simple time + scope.
 
 **The locality-aware-but-not-Location-scoped property is structural:** the feed surfaces Items declared by Members whose `home_location_id` is in the viewer's locality, plus Items attached to Locations in the viewer's locality, plus Items from followed Members regardless of location. There is no surface that lets anyone address "everyone in West Sac" — the anti-Nextdoor commitment in policy-framework.md is honored by absence.
 
-**Explore:** Search, category filter, day filter, locality filter, list/map toggle. Searchable across Items, Members, Locations, and (at b2) Groups. The static rails currently on Home (category grid, Makers-near-you, markets-near-you) **move to Explore as the empty state** so Home stays feed-first.
+**Explore:** Search, category filter, day filter, locality filter, list/map toggle. Searchable across Items, Members, Locations, and (at b2) Groups. The static rails currently on Home (category grid, Sellers-near-you, markets-near-you) **move to Explore as the empty state** so Home stays feed-first.
 
-**You:** Single tab in MVP (everyone is a Member; Maker affordances appear conditionally per ADR-12):
+**You:** Single tab in MVP (everyone is a Member; selling-tool affordances appear conditionally per ADR-12 SUPERSEDED 2026-05-12):
 
 - **Locality control** (change `home_location_id`; the same control surfaces on locality-dependent pages too — per ADR-4).
 - **Followed Members section** (replaces `/following` route).
 - **Multi-Location affinities surface** (b2 — the Member's `lives` / `works` / `plays` / `visits` / `follows` / `liked` Locations, per [`../systems/member.md`](../systems/member.md)).
 - **Recently viewed.**
 - **Notification preferences.**
-- **"Become a Maker" CTA** (per ADR-12) — visible when `maker_mode_enabled = false`. Tapping it opens the kind='business' Group creation walkthrough per [`../systems/groups.md`](../systems/groups.md).
-- **Conditional Maker section** — only renders when `maker_mode_enabled = true`. List/edit your Items, your appearance schedule, your followers count. **Pause toggle** in this section pauses Maker surfaces without dissolving the kind='business' Group (per ADR-12).
+- **"Sell" CTA** (per ADR-12 SUPERSEDED 2026-05-12) — visible to Members with no active kind='business' Group membership and no kind='product'/'service' Items. Tapping it opens the kind='business' Group creation walkthrough per [`../systems/groups.md`](../systems/groups.md).
+- **Conditional Seller section** — renders when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. List/edit your Items, your appearance schedule, your followers count. To stop selling, the Member ends their owner-role Group membership; the Group enters its 90-day dormancy window per `groups.md` (there is no "pause toggle" — the Group lifecycle is the off-switch).
 - **Data export** (per ADR-6 b1 commitment) — `/you/data` JSON export of the Member's full envelope (profile, Items, follows, memberships, Assistant Context). One-tap purge action also lives there.
 - **Sign out.**
 
@@ -76,7 +76,7 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 
 - Producer Bulletin (broadcast to followers) — too much net-new infra for b1.
 - RSVP — wait for Event volume to justify.
-- Producer panel full dashboard (followers growth chart, profile views, insights) — at b1 the Maker section is just list/edit; the full producer-growth surface defers to T2.
+- Producer panel full dashboard (followers growth chart, profile views, insights) — at b1 the Seller section is just list/edit; the full producer-growth surface defers to T2.
 - Multiple saved localities ("home + while traveling") — single mutable scope at b1 (ADR-4); multi-scope is T3.
 
 **Note on previously deferred items now resolved by ADR:**
@@ -93,7 +93,7 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 - Group activity (when a Group the Member belongs to declares an Item or posts an update).
 - Location-follow activity (when a Location the Member follows hosts a new Item — the Concerts-in-the-Park surface per [`../systems/location.md`](../systems/location.md)).
 
-Add filters at top of feed: All / Events / Ideas / Maker updates / Bulletins.
+Add filters at top of feed: All / Events / Ideas / Seller updates / Bulletins.
 
 **Explore:** Add Group surfaces (`/g`, `/g/[slug]`) as filterable; calendar view option for Events.
 
@@ -126,7 +126,7 @@ Add filters at top of feed: All / Events / Ideas / Maker updates / Bulletins.
 
 ## Open Questions
 
-- Does "Featured Maker of the week" stay manual (curated by PM) or become algorithmic in T2?
+- Does "Featured Seller of the week" stay manual (curated by PM) or become algorithmic in T2?
 - Is there a "post anything" capability for individual Members (beyond producer bulletins), or does the platform's broadcast surface stay producer-gated to avoid the Nextdoor-style noise pattern? Working answer: Ideas are the universal Member-authored broadcast; bulletins are producer-gated. Confirm at T2 surface design.
 - Do community projects need a separate "host" entity, or do they always attach to a Member or a Group? Working answer: an Event (`items.kind = 'gathering'`) with `category=community-project` can be hosted by an individual Member or by a Group; no new entity needed.
 - Email digest cadence for bulletins — daily? weekly? per-post? Working answer: weekly digest of bulletins from followed producers, but per-bulletin email for opt-in Members. Confirm at T2.

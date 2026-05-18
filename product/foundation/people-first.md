@@ -2,6 +2,20 @@
 
 **Status:** Foundational. The single sentence under the loops, the primitives, and every system spec. Read alongside [loops.md](loops.md) and [primitives.md](primitives.md).
 
+## The single "Never"
+
+> **We will never support extractive wealth over circulative wealth.**
+
+This is the only absolute commitment in this project. Every other use of "Never / Permanent / Categorical / Indefinite / Forever / Always" is up for review.
+
+## The central premise
+
+> **Make communities wealthier and healthier.** That is the purpose of the platform. Every feature, decision, and design choice exists in service of this. Wealth means money that stays and compounds locally; healthier means stronger relationships, more capable Members, and greater collective agency.
+>
+> **Every community matters equally.** The platform does not prioritize one community over another — not by attention, not by ranking algorithms, not by feature availability, not by support resources, not by roadmap. A small rural community in central California has the same standing in the platform as Sacramento.
+
+These two commitments sit directly under the single "Never" and above everything else, including the people-vs-business distinction below.
+
 ## The distinction
 
 This platform is about people connecting. It is not about businesses.
@@ -10,7 +24,21 @@ We are not anti-business. A person who makes sourdough and sells it to neighbors
 
 A business that remains personal — owned, operated, and accountable to a real human or a small group of humans whose names appear on it — is something we treat as a person doing work. A business that has been abstracted away from the people who do the work — a corporate shell, a private-equity rollup, a franchise where the operator has no say — is a different kind of thing entirely. We do not pretend it is the same.
 
-The data model encodes this distinction directly. **There is no Business entity in our schema.** A Person makes Items. An Item has a label the Person chooses to put on it ("Oak Park Sourdough," "Curtis Park Candles," "Folsom Plumbing"). The label is a display field on the Items, not a separate record that owns them. When a cooperative emerges, the cooperative is a Community of Members operating Locations and producing Items together — still no shell entity between Persons and the work.
+The data model encodes this distinction directly. **There is no *impersonal* Business entity in our schema** — no business on its own without a person, no business without human social capital behind it. A Person makes Items. An Item has a label the Person chooses to put on it ("Oak Park Sourdough," "Curtis Park Candles," "Folsom Plumbing"). The label is a display field on the Items, not a separate record that owns them. When a cooperative emerges, the cooperative is a `kind='business'` Group with multiple owner-role memberships, anchored to a Location, with Items declared by individual Members operating under the Group's branding — still no shell entity between Persons and the work.
+
+> **Intent:** The end goal is *personal*. Personal businesses are welcome — what the schema refuses is the *impersonal* business shape, because impersonality is the extractive vector (the corporate-shell that hides the human, the rollup that strips operator discretion, the franchise where the operator has no say). A Business row would be the attachment point that lets impersonality re-enter; without the row, every commercial activity has to surface through a Member or through a `kind='business'` Group whose owners are named Members. Future "shouldn't we just add a businesses table" proposals should be read as "let's add a place for impersonal commerce to land," and refused on those terms.
+>
+> **Tied to Member-anchored social capital.** Per the framework ratified during the 2026-05-12 `groups.md` walk and codified in [`../systems/groups.md`](../systems/groups.md) line 125, social capital is anchored on the Member primitive — every business is, structurally, the social capital of the human(s) behind it. A "business" without human social capital is a corporate shell; the schema's refusal of the Business entity is the schema's refusal of corporate shells. The two commitments are the same commitment seen from two angles.
+
+## The question business Groups exist to answer
+
+> **Is this local to my community? Does this entity support my community? Should I support it?**
+
+This is the question every Member is implicitly asking when they encounter a business on the platform. It is the question business Groups exist to surface an answer to. Every capability surrounding business Groups — locality-promotion, producer-bulletin, business-jurisdiction verification, accumulated social capital, peer recommendations — is in service of helping Members answer this three-part question. Not in service of helping the business be findable, rank higher, or grow.
+
+The corollary is the test: any feature surrounding business Groups that doesn't help Members answer "is this local / does it support my community / should I support it" is *extra* — a candidate for refusal regardless of how clever or useful-looking it is. When proposing a new capability, name the way it advances the three-part question. If you can't, the proposal doesn't earn its slot.
+
+This is the load-bearing purpose, the load-bearing test, and (per the people-first commitment above) the load-bearing reason the platform refuses corporate shells: Members can't reliably answer the three-part question against a corporate shell, because there's no *whom* to evaluate. Personal businesses make the question answerable; impersonal businesses make it impossible.
 
 ## Why this matters
 
@@ -23,7 +51,7 @@ The data model encodes this distinction directly. **There is no Business entity 
 ## What this rules in
 
 - A maker selling at three markets is a Member with Items attached to three Locations. Personal.
-- A cooperative bakery is a Community of Members with shared Items. Personal.
+- A cooperative bakery is a `kind='business'` Group with multiple owner-role memberships, anchored to a Location, with Items declared by individual Members under the Group's branding. Personal.
 - A national B Corp with a local outlet, where the local outlet has discretion and a named operator, can be modeled as a Member running an Item-of-kind=service. Personal at the Item level.
 - A family-owned hardware store with three generations of owners is a Member (or a succession of Members) with Items. Personal.
 
@@ -37,7 +65,10 @@ The data model encodes this distinction directly. **There is no Business entity 
 
 This principle is what makes the rest of the architecture make sense:
 
-- **No reviews, no ratings.** Reviewing a person feels different than reviewing a business. We chose people; we don't review them. Accountability comes from structured reports against pillars (Customers / Employees / Community / Planet) that surface only as patterns, never as individual public text — never as stars.
+- **No ranking of people. We review *treatment*, not the person.** When a Member offers a good, service, gathering, or any public-facing thing, the public can convey their experiences with how they were treated. Reviews surface as treatment patterns and structured reports against the four pillars — Customers / Employees / Community / Planet — never as a single star score, never as a leaderboard, never as a price-of-being-found column. The point is peer pressure for good behavior: reward Members who treat others well; surface (without amplifying meanness) the patterns when they don't. Producer-review surfaces are designed in `systems/member.md` per the 2026-05-12 amendment.
+  **Intent:** Star ratings as a *ranking surface for people* are the Yelp / Angi failure mode — the column becomes the price-of-being-found column, and the platform's incentives flip to selling visibility to the rated. The platform refuses the *ranking* shape, not the *review* shape. Reviews of how publicly-offering Members treat others are exactly the peer-pressure mechanism the platform wants — they reward good behavior and identify mistreatment without making a leaderboard. Future proposals should be read against the distinction: "compare two sellers head-to-head on a number" is the refusal; "let neighbors share how they were treated" is the design intent.
+- **Social capital rewards being personal and helpful.** Members who help, host, gather, mentor, and steward accumulate visible standing — not as a number on a public leaderboard, but as a record the Member can point to and that the platform can recognize when standing-tier surfaces unlock (per `systems/agent-assistance.md` and the social-capital design in `systems/member.md` §3b, planned).
+  **Intent:** Reviews surface mistreatment; social capital surfaces good treatment. The two together are the platform's peer-pressure mechanism for good behavior. Without the positive pole, the system becomes a complaint surface (Yelp's failure mode); without the negative pole, the system has no accountability. Both, paired, are how the platform encourages the relational behaviors that make community work and discourages meanness without becoming punitive.
 - **No pay-for-visibility.** A person should not have to pay to be findable in their own community. We do not sell discovery to producers. Revenue flows from buyers, sponsors, and federation partners.
 - **No engagement-optimized feed.** People do not need an algorithm to want to find each other. The locality-first index is enough. Engagement optimization is what consumes humans for advertiser revenue; we are doing the opposite.
 - **Federation, not consolidation.** When deeper infrastructure is needed (banking, insurance, intelligence), it spawns into separate dedicated platforms (per Loop 13 in `loops.md`). The platform stays small enough to remain accountable to the people on it.

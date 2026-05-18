@@ -2,6 +2,7 @@
 
 **Scenario:** planning/scenarios/F001-map-view-colored-pins.md
 **Status:** Complete
+**Completed:** 2026-04-09T18:28:02-07:00
 
 ## Acceptance Criteria
 

@@ -2,6 +2,7 @@
 
 **Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (007 series in the plan; renumbered to 009 per the Phase 1 dependency ordering — locations took 007/008).
 **Status:** Complete
+**Completed:** 2026-05-11T17:12:59-07:00
 **Bundle:** b1
 **Depends on:** T042 (members floor), T045 (locations spine — for `home_location_id` FK target), T046 (locations RLS fix-forward — kept paired for clean migration sequencing)
 

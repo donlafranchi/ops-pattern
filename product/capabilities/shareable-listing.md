@@ -16,7 +16,7 @@ As a Member, I want to share a link to my Item, my page, a Location I love, or a
 Public entity pages with SSR + OpenGraph metadata at b1:
 
 - **Item pages** — kind-specific URLs (`/e/[slug]` Event · `/p/[slug]` Product · `/s/[slug]` Service · `/i/[slug]` Idea · `/o/[slug]` Offer · `/a/[slug]` Ask · `/initiative/[slug]` Initiative; per [`../systems/item.md`](../systems/item.md)). Renders the Item's title, description, kind-specific details, attached Location, and author Member. OG image: kind-themed default at b1 (T2 promotes to Member-uploaded photo).
-- **Member page** — `/m/[handle]`. Renders the Member's display name, bio, Maker affordances (when `maker_mode_enabled = true`), recent Items. OG image: Member's avatar or kind-themed default.
+- **Member page** — `/m/[handle]`. Renders the Member's display name, bio, selling-tool affordances (when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item, per ADR-12 SUPERSEDED 2026-05-12), recent Items. OG image: Member's avatar or kind-themed default.
 - **Location page** — `/l/[slug]`. Renders the Location's name, kind (permanent / recurring-temporary / area), description, address (for kind=permanent), recent Items hosted here. OG image: Location's primary photo (T2) or kind-themed default (b1).
 - **Group page** — `/g/[slug]` (b2 ships the surface; the slug + URL contract is locked at b1). Renders the Group's name, kind, description, anchor Location, member count (when public), recent Items.
 

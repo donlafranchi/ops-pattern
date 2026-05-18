@@ -2,6 +2,7 @@
 
 **Scenario:** planning/scenarios/F001-map-view-search.md
 **Status:** Complete
+**Completed:** 2026-04-09T19:03:28-07:00
 
 ## Acceptance Criteria
 

@@ -4,7 +4,7 @@
 
 ## What this document does
 
-The platform's many surfaces — Maker pages, service listings, gatherings, Group posts, Initiatives, Wonders, Offers, Asks — are surfacings of a small set of primitives, not separate systems. This document names those primitives, the relationships between them, and what their existence (and deliberate absence) means for what gets built and what doesn't.
+The platform's many surfaces — Seller pages, service listings, gatherings, Group posts, Initiatives, Wonders, Offers, Asks — are surfacings of a small set of primitives, not separate systems. This document names those primitives, the relationships between them, and what their existence (and deliberate absence) means for what gets built and what doesn't.
 
 The argument is structural: if the platform's surfaces are schematically similar but modeled as separate entities, the engineering will reproduce the fragmentation it should be erasing. One primitive set, varying by kind, is what lets the platform feel like one place instead of a suite of loosely joined apps.
 
@@ -32,6 +32,8 @@ A market is a Location that hosts many Persons' Items on a recurring schedule. A
 
 A Location is **not a Group.** West Sacramento is a Location of kind=area — a polygon, a name, a geometry. The West Sac school-parents Group is a different record entirely; Groups may anchor *to* a Location, they are never equal to it. People affiliate with *Groups*; they have *affinities* with Locations (live, work, play, visit, follow, liked — see [`location.md`](../systems/location.md)). Nextdoor's mistake is not location memberships per se; it is location-scoped commenting/messaging that attracts complaint posts. The platform's structural response lives in messaging scope (item-or-group only, never Location-scoped) and complaint downvote/removal — not in the absence of Person-Location relationships.
 
+> **Intent:** Treating a Location like a Group is the Nextdoor failure pattern — geographic auto-inclusion creates a constituency the platform then has to moderate, and broadcast-to-everyone-in-the-polygon becomes the dominant verb. People *affiliate* with Groups (chosen, named, mutual); they have *affinities* with Locations (multi, soft, asymmetric). Two records exist precisely so the distinction is load-bearing in the schema — if a future proposal collapses them ("just give Locations a posts column"), the Nextdoor surface returns by structure.
+
 ### Group
 
 A named, intentional, self-selected set of Members organized to do things together on the platform. It is what a set of people *becomes* when they decide they are a unit — not before.
@@ -55,7 +57,7 @@ A Group has a name, an optional Location anchor (geographic gravity, not a bound
 
 A Group without Members ceases to exist (enters dormancy after the inactivity window, then archives). Members can dissolve a Group; a Group cannot dissolve a Member.
 
-**Deliberately no separate Cooperative entity.** Cooperative-shape coordination — multiple owners, shared assets, distributed authority — is served at b1 by kind='business' Groups with multiple owner-role memberships. The platform does not model voting, distributions, or off-platform legal entity verbs. Those concerns are deferred indefinitely per ADR-11 (superseded — see DECISIONS.md).
+**Deliberately no separate Cooperative entity.** Cooperative-shape coordination — multiple owners, shared assets, distributed authority — is served at b1 by kind='business' Groups with multiple owner-role memberships. The platform does not model voting, distributions, or off-platform legal entity verbs. Those concerns are deferred until real-world cooperative operations create a clear need + the user explicitly prioritizes building them (per `agent-commerce-and-project-amendments.md` §2; ADR-11 superseded — see DECISIONS.md).
 
 See [`groups.md`](../systems/groups.md) for the full system spec. Public-facing copy may use "community," "circle," "team," or "shop" interchangeably depending on Group kind.
 
@@ -63,9 +65,11 @@ See [`groups.md`](../systems/groups.md) for the full system spec. Public-facing 
 
 The data model deliberately does not include a Business entity, an Organization entity, or any corporate shell as a separate primitive between Persons and the things they declare. The closest construct is a kind='business' Group, which is itself a Group of Members — not a corporate record. This is structural, not an oversight:
 
+> **Intent:** Strong-form rationale lives in [`people-first.md`](people-first.md); the local restatement here is what prevents future "but Items need to FK to *something* corporate for tax handling" proposals. Money flows are Member-to-Member (or Member-to-kind='business'-Group); tax surfaces are a federation handoff at Loop 13, not a schema fix. Whenever a feature seems to want a corporate row to attach to, the answer is: attach to the Member, or to the `kind='business'` Group of Members. Never to a shell.
+
 - Maya doesn't *have* a business called Oak Park Sourdough as a separate record. *Oak Park Sourdough* is a kind='business' Group with Maya as the sole owner-role member. Her Items belong to her; the Group is the operating context she chose to declare.
 - A cooperative bakery isn't a Business entity that owns Items. It is a kind='business' Group with multiple owner-role memberships, anchored to a Location, with Items declared by individual Members operating under the Group's branding.
-- "Business name" on any surface is a Group label, not a separate record. The kind='business' Group's display name renders alongside the Member's handle on the producer-bulletin authorship line, on the Member's Maker page, and on Item pages where the Member chooses to credit the Group.
+- "Business name" on any surface is a Group label, not a separate record. The kind='business' Group's display name renders alongside the Member's handle on the producer-bulletin authorship line, on the Member's Seller page, and on Item pages where the Member chooses to credit the Group.
 
 Three reasons this matters:
 
@@ -135,6 +139,8 @@ Follow keeps a Person-to-Person/Item relationship alive. Pool accumulates pledge
 
 **Build the Item primitive seriously from day one.** The temptation will be to model a maker's products as fields on the maker profile, a gathering as fields on an organizer profile, a Wonder as a post type on the community. Don't. Items deserve their own first-class entity, with their own page, URL, Location attachments, and event log. The schematic similarity that makes the platform feel coherent depends on Items being a real primitive — not a concept that fragments back into per-feature tables.
 
+> **Intent:** Modeling products-as-fields-on-Maker is the same pattern that produced the six separate legacy systems the rebuild exists to collapse. The Item primitive is what makes Maker, Run Club, Wonder, and Plumber share one set of code paths. Skipping it at MVP is a one-way ratchet — once per-feature tables exist, the platform can't unfork them without a migration. The cost of "this seems like overkill for v1" is paid once at v1; the cost of forking is paid forever.
+
 ## AI / LLM searchability
 
 Every primitive should be queryable via natural language. A user should be able to ask the platform's chat surface things like:
@@ -153,6 +159,8 @@ For this to work, the primitives must be designed to embed and query well:
 **Controlled vocabulary tags.** Tags constrain the search surface to terms an LLM can reason over consistently. Open vocabulary tags degrade quickly into noise.
 
 **Reserved schema for vector embeddings at MVP.** Don't build semantic search at v1. Do reserve the column or the parallel table that will hold embeddings, and ensure the text fields it will index are written from day one with future embedding in mind.
+
+> **Intent:** Embeddings amplify a working index; they don't fix a broken one. Shipping vector search before structured filter is right would mask whether the index is actually surfacing the right things — "magic AI search" failures are extremely hard to debug because the inputs and outputs are both fuzzy. Reserve the substrate so the future ship isn't a migration; defer the surface until structured filter proves the index works.
 
 The MVP ships with structured-filter search (kind, location, tags). Vector search is a T3 capability. But the schema decisions made at MVP either enable that future or block it — there is no neutral choice here.
 

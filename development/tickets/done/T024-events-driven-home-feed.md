@@ -1,5 +1,8 @@
 # T024 — Events-driven Home feed (Nextdoor-style local feed)
 
+**Status:** Complete
+**Completed:** 2026-04-25T14:53:30-07:00
+
 ## Goal
 Reframe Home as a **local feed scoped to the user's market**, sorted by what's happening soon. The feed reads from the unified `events` table (T022) so all event types — market sessions, vendor specials, future classes/projects — flow through one surface.
 

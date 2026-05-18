@@ -1,5 +1,8 @@
 # T021 — Tide accent + CTA pattern rollout
 
+**Status:** Complete
+**Completed:** 2026-04-25T13:54:31-07:00
+
 ## Goal
 Adopt the new Tide (`#0FAB8E`) accent across the app and ship the Airbnb-modeled CTA placement patterns documented in `product/ui/design-language.md` (§ "CTA placement patterns"). Goal #1 of the product is **member signup** (shoppers and producers); this ticket aligns the visual chrome and conversion surfaces with that goal.
 

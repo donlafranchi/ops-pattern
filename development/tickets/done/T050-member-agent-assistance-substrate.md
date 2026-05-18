@@ -2,6 +2,7 @@
 
 **Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (`007g_member_self_records.sql` + `007h_member_delegations.sql` in the plan; consolidated into `012_*`).
 **Status:** Complete
+**Completed:** 2026-05-17T18:53:50-07:00
 **Bundle:** b1
 **Depends on:** T047 (`members` augmentation), T042 (`member_events` for the via_delegation_id FK retrofit), T045 (`location_events` for the via_delegation_id FK retrofit).
 

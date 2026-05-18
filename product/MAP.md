@@ -22,7 +22,7 @@ Connecting people, joining forces, improving our lives socially and economically
 
 ## Primitives (the data spine, T1 floor)
 
-- **Person** ([`member.md`](systems/member.md)) — the anchor; one real human, no role column, no Business shell; holds multi-Location affinities + Maker mode toggle + DM substrate.
+- **Person** ([`member.md`](systems/member.md)) — the anchor; one real human, no role column, no Business shell; holds multi-Location affinities + DM substrate. Selling tools surface from Group / Item state (kind='business' Group membership OR kind='product'/'service' Item presence), not from a profile toggle.
 - **Item** ([`item.md`](systems/item.md)) — anything declared (product, service, gathering, wonder); one schema, kind-varying child tables; public pages at kind-specific URLs (`/e/`, `/p/`, `/s/`, `/i/`, `/o/`, `/a/`, `/initiative/`) — see [`item.md`](systems/item.md) naming table.
 - **Location** ([`location.md`](systems/location.md)) — a physical place; spine + child architecture (permanent / recurring-temporary / area); PostGIS on spine; never the home of messaging or feeds.
 - **Group** ([`groups.md`](systems/groups.md)) — a named, intentional, self-selected set of people; six kinds at b1 (place, interest, practice, event_anchored, family, business); supersedes Community / Member Operations / Cooperative.
@@ -38,6 +38,7 @@ Connecting people, joining forces, improving our lives socially and economically
 - **[`producer-bulletin.md`](systems/producer-bulletin.md)** — Member-authored broadcast to Member-followers (Substack-light); optional kind='business' Group branding; ships at b2.
 - **[`producer-growth.md`](systems/producer-growth.md)** — the BI dashboard backing the producer recruitment pitch: followers, activity, profile health, bulletin analytics, peer benchmarks; substrate at b1 (event log), surface at b2 (T1) → b3 (T2/T3).
 - **[`business-jurisdiction.md`](systems/business-jurisdiction.md)** — the locality-verification ladder for kind='business' Groups (Tier 0 self-attested ZIP → Tier 1 SOS-verified → Tier 2 document-uploaded); the public floor of evidence behind the "locally owned and operated" claim; separates locality (ZIP) from address (street) by design — promoted from exploration on 2026-05-11. Tier 0 ships at b1; Tier 1/2 defer to b2+.
+- **[`payments.md`](systems/payments.md)** — money movement primitive: Member→Member, Member→Group, Member→external-identified-recipient. Closed-loop ledger + ACH via chartered partner at b2; card with friction; stablecoin gated at T3. Wealth-circulation rubric drives every rail/custody/fee decision. Zero platform transaction fees on Member commerce. Substrate at b1 (4 tables, audit fields, handler stubs); rail goes live at b2. Drafted 2026-05-12 with `agent-commerce-and-project-amendments.md`. The rail that honors `bounded_purchase` (ADR-17).
 
 ## Surfaces (the consumer product)
 
@@ -80,7 +81,7 @@ When this map is up to date, the following should all be true. If any of them is
 1. Every Item ultimately FKs to a Member. No corporate shells.
 2. Every Group's owner-role members are Persons. Groups can't own; they organize.
 3. Every messaging surface is item-scoped or group-scoped, never Location-scoped.
-4. Every Member can be a Maker by toggling `maker_mode_enabled` and joining a kind='business' Group; no role column, no Business entity.
+4. Every Member becomes a Seller by joining a kind='business' Group or declaring a kind='product'/'service' Item; no Maker-mode toggle, no role column, no Business entity. (Producer = the agricultural/food variant of Seller in `producer-bulletin.md` / `producer-growth.md`. Maker survives only as a self-identified UI label for craftspeople/artisans.)
 5. Every write goes through a named action handler with `(acting_member_id, via_delegation_id)` audit fields populated.
 6. Every event row commits in the same transaction as the primitive row it describes.
 7. Every system spec that touches privacy/revenue/data sharing carries a "Policy posture" section walking each opt-in through the three filters.

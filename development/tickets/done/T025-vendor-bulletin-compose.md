@@ -1,5 +1,8 @@
 # T025 — Vendor bulletin compose + delivery (T1 MVP)
 
+**Status:** Complete
+**Completed:** 2026-04-25T15:02:48-07:00
+
 ## Goal
 Ship the T1 vendor bulletin from `vendor-bulletin.md`: vendors compose plain-text broadcasts, all followers see them in the Home feed (T024 already reads them), and email delivery happens for opted-in followers.
 

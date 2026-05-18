@@ -2,6 +2,7 @@
 
 **Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Schema floor (Location surface, 008 series in the plan; renumbered to 007 per the Phase 1 dependency reorder)
 **Status:** Complete
+**Completed:** 2026-05-11T09:10:18-07:00
 **Bundle:** b1
 **Depends on:** T041 (postgis extension)
 

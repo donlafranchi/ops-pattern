@@ -222,5 +222,5 @@ This spec does not own any ADR. It *consumes*:
 - **ADR-6** ([`agent-assistance.md`](../foundation/agent-assistance.md)) — standing-derived gating via `member_has_standing_presence`; the full producer-growth surface is the standing-tier producer's view.
 - **ADR-7** ([`action-layer.md`](action-layer.md)) — every action is captured in the event log in the same transaction; producer-growth is a read over that log.
 - **ADR-9** ([`policy-framework.md`](../foundation/policy-framework.md)) — protective defaults; three-filter analysis on every opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
-- **ADR-12** ([`member.md`](member.md) status banner) — Maker mode is explicit and toggle-able; producer-growth surface gates on Maker mode OR business-Group standing.
+- **ADR-12** ([`member.md`](member.md) status banner) — **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6. There is no Maker mode; the producer-growth surface gates on kind='business' Group membership (per ADR-13) directly.
 - **ADR-13** ([`groups.md`](groups.md)) — kind='business' Group steward/owner role is producer capacity; multi-Location producers use kind='business' Group structure.

@@ -24,7 +24,7 @@
 - **ADR-7** (action layer is the only write surface) — every Phase 1+ ticket implements writes via named action handlers.
 - **ADR-9** (policy framework — opt-out default, three-filter test, anti-Nextdoor commitments).
 - **ADR-10** (action layer + event log invariants) — same-transaction event-row commit, audit fields, view-refresh semantics. **Rewritten 2026-05-10** to drop the dual-write / per-phase rollback / verification-window sections (no live system to coexist with).
-- **ADR-12 reinterpreted** — "Become a Maker" creates/joins a kind='business' Group (per `groups.md`), not declares an Operation.
+- **ADR-12 SUPERSEDED 2026-05-12** (per `agent-commerce-and-project-amendments.md` §6) — the "Maker mode" framing is retired. The `members.maker_mode_enabled` column is **dropped before any data lands**. Selling tools surface from Group / Item state: ≥1 active `kind='business'` Group membership, or any `items.kind='product'`/`'service'` row. Vocabulary: **Seller** generically; **Producer** in agricultural/food contexts (already used in `producer-bulletin.md`, `producer-growth.md`). "Maker" survives only as a UI label when a Member self-identifies (craftspeople, artisans).
 - **ADR-13 pending** — Group consolidation. Spec banner in `groups.md` carries the decision.
 - **ADR-14 pending** — Location spine + child architecture. Spec banner in `location.md` carries the decision.
 
@@ -116,7 +116,7 @@ Four phases. Each produces working software. No reversibility constraints betwee
 
 **Member surface (007 series):**
 
-- `007_members.sql` — `members` table per `member.md`. `id` references `auth.users(id)` directly; `handle` (unique, regex-constrained, profanity-filtered), `display_name`, `bio`, `avatar_url`, `pronouns`, `home_location_id` (nullable FK to locations — added by Phase 1 Location migration), `primary_group_id` (nullable FK to groups — added by Phase 1 Group migration), `stakeholder_visibility` (reserved), `maker_mode_enabled` (boolean default false, per ADR-12), `embedding_id` (reserved per Phase 0), soft-delete, timestamps. **No `business_name`** (Items / Groups carry brand labels). **No `role`** (verbs surface from Group memberships and Item activity). **No `primary_community_id`** (renamed to `primary_group_id` per Groups ratification).
+- `007_members.sql` — `members` table per `member.md`. `id` references `auth.users(id)` directly; `handle` (unique, regex-constrained, profanity-filtered), `display_name`, `bio`, `avatar_url`, `pronouns`, `home_location_id` (nullable FK to locations — added by Phase 1 Location migration), `primary_group_id` (nullable FK to groups — added by Phase 1 Group migration), `stakeholder_visibility` (reserved), `embedding_id` (reserved per Phase 0), soft-delete, timestamps. **No `business_name`** (Items / Groups carry brand labels). **No `role`** (verbs surface from Group memberships and Item activity). **No `primary_community_id`** (renamed to `primary_group_id` per Groups ratification). **No `maker_mode_enabled`** (dropped per ADR-12 SUPERSEDED 2026-05-12 — selling tools surface from kind='business' Group membership or kind='product'/'service' Item presence, not from a profile toggle).
 - `007a_member_privacy.sql` — opt-out defaults per ADR-9. Trigger creates the row on `members` insert.
 - `007b_member_interests.sql` — controlled-vocabulary tag list per Member.
 - `007c_member_follows.sql` — Loop 8 substrate. Composite PK; soft-unfollow.
@@ -198,15 +198,15 @@ Four phases. Each produces working software. No reversibility constraints betwee
 **Surface-specific composers per loop** (no unified `/new` picker):
 
 - **Gathering** — venue page (`/l/[slug]`) "Host something here" CTA; Member's `/you` "Host a gathering" affordance.
-- **Product** — Maker-as-Member profile "Add a product" affordance; gated on `maker_mode_enabled = true`.
-- **Service** — `/you` "Offer a service" affordance; gated on `maker_mode_enabled = true`.
+- **Product** — Seller-as-Member profile "Sell" / "Add a product" affordance; visible to any Member, opens the kind='business' Group walkthrough for first-time Sellers (no Maker-mode gate).
+- **Service** — `/you` "Offer a service" affordance; visible to any Member, opens the kind='business' Group walkthrough for first-time Sellers (no Maker-mode gate).
 - **Wonder** — Phase 3 (paired with the locality-first index).
 
 Each composer carries its kind as known context, never as a picker. The four entries are instances of the same underlying `item.create` action handler with `kind` predetermined from the entry surface.
 
-**"Become a Maker" CTA** on `/you` and as a secondary CTA on the gathering / wonder composers. Tapping it opens the Group walkthrough — for first-time Members, creates a kind='business' Group with the Member as sole owner-role membership. Sets `maker_mode_enabled = true` in the same transaction (per the composite `member.maker_mode.activate` handler).
+**"Sell" CTA** on `/you` and as a secondary CTA on the gathering / wonder composers. Tapping it opens the kind='business' Group walkthrough — for first-time Sellers, creates a kind='business' Group with the Member as sole owner-role membership. Selling-tool affordances surface from that membership going forward; no profile toggle is set or maintained. (Per ADR-12 SUPERSEDED 2026-05-12, the prior `member.maker_mode.activate` composite handler is dropped — the Group-create flow stands on its own.)
 
-**Item-level QR card affordance.** Post-create screen on the Item composer offers "Get a QR card for this." Calls `item.qr_card.request`; generates PNG at print-quality DPI; downloadable. Per `qr-onboarding.md`. Available for any kind of Item (product, service, gathering/event, wonder/idea). Resolves to the Item's kind-specific canonical URL (per `item.md` naming table). The Maker-at-the-farmers-market case is the canonical first instance, not the only one.
+**Item-level QR card affordance.** Post-create screen on the Item composer offers "Get a QR card for this." Calls `item.qr_card.request`; generates PNG at print-quality DPI; downloadable. Per `qr-onboarding.md`. Available for any kind of Item (product, service, gathering/event, wonder/idea). Resolves to the Item's kind-specific canonical URL (per `item.md` naming table). The Seller-at-the-farmers-market case is the canonical first instance, not the only one.
 
 **Component reuse from current `web/`** (harvest only what's worth re-typing):
 
@@ -220,7 +220,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 
 **Effort:** ~3-4 weeks. **Risk:** medium (new design surface area; the 90-second composer is a real challenge).
 
-**Exit criterion:** a new Member can sign up, create an Item, attach a Location, and reach a public page in <90 seconds. The F018-F021 scenarios pass evals end-to-end. Surface-specific composers reachable from their named entry points (no `/new` picker exists). Item-level QR card affordance generates a PNG. The "Become a Maker" CTA creates a kind='business' Group.
+**Exit criterion:** a new Member can sign up, create an Item, attach a Location, and reach a public page in <90 seconds. The F018-F021 scenarios pass evals end-to-end. Surface-specific composers reachable from their named entry points (no `/new` picker exists). Item-level QR card affordance generates a PNG. The "Sell" CTA creates a kind='business' Group.
 
 ---
 
@@ -327,7 +327,7 @@ Every phase exit requires the named eval set to pass. Playwright + RLS-matrix ev
 
 - **Phase 0 exit:** action layer skeleton has 1 working handler with full test coverage; system Member exists and login is blocked; pgvector + postgis enabled; auth signup hook creates Member rows and fires `member.created` event with audit fields populated.
 - **Phase 1 exit:** schema-shape evals for every new table (column existence, RLS shape, index existence); audit-field invariant evals (every event row carries `acting_member_id`); the `discoverable_items` refresh meets the 60s SLA under synthetic 10× write load; action-handler conformance check passes; same-transaction event-row commit verified by deliberate failure injection (when the event write fails, the row write rolls back).
-- **Phase 2 exit:** F018 / F019 / F020 / F021 scenarios pass evals end-to-end; surface-specific composers are reachable from their named entry points (no `/new` picker exists); the "Become a Maker" CTA creates a kind='business' Group; Item-level QR card affordance generates a PNG.
+- **Phase 2 exit:** F018 / F019 / F020 / F021 scenarios pass evals end-to-end; surface-specific composers are reachable from their named entry points (no `/new` picker exists); the "Sell" CTA creates a kind='business' Group; Item-level QR card affordance generates a PNG.
 - **Phase 3 exit:** anonymous Loop 3 evals (no-login browseable index works); Wonder→Gathering conversion stub eval; thesis page link present from every page footer; `/g` browse + `/g/new` create flow; Concerts-in-the-Park surface delivers a Location-follow feed.
 - **Phase 4 exit:** docs match code (manual audit + grep sweeps); no "vendor" / "Community" / "Member Operations" / "cooperative" references outside `archive/` folders.
 

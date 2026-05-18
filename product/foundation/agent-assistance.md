@@ -30,6 +30,8 @@ This mirrors the role-as-verb commitment in [`people-first.md`](people-first.md)
 
 Agent context depth scales with the standing presence the Member has accumulated, not with a setting they flip. A Member with one casual gathering posted gets a scratch-tier Assistant Context (enough to maintain conversational continuity across a session); a Member with active business-Group memberships or steward roles gets a full standing-tier Assistant Context (a durable assistant context spanning loops).
 
+> **Intent:** A toggle ("enable advanced assistant context") would let any Member opt into chains-and-aggregators-level tooling instantly, which collapses the *earn before extract* disposition into a paywall in disguise. Tying depth to demonstrated standing keeps the asymmetric-tooling gift aimed at the Members the platform exists to strengthen — the ones who have actually invested participation. If a future proposal wants to surface deeper context to Members who haven't earned standing yet, the answer isn't a toggle; it's a new way to earn standing.
+
 This closes the asymmetric-tooling gap with chains and aggregators — giving "the tools of the major players" to community business owners — without modeling a Business entity, claiming a role, or auto-assigning anyone to anything.
 
 The standing-tier view (`member_has_standing_presence`) is defined in [`groups.md`](../systems/groups.md) and is the same gate used by [`assistant-context.md`](../systems/assistant-context.md) and the b2+ surfaces of [`skills.md`](../systems/skills.md).
@@ -38,7 +40,9 @@ The standing-tier view (`member_has_standing_presence`) is defined in [`groups.m
 
 Reading public data, drafting Items, querying the locality index, proposing Assistant Context updates — all automatable under a Delegation. Publishing an Item, sending a response, granting another Delegation, transferring money — all require per-action human confirmation, regardless of what grant the assistant holds.
 
-Money flows are the strictest tier. One-time payments and pledges are categorically not delegable. The opt-in `recurring_payment` Delegation (per [`policy-framework.md`](policy-framework.md) and ADR-9) is the single exception, and it carries schema-enforced caps, recipient allowlist, expiry, and per-execution observability.
+> **Intent:** This is the substantive trust commitment, not a UX flourish. An agent that can publish without confirmation can be prompt-injected into publishing on the Member's behalf — which compromises every loop the platform exists to surface (trust between neighbors, durability of pledges, integrity of money flows). The read/write asymmetry is what lets the platform be genuinely agent-friendly without becoming agent-controlled. Future proposals to "let the agent post for you when X is true" should be read as proposals to convert a structural commitment into a heuristic, and rejected.
+
+Money flows are the strictest tier. Outside an active monetary-flow Delegation, every monetary action is Member-direct. The two schema-enforced monetary-flow scopes (per [`policy-framework.md`](policy-framework.md), [`../systems/delegation.md`](../systems/delegation.md), [`../systems/payments.md`](../systems/payments.md), and `agent-commerce-and-project-amendments.md` §8) are: `recurring_payment` (caps + recipient allowlist + expiry + per-execution observability) and `bounded_purchase` (per-transaction + per-period caps + `recipient_scope` + `category_scope` + reversibility window + first-recipient confirmation + per-execution audit). Pledges remain Member-direct until a pledge-shaped scope passes its own three-filter test. Each monetary-flow scope is opt-in, schema-enforced, and per-execution observable; caps cannot be modified by the agent.
 
 The confirmation-required scopes are not a UX convention — they are a hard schema-level constraint on Delegation use. Code review rejects any action handler that lets the confirmation gate be bypassed.
 

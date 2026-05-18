@@ -2,6 +2,7 @@
 
 **Scenario:** `notes/migration-to-primitives.md` § Phase 0 — AI-native floor (`003_action_layer_scaffold`)
 **Status:** Complete *(build-side; runtime verification pending `pipeline-eval` run-mode against `web/evals/phase-0/floor.spec.ts`)*
+**Completed:** 2026-05-11T14:31:32+00:00
 **Bundle:** b1
 **Depends on:** T042
 

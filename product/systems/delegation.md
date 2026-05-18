@@ -91,11 +91,13 @@ Draft scopes (produce server-validated drafts the Member must confirm) — `draf
 
 Confirmation scopes (require per-action Member confirmation regardless of grant) — `confirm_publish_item`, `confirm_publish_response`, `confirm_self_record_update`.
 
-Recurring-payment scope (T2, opt-in, see "Policy posture") — `recurring_payment` (single scope; carries per-Delegation caps for max-per-transaction, max-per-month, recipient allowlist, expiry; one-time payments and pledges remain Member-direct, never delegated).
+Monetary-flow scopes (T2, opt-in, see "Policy posture"):
+- `recurring_payment` — carries per-Delegation caps for max-per-transaction, max-per-month, recipient allowlist, expiry.
+- `bounded_purchase` — per `agent-commerce-and-project-amendments.md` §8b (ratified 2026-05-12). Authorizes one-time purchases within Member-stated caps and scopes; carries `max_per_transaction_cents`, `max_per_period_cents`, `period_window`, `recipient_scope`, `category_scope`, `expires_at`, `reversibility_window_hours`, `first_recipient_confirmation`, `prefer_local`. See Policy posture for the full shape.
 
 Federation scopes (T3, reserved at MVP) — `federation_read_initiatives`, `federation_read_pledges`, `federation_read_locations`, `federation_handoff_identity`.
 
-**Event log entries (required at MVP):** `delegation.granted`, `delegation.revoked`, `delegation.expired`, `delegation.scope_used` (records grantee_ref + scope on each action; high volume, partition aggressively), `delegation.scope_reduced` (T3), `delegation.handed_off` (T3 federation), `delegation.recurring_payment_executed` (T2 — records amount, recipient, caps in force).
+**Event log entries (required at MVP):** `delegation.granted`, `delegation.revoked`, `delegation.expired`, `delegation.scope_used` (records grantee_ref + scope on each action; high volume, partition aggressively), `delegation.scope_reduced` (T3), `delegation.handed_off` (T3 federation), `delegation.recurring_payment_executed` (T2 — records amount, recipient, caps in force), `delegation.bounded_purchase_executed` (T2 — records `amount_cents`, `recipient_ref`, `recipient_kind`, `item_id`, `caps_in_force`, `via_delegation_id`), `delegation.bounded_purchase_reversed` (T2 — records the reversal within the reversibility window).
 
 ## Policy posture
 
@@ -105,8 +107,8 @@ Per [`policy-framework.md`](../foundation/policy-framework.md): default is the p
 
 - Read scopes are off by default; the Member opts in by issuing a Delegation that includes them.
 - Draft scopes are off by default; same opt-in mechanism.
-- Confirmation scopes (publish-tier) are *always* gated on per-action human confirmation — even when granted via Delegation, the assistant cannot exercise them without an explicit confirmation tap from the Member. This is permanent, not opt-in: the publish moment stays human.
-- One-time payments and pledges are *categorically* not delegable. Permanent. The Member performs every one-time monetary action directly.
+- Confirmation scopes (publish-tier) are *always* gated on per-action human confirmation — even when granted via Delegation, the assistant cannot exercise them without an explicit confirmation tap from the Member. The publish moment stays human.
+- One-time payments and pledges are off by default. The `bounded_purchase` opt-in (T2 — see below) is the schema-enforced scope that authorizes agent-mediated one-time purchases within stated caps and scopes; outside an active `bounded_purchase` Delegation, every one-time monetary action remains Member-direct.
 - Recurring payments are off by default at b1 (scope does not exist); opt-in available at T2 with the mitigations below.
 
 **Available opt-in (T2):**
@@ -123,7 +125,36 @@ Per [`policy-framework.md`](../foundation/policy-framework.md): default is the p
   - Per-transaction observability: every execution writes a `delegation.recurring_payment_executed` event the Member can audit at `/you/agents`.
   - Revoke takes effect immediately for future executions; in-flight transactions complete or are reversed per the payment processor's rules.
 
-The recurring-payment scope is the *only* monetary-flow scope. Future monetary scopes (e.g., variable invoicing, agent-initiated refunds) will require their own three-filter analysis and ADR before introduction. Scope creep here is the failure mode the framework exists to prevent; the burden of proof is on the addition, not the restraint.
+**Available opt-in (T2): `bounded_purchase` Delegation.** Per `agent-commerce-and-project-amendments.md` §8b (ratified 2026-05-12) and `payments.md`. Authorizes the Member's assistant to find and complete one-time purchases on the Member's behalf within stated bounds. Canonical use: *"find me organic eggs from a producer in my community, under $20, and buy them when you find a match"* — or *"contribute up to $200 across the next year to verified local nonprofits I've allowlisted."*
+
+- Three-filter analysis: *helpful* — converts intent into action for routine purchases, gives Members the asymmetric tooling advantage aggregators monopolize but routes the agentic-commerce vector to community recipients (Members, Groups of Members, identified external recipients) instead of extractive intermediaries; expands the addressable buyer pool for producers and identified recipients; makes Buy Close operational at agent scale. *Harms others* — risks (producers flooded beyond fulfillment capacity, money routed to misrepresented external recipients, agent-vs-agent bidding) are mitigated by producer-side rate limits on Item availability per `item.md`, Member-managed allowlists for `external_recipients`, and transparent caps. *Abusable* — significant attack surface, mitigated structurally (see below).
+- **Required schema-enforced fields** (no nullable; same-transaction with grant):
+  - `max_per_transaction_cents` — absolute cap per individual purchase
+  - `max_per_period_cents` — rolling cap per period
+  - `period_window` — period the rolling cap applies over (day / week / month / year)
+  - `recipient_scope` — one or more of: `community_members` (Members in any Community the granting Member belongs to), `locality` (Members local to the granting Member's `home_location`), `specific_members` (allowlist of Member ids), `specific_groups` (allowlist of Group ids), `external_recipients` (allowlist of identified non-Member recipients). The Member sets the scope; the agent operates inside it. Non-empty.
+  - `category_scope` — Item kind/category filter (e.g., `product:food`, `service:repair`). Required where the recipient is a Member or Group; optional for `external_recipients` since those are pre-identified.
+  - `expires_at` — required; default subject to deep-dive ratification per the §7a Pending Ratifications list.
+  - `reversibility_window_hours` — buyer's-remorse window during which the Member can unilaterally reverse the purchase. Default subject to §7a ratification; per `payments.md` §8 the default range is 24–72 hours configurable at grant time.
+  - `first_recipient_confirmation` — boolean, default true; first purchase from any new recipient requires per-action confirmation even within an active Delegation.
+  - `prefer_local` — boolean, default true; when multiple matches exist, the agent surfaces locally-owned options first (computed per `groups.md`'s `member_is_local_to_location` function).
+- **Required execution semantics:**
+  - Any transaction exceeding caps, scope, or category → auto-blocked; surfaced as a re-confirm prompt.
+  - Per-execution event: `delegation.bounded_purchase_executed` with `amount_cents`, `recipient_ref`, `recipient_kind` (member / group / external), `item_id` (if applicable), `caps_in_force`, `via_delegation_id`.
+  - Reversal within the reversibility window: one-tap; writes `delegation.bounded_purchase_reversed`; recipient is notified.
+  - Anomaly detection: schema-compliant transactions matching unusual patterns surface a soft prompt without blocking.
+- **What `bounded_purchase` does NOT do:**
+  - Does not allow recipients outside the Member's stated `recipient_scope`.
+  - Does not allow caps or scopes to be modified by the agent — only the Member, via re-grant.
+  - Does not allow the platform to take a cut. Fee structure for agent-mediated commerce lives in `payments.md` §9; nothing in this scope predetermines it.
+- **Visibility of the human.** Seller and buyer always see each other in the audit trail: the seller's view shows the buyer's identity; the buyer's view shows the seller's identity. The agent is recorded as `via_delegation_id`, not as a party. Agents are unnamed labor; the relationship is the primitive.
+- **Abuse vectors and mitigations:**
+  - *Compromised assistant exhausts caps* — caps are hard ceilings; the reversibility window lets the Member undo unauthorized purchases; first-recipient confirmation prevents drainage to a single new recipient.
+  - *Malicious Skill drafts purchases to attacker-allowlisted recipients* — `recipient_scope` is set by the Member, not by the Skill; an attacker would have to manipulate the Member into allowlisting before the Skill could route there.
+  - *Prompt-injection from listings* — the action layer's per-turn capability vending (per `action-layer.md`) prevents credential exfiltration. A prompt-injected agent produces malformed tool calls; it cannot exceed caps, scope, or category.
+  - *Platform raises caps unilaterally* — caps are per-Delegation, set by the Member, immutable by the platform without re-grant. Schema-enforced.
+
+Any future monetary scope (e.g., variable invoicing, agent-initiated refunds) requires its own three-filter analysis and ADR before introduction. The three-filter discipline keeps scope creep in check; the `recurring_payment` and `bounded_purchase` scopes are the current monetary-flow scopes — additional ones require explicit ratification.
 
 ## What Delegation rules in and rules out
 
@@ -131,7 +162,9 @@ Rules in: a Member's assistant drafts, summarizes, schedules, and prepares actio
 
 Rules in (T2): a Member opts in to a `recurring_payment` Delegation for her standing CSA subscription with a $40-per-transaction cap, a $200-monthly cap, and a single allowlisted recipient — the assistant handles the monthly renewal silently within those bounds, surfaces the transaction in her audit log, and prompts her if anything exceeds the caps.
 
-Rules out: any non-human actor that is not granted a Delegation. The platform itself never holds a Delegation against a Member. Rules out: silent agent action. Rules out: agent-initiated one-time payments or pledges (one-time monetary actions remain Member-direct, no exception). Rules out: recurring-payment Delegations without explicit per-Delegation caps (the schema enforces this at b2). Rules out: Delegations that survive the Member — when a Member account is deleted, all Delegations are revoked atomically.
+Rules in (T2): a Member opts in to a `bounded_purchase` Delegation with `max_per_transaction_cents = 2000` ($20), `recipient_scope = ['locality', 'specific_groups: oak-park-sourdough']`, `category_scope = 'product:food'`, and the agent finds and buys eggs matching her intent — within bounds, with reversibility, with both parties visible in the audit trail. The agentic-commerce vector routes to the Buy Close ecosystem instead of to OpenAI / Stripe / card-network defaults.
+
+Rules out: any non-human actor that is not granted a Delegation. The platform itself never holds a Delegation against a Member. Rules out: silent agent action. Rules out: agent-mediated one-time purchases outside an active `bounded_purchase` Delegation — one-time monetary actions outside that scope remain Member-direct. Rules out: monetary-flow Delegations (`recurring_payment` or `bounded_purchase`) without the schema-enforced fields (caps, recipient scope, expiry, reversibility window). Rules out: caps or scope being modified by the agent — only the Member, via re-grant. Rules out: Delegations that survive the Member — when a Member account is deleted, all Delegations are revoked atomically.
 
 ## Integration Points
 
@@ -162,6 +195,7 @@ This spec is the per-primitive home for the Delegation portion of **ADR-6 (Agent
 | ADR | Status | What lives here |
 |---|---|---|
 | ADR-6 (Delegation portion) | Accepted, refined by ADR-9 | The scoped, expiring, revocable permission-grant primitive. Confirmation-required scopes (publish, pledge, money flow) require per-action human confirmation regardless of grant. Federation peers transact via Delegation at T3. |
-| ADR-9 (Delegation portion) | Accepted | One-time payments and pledges remain categorically not delegable. Opt-in `recurring_payment` scope with schema-enforced caps, recipient allowlist, expiry, and per-execution observability. |
+| ADR-9 (Delegation portion) | Accepted (refined 2026-05-12 per `agent-commerce-and-project-amendments.md` §8) | Opt-in monetary-flow scopes with schema-enforced mitigations: `recurring_payment` (caps + recipient allowlist + expiry + per-execution observability) and `bounded_purchase` (per-transaction + per-period caps + `recipient_scope` + `category_scope` + reversibility window + first-recipient confirmation + per-execution audit). Outside an active monetary-flow Delegation, one-time monetary actions remain Member-direct. Pledges are not delegable at this writing; revisit if a pledge-shaped scope passes its own three-filter test. |
+| ADR-(next available) | **Pending formal write-up — this status banner records the ratification** | Per `agent-commerce-and-project-amendments.md` §11 step 15: the `bounded_purchase` Delegation scope is ratified, introduced 2026-05-12. The introducing authority is the amendment; the scope shape, mitigations, and three-filter analysis live in this spec under Policy posture. |
 
 This spec *consumes* ADR-7 (the action-layer contract — Delegation grants flow through the named handlers `delegation.grant` / `delegation.revoke`; every issuance writes an event row in the same transaction as the row insert; runtime enforcement of scope, capability vending, and the confirmation gate is the action layer's job, not Delegation's). ADR-7's full ratification lives in [`action-layer.md`](action-layer.md).

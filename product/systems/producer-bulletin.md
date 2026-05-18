@@ -19,14 +19,14 @@ The bulletin is also the load-bearing surface for the producer recruitment pitch
 The minimum surface that lets us ship "follow a Member, receive their bulletins."
 
 ### Authorship
-- Any Member with `maker_mode_enabled = true` OR active membership in a kind='business' Group (`member_has_standing_presence` = true per [`groups.md`](groups.md)) can compose and publish bulletins.
-- Members without standing presence see a "Become a Maker" CTA in place of the compose surface (per [`member.md`](member.md) Maker mode).
+- Any Member with `member_has_standing_presence` = true (≥1 active kind='business' Group membership OR steward-role membership in any non-business Group, per [`groups.md`](groups.md)) can compose and publish bulletins.
+- Members without standing presence see a "Sell" CTA in place of the compose surface — tapping it opens the kind='business' Group walkthrough per [`groups.md`](groups.md) (per ADR-12 SUPERSEDED 2026-05-12; the prior `maker_mode_enabled` gate is dropped).
 
 ### Compose
 - Plain-text body, optional title.
 - "Publish" button — no scheduling, no drafts in T1.
 - Preview before publish.
-- Optional **branding** field: the Member selects one of their active kind='business' Group memberships to display alongside their handle ("Aaron from Drake's Bakery"). Optional; Maker-mode-only Members publish under their own handle.
+- Optional **branding** field: the Member selects one of their active kind='business' Group memberships to display alongside their handle ("Aaron from Drake's Bakery"). Optional; Members without a Group selection publish under their own handle.
 
 ### Delivery
 - Every Member in `member_follows` (where `followed_member_id = author.member_id` and `unfollowed_at IS NULL`) receives:

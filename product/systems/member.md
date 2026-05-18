@@ -6,7 +6,7 @@
 
 **North stars served:** All five loop families. Members are present on at least one side of every loop. Specific surfaces (Maker affordances, host affordances, steward affordances) appear conditionally based on what the Member is *doing* — the role-as-verb posture from `primitives.md`.
 
-**Decisions encoded:** ADR-4 (locality default = geolocate then city pick, mutable) · ADR-6 (Member-owned context, standing-derived persistence) · ADR-7 (action layer for all writes) · ADR-9 (opt-out default, three-filter test for every privacy/revenue/data-sharing surface) · ADR-12 *as reinterpreted 2026-05-10* (Maker mode is a user-facing toggle; the "Become a Maker" CTA now creates or joins a kind='business' Group per `groups.md`, not declares an Operation) · ADR-15 (auth.users coupling — `members.id = auth.users.id`, post-signup trigger is the only Member-create path) · ADR-16 (per-row privacy on `member_location_affinities`; algorithms via privileged paths). **ADR-8 is fully superseded** by the Groups ratification (`member_operations` retires; standing-tier gate is now defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group). **ADR-3 remains rejected** per ADR-12 — the implicit-from-behavior `maker_signal` pattern does not apply.
+**Decisions encoded:** ADR-4 (locality default = geolocate then city pick, mutable) · ADR-6 (Member-owned context, standing-derived persistence) · ADR-7 (action layer for all writes) · ADR-9 (opt-out default, three-filter test for every privacy/revenue/data-sharing surface) · ADR-12 **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6 (the Maker-mode framing is retired; `members.maker_mode_enabled` column is dropped; selling tools surface from Group / Item state) · ADR-15 (auth.users coupling — `members.id = auth.users.id`, post-signup trigger is the only Member-create path) · ADR-16 (per-row privacy on `member_location_affinities`; algorithms via privileged paths) · ADR-17 (`bounded_purchase` Delegation scope, ratified 2026-05-12 — the Delegation-scopes Policy posture references it). **ADR-8 is fully superseded** by the Groups ratification (`member_operations` retires; standing-tier gate is now defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group). **ADR-3 remains rejected** — the implicit-from-behavior `maker_signal` pattern does not apply.
 
 **Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`people-first.md`](../foundation/people-first.md) · [`policy-framework.md`](../foundation/policy-framework.md) · [`groups.md`](groups.md) (the unified Group spine — supersedes the prior `community.md` / `member-operations.md` / `cooperative.md` split per the 2026-05-10 ratification) · [`item.md`](item.md) · [`location.md`](location.md) · `delegation.md` / `assistant-context.md` / `skills.md` (forward-looking, schema reserved at b1)
 
@@ -18,9 +18,9 @@
 
 A Member is the platform's record of one real human. One row, one human, lifetime-stable identifier. Every Item is created by a Member. Every Item response is performed by a Member. Every Community is founded, joined, stewarded, and dissolved by Members. Every Operation is held by a Member. Every Delegation is granted by a Member. Every event log row is attributed to a Member.
 
-A Member is **not** a role. Per `primitives.md`, the platform models verbs, not identities. A Member who posts product Items is acting as a Maker; the same Member organizing a recurring gathering is acting as a host; the same Member founding a cooperative bakery Community is acting as a steward. None of those activities are stored as a `role` column on `members`. They surface as conditional affordances on the Member's profile when the underlying activity exists, and they retract when it doesn't. The legacy `vendor-*` system files are wrong about this and are being re-anchored on this primitive in Phase 6 of the migration.
+A Member is **not** a role. Per `primitives.md`, the platform models verbs, not identities. A Member who posts product Items is acting as a Seller (Producer in agricultural / food context); the same Member organizing a recurring gathering is acting as a host; the same Member founding a cooperative bakery Community is acting as a steward. None of those activities are stored as a `role` column on `members`. They surface as conditional affordances on the Member's profile when the underlying activity exists, and they retract when it doesn't. The legacy `vendor-*` system files are wrong about this and are being re-anchored on this primitive in Phase 6 of the migration.
 
-A Member is **not** a business. Per `people-first.md`, there is no Business entity in the schema, ever. A Member who runs a personal business does so through a kind='business' Group (per `groups.md`) — a Group of one (sole proprietor), of two-plus owners (partnership), or of owners + staff (operating team). The Group carries the brand label (`group_businesses.display_name`), the optional `legal_entity_kind` (LLC, sole_prop, partnership, etc.), and the membership rows. A cooperative-shape operation is a kind='business' Group with multiple owner-role memberships, not a separate primitive — cooperative-style coordination (co-owning, voting, distributing) is deferred indefinitely per `groups.md`. The absence of a Business row is what keeps the platform structurally honest about who is doing the work; the Group primitive is what records the *people organizing to do it together*.
+A Member is **not** a business. Per `people-first.md`, there is no Business entity in the schema, ever. A Member who runs a personal business does so through a kind='business' Group (per `groups.md`) — a Group of one (sole proprietor), of two-plus owners (partnership), or of owners + staff (operating team). The Group carries the brand label (`group_businesses.display_name`), the optional `legal_entity_kind` (LLC, sole_prop, partnership, etc.), and the membership rows. A cooperative-shape operation is a kind='business' Group with multiple owner-role memberships, not a separate primitive — cooperative-style coordination (co-owning, voting, distributing) is deferred until real-world need + explicit user prioritization per `groups.md` and `agent-commerce-and-project-amendments.md` §2. The absence of a Business row is what keeps the platform structurally honest about who is doing the work; the Group primitive is what records the *people organizing to do it together*.
 
 A Member is **not** a Location. Members are humans; Locations are places. A Member's relationship to Locations beyond home is recorded as multi-Location affinities in `member_location_affinities` (live, work, play, visit, follow, liked) per the Multi-Location belonging section below. The `home_location_id` column is the locality default (per ADR-4); the affinity table holds the rest. Members do not have stored addresses.
 
@@ -36,6 +36,7 @@ The b1 surface is the smallest version of Member that lets the central hypothesi
 
 - **One Member per real human.** Enforced by email uniqueness in `auth.users` (Supabase Auth); the platform makes no claim of strong identity verification at b1, but the email-uniqueness floor prevents trivial duplication.
 - **Display name** (required, text, 1–60 chars). Real name is **encouraged but not required** — onboarding copy nudges with "people show up for people; using your real name helps." Pseudonymity is allowed; the platform does not block it. (See open question on real-name escalation for repeat-offender accounts.)
+  **Intent:** Real names raise trust (Loop 1 traction is faster among neighbors who recognize names) but *requiring* them blocks populations the platform should serve — domestic-violence survivors, people in transition, professionals with reasons to separate identities, anyone whose physical safety depends on not being findable by name. Encourage > require keeps both populations onboardable: the trust signal is available to Members who can offer it, and the platform doesn't gatekeep on a credential it can't verify or protect anyway.
 - **Handle** (required, text, 4–30 chars, lowercased alnum + hyphen, uniqueness enforced, profanity-filtered). User-chosen at signup; immutable at b1 (changes deferred to b2 with a redirect record). Powers the canonical Member URL `/m/[handle]`.
 - **Bio** (optional, text up to 500 chars). Written in natural language for human + future embedding readability (per the AI/LLM section).
 - **Avatar** (optional). Single image, square crop enforced, 512×512 stored, smaller variants generated on read.
@@ -67,14 +68,17 @@ The b1 privacy controls cover what is publicly visible on `/m/[handle]`. The pro
 
 Every setting is granular, visible, revocable. Changes are written to `member_privacy` (single row per Member, columns per setting) and append a `member.privacy_changed` event with the diff.
 
-### Maker mode (per ADR-12, reinterpreted 2026-05-10) — the user-facing toggle
+### Selling tools (per ADR-12, superseded by `agent-commerce-and-project-amendments.md` §6, 2026-05-12)
 
-`members.maker_mode_enabled` is a boolean column, default `false` for new Members. It controls whether Maker-specific surfaces render. **It is independent of Group memberships** — Group memberships are the data primitive; Maker mode is the surface-visibility toggle on the Member's own UX.
+There is no "Maker mode" to be in. There is a set of **selling tools** for offering goods or services, and those tools are present whenever a Member needs them. **The redundant `members.maker_mode_enabled` boolean is dropped.** The structural signal that a Member is selling is `groups.kind='business'` membership and / or the existence of `items.kind='product'` or `'service'` rows for that Member — exactly as `groups.md` already models it. No state to toggle. No "Become a Maker" CTA.
 
-- New Members onboard with `maker_mode_enabled = false`. The gathering and wonder composers are visible to everyone; the product / service composers and the "Become a Maker" walkthrough are not.
-- The "Become a Maker" CTA appears in `/you` and as a secondary CTA on the gathering / wonder composers. Tapping it opens the Group walkthrough — for first-time Members, it creates a kind='business' Group with the Member as sole owner-role membership; for Members already affiliated with one or more business Groups, it lets them pick or create. Completing the walkthrough sets `maker_mode_enabled = true` in the same transaction as the Group + membership inserts (per the `group.create` + `group.member_join` action handlers, called transactionally from a composite `member.maker_mode.activate` handler).
-- Toggling `maker_mode_enabled` to `false` from the profile **pauses** Maker surfaces — it does NOT end Group memberships or Items. Items remain published per their own settings; Group memberships remain `active`; the Member's profile simply stops rendering the Maker section. Toggling back on restores surfaces immediately. Pause is the default off-state.
-- "Stop being a Maker entirely" is a separate, deliberate action under settings — sets `maker_mode_enabled = false` AND ends the Member's owner-role memberships in their kind='business' Groups (per `groups.md` lifecycle: founder ending owner membership puts the Group into 90-day dormancy). Items remain published; the Member can re-enable Maker mode at any time and re-create or re-join Groups.
+- New Members onboard with the universal composer (gathering, wonder, ask, offer, etc.). The product and service composers are surfaced as kind-specific verbs in the naming-conventions table (per `CLAUDE.md`): **Sell · Share** for products, **Offer** for services. A Member who taps "Sell" for the first time enters the kind='business' Group walkthrough — creates a Group with themselves as sole owner-role membership, then the product composer opens.
+- A Member who has ≥1 active kind='business' Group membership has the full selling toolset surfaced ambiently: composer entries for product / service, the seller dashboard, the Item-management views, agent-assistance affordances. No toggle to enable; no toggle to disable.
+- To stop selling: end the owner-role membership in the business Group (per `groups.md` lifecycle — founder leaving puts the Group into 90-day dormancy, recoverable). Items remain published per their own settings; the Member can rejoin or create a new Group later. There is no separate "pause Maker mode" surface — the tools follow the Group membership.
+- The auto-flip prohibition of the previous ADR-12 dissolves with the mode itself. Since there is no state to flip, there is nothing to forbid auto-flipping.
+- Profile-visibility of selling: the existing `members.show_group_memberships` per-membership privacy toggle (above) hides a business-Group affiliation from the public profile without affecting the Group itself. A Member who wants a private selling presence sets the Group's `discoverability='unlisted'` or `'private'` per `groups.md`.
+
+**Vocabulary.** Per `agent-commerce-and-project-amendments.md` §6b (ratified 2026-05-12): **Seller** is the generic term for a Member offering goods or services. **Producer** is preferred in the agricultural and food context (already used in [`producer-bulletin.md`](producer-bulletin.md) and [`producer-growth.md`](producer-growth.md)). "Maker" survives only as a UI label where the Member specifically self-identifies as such (craftspeople, artisans).
 
 ### Standing-tier gate (per `groups.md`) — the data-tier gate
 
@@ -83,7 +87,7 @@ A Member has standing presence — the view `member_has_standing_presence` retur
 - ≥1 active membership in a kind='business' Group (any role: `owner` or `member`/staff), **OR**
 - ≥1 active `steward`-role membership in any non-business Group (place / interest / practice / event_anchored / family).
 
-**This is unaffected by `maker_mode_enabled`** — a Member who pauses Maker mode but still holds qualifying Group memberships retains standing-tier surfaces (Assistant Context, Skills, agent-assistance affordances). The separation is deliberate per ADR-12 (reinterpreted): Maker mode is a UI toggle; standing-tier is a data state.
+Standing-tier is purely a data state — driven by Group membership rows, not by any Member-level toggle. There is no separate selling-tools mode to pause or activate.
 
 This is the gate for:
 
@@ -91,7 +95,7 @@ This is the gate for:
 - The Skills subscription surface (per `skills.md`)
 - The agent-assistance affordances at b2
 
-A Member without any qualifying Group membership is fully welcome and fully functional. They can browse, attend gatherings, RSVP, follow, save, and post Wonders. Joining or creating a Group is what shifts them into the standing tier; the act is **declared, dated, and ungameable** (per the Group event log). The Group walkthrough is gated on the "Become a Maker" CTA — Members never reach business-Group creation by accident.
+A Member without any qualifying Group membership is fully welcome and fully functional. They can browse, attend gatherings, RSVP, follow, save, and post Wonders. Joining or creating a Group is what shifts them into the standing tier; the act is **declared, dated, and ungameable** (per the Group event log). The kind='business' Group walkthrough is gated on the explicit **Sell** verb in the composer (per `groups.md` and the CLAUDE.md naming conventions) — Members never reach business-Group creation by accident.
 
 **Note on ADR-8 supersession.** The prior `member-operations.md` model defined `member_has_standing_presence` as `≥1 active member_operations row`. That table retires per the Groups ratification; the view is redefined above. The migration plan rewrite handles the data movement (any existing operations rows backfill into Group memberships).
 
@@ -190,7 +194,6 @@ create table members (
   primary_group_id uuid references groups(id) on delete set null,
   stakeholder_visibility text not null default 'private'
     check (stakeholder_visibility in ('private','community_only','public')),
-  maker_mode_enabled boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   deleted_at timestamptz
@@ -205,8 +208,8 @@ Notes on choices:
 - `id` is `auth.users.id` (Supabase Auth). One Member per auth user; the cascade keeps deletion clean.
 - `handle` is enforced lowercased alnum + hyphen at the column check; profanity filtering happens in the action handler (per ADR-7), not in the constraint.
 - `stakeholder_visibility` is reserved at b1 for the b3 dashboard. Default `private` — opt-out default per ADR-9.
-- `maker_mode_enabled` is the user-facing Maker toggle per ADR-12 (reinterpreted 2026-05-10). Default `false` — new Members are not Makers until they create or join a kind='business' Group via the "Become a Maker" CTA. Set to `true` automatically when the Group walkthrough completes (in the same transaction as the Group + membership inserts). Toggle-able from the profile to pause Maker surfaces without ending Group memberships.
-- No `role` column. Roles are verbs surfaced from Operations + Item activity, not stored.
+- **No `maker_mode_enabled` column.** Per `agent-commerce-and-project-amendments.md` §6 (ratified 2026-05-12), the "mode" framing is dropped. Selling-tool surfaces are driven by Group membership (≥1 active kind='business' Group) and / or Item kind (`product` / `service` rows), not by a Member-level boolean. ADR-12 is superseded by the amendment; see Decisions encoded section.
+- No `role` column. Roles are verbs surfaced from Item + Group activity, not stored.
 - No `business_id`. There is no Business entity (per `people-first.md`).
 
 ### `member_privacy` (one row per Member, opt-out defaults per ADR-9)
@@ -426,7 +429,6 @@ Initial event kinds at b1:
 - `member.handle_changed` (T2 surface; event reserved at b1)
 - `member.home_location_set`
 - `member.privacy_changed` (with diff in payload)
-- `member.maker_mode_changed` (with `{from, to}` payload — per ADR-12)
 - `member.followed` / `member.unfollowed`
 - `member.location_affinity_added` / `member.location_affinity_removed` (payload includes `{location_id, affinity_kind}`)
 - `member.interest_added` / `member.interest_removed`
@@ -448,7 +450,7 @@ Per the 2026-05-10 Groups ratification, Group memberships are the standing-tier 
 
 - Group memberships are stored on `group_memberships` (with `member_id` FK), not on `members` directly.
 - A Member holds zero or many Group memberships across any number of Groups (per `groups.md`).
-- The first commercial Item composition prompts a "Become a Maker" walkthrough that creates or joins a kind='business' Group via `group.create` + `group.member_join` action handlers.
+- The first commercial Item composition (kind='product' or kind='service') prompts a kind='business' Group walkthrough that creates or joins a Group via `group.create` + `group.member_join` action handlers. Per `agent-commerce-and-project-amendments.md` §6, this is not a "Become a Maker" mode-flip — it's the structural setup for the Group membership that henceforth carries the selling tools.
 - The Item composer's `brand_label` field autosuggests from the Member's active business-Group `group_businesses.display_name` values.
 - The Member's profile renders Group affiliations conditionally — present when explicit memberships exist, absent when none do, with per-membership visibility toggles (per the privacy controls).
 
@@ -461,9 +463,7 @@ Every write that touches a Member row goes through a named action handler. Initi
 - `member.handle.set` — handle uniqueness check, profanity filter, writes to `members.handle`, fires `member.handle_changed`. **At b1: only invoked once per Member, at signup.** T2 surface allows updates.
 - `member.privacy.update` — writes to `member_privacy`, fires `member.privacy_changed` with diff.
 - `member.locality.set` — writes `home_location_id`, fires `member.home_location_set`.
-- `member.maker_mode.toggle` — writes `members.maker_mode_enabled`, fires `member.maker_mode_changed` event with `{from, to}` payload. Per ADR-12 (reinterpreted 2026-05-10). Pause-only — does not affect Group memberships.
-- `member.maker_mode.activate` — composite handler invoked from the "Become a Maker" CTA. Calls `group.create` (if first time) or `group.member_join` (if joining an existing kind='business' Group), then sets `maker_mode_enabled = true` in the same transaction. Fires `member.maker_mode_changed` plus the corresponding Group event(s).
-- `member.maker.full_stop` — composite handler invoked from "Stop being a Maker entirely." Calls `group.member_leave` for each of the Member's owner-role memberships in kind='business' Groups, then sets `maker_mode_enabled = false`, in one transaction. Per `groups.md`, founder-leaving puts the Group into 90-day dormancy. Fires `member.maker_mode_changed` and one `group.member_left` per business-Group membership.
+- (Selling-tools handlers retired per `agent-commerce-and-project-amendments.md` §6.) The prior `member.maker_mode.toggle`, `member.maker_mode.activate`, and `member.maker.full_stop` handlers are removed. To start selling, a Member invokes `group.create` (kind='business') and `group.member_join` directly — composer flows wrap these but no Member-level state changes. To stop selling, the Member invokes `group.member_leave` for each owner-role business-Group membership (per `groups.md` lifecycle).
 - `member.interests.add` / `member.interests.remove` — writes to `member_interests`, fires events.
 - `member.follow` / `member.unfollow` — writes to `member_follows`, fires events.
 - `member.location_affinity.add` / `member.location_affinity.remove` — writes to `member_location_affinities` (`{location_id, affinity_kind}`), fires `member.location_affinity_added` / `member.location_affinity_removed`. Validates `affinity_kind` against the enum; rejects writes targeting another Member's affinity rows. The action handler enforces the no-addressability commitment by exposing no surface that *reads* affinities for messaging-target purposes — it only writes them.
@@ -526,10 +526,10 @@ Every privacy/revenue/data-sharing surface walks the three filters: helpful? har
 - Harmless: city-level precision does not reveal address. The home Location itself is never shown publicly even at the highest precision setting.
 - Abuse-resistant: Members can drop to `none`; the platform does not require any locality precision to function.
 
-**Maker mode (`maker_mode_enabled`) — default `false` (per ADR-12).**
-- Helpful: Maker affordances reveal a real surface area (product / service composers, Maker section on profile, vendor-booth QR onboarding, Maker bulletin compose) that's only useful to Members who actually want to offer things commercially. Showing those surfaces to every new Member would be noise. The opt-in is the friendly way to declare "yes, I do this."
-- Harmless: defaulting off prevents inadvertent commercial framing for Members who only joined to RSVP to gatherings. The Maker section on the profile is hidden until enabled; nothing about the Member's identity changes.
-- Abuse-resistant: the toggle is reversible, audited via `member.maker_mode_changed` events, and pausing does not destroy data. The "Stop being a Maker entirely" path requires explicit confirmation. The platform never auto-flips Maker mode on for any Member based on behavior — that's the explicit refusal of the original ADR-3's implicit-from-behavior pattern, ratified in ADR-12.
+**Selling tools — surfaced from Group / Item state, not from a Member-level toggle (per `agent-commerce-and-project-amendments.md` §6, ratified 2026-05-12).**
+- Helpful: selling surfaces (product / service composers, seller dashboard, Item-management views, bulletin compose) are present when the Member needs them — i.e., when they hold an active kind='business' Group membership or have created a kind='product' / 'service' Item. Showing those surfaces to every new Member would be noise; surfacing them on the act of selling is honest signal.
+- Harmless: a Member who has not declared any commercial intent does not see the selling-related surfaces. There is no aggregation, no inferred commercial framing, no profile section that appears uninvited.
+- Abuse-resistant: there is no Member-level mode to auto-flip — the auto-flip prohibition of the prior ADR-12 dissolves with the mode itself. To start selling, the Member explicitly creates or joins a kind='business' Group (the action is declared, dated, ungameable per the Group event log). To stop selling, they end the owner-role membership; Items remain published per their own settings. ADR-12 is superseded; ADR-3's implicit-from-behavior pattern remains rejected.
 
 **Stakeholder visibility — default `private` (T3 surface, schema reserved at b1).**
 - Helpful: at T3, the Stakeholder dashboard surfaces accumulated patterns (followers, repeat customers, market history). Some Members will want this visible to attract business; many won't.
@@ -539,8 +539,9 @@ Every privacy/revenue/data-sharing surface walks the three filters: helpful? har
 **Assistant Context (per ADR-6 and ADR-9) — never visible to other Members, never trained on, never feed input. Permanent commitments.**
 - Per ADR-9, opt-ins for aggregate analysis (with k-anonymity floor N≥10), opt-in cross-Member sharing (granular, time-bounded), and opt-in feed-input *for the Member's own surface* are T2/T3 surfaces. Categorical refusal of feed input *for other Members* is permanent.
 
-**Delegation scopes — confirmation-required for publish-tier; categorically not delegable for one-time payments and pledges. Per ADR-6 and ADR-9.**
+**Delegation scopes — confirmation-required for publish-tier; one-time monetary actions delegable only under the schema-enforced `bounded_purchase` scope. Per ADR-6, ADR-9, and `agent-commerce-and-project-amendments.md` §8.**
 - The `recurring_payment` opt-in (per ADR-9) lands at T2 with required caps, recipient allowlist, and required expiry.
+- The `bounded_purchase` opt-in (per `agent-commerce-and-project-amendments.md` §8b, ratified 2026-05-12) lands at T2 with required per-transaction and per-period caps, required `recipient_scope` (one or more of: `community_members`, `locality`, `specific_members`, `specific_groups`, `external_recipients`), required `category_scope`, required expiry, required reversibility window, and first-recipient confirmation defaulting on. See `delegation.md` for the full scope shape and `payments.md` for the rail.
 
 ---
 
@@ -555,6 +556,7 @@ Every privacy/revenue/data-sharing surface walks the three filters: helpful? har
 - **Delegation** — Members grant zero or many Delegations to non-human actors (assistants, Skills, federation peers).
 - **Skills** — Members with standing presence subscribe to Skills (per `skills.md`); subscriptions are per-Member.
 - **Auth** — `members.id = auth.users.id`; Supabase Auth is the identity floor.
+  **Intent:** PK equality (1:1, lifetime-stable) is the structural choice. Decoupling auth identity from Member identity — separate IDs joined by FK — would let the two drift over time (orphaned auth rows, multi-Member auth accounts, reconciliation tooling required to keep them aligned). Equating the primary keys removes the entire class of bugs by construction: there is no second row to be out of sync with the first. The cost (auth provider changes are migrations) is paid once; the bug class is closed forever.
 
 **Used by:**
 
@@ -581,9 +583,15 @@ The MVP serves structured-filter search (handle, display name lookup, Items by M
 
 ---
 
+## Social capital
+
+Members earn **social capital** through participation, helping others, contribution to their communities, hosting Gatherings, fulfilling Asks, sharing Offers, supporting Initiatives, and other prosocial actions on the platform. Social capital is earned (no way to purchase it), Member-owned (accrues to the Member, follows them across loops, portable through federation handoff per Loop 13), not a ranking signal that affects what other Members see (refusing the engagement-metric trap), and optionally surfaced (Members choose whether and how it appears on their profile). **Planned feature, design pending user ratification.** Schema, surfaces, and the prosocial-action taxonomy ship after the design is settled. The Member primitive is the anchor; the schema lands on this table or a sibling once the design is approved.
+
+---
+
 ## What does not ship at b1
 
-- Reviews, ratings on Members. Permanently deferred (per `people-first.md`).
+- Reviews of Members in their personal capacity (rating a Member as a person, separate from any commercial activity) are not a planned feature. Reviews tied to commercial activity — buyers reviewing producers/sellers/service-providers they bought from — are a **planned feature; design pending user ratification** (visibility model, anti-gaming, symbiosis, reciprocity all open). Social capital earned through participation is a **planned feature; design pending user ratification** (see "Social capital" below). The prior "permanently deferred" framing is rescinded per `agent-commerce-and-project-amendments.md` §3.
 - Public follow streams or Member activity feeds. Loop 8 storage is b1; surfaces are b2.
 - Direct message UI. Schema at b1; surface at b2.
 - Assistant Context UI and update pathways. Substrate at b1; surface at b2.
@@ -632,7 +640,7 @@ This spec is the live home for the following architectural decisions. See [`../.
 
 | ADR | Status | What lives here |
 |---|---|---|
-| ADR-3 | **REJECTED** — superseded by ADR-12 and the 2026-05-10 Groups ratification | The implicit-from-behavior Maker model. Historical text in [`../../planning/archive/DECISIONS-superseded-2026-05-10.md`](../../planning/archive/DECISIONS-superseded-2026-05-10.md). |
-| ADR-12 | Accepted, reinterpreted 2026-05-10 | Maker is an **explicit, declared, toggle-able** role. `members.maker_mode_enabled` boolean default false. "Become a Maker" CTA creates/joins a kind='business' Group via `member.maker_mode.activate`. Three off-states: Pause (toggle off, memberships intact) · End a Group (leave one) · Stop entirely (composite — leave all business Groups + toggle off). |
+| ADR-3 | **REJECTED** — superseded by the 2026-05-10 Groups ratification and the 2026-05-12 ADR-12 supersession (no Member-level mode at all per `agent-commerce-and-project-amendments.md` §6) | The implicit-from-behavior Maker model. Historical text in [`../../planning/archive/DECISIONS-superseded-2026-05-10.md`](../../planning/archive/DECISIONS-superseded-2026-05-10.md). |
+| ADR-12 | **SUPERSEDED** 2026-05-12 by `agent-commerce-and-project-amendments.md` §6 | The "Maker mode" framing is retired. There is no Member-level boolean — `members.maker_mode_enabled` is dropped. Selling tools surface from Group membership (kind='business') and Item kind (`product` / `service`). The auto-flip prohibition dissolves with the mode itself. Vocabulary: **Seller** is the generic term; **Producer** is preferred in agricultural/food context (per the amendment §6b ratification). Historical text of the prior ADR-12 interpretations lives in [`../../planning/archive/DECISIONS-superseded-2026-05-10.md`](../../planning/archive/DECISIONS-superseded-2026-05-10.md). |
 
 This spec also *encodes* (but does not own) ADR-4 (locality default), ADR-6 (Assistant Context + Delegation substrate at b1), ADR-7 (action layer), ADR-9 (opt-out privacy defaults), ADR-15 (auth.users coupling — `members.id = auth.users.id` and the post-signup trigger pattern), and ADR-16 (per-row privacy on `member_location_affinities` — the RLS sketch above and the `member_location_affinities` substrate section above are the load-bearing surfaces). Those live cross-cutting in `DECISIONS.md`.

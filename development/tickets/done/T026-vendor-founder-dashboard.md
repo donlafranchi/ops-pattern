@@ -1,5 +1,8 @@
 # T026 — Vendor founder dashboard (T1 — followers, activity, top tasks, listing health)
 
+**Status:** Complete
+**Completed:** 2026-04-25T15:22:57-07:00
+
 ## Goal
 Ship the T1 Founder Dashboard from `vendor-intelligence.md`. This is the surface that backs the vendor pitch ("we'll help you compete with bigger players"). It must exist — even thinly — for the recruitment story to hold up.
 

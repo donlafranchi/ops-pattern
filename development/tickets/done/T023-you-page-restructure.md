@@ -1,5 +1,8 @@
 # T023 — You page restructure (identity hub: saves, follows, market, vendor mode)
 
+**Status:** Complete
+**Completed:** 2026-04-25T14:03:31-07:00
+
 ## Goal
 Make `/you` the single identity surface. Move scattered controls (heart-saved-list, "Your Market" selector) here so Home and Explore stay focused on discovery. Add a vendor mode entry point so producers see their dashboard from the same page.
 

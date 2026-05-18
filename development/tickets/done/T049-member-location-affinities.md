@@ -2,6 +2,7 @@
 
 **Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (`007i_member_location_affinities.sql` in the plan; renumbered to `011_*`).
 **Status:** Complete
+**Completed:** 2026-05-17T12:08:29-07:00
 **Bundle:** b1
 **Depends on:** T047 (`members` augmentation), T045 (`locations` spine — for `location_id` FK target), T046 (locations RLS fix-forward).
 

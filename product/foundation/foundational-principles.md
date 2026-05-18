@@ -16,6 +16,20 @@ The principles are written to be quotable. Each is short enough to drop into an 
 
 ## Part 1: First Principles
 
+### The single "Never"
+
+> **We will never support extractive wealth over circulative wealth.**
+
+This is the only absolute commitment in this project. Every other use of "Never / Permanent / Categorical / Indefinite / Forever / Always" across the project is up for review. State design intent and mitigations; leave the door open for architecture to evolve as real Members express real needs.
+
+### The central premise
+
+> **Make communities wealthier and healthier.** That is the purpose of the platform. Every feature, decision, and design choice exists in service of this. Wealth means money that stays and compounds locally; healthier means stronger relationships, more capable Members, and greater collective agency.
+>
+> **Every community matters equally.** The platform does not prioritize one community over another — not by attention, not by ranking algorithms, not by feature availability, not by support resources, not by roadmap. A small rural community in central California has the same standing in the platform as Sacramento.
+
+These two commitments sit directly under the single "Never" and above the eight principles below.
+
 ### P1. Serves people, not the other way around.
 Members do not perform labor for the platform. The platform stays light, fast, and useful. When platform interest and member interest diverge, the member wins. This is the master principle; every other principle is subordinate to it.
 
@@ -27,6 +41,8 @@ Every interaction expands the member's options, knowledge, or capability. Wins f
 
 ### P4. Circulate wealth. Strengthen the common person.
 The platform exists to strengthen the common person — the household, the solo operator, the tradesperson, the small farmer, the neighborhood — by keeping more of what gets earned, spent, and built circulating among them. The line is extraction, not size: large actors that genuinely help the common person are welcome; small actors that squeeze them are not. The disposition is union-member, co-op-joiner, guild-member: ordinary people pooling effort to strengthen their own position. Independent producers and service providers should have access to world-class discovery, intelligence, and coordination capabilities — tools that match or exceed what large competitors have.
+
+> **Intent:** Pre-empt the framing trap where "small business good, big business bad" gets read as anti-capitalism. The platform's enemy is extractive structure, not scale per se — a Mondragon-scale federation of cooperatives is squarely the goal. Use this to disarm "but X is big, so it must be bad" arguments and keep the focus on whether a given actor extracts from or strengthens the common person.
 
 ### P5. Federated, stakeholder-owned, locally run.
 Growth shape is Mondragon-like: networks of locally-rooted, member-owned units sharing infrastructure but making their own decisions. Governance is AA-style: chapters run themselves; the platform responds to their needs and does not direct them. Members hold real stake.
@@ -64,8 +80,10 @@ Every proposal — feature, spec, ticket, design, code change — passes through
 These are not judgment calls. Any proposal exhibiting one of these fails by definition.
 
 - **Engagement-as-goal metrics.** Time-on-platform, scroll depth, sessions-per-day, notification CTR. Optimizing for these violates P1.
+  **Intent:** Time-on-platform is the metric of every directory and social network the platform is structurally refusing to become. Naming it as a categorical fail (not a debate) is the only way to keep it out of dashboards by inertia — once it's a number on a chart, the gravity of "improve the chart" makes the principle unenforceable. Pair this with a positive North-Star metric (member outcomes, not session counts) so the gap doesn't get filled by drift.
 - **Dark patterns.** Streaks, loss aversion, faux-scarcity, hidden defaults, hard-to-cancel flows.
-- **Ad injection.** Of any kind, from any party.
+- **Engagement-shaped ad injection.** Ads inserted into the engagement stream to optimize for click-through, dwell time, behavioral targeting, or attention-capture — same failure mode as the engagement-as-goal-metrics entry above. Other forms of advertising are *not* categorically refused; see Part 8 for the revenue-design space where constrained non-engagement-shaped advertising forms (sponsorship, vetted local promotions, federation-partner placements, etc.) live as open design.
+  **Intent:** The earlier "Ad injection. Of any kind, from any party." entry (revised 2026-05-12) was over-broad and conflated *advertising as a revenue category* with the specific *engagement-feed-injection* failure mode that's the load-bearing concern. What's categorically refused is the engagement-shape: ads that turn the platform into an attention-capture surface. Other ad shapes — community-vetted local sponsorship, federation-partner placements, verified-local-business promotion lines — are revenue-design space the platform may explore under the multi-source-revenue commitment (Part 8). The narrower refusal preserves the load-bearing principle while leaving the financial-durability door open.
 - **Data-as-product.** Selling, sharing, or licensing member data to third parties for any purpose other than what the member explicitly directed.
 - **Gatekeeping ratings.** Star-rating systems whose primary function becomes the platform's leverage over the small operator (Yelp / Angi pattern).
 - **Founder-as-CEO patterns inside chapters.** Permanent admin / owner roles that calcify community governance.
@@ -213,24 +231,45 @@ A formal threat model, a security audit cadence, and a coordinated disclosure / 
 Stated for the constitution because how the platform makes money determines whether it can honor every other principle.
 
 ### Working hypothesis
-A member-paid platform. Members contribute because the platform makes their community measurably stronger, not because they're forced to in order to use it. Free participation in core community functions is non-negotiable.
+
+**A multi-source revenue platform — not VC-funded, not member-fee-only.** Revenue comes from a diversified set of lines, all of which must be earned through the platform actually serving Members and communities.
+
+**The platform will not raise venture capital.** VC funding optimizes for exit, and an exit-aligned platform is misaligned with the load-bearing purpose (Members materially better off, durable community wealth). VC pressure on growth metrics also creates structural pressure toward the engagement-optimization failure modes the platform exists to refuse. The platform earns its revenue from product use, not from raising rounds.
+
+**Multi-source revenue is required from early on.** Member fees are *one small part* of the revenue picture, not the primary source. Over-reliance on any single revenue line — including Member fees — is a vulnerability the platform structurally avoids. The platform needs several revenue lines operating from early in its life so no one source can capture the platform's incentives.
+
+Free participation in core community functions is non-negotiable. Members must be able to use the platform meaningfully without paying.
+
+> **Intent:** The "no VC + multi-source-early" commitments (ratified 2026-05-12) are structural protections for the platform's purpose. VC alignment with exit makes the platform's purpose (Members better off long-term) unenforceable against board pressure for exit-shaped growth. Single-source-revenue dependence (whether on Member fees, on a single sponsor, on a single advertiser, or on any single contract) creates a structural lever any one party can pull to redirect platform decisions. Multi-source-from-early-on is the financial-durability discipline: no single contract or category can hold the platform's incentives hostage. Test for future proposals: does this proposal create over-reliance on any single revenue line, or accept VC? If yes, refuse — the structural protection is multi-source-self-funded, full stop.
 
 ### Revenue lines under consideration
-- **Member dues.** Voluntary or tiered membership contributions, possibly community-level (community dues paid into a community fund) and platform-level (small contribution to platform sustainability).
+
+The platform needs several of these operating from early on. Reliance on any single line is structurally avoided.
+
+- **Member dues.** Voluntary or tiered membership contributions, possibly community-level (community dues paid into a community fund) and platform-level (small contribution to platform sustainability). *One of several lines, not the primary.*
 - **Vendor success-fees.** Vendors pay only after their participation crosses a defined success threshold — e.g., a percentage of revenue above a floor, or a fee triggered by sustained sales volume. **Earn-before-extract is the design intent.**
+- **Constrained advertising (design space open).** Non-engagement-shaped advertising forms are revenue-design space — community-vetted local-business sponsorship, sponsored verified-local badges, federation-partner placements, sponsored community gatherings, etc. **Engagement-shaped ad injection** (feed-injection, behavioral targeting, attention-capture surfaces) remains categorically refused per Part 3. The specific constrained forms acceptable are an open question — see below.
 - **Federated services revenue (long-horizon).** When the cooperative-services layer (bookkeeping, insurance pool, legal templates) ships, members may pay for those services; margin sustains the platform.
+- **Sponsored federation handoffs (long-horizon).** When the platform spawns federated infrastructure (banking, insurance, BI), the federation partners may pay placement-shaped fees that don't compromise Member-side experience.
 
 ### What is forbidden
-- **Ads of any kind.** Categorical fail per Part 3.
+
+- **Engagement-shaped ad injection.** Ads optimized for click-through, dwell time, behavioral targeting, or attention-capture. Categorical fail per Part 3.
+- **Venture capital funding.** Refused as a funding model. VC alignment with exit is misaligned with the platform's purpose; VC pressure on growth metrics creates structural pressure toward the engagement-optimization failure modes. Revenue must come from product use.
 - **Data sales or licensing.** Categorical fail.
 - **Charging the small operator before they succeed.** Any vendor-fee structure that taxes a struggling operator violates P4.
 - **Subscriptions disguised as gates** that prevent core community participation. Members must be able to participate meaningfully without paying.
+- **Over-reliance on a single revenue line.** Structural vulnerability; multi-source diversification is the discipline. Any plan that puts >50–60% of revenue through a single line should trigger re-evaluation.
 
 ### Open questions
+
 - How are member dues structured — flat, tiered, voluntary, community-set?
 - What is the success threshold that triggers vendor fees?
+- What forms of advertising are acceptable under the "constrained, non-engagement-shaped" framing — sponsorship of community gatherings? Vetted local-business promotions? Verified-local badges? Federation-partner placements? Where does the line sit between "non-engagement-shaped" (acceptable) and "engagement-shaped" (refused)?
+- How does the platform balance Member-side experience against revenue when the ad-design space is being explored?
 - Is there a community-level revenue share — does the community where a sale happens get a portion?
 - How is platform sustainability separated from community-fund accumulation?
+- What threshold of single-source-concentration triggers the multi-source-discipline re-evaluation?
 
 These questions must be answered before launch. The principles in Part 1 do not specify the answer; they constrain it.
 

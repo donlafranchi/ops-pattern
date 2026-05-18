@@ -2,6 +2,7 @@
 
 **Scenario:** planning/scenarios/F005-report-concern.md
 **Status:** Complete
+**Completed:** 2026-04-09T19:30:59-07:00
 
 ## Acceptance Criteria
 
