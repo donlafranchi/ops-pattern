@@ -20,6 +20,14 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-17 — T050 — Fix-forward: NOT VALID FK incompatible with partitioned referencing tables
+
+**What:** The ticket § Acceptance Criteria mandates the two-step `not valid` + `validate constraint` pattern for both FK retrofits (`member_events_via_delegation_fkey` and `location_events_via_delegation_fkey`). Postgres rejects this with SQLSTATE 42809 ("cannot add NOT VALID foreign key on partitioned table") because both referencing tables are RANGE-partitioned on `created_at` per ADR-7's append-only invariant. Fix-forward: dropped the `not valid` qualifier and the second `validate constraint` statement; single `ADD CONSTRAINT ... FOREIGN KEY ... ON DELETE SET NULL;` per retrofit. Surfaced at runtime when the user ran `supabase db reset`; build-side file-shape tests passed because they regex-matched the SQL text without exercising Postgres.
+
+**Why:** The two-step pattern is correct muscle memory for populated non-partitioned tables (avoids a table-scan lock during ADD CONSTRAINT). On partitioned referencing tables it's actively rejected — Postgres requires the FK validate immediately so the constraint can be recursively propagated to all existing partitions at creation time. Both `member_events` and `location_events` are empty today (zero rows across all partitions), so the immediate validation that the single-statement shape forces is a no-op. The recursive propagation to partitions created later by the rotation functions happens automatically per Postgres partitioned-table FK semantics. Anchored to Postgres source: `gram.y` + `tablecmds.c` reject `NOT VALID` for any `RELKIND_PARTITIONED_TABLE` referencing side.
+
+**Disposition:** flag-for-ticket-rewrite — T050's § Acceptance Criteria lines for both FK retrofits need to drop the `not valid` + `validate constraint` mandate and add a one-line note that NOT VALID is incompatible with partitioned referencing tables. The M2 code-review pass for T050 also missed this and asserted partitioned-FK + NOT VALID was "safe on Supabase PG15+" — that review heuristic needs revision. Going-forward rule: any FK retrofit on a `*_events` table (all partitioned per ADR-10/ADR-7) uses the single-statement shape. Going-forward rule for the M2 reviewer: partitioned-table referencing-side restrictions are real and need explicit verification, not pattern-matching against non-partitioned precedent.
+
 ## 2026-05-17 — T050 — Partial-index predicate simplified (no now() in WHERE)
 
 **What:** `member.md` line 393 declares the partial index `idx_delegations_member_active` with `where revoked_at is null and (expires_at is null or expires_at > now())`. The shipped migration drops the time predicate: `where revoked_at is null` only.
