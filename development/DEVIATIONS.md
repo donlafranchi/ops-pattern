@@ -20,6 +20,71 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-18 — T052 — eval_seed_auth_user_only ignores p_email for auth.users.email slot
+
+**What:** The helper used to thread `p_email` into `auth.users.email`. Combined with `on conflict (id) do nothing` (which only catches id conflicts, not email conflicts), reusing the same `p_email` across test runs (e.g. `maya@example.test` across reruns of the maya-collision spec) silently failed when a prior run had left an orphan row — UNIQUE constraint on `auth.users.email` raised, helper RPC returned an error the spec didn't check, no row was inserted for the new id, and the deferred `members_assert_id_in_auth_users` trigger then rejected the handler's COMMIT with 23503. Fix: always synthesize `eval-<short-uuid>@eval-test.local` for `auth.users.email`. `p_email` is retained as a parameter for API compatibility but ignored for that slot.
+
+**Why:** The handler reads its email from the request payload, not from `auth.users`. Whatever's stored in `auth.users.email` has no observational value to the Phase 0 spec. Synthesizing from the id makes the helper idempotent against repeated runs with the same `p_email`. The alternative — supporting `ON CONFLICT (id) DO NOTHING, ON CONFLICT (email) DO NOTHING` — isn't valid Postgres (one ON CONFLICT clause per INSERT) and would require restructuring as a CTE-based upsert. Anchored to the auth.users schema (email UNIQUE) + the failure mode observed on the 2026-05-18 4th eval run: deferred trigger at COMMIT after seed silently failed.
+
+**Disposition:** accepted-as-is — the parameter retention preserves the helper's API; the behavior change is invisible to the spec because the spec doesn't query `auth.users.email`. If a future test needs the auth.users.email to match a specific value, it should use `admin.auth.admin.createUser` (the canonical real-auth-user path) instead of this seed helper.
+
+## 2026-05-18 — T043 — Handler retry loop: missing SAVEPOINT in handle-collision path
+
+**What:** `web/src/actions/member/create.ts` retry loop did `try { insert } catch { compute next suffix; continue }` with no `SAVEPOINT` / `ROLLBACK TO SAVEPOINT` around each attempt. The first INSERT's constraint failure (23505 on unique handle) aborts the outer transaction; the second INSERT then raises `25P02` ("current transaction is aborted, commands ignored until end of transaction block"). Result: every collision-suffixed handler call crashed with 500 at the second attempt. Fix-forward: wrap each INSERT in `savepoint member_create_handle_attempt`; `release` on success, `rollback to savepoint` on any failure before the catch decides whether to retry or rethrow.
+
+**Why:** Latent bug — T047's constraint trigger was masking it (every INSERT was failing with 23503 before the collision path could exercise the retry). T052 + ADR-15 fix-forward satisfied the trigger; the collision path ran end-to-end for the first time and the missing SAVEPOINT surfaced. The pattern is canonical Postgres for constraint-driven retry inside a single transaction. T043's original Vitest coverage (per BUILD-LOG: "59/60 sandbox-side") used mocks that didn't reproduce Postgres's failed-statement-aborts-transaction semantics — the Playwright eval is what caught this. Anchors to Postgres docs §13.4 (errors and aborted transactions) and `client.query` semantics on the `pg` driver.
+
+**Disposition:** flag-for-spec-revision — the canonical T043 spec body should include "SAVEPOINT around each INSERT attempt" as an explicit acceptance criterion. The pattern is also relevant to every future action handler that retries inside `withTransaction` (e.g., any deduplication-based upsert path). Suggest `pipeline-product` adds a "Retry semantics inside withTransaction" §  in `product/systems/action-layer.md` so the convention is normative, not folklore.
+
+**Going-forward rule:** any action handler that retries an INSERT/UPDATE inside `withTransaction` after a constraint failure MUST wrap each attempt in a SAVEPOINT. The current handler is the canonical reference until the spec catches up.
+
+## 2026-05-18 — Phase 0 spec — T043 collision tests serialized
+
+**What:** `T043 — Action layer scaffold + member.create handler` describe was switched to `test.describe.serial(...)`. The four collision tests inside the describe all use the `maya` handle base — one inserts `members(handle='maya')` and asserts the next member.create derives `maya-2`; another seeds 99 rows including `handle='maya'` + clears `maya%` between assertions. Under `fullyParallel: true` (playwright.config.ts), the four workers race and clobber each other, producing the 2/22 failures the PM observed on the 2026-05-18 second run.
+
+**Why:** The state-sharing is intentional — both tests need a populated `maya` collision space. The cheapest fix is serial mode for just that describe; the other describes (T041, T042, T044, RLS smoke) remain parallel. Alternative — unique handle bases per test — would require changing the email payload to match (`derive_handle_from_email` is keyed on the local-part), which adds surface area for no payoff. Serial-mode is one line.
+
+**Disposition:** accepted-as-is — minimum surface change, parallel-safe everywhere else. If a future Phase-1 test joins the T043 describe with new shared state, the serial-mode discipline already applies.
+
+## 2026-05-18 — Phase 0 spec — ADR-15 compliance fix-forward (constraint trigger added in T047)
+
+**What:** T047 (committed 2026-05-11, `009_members_phase1.sql`) added the constraint trigger `members_assert_id_in_auth_users()` on `public.members` that rejects any insert whose id is not present in `auth.users` (system Member exempted). The Phase 0 spec at `web/evals/phase-0/floor.spec.ts` and the bulk seed helper `eval_seed_handle_collision_range` in `web/supabase/test-helpers/03_handle_collisions.sql` were both authored before T047 landed; they minted random UUIDs and inserted directly into `public.members`, which after T047 raises `23503`. Net effect: 6 of 22 phase-0 floor tests failed against the post-T047 substrate. Fix-forward landed a single new test-helper plus targeted spec edits to seed `auth.users` rows before any direct members insert.
+
+**Why:** ADR-15's invariant is load-bearing — the constraint trigger is the schema-level enforcement of "members.id is real auth identity." The substrate is correct; the test helpers and spec must respect it. Two design options were on the table:
+
+1. **One helper** — `eval_seed_auth_user_only(p_id uuid, p_email text default null)`. Inserts a minimum-viable `auth.users` row. Reusable by both the bulk seed and the per-test probes.
+2. **Two helpers** — paired `eval_seed_auth_user_only` + `eval_seed_auth_user_and_member`. The combined form for tests that want both rows in one go.
+
+**Chose option 1.** The two-helper shape would have leaked auth.users-row provisioning concerns into a second helper for marginal API ergonomics (`one extra rpc call per test`). The bulk seed already does its own members-insert in a loop; threading the auth.users seed into the same loop is one line. The per-test probes need only the auth.users row before they call `member.create` (the handler does its own members insert). Two helpers would have duplicated the members insert path for no payoff.
+
+**Hook bypass.** `006_auth_signup_hook.sql` installs `handle_new_auth_user()` (AFTER INSERT on `auth.users`) which calls `net.http_post` to the Next.js route → `member.create`. If the helper just inserted into `auth.users` naively, the hook would race the test's `invokeMemberCreate` call and the action handler would hit `ConflictError` (members row already created by the hook's async path) instead of exercising the fresh-create path. Two options:
+
+1. **Mark the email pattern** the hook skips — e.g., skip `*@eval-test.local`. Brittle (depends on the test using the magic email).
+2. **Session-local GUC** — `eval.skip_signup_hook = 'on'` set via `set_config(..., true)` (transaction-local). The hook function reads the GUC and short-circuits when 'on'. **Chosen** because it decouples skip-intent from email shape, the GUC has no platform-side meaning (so production code never sets it), and `set_config` with `is_local=true` clears at end of transaction (no leak).
+
+Mechanism: the test-helper `04_auth_user_seeding.sql` `create or replace`s `handle_new_auth_user()` with a body that's byte-identical to `006_auth_signup_hook.sql` except for a leading `if current_setting('eval.skip_signup_hook', true) = 'on' then return new; end if;` block. Because test-helpers are applied only by `bootstrap-eval-helpers.ts` (localhost-guarded), production never sees the override.
+
+**Why the GUC pattern rather than `session_replication_role = replica`:** the latter requires `SUPERUSER` on Supabase (the `postgres` role isn't superuser), so it's not an option.
+
+**Why not patch the migration:** the migration is committed history. The test-helper override pattern leaves production unchanged and isolates the eval-only concern to a folder that's already gated by localhost-only application.
+
+**Files modified:**
+- `web/supabase/test-helpers/04_auth_user_seeding.sql` — new file. (a) `create or replace function public.handle_new_auth_user()` with the GUC-skip leading clause. (b) `eval_seed_auth_user_only(p_id uuid, p_email text default null)` SECURITY DEFINER helper. Both granted to service_role only.
+- `web/supabase/test-helpers/03_handle_collisions.sql` — `eval_seed_handle_collision_range` rewritten from single `INSERT … SELECT` to a `FOR n IN 1..p_count` loop, each iteration calling `eval_seed_auth_user_only` before its members insert. `eval_clear_handle_collision_range` captures the doomed ids up front and now also deletes the seeded `auth.users` rows after deleting members.
+- `web/evals/phase-0/floor.spec.ts` — six tests now call `admin.rpc("eval_seed_auth_user_only", { p_id: <id> })` before any direct members insert OR before any `invokeMemberCreate` for a fresh auth id. Added a `cleanupAuthUsers(ids)` helper at the bottom that best-effort `admin.auth.admin.deleteUser` per id. The seventh test (anon UPDATE smoke at line 430, not in the original failure list but with the same code shape) was preemptively updated to use the same pattern.
+
+**Disposition:** accepted-as-is — fix-forward is in-scope per the rebuild-phase rules. The Phase 0 spec predates the constraint trigger; the spec edits bring it forward to the current substrate. The new test helper file follows the existing 00–03 conventions (SECURITY DEFINER, service_role grant, header comment, comment on function).
+
+**Going-forward rule:** any test that writes directly to `public.members` from PostgREST/service-role MUST first call `eval_seed_auth_user_only(p_id)`. Any test that drives a `member.create` for a fresh auth user MUST first call `eval_seed_auth_user_only(p_id, p_email)` to provision the auth.users row without firing the signup hook. The hook-firing path is exercised by the dedicated T044 test at `floor.spec.ts:308` (canonical createUser pattern).
+
+## 2026-05-17 — T052 — Fix-forward: Playwright `testDir` widened to `./evals` so phase-0 spec is discoverable
+
+**What:** `web/playwright.config.ts` `testDir` was `./evals/features`, which excluded `evals/phase-0/floor.spec.ts` from Playwright's test discovery. T052 ratified the manual smoke command `npx playwright test evals/phase-0/floor.spec.ts` as the exit criterion but did not update the config. Fix-forward: widened `testDir` to `./evals` so Playwright walks both `features/` and `phase-0/`.
+
+**Why:** Single source of truth — both subfolders are evals, both should be discovered. A narrower fix (separate `playwright.config.phase0.ts`) would multiply configuration without any payoff, since the `webServer` + `mobile-chrome` project apply to both. The widened `testDir` is the minimum surface change. Anchored to T052 § Tests, "Manual smoke" bullet — the command the ticket itself documented could not run against the shipped config.
+
+**Disposition:** accepted-as-is — surfaced at PM verification time; trivially fixable; no spec patch needed (T052's exit-criteria language is unchanged, the config now matches it).
+
 ## 2026-05-17 — T052 — Defense-in-depth: secondary `foreign_key_violation` catch in failure-injection helper
 
 **What:** The ticket § Helper 5 design note sketches the body with a single `exception when not_null_violation` clause. The shipped helper adds `when foreign_key_violation` as a secondary catch (still `null` body — substrate did its job either way).
