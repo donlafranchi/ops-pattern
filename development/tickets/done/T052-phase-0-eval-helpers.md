@@ -177,15 +177,28 @@ The helpers' own tests are minimal — they are themselves the eval surface. But
 
 ## Completion
 
-Date: TBD
-Commit (web): TBD
+Date: 2026-05-17
+Commit (web): TBD — PM commits from Mac terminal
 Commit (parent): TBD — `docs(pipeline): T052 ratification` once `pipeline-review` clears.
+
+**What landed:**
+
+- New folder `web/supabase/test-helpers/` with four `.sql` files (`00_introspection.sql`, `01_conformance.sql`, `02_action_failure_injection.sql`, `03_handle_collisions.sql`). All seven helper RPCs defined as SECURITY DEFINER, with `revoke execute … from public; grant execute … to service_role` on every function. Production-safety reminder in each file header pointing at ADR-18.
+- New bootstrap script `web/scripts/bootstrap-eval-helpers.ts` with a hard localhost guard (host must be one of `localhost`, `127.0.0.1`, `::1`, `host.docker.internal`; exit code 2 on guard refusal, distinguishing it from pg connect failures which exit 1). Applies the four SQL files in lexicographic order, then runs `check-action-layer --json` and upserts the parsed result into `public.eval_artifacts` under `key='conformance_check'`.
+- `web/scripts/check-action-layer-conformance.ts` extended with `--json` mode (emits a single `{ ok: boolean, violations: Violation[] }` object on stdout; exit-code semantics unchanged) and an `ALLOWED_EXCEPTIONS` entry for `scripts/bootstrap-eval-helpers.ts`. Folder allowlist for `supabase/test-helpers/` is implicit (the file lister filters to `.ts`/`.tsx`).
+- `web/package.json` gains `"eval:bootstrap": "tsx scripts/bootstrap-eval-helpers.ts"`.
+- Tests: `web/tests/eval-bootstrap.test.ts` (Vitest — layout, guard, `--json` contract) + `web/tests/ci-conformance-json.test.ts` (Vitest — `--json` mode against the conformance script directly) + `web/scripts/t052-sandbox-check.mjs` (plain-node mirror; Vitest segfaults under Linux x86_64 per BUILD-LOG T051 note). 59 sandbox checks passing; `npm run check:action-layer` clean.
+- **M2 `engineering:code-review` PROCEED 2026-05-17** with two fix-now items applied in the same loop: (a) `02_action_failure_injection.sql` gains `when foreign_key_violation` as a secondary catch (defense-in-depth against future Postgres constraint-evaluation reordering or schema changes); (b) `03_handle_collisions.sql` gains an early-raise precondition on `p_base` length (since `on conflict do nothing` does NOT catch `check_violation` — too-short or too-long bases would fail mid-INSERT in confusing ways).
+
+**Helper 5 design note honored.** Path A per ADR-18 Decision 2 — SQL-side subtransaction reproducing ADR-7's same-transaction invariant via `not_null_violation` on the event-log insert. The handler's own commit-path coverage stays in Vitest. Inline comments in the SQL body cite ADR-7 (not the consolidated-away ADR-10) and ADR-18.
+
+**No new files in `web/supabase/migrations/`.** Production schema list unchanged: 11 files, ending at `012_member_agent_assistance.sql` (T050).
 
 **Exit criteria the PM verifies before closing:**
 
-- [ ] `web/supabase/test-helpers/` exists with four `.sql` files; no new entries in `web/supabase/migrations/`.
-- [ ] `npm run eval:bootstrap` succeeds against `supabase start`'s local DB; refuses against any non-local DB.
-- [ ] All 7 helper RPCs callable via service-role; not callable via anon (revoke verified).
-- [ ] `npx playwright test evals/phase-0/floor.spec.ts` passes end-to-end against a local instance.
-- [ ] BUILD-LOG.md updated: T041–T044 move from "Build complete; runtime eval pending" to "Build + eval complete." T051's runtime eval status (Rule 3 RLS coverage) cleared, since it shares the local-DB bootstrap.
-- [ ] DEVIATIONS.md entry appended.
+- [x] `web/supabase/test-helpers/` exists with four `.sql` files; no new entries in `web/supabase/migrations/`.
+- [ ] `npm run eval:bootstrap` succeeds against `supabase start`'s local DB; refuses against any non-local DB. — *PM-side: requires `supabase start`.*
+- [ ] All 7 helper RPCs callable via service-role; not callable via anon (revoke verified). — *PM-side: requires `supabase start`.*
+- [ ] `npx playwright test evals/phase-0/floor.spec.ts` passes end-to-end against a local instance. — *Handed to `pipeline-eval` (run mode).*
+- [ ] BUILD-LOG.md updated: T041–T044 move from "Build complete; runtime eval pending" to "Build + eval complete." T051's runtime eval status (Rule 3 RLS coverage) cleared, since it shares the local-DB bootstrap. — *Pending eval-run pass; build-side BUILD-LOG entry landed today.*
+- [x] DEVIATIONS.md entry appended.

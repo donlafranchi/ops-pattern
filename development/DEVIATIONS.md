@@ -20,6 +20,38 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-17 — T052 — Defense-in-depth: secondary `foreign_key_violation` catch in failure-injection helper
+
+**What:** The ticket § Helper 5 design note sketches the body with a single `exception when not_null_violation` clause. The shipped helper adds `when foreign_key_violation` as a secondary catch (still `null` body — substrate did its job either way).
+
+**Why:** Today Postgres evaluates NOT NULL at row construction, before constraint triggers / FK checks — so passing `acting_member_id = NULL` always raises `not_null_violation` first. But the EXCEPTION clause is brittle to that ordering: a future Postgres release that reordered evaluation, or a schema change that dropped NOT NULL but kept the FK (e.g., relaxing `acting_member_id`), would surface `foreign_key_violation` instead and the helper would re-raise instead of returning the expected `{rolledBack:true, membersRowRemaining:false}`. The substrate's same-transaction invariant is the property under test — both rollback paths satisfy it. M2 code-review surfaced the brittleness; fix-now landed in the same loop. Anchored to Postgres constraint-evaluation order (`tablecmds.c` row-construction checks precede `RI_FKey_check` triggers in the current source).
+
+**Disposition:** accepted-as-is — no spec patch needed (the ticket's helper body was sketched, not literal; the EXCEPTION clause is intentionally an implementation detail).
+
+## 2026-05-17 — T052 — Handle-length precondition added to seed helper
+
+**What:** `eval_seed_handle_collision_range(p_base, p_count)` gains two upfront `raise exception` guards: (a) `p_base` length >= 4 (matches `members.handle` CHECK constraint, lower bound); (b) `p_base + '-' + p_count` length <= 30 (upper bound, accounts for the worst-case suffix). The ticket § Helper 6 spec does not call these out; M2 code-review caught the latent silent-corruption risk.
+
+**Why:** `members.handle` has `check (char_length(handle) between 4 and 30)` (002_members.sql line 45). The seed function's `on conflict do nothing` catches *unique* violations only — it does NOT catch *check* violations. A caller passing `p_base='x'` (3 chars) or `p_base='averyverylonghandle', p_count=99` (suffix overflows 30 chars) would raise a hard `check_violation` mid-INSERT, leaving the helper in a confusing state. The early-raise turns the failure mode into a loud, parameterized exception with `errcode 22023` before the INSERT begins. The spec's only consumer passes `p_base='maya', p_count=99` which satisfies both bounds, so b1 behavior is unchanged; the guard is defensive against future callers (Phase 1 helpers may reuse this pattern with different bases). Anchored to Postgres constraint semantics — `ON CONFLICT … DO NOTHING` is unique-only per the SQL standard and the `pg_dump` documentation.
+
+**Disposition:** accepted-as-is — the guard is a pure precondition tightening; the spec's intent ("seed p_count rows successfully") is what's enforced, not the wording.
+
+## 2026-05-17 — T052 — Bootstrap script applies SQL files non-transactionally
+
+**What:** `bootstrap-eval-helpers.ts` `applyHelpers()` runs `await client.query(sql)` on each `.sql` file without wrapping the loop in `BEGIN/COMMIT`. M2 code-review flagged this as a robustness consideration; the build did not switch to a transaction wrapper.
+
+**Why:** Each helper file is independently idempotent (`create or replace function`, `create table if not exists`). A failure mid-loop leaves earlier files applied — but a re-run of `npm run eval:bootstrap` re-applies everything cleanly. Wrapping in a transaction would give all-or-nothing semantics, which is theoretically nicer, but Postgres CREATE FUNCTION + CREATE TABLE inside a single transaction with intervening `client.query(rawSqlBody)` runs into the libpq multi-statement quirk where a syntax error in file N suppresses statements N+1..M with no useful error position. Per-file application surfaces the failing file precisely. Anchored to the libpq multi-statement error-reporting behavior (one statement-level error wins; later statement-level errors are swallowed in the same `PQexec`). Trade-off accepted: partial-state visibility costs less than mystery-file-fails-with-no-position.
+
+**Disposition:** flag-for-spec-revision — the bootstrap-script header notes "each file applied non-transactionally; failure leaves earlier files applied" as a known property. If a future helper requires all-or-nothing application (e.g., a multi-file refactor where file 4 depends on file 3's commit state), reopen.
+
+## 2026-05-17 — T052 — Vitest mirror committed as plain-node sandbox runner
+
+**What:** `web/scripts/t052-sandbox-check.mjs` duplicates the regex set from `web/tests/eval-bootstrap.test.ts` in plain Node. Per T049's pattern (also T047/T048 inline), the sandbox mirror lives alongside the Vitest file rather than as a thin wrapper.
+
+**Why:** Vitest 4 + rolldown segfaults under Linux x86_64 in the build sandbox (BUILD-LOG T051 note). The plain-node mirror is the build-agent's only way to verify red/green inside the sandbox without booting Vitest. Pattern established by T049; T052 extends it. Anchored to BUILD-LOG.md T051 § "Sandbox note."
+
+**Disposition:** accepted-as-is — duplication is the convention until a shared regex inventory exists. Future ticket can refactor; until then, parallel test pair is the right shape.
+
 ## 2026-05-17 — T050 — Fix-forward: NOT VALID FK incompatible with partitioned referencing tables
 
 **What:** The ticket § Acceptance Criteria mandates the two-step `not valid` + `validate constraint` pattern for both FK retrofits (`member_events_via_delegation_fkey` and `location_events_via_delegation_fkey`). Postgres rejects this with SQLSTATE 42809 ("cannot add NOT VALID foreign key on partitioned table") because both referencing tables are RANGE-partitioned on `created_at` per ADR-7's append-only invariant. Fix-forward: dropped the `not valid` qualifier and the second `validate constraint` statement; single `ADD CONSTRAINT ... FOREIGN KEY ... ON DELETE SET NULL;` per retrofit. Surfaced at runtime when the user ran `supabase db reset`; build-side file-shape tests passed because they regex-matched the SQL text without exercising Postgres.
