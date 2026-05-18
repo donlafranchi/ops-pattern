@@ -18,7 +18,9 @@ Project-agnostic build-agent skill. Pure TDD execution.
 - Never roll back commits. Fix forward.
 - Escalate spec divergence — do not improvise.
 - One ticket at a time. Stage only ticket-related files.
-- Commit to the app repo only (if two-repo setup, never to parent).
+- **Start the ticket on its own branch:** `cd web && git switch -c t{nnn}` (or in parent for parent-repo work). Per CLAUDE.md Commit Rules.
+- **Do NOT run `git add` or `git commit`.** The sandbox can't clean up `.git/index.lock` and will wedge subsequent calls. Produce a commit summary instead; PM commits from Mac terminal. Per CLAUDE.md Commit Rules.
+- **Lock pre-flight at session start:** `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints, stop and ask PM to run `clearlock`.
 - Do NOT write tickets — `pipeline-ticket` does that. If you need a ticket that doesn't exist, hand back to `pipeline-ticket`.
 
 ## Workflow
@@ -41,11 +43,11 @@ These are not code; do not write them by hand. Each skill has a SKILL.md you mus
 
 ## Hand off
 
-**You produced:** code + tests in the app repo, an updated ticket (Status `Complete`, Completion section filled), an updated `BUILD-LOG.md`, and a one-line commit (`T{NNN}: {title}`).
+**You produced:** code + tests in the app repo on branch `t{nnn}`, an updated ticket (Status `Complete`, Completion section filled), an updated `BUILD-LOG.md`, and a **commit summary** for the PM (repo, branch, file list, suggested message `T{NNN}: {title}`). You do NOT commit — PM commits from Mac terminal and pastes back the hash for you to backfill into the ticket.
 
 **Next skill:** `pipeline-eval` (run mode) — runs the F### evals associated with the scenario this ticket served, reports pass/fail traceably. On fail, hands back to this skill to fix forward.
 
-**Pipeline-eval expects:** the ticket is in `development/tickets/done/`, the commit is in the app repo, and `BUILD-LOG.md` reflects the new state.
+**Pipeline-eval expects:** the ticket is in `development/tickets/done/`, the commit is in the app repo on branch `t{nnn}`, and `BUILD-LOG.md` reflects the new state.
 
 ## Related skills
 - `pipeline-ticket` — upstream; produces the tickets you implement.

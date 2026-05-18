@@ -185,11 +185,20 @@ Read before working in the named area. The pipeline skills already know to read 
 
 ## Commit Rules
 
-- Working in `web/` → commit to web repo (`cd web && git commit`).
-- Working in `product/`, `planning/`, `development/` → commit to parent repo.
+**Branch per ticket.** Every ticket starts on its own branch — `cd web && git switch -c t{nnn}` (or in parent for parent-repo work). PM merges to `main` at ticket close. Branch name `t{nnn}` is the convention; matches the ticket number, no zero-padding.
+
+**Commits live with the PM, not the agent.** The build agent does NOT run `git add` or `git commit`. The Cowork sandbox can't reliably clean up `.git/index.lock` after git operations (see [`notes/cowork-sandbox-git-bug.md`](notes/cowork-sandbox-git-bug.md)), which wedges subsequent agent calls and forces the PM to intervene. Instead, the build agent ends the ticket by producing a **commit summary** — repo, branch, file list, and suggested message — and the PM runs the commit from the Mac terminal. PM then pastes back the commit hash for the agent to backfill into the ticket's Completion section.
+
+**Lock pre-flight.** Before any read-or-write work, the build agent runs `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` before proceeding. Do not attempt to remove the lock — the sandbox lacks the permission.
+
+**Format.** `T{NNN}: {title}` — one-line, no body, no co-author tag. When PM commits a single file, prefer the single-call form `git commit -m "T{NNN}: {title}" path/to/file` over `git add` + `git commit` to halve the lock-acquisition window.
+
+**Where to commit.**
+- Working in `web/` → web repo.
+- Working in `product/`, `planning/`, `development/`, `skills/` → parent repo.
 - Never cross-commit.
-- Format: `T{NNN}: {title}` — one-line, no body, no co-author tag.
-- Pipeline-doc changes (this file, AGENTS.md, PIPELINE-AUDIT.md) commit with `docs(pipeline): {what}` — no T-number.
+
+**Pipeline-doc changes** (this file, AGENTS.md, PIPELINE-AUDIT.md, skill workflows) commit with `docs(pipeline): {what}` — no T-number.
 
 ## Language & Framing
 
