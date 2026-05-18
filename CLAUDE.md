@@ -12,6 +12,7 @@
 - **Active bundle:** [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) (Primitives MVP).
 - **Active rebuild:** [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
 - **Pipeline audit:** [`planning/PIPELINE-AUDIT.md`](planning/PIPELINE-AUDIT.md) (read once at session start when revisiting process).
+- **ADR home:** [`planning/adrs/`](planning/adrs/) — one file per ADR, indexed from [`planning/DECISIONS.md`](planning/DECISIONS.md). Format and lifecycle in [`planning/adrs/README.md`](planning/adrs/README.md). Use the `pipeline-adr` skill to write a new one.
 
 ## North Star — The Loops
 
@@ -83,6 +84,7 @@ Pipeline-skills triggers (project-resident, in [`skills/`](skills/)). Match the 
 | "scaffold a new project" | `pipeline-scaffold` | — |
 | "prune the journal", "DECISIONS.md is heavy", "what should we memorialize", "rotate the journal" | `pipeline-prune` | meta |
 | "intent check on F###/system X/ADR-N", "audit Intent annotations", "scan DECISIONS for intent gaps" | `pipeline-intent-check` | meta |
+| "write an ADR for X", "record this decision", "ratify ADR-N", "supersede ADR-M", "what's the next ADR number" | `pipeline-adr` | meta |
 | "clarify the absolutes in {file}", "review every never-statement", "every absolute needs intent", "go over the won't/doesn't statements" | `pipeline-clarify-absolutes` | meta |
 | "review this absolute", "should this be an absolute", "audit our absolutes", "is this earned", "decide or defer on X", "review F### intents" | `pipeline-review-absolute` | meta / 3.5 (ticket-time) |
 | "what's the Member view on this", "advocate for the Member", "what does the Member lose here" | `pipeline-member-advocate` | meta |
@@ -151,6 +153,8 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/MAP.md`](product/MAP.md) | Anytime you need the 100k-foot view — one sentence per system, alignment-check list at the bottom |
 | [`AGENTS.md`](AGENTS.md) | Anything pipeline — read/write firewalls, gates, escalation |
 | [`planning/PIPELINE-AUDIT.md`](planning/PIPELINE-AUDIT.md) | Process questions; understanding why the gates exist |
+| [`planning/DECISIONS.md`](planning/DECISIONS.md) | The ADR pointer index — every architectural decision, current status, file path. Read first when looking up any "is there a decision about X?" |
+| [`planning/adrs/`](planning/adrs/) | The canonical home for every ADR. Format and lifecycle in [`adrs/README.md`](planning/adrs/README.md). |
 | [`product/foundation/loops.md`](product/foundation/loops.md) | North-star check — does this serve a loop? |
 | [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |
 | [`product/foundation/people-first.md`](product/foundation/people-first.md) | Anything that risks treating a business as more important than the people doing the work |

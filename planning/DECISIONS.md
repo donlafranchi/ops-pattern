@@ -1,6 +1,8 @@
-# DECISIONS.md — Architectural Decisions
+# DECISIONS.md — Architectural Decisions (pointer index)
 
-> **Current shape only.** This file states what's true now. Context paragraphs ("why we considered this") and superseded entries are intentionally pruned — the decision body stands without rehearsing the problem.
+> **This file is the canonical index, nothing more.** One line per ADR, current status, file path. The full text of every ADR lives in [`adrs/`](adrs/). Spec banners and foundation/UI/ops docs carry decision summaries for in-context reading; the canonical record is the file in `adrs/`.
+>
+> Format guidance and lifecycle: [`adrs/README.md`](adrs/README.md).
 >
 > Archives:
 > - [`archive/DECISIONS-superseded-2026-05-10.md`](archive/DECISIONS-superseded-2026-05-10.md) — full text of ADRs that have been superseded (3, 8, 11)
@@ -14,180 +16,49 @@ Foundation reading before any new decision: [`loops.md`](../product/foundation/l
 
 ## Where decisions live
 
-A decision lives where it is *read*. Three homes; pick the right one when writing a new ADR.
+Every ADR has a file in [`adrs/`](adrs/). The file's home varies by where the long-form prose is most useful to read:
 
-1. **System spec** (`product/systems/{spec}.md`) — when the decision shapes one primitive or one system. The spec's status banner *is* the load-bearing ratification when no formal ADR is written yet (precedent: `groups.md`, `location.md`). The spec carries a "Decisions encoded here" footer; this file carries only a one-line pointer.
-2. **Foundation / UI / operations doc** (`product/foundation/{doc}.md`, `product/ui/{doc}.md`, `notes/{doc}.md`, `web/CLAUDE.md`) — when the decision *is* a foundational principle, a UI principle, a tech-stack reality, or an operational contract that the doc already exists to encode. Same pattern: the doc owns the decision in long form; this file carries only a pointer.
-3. **Cross-cutting (this file)** — when the decision touches many specs and has no single owner. Keep it terse: Status + Decision + Consequences + Date. **No Context paragraph** — the decision body must stand on its own.
+1. **Cross-cutting** — full text in `adrs/ADR-{NNNN}-{slug}.md`. The file *is* the canonical record. Examples: ADR-4, ADR-15, ADR-16, ADR-17, ADR-18, ADR-19.
+2. **Spec-resident** — long-form text lives in a `product/systems/{spec}.md` (the spec's status banner is the user-facing ratification); the ADR file in `adrs/` carries the summary + cross-reference. Examples: ADR-5 (`item.md`), ADR-7 (`action-layer.md`), ADR-13 (`groups.md`), ADR-14 (`location.md`).
+3. **Foundation/UI/ops-resident** — long-form text lives in a foundation, UI, or ops doc; the ADR file in `adrs/` carries the summary + cross-reference. Examples: ADR-1 (`web/CLAUDE.md`), ADR-2 (`design-language.md`), ADR-6 (`agent-assistance.md`), ADR-9 (`policy-framework.md`).
 
-## Format (cross-cutting ADRs)
+In all three patterns, **this file (`DECISIONS.md`) is the only index agents need to know about** and **every ADR has a file in `adrs/`**. The differentiator is where the load-bearing prose lives.
 
-```markdown
-### ADR-{N}: {Title}
-
-**Status:** Accepted | Refined-by-ADR-N | Superseded (→ archive)
-
-**Decision:** What we decided. Terse. No "we considered X, Y, Z."
-
-**Consequences:** What downstream work and constraints this creates.
-
-**Date:** YYYY-MM-DD
-```
+How to write a new ADR: [`adrs/README.md`](adrs/README.md) § "How to add a new ADR." The `pipeline-adr` skill walks you through it.
 
 ---
 
-## Cross-cutting decisions (full text)
+## Pointer index — all ADRs
 
-Decisions here have no single-spec home and no foundation/UI/ops doc carries them.
+| ADR | Status | Canonical file | Home doc (load-bearing prose) | Shape now |
+|---|---|---|---|---|
+| ADR-1 | Accepted | [`adrs/ADR-0001-tech-stack.md`](adrs/ADR-0001-tech-stack.md) *(pending file creation)* | [`web/CLAUDE.md`](../web/CLAUDE.md) — "Tech Stack" section | Next.js (App Router) + TypeScript + Tailwind v4 + Supabase + Mapbox GL JS. Playwright for evals, Vitest for unit. Deploy on Vercel. |
+| ADR-2 | Accepted | [`adrs/ADR-0002-bottom-anchored-ui.md`](adrs/ADR-0002-bottom-anchored-ui.md) *(pending file creation)* | [`design-language.md`](../product/ui/design-language.md) — Principles #6 + Surface patterns | Bottom-anchored, mobile-first, thumb-reachable. Primary controls anchor to viewport bottom; search bar expands upward; detail cards slide up; nav (when present) sits at the bottom. No top-anchored toolbars. Follow Google Maps / Apple Maps interaction patterns. |
+| ADR-3 | **Superseded by ADR-13** | [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-3-maker-profile-is-implicit-not-claimed) | (rejected) | The implicit-from-behavior Maker model. Superseded by ADR-13 (Groups consolidation) + the 2026-05-12 amendment (no Member-level mode at all). |
+| ADR-4 | Accepted | [`adrs/ADR-0004-locality-default.md`](adrs/ADR-0004-locality-default.md) | (cross-cutting — file is canonical) | Default locality = geolocate, then city-pick, mutable from any surface. Anonymous Home cookie; authenticated `members.home_location_id`. Multi-Location belonging via `member_location_affinities` is additive substrate. |
+| ADR-5 | Accepted | [`adrs/ADR-0005-markets-as-gathering-items.md`](adrs/ADR-0005-markets-as-gathering-items.md) *(pending file creation)* | [`item.md`](../product/systems/item.md) — gathering kind | A market is a Gathering Item; categories distinguish kinds (farmers-market, swap, class, run-club, movie-night, etc.) via `item_tags`. |
+| ADR-6 | Accepted, refined by ADR-9 | [`adrs/ADR-0006-agent-assistance.md`](adrs/ADR-0006-agent-assistance.md) *(pending file creation)* | [`agent-assistance.md`](../product/foundation/agent-assistance.md) — umbrella · [`delegation.md`](../product/systems/delegation.md) / [`assistant-context.md`](../product/systems/assistant-context.md) / [`skills.md`](../product/systems/skills.md) — per-primitive | Agent assistance is first-class. Three primitives (Delegation, Assistant Context, Skills). Five umbrella commitments: loop-shaped not role-shaped · standing-derived persistence · read-automatable, write-confirmed · Member-owned · federation-portable. b1 ships substrate only. |
+| ADR-7 | Accepted (graduated to spec-resident 2026-05-11) | [`adrs/ADR-0007-action-layer.md`](adrs/ADR-0007-action-layer.md) *(pending file creation)* | [`action-layer.md`](../product/systems/action-layer.md) — entire document | The action layer is the single canonical write surface. Named, schema-validated, transactional handlers; same-transaction row+event commit; audit fields populated inside the handler; system Member as the platform actor. The runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution) is enforced here. Web composer, in-app assistant, MCP server, and federation peers are all thin clients over the same handlers. |
+| ADR-8 | **Superseded by ADR-13** | [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-8-member-operations-supersedes-adr-3s-derived-maker_signal) | (retired) | `member_operations` primitive retires. Capacities (sole-prop / partner / staff / cooperative-member / volunteer-organizer) are now kind='business' Group memberships. |
+| ADR-9 | Accepted (anti-Nextdoor framing softened 2026-05-12) | [`adrs/ADR-0009-policy-framework.md`](adrs/ADR-0009-policy-framework.md) *(pending file creation)* | [`policy-framework.md`](../product/foundation/policy-framework.md) — entire document | Three-filter test (helpful? harmless? abuse-resistant?) · opt-out default · "Policy posture" required on every spec touching privacy/revenue/data sharing · anti-Nextdoor design intent (messaging item-or-group at b1; Location-scoped surfaces designed carefully when they appear; push-back-on-complaint-only behavior; fix-it path offered not forced). ADR-16 RLS commitment on `member_location_affinities` stays as the hard architectural floor inside ADR-9's scope. |
+| ADR-10 | **Superseded by ADR-19** (surviving invariants consolidated into ADR-7) | (consolidated) | ADR-7 (action layer + atomicity) · [`item.md`](../product/systems/item.md) (view refresh) · [`migration-to-primitives.md`](../notes/migration-to-primitives.md) (system Member, observability) | The original ADR-10 (migration transactional model — dual-write, backfill, rollback, 2-week verification window) was retired when the 2026-05-10 PM decision flipped to a clean-slate rebuild (ADR-19). Surviving invariants moved to ADR-7. |
+| ADR-11 | **Superseded by ADR-13** | [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-11-cooperative-is-a-separate-entity-from-community) | (deferred until real-world need) | Cooperative-style coordination deferred until real-world cooperative operations create a clear need + the user explicitly prioritizes building them. kind='business' Groups with multiple owner-role memberships serve the cooperative-shape use case; schema reservations from the prior ADR-11 stand as current-scope decisions. |
+| ADR-12 | **Superseded by ADR-13** 2026-05-12 | [`member.md`](../product/systems/member.md) status banner; [`groups.md`](../product/systems/groups.md) | Maker "mode" framing retired. `members.maker_mode_enabled` column dropped. Selling tools surface from Group membership (kind='business') and Item kind (`product` / `service`), not from a Member-level boolean. Vocabulary: **Seller** generically; **Producer** in ag/food context. |
+| ADR-13 | Accepted | [`adrs/ADR-0013-groups-consolidation.md`](adrs/ADR-0013-groups-consolidation.md) | [`groups.md`](../product/systems/groups.md) status banner | Group consolidation. Community / Member Operations / Cooperative absorbed into one Group primitive (spine + child architecture, six kinds at b1: five affiliate + one operate). |
+| ADR-14 | Accepted | [`adrs/ADR-0014-location-spine-child.md`](adrs/ADR-0014-location-spine-child.md) | [`location.md`](../product/systems/location.md) status banner | Location spine + child architecture. `location_permanent`, `location_recurring_temporary`, `location_areas`. PostGIS geography on spine. Three kinds locked at create. |
+| ADR-15 | Accepted | [`adrs/ADR-0015-members-auth-pk-equality.md`](adrs/ADR-0015-members-auth-pk-equality.md) | (cross-cutting — file is canonical) | `public.members.id = auth.users.id`; PK equality; Supabase Auth is the only path to Member creation; trigger → HMAC-signed → internal route → `member.create` action handler. |
+| ADR-16 | Accepted | [`adrs/ADR-0016-affinity-row-privacy.md`](adrs/ADR-0016-affinity-row-privacy.md) | (cross-cutting — file is canonical) | Per-row privacy on `member_location_affinities`; owner-only at row level; algorithms via three named SECURITY DEFINER access patterns (count functions, locality derivation, backend service reads). |
+| ADR-17 | Accepted 2026-05-12 | [`adrs/ADR-0017-bounded-purchase-scope.md`](adrs/ADR-0017-bounded-purchase-scope.md) | (cross-cutting — file is canonical) · [`delegation.md`](../product/systems/delegation.md) · [`payments.md`](../product/systems/payments.md) · [`action-layer.md`](../product/systems/action-layer.md) · [`agent-assistance.md`](../product/foundation/agent-assistance.md) · [`policy-framework.md`](../product/foundation/policy-framework.md) · [`skills.md`](../product/systems/skills.md) | `bounded_purchase` Delegation scope — agent-mediated one-time purchases within Member-stated caps + `recipient_scope` + `category_scope` + reversibility window + first-recipient confirmation. Schema-enforced. |
+| ADR-18 | Accepted 2026-05-17 | [`adrs/ADR-0018-eval-helpers.md`](adrs/ADR-0018-eval-helpers.md) | (cross-cutting — file is canonical) | Eval helpers live in `web/supabase/test-helpers/` (not `migrations/`), applied by `npm run eval:bootstrap` with localhost-only guard. Helper 5 reproduces ADR-7's same-transaction invariant in plpgsql (Path A), not via failure-injection on the Node handler. |
+| ADR-19 | Accepted 2026-05-10 | [`adrs/ADR-0019-clean-slate-rebuild.md`](adrs/ADR-0019-clean-slate-rebuild.md) | [`notes/migration-to-primitives.md`](../notes/migration-to-primitives.md) — long-form phase plan | Clean-slate rebuild on Person / Item / Location / Group primitives. Replace data layer; preserve framework foundation. Four phases. No dual-write, no backfill, no rollback (no live system to protect). Supersedes the original ADR-10 migration plan. |
 
-### ADR-17: `bounded_purchase` Delegation scope — agent-mediated one-time purchases within Member-stated bounds
-
-**Status:** Accepted (introduced 2026-05-12 via `agent-commerce-and-project-amendments.md` §8b)
-
-**Decision:**
-
-A new monetary-flow Delegation scope, `bounded_purchase`, authorizes a Member's assistant (or a subscribed Skill) to find and complete one-time purchases on the Member's behalf within stated bounds. The scope is schema-enforced (not policy-enforced): every Delegation row carries the required fields, and the action-layer handler validates each field against the live grant on every execution.
-
-Required schema fields per Delegation (no nullable):
-- `max_per_transaction_cents` — absolute cap per individual purchase
-- `max_per_period_cents` — rolling cap per period
-- `period_window` — period the rolling cap applies over (day / week / month / year)
-- `recipient_scope` — one or more of: `community_members`, `locality`, `specific_members`, `specific_groups`, `external_recipients`. Non-empty
-- `category_scope` — Item kind/category filter; required where the recipient is a Member or Group
-- `expires_at` — required (default subject to deep-dive ratification per the §7a Pending Ratifications list)
-- `reversibility_window_hours` — buyer's-remorse window; default 24–72 hours configurable at grant time
-- `first_recipient_confirmation` — boolean, default true
-- `prefer_local` — boolean, default true
-
-Required execution semantics:
-- Any transaction exceeding caps, scope, or category → auto-blocked at the action layer; surfaced as re-confirm.
-- Per-execution event: `delegation.bounded_purchase_executed` (records `amount_cents`, `recipient_ref`, `recipient_kind`, `item_id`, `caps_in_force`, `via_delegation_id`).
-- Reversal within the reversibility window: one-tap; writes `delegation.bounded_purchase_reversed`; recipient notified.
-- Both buyer and seller are identified in the audit trail. The agent (or Skill) is recorded as `via_delegation_id`, not as a party.
-- Caps and scope are immutable by the agent — only the Member can change them, via re-grant.
-
-**Consequences:**
-
-- `delegation.md` Policy posture carries the full `bounded_purchase` opt-in section (parallel to `recurring_payment`) with the three-filter analysis. Rules in / Rules out updated.
-- `action-layer.md` adds `delegation.bounded_purchase` to the closed-world scope catalog with handler invariants (cap enforcement, recipient validation against `recipient_scope`, category validation against `category_scope`, first-recipient-confirmation gate, reversibility-window state seeding, per-execution audit).
-- `agent-assistance.md` rewrites the money-flow umbrella commitment to name `recurring_payment` + `bounded_purchase` as the two schema-enforced monetary-flow scopes; pledges remain Member-direct.
-- `member.md` Delegation-scopes Policy posture mentions both scopes; the prior "categorically not delegable for one-time payments and pledges" framing is retired.
-- `policy-framework.md` ADR-9 status table includes `bounded_purchase` in the concrete opt-in shapes.
-- `skills.md` declarable-scopes vocabulary includes `bounded_purchase`; Rules in adds the "find local eggs and buy them" pattern.
-- `payments.md` Integration with agent commerce section is the rail for honoring this scope; the rail decision (closed-loop + chartered-partner ACH at b2) makes the scope economical at agent scale.
-- The introducing authority is `agent-commerce-and-project-amendments.md` §8b. That amendment is temporary; this ADR (plus the per-spec edits it ratifies) is the permanent record.
-- This ADR forecloses a path where agent-mediated one-time monetary actions are categorically refused. Other monetary scopes (variable invoicing, agent-initiated refunds, pledge scopes) still require their own three-filter analysis and ADR before introduction.
-
-**Date:** 2026-05-12
-
----
-
-### ADR-16: Per-row privacy on `member_location_affinities`; algorithms via privileged paths
-
-**Status:** Accepted
-
-**Decision:**
-
-All six `affinity_kind` values on `public.member_location_affinities` (`lives`, `works`, `plays`, `visits`, `follows`, `liked`) are **owner-only at the row level**. Only the owner (`member_id = auth.uid()`) can `SELECT` their own rows. No public user, anon visitor, or peer Member can `SELECT` another Member's affinity rows under any condition.
-
-Privileged access to the underlying rows is provided through three named patterns:
-
-1. **Aggregate count functions** (`SECURITY DEFINER`): `public.count_likes_for_location(location_id uuid) returns integer` and `public.count_followers_for_location(location_id uuid) returns integer`. Public-callable. Used by Location pages for "N Members liked / follow this place" rollups. Underlying rows remain private.
-
-2. **Locality-derivation function** (`SECURITY DEFINER`): `public.member_is_local_to_location(member_id uuid, location_id uuid) returns boolean`. Reads `lives` and `works` rows internally. Used by `groups.md`'s locally-owned-and-operated derivation. Public-callable. The function is the only path; direct `SELECT` against another Member's `lives`/`works` rows remains blocked.
-
-3. **Backend service reads** (`service_role`): the recommendation engine, embedding pipeline, and other backend services connect with the service-role key, which bypasses RLS. These reads compute over the full row set; outputs to users are anonymized aggregates (similarity-driven recommendations, taste-matched location lists), never per-Member attribution.
-
-**Consequences:**
-
-- `member.md` RLS section adopts the owner-only posture for `member_location_affinities` and points to this ADR for the SECURITY DEFINER access patterns.
-- `groups.md` locally-owned derivation switches from a direct `JOIN` against `member_location_affinities` to a call into `public.member_is_local_to_location()`. The function is the only path; the spec's pseudocode updates accordingly.
-- `policy-framework.md` anti-doxxing section is upgraded — the no-Location-messaging commitment and the absence of per-Member location disclosure become structurally enforced by RLS, not by platform discipline.
-- Public Location-page rollups call the two count functions. They do not `SELECT` rows.
-- Cross-user similarity matching for recommendations operates at the backend-service layer. Raw affinity rows feed the embedding pipeline; embeddings (`member_embeddings`, T041) feed similarity search; outputs to users are anonymized lists of Locations. Per-Member identity never surfaces in a recommendation. **No per-Member opt-out for similarity matching ships** — similarity matching discloses no Member identity to any other Member; the benefit is to many and harms none.
-- `product/systems/business-jurisdiction.md` (promoted from exploration 2026-05-11) Tier 0 ZIP verification follows the same SECURITY DEFINER pattern (`public.zip_is_proximal_to_location()`) when it ships.
-- Performance: the `SECURITY DEFINER` function-call costs microseconds per locality check. A set-returning variant (`members_local_to_area(area)`) can land at T2+ if hot.
-- This ADR forecloses a future per-row "who likes / follows this place" surface. If the platform ever wants to expose that, the change requires either a new SECURITY DEFINER function or relaxing the policy. Reversible but with cost; the foreclosure is the point.
-
-**Date:** 2026-05-11
-
----
-
-### ADR-15: `public.members.id = auth.users.id`; Supabase Auth is the only path to Member creation
-
-**Status:** Accepted
-
-**Decision:**
-
-Every `public.members` row has `id = auth.users.id` — PK equality, 1:1, lifetime-stable. There is no separate `auth_user_id` foreign key on `members`; the PK *is* the auth coupling. RLS policies across the schema reference `auth.uid()` directly and resolve owner-of-row by equality against `members.id`.
-
-The **only** path to a `public.members` row is the post-signup trigger on `auth.users`. The trigger (`on_auth_user_created`, AFTER INSERT) fires a `SECURITY DEFINER` function (`handle_new_auth_user`) that POSTs an HMAC-SHA256-signed payload to an internal Next.js route (`/api/internal/auth-signup`); the route validates the signature, resolves an `ActionContext` with `actingMemberId = 'self-bootstrap'`, and invokes the `member.create` action handler. The action handler is the same canonical write path the rest of the platform uses (per ADR-7). No code path other than the trigger creates Member rows — there is no admin "create user" surface, no seed script that inserts directly into `members`, no Supabase Dashboard write.
-
-The system Member (the platform's actor for ADR-7 audit fields) is an exception: it is inserted directly during the floor migration and carries `login_disabled = true` so the trigger's defensive skip recognizes it as not-a-real-human.
-
-Idempotency is enforced by the `members.id` unique constraint (which is the PK). A retried trigger call resolves to `ConflictError → HTTP 409` and is logged, not retried at the action layer.
-
-**Consequences:**
-
-- `member.md` Identity section encodes "One Member per real human" as PK equality; the Integration Points line "**Auth** — `members.id = auth.users.id`; Supabase Auth is the identity floor" is the load-bearing surface. The ADR-15 reference belongs in `member.md`'s "Decisions encoded" header (added 2026-05-11).
-- Every RLS policy in the schema written against `auth.uid()` is correct without an extra lookup: `auth.uid() = members.id` and `auth.uid() = owner_member_id` resolve directly. The schema does not need a `select id from members where auth_user_id = auth.uid()` subquery anywhere — earlier tickets that used that pattern (T028, T029, T030, T033, T034) are stale and superseded by the PK-equality pattern landed in T042+.
-- Member creation is asynchronous from the auth event. `pg_net.http_post` is async; the Next.js route returns 200 long after the auth signup commits. Failure modes:
-  - **Hook unreachable.** No `members` row gets created. Mitigated by (a) a nightly reconciliation sweep deferred to Phase 1 (per `notes/migration-to-primitives.md`); (b) an ops alert when `auth.users` count diverges from `members` count by >1% or >10 rows.
-  - **Signature invalid.** HTTP 401, no row, no retry. The trigger swallows the failure; the reconciliation sweep is the recovery path.
-  - **Action handler error.** `ConflictError → 409` (idempotent retry observed; no-op), `ValidationError → 400` (logged; no row), `UnknownError → 500` (logged; the reconciliation sweep picks it up).
-- The trigger is read-coupled to Supabase Vault secrets (`auth_signup_hook_url`, `auth_signup_hook_secret`). The `postgres` role cannot `ALTER DATABASE ... SET app.*` on Supabase-hosted projects — Vault is the documented Supabase pattern. Quarterly secret rotation per ADR-9; the rotation runbook lives in `notes/`.
-- The PK-equality choice forecloses a Supabase-replacement path that uses a non-Supabase auth provider. If the platform ever migrates off Supabase Auth (e.g., to a self-hosted Postgres + custom auth), `members.id` becomes the system-of-record and a new `auth_provider_id` column carries the foreign identity. The migration is non-trivial but bounded — every `auth.uid()` reference becomes a session-derived `members.id`. Reversible with cost; the foreclosure is acceptable for b1.
-- The PK-equality also makes the schema **federation-portable** at b3 (per Loop 13). A spawned platform with its own Supabase project can mirror a Member by mirroring the PK; the audit-field chain (acting_member_id, via_delegation_id) stays coherent across boundaries.
-- `T044` (the build-side ratification) is `done`. T042 + T043 + T044 together are the Phase 0 floor for this ADR. No further ticket is required to ratify; this ADR documents the decision that those tickets implemented.
-
-**Date:** 2026-05-11
-
----
-
-### ADR-4: Locality default — geolocate, then city-pick, mutable from any surface
-
-**Status:** Accepted
-
-**Decision:**
-The default locality is the user's geolocation, if granted. If denied or unavailable, the platform prompts for a city pick (Sacramento metro and surrounding cities at launch, expandable). The chosen locality is mutable — the user can change it at any time, both for moves and travel. The change affordance is visible from surfaces that depend on locality (Home, Explore), not buried in `/you` only.
-
-**Consequences:**
-- Anonymous Home triggers a one-time geolocation prompt; decision persists in a cookie.
-- Authenticated Members get the same flow on first sign-up; choice writes to `members.home_location_id` and remains editable.
-- Locality affordance lives in or near the bottom-anchored search per ADR-2.
-- Multi-locality ("home + while traveling") is a T3 concern; at b1 it's a single mutable scope.
-- Privacy: geolocation is requested but never required. The city-pick fallback must always be available.
-- Multi-Location belonging (member living/working/playing/following multiple Locations) is a separate substrate — `member_location_affinities` per [`member.md`](../product/systems/member.md). `home_location_id` is the locality default; affinities are additive.
-
-**Date:** 2026-05-08
-
----
-
-## Pointer index — decisions that live in their home doc
-
-| ADR | Status | Lives in | Shape now |
-|---|---|---|---|
-| ADR-1 | Accepted | [`web/CLAUDE.md`](../web/CLAUDE.md) — "Tech Stack" section | Next.js (App Router) + TypeScript + Tailwind v4 + Supabase + Mapbox GL JS. Playwright for evals, Vitest for unit. Deploy on Vercel. |
-| ADR-2 | Accepted | [`design-language.md`](../product/ui/design-language.md) — Principles #6 + Surface patterns | Bottom-anchored, mobile-first, thumb-reachable. Primary controls anchor to viewport bottom; search bar expands upward; detail cards slide up; nav (when present) sits at the bottom. No top-anchored toolbars. Follow Google Maps / Apple Maps interaction patterns. |
-| ADR-3 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-3-maker-profile-is-implicit-not-claimed) · live successor: [`member.md`](../product/systems/member.md) | (rejected) | The implicit-from-behavior Maker model. Now superseded by the 2026-05-10 Groups ratification (selling tools surface from kind='business' Group membership) and the 2026-05-12 amendment (no Member-level mode at all). |
-| ADR-5 | Accepted | [`item.md`](../product/systems/item.md) — gathering kind | A market is a Gathering Item; categories distinguish kinds (farmers-market, swap, class, run-club, movie-night, etc.) via `item_tags`. |
-| ADR-6 | Accepted, refined by ADR-9 | [`agent-assistance.md`](../product/foundation/agent-assistance.md) — umbrella · [`delegation.md`](../product/systems/delegation.md) / [`assistant-context.md`](../product/systems/assistant-context.md) / [`skills.md`](../product/systems/skills.md) — per-primitive | Agent assistance is first-class. Three primitives (Delegation, Assistant Context, Skills). Five umbrella commitments: loop-shaped not role-shaped · standing-derived persistence · read-automatable, write-confirmed · Member-owned · federation-portable. b1 ships substrate only. |
-| ADR-7 | Accepted (graduated to spec-resident 2026-05-11) | [`action-layer.md`](../product/systems/action-layer.md) — entire document | The action layer is the single canonical write surface. Named, schema-validated, transactional handlers; same-transaction row+event commit; audit fields populated inside the handler; system Member as the platform actor. The runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution) is enforced here. Web composer, in-app assistant, MCP server, and federation peers are all thin clients over the same handlers. |
-| ADR-8 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-8-member-operations-supersedes-adr-3s-derived-maker_signal) · live successor: [`groups.md`](../product/systems/groups.md) | (retired) | `member_operations` primitive retires. Capacities (sole-prop / partner / staff / cooperative-member / volunteer-organizer) are now kind='business' Group memberships. |
-| ADR-9 | Accepted (anti-Nextdoor framing softened 2026-05-12 per `agent-commerce-and-project-amendments.md` §4) | [`policy-framework.md`](../product/foundation/policy-framework.md) — entire document | Three-filter test (helpful? harmless? abuse-resistant?) · opt-out default · "Policy posture" required on every spec touching privacy/revenue/data sharing · anti-Nextdoor design intent (messaging item-or-group at b1; Location-scoped surfaces designed carefully when they appear; push-back-on-complaint-only behavior; fix-it path offered not forced). ADR-16 RLS commitment on `member_location_affinities` stays as the hard architectural floor inside ADR-9's scope. |
-| ADR-10 | Consolidated into ADR-7 (2026-05-10) | ADR-7 (action layer + atomicity) · [`item.md`](../product/systems/item.md) (view refresh) · [`migration-to-primitives.md`](../notes/migration-to-primitives.md) (system Member, observability) | The original ADR-10 (migration transactional model — dual-write, backfill, rollback, 2-week verification window) was retired when the 2026-05-10 PM decision flipped to a clean-slate rebuild. Surviving invariants moved to ADR-7. |
-| ADR-11 | **SUPERSEDED** — [archive](archive/DECISIONS-superseded-2026-05-10.md#adr-11-cooperative-is-a-separate-entity-from-community) · live successor: [`groups.md`](../product/systems/groups.md) (framing softened 2026-05-12) | (deferred until real-world need) | Cooperative-style coordination deferred until real-world cooperative operations create a clear need + the user explicitly prioritizes building them (per `agent-commerce-and-project-amendments.md` §2). No `cooperatives` / `cooperative_assets` tables, no `cooperative_cohort` Item kind, no `pledge_intent` response_kind — these architectural decisions stand as current-scope. Cooperative-shape use cases ship at b1 as kind='business' Groups with multiple owner-role memberships. |
-| ADR-12 | **SUPERSEDED** 2026-05-12 by `agent-commerce-and-project-amendments.md` §6 | [`member.md`](../product/systems/member.md) status banner; [`groups.md`](../product/systems/groups.md) | Maker "mode" framing retired. `members.maker_mode_enabled` column dropped. Selling tools surface from Group membership (kind='business') and Item kind (`product` / `service`), not from a Member-level boolean. Auto-flip prohibition dissolves with the mode itself. Vocabulary: **Seller** generically; **Producer** in ag/food context. |
-| ADR-13 | **Pending formal write-up** — banner is the ratification | [`groups.md`](../product/systems/groups.md) status banner | Group consolidation. Community / Member Operations / Cooperative absorbed into one Group primitive (spine + child architecture, six kinds at b1: five affiliate + one operate). |
-| ADR-14 | **Pending formal write-up** — banner is the ratification | [`location.md`](../product/systems/location.md) status banner | Location spine + child architecture. `location_permanent`, `location_recurring_temporary`, `location_areas`. PostGIS geography on spine. Three kinds locked at create. |
-| ADR-17 | Accepted 2026-05-12 | Cross-cutting (full text above) · [`delegation.md`](../product/systems/delegation.md) · [`payments.md`](../product/systems/payments.md) · [`action-layer.md`](../product/systems/action-layer.md) · [`agent-assistance.md`](../product/foundation/agent-assistance.md) · [`policy-framework.md`](../product/foundation/policy-framework.md) · [`skills.md`](../product/systems/skills.md) | `bounded_purchase` Delegation scope — agent-mediated one-time purchases within Member-stated caps + `recipient_scope` + `category_scope` + reversibility window + first-recipient confirmation. Schema-enforced. Introduced 2026-05-12 via `agent-commerce-and-project-amendments.md` §8b. |
-
-When a "pending" ADR gets its formal write-up, it can either (a) collapse into the spec's banner (preferred — the spec is already the load-bearing ratification) or (b) join the cross-cutting section above if its reach turns out to be broader than one spec.
+**"Pending file creation"** entries are spec-resident or foundation-resident ADRs whose canonical file has not yet been written. The spec banner / home doc carries the load-bearing ratification today; the ADR file will land as a summary + cross-reference per `adrs/README.md` § "What belongs here." This is a low-priority cleanup; the spec banners are sufficient until then.
 
 ---
 
 ## What was archived
 
-- 2026-05-11 — ADR-7 graduated from cross-cutting full-text to spec-resident in [`action-layer.md`](../product/systems/action-layer.md). The graduation expanded ADR-7 with the runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution) — the new content describes how the action layer *enforces* Delegation and Skill primitives at runtime, complementing the Member-facing primitive specs.
-- 2026-05-10 — ADR-3, ADR-8, ADR-11 moved to [`archive/DECISIONS-superseded-2026-05-10.md`](archive/DECISIONS-superseded-2026-05-10.md). Active ADRs trimmed of Context paragraphs; live single-system decisions moved to spec banners; live foundation/UI/ops decisions moved to their existing home docs (ADR-1 → `web/CLAUDE.md`, ADR-2 → `design-language.md`, ADR-6 → triple-homed across `delegation.md`/`assistant-context.md`/`skills.md`, ADR-9 → `policy-framework.md`, ADR-10 surviving invariants consolidated into ADR-7).
+- 2026-05-17 — DECISIONS.md restructured to pure pointer index. Full-text ADRs (4, 15, 16, 17) moved to dedicated files in `adrs/`. Pending ADRs (13, 14) given canonical files. Original ADR-10 plan formally superseded by new ADR-19 (clean-slate rebuild). `adrs/` directory + README + `_template.md` added per `pipeline-adr` skill.
+- 2026-05-11 — ADR-7 graduated from cross-cutting full-text to spec-resident in [`action-layer.md`](../product/systems/action-layer.md). The graduation expanded ADR-7 with the runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution).
+- 2026-05-10 — ADR-3, ADR-8, ADR-11 moved to [`archive/DECISIONS-superseded-2026-05-10.md`](archive/DECISIONS-superseded-2026-05-10.md). Active ADRs trimmed of Context paragraphs; live single-system decisions moved to spec banners; live foundation/UI/ops decisions moved to their existing home docs (ADR-1 → `web/CLAUDE.md`, ADR-2 → `design-language.md`, ADR-6 → triple-homed, ADR-9 → `policy-framework.md`, ADR-10 surviving invariants consolidated into ADR-7).
 - 2026-05-08 — Pre-mission-clarity DECISIONS.md preserved at [`archive/DECISIONS-pre-mission-clarity-2026-05-08.md`](archive/DECISIONS-pre-mission-clarity-2026-05-08.md). The dropped decision was the prior "Build b1 for Local Food Network Extensibility" framing.

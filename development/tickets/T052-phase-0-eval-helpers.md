@@ -1,7 +1,7 @@
 # T052 — Phase 0 eval helpers: provision the 7 RPCs `floor.spec.ts` waits on
 
 **Scenario:** None. Direct infrastructure unblock. Source: `web/evals/phase-0/floor.spec.ts` (T041–T044 verification spec) calls 7 helper RPCs that don't exist in `web/supabase/migrations/`, so the spec cannot run. The spec's own comments mark each missing helper with `"build provisions"` / `"build adds"` — this ticket lands those provisions.
-**Status:** Draft — awaiting `pipeline-review` PROCEED before build
+**Status:** Accepted — ADR-18 ratified 2026-05-17; ready for build
 **Bundle:** b1 (Phase 0 verification unblock — enables eval run-mode on T041–T044)
 **Depends on:** T041, T042, T043, T044, T051 (the schema and CI surfaces the helpers introspect). All five must have shipped build-side before this ticket starts; that is the case today.
 
@@ -52,7 +52,7 @@ npx playwright test evals/phase-0
 - [ ] New folder `web/supabase/test-helpers/` with one SQL file per logical group:
   - [ ] `00_introspection.sql` — `eval_pg_extensions`, `eval_table_shape`, `eval_is_partitioned`. Pure read-only inspections.
   - [ ] `01_conformance.sql` — `eval_conformance_check_result`. Reads from an `eval_artifacts` table populated by the bootstrap script.
-  - [ ] `02_action_failure_injection.sql` — `eval_member_create_with_failure_injection`. Forces a same-transaction event-log failure via a SECURITY DEFINER plpgsql function that exercises the rollback path the action handler relies on. **Note:** this helper does NOT call the Node handler; it reproduces ADR-10's same-transaction invariant in SQL so the spec verifies the invariant *as a property of the DB substrate*. The action handler's own rollback path is already covered by Vitest. See § Helper 5 design note below.
+  - [ ] `02_action_failure_injection.sql` — `eval_member_create_with_failure_injection`. Forces a same-transaction event-log failure via a SECURITY DEFINER plpgsql function that exercises the rollback path the action handler relies on. **Note:** this helper does NOT call the Node handler; it reproduces ADR-7's same-transaction invariant in SQL so the spec verifies the invariant *as a property of the DB substrate*. The action handler's own rollback path is already covered by Vitest. See § Helper 5 design note below; full rationale in ADR-18.
   - [ ] `03_handle_collisions.sql` — `eval_seed_handle_collision_range`, `eval_clear_handle_collision_range`.
 - [ ] New bootstrap script `web/scripts/bootstrap-eval-helpers.ts` that:
   - [ ] Refuses to run unless the `DATABASE_URL` resolves to `localhost` / `127.0.0.1` / `host.docker.internal` (or `SUPABASE_ENV=local` is set explicitly). Hard exit on any other host.
@@ -98,12 +98,12 @@ This helper exposes the result of `npm run check:action-layer` (T043 + T051's No
 
 #### Helper 5 — `eval_member_create_with_failure_injection(p_id uuid)`
 
-**Design note (load-bearing — read before coding):** the spec's docstring on this helper says "calls the same action handler with a forced event-log write failure." A faithful reading requires invoking the Node handler. But the eval-writer firewall (`floor.spec.ts` line 16) explicitly forbids the spec from importing `web/src/`, and the Postgres function can't directly invoke Node code without an HTTP hop. Two design paths:
+**Design note (load-bearing — read before coding; full rationale in ADR-18 Decision 2):** the spec's docstring on this helper says "calls the same action handler with a forced event-log write failure." A faithful reading requires invoking the Node handler. But the eval-writer firewall (`floor.spec.ts` line 16) explicitly forbids the spec from importing `web/src/`, and the Postgres function can't directly invoke Node code without an HTTP hop. Two design paths:
 
-- **Path A (pragmatic — recommended).** The helper reproduces ADR-10's same-transaction invariant **in SQL**: open a transaction, insert into `members`, force an exception in the event-log insert (e.g., violate the `acting_member_id NOT NULL` constraint by passing NULL), confirm the `members` row was rolled back. The spec then verifies the property — "members row + event-log row are written same-transaction, both rollback if either fails" — which is the invariant that matters. The action handler's own rollback path is covered separately by Vitest in `web/src/actions/__tests__/`.
-- **Path B (faithful).** Add a `?fail_mode=event_log` query param to `/api/internal/auth-signup`, gated to `NODE_ENV !== 'production'` and a test secret. The helper calls the route via `pg_net.http_post` and inspects the response + DB state. More code in the production surface (even gated) for marginal additional coverage.
+- **Path A (chosen — ratified in ADR-18 Decision 2).** The helper reproduces ADR-7's same-transaction invariant **in SQL**: open a transaction, insert into `members`, force an exception in the event-log insert (e.g., violate the `acting_member_id NOT NULL` constraint by passing NULL), confirm the `members` row was rolled back. The spec then verifies the property — "members row + event-log row are written same-transaction, both rollback if either fails" — which is the invariant that matters. The action handler's own rollback path is covered separately by Vitest in `web/src/actions/__tests__/`.
+- **Path B (rejected).** Add a `?fail_mode=event_log` query param to `/api/internal/auth-signup`, gated to `NODE_ENV !== 'production'` and a test secret. The helper calls the route via `pg_net.http_post` and inspects the response + DB state. More code in the production surface (even gated) for marginal additional coverage.
 
-**Pick Path A.** Document the choice in the migration body referencing this section. If a future ticket adds non-trivial side effects to the action handler's commit path that SQL-side reproduction can't cover, escalate to add Path B then.
+**Implement Path A.** Document the choice in the migration body referencing ADR-18. If a future ticket adds non-trivial side effects to the action handler's commit path that SQL-side reproduction can't cover, escalate to add Path B then.
 
 - [ ] `returns jsonb` — `{ rolledBack: boolean, membersRowRemaining: boolean }`.
 - [ ] Path A body (sketch — agent refines):
@@ -167,7 +167,7 @@ The helpers' own tests are minimal — they are themselves the eval surface. But
 
 **Why the bootstrap script is a hard guard, not a config-driven toggle.** The cost of accidentally applying `eval_seed_handle_collision_range` to production is high (99 garbage rows; FK contamination on member_events). The cost of the guard is one extra `npm run` step. The asymmetry justifies a hard fail over a configurable warning.
 
-**Why Path A on Helper 5.** ADR-10's invariant is "members row + event-log row write same-transaction, both rollback if either fails." That invariant is a property of the DB substrate — any well-formed action handler will respect it because plpgsql + the Node `pg.Pool` transaction wrapper both enforce it the same way. Verifying the property in SQL covers any handler that uses the substrate correctly. The Node-side coverage (Vitest) verifies the handler's specific commit sequencing. Together they pin the invariant from both ends.
+**Why Path A on Helper 5.** ADR-7's same-transaction invariant is "members row + event-log row write same-transaction, both rollback if either fails." That invariant is a property of the DB substrate — any well-formed action handler will respect it because plpgsql + the Node `pg.Pool` transaction wrapper both enforce it the same way. Verifying the property in SQL covers any handler that uses the substrate correctly. The Node-side coverage (Vitest) verifies the handler's specific commit sequencing. Together they pin the invariant from both ends. Full rationale in ADR-18 Decision 2.
 
 **Why no migration in `migrations/`.** Repeated for emphasis. If you find yourself reaching for `013_eval_helpers.sql`, stop. That is the failure mode this ticket exists to prevent.
 

@@ -8,6 +8,27 @@
 
 ---
 
+## 2026-05-17 — ADR organization restructured: `planning/adrs/` directory, full-text ADRs migrated, pending ADRs resolved, ADR-18 + ADR-19 landed, `pipeline-adr` skill drafted
+
+**What changed.** ADRs now live in `planning/adrs/`, one file per ADR. `DECISIONS.md` is pure pointer index. `notes/eval-helpers-architecture.md` retired (left as a redirect stub) → `ADR-0018-eval-helpers.md`. Pending banners (ADR-13 Groups consolidation, ADR-14 Location spine + child) now have canonical files. Rebuild plan promoted to `ADR-0019-clean-slate-rebuild.md` (the prior `notes/migration-to-primitives.md` long-form phase plan remains as ADR-19's home doc).
+
+**New scaffolding.** `planning/adrs/README.md` (format, lifecycle, "what belongs here" guidance). `planning/adrs/_template.md` (copyable shell). `skills/pipeline-adr/` (SKILL.md + workflow.md + templates/adr.md) — the canonical workflow for writing/ratifying/superseding ADRs. Routing entry added to root `CLAUDE.md`.
+
+**Cross-cutting full-text moved out of DECISIONS.md.** ADR-4 (locality default), ADR-15 (auth PK equality), ADR-16 (affinity row privacy), ADR-17 (bounded_purchase). DECISIONS.md keeps pointer rows; the canonical record lives in `adrs/`.
+
+**Stale references fixed in T052.** Three references to "ADR-10's same-transaction invariant" updated to "ADR-7's same-transaction invariant" (ADR-10 was consolidated into ADR-7 on 2026-05-10). T052 Status flipped: Draft → Accepted (ADR-18 ratified).
+
+**Pending file creation** (low priority — spec banners are sufficient until then): ADR-1, ADR-2, ADR-5, ADR-6, ADR-7, ADR-9 each need a summary file in `adrs/` cross-referencing their home doc.
+
+**Why this matters.** Documentation discipline scales with friction at write-time and discoverability at read-time. The new structure collapses write-time friction (one path, one filename convention, one ratification flow) without changing read-time discoverability (DECISIONS.md is still the canonical index). The `pipeline-adr` skill makes the workflow runnable rather than informal.
+
+**Next session pickup.**
+- T052 ready for build (ADR-18 ratified). The PM does the parent-repo commit for this session's pipeline-doc changes, then `pipeline-build` picks up T052.
+- Outstanding pending-file-creation cleanup (ADRs 1, 2, 5, 6, 7, 9) is low-priority backlog; can be batch-handled when next touching those home docs.
+- Decide whether `notes/eval-helpers-architecture.md` redirect stub is deleted now or after one git-log cycle confirms no fresh references.
+
+---
+
 ## 2026-05-17 — `payments.md` walk completed (15 of 15 statements) — two material PM reframes mid-walk
 
 **Walk completed via `pipeline-clarify-absolutes`** (PM-directed: straight to clarify, no dialectic pre-pass). 15 Category-2 absolutes ratified; the walk produced more design content than annotation because **two of the three load-bearing commitments in the spec turned out to be PM-misframed** as categorical when the actual stance is conditional.
