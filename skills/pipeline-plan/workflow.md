@@ -75,9 +75,27 @@ Skip `planning-filter` when you're writing a single scenario for a known feature
 - **Bundle tagging required.** Every scenario declares its bundle (b1/b2/b3).
 - **Surface beats schema.** The Surfaces section is required. If you can name the data fields but not the entry point, you're writing a system spec, not a scenario.
 
+## Co-locate `why` with `what` (per AGENTS.md → PIPELINE-AUDIT F13)
+
+Every non-obvious Given/When/Then clause in a scenario carries its **why** alongside its **what**. Without the *why*, the eval-writer ends up testing the *literal wording* of the clause rather than the *design intent* the clause is approximating — and when the scenario gets revised, the test passes against text that no longer means what the project intends. Same discipline as Intent annotations on system specs (per the [archived intent audit](../../planning/archive/intent-audit-2026-05-12.md), live discipline in the clarify-absolutes / intent-check skills), applied here at the scenario stage.
+
+**Where to apply.** Any clause that encodes a design judgment, not just a mechanical assertion. *"Then the page loads"* is mechanical and obvious — no Why needed. *"Then a primary CTA labeled 'Host something here' is visible below the venue header"* encodes the verb-first composer commitment from `community-platform.md` (entry point is the venue, not `/new` with a kind picker) — needs a Why.
+
+**Format.** Inline italic note immediately after the clause, prefixed `_Why: {one-sentence rationale, anchored to a foundation/system doc or canonical example}._`
+
+**Example.**
+
+> *Without:*
+> Then a primary CTA labeled "Host something here" is visible below the venue header.
+>
+> *With:*
+> Then a primary CTA labeled "Host something here" is visible below the venue header. _Why: verb-first composer commitment in `community-platform.md` — the entry point is the venue, not `/new` with a kind picker. Eval should verify the CTA originates on the venue page, not just that the label text appears._
+
+**Verification.** Before handing the scenario to the PM, walk every Then-clause (and any non-obvious Given/When clause). For each one that encodes a design choice, confirm it carries a `Why:` line. If a clause is non-obvious and you can't write the Why in one sentence, the scenario is under-specified — escalate to `pipeline-product` for the missing rationale rather than guessing.
+
 ## Hand off
 
-**You produced:** a scenario in `planning/scenarios-backlog/`.
+**You produced:** a scenario in `planning/scenarios-backlog/`, with `Why:` annotations on every non-obvious Given/When/Then clause.
 
 **You hand to:** the PM, who reviews and either approves (moves to `planning/scenarios/`) or rejects (annotates and leaves in backlog or archives).
 

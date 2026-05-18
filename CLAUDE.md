@@ -84,6 +84,7 @@ Pipeline-skills triggers (project-resident, in [`skills/`](skills/)). Match the 
 | "prune the journal", "DECISIONS.md is heavy", "what should we memorialize", "rotate the journal" | `pipeline-prune` | meta |
 | "intent check on F###/system X/ADR-N", "audit Intent annotations", "scan DECISIONS for intent gaps" | `pipeline-intent-check` | meta |
 | "clarify the absolutes in {file}", "review every never-statement", "every absolute needs intent", "go over the won't/doesn't statements" | `pipeline-clarify-absolutes` | meta |
+| "review this absolute", "should this be an absolute", "audit our absolutes", "is this earned", "decide or defer on X", "review F### intents" | `pipeline-review-absolute` | meta / 3.5 (ticket-time) |
 | "what's the Member view on this", "advocate for the Member", "what does the Member lose here" | `pipeline-member-advocate` | meta |
 | "what's the platform view on this", "advocate for the platform", "what does the platform need here", "run the dialectic" | `pipeline-platform-advocate` | meta |
 | "I want this to improve itself", "design a self-improvement loop", "Karpathy loop / meta-agent harness", "this should keep getting better on its own" | `loop-designer` | meta |

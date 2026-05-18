@@ -132,6 +132,30 @@ JOURNAL flags `./skills/install.sh` as still pending. The project-resident `pipe
 
 **Fix:** run `./skills/install.sh`. Then extend it to also install the Cowork plugin skills the new pipeline relies on. (Done in this pass — see "External skills setup" below.)
 
+### F13 🟡 Two failure modes every gate guards against — and the gate's runner can fall into either
+
+**Surfaced 2026-05-12** during the `intent-audit.md` annotation pass on `people-first.md`. The audit's opening paragraph already names the framing — *"the agent has to either reconstruct the intent (lossy, drift-prone) or treat the surface fact as the whole story (over-fits the literal wording when it should adapt)"* — but the framing lived only in the audit doc. The skills that would benefit from knowing about it (`pipeline-review`, `pipeline-eval`, `pipeline-build`, `pipeline-ticket`, and `pipeline-intent-check` itself) didn't read that doc when they ran. The 2026-05-12 incident proved it: my own first-pass Intent annotations on `people-first.md` exhibited *both* failure modes simultaneously — over-fit on "no reviews, no ratings" as a categorical refusal, and reconstructed an intent ("schema refuses the row") that wasn't the project's stance ("schema refuses the *impersonal* shape"). The gate's runner fell into the trap the gate exists to prevent.
+
+**The two failure modes, fully named.**
+
+1. **Over-fit on literal wording.** The spec says "no X." The agent treats the refusal as categorical when the project's stance is shape-specific ("no *impersonal* X" / "no *ranking-of* X" / "no *X-as-leaderboard*"). The literal text becomes load-bearing in a way the author never intended. Acceptance criteria over-fit to surface phrasing rather than the design intent the phrasing was approximating. Tests pass for the wrong reason — they verify the surface text, not the behavior the surface text was meant to encode. Bullets in foundation docs become more rigid than the project's actual position; future revisions to the spec read as contradictions of "what the doc says" when they're actually realignments to what the project always meant.
+
+2. **Reconstruct intent and drift.** The spec says *what*. The agent guesses *why*, gets it plausibly wrong, and acts on the reconstructed intent — which then propagates downstream as if it were the spec. Each turn the reconstruction looks reasonable; over many turns, the project's actual intent and the operating intent diverge silently. By the time a PM notices, the diff is large enough that "fix the misreading" is itself a project. The reconstruction failure is more dangerous than the over-fit failure because it doesn't show up as a tension with the spec text — it shows up as the spec slowly meaning a different thing than it used to.
+
+**Why both failure modes look like the agent doing its job.** An agent over-fitting on literal wording is *being faithful to the spec*. An agent reconstructing intent is *being thoughtful about why the spec exists*. Neither failure mode triggers a "this is wrong" signal in the agent's own self-assessment. The check that catches both is external: every load-bearing decision should carry its **why** alongside its **what**, and every gate's runner should read the *why* before judging the *what*. When the *why* isn't written down, the gate's runner has nothing to anchor against and falls into one of the two modes by default.
+
+**The discipline this finding adds.** Both failure modes are caught by the same convention: **co-locate `why` with `what` on every load-bearing decision.** This is the single rule the `Intent:` annotation pattern enforces (per the [archived intent audit](archive/intent-audit-2026-05-12.md); live discipline in the `pipeline-intent-check` / `pipeline-clarify-absolutes` / `pipeline-review-absolute` skills). The same rule should apply to:
+
+- **Scenarios** — every Given/When/Then should carry a *why this clause exists* note for any non-obvious assertion. The eval-writer reads the *why* to write a test that verifies the design intent, not the literal phrasing.
+- **Tickets** — acceptance criteria should carry the design-intent rationale, not just the surface assertion. The build agent reads the *why* to choose the right implementation when multiple satisfy the literal criterion.
+- **Tests / evals** — every test should answer "what is this protecting against" in the description or a comment, not just "what does this assert." A test that doesn't carry its *why* is a brittle test — it'll be deleted or modified the moment the surface changes, and the protection it was offering will silently disappear.
+- **`DEVIATIONS.md` entries** — every deviation should carry the *why this deviation was necessary* alongside *what changed*. Future agents reading DEVIATIONS to learn what's been tried need the *why*, not just the *what*.
+
+**Fix.**
+- AGENTS.md preamble carries the framing as a callout that every pipeline skill encounters when it loads (landed 2026-05-12 — `What every gate is guarding against` section).
+- Full framing lives here in F13 for the agents that need to dig into the theory.
+- Open propagation work: update `pipeline-ticket`, `pipeline-build`, and `pipeline-eval` (write mode) workflows to require *why* annotations on the artifacts they produce — this is item #3 from the 2026-05-12 prescient-items review and is open work, not landed in this finding.
+
 ---
 
 ## Re-architected pipeline
