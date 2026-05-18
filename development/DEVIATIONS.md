@@ -20,6 +20,32 @@ When implementation diverges from spec, log it here with context.
 
 (Log entries as they occur)
 
+## 2026-05-18 — T053 — Stale `generate_series` Vitest assertion fixed inline (T052 drift)
+
+**What:** `web/tests/eval-bootstrap.test.ts:132` had an assertion `expect(sql).toMatch(/generate_series/i)` against `03_handle_collisions.sql`. That assertion went stale on 2026-05-18 when T052's ADR-15 fix-forward (this file, entry "Phase 0 spec — ADR-15 compliance fix-forward") rewrote `eval_seed_handle_collision_range` from a `INSERT … SELECT generate_series(...)` shape to a `FOR n IN 1..p_count loop` (the loop was required to thread a per-iteration uuid through `eval_seed_auth_user_only` + the members insert). The static-content check was not updated alongside the SQL rewrite. Replaced inline with `expect(sql).toMatch(/for\s+\w+\s+in\s+1\s*\.\.\s*p_count\s+loop/i)` anchored to the new loop pattern.
+
+**Why:** Surfaced during T053's first vitest run (1/22 failing); the SQL helper itself works correctly — only the test's expectation drifted. Patching inside T053's commit is justified because (a) the file is `web/tests/` (a Vitest unit test, not a Playwright eval — build-tier ownership applies), (b) the fix is mechanically necessary to keep the test suite green for the T053 close, and (c) leaving it broken would mask any future regression on that surface. Anchored to T052's 2026-05-18 ADR-15 entry below + the helper's current FOR-loop implementation.
+
+**Disposition:** accepted-as-is — the corrected assertion captures the actual current implementation; the comment block above the assertion anchors the change to DEVIATIONS + ADR-15 so the next reader understands why `generate_series` is gone. No follow-on work required.
+
+## 2026-05-18 — T053 — locations.spec.ts:254 spec-regex precision (deferred to pipeline-eval)
+
+**What:** `evals/phase-1/locations.spec.ts:254` (T045 — location_areas centroid-sync trigger) asserts `expect(data as unknown as string).toMatch(/POINT\(-121\.49 38\.59\)/)` against the return of `eval_location_geography_text(location_id)`. With the T053 helper now installed and the trigger working as designed, PostGIS `ST_AsText` returns `POINT(-121.49000000190374 38.589999963099324)` — full-precision rendering of the unit-square centroid. The regex was authored assuming 2-decimal rounding, which `ST_AsText(geometry)` does not perform.
+
+**Why:** Pre-existing spec defect masked by the "helper missing" PGRST202 error before T053 landed. The T053 helper is implementing exactly what its docstring and consumer-spec annotation promised — `ST_AsText(geography::geometry)` of the locations row's geography column, with no precision coercion. The brittle assertion is in the eval, not the substrate. Two paths considered: (1) couple the helper to a precision argument (`ST_AsText(geom, 2)`) — rejected because the helper is general-purpose introspection and shouldn't carry spec-specific rounding; (2) relax the eval regex to be precision-tolerant — correct path but crosses the build/eval firewall.
+
+**Disposition:** flag-for-pipeline-eval — T053 closes with 9/10 listed tests green (locations:254 carries this deviation). The eval regex fix is in pipeline-eval's territory; cheapest fix is `/POINT\(-121\.49\d* 38\.59\d*\)/` or equivalent tolerance. No T053 substrate change needed. Suggested follow-up: pipeline-eval write-mode pass over `evals/phase-1/locations.spec.ts` to land the regex relax + any other precision-fragile assertions in the same surface.
+
+**Going-forward rule:** PostGIS `ST_AsText` returns full coordinate precision. Eval assertions against `ST_AsText` output must use precision-tolerant patterns OR call `ST_AsText(geom, N)` with an explicit rounding argument. Default-precision assertions like `/-121\.49 38\.59/` are brittle by construction.
+
+## 2026-05-18 — T053 — Build summary (no spec divergence)
+
+**What:** T053 (Phase 1 eval helpers — 4 introspection RPCs appended to `00_introspection.sql`) shipped exactly as ticketed: Option A layout chosen + justified in the section banner; four helpers (`eval_indexes_for_table`, `eval_foreign_keys_for_table`, `eval_partition_count`, `eval_location_geography_text`) with signatures matching the failing tests' inline `"build adds: …"` annotations verbatim; SECURITY DEFINER + service_role-only grants on every function; T053 marker on every `comment on function`. Suggestion #1 from M2 code review (`order by c.conname` on the FK helper for output determinism + parity with the other ordered helpers) landed in-loop before commit.
+
+**Why:** No spec divergence to log on the T053 helpers themselves — the ticket's spec was the failing tests' inline SQL bodies, and the implementation matched them. The two related deviations above (Vitest stale-assertion fix; locations:254 regex precision) are surfaces T053 exposed but did not cause; logged separately for traceability. CLAUDE.md rebuild-rule #6 requires an entry per ticket, even when the implementation matched the spec exactly — this is that entry.
+
+**Disposition:** accepted-as-is.
+
 ## 2026-05-18 — T052 — eval_seed_auth_user_only ignores p_email for auth.users.email slot
 
 **What:** The helper used to thread `p_email` into `auth.users.email`. Combined with `on conflict (id) do nothing` (which only catches id conflicts, not email conflicts), reusing the same `p_email` across test runs (e.g. `maya@example.test` across reruns of the maya-collision spec) silently failed when a prior run had left an orphan row — UNIQUE constraint on `auth.users.email` raised, helper RPC returned an error the spec didn't check, no row was inserted for the new id, and the deferred `members_assert_id_in_auth_users` trigger then rejected the handler's COMMIT with 23503. Fix: always synthesize `eval-<short-uuid>@eval-test.local` for `auth.users.email`. `p_email` is retained as a parameter for API compatibility but ignored for that slot.
