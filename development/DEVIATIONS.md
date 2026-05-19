@@ -2,6 +2,18 @@
 
 When implementation diverges from spec, log it here with context.
 
+## 2026-05-19 — T056 — `items.state` enum reconciliation (drop `'active'`, add `'draft'` + `'published'`)
+
+**Deviation:** `item.md` carried two conflicting state vocabularies — line 99 specifies `(active, fulfilled, withdrawn, closed)` while line 128's publish-event semantics reference `state='draft'` → `state='published'`. T056 ships a single reconciled enum: `('draft','published','withdrawn','fulfilled','closed')`. `'active'` is **dropped**; `'published'` is the lifecycle target for visible Items.
+
+**Reason:** The spec inconsistency was flagged as one of three F018 blockers in the 2026-05-18 pipeline-review. F018 has since been deferred to backlog (2026-05-19 PM call); the rewrite punch list is preserved for the F018 promote. T056 cannot ship the Items schema without picking a state vocabulary, and the publish-event semantics (line 128) are load-bearing for the T057 `discoverable_items` refresh trigger. The cleanest reconciliation is the superset that supports the publish semantics directly (`draft` → `published`) and the terminal states the rest of the spec relies on (`withdrawn`/`fulfilled`/`closed`). `'active'` is functionally equivalent to `'published'` in the spec text — preserving both would create ambiguity at composer write time.
+
+**Impact:** Any future spec or code reference to `state='active'` should be read as `state='published'`. The F018 rewrite (when it promotes) lands the corresponding text edit on `item.md` line 99 alongside the URL `/i/` → `/e/` cleanup. No downstream code today writes `state='active'` (no handlers exist yet); the Phase 2 surface composers will write `state='draft'` on create and `state='published'` via `item.publish` per ADR-10's publish-event semantics.
+
+**Escalation:** None — T056 lands as a build-agent reconciliation; the F018 rewrite (deferred PM work) ratifies the spec text alignment.
+
+**Resolution:** Migration `015_items.sql` ships the reconciled enum; eval `items.spec.ts` includes a negative test confirming `'active'` is rejected (23514); both the migration header and the spec's living state are aligned on the new vocabulary. Going-forward rule: any new Item-aware code should use the five-value enum as canonical; the F018 rewrite will land the matching `item.md` text edit when F018 promotes.
+
 ## 2026-05-19 — T055 — Cross-table RLS recursion (SQLSTATE 42P17) — SECURITY DEFINER helper pattern
 
 **Deviation:** None against T055's own spec — T055 lands the design described in its acceptance criteria. This entry captures the implementation pattern that broke at first apply and the going-forward rule for future tables with cross-table membership checks.
