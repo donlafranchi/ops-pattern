@@ -143,7 +143,7 @@ The three-filter test (per `policy-framework.md` / ADR-9) applies to every new s
   - **Delegation** (the action layer validates Delegation scope on every agent-originated call; per [`delegation.md`](delegation.md))
   - **Assistant Context** (Assistant Context reads/writes flow through the action layer with scope enforcement; per [`assistant-context.md`](assistant-context.md))
   - **Skills** (Skills run in the sandbox defined here; Skill writes flow through the action layer; per [`skills.md`](skills.md))
-  - **Events** (every action writes its event row in the same transaction as the primitive row; per [`events.md`](events.md))
+  - **Event log** (every action writes its event row in the same transaction as the primitive row; the `*_events` tables — `item_events`, `member_events`, `group_events`, `location_events` — are the canonical history, partitioned monthly, with audit fields per ADR-7)
   - **All primitive writes** (Item, Group, Member, Location lifecycle handlers; per their respective specs)
 - **Used by:**
   - The web composer (every form submit → action handler)

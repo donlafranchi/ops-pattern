@@ -366,7 +366,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L167: "...a $100K revenue business never pays the same as a $2M one"
 - L203: "Average fee as % of revenue: ensure fees never become predatory"
 
-**`locally-owned-verification.md`**
+**`product/exploration/archive/locally-owned-verification.md`** (archived 2026-05-18 — content promoted to `business-jurisdiction.md`)
 - L98: "The platform never asks for or stores a street address as locality evidence."
 
 **`local-food-network.md`**
