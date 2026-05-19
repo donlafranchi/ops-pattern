@@ -364,12 +364,12 @@ PM signed off on this plan 2026-05-10 (rebuild reframe; supersedes the prior 7-p
 
 ---
 
-**Current state (2026-05-18):**
+**Current state (2026-05-19):**
 
-- **Phase 0 — DONE 2026-05-10.** Four tickets shipped; substrate (pgvector + postgis, members + member_events with audit fields, system Member, action layer + `member.create` handler, auth signup hook) runtime-verified end-to-end.
-- **Phase 1 — IN FLIGHT.** Evals committed to `web/` at `0508576` (six spec files under `web/evals/phase-1/`, 1838 lines, T045–T049 assertions). M3 gate on disk. Remaining gate before T045 opens: `pipeline-review-absolute` per rebuild-rule #11 on the Category-2 absolutes the Phase 1 schema tickets will encode. Ticket queue: T045 (`007_locations.sql`) → T046 (`008_groups.sql`) → T047 (`009_items.sql`) → T048 (`010_members_augment.sql`) → T049 (`011_discoverable_items.sql`). Dependency order shifted from the plan's listing (locations before members because `members.home_location_id` FKs locations); deviation logged at T045 open.
-- **Phase 2 — NOT STARTED.** Fresh F-numbered scenarios authored at Phase 2 open. F018 deferred in `planning/scenarios-backlog/` as the rewrite candidate for the gathering composer surface.
-- **Phase 3 — NOT STARTED.** Fresh F-numbered scenarios authored at Phase 3 open.
+- **Phase 0 — DONE 2026-05-10.** Substrate runtime-verified end-to-end.
+- **Phase 1 — DONE 2026-05-19.** All schema, RLS, evals shipped: Members + Locations + Groups + Items + discoverable_items. Eval state: **142/142 Phase 1 green**; action-layer conformance 0 violations across 125 files / 32 protected tables. Tickets T041–T057 complete. Migration sequence (dependency-driven, deviated from plan): 007 locations → 008 locations RLS → 009 members_phase1 → 010 member interests/follows → 011 affinities → 012 agent assistance → 013 delegations CHECK → 014 groups → 015 items → 016 discoverable_items. Two going-forward rules added to DEVIATIONS at T055/T057 close: (1) SECURITY DEFINER pattern for cross-table RLS recursion; (2) `eval_indexes_for_table` returns `pg_indexes` column names (`indexname`, `indexdef`). Action handlers for Locations / Groups / Items intentionally NOT shipped in Phase 1 — they land with the Phase 2 surface composers that need them.
+- **Phase 2 — NEXT.** Fresh F-numbered scenarios authored at Phase 2 open via `pipeline-product` → `pipeline-plan` against the now-closed Phase 1 substrate. F018 (Run Club gathering composer) is the rewrite candidate when the b1 implementation plan recommends pulling it in; rewrite punch list preserved in [`../planning/reviews/F018-review.md`](../planning/reviews/F018-review.md).
+- **Phase 3 — NOT STARTED.**
 - **Phase 4 — DONE 2026-05-11.** Doc cleanup complete.
 
 **Stale ticket pointers retired:** T028–T040 (pre-rebuild) are STALE-banned in `development/tickets/`; they predate both the Groups ratification and this rebuild reframe. F001–F024 (pre-primitives scenarios) are archived per `PRE-PRIMITIVES-AUDIT-2026-05-11.md`.

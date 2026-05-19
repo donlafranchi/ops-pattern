@@ -8,6 +8,36 @@
 
 ---
 
+## 2026-05-19 — Phase 1 substrate CLOSED — 142/142 evals green; ready for Phase 2
+
+**Phase 1 done.** T054–T057 shipped end-to-end in a single session. Final state of the rebuild's schema floor:
+
+- **T054** (web `678f5df`) — `member_delegations` empty-scopes CHECK fix (`cardinality()` idiom replaces broken `array_length`).
+- **T055** (web `7f427b8`) — Groups schema: spine + 2 children + memberships + partitioned events + standing-tier view. Cross-table RLS recursion (SQLSTATE 42P17) caught at first apply and resolved via `current_member_explicit_group_ids()` SECURITY DEFINER helper. 25 tests.
+- **T056** (web `f5e7e5a`) — Items schema: spine + 4 kind children + 4 join tables + partitioned events. State-enum reconciliation (`active` dropped; `draft`/`published`/`withdrawn`/`fulfilled`/`closed`) — single deviation from `item.md`, logged in DEVIATIONS; F018 rewrite punch list will land the matching spec text edit when F018 promotes. Closes T055's deferred FK on `group_event_anchored.seeded_by_item_id`. 27 tests, first-run clean.
+- **T057** (web `6090f71`) — `discoverable_items` materialized view + `item.published` refresh trigger + browse indexes + anon-grant. Synchronous CONCURRENTLY refresh per ADR-10. SECURITY DEFINER on the refresh function because materialized views don't honor RLS — the view's own WHERE clause is the public-surface gate. 10 tests.
+
+**Phase 1 ledger:**
+
+| Surface | Tables | Tests |
+|---|---|---|
+| Members + auth + privacy + interests + follows + handles + delegations + affinities | 13 | 60 |
+| Locations spine + 3 children + events | 5 | 16 |
+| Groups spine + 2 children + memberships + events + standing view | 6 | 25 |
+| Items spine + 4 kind children + 4 joins + events | 10 | 27 |
+| Discoverable-items view + refresh trigger | 1 | 10 |
+| Phase 0 floor (extensions, system Member, action layer, signup hook, conformance) | n/a | 4 |
+| **Totals** | **~35 tables** | **142/142** |
+
+Conformance check clean across 125 files / 32 protected tables; no writes outside the action layer. Action handlers do not exist yet for Locations / Groups / Items per the established Phase 1 pattern — they ship with Phase 2 surface composers that need them.
+
+**Two going-forward rules added to DEVIATIONS at T055/T057 close:**
+
+1. **RLS recursion** — Any policy that subqueries a table with its own RLS pointing back at the first table will infinite-loop. Use a SECURITY DEFINER helper that filters strictly on `auth.uid()`. Candidate trigger for a future `engineering:code-review` checklist.
+2. **`eval_indexes_for_table` returns `pg_indexes` column names** (`indexname`, `indexdef`) — not camelCase. To assert uniqueness, regex `indexdef` for `CREATE UNIQUE INDEX`.
+
+**Next:** Phase 2 — Cluster 1 surfaces. Per the migration plan: `/m/[handle]`, kind-specific Item URLs (`/p/`, `/s/`, `/e/`, `/i/`), `/l/[slug]`, `/g/[slug]`, surface-specific composers (no `/new` picker), Item-level QR card affordance, "Sell" CTA → kind='business' Group walkthrough. Phase 2 needs fresh F-numbered scenarios authored via `pipeline-product` → `pipeline-plan` against the now-closed Phase 1 substrate. F018 (Run Club, gathering composer) remains deferred in backlog as the rewrite candidate when the b1 implementation plan recommends pulling it in.
+
 ## 2026-05-18 — F018 deferred back to backlog; Phase 1 evals committed (web `0508576`)
 
 **F018 deferred.** PM call: F018 (Run Club) moves back to `planning/scenarios-backlog/` and stays there until the b1 implementation plan explicitly recommends pulling it in. The 2026-05-18 pipeline-review REVISE verdict stands as the rewrite punch list (item.md state-enum reconciliation; design-language.md 3 component recipes; `/i/` → `/e/` + kind-label harmonization). Rationale: T045–T049 (Phase 1 schema tickets) do not depend on F018; they open against system specs directly. Holding F018 in `scenarios/` while it needs a rewrite was creating false pressure on the spec-blocker gates. Review file annotated; scenario front-matter status updated to "deferred (2026-05-18)."
@@ -32,20 +62,15 @@ Fresh pipeline-review on the canonical Run Club scenario (supersedes the 2026-05
 
 1. **Phase 0 — DONE 2026-05-10.** All four tickets shipped, runtime-verified end-to-end. Substrate installed: pgvector + postgis; members + member_events with audit fields; system Member; action layer + `member.create` handler with conformance check; auth signup hook reading Vault. Smoke test (curl-spawn fresh auth user → row + event appear in 2s with correct audit fields) passes. See `web/BUILD-LOG.md` for the full closing record.
 
-2. **Phase 1 evals in flight (2026-05-18).** Parallel agent writing `web/evals/phase-1/floor.spec.ts` — six tickets' worth of schema / RLS / trigger / handler assertions plus traceability comments, sized comparably to Phase 0's `floor.spec.ts` (22 tests). M3 gate; runs *before* tickets open. When the eval write closes, PM commits the web/ changes; then `pipeline-review-absolute` runs per rebuild-rule #11 on any Category-2 absolutes the Phase 1 tickets will encode.
+2. **Phase 1 — DONE 2026-05-19.** Substrate complete: Members + Locations + Groups + Items + discoverable_items. T041–T057 all shipped. Phase 1 eval suite **142/142 green**. Conformance: 0 violations across 125 files / 32 protected tables. Tickets T054–T057 shipped end-to-end this session: T054 (delegations CHECK fix), T055 (Groups schema + SECURITY DEFINER helper for cross-table RLS), T056 (Items schema + state-enum reconciliation + deferred-FK closure), T057 (discoverable_items view + refresh trigger). See top JOURNAL entry for the full closing summary.
 
-3. **Phase 1 ticket queue (renumbered by dependency, not by rebuild-plan section):**
-   - **T045 — `007_locations.sql`** — Location spine + 3 children (permanent / recurring_temporary / areas) + events. Per `location.md` + ADR-14.
-   - **T046 — `008_groups.sql`** — Groups spine + `group_businesses` + `group_event_anchored` + memberships + events. Per `groups.md` + ADR-13. Depends on T045 (`anchor_location_id` FK).
-   - **T047 — `009_items.sql`** — Items spine + 4 kind children (product/service/gathering/wonder) + `item_locations` + `item_responses` + `item_tags` + `item_hashtags` + events. Per `item.md`. Depends on T045 + T046.
-   - **T048 — `010_members_augment.sql`** — Adds FKs from `members.home_location_id` → locations and `members.primary_group_id` → groups; adds child tables (privacy, interests, follows, handle history, threads + messages + participants, self-records, delegations, location affinities). Depends on T045 + T046.
-   - **T049 — `011_discoverable_items.sql`** — Materialized view + `item.published` refresh trigger + indexes. Depends on T045 + T046 + T047 + T048.
+3. **Phase 2 — NEXT.** Fresh F-numbered scenarios authored at Phase 2 open. Surfaces per the migration plan: `/m/[handle]`, kind-specific Item URLs (`/p/`, `/s/`, `/e/`, `/i/`, `/o/`, `/a/`, `/initiative/`), `/l/[slug]`, `/g/[slug]`, surface-specific composers (no `/new` picker), "Sell" CTA → kind='business' Group walkthrough, Item-level QR card affordance. Action handlers for Members / Locations / Groups / Items land alongside the surfaces that need them. F018 (Run Club, gathering composer) is the rewrite candidate when the b1 implementation plan recommends pulling it in.
 
-4. **Phase 1 numbering note** — the rebuild plan listed Phase 1 by primitive (007 members augmentation, 008 locations, 009 items, 010 groups, 011 discoverable_items). The dependency graph (`members.home_location_id` → locations; `groups.anchor_location_id` → locations; `items.group_id` → groups) requires the order above. Numbering shift recorded in DEVIATIONS at T045 ticket open.
+4. **Phase 1 numbering deviation** — the rebuild plan listed migrations 007–011 by primitive (members augment → locations → items → groups → discoverable_items). Dependency-driven actual order: 007 locations → 008 locations RLS → 009 members_phase1 → 010 member interests/follows → 011 member affinities → 012 agent assistance → 013 delegations CHECK fix → 014 groups → 015 items → 016 discoverable_items. No spec changes; closed cleanly.
 
-5. **Build-agent provisions test-only RPC helpers** alongside the Phase 1 tickets (called from the Phase 0 eval, never inspected per the firewall): `eval_pg_extensions`, `eval_table_shape`, `eval_is_partitioned`, `eval_conformance_check_result`, `eval_member_create_with_failure_injection`, `eval_seed_handle_collision_range`, `eval_clear_handle_collision_range`. Could fold into T048 (members augmentation) since it touches the same surface.
+5. **Eval-helper RPCs** — all shipped under T052 (Phase 0) and T053 (Phase 1): `eval_pg_extensions`, `eval_table_shape`, `eval_is_partitioned`, `eval_partition_count`, `eval_indexes_for_table`, `eval_foreign_keys_for_table`, `eval_conformance_check_result`, `eval_member_create_with_failure_injection`, `eval_seed_handle_collision_range`, `eval_clear_handle_collision_range`, `eval_seed_auth_user_only`, `eval_location_geography_text`. Bootstrap script in `web/scripts/bootstrap-eval-helpers.ts`.
 
-6. **F018 deferred (2026-05-18).** Scenario back in `planning/scenarios-backlog/`; no longer a gate on T045–T049. Rewrite punch list ([F018-review.md](planning/reviews/F018-review.md)) stands for when the b1 implementation plan recommends pulling F018 back in: `item.md` state-enum reconciliation, three `design-language.md` component recipes (kind picker, Share-link, Event-page recurring surface), `/i/` → `/e/` + kind-label harmonization with `event-host.md`.
+6. **F018 deferred (2026-05-18).** Scenario back in `planning/scenarios-backlog/`; rewrite candidate for the Phase 2 gathering composer. Punch list ([F018-review.md](planning/reviews/F018-review.md)) — `item.md` state-enum text edit (T056 reconciled to `draft/published/withdrawn/fulfilled/closed` already; the spec text still needs aligning), three `design-language.md` component recipes (kind picker, Share-link, Event-page recurring surface), `/i/` → `/e/` URL pass + kind-label harmonization with `event-host.md`.
 
 7. **All pre-primitives scenarios archived as of 2026-05-11.** F019-F024 scrapped 2026-05-10; F001-F017 scrapped 2026-05-11 (PRE-PRIMITIVES-AUDIT-2026-05-11.md in `planning/scenarios-backlog/archive/` documents the mapping). Live `planning/scenarios/` contains only F018 (canonical post-primitives example). Fresh Phase 2/3 scenarios will be authored under the current primitives when those phases open. F-numbers continue from F025+.
 
