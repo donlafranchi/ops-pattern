@@ -8,6 +8,12 @@
 
 ---
 
+## 2026-05-18 — F018 deferred back to backlog; Phase 1 evals committed (web `0508576`)
+
+**F018 deferred.** PM call: F018 (Run Club) moves back to `planning/scenarios-backlog/` and stays there until the b1 implementation plan explicitly recommends pulling it in. The 2026-05-18 pipeline-review REVISE verdict stands as the rewrite punch list (item.md state-enum reconciliation; design-language.md 3 component recipes; `/i/` → `/e/` + kind-label harmonization). Rationale: T045–T049 (Phase 1 schema tickets) do not depend on F018; they open against system specs directly. Holding F018 in `scenarios/` while it needs a rewrite was creating false pressure on the spec-blocker gates. Review file annotated; scenario front-matter status updated to "deferred (2026-05-18)."
+
+**Phase 1 evals committed (web `0508576`).** Six spec files under `web/evals/phase-1/` — `floor.spec.ts`, `locations.spec.ts`, `members-affinities.spec.ts`, `members-agent-assistance.spec.ts`, `members-augmentation.spec.ts`, `members-interests-follows.spec.ts`. 1838 lines of T045–T049 schema/RLS/trigger/handler assertions. Plus `dotenv` + `playwright.config.ts` env-loading plumbing. Same commit folded the locations centroid regex fix (full-precision `ST_AsText` output — switched to parse-and-`toBeCloseTo(..., 4)`). 16/16 in `locations.spec.ts` pass against the current schema; the rest will turn green as T045–T049 land. M3 gate is on disk.
+
 ## 2026-05-18 — Reviewed F018 — verdict: REVISE + small EXTEND; see [`planning/reviews/F018-review.md`](planning/reviews/F018-review.md)
 
 Fresh pipeline-review on the canonical Run Club scenario (supersedes the 2026-05-08 PROCEED). Architecture substrate is still in place (Item primitive, gathering child, Location, venue-page CTA). Three small things must land before tickets: (1) `item.md` `state` enum reconciliation with the publish-event semantics; (2) `design-language.md` adds three component recipes (kind picker, Share-link affordance, Event-page recurring-gathering surface); (3) F018 scenario fixes `/i/` → `/e/` (stale from before the 2026-05-11 naming pass) and harmonizes kind-picker labels with `event-host.md` (drops "gathering" from UI copy). Loop fidelity (1 + 4), shell-entity check, and policy posture all pass.
@@ -39,10 +45,7 @@ Fresh pipeline-review on the canonical Run Club scenario (supersedes the 2026-05
 
 5. **Build-agent provisions test-only RPC helpers** alongside the Phase 1 tickets (called from the Phase 0 eval, never inspected per the firewall): `eval_pg_extensions`, `eval_table_shape`, `eval_is_partitioned`, `eval_conformance_check_result`, `eval_member_create_with_failure_injection`, `eval_seed_handle_collision_range`, `eval_clear_handle_collision_range`. Could fold into T048 (members augmentation) since it touches the same surface.
 
-6. **F018 blockers before tickets open** (per [`planning/reviews/F018-review.md`](planning/reviews/F018-review.md)):
-   - `item.md` state-enum reconciliation (line 99 vs lines 128–136). Pick a unified `state` enum that includes `draft` + `published` (or split into `lifecycle_state` vs `operational_state`). Run `pipeline-intent-check` before landing.
-   - `design-language.md` — add three component recipes: Composer kind picker, Share-link affordance, Event-page recurring-gathering surface pattern.
-   - F018 scenario revise: `/i/` → `/e/` throughout; harmonize kind-picker labels with `event-host.md` (drop "gathering" from UI copy; use "one-time / recurring / open meetup").
+6. **F018 deferred (2026-05-18).** Scenario back in `planning/scenarios-backlog/`; no longer a gate on T045–T049. Rewrite punch list ([F018-review.md](planning/reviews/F018-review.md)) stands for when the b1 implementation plan recommends pulling F018 back in: `item.md` state-enum reconciliation, three `design-language.md` component recipes (kind picker, Share-link, Event-page recurring surface), `/i/` → `/e/` + kind-label harmonization with `event-host.md`.
 
 7. **All pre-primitives scenarios archived as of 2026-05-11.** F019-F024 scrapped 2026-05-10; F001-F017 scrapped 2026-05-11 (PRE-PRIMITIVES-AUDIT-2026-05-11.md in `planning/scenarios-backlog/archive/` documents the mapping). Live `planning/scenarios/` contains only F018 (canonical post-primitives example). Fresh Phase 2/3 scenarios will be authored under the current primitives when those phases open. F-numbers continue from F025+.
 

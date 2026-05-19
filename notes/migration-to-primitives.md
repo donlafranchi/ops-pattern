@@ -302,7 +302,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 
 **Scope creep from new loops appearing tractable.** The temptation will be to ship Offer / Ask / Initiative once `items.kind` is an enum that already supports them. Resist. b1 ships product / service / gathering / wonder. The reserved kinds for offer / ask / initiative ship at b2.
 
-**The 90-second composer.** Hitting <90 seconds for a new Item with kind picker + Location attachment + metadata + photo + (optional) Group filing is a real design challenge. Treat it as a first-class scenario (F018-F024 already exist; they get re-reviewed under the new mandatory-review lens before tickets open).
+**The 90-second composer.** Hitting <90 seconds for a new Item with kind picker + Location attachment + metadata + photo + (optional) Group filing is a real design challenge. Treat it as a first-class scenario. F018 (Run Club) is the canonical example and currently sits deferred in `planning/scenarios-backlog/` per the 2026-05-18 PM call — needs rewrite against the post-2026-05-11 naming pass before promotion. F019–F024 were scrapped 2026-05-11 (PRE-PRIMITIVES-AUDIT). Phase 2 scenarios get authored fresh under the current primitives at Phase 2 open.
 
 **The "vendor" mental model in our heads.** Every PR during the rebuild must say "Member" / "Item" / "Location" / "Group" rather than "vendor" / "business" / "market" / "Community". The mental shift is the substance of the work; if we keep saying "vendor" we will end up rebuilding a vendor system on Member-shaped tables.
 
@@ -327,7 +327,7 @@ Every phase exit requires the named eval set to pass. Playwright + RLS-matrix ev
 
 - **Phase 0 exit:** action layer skeleton has 1 working handler with full test coverage; system Member exists and login is blocked; pgvector + postgis enabled; auth signup hook creates Member rows and fires `member.created` event with audit fields populated.
 - **Phase 1 exit:** schema-shape evals for every new table (column existence, RLS shape, index existence); audit-field invariant evals (every event row carries `acting_member_id`); the `discoverable_items` refresh meets the 60s SLA under synthetic 10× write load; action-handler conformance check passes; same-transaction event-row commit verified by deliberate failure injection (when the event write fails, the row write rolls back).
-- **Phase 2 exit:** F018 / F019 / F020 / F021 scenarios pass evals end-to-end; surface-specific composers are reachable from their named entry points (no `/new` picker exists); the "Sell" CTA creates a kind='business' Group; Item-level QR card affordance generates a PNG.
+- **Phase 2 exit:** the fresh Phase 2 scenarios (authored at Phase 2 open under the current primitives; covers product / service / gathering / wonder composer flows + Member page + Location page) pass evals end-to-end; surface-specific composers are reachable from their named entry points (no `/new` picker exists); the "Sell" CTA creates a kind='business' Group; Item-level QR card affordance generates a PNG. F018 is the rewrite candidate for the gathering composer surface — promoted only when the b1 implementation plan recommends pulling it in.
 - **Phase 3 exit:** anonymous Loop 3 evals (no-login browseable index works); Wonder→Gathering conversion stub eval; thesis page link present from every page footer; `/g` browse + `/g/new` create flow; Concerts-in-the-Park surface delivers a Location-follow feed.
 - **Phase 4 exit:** docs match code (manual audit + grep sweeps); no "vendor" / "Community" / "Member Operations" / "cooperative" references outside `archive/` folders.
 
@@ -364,4 +364,12 @@ PM signed off on this plan 2026-05-10 (rebuild reframe; supersedes the prior 7-p
 
 ---
 
-**Next step:** `pipeline-ticket` writes the Phase 0 ticket set against this plan. The existing T028-T040 tickets are STALE-banned and pending re-write — they pre-date both the Groups ratification and this rebuild reframe. The first scenario `F018-brian-declares-run-club.md` is approved and lives in `planning/scenarios/`; F019-F024 in `planning/scenarios-backlog/` get reviewed under the new mandatory-review lens before their tickets open.
+**Current state (2026-05-18):**
+
+- **Phase 0 — DONE 2026-05-10.** Four tickets shipped; substrate (pgvector + postgis, members + member_events with audit fields, system Member, action layer + `member.create` handler, auth signup hook) runtime-verified end-to-end.
+- **Phase 1 — IN FLIGHT.** Evals committed to `web/` at `0508576` (six spec files under `web/evals/phase-1/`, 1838 lines, T045–T049 assertions). M3 gate on disk. Remaining gate before T045 opens: `pipeline-review-absolute` per rebuild-rule #11 on the Category-2 absolutes the Phase 1 schema tickets will encode. Ticket queue: T045 (`007_locations.sql`) → T046 (`008_groups.sql`) → T047 (`009_items.sql`) → T048 (`010_members_augment.sql`) → T049 (`011_discoverable_items.sql`). Dependency order shifted from the plan's listing (locations before members because `members.home_location_id` FKs locations); deviation logged at T045 open.
+- **Phase 2 — NOT STARTED.** Fresh F-numbered scenarios authored at Phase 2 open. F018 deferred in `planning/scenarios-backlog/` as the rewrite candidate for the gathering composer surface.
+- **Phase 3 — NOT STARTED.** Fresh F-numbered scenarios authored at Phase 3 open.
+- **Phase 4 — DONE 2026-05-11.** Doc cleanup complete.
+
+**Stale ticket pointers retired:** T028–T040 (pre-rebuild) are STALE-banned in `development/tickets/`; they predate both the Groups ratification and this rebuild reframe. F001–F024 (pre-primitives scenarios) are archived per `PRE-PRIMITIVES-AUDIT-2026-05-11.md`.
