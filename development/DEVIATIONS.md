@@ -2,6 +2,22 @@
 
 When implementation diverges from spec, log it here with context.
 
+## 2026-05-19 — T054 — `array_length(arr, 1)` is NULL on empty arrays — broken CHECK predicate
+
+**Deviation:** None against T054's own spec — T054 lands as written. This entry exists to capture the bug T054 fixes (introduced by T050) and the going-forward rule, both per the ticket's "Notes" section.
+
+**Reason:** T050's `012_member_agent_assistance.sql` declared `scopes text[] not null check (array_length(scopes, 1) >= 1)`. Postgres returns NULL (not 0) for `array_length(arr, 1)` when `arr` is empty; CHECK predicates that evaluate to NULL are treated as passing per SQL standard. An empty-scopes Delegation insert succeeded despite the intent to reject — caught by `members-agent-assistance.spec.ts:204`, not by T050's M2 code-review.
+
+**Impact:** Substrate-only. No production rows ever; the action handler that vends scoped capability would have malfunctioned on an empty Delegation (vending nothing), but no path inserts empty Delegations today.
+
+**Escalation:** None — T054 was scoped and approved as a direct schema fix-forward. No upstream spec change.
+
+**Resolution:** T054 ships `013_member_delegations_scopes_check_fix.sql` with `cardinality(scopes) >= 1` (Postgres-recommended idiom for non-empty-array CHECK — returns 0 for empty, never NULL). The original inline CHECK (auto-named `member_delegations_scopes_check`) is dropped; the new explicitly-named `member_delegations_scopes_non_empty_check` replaces it. Phase 1 evals: **80/80 green**.
+
+**Going-forward rule:** For any column-CHECK that tests "array is non-empty," use `cardinality(arr) >= 1`, not `array_length(arr, 1) >= 1`. Candidate trigger for a future `engineering:code-review` checklist addition: flag `array_length(<col>, 1)` in any CHECK predicate as a potential NULL-evaluates-as-passing bug.
+
+
+
 **Format:**
 
 ```markdown
