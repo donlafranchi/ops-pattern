@@ -2,6 +2,18 @@
 
 When implementation diverges from spec, log it here with context.
 
+## 2026-05-19 — T057 — No spec deviation; eval-RPC column-name mismatch caught at first run
+
+**Deviation:** None against spec. T057 lands the `discoverable_items` view, refresh trigger, and indexes exactly as ticketed.
+
+**Reason:** First eval run had one failing test — the index-existence assertion used `index_name` / `is_unique` as the expected RPC return columns, but `eval_indexes_for_table` returns `indexname` / `indexdef` (verbatim from `pg_indexes`). Build-time error in the spec, not the migration.
+
+**Impact:** None — caught at first run, fixed inline by parsing `indexdef` for `CREATE UNIQUE INDEX` instead. All 10/10 green afterward; full Phase 1 142/142.
+
+**Escalation:** None.
+
+**Resolution:** Eval spec corrected; T057 ships. Note for future eval authoring: `eval_indexes_for_table` returns the `pg_indexes` column names (`indexname`, `indexdef`) — not the Supabase JS client's camelCase guess. When introspecting whether an index is UNIQUE, parse `indexdef` (regex on `CREATE UNIQUE INDEX`) since pg_indexes does not surface a separate is_unique boolean.
+
 ## 2026-05-19 — T056 — `items.state` enum reconciliation (drop `'active'`, add `'draft'` + `'published'`)
 
 **Deviation:** `item.md` carried two conflicting state vocabularies — line 99 specifies `(active, fulfilled, withdrawn, closed)` while line 128's publish-event semantics reference `state='draft'` → `state='published'`. T056 ships a single reconciled enum: `('draft','published','withdrawn','fulfilled','closed')`. `'active'` is **dropped**; `'published'` is the lifecycle target for visible Items.
