@@ -2,6 +2,20 @@
 
 When implementation diverges from spec, log it here with context.
 
+## 2026-05-19 — T055 — Cross-table RLS recursion (SQLSTATE 42P17) — SECURITY DEFINER helper pattern
+
+**Deviation:** None against T055's own spec — T055 lands the design described in its acceptance criteria. This entry captures the implementation pattern that broke at first apply and the going-forward rule for future tables with cross-table membership checks.
+
+**Reason:** The first draft of `014_groups.sql` declared two RLS policies that each subquery the other's table: `groups_select_member` used `id in (select group_id from group_memberships ...)` and `memberships_select_co_member` used `group_id in (select group_id from group_memberships ...)`. When anon SELECTs from `groups`, the policy triggers a subquery on `group_memberships`, which triggers its own RLS, which subqueries `group_memberships` again → infinite loop, SQLSTATE 42P17.
+
+**Impact:** Caught at first eval run (6/25 RLS tests failed); zero rows ever in the broken state.
+
+**Escalation:** None — fix landed in the same ticket. Migration not yet committed at the time of fix.
+
+**Resolution:** Added `public.current_member_explicit_group_ids()` as a SECURITY DEFINER `language sql stable` function. Runs as the function owner (postgres), bypassing RLS on the membership lookup while remaining safe — the body filters strictly on `auth.uid()`. Cross-table policies (`groups_select_member`, `memberships_select_co_member`, `group_events_select_member_of_group`) all use the helper instead of inline subqueries. The function's table reference forces it to be defined *after* `group_memberships` exists, so the file restructured to: tables first (with only non-recursive policies inline), then helper + cross-table policies, then `group_events`, then the view.
+
+**Going-forward rule:** Any RLS policy that needs "is the current Member a member of Group X" (or any similar cross-table membership check) **must use a SECURITY DEFINER helper function**, not an inline subquery. Inline subqueries cascade through the second table's RLS and recurse. The helper isolates the lookup at function-owner privilege. Candidate trigger for a future `engineering:code-review` checklist addition: any RLS policy `using ... in (select ... from <table_with_own_RLS> ...)` is suspect — review for recursion potential.
+
 ## 2026-05-19 — T054 — `array_length(arr, 1)` is NULL on empty arrays — broken CHECK predicate
 
 **Deviation:** None against T054's own spec — T054 lands as written. This entry exists to capture the bug T054 fixes (introduced by T050) and the going-forward rule, both per the ticket's "Notes" section.
