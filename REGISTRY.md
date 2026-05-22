@@ -10,9 +10,9 @@ status: active
 > If a doc is not here, it should not exist. If you cannot write a distinct one-line purpose for a new doc, fold it into an existing one instead.
 > Generated from each doc's `purpose` front-matter. Re-generate by re-running the R09 generator (or by hand on small changes).
 
-**Reserved root docs** (separate from this catalog, owned by R10): `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md`, `TRACE.md`.
+**Meta / navigational docs** are catalogued in a dedicated Meta section at the bottom — they're the navigation, not the content.
 
-**Total catalogued:** 117 docs. **Excluded:** everything under `_attic/`, `housekeeping/`, `web/`, `skills/`, plus the reserved root docs above.
+**Total catalogued:** 117 narrative docs by layer + 6 meta / navigational docs = 123 docs. **Excluded:** everything under `_attic/`, `housekeeping/`, `web/`, `skills/`.
 
 ## WHY — product/foundation/
 
@@ -145,6 +145,17 @@ status: active
 | `standards/responsiveness.md` | Responsiveness standard — placeholder for layout breakpoint rules. | draft |
 | `standards/safety.md` | Safety standard — placeholder for safety-floor requirements. | draft |
 | `standards/security.md` | Security standard — placeholder for threat-model and audit. | draft |
+
+## Meta — root navigational docs
+
+| Doc | Purpose | Status |
+|---|---|---|
+| `CLAUDE.md` | Project router — facts, primitives, naming rules, agent routing, commit rules. | active |
+| `AGENTS.md` | Pipeline definition — agent roles, firewalls, gates, escalation. | active |
+| `JOURNAL.md` | PM reverse-chronological log — what shipped, what changed, what's next. | active |
+| `product/MAP.md` | 100k-foot architecture index — one sentence per system, with alignment checks. | active |
+| `product/TRACE.md` | Feature lineage — every capability traced from human need to ticket. | active |
+| `REGISTRY.md` | Catalog of every narrative doc, grouped by why / what / how layer. | active |
 
 ## Tooling
 

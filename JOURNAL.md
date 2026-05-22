@@ -1,3 +1,9 @@
+---
+purpose: PM reverse-chronological log — what shipped, what changed, what's next.
+layer: how
+status: active
+---
+
 # JOURNAL.md — PM Reverse-Chronological Log
 
 **Latest entry at top.** Start here every session to understand project state.
@@ -5,6 +11,39 @@
 > **Archive policy.** This file keeps only the most recent entry plus the pinned "Next session pickup" block. Older entries rotate to monthly archives so the live file stays fast to scan.
 >
 > Archives: [`_attic/2026-05-19/planning/JOURNAL-2026-05.md`](_attic/2026-05-19/planning/JOURNAL-2026-05.md) · [`_attic/2026-05-19/planning/JOURNAL-pre-mission-clarity-2026-05-08.md`](_attic/2026-05-19/planning/JOURNAL-pre-mission-clarity-2026-05-08.md)
+
+---
+
+## 2026-05-22 — Doc Consolidation effort CLOSED (R01–R10, 10 phases, all green)
+
+**The doc tree is now in its consolidated shape.** Ten phases ran sequentially, each one commit on `main`:
+
+- **R01** (`98da758`) — Every `*/archive/` folder + four individually-stale files swept into `_attic/2026-05-19/`. 100+ files moved via `git mv` (history preserved); 14 dir/file moves + 20 cross-reference rewrites.
+- **R02** (`e86caaf`) — `stewardships.md` → `product/systems/`; `community-platform.md` → `product/ui/`; empty `product/surfaces/` retired.
+- **R03** (`14f6696`) — `planning/reviews/` + `handoffs/` + `walkthroughs/` consolidated into `planning/history/`. 7 files moved + 19 cross-ref rewrites.
+- **R04** (`903a100`) — `notes/` dissolved (`migration-to-primitives.md` → `planning/rebuild-plan.md`; two dead files to attic); `standards/` scaffolded with 5 stubs (safety / security / accessibility / performance / responsiveness) + README. 41 files touched.
+- **R05** (`bcb6eb6`) — WHY layer merged: `foundational-principles.md` + `people-first.md` → `principles.md` (the constitution + the People-First Principle as Part 2). `community-design-philosophy.md` → `design-philosophy.md` (kept the rubric per mid-phase course correction; modernized references; added subject-to-change note). `policy-framework.md` → `policy.md` (rename only). 59 files touched.
+- **R06** (`cc96215`) — Systems merged: four agent-stack docs (`foundation/agent-assistance.md` + `delegation.md` + `assistant-context.md` + `skills.md`) → one `systems/agent-assistance.md` with sections + shared substrate. Two producer docs (`producer-bulletin.md` + `producer-growth.md`) → one `producer-tools.md`. 35 files touched.
+- **R07** (`a83bdcb`) — Capabilities + exploration consolidated: discovery triangle (`consumer-feed.md` + `locality-browse.md`) folded into `ui/community-platform.md`. `shareable-listing.md` folded into `item-view.md` + `member-profile.md` (with stale URL fix `/p/` → `/m/` and Communities → Groups). Two accountability framings merged into `exploration/accountability.md` (intentionally non-reconciling). `business-intelligence-platform.md` got a "Kept — under PM review" banner.
+- **R08** (`325f818`) — `product/needs/` layer built: `canonical-examples.md` → `needs/use-cases.md` (relocated with banner); `loops.md` → `needs/member-journey.md` (relocated with banner). Two new drafts: `people.md` (8 personas + 4 TBD) and `needs.md` (13 needs in plain voice, traced to loop / system / capability / persona). 40 files touched.
+- **R09** (`ef5e597`) — Document registry installed. 117 files received `purpose` + `layer` + `status` YAML front-matter via a generator script. `REGISTRY.md` at the repo root catalogs all of them grouped by WHY / WHAT / HOW. `pipeline-router` workflow + SKILL updated with a session-start registry-conformance check (lightweight; orientation, not gating).
+- **R10** (this entry's commit) — Closing sweep. New `product/TRACE.md` traces every capability from need to ticket. `product/MAP.md` refreshed with a Needs section, Standards line, TRACE/REGISTRY pointers, and unified attic-paths. `CLAUDE.md` refreshed: reading order adds TRACE + REGISTRY; authoritative-docs table updated; producer-tools / agent-assistance duplications collapsed; retired-specs paragraph unified across all 2026-05 consolidations. `AGENTS.md` + skills/ audited zero broken refs. Front-matter added to CLAUDE / AGENTS / JOURNAL / MAP / TRACE / REGISTRY. JOURNAL entry (this one).
+
+**Net headline.** 40 narrative docs across `product/` and `planning/` consolidated to 26. Seven overlap clusters dissolved. 117 docs catalogued. The repo now has a front door (MAP + TRACE + REGISTRY) and a "doc with no distinct purpose cannot quietly exist" discipline (the registry-conformance check).
+
+**The effort folder** `housekeeping/doc-consolidation-2026-05/` retains the plan, the inventory, the reorg proposal, the 10 R-tickets with their Completion notes, and the running [PM: confirm] backlog (~18 items spanning the merge phases). Every Completion note names what was [PM: confirm]-flagged.
+
+**[PM: confirm] backlog highlights** for the PM to walk:
+- 4 TBD personas in `people.md` (Idea-Floater, Mutual-Aid Member, Trades-Pro Seeker, Community Steward) — resolve when the four `[TODO]` use-cases in `use-cases.md` get real instances.
+- The standards/ stubs need content.
+- The accountability merge is intentionally non-reconciled (two framings; PM picks at graduation).
+- Various small wording issues flagged in the per-ticket Completion notes.
+
+**Next session pickup:**
+
+1. The Doc Consolidation effort is closed. Review the 10 R-ticket Completion notes for [PM: confirm] items you want to address next.
+2. `product/systems/places.md` is still untracked (PM directive: another agent's workflow). Commit when ready.
+3. If returning to feature work: `pipeline-router` will surface the b1 work map and the registry-conformance check at session start.
 
 ---
 

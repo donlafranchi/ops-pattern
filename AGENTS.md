@@ -1,6 +1,12 @@
+---
+purpose: Pipeline definition — agent roles, firewalls, gates, escalation.
+layer: how
+status: active
+---
+
 # AGENTS.md — Development Pipeline
 
-> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. See [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) for the rationale and the full audit.
+> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. The 2026-05-09 pipeline audit that originally drove this definition is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md); its findings live in this file. The 2026-05-22 follow-up audit is at [`pipeline-process-audit-2026-05-22.md`](pipeline-process-audit-2026-05-22.md).
 
 Seven specialized roles handle the full development lifecycle. Each is implemented as a skill in [`skills/`](skills/) and routed by `pipeline-router`. Process lives in skills, not in nested CLAUDE.md files.
 

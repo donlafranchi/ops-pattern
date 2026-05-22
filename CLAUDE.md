@@ -1,7 +1,13 @@
+---
+purpose: Project router — facts, primitives, naming rules, agent routing, commit rules.
+layer: how
+status: active
+---
+
 # Movers, Makers & Shakers
 
 > Solo founder. Re-architecture in flight. Process lives in skills, not nested CLAUDE.md files.
-> First time in this repo? Read this file end-to-end, then [`product/MAP.md`](product/MAP.md) (100k-foot architecture map — one sentence per system), then [`AGENTS.md`](AGENTS.md), then [`JOURNAL.md`](JOURNAL.md).
+> First time in this repo? Read this file end-to-end, then [`product/MAP.md`](product/MAP.md) (100k-foot architecture map — one sentence per system), then [`product/TRACE.md`](product/TRACE.md) (feature lineage), then [`REGISTRY.md`](REGISTRY.md) (doc catalog), then [`AGENTS.md`](AGENTS.md), then [`JOURNAL.md`](JOURNAL.md).
 
 ## Project Facts
 
@@ -11,7 +17,7 @@
 - **App path:** `./web`
 - **Active bundle:** [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) (Primitives MVP).
 - **Active rebuild:** [`planning/rebuild-plan.md`](planning/rebuild-plan.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
-- **Pipeline audit:** [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) (read once at session start when revisiting process).
+- **Pipeline audit history:** the 2026-05-09 audit was the load-bearing one; its findings live in this file and `AGENTS.md`. The original is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) for trace; the 2026-05-22 follow-up audit lives at [`pipeline-process-audit-2026-05-22.md`](pipeline-process-audit-2026-05-22.md). Read either only when revisiting process history.
 - **ADR home:** [`planning/adrs/`](planning/adrs/) — one file per ADR, indexed from [`planning/DECISIONS.md`](planning/DECISIONS.md). Format and lifecycle in [`planning/adrs/README.md`](planning/adrs/README.md). Use the `pipeline-adr` skill to write a new one.
 
 ## North Star — The Loops
@@ -158,8 +164,9 @@ Read before working in the named area. The pipeline skills already know to read 
 | Doc | Use when |
 |---|---|
 | [`product/MAP.md`](product/MAP.md) | Anytime you need the 100k-foot view — one sentence per system, alignment-check list at the bottom |
+| [`product/TRACE.md`](product/TRACE.md) | Trace any ticket back to its need — feature lineage table |
+| [`REGISTRY.md`](REGISTRY.md) | What docs exist and what each one does — the catalog |
 | [`AGENTS.md`](AGENTS.md) | Anything pipeline — read/write firewalls, gates, escalation |
-| [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) | Process questions; understanding why the gates exist |
 | [`planning/DECISIONS.md`](planning/DECISIONS.md) | The ADR pointer index — every architectural decision, current status, file path. Read first when looking up any "is there a decision about X?" |
 | [`planning/adrs/`](planning/adrs/) | The canonical home for every ADR. Format and lifecycle in [`adrs/README.md`](planning/adrs/README.md). |
 | [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |
@@ -173,8 +180,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/systems/member.md`](product/systems/member.md) | Anything Person-shaped. The anchor primitive of the platform. Includes multi-Location affinities (`member_location_affinities`), DM substrate, taste profile. (Maker mode retired 2026-05-12 per amendment §6 — selling tools surface from Group/Item state.) |
 | [`product/systems/location.md`](product/systems/location.md) | Anything place-shaped — permanent / recurring-temporary / area Locations, multi-Location belonging, Location-follow, the Concerts-in-the-Park surface. **The anti-Nextdoor commitment** (no Location-scoped messaging or feeds) is encoded here and in `policy.md`. |
 | [`product/systems/action-layer.md`](product/systems/action-layer.md) | Anything write-shaped or runtime-trust-shaped — the action handler contract, same-transaction row+event invariant, scope catalog, scoped capability vending, credential injection at the network edge, confirmation-gate enforcement, Skill sandbox. **Owns ADR-7.** Read when designing how agents transact on Members' behalf or when adding any new write capability. |
-| [`product/systems/producer-tools.md`](product/systems/producer-tools.md) | Anything broadcast-to-followers — Member-authored bulletins, optional kind='business' Group branding, in-app + email delivery, rate limits, mute/unsubscribe, T2/T3 rich composition + scheduling + segmentation. Re-anchored from `vendor-bulletin.md` on 2026-05-11. |
-| [`product/systems/producer-tools.md`](product/systems/producer-tools.md) | Anything producer-dashboard-shaped or BI-shaped — the founder dashboard, followers/activity/profile-health surfaces, peer benchmarks, weekly digest, T3 competitive intelligence. Backs the producer recruitment pitch and the platform-promise commitment. Re-anchored from `vendor-intelligence.md` on 2026-05-11. |
+| [`product/systems/producer-tools.md`](product/systems/producer-tools.md) | Two surfaces in one spec — **Bulletin** (Member-authored broadcast to followers; optional kind='business' Group branding; in-app + email delivery; T2/T3 rich composition + scheduling + segmentation) and **Growth** (founder dashboard — followers/activity/profile-health, peer benchmarks, weekly digest, T3 competitive intelligence). Folded together from the prior `producer-bulletin.md` + `producer-growth.md` on 2026-05-22. Backs the producer recruitment pitch and the platform-promise commitment. |
 | [`product/systems/business-jurisdiction.md`](product/systems/business-jurisdiction.md) | Anything locality-claim-shaped for kind='business' Groups — the three-tier verification ladder (Tier 0 self-attested ZIP → Tier 1 SOS-verified → Tier 2 document-uploaded), `member_business_jurisdictions` substrate, the `public.zip_is_proximal_to_location()` derivation path, the public "Claimed / Verified / Documented local owner" badge. **Promoted from `_attic/2026-05-19/product-exploration/locally-owned-verification.md` on 2026-05-11** (archived 2026-05-18) — that doc is now historical context only. The doxxing-prevention design choice (locality ≠ address) lives here. |
 | [`product/systems/payments.md`](product/systems/payments.md) | Anything money-movement-shaped — Member→Member, Member→Group, Member→external-identified-recipient commerce; closed-loop ledger + ACH via chartered partner at b2; card on-ramp with friction; stablecoin path gated at T3; the wealth-circulation rubric (fees / float / rail-ownership / lock-in) as the selection process; zero platform transaction fees on Member commerce; platform never custodies for itself. **Drafted 2026-05-12** companion to `agent-commerce-and-project-amendments.md`. The rail that honors the `bounded_purchase` Delegation scope (ADR-17). |
 | [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) | What ships in the rebuild MVP and what defers |
@@ -184,13 +190,18 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
 | [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
 | [`product/foundation/design-philosophy.md`](product/foundation/design-philosophy.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
-| [`product/foundation/principles.md`](product/foundation/principles.md) | The constitution — P1–P8 first principles + the Decision Test + categorical failures + metrics baseline + privacy/security baseline + monetization hypothesis. Binary pass/fail filter for every proposal. |
+| [`product/foundation/principles.md`](product/foundation/principles.md) | The constitution — P1–P8 first principles + the People-First Principle + the Decision Test + categorical failures + metrics baseline + privacy/security baseline + monetization hypothesis. Binary pass/fail filter for every proposal. |
+| [`product/needs/people.md`](product/needs/people.md) | DRAFT — personas the platform serves (Producer, Convener, Newcomer, Steward, Backer, Affinity-Seeker, Follower, Everyday Neighbor). |
+| [`product/needs/needs.md`](product/needs/needs.md) | DRAFT — 13 human needs in plain voice, each traced to loop / system / capability / persona. |
+| [`standards/`](standards/) | Cross-cutting build qualities — safety, security, accessibility, performance, responsiveness. Stubs scaffolded 2026-05-19. |
+| [`REGISTRY.md`](REGISTRY.md) | Catalog of every narrative doc with its purpose + status, grouped by why / what / how layer. Generated from front-matter. |
+| [`product/TRACE.md`](product/TRACE.md) | Feature lineage — every capability traced from human need to ticket. Companion to MAP. |
 
-**Retired specs** (archived 2026-05-11 — Phase 4 cleanup): `product/systems/community.md`, `product/systems/member-operations.md`, `product/systems/cooperative.md` now live in [`_attic/2026-05-19/product-systems/`](_attic/2026-05-19/product-systems/). Do not cite as live — use `groups.md`.
+**Retired specs** — every doc retired in the 2026-05 consolidations lives under [`_attic/2026-05-19/`](_attic/2026-05-19/). Notable retired/superseded paths now archived there: `community.md`, `member-operations.md`, `cooperative.md`, `vendor-bulletin.md`, `vendor-intelligence.md`, `vendor-self-service.md` (2026-05-11 Phase 4); `foundational-principles.md`, `people-first.md`, `community-design-philosophy.md`, `policy-framework.md`, `foundation/agent-assistance.md`, `delegation.md`, `assistant-context.md`, `skills.md`, `producer-bulletin.md`, `producer-growth.md`, `consumer-feed.md`, `locality-browse.md`, `shareable-listing.md`, `canonical-examples.md`, `loops.md`, `business-accountability.md`, `community-accountability-model.md`, `PIPELINE-AUDIT.md`, `notes/` (2026-05-22 doc consolidation, R01–R10). Do not cite as live — use the current docs in `product/foundation/`, `product/needs/`, `product/systems/`, `product/ui/`.
 
-**Producer-shaped systems** (2026-05-11 re-anchor). The prior vendor-shaped specs were rewritten on Members + kind='business' Groups: `vendor-bulletin.md` → [`producer-tools.md`](product/systems/producer-tools.md); `vendor-intelligence.md` → [`producer-tools.md`](product/systems/producer-tools.md). `vendor-self-service.md` was retired as superseded (Location concerns live in [`location.md`](product/systems/location.md); profile-completeness lives in `producer-tools.md` T1; the no-admin-queue principle is platform-wide). Originals in [`_attic/2026-05-19/product-systems/`](_attic/2026-05-19/product-systems/) for historical reference. Do not cite the vendor-* specs as live.
+**Producer-shaped systems** (historical context). The prior vendor-shaped specs were first re-anchored on Members + kind='business' Groups (2026-05-11) as `producer-bulletin.md` + `producer-growth.md`, then folded together into [`producer-tools.md`](product/systems/producer-tools.md) (2026-05-22, R06). `vendor-self-service.md` was retired as superseded — Location concerns live in [`location.md`](product/systems/location.md); profile-completeness in `producer-tools.md` § Growth T1; the no-admin-queue principle is platform-wide. All originals in [`_attic/2026-05-19/product-systems/`](_attic/2026-05-19/product-systems/) for trace.
 
-**Forward-looking, NOT b1** (do not gate b1 on these): `product/systems/agent-assistance.md`, `agent-assistance.md`, `agent-assistance.md`. See [`planning/history/agent-assistance-2026-05-09.md`](planning/history/agent-assistance-2026-05-09.md) for the seven open decisions parked there.
+**Forward-looking, NOT b1** (do not gate b1 on these): the b2+ surfaces inside [`product/systems/agent-assistance.md`](product/systems/agent-assistance.md) — the assistant chat panel, the Skill catalog at `/skills`, the Assistant Context editor, the three Assistant Context update pathways. b1 ships substrate only (`delegations`, `member_self_records`, `skill_subscriptions`, `skills`, `skill_versions` tables; `/you/data` export + purge; audit fields on every event row). See [`planning/history/agent-assistance-2026-05-09.md`](planning/history/agent-assistance-2026-05-09.md) for the seven open decisions parked there.
 
 > **`groups.md` IS b1** — full surface ships at b1, including all six kinds (place / interest / practice / event_anchored / family / business). Standing-tier gate is defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group. ADR status: see [`planning/DECISIONS.md`](planning/DECISIONS.md) for the current register and the system-resident pointer index; superseded ADRs live in [`_attic/2026-05-19/planning/`](_attic/2026-05-19/planning/).
 
@@ -211,7 +222,7 @@ Read before working in the named area. The pipeline skills already know to read 
 - Working in `product/`, `planning/`, `development/`, `skills/` → parent repo.
 - Never cross-commit.
 
-**Pipeline-doc changes** (this file, AGENTS.md, PIPELINE-AUDIT.md, skill workflows) commit with `docs(pipeline): {what}` — no T-number.
+**Pipeline-doc changes** (this file, AGENTS.md, MAP.md, TRACE.md, REGISTRY.md, skill workflows) commit with `docs(pipeline): {what}` — no T-number.
 
 ## Language & Framing
 
