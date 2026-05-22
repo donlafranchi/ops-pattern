@@ -18,7 +18,7 @@ As a first-time visitor, I want to understand what Movers, Makers & Shakers is a
 - **Sign Up** primary CTA (bottom-anchored).
 - **Log In** secondary CTA.
 - **Browse as Guest** tertiary option — anonymous Members get access to public Items, Locations, and the locality-aware Explore surface (per the anonymous Loop 3 path in [`loops.md`](../foundation/loops.md)).
-- After auth: redirect to Home (the locality feed per [`consumer-feed.md`](consumer-feed.md)). First-run users get the geolocate-then-city-pick locality prompt per ADR-4 before Home renders.
+- After auth: redirect to Home (the locality feed per [`../ui/community-platform.md`](../ui/community-platform.md)). First-run users get the geolocate-then-city-pick locality prompt per ADR-4 before Home renders.
 - Already-authenticated Members skip the landing surface and go straight to Home.
 
 ## Anonymous browsing
@@ -34,7 +34,7 @@ Anonymous Loop 3 traffic is supported at b1: a guest can browse public Items, Lo
 
 ## Related capabilities
 
-- [Locality Feed](consumer-feed.md) — destination on Home after auth.
+- [Home — Locality Feed](../ui/community-platform.md) — destination on Home after auth.
 - [Member Profile](member-profile.md) — Members' own pages, populated post-sign-up.
 
 ## Changelog

@@ -26,7 +26,7 @@ The labels in the nav stay simple ("Home" / "Explore" / "You") because every soc
 
 | ID | Name | Tier | Status | Notes |
 |----|------|------|--------|-------|
-| C1 | [Locality Feed](../capabilities/consumer-feed.md) | T1 | Design | Mixed cards from Items declared in the Member's locality; extend with the Event card type that covers all gathering categories (ADR-5 — `items.kind = 'gathering'`). |
+| C1 | Locality Feed (Home) | T1 | Design | Mixed cards from Items declared in the Member's locality; extend with the Event card type that covers all gathering categories (ADR-5 — `items.kind = 'gathering'`). Folded in from the prior `capabilities/consumer-feed.md` on 2026-05-22; spec lives in the T1 Home section below. |
 | ~~C2~~ | ~~Business Events~~ | — | **Archived** | Capability rewrote as: Event Items hosted by Members (per ADR-5; schema `items.kind = 'gathering'`). The standalone "business events" framing is retired; original in `capabilities/archive/business-events.md`. |
 | ~~C3~~ | ~~Business Updates~~ | — | **Archived** | Capability replaced by [`systems/producer-tools.md`](../systems/producer-tools.md) — Member-authored broadcast to followers, optional kind='business' Group branding. |
 | ~~C4~~ | ~~Class / Workshop event type~~ | — | **Resolved by ADR-5** | Events with `category=class` or `category=workshop`. Not a separate kind. |
@@ -58,7 +58,23 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 
 **The locality-aware-but-not-Location-scoped property is structural:** the feed surfaces Items declared by Members whose `home_location_id` is in the viewer's locality, plus Items attached to Locations in the viewer's locality, plus Items from followed Members regardless of location. There is no surface that lets anyone address "everyone in West Sac" — the anti-Nextdoor commitment in policy.md is honored by absence.
 
-**Explore:** Search, category filter, day filter, locality filter, list/map toggle. Searchable across Items, Members, Locations, and (at b2) Groups. The static rails currently on Home (category grid, Sellers-near-you, markets-near-you) **move to Explore as the empty state** so Home stays feed-first.
+**Explore (Locality Browse).** Folded in from the prior `capabilities/locality-browse.md` on 2026-05-22.
+
+- Browse at `/explore` **without authentication** — no redirect, no signup wall.
+- Proximity sort via PostGIS `ST_DWithin` against the `discoverable_items` materialized view — base tables never queried on the anonymous read path.
+- Searchable across Items, Members, Locations, and (at b2) Groups.
+- Filters at b1: kind (product / service / gathering / wonder), category (multi-select), distance (1/5/10/25 mi), schedule (any / this week / this weekend / recurring).
+- Active filters as removable chips; filter state reflected in URL for shareable views.
+- Map toggle: same result set rendered as kind-color-coded pins; tap pin → compact card → Item page.
+- Location prompt (non-modal) when no location is set; geocoding autocomplete for city / neighborhood / zip.
+- Pagination at 20; "Show more" at bottom.
+- Empty state with "Declare something" CTA when no results.
+- Back navigation restores scroll and filter state.
+- The static rails currently on Home (category grid, Sellers-near-you, markets-near-you) **move to Explore as the empty state** so Home stays feed-first.
+
+**Explore — deferred:** Personalized / algorithmic ranking (b2); saved searches (b2); Items with no Location (do not appear in the proximity index; keyword-search path at b2); full-screen map as a primary route (map is a toggle, not a separate page).
+
+**Acceptance signal (Explore).** An unauthenticated visitor navigates to `/explore`, enters a location, sees a list of nearby Items without being prompted to sign up, and can reach an Item page in two taps.
 
 **You:** Single tab in MVP (everyone is a Member; selling-tool affordances appear conditionally per ADR-12 SUPERSEDED 2026-05-12):
 

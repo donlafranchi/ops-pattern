@@ -1,5 +1,10 @@
 # Business Intelligence Platform: Ideas, Tools & Best Practices
 
+> **Kept 2026-05-19 — live candidate, under PM review for inclusion.** This is slated to
+> become a tool for producers and makers to improve their operations. Vocabulary here is
+> pre-primitives ("business"); read it for intent, not current terms. Related to
+> [`systems/producer-tools.md`](../systems/producer-tools.md). Not yet an approved system.
+
 > Raw exploration. Decompose into capabilities/, systems/, and products/ as pieces mature.
 
 ## North Stars

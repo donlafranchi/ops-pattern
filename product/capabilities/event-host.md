@@ -40,8 +40,8 @@ Brian (a regular at the Run Club) opens Drake's venue page on his phone, taps "H
 ## Related capabilities
 
 - `event-attend` (b2) — RSVP / "I'm coming" affordance.
-- [Locality Feed](consumer-feed.md) — the surface where Events are discovered by strangers.
-- [Locality Browse](locality-browse.md) — the search/filter surface.
+- [Home — Locality Feed](../ui/community-platform.md) — the surface where Events are discovered by strangers.
+- [Explore — Locality Browse](../ui/community-platform.md) — the search/filter surface.
 - `following` — venue followers and host followers receive notifications when the host publishes a new Event at their venue.
 
 ## Related scenarios

@@ -22,6 +22,21 @@ Any visitor — logged in or not — views an Item's public page. The page shows
 - Server-side OG metadata for link previews
 - Hashtag chips linked to `/h/[hashtag]`
 
+## Shareable URL
+
+The Item page is one of the four shareable entity surfaces (Item / Member / Location / Group). Folded in from the prior `shareable-listing.md` on 2026-05-22.
+
+- Kind-specific URL per [`../systems/item.md`](../systems/item.md): `/e/[slug]` Event · `/p/[slug]` Product · `/s/[slug]` Service · `/i/[slug]` Idea · `/o/[slug]` Offer · `/a/[slug]` Ask · `/initiative/[slug]` Initiative.
+- SSR with full OG / Twitter Card metadata (title, description, image, type).
+- OG image: kind-themed default at b1; T2 promotes to Member-uploaded photo.
+- Stable slug — once issued, never changes unless the Member explicitly renames the Item (and old slug 301-redirects).
+- Public read for non-private entities (per RLS rules on `items`).
+- Mobile-responsive (per [`../ui/design-language.md`](../ui/design-language.md)).
+
+**Anti-spam.** Stable shareable URLs are a vector for SEO-style listing creation; the [no-admin-queue principle](../systems/location.md) (Members enter their own data) + Member rate limits (per [`../systems/member.md`](../systems/member.md)) + content-policy review (per [`../foundation/policy.md`](../foundation/policy.md)) are the layered defenses.
+
+**Deferred:** Custom OG image upload per entity (T2 — depends on photo upload); embed widgets for external sites (T3); per-entity short-link aliases (T3).
+
 ## Deferred
 
 - Item edit history (b2)

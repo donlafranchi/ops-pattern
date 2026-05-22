@@ -54,7 +54,7 @@ A Member creates a Group at `/g/new` (any kind), a second Member finds it at `/g
 
 - [Event Host](event-host.md) — gathering Items can be Group-scoped at b1.
 - [Member Profile](member-profile.md) — Member's Group memberships surface on `/m/[handle]` when public.
-- [Locality Feed](consumer-feed.md) — Group activity surfaces in the locality feed at T2.
+- [Home — Locality Feed](../ui/community-platform.md) — Group activity surfaces in the locality feed at T2.
 
 ## Changelog
 
