@@ -1,3 +1,8 @@
+> **Relocated 2026-05-19** from `planning/bundles/`. Still bundle-shaped (schema delta +
+> ship-theme framing). Parked here as the canonical home for the stewardship system; needs
+> a rewrite into proper system-spec form. Until then treat the schema and constraints as
+> authoritative and the ship-theme framing as legacy.
+
 # Bundle: Stewardships (ship-theme S6.5)
 
 **Status:** Drafted 2026-05-18 — pending PM review. Slots into b1 as a discrete ship-theme between Wonder (S6) and the b2 themes. Depends on Groups, Locations, Items (gathering), and the existing `steward` role on affiliate Group kinds. No new primitive; one small child table on Groups.

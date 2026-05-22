@@ -31,7 +31,7 @@ The deeper trade-off: the platform's wedge is farmers markets, but the platform'
 
 - No `markets` table, no `market_*` event log, no market-only RLS policies. The schema is exactly one table family — Items + the gathering child + Locations + Item↔Location join — for the entire concept space.
 - The "Vendor" mental model dissolves at the schema level. A producer at a farmers market is a Member with a kind='business' Group and one or more `kind='product'` Items; the market itself is a separate `kind='gathering'` Item. The two Items reference the same Location.
-- The locality-first index ([`/explore`](../../product/surfaces/community-platform.md)) filters by kind + category uniformly — there is no Markets tab, only the "Browse events" filter with optional `farmers-market` category narrowing.
+- The locality-first index ([`/explore`](../../product/ui/community-platform.md)) filters by kind + category uniformly — there is no Markets tab, only the "Browse events" filter with optional `farmers-market` category narrowing.
 - Future kinds of gathering ship by adding categories, not tables. A "co-op meeting" gathering is a `kind='gathering'` Item with category `co-op-meeting`; no schema work.
 - This ADR forecloses a path where farmers markets get a richer purpose-built data model than the rest of gatherings. Reversible at significant cost (re-extracting market-specific concepts from the generalized schema), and the foreclosure is the point — the platform's grammar is uniform across all gathering kinds.
 

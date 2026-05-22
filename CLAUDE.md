@@ -182,7 +182,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/bundles/b1-work-map.md`](planning/bundles/b1-work-map.md) | The menu of work per b1 sub-bundle, tagged 🟢 / 🟡 / ⚪ for scope decisions. The planner picks the next F### scenario from this map. |
 | [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) | The rebuild plan — four phases, clean-slate, ticket sequencing. Filename retained for git history; the plan supersedes the prior 7-phase migration. |
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
-| [`product/surfaces/community-platform.md`](product/surfaces/community-platform.md) | Home / Explore / You / feed / discovery |
+| [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
 | [`product/foundation/community-design-philosophy.md`](product/foundation/community-design-philosophy.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
 | [`product/foundation/foundational-principles.md`](product/foundation/foundational-principles.md) | The constitution — P1–P8 first principles + the Decision Test + categorical failures + metrics baseline + privacy/security baseline + monetization hypothesis. Binary pass/fail filter for every proposal. |
 

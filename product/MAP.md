@@ -41,7 +41,7 @@ Connecting people, joining forces, improving our lives socially and economically
 
 ## Surfaces (the consumer product)
 
-- **[`community-platform.md`](surfaces/community-platform.md)** — Home / Explore / You consumer architecture; the surfaces a Member sees.
+- **[`community-platform.md`](ui/community-platform.md)** — Home / Explore / You consumer architecture; the surfaces a Member sees.
 
 ## UI + operations + process
 

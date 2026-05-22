@@ -9,7 +9,7 @@ Reframe Home as a **local feed scoped to the user's market**, sorted by what's h
 This replaces the current Home implementation that mixes ad-hoc card types. Explore stays the catalog/discovery surface (untouched by this ticket).
 
 ## References
-- [product/surfaces/community-platform.md](../../product/surfaces/community-platform.md) — Home page role
+- [product/ui/community-platform.md](../../product/ui/community-platform.md) — Home page role
 - [product/systems/events.md](../../product/systems/events.md) — event model
 - T022 — schema (hard prerequisite)
 - T021 — DLS + recruitment panel (assumed done)

@@ -2,7 +2,7 @@
 
 **Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`b1-primitives.md`](b1-primitives.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`b1-work-map.md`](b1-work-map.md) (the menu of work per sub-bundle).
 
-**Depends on:** `b1-primitives.md`, `loops.md`, `primitives.md`, `canonical-examples.md`, `foundational-principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, `stewardships.md`.
+**Depends on:** `b1-primitives.md`, `loops.md`, `primitives.md`, `canonical-examples.md`, `foundational-principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
 
 **What this doc does.** `b1-primitives.md` defines what ships in bundle 1 in primitive and cluster terms. This doc takes that scope and *sequences* it — what ships first, what second, what depends on what, and what each release is tested against. The unit of release is a **sub-bundle**, decimal-numbered (`b1.0`, `b1.1`, …). Each sub-bundle is small enough to ship in 1–2 weeks, demoable on its own, and metered against canonical examples.
 
@@ -214,7 +214,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 ### b1.6 — Stewardships *(the care floor — the smallest ownership step)*
 
-**What ships:** per [`stewardships.md`](stewardships.md) in full.
+**What ships:** per [`stewardships.md`](../../product/systems/stewardships.md) in full.
 
 - `group_stewardships` child table on Groups (one row per Group declaring itself a stewardship)
 - Seven curated templates with on-platform starter copy and links to canonical external playbooks: tool library, seed library, repair café, Little Free Library, Little Free Pantry, community fridge, mutual aid pod / buying club
@@ -228,7 +228,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 **Loops advanced:** Loop 12 (Steward what we built) — full. Loop 11 (Pool resources) — partial; the *care* dimension of pooling ships; capital pooling defers to b3.
 
-**Metrics — per `stewardships.md` § Metrics:**
+**Metrics — per [`stewardships.md`](../../product/systems/stewardships.md) § Metrics:**
 - Stewardships declared per 1000 Members per month
 - % of stewardships still active at day 30 / 90 / 180 / 365
 - Median active stewards per stewardship over time

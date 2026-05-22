@@ -9,7 +9,7 @@ Make `/you` the single identity surface. Move scattered controls (heart-saved-li
 Etsy is the model: "You" = a hub of tabs (Saved, Following, Settings, [Vendor]).
 
 ## References
-- [product/surfaces/community-platform.md](../../product/surfaces/community-platform.md) — page roles
+- [product/ui/community-platform.md](../../product/ui/community-platform.md) — page roles
 - [product/ui/design-language.md](../../product/ui/design-language.md) — tabs, list rows, empty states
 - T021 — auth gate + nav patterns (this ticket assumes T021 is done)
 

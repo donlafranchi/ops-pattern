@@ -262,7 +262,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 - `product/capabilities/pin-accuracy-verification.md` → archived (substrate now in `location.md`).
 - `product/systems/community.md`, `member-operations.md`, `cooperative.md` → archived. The live `groups.md` is the only spec for the Group primitive.
 - `product/foundation/primitives.md` Community section → rewritten as Group section with six-kind framing.
-- `product/surfaces/community-platform.md` → broader rewrite (Member/Producer language replaces Shopper/Business; anti-Nextdoor framing replaces "Nextdoor-style location-locked feed"; archived C2/C3 capability rows). [Renamed from `product/products/` 2026-05-11.]
+- `product/ui/community-platform.md` → broader rewrite (Member/Producer language replaces Shopper/Business; anti-Nextdoor framing replaces "Nextdoor-style location-locked feed"; archived C2/C3 capability rows). [Renamed from `product/products/` 2026-05-11.]
 - `product/capabilities/community-create-join.md` → renamed and rewritten as `group-create-join.md`.
 - `product/capabilities/consumer-feed.md` → renamed "Locality Feed" and re-anchored on Item primitive.
 - `product/capabilities/landing-page.md` → rewritten on Member primitive with anonymous Loop 3 path.
