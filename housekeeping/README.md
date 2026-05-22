@@ -12,7 +12,7 @@ Reorganizations keep happening — this is at least the fourth. Each one used to
 
 | Effort | Folder | Date | Status |
 |---|---|---|---|
-| Doc Consolidation | [`doc-consolidation-2026-05/`](doc-consolidation-2026-05/) | 2026-05 | Plan approved; tickets ready for Claude Code |
+| Doc Consolidation | [`doc-consolidation-2026-05/`](doc-consolidation-2026-05/) | 2026-05 | **Closed 2026-05-22** — all 10 phases shipped (R01–R10). See `JOURNAL.md` top entry and each R-ticket's Completion notes. |
 
 *Earlier efforts (the food pivot, the pre-mission-clarity cleanup, the primitives rebuild) predate this folder; their records live in `_attic/` and the `planning/` archives. The PM can back-fill rows here if a consolidated history is wanted.*
 
