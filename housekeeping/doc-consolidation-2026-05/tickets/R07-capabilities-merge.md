@@ -91,4 +91,24 @@ git commit -m "docs(consolidation): phase 7 — merge discovery, fold shareable-
 
 ## Completion
 
-Date: {YYYY-MM-DD} · Commit: {hash} · Notes: {list every [PM: confirm] left behind}
+Date: 2026-05-22 · Commit: `a83bdcb` · Notes:
+
+**Five files folded / merged / removed; one banner added; three broken refs fixed.**
+
+- **Discovery triangle.** `consumer-feed.md` and `locality-browse.md` deleted; the C1 row in `ui/community-platform.md` updated to inline-reference the doc's own T1 Home section; T1 Explore section expanded with the unique implementation details from `locality-browse.md` (`/explore` route, anonymous access, PostGIS `ST_DWithin` against `discoverable_items`, the explicit filter set, URL state, map toggle, pagination, empty state, back-nav restore, deferreds, acceptance signal).
+- **Shareable-listing fold.** `shareable-listing.md` deleted; a "Shareable URL" subsection added to `item-view.md` (covering all seven Item kind-specific URLs + SSR/OG + stable slug + anti-spam) and to `member-profile.md` (covering `/m/[handle]` + SSR/OG + Member avatar OG image).
+- **`member-profile.md` modernized.** Stale `/p/[member-slug]` URL → `/m/[handle]`. "Explicitly joined Communities" → "Explicitly joined Groups." Acceptance signal updated to `/m/[handle]`.
+- **Accountability merge.** `business-accountability.md` renamed to `accountability.md`; `community-accountability-model.md` merged in as a second framing. Per the ticket's "drop nothing unique" rule, both perspectives are preserved verbatim under § Framing 1 (Public-Record Transparency) and § Framing 2 (Community-Driven Four Pillars + Sliding Scale), with a top-of-doc note flagging that the merge is intentionally non-reconciling — PM picks which framing (or blend) becomes the spec when the doc graduates from exploration. A merge-notes section at the bottom names the load-bearing principles both framings honor (no gatekeeping ratings per principles.md Part 5; the four-pillar lens; the action-layer audit trail).
+- **BI doc flagged.** `business-intelligence-platform.md` got the "Kept 2026-05-19 — live candidate, under PM review" banner the ticket specifies, with a pointer to `producer-tools.md`.
+- **Three broken refs fixed.** `landing-page.md`, `event-host.md`, `group-create-join.md` all had `[Locality Feed](consumer-feed.md)` / `[Locality Browse](locality-browse.md)` style links to the now-deleted capability files. All rewritten to point at `../ui/community-platform.md` (the new home).
+
+**[PM: confirm] items left behind:**
+
+- **Both accountability framings still use pre-primitives "business" vocabulary** throughout — when this graduates from exploration to a system spec, the subject of accountability is the kind='business' Group (and the Members named as owner-role memberships); the language pass goes with the graduation.
+- **`accountability.md` is intentionally non-reconciled.** The two framings overlap but address different sub-questions (court records vs. community signals). The doc names the convergence point (Framing 2's b3 row already plugs in Framing 1) but doesn't pre-decide a single shape. PM picks at graduation.
+- **`item-view.md` and `member-profile.md` "Shareable URL" subsections** were inserted just before the existing "Deferred" sections to keep the doc structure clean; check that the section order reads naturally to your eye.
+- **`landing-page.md` line 21** had a phrase "(the locality feed per [`consumer-feed.md`](consumer-feed.md))" that got mechanically rewritten to "(the locality feed per community-platform.md (in `../ui/`))" — the wording is a little awkward; PM can polish.
+
+**Intentional residual refs (not broken):** the merge-note provenance lines inside `community-platform.md`, `item-view.md`, `member-profile.md`, and `accountability.md` all reference the prior filenames as historical context. `planning/rebuild-plan.md` and `planning/pending-ratifications.md` carry similar historical references. `development/tickets/done/T009-shareable-listing.md` references the archived scenario file (frozen-in-time). All preserved.
+
+**Verification.** All five OLD filenames (`consumer-feed.md`, `locality-browse.md`, `shareable-listing.md`, `business-accountability.md`, `community-accountability-model.md`) return zero **live broken** hits via the cross-reference sweep (excluding intentional provenance + historical-context refs). `product/capabilities/` no longer contains the three retired files. `product/exploration/` contains `accountability.md`, `business-intelligence-platform.md` (with banner), and `reciprocity-and-goodwill.md` — three files as expected.
