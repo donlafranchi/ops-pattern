@@ -43,7 +43,7 @@ ADR-9's anti-Nextdoor framing was softened 2026-05-12 in ways that refined this 
 ## Consequences
 
 - The action layer ([`action-layer.md`](../../product/systems/action-layer.md), ADR-7) is the only write surface for both humans and agents — agents do not get a back door.
-- Schema reservations at b1 (`member_self_records`, `member_delegations`) per [`notes/migration-to-primitives.md`](../../notes/migration-to-primitives.md) Phase 1 (007 series). Surfaces ship b2.
+- Schema reservations at b1 (`member_self_records`, `member_delegations`) per [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) Phase 1 (007 series). Surfaces ship b2.
 - ADR-17 (`bounded_purchase` scope) is the first concrete Delegation scope and the prototype for all future scopes — caps, recipient_scope, category_scope, reversibility window, first-recipient confirmation.
 - Member-Owned Context is not a "settings page" — it is a primitive. UI label is "Assistant Context" per the naming-conventions table in root `CLAUDE.md`.
 - Skills sandboxing is mandatory — every Skill runs in a sandbox per [`skills.md`](../../product/systems/skills.md). No exception for "trusted" Skills.

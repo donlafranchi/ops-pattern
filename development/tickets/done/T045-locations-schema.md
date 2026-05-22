@@ -1,6 +1,6 @@
 # T045 — Locations spine + 3 children + events (Phase 1 — `007_locations.sql`)
 
-**Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Schema floor (Location surface, 008 series in the plan; renumbered to 007 per the Phase 1 dependency reorder)
+**Scenario:** `planning/rebuild-plan.md` § Phase 1 — Schema floor (Location surface, 008 series in the plan; renumbered to 007 per the Phase 1 dependency reorder)
 **Status:** Complete
 **Completed:** 2026-05-11T09:10:18-07:00
 **Bundle:** b1

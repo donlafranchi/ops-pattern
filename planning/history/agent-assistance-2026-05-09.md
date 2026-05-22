@@ -85,7 +85,7 @@ This is the actual b1-shaped question hiding inside the larger Operations design
 
 The PM mentioned "rearchitecting the app based off the new primitives" with newly installed skills. Two pointers:
 
-- The active migration plan is [`notes/migration-to-primitives.md`](migration-to-primitives.md). That's the contract for the rearchitecture work — it sequences Cluster 1 (standing presence: Person + Item + Location + recurring schedule), the locality index (Cluster 3), and the response surface (Cluster 2 — Wonder is the candidate v1 verb).
+- The active migration plan is [`planning/rebuild-plan.md`](rebuild-plan.md). That's the contract for the rearchitecture work — it sequences Cluster 1 (standing presence: Person + Item + Location + recurring schedule), the locality index (Cluster 3), and the response surface (Cluster 2 — Wonder is the candidate v1 verb).
 - The agent-assistance work in this handoff is **downstream** of the rearchitecture. The action layer (ADR-7) is the bridge — once the rearchitecture lands the new primitives behind a clean action surface, the agent-assistance stack plugs in cleanly.
 
 ## End-state of this conversation

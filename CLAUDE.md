@@ -10,7 +10,7 @@
 - **Repo structure:** Two-repo. Parent `movers-makers-shakers/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
 - **App path:** `./web`
 - **Active bundle:** [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) (Primitives MVP).
-- **Active rebuild:** [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
+- **Active rebuild:** [`planning/rebuild-plan.md`](planning/rebuild-plan.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
 - **Pipeline audit:** [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) (read once at session start when revisiting process).
 - **ADR home:** [`planning/adrs/`](planning/adrs/) — one file per ADR, indexed from [`planning/DECISIONS.md`](planning/DECISIONS.md). Format and lifecycle in [`planning/adrs/README.md`](planning/adrs/README.md). Use the `pipeline-adr` skill to write a new one.
 
@@ -132,7 +132,7 @@ Memory hygiene: invoke `anthropic-skills:consolidate-memory` once a month or aft
 
 ## Rebuild phase — special rules
 
-Active until Phase 4 of [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) (the rebuild plan) completes.
+Active until Phase 4 of [`planning/rebuild-plan.md`](planning/rebuild-plan.md) (the rebuild plan) completes.
 
 1. **`pipeline-review` is MANDATORY** on every approved scenario. Verdicts: PROCEED / REVISE / EXTEND. Skip only for trivial copy/CTA changes on existing surfaces.
 2. **ADR or system-spec banner required** before `pipeline-plan` ratifies any scenario that introduces a new schema, event, table, column, or system. Cross-cutting decisions go to [`planning/DECISIONS.md`](planning/DECISIONS.md); single-system decisions go to the spec's status banner per the new DECISIONS.md format. The action-layer and event-log invariants live in ADR-10.
@@ -180,7 +180,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) | What ships in the rebuild MVP and what defers |
 | [`planning/bundles/bundle-themes.md`](planning/bundles/bundle-themes.md) | Sub-bundle sequencer — slices each bundle into 1–2-week sub-themes (`b1.0`–`b1.6`, `b2.0`–`b2.6`, `b3.0`–`b3.5`). Read whenever choosing what ships next. Spans b1/b2/b3. |
 | [`planning/bundles/b1-work-map.md`](planning/bundles/b1-work-map.md) | The menu of work per b1 sub-bundle, tagged 🟢 / 🟡 / ⚪ for scope decisions. The planner picks the next F### scenario from this map. |
-| [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) | The rebuild plan — four phases, clean-slate, ticket sequencing. Filename retained for git history; the plan supersedes the prior 7-phase migration. |
+| [`planning/rebuild-plan.md`](planning/rebuild-plan.md) | The rebuild plan — four phases, clean-slate, ticket sequencing. Filename retained for git history; the plan supersedes the prior 7-phase migration. |
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
 | [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
 | [`product/foundation/community-design-philosophy.md`](product/foundation/community-design-philosophy.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
@@ -200,7 +200,7 @@ Read before working in the named area. The pipeline skills already know to read 
 
 **Branch per ticket.** Every ticket starts on its own branch — `cd web && git switch -c t{nnn}` (or in parent for parent-repo work). PM merges to `main` at ticket close. Branch name `t{nnn}` is the convention; matches the ticket number, no zero-padding.
 
-**Commits live with the PM, not the agent.** The build agent does NOT run `git add` or `git commit`. The Cowork sandbox can't reliably clean up `.git/index.lock` after git operations (see [`notes/cowork-sandbox-git-bug.md`](notes/cowork-sandbox-git-bug.md)), which wedges subsequent agent calls and forces the PM to intervene. Instead, the build agent ends the ticket by producing a **commit summary** — repo, branch, file list, and suggested message — and the PM runs the commit from the Mac terminal. PM then pastes back the commit hash for the agent to backfill into the ticket's Completion section.
+**Commits live with the PM, not the agent.** The build agent does NOT run `git add` or `git commit`. The Cowork sandbox can't reliably clean up `.git/index.lock` after git operations (see [`_attic/2026-05-19/notes/cowork-sandbox-git-bug.md`](_attic/2026-05-19/notes/cowork-sandbox-git-bug.md)), which wedges subsequent agent calls and forces the PM to intervene. Instead, the build agent ends the ticket by producing a **commit summary** — repo, branch, file list, and suggested message — and the PM runs the commit from the Mac terminal. PM then pastes back the commit hash for the agent to backfill into the ticket's Completion section.
 
 **Lock pre-flight.** Before any read-or-write work, the build agent runs `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` before proceeding. Do not attempt to remove the lock — the sandbox lacks the permission.
 

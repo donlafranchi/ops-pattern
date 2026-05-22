@@ -1,6 +1,6 @@
 # T048 — Member interests + member follows (`010_member_interests_follows.sql`)
 
-**Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (`007b_member_interests.sql` + `007c_member_follows.sql` in the plan; consolidated into `010_*` per the renumbering).
+**Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (`007b_member_interests.sql` + `007c_member_follows.sql` in the plan; consolidated into `010_*` per the renumbering).
 **Status:** Complete
 **Completed:** 2026-05-12T08:21:48-07:00
 **Bundle:** b1

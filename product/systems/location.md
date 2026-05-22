@@ -166,7 +166,7 @@ create index idx_locations_brand on locations (brand_label) where brand_label is
 
 **Event log entries (required at b1):** `location.created`, `location.updated`, `location.moved`, `location.polygon_updated`, `location.hours_updated`, `location.deleted`, `location.restored`. Reserved at b1, surfaced at T2: `location.claim_requested`, `location.claim_resolved`, `location.contributor_added`, `location.followed`, `location.unfollowed` (these last two paired with `member_location_affinities` row writes per `member.md`). Append-only, partitioned monthly per ADR-10. Audit fields per ADR-6 (every row carries `acting_member_id` + `via_delegation_id`).
 
-**RLS.** Public read for `deleted_at IS NULL AND discoverability != 'private'`. Owner write (creator-of-record only at b1; T2 expands to confirmed claimants). Private Locations readable only by `member_id = auth.uid()`. The matrix passes the anon/auth-self/auth-other smoke test required by Phase 1 exit (per `notes/migration-to-primitives.md`).
+**RLS.** Public read for `deleted_at IS NULL AND discoverability != 'private'`. Owner write (creator-of-record only at b1; T2 expands to confirmed claimants). Private Locations readable only by `member_id = auth.uid()`. The matrix passes the anon/auth-self/auth-other smoke test required by Phase 1 exit (per `planning/rebuild-plan.md`).
 
 ## Locality semantics
 

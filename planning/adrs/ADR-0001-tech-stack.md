@@ -29,7 +29,7 @@ The TypeScript + Tailwind v4 token combo is what makes [`design-language.md`](..
 ## Consequences
 
 - Every web/-resident ticket assumes this stack. Build-agent CLAUDE.md inherits the constraints.
-- Supabase's Postgres dialect is the floor for every migration — Phase 0 already pulls in `pgvector` and `postgis` (per [`notes/migration-to-primitives.md`](../../notes/migration-to-primitives.md) Phase 0 § 001_extensions.sql).
+- Supabase's Postgres dialect is the floor for every migration — Phase 0 already pulls in `pgvector` and `postgis` (per [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) Phase 0 § 001_extensions.sql).
 - Mapbox is the only map vendor at b1 — no Google Maps fallback, no Leaflet shim. The vendor is part of the stack contract.
 - A swap of any single row (e.g., Next.js → Remix, Supabase → Neon + Clerk + Ably) triggers a new ADR. Spec banners are not enough — the change is cross-cutting.
 - Vendor-portable migration shape: every Phase 1+ migration is plain SQL with Supabase-specific features (RLS, `auth.users`) named explicitly so a future vendor swap can be scoped.

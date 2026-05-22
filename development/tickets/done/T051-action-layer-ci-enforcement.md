@@ -122,7 +122,7 @@ Each probe file goes under `web/src/__lint_probe__/` or `web/src/app/api/__probe
 
 **Do not refactor existing handlers in this ticket.** Scope is CI enforcement only. If Rules 1/4 surface legitimate violations in `_lib/`, fix in place (one-line annotation or move to `_lib/`); do not refactor handler bodies. If a violation is non-trivial, stop and escalate per `AGENTS.md` — log to DEVIATIONS.md, open a follow-up ticket, do not silently work around.
 
-**Migration path for old routes.** Routes under `src/app/api/admin/`, `src/app/api/vendor/`, `src/app/api/bulletins/` predate the action layer and are slated for deletion per `notes/migration-to-primitives.md` § "What we delete from current `web/`." The pragmatic path:
+**Migration path for old routes.** Routes under `src/app/api/admin/`, `src/app/api/vendor/`, `src/app/api/bulletins/` predate the action layer and are slated for deletion per `planning/rebuild-plan.md` § "What we delete from current `web/`." The pragmatic path:
 1. If the route is in the deletion list AND has no in-flight feature work, delete it now in this ticket. Cleaner than exempting.
 2. If the route is still serving a surface that exists today (admin panel, vendor bulletins), add to the exemption ledger with `expires_at` set to the rebuild's Phase 1 completion target and a `follow_up_ticket` field. Migrate in a separate ticket.
 

@@ -215,7 +215,7 @@ Mechanism: the test-helper `04_auth_user_seeding.sql` `create or replace`s `hand
 
 ## 2026-05-17 — T050 — Consolidated 007g_ + 007h_ from rebuild plan into single 012_*
 
-**What:** `notes/migration-to-primitives.md` § Phase 1 labels the agent-assistance substrate as two files: `007g_member_self_records.sql` + `007h_member_delegations.sql`. The shipped migration consolidates both tables (plus the FK retrofits on `member_events` and `location_events`) into a single `012_member_agent_assistance.sql`.
+**What:** `planning/rebuild-plan.md` § Phase 1 labels the agent-assistance substrate as two files: `007g_member_self_records.sql` + `007h_member_delegations.sql`. The shipped migration consolidates both tables (plus the FK retrofits on `member_events` and `location_events`) into a single `012_member_agent_assistance.sql`.
 
 **Why:** Two reasons converge — (a) Supabase CLI rejects alpha-suffixed numbering (`002a` / `002b` / `007g` / `007h`) and silently skips those files; the going-forward rule from T042 mandates `^\d+_[a-z0-9_]+\.sql$`; (b) the two tables ship together because the FK retrofits on `member_events.via_delegation_id` and `location_events.via_delegation_id` reference `member_delegations(id)` — splitting them would either leave the FK column without its FK for a release cycle or require a third migration just for the retrofit. Single-file is the right shape. Anchored to T042's DEVIATIONS entry that established the alpha-suffix prohibition.
 
@@ -271,7 +271,7 @@ The conformance script accepts the annotation on the call's source line OR on an
 
 **Deviation:** The ticket's Step 0 lists nine API routes for deletion plus `src/lib/admin.ts` "if no surviving code imports it." After deleting the listed routes, `@/lib/admin` was still imported by `src/app/admin/{layout,page,markets/**,vendors/**}.tsx` (six files). Those pages also query `markets` / `businesses` tables that no longer exist in the rebuild schema. Build agent deleted the entire `src/app/admin/` tree to resolve the orphaned imports, exceeding the ticket's literal route-deletion list.
 
-**Reason:** Step 0 explicitly says "Run `npm run lint && npm run build` after deletion to surface any orphaned imports; delete those too." The admin/ UI surface is in the rebuild plan's deletion list (`notes/migration-to-primitives.md` § "What we delete from current web/" — "all routes tied to old schema"). Keeping the orphans would either (a) leak a live `@/lib/admin` import that no longer resolves, breaking `npm run build`, or (b) require re-introducing `src/lib/admin.ts` to keep imports resolving — defeating the deletion. The cleanest path is the rebuild plan's own path.
+**Reason:** Step 0 explicitly says "Run `npm run lint && npm run build` after deletion to surface any orphaned imports; delete those too." The admin/ UI surface is in the rebuild plan's deletion list (`planning/rebuild-plan.md` § "What we delete from current web/" — "all routes tied to old schema"). Keeping the orphans would either (a) leak a live `@/lib/admin` import that no longer resolves, breaking `npm run build`, or (b) require re-introducing `src/lib/admin.ts` to keep imports resolving — defeating the deletion. The cleanest path is the rebuild plan's own path.
 
 **Impact:** `/admin`, `/admin/markets`, `/admin/markets/new`, `/admin/markets/[id]`, `/admin/vendors`, `/admin/vendors/[slug]` all 404 going forward. No surviving code references the deleted modules. The pre-rebuild admin panel is gone; the rebuild's admin surfaces (whenever scoped) will be greenfield.
 
@@ -327,7 +327,7 @@ The conformance script accepts the annotation on the call's source line OR on an
 
 ## 2026-05-11 — T047 — Phase 1 numbering: members augmentation is 009, not 007
 
-**Deviation:** The rebuild plan (`notes/migration-to-primitives.md` § Phase 1) numbers the Member augmentation series as `007a–007j`. T047 lands `web/supabase/migrations/009_members_phase1.sql` instead, consolidating the Phase 1 augmentation work that this ticket scope covers (FK fortification + member_privacy + member_handle_history).
+**Deviation:** The rebuild plan (`planning/rebuild-plan.md` § Phase 1) numbers the Member augmentation series as `007a–007j`. T047 lands `web/supabase/migrations/009_members_phase1.sql` instead, consolidating the Phase 1 augmentation work that this ticket scope covers (FK fortification + member_privacy + member_handle_history).
 
 **Reason:** Locations took `007_locations.sql` (T045) and `008_locations_owner_read.sql` (T046) per the Phase 1 dependency reorder recorded in T045's DEVIATIONS entry — Locations is the most-independent Phase 1 schema and had to land first so `members.home_location_id` could FK into it. `009` is the next available SQL number after the locations pair. Alpha-suffixed numbering was previously rejected by Supabase CLI per T042's consolidation lesson, so the augmentation work consolidates rather than splitting `009a/009b/009c`.
 
@@ -387,7 +387,7 @@ The constraint trigger is the realistic third path: it expresses the predicate a
 
 ## 2026-05-11 — T045 — Phase 1 numbering: locations is 007, not 008
 
-**Deviation:** The rebuild plan (`notes/migration-to-primitives.md` § Phase 1) numbers locations migrations as 008_*. This ticket lands `web/supabase/migrations/007_locations.sql` instead.
+**Deviation:** The rebuild plan (`planning/rebuild-plan.md` § Phase 1) numbers locations migrations as 008_*. This ticket lands `web/supabase/migrations/007_locations.sql` instead.
 
 **Reason:** Phase 0 used 001/002/004/005/006. The 003 slot is reserved for the app-layer scaffold (no SQL file). 007 is the next available SQL number. Locations has no FK dependency on the not-yet-existing 007_* member augmentations (privacy / interests / follows / threads / affinities); the planned dependency arrow is the other direction — `members.home_location_id` will FK to `locations.id` once locations exists. Locations is the most-independent Phase 1 schema and must land first.
 
@@ -395,7 +395,7 @@ The constraint trigger is the realistic third path: it expresses the predicate a
 
 **Escalation:** None — purely a numbering reorder; the dependency graph remains the same.
 
-**Resolution:** `007_locations.sql` lands as the sixth migration. The plan's 008_* references in `notes/migration-to-primitives.md` are now historical labels; future tickets that touch this should reference `007_locations.sql` as the actual file.
+**Resolution:** `007_locations.sql` lands as the sixth migration. The plan's 008_* references in `planning/rebuild-plan.md` are now historical labels; future tickets that touch this should reference `007_locations.sql` as the actual file.
 
 ## 2026-05-11 — T045 — Per-child RLS uses EXISTS subquery, not IN subquery
 
@@ -423,7 +423,7 @@ The constraint trigger is the realistic third path: it expresses the predicate a
 
 ## 2026-05-10 — T041 — Migrations wipe absorbed into Phase 0 (rebuild-plan ordering bug)
 
-**Deviation:** The rebuild plan (`notes/migration-to-primitives.md`) places the "drop all existing migrations" pre-step in Phase 1, but the existing `web/supabase/migrations/001_initial_schema.sql` through `006_rollup_vendor_stats.sql` collide with Phase 0's new 001–006 numbering. T041 cannot land its migrations without the wipe happening first.
+**Deviation:** The rebuild plan (`planning/rebuild-plan.md`) places the "drop all existing migrations" pre-step in Phase 1, but the existing `web/supabase/migrations/001_initial_schema.sql` through `006_rollup_vendor_stats.sql` collide with Phase 0's new 001–006 numbering. T041 cannot land its migrations without the wipe happening first.
 
 **Reason:** The rebuild plan was drafted before the new 001–006 numbering was finalized. The plan's Phase 1 pre-step language ("drop all existing migrations") logically must precede Phase 0's first migration; the placement in Phase 1 is a sequencing oversight.
 
@@ -447,7 +447,7 @@ The constraint trigger is the realistic third path: it expresses the predicate a
 
 ## 2026-05-10 — T042 — Phase 0 pre-pulls minimal members + member_events from Phase 1
 
-**Deviation:** The rebuild plan (`notes/migration-to-primitives.md`) lists `002_system_member.sql` as a Phase 0 migration that inserts the system Member, but does NOT list a migration that creates the `members` table — that responsibility appears only in Phase 1 as `007_members.sql`. The insert cannot run without the table.
+**Deviation:** The rebuild plan (`planning/rebuild-plan.md`) lists `002_system_member.sql` as a Phase 0 migration that inserts the system Member, but does NOT list a migration that creates the `members` table — that responsibility appears only in Phase 1 as `007_members.sql`. The insert cannot run without the table.
 
 **Reason:** Plan-level sequencing oversight. T042 resolves the gap by pulling a minimal `members` + `member_events` shape forward into Phase 0 (migrations 002 + 002a + 002b). Phase 1's `007_*` series augments — adds `member_privacy`, `member_interests`, `member_follows`, `member_handle_history`, `member_threads` + messages + participants, `member_self_records`, `member_delegations`, `member_location_affinities`, and the FK constraints to `auth.users` / `locations` / `groups` that depend on tables Phase 1 creates.
 

@@ -125,7 +125,7 @@ When a `notes/` doc has matured into architectural decisions that downstream age
 3. Draft an ADR file per steps 4–8 above. The notes/ doc may remain as the long-form prose home (spec/foundation-resident pattern) or be retired.
 4. Add a redirect/pointer to the notes/ doc if it's retiring.
 
-Precedent: ADR-19 (clean-slate rebuild) promoted `notes/migration-to-primitives.md` while leaving the notes/ doc in place as the long-form phase plan.
+Precedent: ADR-19 (clean-slate rebuild) promoted `planning/rebuild-plan.md` while leaving the notes/ doc in place as the long-form phase plan.
 
 ### Multi-decision ADRs
 

@@ -4,14 +4,14 @@
 **Date:** 2026-05-10
 **Deciders:** PM
 **Scope:** The decision to rebuild the data layer, action layer, and user-facing surfaces from scratch on Person / Item / Location / Group primitives, while preserving the Next.js / Tailwind / Supabase / Mapbox framework foundation
-**Touches:** `notes/migration-to-primitives.md` (the long-form plan — phases, sequencing, what stays, what goes), `planning/bundles/b1-primitives.md` (the scope this rebuild ships), every `product/systems/*.md` spec (each one is a target of the rebuild), `web/supabase/migrations/` (replaced from scratch), `web/src/` (re-derived from new schema), `development/tickets/` (T027+ are rebuild tickets; T001–T026 archived as reference)
+**Touches:** `planning/rebuild-plan.md` (the long-form plan — phases, sequencing, what stays, what goes), `planning/bundles/b1-primitives.md` (the scope this rebuild ships), every `product/systems/*.md` spec (each one is a target of the rebuild), `web/supabase/migrations/` (replaced from scratch), `web/src/` (re-derived from new schema), `development/tickets/` (T027+ are rebuild tickets; T001–T026 archived as reference)
 **Supersedes:** the original ADR-10 dual-write / per-phase rollback / two-week verification-window plan. Surviving invariants from the original ADR-10 (same-transaction event commit, audit fields, view-refresh semantics) were consolidated into ADR-7.
 
 ## Decision
 
 Replace the current `web/` data layer with a clean-slate build on the four primitives — Person (Member), Item, Location, Group. The framework foundation (Next.js App Router, Tailwind v4 + DLS tokens, Supabase client wiring, Mapbox GL JS, Playwright + Vitest infrastructure, layout shells) is preserved unchanged. Everything below the framework layer — schema, action handlers, routes, components that read data, server logic — is rewritten against the new primitives.
 
-**Sequencing** lives in [`notes/migration-to-primitives.md`](../../notes/migration-to-primitives.md) as a four-phase plan:
+**Sequencing** lives in [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) as a four-phase plan:
 
 - **Phase 0 — Floor.** Schema floor (extensions, system Member, action-layer trigger, conformance enforcement). T041–T044, T051, T052.
 - **Phase 1 — Primitives.** The four core tables and their child tables. `members`, `items` + 4 child tables, `locations` + 3 child tables, `groups` + 2 child tables. Event-log tables. RLS policies.
@@ -33,7 +33,7 @@ Replace the current `web/` data layer with a clean-slate build on the four primi
 
 ## Consequences
 
-- The four-phase plan in `notes/migration-to-primitives.md` is the load-bearing sequencing document. This ADR is its architectural ratification.
+- The four-phase plan in `planning/rebuild-plan.md` is the load-bearing sequencing document. This ADR is its architectural ratification.
 - Every Phase 1+ ticket implements writes via named action handlers (per ADR-7). The action layer is the only sanctioned write surface; no Phase 1+ ticket writes via service-role SQL.
 - The conformance gate (`web/scripts/check-action-layer-conformance.ts`, T043/T051) is the structural enforcement that the rebuild stays inside ADR-7's invariants. Every CI run flags violations.
 - Phase 0 ratifies the schema floor: extensions (pgvector, postgis), system Member, action-layer trigger on auth signup (per ADR-15), conformance script. T041–T044, T051, T052.
@@ -46,7 +46,7 @@ Replace the current `web/` data layer with a clean-slate build on the four primi
 ## Action Items
 
 1. [x] Decision ratified 2026-05-10.
-2. [x] `notes/migration-to-primitives.md` rewritten to drop dual-write / rollback / verification sections.
+2. [x] `planning/rebuild-plan.md` rewritten to drop dual-write / rollback / verification sections.
 3. [x] Original ADR-10 superseded; surviving invariants moved to ADR-7.
 4. [x] Pointer line in `../DECISIONS.md` pointer index.
 5. [x] Phase 0 tickets (T041–T044, T051, T052) tracked.

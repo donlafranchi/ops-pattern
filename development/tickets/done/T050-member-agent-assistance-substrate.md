@@ -1,6 +1,6 @@
 # T050 — Agent-assistance substrate (`012_member_agent_assistance.sql`)
 
-**Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (`007g_member_self_records.sql` + `007h_member_delegations.sql` in the plan; consolidated into `012_*`).
+**Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (`007g_member_self_records.sql` + `007h_member_delegations.sql` in the plan; consolidated into `012_*`).
 **Status:** Complete
 **Completed:** 2026-05-17T18:53:50-07:00
 **Bundle:** b1

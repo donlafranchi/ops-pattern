@@ -31,7 +31,7 @@ Locking kind at create was the trade-off most discussed. Allowing transitions wo
 ## Consequences
 
 - `location.md` is the live home for the long-form spec. The spec's Status banner is the user-facing ratification; this ADR is the canonical record.
-- Phase 1 of the rebuild plan (`notes/migration-to-primitives.md`) introduces the four tables: `locations` spine + `location_permanent` + `location_recurring_temporary` + `location_areas`.
+- Phase 1 of the rebuild plan (`planning/rebuild-plan.md`) introduces the four tables: `locations` spine + `location_permanent` + `location_recurring_temporary` + `location_areas`.
 - Every other primitive's Location reference points at the spine (`location_id uuid references public.locations(id)`). Joins fan out to child tables only when kind-specific fields are needed.
 - Member↔Location relationships beyond `home_location_id` live in `member_location_affinities` (six `affinity_kind` values: `lives`, `works`, `plays`, `visits`, `follows`, `liked`). Per ADR-16, those rows are owner-only at the row level. The locality-derivation function (`public.member_is_local_to_location()`) is the only public read path.
 - The three-kind enumeration is locked for b1. A fourth kind requires a new ADR or an amendment to this one. Candidates parked: indoor venues with sub-spaces (might collapse into permanent with a sub-venue child), mobile-route Locations (might collapse into recurring-temporary with a route polyline).
@@ -44,5 +44,5 @@ Locking kind at create was the trade-off most discussed. Allowing transitions wo
 2. [x] `location.md` Status banner is the user-facing ratification.
 3. [x] Pointer line in `../DECISIONS.md` pointer index.
 4. [x] `member.md`, `item.md`, `groups.md` cross-references updated.
-5. [ ] Phase 1 of the rebuild plan implements the four tables (per `notes/migration-to-primitives.md`).
+5. [ ] Phase 1 of the rebuild plan implements the four tables (per `planning/rebuild-plan.md`).
 6. [ ] Quarterly check on whether the locked three-kind enumeration is forcing awkward modeling.

@@ -47,7 +47,7 @@ Connecting people, joining forces, improving our lives socially and economically
 
 - **[`ui/design-language.md`](ui/design-language.md)** — owns ADR-2: DLS tokens, six principles (one accent · hairlines · photography · whitespace · one typeface · bottom-anchored thumb-reachable), surface patterns per page type.
 - **[`../planning/bundles/b1-primitives.md`](../planning/bundles/b1-primitives.md)** — the MVP scope; what ships at b1, what defers to b2/b3, what's reserved at the schema layer.
-- **[`../notes/migration-to-primitives.md`](../notes/migration-to-primitives.md)** — clean-slate rebuild plan; four phases (0=floor, 1=schema, 2=core surfaces, 3=index+thesis); replaces the prior migration-shaped plan.
+- **[`../planning/rebuild-plan.md`](../planning/rebuild-plan.md)** — clean-slate rebuild plan; four phases (0=floor, 1=schema, 2=core surfaces, 3=index+thesis); replaces the prior migration-shaped plan.
 - **[`../planning/DECISIONS.md`](../planning/DECISIONS.md)** — active ADRs (cross-cutting + pointer index for spec-resident decisions); superseded entries in [`../_attic/2026-05-19/planning/`](../_attic/2026-05-19/planning/).
 - **[`../AGENTS.md`](../AGENTS.md)** — agent pipeline (product → plan → review → eval → ticket → build → eval); firewalls, gates, escalation contacts.
 - **[`../CLAUDE.md`](../CLAUDE.md)** — root router; skill routing table; solo-team multiplier gates (M1 ADR, M2 code-review, M3 a11y, M4 deploy-checklist).

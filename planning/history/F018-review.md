@@ -30,7 +30,7 @@ The scenario fits the Item primitive, the gathering child table, the Location pr
 
 | Concern | Status | Notes |
 |---|---|---|
-| New tables required? | none | All needed tables (`items`, `item_gatherings`, `item_locations`, `item_hashtags`, `item_events`, `discoverable_items` view) are in [`notes/migration-to-primitives.md`](../../notes/migration-to-primitives.md) Phase 1. |
+| New tables required? | none | All needed tables (`items`, `item_gatherings`, `item_locations`, `item_hashtags`, `item_events`, `discoverable_items` view) are in [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) Phase 1. |
 | New columns required? | none | Every scenario field maps cleanly to columns in the spine + `item_gatherings` + relations tables. |
 | New event types required? | none | `item.created` and `item.published` are both already specified in `item.md`. |
 | Forward-tier impact | clear | T2 RSVP (`item_responses.response_kind='rsvp'` reserved at b1), T2 Group attachment via `items.group_id`, T2 sub-venue (Drake's barn via `parent_location_id`), T2 photo upload (column reserved), T2 follower fan-out on `item.published` — all sit cleanly on top of what F018 builds. |

@@ -97,7 +97,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 ## 2.5. Reviewer (Architecture + Design pre-flight)
 
-> **MANDATORY during the primitives rebuild.** Until Phase 4 of [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) (the rebuild plan) completes, every approved scenario goes through review. Optional only for trivial copy/CTA changes on existing surfaces. Rationale: [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F3.
+> **MANDATORY during the primitives rebuild.** Until Phase 4 of [`planning/rebuild-plan.md`](planning/rebuild-plan.md) (the rebuild plan) completes, every approved scenario goes through review. Optional only for trivial copy/CTA changes on existing surfaces. Rationale: [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F3.
 
 **Skill:** `pipeline-review`
 **Model:** Claude Opus (cross-system check, comprehensive)

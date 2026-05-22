@@ -1,6 +1,6 @@
 # T044 — Supabase Auth post-signup hook → `member.create`
 
-**Scenario:** `notes/migration-to-primitives.md` § Phase 0 — AI-native floor (`006_auth_signup_hook.sql`)
+**Scenario:** `planning/rebuild-plan.md` § Phase 0 — AI-native floor (`006_auth_signup_hook.sql`)
 **Status:** Complete *(build-side; runtime verification pending `pipeline-eval` run-mode against `web/evals/phase-0/floor.spec.ts`)*
 **Completed:** 2026-05-11T15:14:04+00:00
 **Bundle:** b1

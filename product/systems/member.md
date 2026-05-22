@@ -420,7 +420,7 @@ create table member_events (
 ) partition by range (created_at);
 ```
 
-> **Partition setup belongs in the migration, not the spec.** The DDL above declares the parent table as partitioned by month on `created_at`; the initial partitions and the monthly partition-rotation routine are created by the migration ticket (T028 schema floor) and documented in ADR-10 (the migration's transactional model). A build agent reading this DDL in isolation will not have a runnable table — that is intentional. See `notes/migration-to-primitives.md` Phase 1.
+> **Partition setup belongs in the migration, not the spec.** The DDL above declares the parent table as partitioned by month on `created_at`; the initial partitions and the monthly partition-rotation routine are created by the migration ticket (T028 schema floor) and documented in ADR-10 (the migration's transactional model). A build agent reading this DDL in isolation will not have a runnable table — that is intentional. See `planning/rebuild-plan.md` Phase 1.
 
 Initial event kinds at b1:
 

@@ -22,7 +22,7 @@
 Read before starting:
 
 1. `web/evals/phase-0/floor.spec.ts` — the spec that waits on these helpers. Every helper signature in § Acceptance Criteria below is derived from its call sites here.
-2. `notes/migration-to-primitives.md` § Phase 0 — what the Phase 0 floor must verify.
+2. `planning/rebuild-plan.md` § Phase 0 — what the Phase 0 floor must verify.
 3. `product/systems/action-layer.md` § "Policy posture" — relevant for the `eval_conformance_check_result` helper.
 4. `web/supabase/migrations/` — the 12 production migrations these helpers introspect (001–012).
 5. `web/scripts/check-action-layer-conformance.ts` — T043/T051's CI conformance script that `eval_conformance_check_result` exposes the result of.

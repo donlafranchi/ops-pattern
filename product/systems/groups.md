@@ -398,7 +398,7 @@ What ships at b1: the spine, the `group_businesses` child table (full), the memb
     - `cooperative_member` → no migration target; cooperative coordination is deferred. Existing rows archive in place pending the eventual cooperative spec.
     - `staff` → kind='business' Group membership, role='member' (renamed from `staff`). The `operating_for_member_id` Person-to-Person link retires; the linked operator becomes the Group's founder/owner.
     - `volunteer_organizer` → steward role on the relevant non-business Group (often kind='event_anchored' from a recurring Gathering Item).
-    The migration ticket sequence needs careful design — flagged for `notes/migration-to-primitives.md` revision.
+    The migration ticket sequence needs careful design — flagged for `planning/rebuild-plan.md` revision.
 
 ## Comments
 

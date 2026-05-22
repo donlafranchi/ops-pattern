@@ -1,6 +1,6 @@
 # T047 — Members augmentation: FK fortification + privacy + handle history (`009_members_phase1.sql`)
 
-**Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (007 series in the plan; renumbered to 009 per the Phase 1 dependency ordering — locations took 007/008).
+**Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (007 series in the plan; renumbered to 009 per the Phase 1 dependency ordering — locations took 007/008).
 **Status:** Complete
 **Completed:** 2026-05-11T17:12:59-07:00
 **Bundle:** b1

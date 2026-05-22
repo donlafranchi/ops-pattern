@@ -4,7 +4,7 @@
 **Date:** 2026-05-09
 **Deciders:** PM
 **Scope:** Every write to every table the platform owns — `members`, `items`, `locations`, `groups`, every `*_events` log, every join table — flows through named action handlers. Six runtime-trust concerns are enforced here
-**Touches:** [`product/systems/action-layer.md`](../../product/systems/action-layer.md) (canonical home — the entire document carries the load-bearing prose), every Phase 0/1 migration in [`notes/migration-to-primitives.md`](../../notes/migration-to-primitives.md), `web/src/actions/` (the implementation directory), every other system spec (action handlers ship alongside their tables), [`product/foundation/agent-assistance.md`](../../product/foundation/agent-assistance.md) (ADR-6 — agent writes flow through the same handlers as human writes), ADR-10 (consolidated into this ADR 2026-05-10 — same-transaction invariant, audit fields, view-refresh semantics)
+**Touches:** [`product/systems/action-layer.md`](../../product/systems/action-layer.md) (canonical home — the entire document carries the load-bearing prose), every Phase 0/1 migration in [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md), `web/src/actions/` (the implementation directory), every other system spec (action handlers ship alongside their tables), [`product/foundation/agent-assistance.md`](../../product/foundation/agent-assistance.md) (ADR-6 — agent writes flow through the same handlers as human writes), ADR-10 (consolidated into this ADR 2026-05-10 — same-transaction invariant, audit fields, view-refresh semantics)
 **Supersedes:** Original ADR-10 transactional model (consolidated 2026-05-10 when the rebuild reframe retired dual-write / per-phase rollback / verification-window concerns)
 
 ## Decision
@@ -44,7 +44,7 @@ The consolidation 2026-05-10 (the original ADR-10's surviving invariants moving 
 
 ## Consequences
 
-- The action-layer conformance check in CI (per [`notes/migration-to-primitives.md`](../../notes/migration-to-primitives.md) Phase 1 exit criterion) asserts that no write to a `members`, `items`, `locations`, `groups`, or `*_events` table occurs outside the action layer. Violation fails the build.
+- The action-layer conformance check in CI (per [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) Phase 1 exit criterion) asserts that no write to a `members`, `items`, `locations`, `groups`, or `*_events` table occurs outside the action layer. Violation fails the build.
 - Phase 0 ticket T_floor_b establishes the action-layer scaffold with one working handler (`member.create`, called by the Phase 0 auth signup hook).
 - Every Phase 1 migration ships with its action handlers (per the migration plan's action-handler list). Handlers cannot land in a later phase than their tables.
 - The audit-field invariant (`acting_member_id NOT NULL` on every `*_events` row) is enforced at the database level (`NOT NULL` constraint) and at the application level (Zod schema + injection by the handler). Two-layer enforcement.

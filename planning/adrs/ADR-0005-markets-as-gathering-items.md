@@ -41,4 +41,4 @@ The deeper trade-off: the platform's wedge is farmers markets, but the platform'
 2. [x] [`item.md`](../../product/systems/item.md) gathering kind is the user-facing ratification; the Decisions-encoded ADR-5 row at line 200 carries the summary.
 3. [x] Pointer line in [`../DECISIONS.md`](../DECISIONS.md) pointer index.
 4. [x] The 2026-05-11 doc cleanup pass archived `vendor-*` specs that assumed a separate Market model.
-5. [ ] Phase 1 migration `009c_item_gatherings.sql` implements the gathering child table per [`notes/migration-to-primitives.md`](../../notes/migration-to-primitives.md).
+5. [ ] Phase 1 migration `009c_item_gatherings.sql` implements the gathering child table per [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md).

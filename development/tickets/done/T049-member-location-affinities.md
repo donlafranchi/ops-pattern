@@ -1,6 +1,6 @@
 # T049 — Member location affinities (`011_member_location_affinities.sql`)
 
-**Scenario:** `notes/migration-to-primitives.md` § Phase 1 — Member surface (`007i_member_location_affinities.sql` in the plan; renumbered to `011_*`).
+**Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (`007i_member_location_affinities.sql` in the plan; renumbered to `011_*`).
 **Status:** Complete
 **Completed:** 2026-05-17T12:08:29-07:00
 **Bundle:** b1

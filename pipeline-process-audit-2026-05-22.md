@@ -119,7 +119,7 @@ Vitest 4 + rolldown segfaults under Linux x86_64 in the build sandbox, so ticket
 
 ADR-10 and ADR-11 are superseded (correctly recorded in `DECISIONS.md`). But they are still cited as *live authority* — T055/T056/T057 all open against "ADR-10 (event-log invariants)," which has been superseded by ADR-19 with invariants moved to ADR-7. T050's M2 review already identified an "ADR-10 → ADR-7 retag sweep across 002/007/012." The sweep was noted and never finished; the ticket prose still cites the dead number.
 
-### E7 — `notes/migration-to-primitives.md` is half-moved
+### E7 — `planning/rebuild-plan.md` is half-moved
 
 JOURNAL pickup item 10: the plan to relocate the rebuild plan into `planning/` is half-done — the riskiest move (the file itself, ~25 inbound references) was deferred to avoid breakage. It is the single most-referenced doc in the repo and now lives in a directory the project is actively trying to dissolve. Deferring it does not make it cheaper; it makes it cost more later.
 
@@ -198,7 +198,7 @@ Had R1 existed two weeks ago, F4/F8/F9/F11 would not have silently regressed.
 
 **R7 — Fix `BUILD-LOG.md` properly.** Correct the bundle link, delete or fold the stale prose sections, and make "everything below the table" either auto-generated or deleted. Stale prose is worse than no prose.
 
-**R8 — Finish the cleanups already in flight.** Delete the two retired skill directories (H6); `.gitignore` `.claude/worktrees/` and remove the shadow (E8); finish the ADR-10→ADR-7 retag (E6); complete the `notes/migration-to-primitives.md` move at the Phase 1→2 boundary as JOURNAL item 10 already plans (E7); clear `web/evals/features/` (E4).
+**R8 — Finish the cleanups already in flight.** Delete the two retired skill directories (H6); `.gitignore` `.claude/worktrees/` and remove the shadow (E8); finish the ADR-10→ADR-7 retag (E6); complete the `planning/rebuild-plan.md` move at the Phase 1→2 boundary as JOURNAL item 10 already plans (E7); clear `web/evals/features/` (E4).
 
 ### P2 — opportunistic
 
