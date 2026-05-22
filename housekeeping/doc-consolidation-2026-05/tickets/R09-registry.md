@@ -77,4 +77,27 @@ git commit -m "docs(consolidation): phase 9 — install the document registry"
 
 ## Completion
 
-Date: {YYYY-MM-DD} · Commit: {hash} · Notes: {report any docs where a distinct purpose was hard to write — candidates the consolidation missed}
+Date: 2026-05-22 · Commit: `ef5e597` · Notes:
+
+**117 files received `purpose` + `layer` + `status` front-matter** via a Python generator script (cleaned up post-run). Coverage breakdown:
+
+- **WHY layer (`product/foundation/`)** — 5 files: principles, design-philosophy, policy, platform-promise, primitives.
+- **WHAT layer (`product/needs/` + `systems/` + `capabilities/` + `ui/` + `exploration/` + `templates/`)** — 32 files including the 4 needs/, 12 systems/, 7 capabilities/, 2 ui/, 3 exploration/, 1 templates/, 3 standards (well, 6 standards but counted in HOW).
+- **HOW layer (`planning/` + `development/` + `standards/` + root audit)** — 80 files including DECISIONS, 16 ADRs, 3 bundles, 7 history docs, 3 scenarios-backlog, 1 outreach, 1 pending-ratifications, 1 rebuild-plan, 6 standards stubs, 41 tickets (1 DEVIATIONS + 4 active + 36 done), 1 root audit (`pipeline-process-audit-2026-05-22.md`).
+
+**REGISTRY.md** at the repo root (156 lines) catalogs all 117 with their purpose, grouped by WHY / WHAT / HOW. Tooling section names `skills/`, `web/`, `_attic/`, `housekeeping/` as the excluded zones.
+
+**Pipeline-router updated.** `skills/pipeline-router/workflow.md` adds step 9 (registry-conformance check — lightweight orientation, not enforcement). `skills/pipeline-router/SKILL.md` gets a paragraph naming the check.
+
+**[PM: confirm] items left behind:**
+
+- **No duplicate `purpose` lines detected** by the generator's check, but human review may still flag near-duplicates. The 36 done-ticket entries are *templated* as "Ticket TNNN — {title}." per the ticket title in the filename — they're distinct strings but functionally similar in shape. Worth confirming this template is fine, or whether each ticket needs a more substantive single-line purpose.
+- **Two standards stubs use near-identical purpose shape** (e.g., "Accessibility standard — placeholder for WCAG-shaped requirements." / "Performance standard — placeholder for budget and verification.") — they're not identical strings but they share the "placeholder" framing. When the standards get real content, the purpose lines should sharpen.
+- **`accountability.md`** and **`business-intelligence-platform.md`** carry `status: reference` (not active, not historical) — they're held in exploration. PM confirms the status label fits.
+- **The `idea-intake.md` template** got `layer: how` per the inventory's framing (it's process tooling). PM may prefer `what` if templates are platform-shape rather than process-shape — let me know.
+- **Ticket front-matter** uses `layer: how` and `status: active` (for non-done) / `status: reference` (for done). The done tickets are technically historical artifacts, but `reference` reads better since they're the canonical record of what shipped. PM picks.
+- **`pipeline-router` step 9 is lightweight** by design — it names gaps but doesn't gate or run an external script. The actual conformance verification was performed once by the R09 generator and printed `Without front-matter: 0`. Future drift detection requires either a script (deferred) or the router agent doing the walk inline at session start. The current text says "verify three things" — the agent doing this would scan the file tree, check front-matter heads, and compare against REGISTRY.md rows. Manageable, but not zero work.
+
+**No docs were "consolidation missed" candidates.** Every doc had a writable distinct one-line purpose — meaning the seven overlap-cluster merges (R05–R07) successfully dissolved the duplications. The doc inventory's seven-cluster analysis was accurate, and the consolidation through R08 closed all of them.
+
+**Verification.** `python3 -c "..."` walked all 117 in-scope files; **0 missing front-matter**. `REGISTRY.md` has 117 catalog rows + 4 tooling rows. The temp generator scripts (`.r09-tmp-apply-frontmatter.py`, `.r09-tmp-gen-registry.py`) were removed before commit.
