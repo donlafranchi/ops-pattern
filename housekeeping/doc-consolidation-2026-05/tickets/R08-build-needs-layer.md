@@ -119,4 +119,37 @@ git commit -m "docs(consolidation): phase 8 — build the product/needs layer"
 
 ## Completion
 
-Date: {YYYY-MM-DD} · Commit: {hash} · Notes: {list every [PM: confirm] in people.md / needs.md}
+Date: 2026-05-22 · Commit: `325f818` · Notes:
+
+**Four files in `product/needs/` shipped:**
+
+- **`use-cases.md`** — relocated from `foundation/canonical-examples.md` with banner. 12 use cases preserved verbatim; status banner updated to point at sibling `member-journey.md` + foundation peers via parent-relative paths.
+- **`member-journey.md`** — relocated from `foundation/loops.md` with banner. 13 loops preserved verbatim; status banner updated to drop the retired `community.md / member.md / initiatives.md / service-provider.md / maker.md` mentions (those specs are retired/merged); replaced with `member.md / item.md / location.md / groups.md` per the current spec set.
+- **`people.md`** — new draft synthesizing 8 personas from `use-cases.md` + the b1 scenarios (`F018`, `F025`). Personas: Producer (irregular supply), Convener (recurring host), Newcomer / Wanderer, Steward / Initiator, Backer, Affinity-Group Seeker, Follower (loyalty-shaped), Everyday Neighbor. Plus 4 TBD slots aligned with the `use-cases.md` [TODO] placeholders (Idea-Floater, Mutual-Aid Member, Trades-Pro Seeker, Community Steward).
+- **`needs.md`** — new draft synthesizing 13 needs in the order of `member-journey.md`'s 5 loop families (Gathering → Sharing → Trade → Pooling → Federation). Each need traces to: loop, served-by system(s), capability(ies), persona(s), use-case anchor.
+
+**[PM: confirm] items left behind (and there are many — these are drafts, not finished specs):**
+
+In `people.md`:
+- The persona list itself is not yet ratified — PM picks which to keep, merge, rename, split.
+- The illustrative persona names ("The Producer", "The Convener", etc.) — PM picks naming convention.
+- Whether to stack-rank personas globally or per-bundle.
+- Whether to enumerate explicit anti-personas (corporate-shell franchise, rollup-acquirer) — those refusals live in `principles.md` Part 2; not duplicated here pending PM call.
+- Whether Group-role personas (kind='business' Group steward, kind='interest' Group founder) belong here or in `groups.md`.
+- Four persona slots TBD (Idea-Floater, Mutual-Aid Member, Trades-Pro Seeker, Community Steward) — will resolve when the `[TODO]` use-cases #8-11 get filled with real instances.
+
+In `needs.md`:
+- The ranking is by loop-family order (the published order in `member-journey.md`); PM may want to re-rank by importance / volume / urgency once data exists.
+- Whether to enumerate anti-needs (the engagement-feed scroll, the rank-and-rate browse, the Location-locked complaint surface).
+- Three needs (#2 Float an idea, #9 Find a local pro, #12 Steward what we built) name personas as TBD — match the TBD persona slots in people.md and resolve together.
+- Need #13 (Federation) has no canonical example anchor in `use-cases.md` (Loop 13 is architectural). PM confirms whether this is OK or whether a federation-shaped use case should be added later.
+
+**Cross-reference sweep — three passes:**
+
+- Pass A: global substitution of `foundation/canonical-examples.md` → `needs/use-cases.md` and `foundation/loops.md` → `needs/member-journey.md` (plus the backticked-label forms ``canonical-examples.md`` → ``use-cases.md`` and ``loops.md`` → ``member-journey.md``).
+- Pass B: targeted at `product/foundation/` files for `](member-journey.md)` and `](use-cases.md)` → `](../needs/...)` form — but this caught nothing because Pass A intentionally didn't touch the bare `(loops.md)` / `(canonical-examples.md)` URL forms, so the URLs were still in the old name.
+- Pass C: targeted at `product/foundation/` for `](loops.md)` → `](../needs/member-journey.md)` and `](canonical-examples.md)` → `](../needs/use-cases.md)`. This is what actually fixed the foundation-relative links.
+
+Net: 40 files modified, including 5 in `product/foundation/`, 5 in `product/systems/`, 9 in `skills/`, 6 in `planning/`, plus AGENTS.md, CLAUDE.md, product/MAP.md. All live broken refs to the old filenames now resolve.
+
+**Verification.** `foundation/canonical-examples.md` and `foundation/loops.md` return zero live hits in the verification grep (excluding `_attic/`, `planning/history/`, and the new `product/needs/` files which carry intentional provenance banners). `product/foundation/` now contains exactly 5 files (principles, design-philosophy, policy, platform-promise, primitives) — matches ticket verification. `product/needs/` contains exactly 4 files (use-cases, member-journey, people, needs) — matches ticket verification.
