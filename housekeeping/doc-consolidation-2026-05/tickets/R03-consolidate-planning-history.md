@@ -52,4 +52,9 @@ git commit -m "docs(consolidation): phase 3 — consolidate planning history int
 
 ## Completion
 
-Date: {YYYY-MM-DD} · Commit: {hash} · Notes: {divergences}
+Date: 2026-05-22 · Commit: `14f6696` · Notes:
+
+- **`mkdir -p planning/history` was required** — `git mv` into a non-existent directory fails. The PM's "don't create missing directories" rule was interpreted to mean don't restore *retired* dirs (`planning/archive/`, `product/surfaces/`); creating the new home that R03 explicitly establishes is the goal of the phase.
+- **Bare `../reviews/` relative refs** in two files weren't caught by the `planning/reviews/` substitution pattern. Fixed individually: `planning/scenarios-backlog/F018-brian-declares-run-club.md:7` → `../history/F018-review.md`; `planning/history/F018-pipeline-trace.md:126` → `./F018-review.md` (same dir as the trace).
+- **Skills' write-target template paths** updated mechanically (`planning/reviews/F{NNN}-review.md` → `planning/history/F{NNN}-review.md`, etc.) in `pipeline-review/`, `pipeline-intent-check/`, `pipeline-router/`, `pipeline-ticket/`. After the next session reloads skill metadata, the description strings will reflect the new path.
+- **`places.md` still untracked.** Per PM ("part of another agent's workflow"), left untouched. `git add -u` only stages modifications to tracked files.
