@@ -17,7 +17,7 @@ Stage 0  product   →  product/capabilities/event-host.md
 Stage 1  plan      →  planning/scenarios-backlog/F018-brian-declares-run-club.md
                        (PM approves and moves to scenarios/)
 
-Stage 2  review    →  planning/reviews/F018-review.md
+Stage 2  review    →  planning/history/F018-review.md
                        VERDICT: EXTEND (two small doc additions before ticket)
 
 Stage 2a product   →  product/systems/item.md (extended: item.published semantics,
@@ -123,7 +123,7 @@ A review document with a verdict (PROCEED / REVISE / EXTEND) and recommendations
 
 ### Artifact
 
-- [`planning/reviews/F018-review.md`](../reviews/F018-review.md) — full architecture + design check.
+- [`planning/history/F018-review.md`](./F018-review.md) — full architecture + design check.
 
 ### Verdict
 

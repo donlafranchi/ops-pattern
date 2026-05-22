@@ -27,11 +27,11 @@ Four system specs, four ADRs, one foundation doc, and one prior architectural re
 - ADR-8 — Member Operations supersedes ADR-3's `maker_signal` derivation
 - ADR-9 — Policy framework: opt-out default, three-filter test
 
-**Reviews (in [`planning/reviews/`](../planning/reviews/)):**
-- [`agent-assistance-architecture-review-2026-05-09.md`](../planning/reviews/agent-assistance-architecture-review-2026-05-09.md) — independent architectural reviewer
-- [`agent-assistance-planning-filter-review-2026-05-09.md`](../planning/reviews/agent-assistance-planning-filter-review-2026-05-09.md) — 5 Deadly Sins filter
-- [`agent-assistance-security-privacy-review-2026-05-09.md`](../planning/reviews/agent-assistance-security-privacy-review-2026-05-09.md) — privacy/security teeth check
-- [`agent-assistance-people-first-review-2026-05-09.md`](../planning/reviews/agent-assistance-people-first-review-2026-05-09.md) — foundational refusals + canonical examples
+**Reviews (in [`planning/history/`](../planning/history/)):**
+- [`agent-assistance-architecture-review-2026-05-09.md`](../planning/history/agent-assistance-architecture-review-2026-05-09.md) — independent architectural reviewer
+- [`agent-assistance-planning-filter-review-2026-05-09.md`](../planning/history/agent-assistance-planning-filter-review-2026-05-09.md) — 5 Deadly Sins filter
+- [`agent-assistance-security-privacy-review-2026-05-09.md`](../planning/history/agent-assistance-security-privacy-review-2026-05-09.md) — privacy/security teeth check
+- [`agent-assistance-people-first-review-2026-05-09.md`](../planning/history/agent-assistance-people-first-review-2026-05-09.md) — foundational refusals + canonical examples
 
 ## What the reviewers converged on (preserve for the bundle in which this ships)
 
@@ -93,6 +93,6 @@ The PM mentioned "rearchitecting the app based off the new primitives" with newl
 - All work above is captured.
 - No agent-assistance work blocks b1.
 - Tomorrow's session can pick up either (a) the b1 rearchitecture (the actual work) or (b) the seven open decisions above (the agent-assistance follow-up). They are independent.
-- The reviewers' findings are preserved in `planning/reviews/`. They are read at the time the bundle ships, not before.
+- The reviewers' findings are preserved in `planning/history/`. They are read at the time the bundle ships, not before.
 
 The agent-assistance architecture is a real piece of forward-looking design. It is not the work that ships next. The clean separation here is the win.

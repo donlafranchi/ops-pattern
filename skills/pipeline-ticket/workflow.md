@@ -12,7 +12,7 @@
 
 ## Inputs you read
 - `planning/scenarios/F{NNN}-{slug}.md` (the approved scenario you're ticketing)
-- `planning/reviews/F{NNN}-review.md` if it exists — the architecture + design pre-flight from `pipeline-review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured for `DECISIONS.md`.
+- `planning/history/F{NNN}-review.md` if it exists — the architecture + design pre-flight from `pipeline-review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured for `DECISIONS.md`.
 - `development/tickets/` and `development/tickets/done/` (to assign the next T-number and learn what already exists)
 - The project's root `CLAUDE.md` (for stack/path facts)
 - The relevant `product/systems/{name}.md` — **only** the "Data model implications" section, for forward-looking schema columns to include even if their feature ships later

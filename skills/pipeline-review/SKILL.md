@@ -1,6 +1,6 @@
 ---
 name: pipeline-review
-description: Act as the architecture and design reviewer in a project using the agent pipeline. Use when an approved scenario is about to enter ticket writing and you want a pre-flight check that the scenario fits existing systems and the design language. Triggers on "review F###", "architecture check on F###", "design review F###", "does F### need new schema/components", "is F### consistent with existing surfaces". Reads approved scenarios, product systems, the design language doc, and existing UI inventory. Writes a review document at planning/reviews/F{NNN}-review.md that the ticket writer reads. Does not write tickets, scenarios, or code. Does not block — produces a recommendation; PM decides whether to proceed, revise the scenario, or extend the system.
+description: Act as the architecture and design reviewer in a project using the agent pipeline. Use when an approved scenario is about to enter ticket writing and you want a pre-flight check that the scenario fits existing systems and the design language. Triggers on "review F###", "architecture check on F###", "design review F###", "does F### need new schema/components", "is F### consistent with existing surfaces". Reads approved scenarios, product systems, the design language doc, and existing UI inventory. Writes a review document at planning/history/F{NNN}-review.md that the ticket writer reads. Does not write tickets, scenarios, or code. Does not block — produces a recommendation; PM decides whether to proceed, revise the scenario, or extend the system.
 ---
 
 # pipeline-review
@@ -25,7 +25,7 @@ This stage is **optional but recommended for any scenario that introduces a new 
 ## Constraints (hard)
 
 - Read only `planning/scenarios/` (approved), `product/systems/`, `product/ui/`, `product/foundation/`, `planning/DECISIONS.md`. Never code, never the backlog, never tickets.
-- Produce a review document at `planning/reviews/F{NNN}-review.md` — never edit the scenario itself.
+- Produce a review document at `planning/history/F{NNN}-review.md` — never edit the scenario itself.
 - Recommend, don't decide. The PM decides whether to revise the scenario, extend a system spec, or proceed with ticket writing.
 - Do NOT write tickets — that is `pipeline-ticket`'s job.
 - Do NOT redesign the feature — that is `pipeline-product`'s job. If you find a gap that needs new product thinking, escalate up.
@@ -38,7 +38,7 @@ See `workflow.md`.
 
 ## Hand off
 
-**You produced:** a review document at `planning/reviews/F{NNN}-review.md` with a verdict — **PROCEED** (ticket writing can start), **REVISE** (scenario needs changes; back to `pipeline-plan`), or **EXTEND** (a system or design doc needs to grow first; back to `pipeline-product`).
+**You produced:** a review document at `planning/history/F{NNN}-review.md` with a verdict — **PROCEED** (ticket writing can start), **REVISE** (scenario needs changes; back to `pipeline-plan`), or **EXTEND** (a system or design doc needs to grow first; back to `pipeline-product`).
 
 **Next skill (on PROCEED):** `pipeline-ticket` — reads both the approved scenario AND your review when scoping tickets, so it knows which existing systems/components to reuse and which gaps to flag.
 

@@ -1,6 +1,6 @@
 ---
 name: pipeline-intent-check
-description: Verify that new ADRs, foundation docs, and system specs carry `Intent:` annotations on the statement shapes a downstream agent can't interpret without them (Categories 1–8 from the archived intent audit at `_attic/2026-05-19/planning/intent-audit-2026-05-12.md`, encoded directly in this skill's workflow §2). Use when the user says "intent check", "audit intent annotations", "did this spec get the Intent treatment", "review F### for missing intent", "scan DECISIONS for intent gaps", or as a gate before merging any pipeline-doc change. Reads the archived intent audit, the target file(s), and `planning/DECISIONS.md` for ADR cross-refs. Writes a one-shot review file under `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`. Out-of-band — does not run during an open pipeline phase. Refuses to write Intent lines itself; flags + proposes shapes for the PM to ratify.
+description: Verify that new ADRs, foundation docs, and system specs carry `Intent:` annotations on the statement shapes a downstream agent can't interpret without them (Categories 1–8 from the archived intent audit at `_attic/2026-05-19/planning/intent-audit-2026-05-12.md`, encoded directly in this skill's workflow §2). Use when the user says "intent check", "audit intent annotations", "did this spec get the Intent treatment", "review F### for missing intent", "scan DECISIONS for intent gaps", or as a gate before merging any pipeline-doc change. Reads the archived intent audit, the target file(s), and `planning/DECISIONS.md` for ADR cross-refs. Writes a one-shot review file under `planning/history/intent-{target}-{YYYY-MM-DD}.md`. Out-of-band — does not run during an open pipeline phase. Refuses to write Intent lines itself; flags + proposes shapes for the PM to ratify.
 ---
 
 # pipeline-intent-check
@@ -37,6 +37,6 @@ See [`workflow.md`](workflow.md).
 
 ## Hand off
 
-**You produced:** a review file at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md` listing each Category-1–8 statement that lacks an Intent annotation, with a proposed Intent shape for each. Verdict at the top: **CLEAN** (nothing to add), **PROPOSE** (Intent lines suggested, PM ratifies), or **BLOCK** (load-bearing decision shipped without rationale; pause downstream pipeline until landed).
+**You produced:** a review file at `planning/history/intent-{target}-{YYYY-MM-DD}.md` listing each Category-1–8 statement that lacks an Intent annotation, with a proposed Intent shape for each. Verdict at the top: **CLEAN** (nothing to add), **PROPOSE** (Intent lines suggested, PM ratifies), or **BLOCK** (load-bearing decision shipped without rationale; pause downstream pipeline until landed).
 
 **Next skill:** none if CLEAN. PM (or the originating skill: `pipeline-product` for new specs, `pipeline-prune` for memorialized invariants) lands the proposed Intent lines verbatim or revised. After landing, re-run this skill until verdict is CLEAN.

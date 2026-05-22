@@ -15,7 +15,7 @@ Product (dream) → Planning (filter) → Review (pre-flight, optional) ──�
 
 The PM cycle is strict. Each role has one input, one output, and explicit firewalls. **Review** is optional but strongly recommended for any scenario that introduces a new surface, component, event type, or schema. **Eval-write** and **Ticket** run in parallel from the approved scenario; both feed Build.
 
-For a worked example tracing F018 through every role with real artifacts at each stage, see [`planning/walkthroughs/F018-pipeline-trace.md`](planning/walkthroughs/F018-pipeline-trace.md).
+For a worked example tracing F018 through every role with real artifacts at each stage, see [`planning/history/F018-pipeline-trace.md`](planning/history/F018-pipeline-trace.md).
 
 ## What every gate is guarding against
 
@@ -112,7 +112,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 - `planning/bundles/{active}.md`
 
 **Writes:**
-- `planning/reviews/F{NNN}-review.md`
+- `planning/history/F{NNN}-review.md`
 
 **Does NOT Read:**
 - `web/` (code)
@@ -154,7 +154,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 **Reads:**
 - `planning/scenarios/` (approved only)
-- `planning/reviews/F{NNN}-review.md` if it exists (the architecture + design pre-flight from `pipeline-review`)
+- `planning/history/F{NNN}-review.md` if it exists (the architecture + design pre-flight from `pipeline-review`)
 - `development/tickets/` and `development/tickets/done/` (for the next T-number and to learn what exists)
 - `product/systems/{relevant-system}.md` (only the "Data model implications" section)
 
@@ -320,7 +320,7 @@ Rejected absolutes are deleted from the spec; the JOURNAL entry records the remo
 - [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; the eight categories — encoded directly in this skill's workflow)
 
 **Writes:**
-- `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`
+- `planning/history/intent-{target}-{YYYY-MM-DD}.md`
 
 **Does NOT Read or Write:**
 - `web/` (code)

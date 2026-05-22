@@ -22,7 +22,7 @@ The fixes below are mostly cheap. The single highest-leverage one is a **session
 
 ## Method
 
-Read in full: `CLAUDE.md` (on-disk), `AGENTS.md`, `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`, `JOURNAL.md`, `BUILD-LOG.md`, `planning/DECISIONS.md`, `skills/README.md`, `planning/walkthroughs/F018-pipeline-trace.md`, `skills/pipeline-ticket/workflow.md`, ticket `T056`. Sampled `DEVIATIONS.md` (605 lines — too large to read whole, which is itself a finding). Traced F018 end-to-end and the T041–T057 substrate-ticket run. Cross-referenced every 2026-05-09 finding against current repo state. Verified each concrete claim below against the filesystem (see the Verification note at the end).
+Read in full: `CLAUDE.md` (on-disk), `AGENTS.md`, `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`, `JOURNAL.md`, `BUILD-LOG.md`, `planning/DECISIONS.md`, `skills/README.md`, `planning/history/F018-pipeline-trace.md`, `skills/pipeline-ticket/workflow.md`, ticket `T056`. Sampled `DEVIATIONS.md` (605 lines — too large to read whole, which is itself a finding). Traced F018 end-to-end and the T041–T057 substrate-ticket run. Cross-referenced every 2026-05-09 finding against current repo state. Verified each concrete claim below against the filesystem (see the Verification note at the end).
 
 One correction surfaced during verification: the `CLAUDE.md` copy in my initial briefing still named the retired `pipeline-clarify-absolutes` / `pipeline-review-absolute` skills, but the **on-disk `CLAUDE.md` is correct** — it was updated to `pipeline-ratify-absolute`. No finding there. The drift is elsewhere (see H6).
 

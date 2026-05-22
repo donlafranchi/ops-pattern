@@ -48,7 +48,7 @@ The pipeline runs in a strict order per feature. Each step has one input and one
 3. pipeline-review    →  (optional but recommended) architecture + design
                           pre-flight on the approved scenario. Verdict:
                           PROCEED, REVISE, or EXTEND. Output:
-                          planning/reviews/F{NNN}-review.md.
+                          planning/history/F{NNN}-review.md.
 
 4. pipeline-eval      →  writes Playwright tests from the approved scenario
    (write mode)           BEFORE build — this is the firewall against

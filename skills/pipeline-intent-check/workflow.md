@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | The target file(s): one or more of `product/foundation/*.md`, `product/systems/*.md`, `planning/DECISIONS.md` (ADR text), or a pipeline-doc that has just changed. Also reads [the archived intent audit](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) for the eight categories. |
-| **Writes** | One review file: `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`. The `{target}` slug is the filename (e.g., `groups`, `policy-framework`, `ADR-18`). |
+| **Writes** | One review file: `planning/history/intent-{target}-{YYYY-MM-DD}.md`. The `{target}` slug is the filename (e.g., `groups`, `policy-framework`, `ADR-18`). |
 | **Templates** | Review-file template at the bottom of this doc; proposed-Intent shape inline per category. |
 | **Hands to** | nothing — the PM lands or defers. Re-run after landing. |
 
@@ -90,7 +90,7 @@ A decision is load-bearing if forgetting it would create silent contradiction wi
 
 ### 6. Write the review file
 
-One file per run, at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`. The template:
+One file per run, at `planning/history/intent-{target}-{YYYY-MM-DD}.md`. The template:
 
 ```markdown
 # Intent check — {target}
@@ -135,7 +135,7 @@ One file per run, at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`. The tem
 
 Before declaring done:
 
-- The review file exists at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md` and renders.
+- The review file exists at `planning/history/intent-{target}-{YYYY-MM-DD}.md` and renders.
 - The verdict line at the top matches the body (a BLOCK verdict must have at least one Yes-load-bearing flag; a CLEAN verdict has zero flags).
 - Each flagged statement quotes the target exactly (no paraphrasing) so the PM can search-and-find the line.
 - Each proposed Intent line is in the audit's voice — anchored in failure mode, not in "this is good design."

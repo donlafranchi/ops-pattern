@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | `planning/scenarios/F{NNN}-{slug}.md` (approved), `product/systems/`, `product/ui/`, `product/foundation/`, `planning/DECISIONS.md`, `planning/bundles/{active}.md` |
-| **Writes** | `planning/reviews/F{NNN}-review.md` |
+| **Writes** | `planning/history/F{NNN}-review.md` |
 | **Templates** | `templates/review.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios-backlog/` |
 | **Hands to** | `pipeline-ticket` on PROCEED, `pipeline-plan` on REVISE, `pipeline-product` on EXTEND |
@@ -61,7 +61,7 @@ Reference: `product/ui/design-language.md`, root `CLAUDE.md` "Language & Framing
 4. Run the architecture check; capture findings in the review template.
 5. Run the design check; capture findings in the review template.
 6. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
-7. Save to `planning/reviews/F{NNN}-review.md`.
+7. Save to `planning/history/F{NNN}-review.md`.
 8. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
 
 ## Verdict semantics
