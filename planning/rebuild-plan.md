@@ -5,7 +5,7 @@
 > **Why "rebuild" not "migration".** The current app is in development; nobody is using it; there is no production data to preserve and no URL anyone has bookmarked. The prior plan's complexity — dual-write, backfill, divergence checker, two-week zero-read verification, per-phase rollback — existed to protect a live system. With no live system, all of it goes away. The work that remains is the rebuild of the data layer, the action layer, and the user-facing surfaces on top of an unchanged framework foundation.
 
 **Source documents:**
-- [`product/foundation/loops.md`](../product/foundation/loops.md) — north star
+- [`product/needs/member-journey.md`](../product/needs/member-journey.md) — north star
 - [`product/foundation/primitives.md`](../product/foundation/primitives.md) — data spine
 - [`product/foundation/principles.md`](../product/foundation/principles.md) — values stake
 - [`product/foundation/policy.md`](../product/foundation/policy.md) — three-filter test, opt-out default, anti-Nextdoor commitments
@@ -233,7 +233,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 - `/explore` — locality-first index. **No-login browseable.** Filterable by kind, category, distance, schedule. Reads `discoverable_items` materialized view exclusively.
 - `/g` — Group browse index. Filterable by anchor Location, kind, follow-graph, size.
 - `/g/new` — Group create flow. Six kinds; each kind walks role-per-kind validity (e.g., kind='business' creates founder owner-role membership).
-- `/why` — thesis page. Static content. Links from every page footer. Uses content from `canonical-examples.md`, `principles.md`, `loops.md` distilled.
+- `/why` — thesis page. Static content. Links from every page footer. Uses content from `use-cases.md`, `principles.md`, `member-journey.md` distilled.
 
 **Surfaces:**
 
@@ -268,7 +268,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 - `product/capabilities/landing-page.md` → rewritten on Member primitive with anonymous Loop 3 path.
 - `product/capabilities/shareable-listing.md` → renamed "Shareable Entity Pages" and generalized across `/i/`, `/m/`, `/l/`, `/g/` routes.
 - `product/systems/discovery.md` → Community-scoped → Group-scoped throughout.
-- Cross-reference cleanup: `MAP.md`, `canonical-examples.md`, `F018-brian-declares-run-club.md`, `agent-assistance-handoff-2026-05-09.md`, `reciprocity-and-goodwill.md`, `agent-assistance.md`, `item-view.md`, `gathering-host.md` — all live broken pointers fixed.
+- Cross-reference cleanup: `MAP.md`, `use-cases.md`, `F018-brian-declares-run-club.md`, `agent-assistance-handoff-2026-05-09.md`, `reciprocity-and-goodwill.md`, `agent-assistance.md`, `item-view.md`, `gathering-host.md` — all live broken pointers fixed.
 - `planning/scenarios/F001–F017` (17 pre-primitives scenarios) → archived to `_attic/2026-05-19/planning-scenarios-backlog/` with `PRE-PRIMITIVES-AUDIT-2026-05-11.md` documenting the mapping. Live `planning/scenarios/` contains only F018.
 
 **Exit criterion met:** a new contributor reading the project from `CLAUDE.md` can reach all canonical docs without encountering a "vendor", "Community", "Member Operations", or "cooperative" reference outside `archive/` folders.

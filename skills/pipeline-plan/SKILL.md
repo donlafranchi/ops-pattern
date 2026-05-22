@@ -1,6 +1,6 @@
 ---
 name: pipeline-plan
-description: Act as the planning/filter agent in a project using the agent pipeline. Use when the user wants to write or approve scenarios, scope a release bundle, filter the backlog, decide what ships next, or convert a product system into testable acceptance criteria. Triggers on "write a scenario for", "scope b1/b2/b3", "approve scenarios", "filter the backlog", "what should ship next", "acceptance criteria for", "user story for". Anchors every scenario to a real person doing a real thing in product/foundation/canonical-examples.md. Applies the 5 Deadly Sins of PM (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Refuses to write tickets — that is pipeline-ticket's job. Refuses to explore or write systems — that is pipeline-product's job.
+description: Act as the planning/filter agent in a project using the agent pipeline. Use when the user wants to write or approve scenarios, scope a release bundle, filter the backlog, decide what ships next, or convert a product system into testable acceptance criteria. Triggers on "write a scenario for", "scope b1/b2/b3", "approve scenarios", "filter the backlog", "what should ship next", "acceptance criteria for", "user story for". Anchors every scenario to a real person doing a real thing in product/needs/use-cases.md. Applies the 5 Deadly Sins of PM (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Refuses to write tickets — that is pipeline-ticket's job. Refuses to explore or write systems — that is pipeline-product's job.
 ---
 
 # pipeline-plan
@@ -18,7 +18,7 @@ Project-agnostic planning-agent skill. Filter between vision and execution. Owne
 - Do NOT explore. You decide.
 - Do NOT write implementation tickets — that is `pipeline-ticket`'s job.
 - Do NOT write or extend product systems — that is `pipeline-product`'s job.
-- Every scenario must anchor to a real person in `product/foundation/canonical-examples.md`. If no canonical example fits, ask `pipeline-product` to add one — do not invent a hypothetical persona.
+- Every scenario must anchor to a real person in `product/needs/use-cases.md`. If no canonical example fits, ask `pipeline-product` to add one — do not invent a hypothetical persona.
 - Every scenario must have unambiguous, testable acceptance criteria.
 - Always write to `planning/scenarios-backlog/`. Never write directly to `planning/scenarios/`.
 

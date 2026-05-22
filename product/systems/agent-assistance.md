@@ -120,7 +120,7 @@ A single Delegation primitive carries three kinds, distinguished by `grantee_kin
 
 **Skill (T2)** — A grant to a specific Skill the Member has subscribed to (per § Skills below). Scopes are declared by the Skill at install time and confirmed by the Member at subscribe time — the Member sees exactly what the Skill is asking for before the grant is issued. Tied to the subscription: revoking the grant unsubscribes the Skill; unsubscribing the Skill revokes the grant.
 
-**Federation (T3)** — A grant to a federated platform (per Loop 13 in `loops.md`) that needs to read or write on the Member's behalf — a CDFI app reading their Initiatives, a cooperative-services platform writing to their Locations. Scopes are tighter, audit is heavier, expiries shorter, and a federation-grade Delegation surfaces in the Member's federation handoff dashboard.
+**Federation (T3)** — A grant to a federated platform (per Loop 13 in `member-journey.md`) that needs to read or write on the Member's behalf — a CDFI app reading their Initiatives, a cooperative-services platform writing to their Locations. Scopes are tighter, audit is heavier, expiries shorter, and a federation-grade Delegation surfaces in the Member's federation handoff dashboard.
 
 The kind enum is extensible without schema migration.
 

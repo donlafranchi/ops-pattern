@@ -1,6 +1,6 @@
 # The Primitives
 
-**Status:** Foundational north star. Defines the data-model spine that backs the loops in `loops.md` and is implemented across the system specs ([`member.md`](../systems/member.md), [`item.md`](../systems/item.md), [`location.md`](../systems/location.md), [`groups.md`](../systems/groups.md)).
+**Status:** Foundational north star. Defines the data-model spine that backs the loops in `member-journey.md` and is implemented across the system specs ([`member.md`](../systems/member.md), [`item.md`](../systems/item.md), [`location.md`](../systems/location.md), [`groups.md`](../systems/groups.md)).
 
 ## What this document does
 
@@ -79,7 +79,7 @@ Three reasons this matters:
 
 **It makes cooperative formation a first-class outcome rather than an afterthought.** When an Initiative produces a cooperative bakery, that bakery doesn't need to be modeled as a new entity type. It's a kind='business' Group whose Members collectively operate a Location producing Items. The data model already supports it; no new schema, no special-case "cooperative" entity.
 
-The exception is **federated handoff**: at Loop 13 (per [`loops.md`](loops.md)), a community fund grows into a CDFI, a cooperative federation grows into a cooperative-services platform. Those external platforms have their own entities; this platform federates with them through identity and protocol, not by absorbing their data model.
+The exception is **federated handoff**: at Loop 13 (per [`member-journey.md`](../needs/member-journey.md)), a community fund grows into a CDFI, a cooperative federation grows into a cooperative-services platform. Those external platforms have their own entities; this platform federates with them through identity and protocol, not by absorbing their data model.
 
 ## The relationships
 
@@ -97,7 +97,7 @@ The relationship surface is intentionally flat. There is no Business that owns I
 
 ## How the 13 loops collapse
 
-The 13 loops in `loops.md` collapse into four build clusters once they're restated in primitive terms:
+The 13 loops in `member-journey.md` collapse into four build clusters once they're restated in primitive terms:
 
 ### Cluster 1 — Standing presence
 

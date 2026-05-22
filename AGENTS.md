@@ -56,7 +56,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 - `product/surfaces/`
 - `product/exploration/`
 - `product/templates/`
-- `product/foundation/canonical-examples.md` (extends with new real situations)
+- `product/needs/use-cases.md` (extends with new real situations)
 
 **Does NOT Read:**
 - `planning/`
@@ -73,8 +73,8 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 **Model:** Claude Opus (filter, comprehensive)
 
 **Reads:**
-- `product/foundation/canonical-examples.md` (mandatory anchor)
-- `product/foundation/loops.md`
+- `product/needs/use-cases.md` (mandatory anchor)
+- `product/needs/member-journey.md`
 - `product/foundation/primitives.md`
 - `product/systems/`
 - `product/capabilities/`

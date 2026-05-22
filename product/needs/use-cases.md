@@ -1,6 +1,10 @@
-# Canonical Examples
+# Use Cases
 
-**Status:** Foundational reference. The working set of real-world situations the platform exists to serve. Read alongside [`loops.md`](loops.md), [`primitives.md`](primitives.md), and [`principles.md`](principles.md). Replaces the prior `founding-scenarios.md` and `mission.md`, both of which predated the loops/primitives reframe.
+> **Relocated + renamed 2026-05-19** from `foundation/canonical-examples.md`. The 12 real
+> use cases here are the working test-case set for every feature. Specs may still say
+> "canonical example" as a term; the file is `use-cases.md`.
+
+**Status:** Foundational reference. The working set of real-world situations the platform exists to serve. Read alongside [`member-journey.md`](member-journey.md), [`../foundation/primitives.md`](../foundation/primitives.md), and [`../foundation/principles.md`](../foundation/principles.md). Replaces the prior `founding-scenarios.md` and `mission.md`, both of which predated the loops/primitives reframe.
 
 ## What this is
 

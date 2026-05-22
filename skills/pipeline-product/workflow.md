@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | `product/foundation/*` (loops, primitives, people-first, canonical-examples), `product/exploration/`, `product/specs/`, root `CLAUDE.md` |
-| **Writes** | `product/capabilities/`, `product/systems/`, `product/surfaces/`, `product/exploration/`, `product/templates/`, extends `product/foundation/canonical-examples.md` |
+| **Writes** | `product/capabilities/`, `product/systems/`, `product/surfaces/`, `product/exploration/`, `product/templates/`, extends `product/needs/use-cases.md` |
 | **Templates** | `templates/system.md`, `templates/capability.md`, `templates/product.md` |
 | **Does NOT read** | `planning/`, `development/`, `web/` |
 | **Hands to** | `pipeline-plan` (for system → scenarios) |
@@ -45,7 +45,7 @@ Use the templates in `templates/`. Stub copy into the right project directory an
 
 **Plan will refuse your system if:**
 - It has no "Data model implications" section.
-- It doesn't anchor to at least one canonical example in `product/foundation/canonical-examples.md`.
+- It doesn't anchor to at least one canonical example in `product/needs/use-cases.md`.
 - It tries to ship across all tiers at once instead of being tiered T1/T2/T3.
 
 Add the canonical anchor before handing off — plan does not invent personas.

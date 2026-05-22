@@ -1,6 +1,10 @@
-# High-Level Loops
+# Member Journey
 
-**Status:** Foundational north star. Defines the loops the platform is built around, in priority order. Upstream of system specs (`community.md`, `member.md`, `initiatives.md`, `service-provider.md`, `maker.md`); downstream of the Slow Economy thesis.
+> **Relocated + renamed 2026-05-19** from `foundation/loops.md`. The 13 loops are unchanged
+> content — "loop" stays valid as spec/schema vocabulary. The doc is renamed because
+> "loops" means nothing to a non-builder; "member journey" does.
+
+**Status:** Foundational north star. Defines the loops the platform is built around, in priority order. Upstream of system specs (`member.md`, `item.md`, `location.md`, `groups.md`, etc.); downstream of the Slow Economy thesis.
 
 ## What this platform is
 

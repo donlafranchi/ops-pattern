@@ -12,7 +12,7 @@
 
 Every decision below answers, ultimately, to one mission: **connecting people, joining forces, improving our lives socially and economically, and deciding our future with the strength and power of the many.**
 
-Foundation reading before any new decision: [`loops.md`](../product/foundation/loops.md), [`primitives.md`](../product/foundation/primitives.md), [`principles.md`](../product/foundation/principles.md), [`policy.md`](../product/foundation/policy.md), [`canonical-examples.md`](../product/foundation/canonical-examples.md).
+Foundation reading before any new decision: [`member-journey.md`](../product/needs/member-journey.md), [`primitives.md`](../product/foundation/primitives.md), [`principles.md`](../product/foundation/principles.md), [`policy.md`](../product/foundation/policy.md), [`use-cases.md`](../product/needs/use-cases.md).
 
 ## Where decisions live
 

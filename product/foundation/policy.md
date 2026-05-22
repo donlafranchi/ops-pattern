@@ -1,6 +1,6 @@
 # Policy Framework
 
-**Status:** Foundational. Read alongside [principles.md](principles.md), [loops.md](loops.md), and [primitives.md](primitives.md). Every system spec that touches privacy, revenue, monetary flow, data sharing, or third-party access is governed by this document.
+**Status:** Foundational. Read alongside [principles.md](principles.md), [loops.md](../needs/member-journey.md), and [primitives.md](primitives.md). Every system spec that touches privacy, revenue, monetary flow, data sharing, or third-party access is governed by this document.
 
 ## What this document does
 

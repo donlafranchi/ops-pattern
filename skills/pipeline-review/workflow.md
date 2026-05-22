@@ -35,11 +35,11 @@ For each system the scenario touches:
 2. **Existing capability fit.** Does the scenario align with how this system is used by other capabilities? If it introduces a new mode of use, flag it.
 3. **Cross-system consistency.** If the scenario crosses two systems (e.g., Item + Location + Community), check that each system's spec already accounts for the interaction. Flag any system that doesn't.
 4. **Forward-looking concerns.** Will this scenario make a future tier (T2, T3) of the system harder? E.g., "this T1 design makes the T3 federated handoff impossible" — flag for `pipeline-product`.
-5. **Loop fidelity.** Quote the relevant loop's stated pain point from `product/foundation/loops.md` and write one sentence explaining how this scenario advances it. If the loop named in the scenario does not match the scenario's actual mechanic (e.g. tagged Loop 4 but actually serves engagement-driven retention), flag REVISE.
+5. **Loop fidelity.** Quote the relevant loop's stated pain point from `product/needs/member-journey.md` and write one sentence explaining how this scenario advances it. If the loop named in the scenario does not match the scenario's actual mechanic (e.g. tagged Loop 4 but actually serves engagement-driven retention), flag REVISE.
 6. **Shell-entity check.** Does any column, relationship, or user-facing label introduce an entity that owns Items without being a Person or a Community? Vocabulary to flag: "vendor," "business," "merchant," "establishment," "operator." If any column reads as `*_id` pointing to a non-Person/Community entity holding Items, flag EXTEND. People-first compliance is structural, not aspirational.
 7. **Policy posture present.** If the scenario touches data sharing, monetary flow, agent permissions, or visibility (Member→Member, Member→third-party, Member→platform), the relevant `product/systems/{name}.md` MUST have a "Policy posture" section with the three-filter analysis written out per ADR-9. If absent, verdict is EXTEND — back to `pipeline-product` to write it before tickets open. Default-on data sharing or unanalyzed opt-ins are auto-EXTEND.
 
-Reference: `product/systems/`, `product/foundation/primitives.md`, `product/foundation/principles.md`, `product/foundation/loops.md`, `product/foundation/policy.md`, `planning/DECISIONS.md`.
+Reference: `product/systems/`, `product/foundation/primitives.md`, `product/foundation/principles.md`, `product/needs/member-journey.md`, `product/foundation/policy.md`, `planning/DECISIONS.md`.
 
 ### Design check
 

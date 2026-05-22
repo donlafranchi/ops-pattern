@@ -34,7 +34,7 @@ See `workflow.md`.
 
 **Pipeline-plan expects:**
 - A system spec at `product/systems/{name}.md` with tiers (T1/T2/T3) and a Data model implications section.
-- A canonical example in `product/foundation/canonical-examples.md` that the system serves. If none fits, add one — pipeline-plan will refuse to scenarioize a system with no canonical anchor.
+- A canonical example in `product/needs/use-cases.md` that the system serves. If none fits, add one — pipeline-plan will refuse to scenarioize a system with no canonical anchor.
 
 ## Related skills
 - `pipeline-plan` — downstream; filters and writes scenarios from your specs.

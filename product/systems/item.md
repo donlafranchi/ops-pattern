@@ -16,7 +16,7 @@ The argument for Items as a primitive (rather than as separate per-feature entit
 
 Modeling these as separate systems means writing the same code six times. Modeling them as Items with kind variations means writing it once and varying behavior per kind. The schematic similarity becomes structural reuse, the locality-first index becomes a single query, and natural-language search becomes tractable because there's one consistent thing to embed.
 
-This is the data-model equivalent of the synthesis that drove `loops.md`: the platform's many surfaces are surfacings of a few primitives.
+This is the data-model equivalent of the synthesis that drove `member-journey.md`: the platform's many surfaces are surfacings of a few primitives.
 
 ## Item Kinds
 
@@ -81,7 +81,7 @@ The kind enum is extensible. Future kinds (Class, Tool-share, CSA Subscription, 
 
 - **Vector embeddings** for all Items, enabling natural-language search across the platform. Embeddings indexed against a parallel table, refreshed on Item update.
 - **AI chat surface** — a conversational interface that accepts natural-language queries and resolves them across Items, Persons, and Locations.
-- **Cross-platform Item federation** — an Item from a federated platform (per Loop 13 in `loops.md`, e.g., a cooperative service from the spawned cooperative-services platform) surfaceable here through federation protocols.
+- **Cross-platform Item federation** — an Item from a federated platform (per Loop 13 in `member-journey.md`, e.g., a cooperative service from the spawned cooperative-services platform) surfaceable here through federation protocols.
 - **Categorical recommendation surfaces** — *"you follow these makers; here are similar Items in your area"* — driven by Item embeddings plus Person history.
 - **Item performance dashboards** for the creating Person — views, follows, saves, response counts, engagement over time. Producer-facing metrics in plain language: *"12 people searched for sheep milk near you this week."*
 - **Item history** — version log of Item edits, visible to the creating Person.

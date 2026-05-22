@@ -105,6 +105,6 @@ Keep this file under 60 lines. Anything longer is process leakage — move it to
 **Tell the user:**
 1. Run `./skills/install.sh` once if the pipeline skills aren't yet symlinked into `~/.claude/skills/`.
 2. Open a new session and ask `pipeline-router` for orientation.
-3. From there, start the PM cycle with `pipeline-product` — write the first system spec, including a canonical example in `product/foundation/canonical-examples.md`.
+3. From there, start the PM cycle with `pipeline-product` — write the first system spec, including a canonical example in `product/needs/use-cases.md`.
 
 **Next skill:** `pipeline-router` — first session in the new project.

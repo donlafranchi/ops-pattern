@@ -10,7 +10,7 @@
 
 **Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`principles.md`](../foundation/principles.md) · [`policy.md`](../foundation/policy.md) · [`groups.md`](groups.md) (the unified Group spine — supersedes the prior `community.md` / `member-operations.md` / `cooperative.md` split per the 2026-05-10 ratification) · [`item.md`](item.md) · [`location.md`](location.md) · `agent-assistance.md` / `agent-assistance.md` / `agent-assistance.md` (forward-looking, schema reserved at b1)
 
-**Canonical examples this spec serves:** Maya at Oak Park Sourdough · Ferrari Fisheries · Cafe Capricho's successor · Brian declaring the Run Club at Drake's · Aaron posting a fish-drop Wonder · Maya finding something to do tonight · the West Sac school-parents Community founder. Per [`canonical-examples.md`](../foundation/canonical-examples.md).
+**Canonical examples this spec serves:** Maya at Oak Park Sourdough · Ferrari Fisheries · Cafe Capricho's successor · Brian declaring the Run Club at Drake's · Aaron posting a fish-drop Wonder · Maya finding something to do tonight · the West Sac school-parents Community founder. Per [`use-cases.md`](../needs/use-cases.md).
 
 ---
 
@@ -164,7 +164,7 @@ Per the b1 scope decision: the messages schema lands at b1 so b2 can ship the su
 
 - **Stakeholder dashboard** — the producer-facing analytics surface (views, follows, saves, response counts, engagement over time) reads from the b1 event log entries. Per b1-primitives.md, the dashboard ships at b3; the events are required at b1.
 - **Stakeholder visibility** (`stakeholder_visibility` enum, reserved at b1) — `private` (default) / `community_only` / `public`. Controls which surfaces show this Member's accumulated standing patterns to other Members. The default is private; Members opt in.
-- **Member federation** — under Loop 13, a Member's identity, Assistant Context, and (where flagged) Delegations follow them to spawned platforms. Federation handoff per `loops.md` Loop 13 and `agent-assistance.md` T3 surface.
+- **Member federation** — under Loop 13, a Member's identity, Assistant Context, and (where flagged) Delegations follow them to spawned platforms. Federation handoff per `member-journey.md` Loop 13 and `agent-assistance.md` T3 surface.
 - **Vector embeddings on Member bio** — enables natural-language search like *"who in Folsom does pre-1900 plumbing"* to surface Members directly, not just their Items.
 - **Member chat surface** — the platform's AI chat surface (per `item.md` T3) returns Members as first-class results when relevant.
 - **Member Group transitions** — Members shift between Groups (leaving one business Group to start another, joining a partnership, becoming a steward of an interest Group) via the standard `group.member_join` / `group.member_leave` handlers per `groups.md`. No special "capacity transition" surface needed — the Group lifecycle handlers cover the cases the prior `member-operations.md` model needed dedicated transitions for. T3 may add a multi-Member consent flow when a Group's structural responsibilities (e.g., founder transferring co-ownership) are at stake.
@@ -576,7 +576,7 @@ Every Member is designed to be queryable via natural language at T3. The MVP doe
 
 - **Bio as embedding substrate.** Member bios are written in natural language (first-person, plain English, no keyword stuffing). The same bio that reads well to a human will embed well for semantic search.
 - **Group memberships and `group_businesses.display_name`** (per `groups.md`) provide the structured layer. An LLM mapping "who in Folsom does pre-1900 plumbing" maps Group `display_name` + the Member's role (`owner` / `member`) + locality (via Member affinities and Item-Location attachments) + linked Service Items.
-- **Member interests** (`member_interests`) constrain the topical surface to terms an LLM can reason over. Combined with `member_location_affinities` of kind=`follows`, these power compositional queries like the Concerts-in-the-Park surface (per `canonical-examples.md` example #12).
+- **Member interests** (`member_interests`) constrain the topical surface to terms an LLM can reason over. Combined with `member_location_affinities` of kind=`follows`, these power compositional queries like the Concerts-in-the-Park surface (per `use-cases.md` example #12).
 - **Reserved embedding column** — when the parallel `member_embeddings` table is built at T3, it indexes against `bio`, the Member's active Group `display_name` values, and the Member's `member_interests`.
 
 The MVP serves structured-filter search (handle, display name lookup, Items by Member, Members in Community); T3 adds vector search across bios; T3 also surfaces the chat surface that resolves natural-language Member queries.

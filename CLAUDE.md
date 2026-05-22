@@ -16,7 +16,7 @@
 
 ## North Star — The Loops
 
-Every feature must serve at least one of the 13 loops. Source: [`product/foundation/loops.md`](product/foundation/loops.md). Five families, in order: Gathering → Sharing → Trade → Pooling → Federation. Activation energy ascends, belief ascends, stake accumulates.
+Every feature must serve at least one of the 13 loops. Source: [`product/needs/member-journey.md`](product/needs/member-journey.md). Five families, in order: Gathering → Sharing → Trade → Pooling → Federation. Activation energy ascends, belief ascends, stake accumulates.
 
 ## The Primitives
 
@@ -52,7 +52,7 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 ### Rules
 
 1. **Schema names are durable.** Don't rename `gathering` → `event` or `wonder` → `idea` in code; the URL and UI layers handle the translation. Same with `member_self_record` → "Assistant Context." This isolates schema migrations from naming evolution.
-2. **"Declare" is the spec/conceptual verb only.** "Person declares Item" is correct in `primitives.md`, `loops.md`, and system specs. UI never says "declare an item" — UI uses the kind-specific verb (Host, Sell, Offer, Wonder, Ask, Lead).
+2. **"Declare" is the spec/conceptual verb only.** "Person declares Item" is correct in `primitives.md`, `member-journey.md`, and system specs. UI never says "declare an item" — UI uses the kind-specific verb (Host, Sell, Offer, Wonder, Ask, Lead).
 3. **No umbrella word for Items in UI copy.** "Item" is the database term. In the UI, always use the specific kind: Event, Product, Service, Idea, Offer, Ask, Initiative. The Explore tab can use kind-specific filter copy ("Browse events," "Browse what's for sale") rather than "Browse items."
 4. **"Seller" is the generic UI term for a Member offering goods or services.** It applies whenever a Member has ≥1 active kind='business' Group membership or has posted an `items.kind='product'` / `'service'` row. There is no `maker_mode_enabled` toggle (dropped per `agent-commerce-and-project-amendments.md` §6, ratified 2026-05-12). **"Producer"** is preferred in the agricultural and food context — used in `producer-tools.md`, `producer-tools.md`, and `platform-promise.md`. **"Maker"** survives only as a UI label when the Member specifically self-identifies as such (craftspeople, artisans); it is not a default role.
 5. **Loop names stay conceptual.** Loop 2 is "Wonder," Loop 4 is "Gather regularly." Loop names are durable spec language; they don't migrate to the new UI labels.
@@ -162,11 +162,11 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) | Process questions; understanding why the gates exist |
 | [`planning/DECISIONS.md`](planning/DECISIONS.md) | The ADR pointer index — every architectural decision, current status, file path. Read first when looking up any "is there a decision about X?" |
 | [`planning/adrs/`](planning/adrs/) | The canonical home for every ADR. Format and lifecycle in [`adrs/README.md`](planning/adrs/README.md). |
-| [`product/foundation/loops.md`](product/foundation/loops.md) | North-star check — does this serve a loop? |
+| [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |
 | [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |
 | [`product/foundation/principles.md`](product/foundation/principles.md) | Anything that risks treating a business as more important than the people doing the work |
 | [`product/systems/agent-assistance.md`](product/systems/agent-assistance.md) | Anything agent-shaped — the umbrella for Delegation / Assistant Context / Skills |
-| [`product/foundation/canonical-examples.md`](product/foundation/canonical-examples.md) | Real situations the platform exists to serve. The working test-case set for any feature. |
+| [`product/needs/use-cases.md`](product/needs/use-cases.md) | Real situations the platform exists to serve. The working test-case set for any feature. |
 | [`product/foundation/policy.md`](product/foundation/policy.md) | Any surface touching data sharing, monetary flow, or visibility |
 | [`product/systems/item.md`](product/systems/item.md) | Any feature that creates or surfaces a thing-being-declared |
 | [`product/systems/groups.md`](product/systems/groups.md) | Anything Group-shaped — Groups, joining, role-per-kind, member lists, addressable scopes, business-Group operating, partnership/co-owner shape. **Supersedes `community.md` / `member-operations.md` / `cooperative.md` per the 2026-05-10 ratification.** Any feature that risks auto-assigning Members to a Group. |

@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | `product/foundation/*` (mandatory: `canonical-examples.md`, `loops.md`, `primitives.md`), `product/systems/`, `product/capabilities/`, `planning/bundles/{active}.md`, `planning/bundles/bundle-themes.md` (mandatory — sub-bundle sequence), `planning/bundles/b{N}-work-map.md` (mandatory — menu of 🟢/🟡/⚪ work for the active bundle) |
+| **Reads** | `product/foundation/*` (mandatory: `use-cases.md`, `member-journey.md`, `primitives.md`), `product/systems/`, `product/capabilities/`, `planning/bundles/{active}.md`, `planning/bundles/bundle-themes.md` (mandatory — sub-bundle sequence), `planning/bundles/b{N}-work-map.md` (mandatory — menu of 🟢/🟡/⚪ work for the active bundle) |
 | **Writes** | `planning/scenarios-backlog/F{NNN}-{persona}-{verb}-{object}.md`, `planning/bundles/` |
 | **Templates** | `templates/scenario.md` (user-story shape — required), `templates/bundle.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios/` (modify-wise — read for reference only) |
@@ -13,8 +13,8 @@
 
 ## What you read first (every time)
 
-1. **`product/foundation/canonical-examples.md`** — the working set of real situations the platform exists to serve. Every scenario must anchor here.
-2. **`product/foundation/loops.md`** — the 13 loops. Every scenario must serve at least one.
+1. **`product/needs/use-cases.md`** — the working set of real situations the platform exists to serve. Every scenario must anchor here.
+2. **`product/needs/member-journey.md`** — the 13 loops. Every scenario must serve at least one.
 3. **`product/foundation/primitives.md`** — Person / Item / Location / (optional) Community. Every scenario must respect these primitives.
 4. **`product/foundation/principles.md`** — the no-Business-entity / no-pay-for-visibility / no-engagement-feed / no-auto-Community rules. Every scenario must survive these four refusals. If the scenario asks the platform to treat a Business as more important than the people doing the work, reject before writing acceptance criteria.
 5. **`product/foundation/policy.md`** — three-filter test, opt-out default. Required reading before approving any scenario that touches privacy, monetary flow, data sharing, agent permissions, or visibility.
@@ -41,7 +41,7 @@ Apply to every system before approving scenarios from it:
 
 1. **Identify the active sub-bundle.** Read `bundle-themes.md` and confirm which `b{N}.{M}` is currently shipping (the next one whose dependencies are all live). Scenarios for later sub-bundles stay in backlog until their turn — write them anyway if useful, but tag them honestly.
 2. **Pick the next work-map item.** From `b{N}-work-map.md`, pick a 🟢 (or PM-elevated 🟡) item in the active sub-bundle that does not yet have an F### scenario. One scenario per work-map item; if a work-map item is too big for one scenario, escalate — the work-map item should be split before the scenario is written.
-3. **Identify the canonical example.** What real person from `canonical-examples.md` does this scenario serve? Name them. If no example fits, escalate to `pipeline-product` to add one — do not invent a hypothetical "user."
+3. **Identify the canonical example.** What real person from `use-cases.md` does this scenario serve? Name them. If no example fits, escalate to `pipeline-product` to add one — do not invent a hypothetical "user."
 4. **Identify the loop(s).** Which of the 13 loops does this exercise? If you can't name one, the scenario doesn't serve a north star.
 5. **Identify the surface.** Where in the app does the persona start? Name a real surface (venue page, Maker page, home feed) — NEVER `/new` with a kind picker.
 6. **Identify the primitive shape.** Person → Item(kind=…) → Location(…). If the scenario doesn't fit the primitives, escalate to `pipeline-product`.

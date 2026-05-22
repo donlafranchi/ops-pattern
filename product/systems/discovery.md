@@ -82,7 +82,7 @@ w_social = 0.5, w_recency = 0.3, w_seen = 0.4, w_dismiss = 1.5
 - New Item, no engagement: boost `w_recency` for first 48h so new declarations get seen.
 - New Location: same as new Item — `w_recency` boost on Items at that Location.
 
-**Loop adjacency seeding.** ~15% of slots come from the loop family adjacent to Member's revealed loop (e.g., a Gathering-heavy Member sees some Sharing items). Walks Members down the activation-energy ladder defined in `foundation/loops.md`.
+**Loop adjacency seeding.** ~15% of slots come from the loop family adjacent to Member's revealed loop (e.g., a Gathering-heavy Member sees some Sharing items). Walks Members down the activation-energy ladder defined in `needs/member-journey.md`.
 
 **Logging.** Every ranking call writes: candidate set IDs, final ranked list, slot positions, surface, and per-Item score breakdown. Mandatory — this is the training data for T2.
 
@@ -102,7 +102,7 @@ w_social = 0.5, w_recency = 0.3, w_seen = 0.4, w_dismiss = 1.5
 - Embeddings over Items, People, and Locations; learned ranker (e.g., LambdaMART or two-tower model) on top of hand-engineered features.
 - Counterfactual evaluation — replay logged sessions with new ranker, estimate uplift before shipping.
 - Group-scoped ranking when the Member belongs to a Group (per [`groups.md`](groups.md)) — a Group-scoped feed treats Group membership as a strong feature.
-- Federation-aware ranking — when a Group federates to dedicated infrastructure (`loops.md` family 5), Items from federated spaces still surface to opted-in Members.
+- Federation-aware ranking — when a Group federates to dedicated infrastructure (`member-journey.md` family 5), Items from federated spaces still surface to opted-in Members.
 - Per-Member transparency: "why am I seeing this?" with top contributing features.
 - Adversarial / spam dampening: detect engagement-farming, reciprocal-follow rings, and corporate astroturfing.
 
@@ -116,7 +116,7 @@ w_social = 0.5, w_recency = 0.3, w_seen = 0.4, w_dismiss = 1.5
 
 ## Integration Points
 
-- **Reads:** [`item.md`](item.md) (Item shape, kinds), [`groups.md`](groups.md) (Group-scoped feeds in T3), [`location.md`](location.md) (locality scope, multi-Location affinities), [`member.md`](member.md) (follower edges as signal), [`../foundation/primitives.md`](../foundation/primitives.md) (verb edges as signal), [`../foundation/loops.md`](../foundation/loops.md) (loop families, adjacency), [`../foundation/principles.md`](../foundation/principles.md) (hard constraints).
+- **Reads:** [`item.md`](item.md) (Item shape, kinds), [`groups.md`](groups.md) (Group-scoped feeds in T3), [`location.md`](location.md) (locality scope, multi-Location affinities), [`member.md`](member.md) (follower edges as signal), [`../foundation/primitives.md`](../foundation/primitives.md) (verb edges as signal), [`../needs/member-journey.md`](../needs/member-journey.md) (loop families, adjacency), [`../foundation/principles.md`](../foundation/principles.md) (hard constraints).
 - **Used by:** Home feed, Explore, search, Item detail "related," notifications, You page activity.
 - **Writes:** Ranking event log (training data for T2/T3).
 

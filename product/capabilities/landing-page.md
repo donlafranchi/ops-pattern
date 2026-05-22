@@ -17,7 +17,7 @@ As a first-time visitor, I want to understand what Movers, Makers & Shakers is a
 - App name + one-line value proposition: *"What's happening near you, declared by the people doing it."*
 - **Sign Up** primary CTA (bottom-anchored).
 - **Log In** secondary CTA.
-- **Browse as Guest** tertiary option — anonymous Members get access to public Items, Locations, and the locality-aware Explore surface (per the anonymous Loop 3 path in [`loops.md`](../foundation/loops.md)).
+- **Browse as Guest** tertiary option — anonymous Members get access to public Items, Locations, and the locality-aware Explore surface (per the anonymous Loop 3 path in [`member-journey.md`](../needs/member-journey.md)).
 - After auth: redirect to Home (the locality feed per [`../ui/community-platform.md`](../ui/community-platform.md)). First-run users get the geolocate-then-city-pick locality prompt per ADR-4 before Home renders.
 - Already-authenticated Members skip the landing surface and go straight to Home.
 

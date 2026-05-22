@@ -2,7 +2,7 @@
 
 **Bundle:** b1
 **Loops:** 7 (Make and be found), 8 (Follow what you love), 9 (Find a local pro — adjacent)
-**Canonical example:** [The Quarterly Dip Vendor](../../product/foundation/canonical-examples.md#3-the-quarterly-dip-vendor)
+**Canonical example:** [The Quarterly Dip Vendor](../../product/needs/use-cases.md#3-the-quarterly-dip-vendor)
 **Primitive shape:** Person → `/m/[handle]` (read-only display of Member + their Items + Group memberships + Location affinities)
 **Status:** draft — Phase 2 opener; awaiting `pipeline-review` before promote.
 

@@ -7,7 +7,7 @@
 
 **Status:** Drafted 2026-05-18 — pending PM review. Slots into b1 as a discrete ship-theme between Wonder (S6) and the b2 themes. Depends on Groups, Locations, Items (gathering), and the existing `steward` role on affiliate Group kinds. No new primitive; one small child table on Groups.
 
-**Depends on:** `b1-primitives.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `loops.md` (Loops 11–12), `design-philosophy.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `canonical-examples.md`.
+**Depends on:** `b1-primitives.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `member-journey.md` (Loops 11–12), `design-philosophy.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `use-cases.md`.
 
 **North stars served:** Loop 11 (Pool resources) — partial, the lightest version. Loop 12 (Steward what we built) — full, the canonical surface. Family 1 (gathering rhythm) — reused as the upkeep cadence.
 

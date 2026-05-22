@@ -6,7 +6,7 @@
 **Bundle:** b1
 **Primitive:** Item (kind=gathering) at a Location
 **Loops served:** 1 (Find your people), 4 (Gather regularly)
-**Canonical example:** [Run Club at Drake's](../foundation/canonical-examples.md#1-the-unofficial-run-club-at-drakes); [Barn Movie Night at Drake's](../foundation/canonical-examples.md#5-barn-movie-night-at-drakes)
+**Canonical example:** [Run Club at Drake's](../needs/use-cases.md#1-the-unofficial-run-club-at-drakes); [Barn Movie Night at Drake's](../needs/use-cases.md#5-barn-movie-night-at-drakes)
 
 ## What a Member can do
 

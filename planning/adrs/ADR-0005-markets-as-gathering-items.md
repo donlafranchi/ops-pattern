@@ -4,7 +4,7 @@
 **Date:** 2026-05-08
 **Deciders:** PM
 **Scope:** How farmers markets, swap meets, classes, workshops, run clubs, movie nights, and every other recurring or one-time community gathering are modeled
-**Touches:** [`product/systems/item.md`](../../product/systems/item.md) (canonical home — the `gathering` kind, ADR-5 row in Decisions encoded), [`product/systems/location.md`](../../product/systems/location.md) (a market's physical place is a Location, not a Market entity), [`product/foundation/canonical-examples.md`](../../product/foundation/canonical-examples.md) (the farmers-market wedge use case), `web/supabase/migrations/` Phase 1 `009c_item_gatherings.sql`
+**Touches:** [`product/systems/item.md`](../../product/systems/item.md) (canonical home — the `gathering` kind, ADR-5 row in Decisions encoded), [`product/systems/location.md`](../../product/systems/location.md) (a market's physical place is a Location, not a Market entity), [`product/needs/use-cases.md`](../../product/needs/use-cases.md) (the farmers-market wedge use case), `web/supabase/migrations/` Phase 1 `009c_item_gatherings.sql`
 
 ## Decision
 

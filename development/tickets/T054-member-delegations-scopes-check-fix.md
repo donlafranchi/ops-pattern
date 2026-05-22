@@ -6,8 +6,8 @@
 **Depends on:** T050 (the original `012_member_agent_assistance.sql` that introduced `public.member_delegations` + the broken CHECK).
 
 **Serves:**
-- **Loop:** None directly — substrate correctness fix. The agent-assistance loops (`product/foundation/loops.md` — assistance ladder) depend on the Delegation row being well-formed; that's the invariant this ticket restores.
-- **Canonical example:** Any Member-grants-Delegation example in `product/foundation/canonical-examples.md` that vends scoped capability via `member_delegations.scopes`. The bug doesn't surface for these examples (none of them grant an empty Delegation by design), but the spec's negative test does — and the spec is what gates the eval surface.
+- **Loop:** None directly — substrate correctness fix. The agent-assistance loops (`product/needs/member-journey.md` — assistance ladder) depend on the Delegation row being well-formed; that's the invariant this ticket restores.
+- **Canonical example:** Any Member-grants-Delegation example in `product/needs/use-cases.md` that vends scoped capability via `member_delegations.scopes`. The bug doesn't surface for these examples (none of them grant an empty Delegation by design), but the spec's negative test does — and the spec is what gates the eval surface.
 - **Primitive shape:** Person (Member) → `member_delegations` row (substrate of Person's Delegation verb). No Item / Location / Group involvement.
 
 ## Workflow gates (mandatory during the migration phase per `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`)

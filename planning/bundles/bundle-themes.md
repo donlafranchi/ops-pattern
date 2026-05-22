@@ -2,7 +2,7 @@
 
 **Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`b1-primitives.md`](b1-primitives.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`b1-work-map.md`](b1-work-map.md) (the menu of work per sub-bundle).
 
-**Depends on:** `b1-primitives.md`, `loops.md`, `primitives.md`, `canonical-examples.md`, `principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
+**Depends on:** `b1-primitives.md`, `member-journey.md`, `primitives.md`, `use-cases.md`, `principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
 
 **What this doc does.** `b1-primitives.md` defines what ships in bundle 1 in primitive and cluster terms. This doc takes that scope and *sequences* it — what ships first, what second, what depends on what, and what each release is tested against. The unit of release is a **sub-bundle**, decimal-numbered (`b1.0`, `b1.1`, …). Each sub-bundle is small enough to ship in 1–2 weeks, demoable on its own, and metered against canonical examples.
 
@@ -31,8 +31,8 @@ Each theme below carries:
 
 - **What ships** — the primitive surfaces and behaviors that go live
 - **Doesn't ship** — what is deliberately held back
-- **Canonical examples served** — which entries in `canonical-examples.md` this theme makes meaningfully better. Per that doc's rule: every release must move at least one canonical example meaningfully — depth over breadth when forced to choose.
-- **Loops advanced** — which of the 13 loops in `loops.md` this theme exercises
+- **Canonical examples served** — which entries in `use-cases.md` this theme makes meaningfully better. Per that doc's rule: every release must move at least one canonical example meaningfully — depth over breadth when forced to choose.
+- **Loops advanced** — which of the 13 loops in `member-journey.md` this theme exercises
 - **Metrics** — what we measure to know if it's working
 - **Dependencies** — what must ship first
 
@@ -224,7 +224,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 **Doesn't ship:** inventory management (use myTurn et al. off-platform); money flow; legal entity formation tooling; stewardship federation surfaces (b3+); rotation algorithms (b2+).
 
-**Canonical examples served:** #11-as-TODO (Steward what we built — Loop 12) — the slot's first surface. The reserved framing in `canonical-examples.md` — "A garden, tool library, repair café, kitchen co-op, or shared space that is keeping itself alive on group-text-and-spreadsheets energy" — is exactly what this theme serves. As soon as a real Sacramento instance shows up (or is recruited via outreach), it fills slot #11.
+**Canonical examples served:** #11-as-TODO (Steward what we built — Loop 12) — the slot's first surface. The reserved framing in `use-cases.md` — "A garden, tool library, repair café, kitchen co-op, or shared space that is keeping itself alive on group-text-and-spreadsheets energy" — is exactly what this theme serves. As soon as a real Sacramento instance shows up (or is recruited via outreach), it fills slot #11.
 
 **Loops advanced:** Loop 12 (Steward what we built) — full. Loop 11 (Pool resources) — partial; the *care* dimension of pooling ships; capital pooling defers to b3.
 
@@ -269,7 +269,7 @@ Per [`producer-tools.md`](producer-tools.md) T1. Followers, profile health, acti
 
 ### b2.5 — Follow streams + notifications
 
-Per `member.md` and `loops.md`. The follow surface from b1.4 substrate. Email at b2.5; push notifications b3.
+Per `member.md` and `member-journey.md`. The follow surface from b1.4 substrate. Email at b2.5; push notifications b3.
 
 ### b2.6 — Group feeds (selectively)
 
@@ -329,7 +329,7 @@ Per the categorical commitments throughout the project. Listed so they cannot in
 
 Every theme is graded against:
 
-1. **Canonical examples.** Does it move at least one canonical example meaningfully? (Per the rule in `canonical-examples.md`.) Depth over breadth when forced to choose — a theme that goes deep on one example is preferred to one that nudges three. If a theme cannot find even one example, the scope is wrong.
+1. **Canonical examples.** Does it move at least one canonical example meaningfully? (Per the rule in `use-cases.md`.) Depth over breadth when forced to choose — a theme that goes deep on one example is preferred to one that nudges three. If a theme cannot find even one example, the scope is wrong.
 2. **Loop coverage.** Does it advance the loops it claims to? Verified by walking one canonical example end-to-end through the theme's surfaces.
 3. **Foundational principles.** Does it pass the P1–P8 Decision Test in `principles.md`? Any categorical failure (Part 3) is disqualifying.
 4. **Metrics.** Do the metrics distinguish success from noise? If a "successful" theme would look identical in the dashboard to a "failed" theme, the metrics are wrong.
@@ -374,7 +374,7 @@ b1.1 (Groups people can join)
 3. **b2 sequencing inside the bundle.** Is the b2.0–b2.6 order right? Producer Bulletin first feels right because it's the most leveraged follow-payoff, but Offer / Ask (b2.1) is the more democratic test of mutual aid. Confirm at b2 design.
 4. **b1.x URL namespacing edge cases.** What URL does an affiliate Group with no anchor and a colliding handle get? Working answer: globally-unique within Groups-without-anchor. Confirm with a real collision (which we won't have until ~100 Groups exist).
 5. **Sub-bundle release cadence vs. theme size.** Some themes (b1.6 Stewardships) are larger than others (b1.x URL namespacing). Should the larger themes be split further? Working answer: no — b1.6 is still 1–2 weeks because the platform footprint is small (one child table, three events, seven curated templates). Confirm during build.
-6. **Local copy of `canonical-examples.md` reconciliation.** PM has noted a local version that may have more filled examples than the project version (which has 7 filled, 4 TODOs, and 1 supplementary). Sync local back into the project so the pipeline sees the full canon.
+6. **Local copy of `use-cases.md` reconciliation.** PM has noted a local version that may have more filled examples than the project version (which has 7 filled, 4 TODOs, and 1 supplementary). Sync local back into the project so the pipeline sees the full canon.
 
 ---
 
@@ -384,6 +384,6 @@ This document is the sequencing layer that the build pipeline reads when decidin
 
 The decision to slice b1 into seven sub-bundles (b1.0 through b1.6, plus the cross-cutting b1.x) is the structural commitment to *shipping often*. It is what makes the difference between a six-month b1 release that lands as one giant motion and a seven-stage rollout where the team learns from real users at every step. The smaller the slice, the faster the loop between "we built it" and "we know if it works." Per `principles.md` Part 1 — lightweight, performant, evolvable — the slicing posture honors P1 at the release level, not just the feature level.
 
-The canonical-examples-first testing posture is the discipline that keeps the slices honest. Every theme has to point at at least one real situation in `canonical-examples.md` that it makes meaningfully better. If a theme cannot find its example, the theme is wrong — not the example.
+The canonical-examples-first testing posture is the discipline that keeps the slices honest. Every theme has to point at at least one real situation in `use-cases.md` that it makes meaningfully better. If a theme cannot find its example, the theme is wrong — not the example.
 
 **Buy close. Build community. Build the future together.**

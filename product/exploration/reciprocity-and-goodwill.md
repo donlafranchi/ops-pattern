@@ -1,6 +1,6 @@
 # Reciprocity and Goodwill
 
-**Status:** Open design question. Surfaced 2026-05-08 while drafting [`canonical-examples.md`](../foundation/canonical-examples.md). Not yet a system spec — this doc names the tension, sketches options, and stays out of the way until the question becomes load-bearing for a build.
+**Status:** Open design question. Surfaced 2026-05-08 while drafting [`use-cases.md`](../needs/use-cases.md). Not yet a system spec — this doc names the tension, sketches options, and stays out of the way until the question becomes load-bearing for a build.
 
 ## The question
 
@@ -17,7 +17,7 @@ The proposal under consideration: **goodwill points, possibly with an "offer bef
 
 The instinct toward gating is correct in spirit but conflicts directly with several existing platform commitments:
 
-**Activation energy is supposed to ascend through the families.** Per [`loops.md`](../foundation/loops.md), Sharing sits between Gathering and Trade specifically because it is light. Gating Ask behind Offer makes the Sharing family heavier than Trade for some Members, inverting the gradient.
+**Activation energy is supposed to ascend through the families.** Per [`member-journey.md`](../needs/member-journey.md), Sharing sits between Gathering and Trade specifically because it is light. Gating Ask behind Offer makes the Sharing family heavier than Trade for some Members, inverting the gradient.
 
 **The people who most need help are often the least able to offer first.** A new parent in a hard month, a recently arrived neighbor without a network, someone in a financial or health crisis — these are the canonical Ask cases. A reciprocity gate excludes them by design. That is the failure mode.
 

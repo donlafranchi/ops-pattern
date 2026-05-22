@@ -12,7 +12,7 @@
 
 **North stars served:** All five families. Locations are present on at least one side of every loop that involves doing-something-somewhere. Specific kinds map to specific surfaces (permanent → standing presence, recurring-temporary → market booths and recurring gatherings, area → service radii and neighborhood scopes), but the primitive itself is shared infrastructure.
 
-**Canonical examples this spec serves:** Drake's hosting the Run Club and Barn Movie Night (permanent, with sub-venue) · the Sacramento farmers market the Quarterly Dip Vendor visits (recurring-temporary) · Ferrari Fisheries' boat dock pickup point (recurring-temporary, intermittent) · the food truck's sequence of stops (area + recurring-temporary stops) · a plumber's service radius (area) · West Sacramento as a city scope for locality default (area) · **Concerts in the Park** — a Member follows multiple parks across the Sacramento MSA and gets a feed of outdoor live-music gathering Items attached to those parks (permanent, multi-Location follow, taste-profile filtered). Per [`canonical-examples.md`](../foundation/canonical-examples.md).
+**Canonical examples this spec serves:** Drake's hosting the Run Club and Barn Movie Night (permanent, with sub-venue) · the Sacramento farmers market the Quarterly Dip Vendor visits (recurring-temporary) · Ferrari Fisheries' boat dock pickup point (recurring-temporary, intermittent) · the food truck's sequence of stops (area + recurring-temporary stops) · a plumber's service radius (area) · West Sacramento as a city scope for locality default (area) · **Concerts in the Park** — a Member follows multiple parks across the Sacramento MSA and gets a feed of outdoor live-music gathering Items attached to those parks (permanent, multi-Location follow, taste-profile filtered). Per [`use-cases.md`](../needs/use-cases.md).
 
 ---
 
@@ -105,7 +105,7 @@ People belong to multiple Locations. A Member lives in West Sacramento, works in
 ## T3 — Polish Tier
 
 - **Vector embeddings** for Location descriptions. `locations.embedding_id` reserved at b1; the parallel `location_embeddings` table fills at T3 when natural-language search ships ("places near me where families gather", "venues that host evening events").
-- **Federation.** `federation_origin` reserved on the spine at b1. T3 adds Locations sourced from federated platforms (per Loop 13 in `loops.md`). A Location originating from a partner platform surfaces here with provenance and links back; the platform's own Locations remain authoritative for proximity.
+- **Federation.** `federation_origin` reserved on the spine at b1. T3 adds Locations sourced from federated platforms (per Loop 13 in `member-journey.md`). A Location originating from a partner platform surfaces here with provenance and links back; the platform's own Locations remain authoritative for proximity.
 - **Intelligence-layer rollups.** Per-Location analytics — Items hosted, gatherings held, follower fan-out, response density. Producer-facing for Location maintainers ("12 gatherings hosted at Drake's this quarter"). Reads from the event log — entries land at b1, surface at T3.
 - **Auto-population from authoritative sources.** Optional, opt-in. A Member adding a Location can pull description and hours from a third-party source (Google Places, OpenStreetMap) with explicit consent and provenance recorded. Gated on policy review per ADR-9.
 

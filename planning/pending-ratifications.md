@@ -54,7 +54,7 @@ Per `agent-commerce-and-project-amendments.md` §9 (every community matters equa
 | `product/systems/groups.md` | 326 | "likely 25–50 miles for the Sacramento area" (locality proximity threshold) | Launch-region calibration, not preferential routing. Confirm OK. | PENDING |
 | `product/systems/member.md` | 54 | "Sacramento metro + surrounding cities at launch" (city picker source) | Launch seed data, not preferential surfacing. Confirm OK. | PENDING |
 | `product/systems/location.md` | 176, 223 | Sacramento metro polygon seed data | Launch seed data, not preferential surfacing. Confirm OK. | PENDING |
-| `product/foundation/canonical-examples.md` | (multiple) | Sacramento as canonical first-Community example | Per §9: Sacramento is the canonical example because of the user's direct relationships, not an architectural preference. OK as-is unless user wants explicit disclaimer added. | PENDING |
+| `product/needs/use-cases.md` | (multiple) | Sacramento as canonical first-Community example | Per §9: Sacramento is the canonical example because of the user's direct relationships, not an architectural preference. OK as-is unless user wants explicit disclaimer added. | PENDING |
 | `product/systems/discovery.md` | — | grep for "popularity", "activity volume", "larger", "denser" returned no matches | No inadvertent volume-based ranking found at the spec level. | CLEAR |
 
 ## §6b — Maker rename vocabulary (PARTIALLY RATIFIED 2026-05-12)
@@ -113,7 +113,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L161: "the platform builds Maker, Run Club, Wonder, and Plumber as four separate systems and discovers too late that they were always one." — trivial discovery language.
 - L163: "The fourth primitive, Group, exists for the moments when people decide they are an intentional unit; it is emergent, optional, and never imposed."
 
-**`canonical-examples.md`**
+**`use-cases.md`**
 - L25, L70, L77, L90, L142: enum value `permanent` in primitive-shape annotations. Trivial.
 - L107: long line about a canonical example.
 - L113: "...the platform never auto-assigns based on polygon or demographic." — commitment-bearing.
@@ -138,10 +138,10 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L351: "the platform should never create lock-in that prevents communities from being self-sufficient."
 - L459: long line.
 
-**`loops.md`**
+**`member-journey.md`**
 - L65, L101: long lines (Loop description prose).
 
-**`canonical-examples.md`** (already covered above).
+**`use-cases.md`** (already covered above).
 
 **`agent-assistance.md`** (already covered above).
 

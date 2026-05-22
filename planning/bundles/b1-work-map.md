@@ -60,7 +60,7 @@ Not a sub-bundle of its own. One decision that locks in URLs across everything t
 - 🟡 The "steward" role — one or more members per Group can be marked as stewards
 - ⚪ Family-kind Groups (private discoverability is more involved)
 
-**MVP cut:** the five 🟢 items + the steward role. Drop family-kind until someone asks for it — the four other kinds cover everything `canonical-examples.md` slot #7 (Bumble BFF Refugees) needs.
+**MVP cut:** the five 🟢 items + the steward role. Drop family-kind until someone asks for it — the four other kinds cover everything `use-cases.md` slot #7 (Bumble BFF Refugees) needs.
 
 **Why steward matters even at b1:** it's the seed of community-level governance without payments or legal entities. Per the stewardships theme later, the role needs to exist before stewardships can be declared.
 
