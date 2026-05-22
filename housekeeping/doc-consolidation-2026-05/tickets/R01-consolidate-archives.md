@@ -88,4 +88,12 @@ git commit -m "docs(consolidation): phase 1 — consolidate archives into _attic
 
 ## Completion
 
-Date: {YYYY-MM-DD} · Commit: {hash} · Notes: {divergences}
+Date: 2026-05-22 · Commit: `98da758` · Notes:
+
+- **Repo-path correction.** Ticket referenced `/Users/don/Projects/movers-makers-shakers`; actual path is `/Users/don/Projects/mainstreetmarket` (project rename). Used the correct path; no semantic change.
+- **`housekeeping/` already in git.** Step "R01's commit brings it in" no longer applicable — the `housekeeping/` tree was committed earlier today in the pre-R01 doc-cleanup commit (`f9e2f9e`). R01's commit is moves + edits only.
+- **Three `skills/pipeline-{build,eval,ticket}/workflow.md` files** contain the prose label "AGENTS.md → PIPELINE-AUDIT F13" (a cross-reference signal, not a path). Per the ticket's mechanical rule, these were left untouched — no path to rewrite. **[PM: confirm]** whether to reframe these label references now that `PIPELINE-AUDIT.md` is in `_attic/`.
+- **`pipeline-prune/workflow.md` writes future archives to `planning/archive/`** (the destination of `git mv`'d folder). All such literal-string template paths got mechanically rewritten to `_attic/2026-05-19/planning/…`, which is semantically wrong for *new* archive writes the prune skill would do. **[PM: confirm]** the destination convention going forward — restore an empty `planning/archive/` for future writes, or change the prune skill to write somewhere else. Affects: `skills/pipeline-prune/workflow.md` (multiple lines), `skills/pipeline-prune/SKILL.md`.
+- **`pipeline-process-audit-2026-05-22.md`** says "Append as a dated section to `planning/PIPELINE-AUDIT.md`" — after the mechanical rewrite, this reads "Append … to `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`," which is nonsensical (you don't append to an attic doc). **[PM: confirm]** the disposition: either move that recommendation forward into AGENTS.md/CLAUDE.md, or re-home the audit-history file.
+- **`CLAUDE.md` line 14** still tells session-start agents to "read [`PIPELINE-AUDIT.md`] (read once at session start when revisiting process)." The consolidation-plan framing is that PIPELINE-AUDIT findings now live in `AGENTS.md`/`CLAUDE.md`. Mechanical rewrite updated the link; the *recommendation* to read it is stale and should be removed in a follow-up pass (out of R01 scope).
+- **Verification results.** (a) No `archive/` dirs remain in the live tree outside `_attic/`, `web/`, `.git/`, `.claude/worktrees/`. (b) Negative-lookbehind grep for OLD paths returned zero hits. (c) `_attic/2026-05-19/` contains all 10 expected subfolders.
