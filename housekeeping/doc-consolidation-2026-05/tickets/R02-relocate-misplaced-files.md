@@ -69,4 +69,9 @@ git commit -m "docs(consolidation): phase 2 — relocate stewardships and commun
 
 ## Completion
 
-Date: {YYYY-MM-DD} · Commit: {hash} · Notes: {divergences}
+Date: 2026-05-22 · Commit: `e86caaf` · Notes:
+
+- **`product/surfaces/` deleted explicitly.** After step 2's `git mv`, the dir was empty but still on disk; `rmdir` removed the stub so `surfaces/` truly disappears.
+- **`bundle-themes.md` had three bare `stewardships.md` references** (lines 5, 217, 231) that the ticket's OLD→NEW table didn't catch (no `bundles/` or `planning/bundles/` prefix — just the bare filename, because the file was previously in the same directory). Fixed with surgical edits to `../../product/systems/stewardships.md` so the relative depth resolves from `planning/bundles/`.
+- **Stale `product/surfaces/` (directory) references intentionally left untouched** — the ticket's OLD→NEW table only covers file paths, not the bare dir. Out-of-mechanical-scope hits remain in: `AGENTS.md:56` (project-paths list), `skills/pipeline-build/workflow.md:11,61` (build agent's "does not read" list), `skills/pipeline-product/workflow.md:8,21,30` (product agent's writes column), `development/DEVIATIONS.md:380` (historical note), `planning/pending-ratifications.md:300,447`, `product/exploration/business-intelligence-platform.md:221`. **[PM: confirm]** disposition — most of these are agent-workflow stanzas that need a single coordinated edit (remove `product/surfaces/` from agent-read lists since the dir is now retired). Worth a follow-up sweep separate from R03.
+- **Untracked file appeared mid-task.** `product/systems/places.md` (~200 lines, references ADR-0020) showed up untracked between the initial commit and R02's commit — mtime 2026-05-22 10:44, after my prior `git add -A` snapshot. R02 used `git add -u` (modifications only), so this file was left alone. **[PM: confirm]** whether to commit it standalone or whether it belongs to a different effort.
