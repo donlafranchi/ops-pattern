@@ -6,7 +6,7 @@
 
 **North stars served:** Buy Close (Loop 9, Trade family) — the platform's most consequential discovery affordance is the locally-owned-and-operated index. The verification ladder is what keeps that index *honest* without forcing every business owner to publish their home address.
 
-**Decisions encoded:** This spec is the home of the verification-ladder decision ratified 2026-05-11 (formerly captured in `product/exploration/archive/locally-owned-verification.md`). Cross-cutting: ADR-9 (opt-out default, three-filter test) · ADR-16 (per-row privacy on affinity substrate) · the people-first refusal of address-as-locality.
+**Decisions encoded:** This spec is the home of the verification-ladder decision ratified 2026-05-11 (formerly captured in `_attic/2026-05-19/product-exploration/locally-owned-verification.md`). Cross-cutting: ADR-9 (opt-out default, three-filter test) · ADR-16 (per-row privacy on affinity substrate) · the people-first refusal of address-as-locality.
 
 **Companion specs:** [`groups.md`](groups.md) (the locality-derivation surface that consumes this signal) · [`member.md`](member.md) (the owner Member who holds the jurisdiction record) · [`location.md`](location.md) (the anchor Location whose proximity is tested) · [`policy-framework.md`](../foundation/policy-framework.md) (doxxing-prevention posture).
 
@@ -239,7 +239,7 @@ The deliberate separation of locality from address is the structural commitment 
 
 ## Decisions encoded here
 
-This spec is the live home for the locality-verification-ladder decision (ratified 2026-05-11; formerly captured in `product/exploration/archive/locally-owned-verification.md`). See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register.
+This spec is the live home for the locality-verification-ladder decision (ratified 2026-05-11; formerly captured in `_attic/2026-05-19/product-exploration/locally-owned-verification.md`). See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register.
 
 This spec also *encodes* (but does not own) ADR-9 (the policy-posture section above is the three-filter analysis), ADR-16 (the separation between affinity substrate and jurisdiction substrate is the load-bearing surface — affinity is owner-only and serves the Member's own surfaces; jurisdiction is public and serves the Group's locality claim), and the people-first refusal of address-as-locality.
 

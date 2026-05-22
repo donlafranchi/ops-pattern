@@ -15,7 +15,7 @@ Original SKILL contents preserved below for git history; do not act on them.
 
 Project-resident clarifier. The principle: **no purely-categorical refusal exists in this project.** Every "Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no" carries a *why*, and that *why* is what a downstream agent (ticket-writer, build agent, eval) needs to reason correctly when the literal wording doesn't cover the case in front of them. This skill walks the PM through each absolute and lands the *why* alongside the *what*.
 
-Companion to `pipeline-intent-check` (which scans + flags) and the `Intent:` annotation convention from [`../../planning/archive/intent-audit-2026-05-12.md`](../../planning/archive/intent-audit-2026-05-12.md) (which is the format).
+Companion to `pipeline-intent-check` (which scans + flags) and the `Intent:` annotation convention from [`../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (which is the format).
 
 ## When to use
 

@@ -4,7 +4,7 @@
 **Date:** 2026-05-10
 **Deciders:** PM
 **Scope:** The Group primitive replaces three previously-separate specs (Community, Member Operations, Cooperative). One spine + child architecture, six kinds at b1
-**Touches:** `product/systems/groups.md` (canonical home — long-form text lives here), `product/systems/archive/community.md`, `product/systems/archive/member-operations.md`, `product/systems/archive/cooperative.md` (predecessor specs, archived 2026-05-11), `product/foundation/primitives.md` (Group is now one of three core primitives + Group), `product/systems/member.md` (cross-references), `product/systems/item.md` (cross-references — Item belongs to Member, may be attached to Group), `product/systems/location.md` (cross-references — Group anchors to Location)
+**Touches:** `product/systems/groups.md` (canonical home — long-form text lives here), `_attic/2026-05-19/product-systems/community.md`, `_attic/2026-05-19/product-systems/member-operations.md`, `_attic/2026-05-19/product-systems/cooperative.md` (predecessor specs, archived 2026-05-11), `product/foundation/primitives.md` (Group is now one of three core primitives + Group), `product/systems/member.md` (cross-references), `product/systems/item.md` (cross-references — Item belongs to Member, may be attached to Group), `product/systems/location.md` (cross-references — Group anchors to Location)
 **Supersedes:** ADR-8 (Member Operations primitive retires), ADR-11 (Cooperative as separate entity retires), ADR-12 (Maker-mode framing retired per agent-commerce amendments §6)
 
 ## Decision
@@ -31,7 +31,7 @@ The deferral of cooperative-style coordination mechanics (voting, distributions,
 ## Consequences
 
 - `groups.md` is the live home for the long-form spec. The spec's Status banner (line 3) is the user-facing ratification; this ADR is the canonical record.
-- Predecessor specs ([`community.md`](../../product/systems/archive/community.md), [`member-operations.md`](../../product/systems/archive/member-operations.md), [`cooperative.md`](../../product/systems/archive/cooperative.md)) live in `product/systems/archive/` for historical reference. Do not cite as live.
+- Predecessor specs ([`community.md`](../../_attic/2026-05-19/product-systems/community.md), [`member-operations.md`](../../_attic/2026-05-19/product-systems/member-operations.md), [`cooperative.md`](../../_attic/2026-05-19/product-systems/cooperative.md)) live in `_attic/2026-05-19/product-systems/` for historical reference. Do not cite as live.
 - The cooperative-coordination deferral preserves the schema reservations from the prior ADR-11 (no `cooperative_cohort` Item kind, no `cooperatives` table, no `cooperative_*_events` table) as current-scope decisions — correct for now, revisitable when real-world need + explicit user prioritization emerge.
 - The "Maker mode" framing from ADR-12 dissolves with this consolidation. Selling tools surface from Group/Item state (kind='business' Group membership or `items.kind='product'` / `'service'`), not from a Member-level toggle. `members.maker_mode_enabled` is dropped.
 - The "Seller" vocabulary becomes the generic UI term; "Producer" is preferred in agricultural/food context; "Maker" survives only as a Member self-identification label.

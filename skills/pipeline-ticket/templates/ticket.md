@@ -12,7 +12,7 @@
 
 If any of the three Serves lines cannot be filled in, escalate to `pipeline-plan` before writing acceptance criteria.
 
-## Workflow gates (mandatory during the migration phase per `planning/PIPELINE-AUDIT.md`)
+## Workflow gates (mandatory during the migration phase per `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`)
 
 - [ ] **M2 — `engineering:code-review`** invoked on the diff before `pipeline-eval` (run mode) is called.
 - [ ] **M3 — `design:accessibility-review`** if this ticket introduces a new page or component.

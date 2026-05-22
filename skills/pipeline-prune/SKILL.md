@@ -1,6 +1,6 @@
 ---
 name: pipeline-prune
-description: Periodically prune JOURNAL.md and DECISIONS.md so the live files stay scannable, while memorializing any silently-load-bearing decisions before they fall off. Use when the user says "prune the journal", "the journal is heavy", "prune decisions", "DECISIONS.md needs trimming", "rotate the journal", "what should we memorialize before pruning", "what's safe to archive", "this file is getting heavy", or at the end of any session that produced an unusually dense entry. Reads JOURNAL.md, DECISIONS.md, MAP.md, and the foundation + system specs. Writes to those same files and to archives under planning/archive/. Out-of-band — does not run during an open pipeline phase.
+description: Periodically prune JOURNAL.md and DECISIONS.md so the live files stay scannable, while memorializing any silently-load-bearing decisions before they fall off. Use when the user says "prune the journal", "the journal is heavy", "prune decisions", "DECISIONS.md needs trimming", "rotate the journal", "what should we memorialize before pruning", "what's safe to archive", "this file is getting heavy", or at the end of any session that produced an unusually dense entry. Reads JOURNAL.md, DECISIONS.md, MAP.md, and the foundation + system specs. Writes to those same files and to archives under _attic/2026-05-19/planning/. Out-of-band — does not run during an open pipeline phase.
 ---
 
 # pipeline-prune
@@ -32,6 +32,6 @@ See `workflow.md`.
 
 ## Hand off
 
-**You produced:** lighter JOURNAL and/or DECISIONS files; new entries in `planning/archive/`; memorialized invariants landed in MAP.md alignment checks / foundation doc footers / system spec footers / a new short foundation doc (only if no other home fits).
+**You produced:** lighter JOURNAL and/or DECISIONS files; new entries in `_attic/2026-05-19/planning/`; memorialized invariants landed in MAP.md alignment checks / foundation doc footers / system spec footers / a new short foundation doc (only if no other home fits).
 
 **Next skill:** none. The PM reviews the result. If the prune surfaced an unresolved question about whether a commitment is load-bearing, escalate per AGENTS.md.

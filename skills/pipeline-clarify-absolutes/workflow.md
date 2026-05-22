@@ -12,7 +12,7 @@ Original workflow preserved below for git history; do not act on it.
 
 | | |
 |---|---|
-| **Reads** | The target file (a foundation doc, system spec, ADR, or planning doc). Plus: [`../../planning/archive/intent-audit-2026-05-12.md`](../../planning/archive/intent-audit-2026-05-12.md) (the eight categories, especially Category 2), related foundation/system docs to read cross-spec context, recent JOURNAL entries (≤30 days) for related ratifications. |
+| **Reads** | The target file (a foundation doc, system spec, ADR, or planning doc). Plus: [`../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (the eight categories, especially Category 2), related foundation/system docs to read cross-spec context, recent JOURNAL entries (≤30 days) for related ratifications. |
 | **Writes** | Directly to the target file: bullet text revisions (when original wording was misleading), `Intent:` annotations (always). Plus one JOURNAL entry per session at the end. |
 | **Templates** | The `Intent:` annotation pattern from the archived intent audit (inline form for short statements, block-quoted form for structural decisions). |
 | **Hands to** | nothing. PM owns what comes next. |

@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | The target file (foundation doc, system spec, ADR, or planning doc). Plus: `product/foundation/people-first.md`, `product/foundation/policy-framework.md`, `product/foundation/foundational-principles.md`, related foundation/system docs for cross-spec context, recent JOURNAL entries (≤30 days), [`planning/archive/intent-audit-2026-05-12.md`](../../planning/archive/intent-audit-2026-05-12.md) (the eight categories — Category 2 is the absolute-refusal shape this skill handles). |
+| **Reads** | The target file (foundation doc, system spec, ADR, or planning doc). Plus: `product/foundation/people-first.md`, `product/foundation/policy-framework.md`, `product/foundation/foundational-principles.md`, related foundation/system docs for cross-spec context, recent JOURNAL entries (≤30 days), [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (the eight categories — Category 2 is the absolute-refusal shape this skill handles). |
 | **Writes** | Directly to the target file: bullet text revisions (only when original wording is misleading), `Intent (State YYYY-MM-DD): {why}` lines (always, on every ratified statement). Plus one JOURNAL entry per session. For Rejected outcomes: removes the bullet entirely. |
 | **Invokes** | `pipeline-member-advocate` and `pipeline-platform-advocate` on every statement with Member-shaped tension. Never short-circuits by skipping an advocate. |
 | **Hands to** | nothing. PM owns what comes next. |

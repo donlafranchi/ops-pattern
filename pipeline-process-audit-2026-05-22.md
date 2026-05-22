@@ -1,6 +1,6 @@
 # Pipeline Process Audit — 2026-05-22
 
-> Second audit of the agent pipeline, ~2 weeks after [`planning/PIPELINE-AUDIT.md`](planning/PIPELINE-AUDIT.md) (2026-05-09). That audit asked "is the pipeline well-designed?" This one asks three different questions: **did the first audit's fixes hold, where are the handoffs not airtight, and how would we track a concept moving through the pipeline?**
+> Second audit of the agent pipeline, ~2 weeks after [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) (2026-05-09). That audit asked "is the pipeline well-designed?" This one asks three different questions: **did the first audit's fixes hold, where are the handoffs not airtight, and how would we track a concept moving through the pipeline?**
 >
 > Standalone deliverable — not yet filed into the pipeline doc tree. Decide placement after reading (candidate homes noted at the end).
 
@@ -22,7 +22,7 @@ The fixes below are mostly cheap. The single highest-leverage one is a **session
 
 ## Method
 
-Read in full: `CLAUDE.md` (on-disk), `AGENTS.md`, `planning/PIPELINE-AUDIT.md`, `JOURNAL.md`, `BUILD-LOG.md`, `planning/DECISIONS.md`, `skills/README.md`, `planning/walkthroughs/F018-pipeline-trace.md`, `skills/pipeline-ticket/workflow.md`, ticket `T056`. Sampled `DEVIATIONS.md` (605 lines — too large to read whole, which is itself a finding). Traced F018 end-to-end and the T041–T057 substrate-ticket run. Cross-referenced every 2026-05-09 finding against current repo state. Verified each concrete claim below against the filesystem (see the Verification note at the end).
+Read in full: `CLAUDE.md` (on-disk), `AGENTS.md`, `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`, `JOURNAL.md`, `BUILD-LOG.md`, `planning/DECISIONS.md`, `skills/README.md`, `planning/walkthroughs/F018-pipeline-trace.md`, `skills/pipeline-ticket/workflow.md`, ticket `T056`. Sampled `DEVIATIONS.md` (605 lines — too large to read whole, which is itself a finding). Traced F018 end-to-end and the T041–T057 substrate-ticket run. Cross-referenced every 2026-05-09 finding against current repo state. Verified each concrete claim below against the filesystem (see the Verification note at the end).
 
 One correction surfaced during verification: the `CLAUDE.md` copy in my initial briefing still named the retired `pipeline-clarify-absolutes` / `pipeline-review-absolute` skills, but the **on-disk `CLAUDE.md` is correct** — it was updated to `pipeline-ratify-absolute`. No finding there. The drift is elsewhere (see H6).
 
@@ -220,6 +220,6 @@ Every concrete claim was checked against the filesystem on 2026-05-22: the empty
 
 ## Candidate homes for this document
 
-- Append as a dated section to `planning/PIPELINE-AUDIT.md` (keeps audit history together).
+- Append as a dated section to `_attic/2026-05-19/planning/PIPELINE-AUDIT.md` (keeps audit history together).
 - New file `planning/audits/2026-05-22-pipeline-process-audit.md` (versioned audit series).
 - Leave at repo root as-is and action R1–R4 directly into the skills.

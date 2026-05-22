@@ -269,7 +269,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 - `product/capabilities/shareable-listing.md` → renamed "Shareable Entity Pages" and generalized across `/i/`, `/m/`, `/l/`, `/g/` routes.
 - `product/systems/discovery.md` → Community-scoped → Group-scoped throughout.
 - Cross-reference cleanup: `MAP.md`, `canonical-examples.md`, `F018-brian-declares-run-club.md`, `agent-assistance-handoff-2026-05-09.md`, `reciprocity-and-goodwill.md`, `skills.md`, `item-view.md`, `gathering-host.md` — all live broken pointers fixed.
-- `planning/scenarios/F001–F017` (17 pre-primitives scenarios) → archived to `planning/scenarios-backlog/archive/` with `PRE-PRIMITIVES-AUDIT-2026-05-11.md` documenting the mapping. Live `planning/scenarios/` contains only F018.
+- `planning/scenarios/F001–F017` (17 pre-primitives scenarios) → archived to `_attic/2026-05-19/planning-scenarios-backlog/` with `PRE-PRIMITIVES-AUDIT-2026-05-11.md` documenting the mapping. Live `planning/scenarios/` contains only F018.
 
 **Exit criterion met:** a new contributor reading the project from `CLAUDE.md` can reach all canonical docs without encountering a "vendor", "Community", "Member Operations", or "cooperative" reference outside `archive/` folders.
 

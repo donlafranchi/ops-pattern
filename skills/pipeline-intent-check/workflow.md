@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | The target file(s): one or more of `product/foundation/*.md`, `product/systems/*.md`, `planning/DECISIONS.md` (ADR text), or a pipeline-doc that has just changed. Also reads [the archived intent audit](../../planning/archive/intent-audit-2026-05-12.md) for the eight categories. |
+| **Reads** | The target file(s): one or more of `product/foundation/*.md`, `product/systems/*.md`, `planning/DECISIONS.md` (ADR text), or a pipeline-doc that has just changed. Also reads [the archived intent audit](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) for the eight categories. |
 | **Writes** | One review file: `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`. The `{target}` slug is the filename (e.g., `groups`, `policy-framework`, `ADR-18`). |
 | **Templates** | Review-file template at the bottom of this doc; proposed-Intent shape inline per category. |
 | **Hands to** | nothing — the PM lands or defers. Re-run after landing. |
@@ -27,7 +27,7 @@ If the target is unclear, ask once. Do not silently expand scope.
 
 ### 2. Re-read the audit categories
 
-Before scanning, re-read [the archived intent audit](../../planning/archive/intent-audit-2026-05-12.md) §"Categories of statements that need Intent." The eight categories are the *only* shapes this skill flags. If a missing rationale doesn't fit one of the eight, do not flag it — the audit exists to keep the convention bounded.
+Before scanning, re-read [the archived intent audit](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) §"Categories of statements that need Intent." The eight categories are the *only* shapes this skill flags. If a missing rationale doesn't fit one of the eight, do not flag it — the audit exists to keep the convention bounded.
 
 The eight, abbreviated:
 

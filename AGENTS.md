@@ -1,6 +1,6 @@
 # AGENTS.md — Development Pipeline
 
-> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. See [`planning/PIPELINE-AUDIT.md`](planning/PIPELINE-AUDIT.md) for the rationale and the full audit.
+> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. See [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) for the rationale and the full audit.
 
 Seven specialized roles handle the full development lifecycle. Each is implemented as a skill in [`skills/`](skills/) and routed by `pipeline-router`. Process lives in skills, not in nested CLAUDE.md files.
 
@@ -24,7 +24,7 @@ Every gate in this pipeline exists because under-annotated specs put downstream 
 1. **Over-fit on literal wording.** The spec says "no X." The agent treats the refusal as categorical when the project's stance is shape-specific ("no *impersonal* X"). Acceptance criteria over-fit to surface text rather than design intent. Tests pass for the wrong reason. Bullets in foundation docs become more rigid than the project's actual position.
 2. **Reconstruct intent and drift.** The spec says *what*. The agent guesses *why*, gets it plausibly wrong, and acts on the reconstructed intent — which then propagates downstream as if it were the spec. Over many turns, the project's actual intent and the operating intent diverge silently.
 
-Both failure modes look like the agent doing its job. Both are caught by the same discipline: every load-bearing decision should carry its **why** alongside its **what**, and every gate's runner should read the *why* before judging the *what*. See [`planning/PIPELINE-AUDIT.md`](planning/PIPELINE-AUDIT.md) F13 for the full framing and the on-2026-05-12 incident that surfaced it.
+Both failure modes look like the agent doing its job. Both are caught by the same discipline: every load-bearing decision should carry its **why** alongside its **what**, and every gate's runner should read the *why* before judging the *what*. See [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F13 for the full framing and the on-2026-05-12 incident that surfaced it.
 
 ## 0. Router
 
@@ -97,7 +97,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 ## 2.5. Reviewer (Architecture + Design pre-flight)
 
-> **MANDATORY during the primitives rebuild.** Until Phase 4 of [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) (the rebuild plan) completes, every approved scenario goes through review. Optional only for trivial copy/CTA changes on existing surfaces. Rationale: [`planning/PIPELINE-AUDIT.md`](planning/PIPELINE-AUDIT.md) F3.
+> **MANDATORY during the primitives rebuild.** Until Phase 4 of [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) (the rebuild plan) completes, every approved scenario goes through review. Optional only for trivial copy/CTA changes on existing surfaces. Rationale: [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F3.
 
 **Skill:** `pipeline-review`
 **Model:** Claude Opus (cross-system check, comprehensive)
@@ -194,7 +194,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 **Task:** Implement one ticket at a time via TDD (red → green → refactor). Never roll back; fix forward. Escalate ambiguity to `pipeline-plan`. Does NOT write tickets — `pipeline-ticket` does.
 
-**Mandatory at ticket close** (see [`planning/PIPELINE-AUDIT.md`](planning/PIPELINE-AUDIT.md) F8/F9):
+**Mandatory at ticket close** (see [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F8/F9):
 - Append a single-line entry to `development/DEVIATIONS.md` — even "no deviations." Empty is no longer the default.
 - Update `web/BUILD-LOG.md` with current ticket status.
 - Run `engineering:code-review` on the diff before invoking `pipeline-eval` (run mode). This is the M2 solo-team multiplier.
@@ -272,7 +272,7 @@ Rejected absolutes are deleted from the spec; the JOURNAL entry records the remo
 - `product/foundation/*.md` (especially `people-first.md`, `policy-framework.md`, `foundational-principles.md`)
 - Related foundation/system docs for cross-spec context
 - Recent `JOURNAL.md` entries (≤30 days) for related ratifications
-- [`planning/archive/intent-audit-2026-05-12.md`](planning/archive/intent-audit-2026-05-12.md) (archived; Category 2 in particular — the live framing lives in this skill)
+- [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; Category 2 in particular — the live framing lives in this skill)
 - `planning/DECISIONS.md` when an ADR is the absolute's source of truth
 
 **Writes:**
@@ -310,14 +310,14 @@ Rejected absolutes are deleted from the spec; the JOURNAL entry records the remo
 
 ## Meta. Intent Check (Out-of-band quality gate)
 
-> **MANDATORY during the primitives rebuild** before a new ADR lands in `planning/DECISIONS.md` and before `pipeline-plan` ratifies any scenario whose system-spec changes added Category-1–8 statements per the [archived intent audit](planning/archive/intent-audit-2026-05-12.md) (live discipline encoded in this skill).
+> **MANDATORY during the primitives rebuild** before a new ADR lands in `planning/DECISIONS.md` and before `pipeline-plan` ratifies any scenario whose system-spec changes added Category-1–8 statements per the [archived intent audit](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (live discipline encoded in this skill).
 
 **Skill:** `pipeline-intent-check`
 **Model:** Claude Opus (cross-spec read, conservative flagging)
 
 **Reads:**
 - The target file(s): `product/foundation/*.md`, `product/systems/*.md`, or `planning/DECISIONS.md` ADR text
-- [`planning/archive/intent-audit-2026-05-12.md`](planning/archive/intent-audit-2026-05-12.md) (archived; the eight categories — encoded directly in this skill's workflow)
+- [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; the eight categories — encoded directly in this skill's workflow)
 
 **Writes:**
 - `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`
@@ -328,7 +328,7 @@ Rejected absolutes are deleted from the spec; the JOURNAL entry records the remo
 - `planning/scenarios/` or `planning/scenarios-backlog/` (scenarios carry acceptance criteria, not Intent annotations)
 - The target file itself is not edited; this skill flags + proposes shapes only.
 
-**Task:** Verify that statements matching the eight Category shapes (per the [archived intent audit](planning/archive/intent-audit-2026-05-12.md), encoded in this skill's workflow §2) carry substantive `Intent:` annotations. Verdicts: **CLEAN** (zero misses), **PROPOSE** (PM lands the proposed lines, pipeline proceeds), **BLOCK** (load-bearing rationale missing on a refusal / schema-level commitment / cross-doc commitment whose local scope is unclear; pipeline pauses).
+**Task:** Verify that statements matching the eight Category shapes (per the [archived intent audit](_attic/2026-05-19/planning/intent-audit-2026-05-12.md), encoded in this skill's workflow §2) carry substantive `Intent:` annotations. Verdicts: **CLEAN** (zero misses), **PROPOSE** (PM lands the proposed lines, pipeline proceeds), **BLOCK** (load-bearing rationale missing on a refusal / schema-level commitment / cross-doc commitment whose local scope is unclear; pipeline pauses).
 
 **When to invoke:** any new ADR, any new system spec, any foundation-doc change that introduces a refusal / numeric threshold / naming split / tier deferral / cross-doc commitment. Out-of-band; does not run during an open pipeline phase.
 

@@ -5,13 +5,13 @@
 | | |
 |---|---|
 | **Reads** | `JOURNAL.md`, `planning/DECISIONS.md`, `product/MAP.md`, `product/foundation/*.md`, all `product/systems/*.md` status banners + "Decisions encoded here" footers, `web/BUILD-LOG.md`, `development/DEVIATIONS.md` |
-| **Writes** | `JOURNAL.md` (trims), `planning/DECISIONS.md` (collapses to pointers / archives), `planning/archive/JOURNAL-YYYY-MM.md` (rotates), `planning/archive/DECISIONS-superseded-YYYY-MM-DD.md` (when ADRs supersede), `product/MAP.md` (alignment checks if new invariants surface), one or more `product/foundation/*.md` or `product/systems/*.md` (footers, banners) if a silently-load-bearing decision needs a home there. Never edits scenarios, tickets, or BUILD-LOG.md. |
+| **Writes** | `JOURNAL.md` (trims), `planning/DECISIONS.md` (collapses to pointers / archives), `_attic/2026-05-19/planning/JOURNAL-YYYY-MM.md` (rotates), `_attic/2026-05-19/planning/DECISIONS-superseded-YYYY-MM-DD.md` (when ADRs supersede), `product/MAP.md` (alignment checks if new invariants surface), one or more `product/foundation/*.md` or `product/systems/*.md` (footers, banners) if a silently-load-bearing decision needs a home there. Never edits scenarios, tickets, or BUILD-LOG.md. |
 | **Templates** | Banner formats below (archive header, journal-archive entry, decision-pointer row, alignment-check line). |
 | **Hands to** | nothing. End of run. |
 
 ## Output
 
-Light JOURNAL.md (top entry + pinned pickup), light DECISIONS.md (cross-cutting full + pointer index), new archive file(s) under `planning/archive/`, memorialized invariants in their durable homes, link integrity preserved.
+Light JOURNAL.md (top entry + pinned pickup), light DECISIONS.md (cross-cutting full + pointer index), new archive file(s) under `_attic/2026-05-19/planning/`, memorialized invariants in their durable homes, link integrity preserved.
 
 ## Process
 
@@ -71,7 +71,7 @@ For each silently-load-bearing decision, pick the *first* of the following that 
 For JOURNAL.md, the cut policy:
 
 - **Keep:** the top entry plus the pinned "Next session pickup."
-- **Archive:** everything older, into `planning/archive/JOURNAL-YYYY-MM.md` (month of the entry's date, not today). Create or append.
+- **Archive:** everything older, into `_attic/2026-05-19/planning/JOURNAL-YYYY-MM.md` (month of the entry's date, not today). Create or append.
 - **Refresh "Next session pickup"** — verify each numbered item is still live; drop ones the top entry says are done; carry forward any that are not.
 
 If two top entries collide on the "top" slot (e.g., two sessions on the same day), keep both as siblings under one date heading. Don't try to merge into one.
@@ -94,7 +94,7 @@ For DECISIONS.md, the cut policy:
 
 - **Keep full text in DECISIONS:** ADRs that are cross-cutting AND have no other doc home.
 - **Collapse to pointer in the index table:** ADRs whose decision is already stated in a system spec / foundation doc / UI doc / ops doc. The pointer row names the home + a one-line shape.
-- **Archive:** SUPERSEDED ADRs in full, into `planning/archive/DECISIONS-superseded-YYYY-MM-DD.md`. Add anchored cross-links from the pointer index.
+- **Archive:** SUPERSEDED ADRs in full, into `_attic/2026-05-19/planning/DECISIONS-superseded-YYYY-MM-DD.md`. Add anchored cross-links from the pointer index.
 
 Pointer row format:
 
@@ -132,7 +132,7 @@ N. Every {X} {verb}s {Y}. {Brief why, only if non-obvious.}
 
 Before declaring done:
 
-- All links resolve (relative paths under `planning/archive/`, `product/foundation/`, `product/systems/`, etc.).
+- All links resolve (relative paths under `_attic/2026-05-19/planning/`, `product/foundation/`, `product/systems/`, etc.).
 - JOURNAL.md no longer carries entries past the cut policy.
 - DECISIONS.md pointer index has a row for every ADR-N (including superseded; pointer goes to archive).
 - Every memorialized invariant has a home doc (not just a JOURNAL mention).

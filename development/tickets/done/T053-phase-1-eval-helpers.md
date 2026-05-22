@@ -11,7 +11,7 @@
 - **Primitive shape:** None directly. Operates on the eval surface for Location + Person augmentation primitives.
 - **What this unblocks:** The 10 currently-failing `evals/phase-1/*.spec.ts` tests listed in § Acceptance Criteria. Phase 1 exit criterion ("all tables exist; RLS matrix passes; action-handler conformance check passes; audit fields populated by handlers") becomes verifiable end-to-end after this ships.
 
-## Workflow gates (mandatory during the migration phase per `planning/PIPELINE-AUDIT.md`)
+## Workflow gates (mandatory during the migration phase per `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`)
 
 - [ ] **M2 — `engineering:code-review`** invoked on the diff before commit (per the rebuild-phase rule: code-review pulled left of commit, not after eval).
 - [ ] **M3 — `design:accessibility-review`** — N/A (no UI surface).

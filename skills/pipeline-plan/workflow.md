@@ -74,7 +74,7 @@ Skip `planning-filter` when you're writing a single scenario for a known feature
 - New scenarios → `planning/scenarios-backlog/`.
 - PM approves → moves to `planning/scenarios/`.
 - Never write directly to `planning/scenarios/` — everything goes through backlog first.
-- Superseded scenarios → `planning/scenarios-backlog/archive/` with a one-line note in the new scenario explaining what it replaced.
+- Superseded scenarios → `_attic/2026-05-19/planning-scenarios-backlog/` with a one-line note in the new scenario explaining what it replaced.
 
 ## Writing guidelines
 
@@ -86,7 +86,7 @@ Skip `planning-filter` when you're writing a single scenario for a known feature
 
 ## Co-locate `why` with `what` (per AGENTS.md → PIPELINE-AUDIT F13)
 
-Every non-obvious Given/When/Then clause in a scenario carries its **why** alongside its **what**. Without the *why*, the eval-writer ends up testing the *literal wording* of the clause rather than the *design intent* the clause is approximating — and when the scenario gets revised, the test passes against text that no longer means what the project intends. Same discipline as Intent annotations on system specs (per the [archived intent audit](../../planning/archive/intent-audit-2026-05-12.md), live discipline in the clarify-absolutes / intent-check skills), applied here at the scenario stage.
+Every non-obvious Given/When/Then clause in a scenario carries its **why** alongside its **what**. Without the *why*, the eval-writer ends up testing the *literal wording* of the clause rather than the *design intent* the clause is approximating — and when the scenario gets revised, the test passes against text that no longer means what the project intends. Same discipline as Intent annotations on system specs (per the [archived intent audit](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md), live discipline in the clarify-absolutes / intent-check skills), applied here at the scenario stage.
 
 **Where to apply.** Any clause that encodes a design judgment, not just a mechanical assertion. *"Then the page loads"* is mechanical and obvious — no Why needed. *"Then a primary CTA labeled 'Host something here' is visible below the venue header"* encodes the verb-first composer commitment from `community-platform.md` (entry point is the venue, not `/new` with a kind picker) — needs a Why.
 

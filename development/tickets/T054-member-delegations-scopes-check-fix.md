@@ -10,7 +10,7 @@
 - **Canonical example:** Any Member-grants-Delegation example in `product/foundation/canonical-examples.md` that vends scoped capability via `member_delegations.scopes`. The bug doesn't surface for these examples (none of them grant an empty Delegation by design), but the spec's negative test does — and the spec is what gates the eval surface.
 - **Primitive shape:** Person (Member) → `member_delegations` row (substrate of Person's Delegation verb). No Item / Location / Group involvement.
 
-## Workflow gates (mandatory during the migration phase per `planning/PIPELINE-AUDIT.md`)
+## Workflow gates (mandatory during the migration phase per `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`)
 
 - [ ] **M2 — `engineering:code-review`** invoked on the diff before commit (per the rebuild-phase rule: code-review pulled left of commit, not after eval).
 - [ ] **M3 — `design:accessibility-review`** — N/A (no UI surface).
