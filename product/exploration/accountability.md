@@ -1,3 +1,9 @@
+---
+purpose: Two framings of accountability: court records and four-pillar community signals.
+layer: what
+status: reference
+---
+
 # Exploration: Accountability
 
 > **Status:** Exploration, not b1. Folded together 2026-05-22 from two prior takes on one system: the public-record transparency framing (formerly `business-accountability.md`) and the community-driven four-pillars + sliding-scale framing (formerly `community-accountability-model.md`). Both perspectives preserved below; the merge is intentionally non-reconciling — the PM picks which framing (or which blend) becomes the system spec when this graduates from exploration.

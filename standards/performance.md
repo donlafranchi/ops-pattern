@@ -1,3 +1,9 @@
+---
+purpose: Performance standard — placeholder for budget and verification.
+layer: how
+status: draft
+---
+
 # Performance
 
 > **Stub — created 2026-05-19.** Placeholder for the performance standard. To be written:

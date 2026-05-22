@@ -1,3 +1,9 @@
+---
+purpose: Ticket T015 — explore search map.
+layer: how
+status: reference
+---
+
 # T015: Explore — Search with List/Map Toggle
 
 **Scenario:** planning/scenarios/F010-product-search-filter.md

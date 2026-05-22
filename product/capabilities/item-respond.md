@@ -1,3 +1,9 @@
+---
+purpose: Follow / Save / RSVP responses stored uniformly per Item kind.
+layer: what
+status: active
+---
+
 # Item Respond
 
 **Tier:** T1

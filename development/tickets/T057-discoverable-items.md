@@ -1,3 +1,9 @@
+---
+purpose: Ticket T057 — discoverable items.
+layer: how
+status: active
+---
+
 # T057 — Phase 1: `discoverable_items` materialized view + refresh trigger (`016_discoverable_items.sql`)
 
 **Scenario:** None. Phase 1 substrate — opens against `product/systems/item.md` § "Discoverable-items refresh trigger" + ADR-10 (event-log invariants — same-transaction refresh) + ADR-7 (action-layer conformance).

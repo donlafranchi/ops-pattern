@@ -1,3 +1,9 @@
+---
+purpose: Responsiveness standard — placeholder for layout breakpoint rules.
+layer: how
+status: draft
+---
+
 # Responsiveness
 
 > **Stub — created 2026-05-19.** Placeholder for the responsiveness standard. To be written:

@@ -1,3 +1,9 @@
+---
+purpose: Ticket T025 — vendor bulletin compose.
+layer: how
+status: reference
+---
+
 # T025 — Vendor bulletin compose + delivery (T1 MVP)
 
 **Status:** Complete

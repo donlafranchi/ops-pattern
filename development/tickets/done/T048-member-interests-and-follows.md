@@ -1,3 +1,9 @@
+---
+purpose: Ticket T048 — member interests and follows.
+layer: how
+status: reference
+---
+
 # T048 — Member interests + member follows (`010_member_interests_follows.sql`)
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (`007b_member_interests.sql` + `007c_member_follows.sql` in the plan; consolidated into `010_*` per the renumbering).

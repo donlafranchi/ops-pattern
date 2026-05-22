@@ -1,3 +1,9 @@
+---
+purpose: The approved clean-slate rebuild plan on primitives.
+layer: how
+status: active
+---
+
 # Rebuild on Primitives
 
 **Status:** Approved 2026-05-10 — clean-slate rebuild on Person / Item / Location / Group primitives. The current `web/` data layer is replaced, not migrated. App shell (auth wiring, design tokens, Tailwind/Next/Supabase scaffolding) is preserved.

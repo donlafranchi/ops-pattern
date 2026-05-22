@@ -1,3 +1,9 @@
+---
+purpose: ADR-19 — clean-slate rebuild on primitives (no dual-write migration).
+layer: how
+status: active
+---
+
 # ADR-0019: Clean-slate rebuild on the four primitives — replace the data layer, preserve the app shell
 
 **Status:** Accepted

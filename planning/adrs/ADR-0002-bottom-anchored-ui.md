@@ -1,3 +1,9 @@
+---
+purpose: ADR-2 — bottom-anchored UI for mobile thumb reachability.
+layer: how
+status: active
+---
+
 # ADR-0002: Bottom-anchored, mobile-first UI
 
 **Status:** Accepted

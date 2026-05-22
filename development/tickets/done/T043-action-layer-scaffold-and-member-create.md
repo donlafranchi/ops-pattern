@@ -1,3 +1,9 @@
+---
+purpose: Ticket T043 — action layer scaffold and member create.
+layer: how
+status: reference
+---
+
 # T043 — Action layer scaffold + `member.create` handler (proof of pattern)
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 0 — AI-native floor (`003_action_layer_scaffold`)

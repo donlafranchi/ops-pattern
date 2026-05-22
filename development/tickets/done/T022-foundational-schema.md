@@ -1,3 +1,9 @@
+---
+purpose: Ticket T022 — foundational schema.
+layer: how
+status: reference
+---
+
 # T022 — Foundational schema (events, bulletins, vendor analytics, follow soft-delete)
 
 **Status:** Complete

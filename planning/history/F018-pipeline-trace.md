@@ -1,3 +1,9 @@
+---
+purpose: Traces F018 through every pipeline stage as teaching artifact.
+layer: how
+status: reference
+---
+
 # F018 pipeline walk-through — capability to eval-run, with the drops surfaced
 
 **Purpose.** Trace one feature end-to-end through the rewired pipeline, producing a real artifact at every stage, so we can see exactly what each role consumes, what it produces, and what gets dropped between roles.

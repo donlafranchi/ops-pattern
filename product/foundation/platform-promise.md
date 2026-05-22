@@ -1,3 +1,9 @@
+---
+purpose: Public-voice commitments derived from the principles, for the thesis page.
+layer: why
+status: active
+---
+
 # The Platform Promise
 
 The commitments that govern every product, pricing, and growth decision. When the platform's interest conflicts with a member's interest, the member wins.

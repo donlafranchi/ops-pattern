@@ -1,3 +1,9 @@
+---
+purpose: Ticket T049 — member location affinities.
+layer: how
+status: reference
+---
+
 # T049 — Member location affinities (`011_member_location_affinities.sql`)
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (`007i_member_location_affinities.sql` in the plan; renumbered to `011_*`).

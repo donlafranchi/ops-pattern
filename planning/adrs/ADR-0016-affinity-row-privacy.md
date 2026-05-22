@@ -1,3 +1,9 @@
+---
+purpose: ADR-16 — RLS owner-only on member_location_affinities; aggregate functions only.
+layer: how
+status: active
+---
+
 # ADR-0016: Per-row privacy on `member_location_affinities`; algorithms via privileged paths
 
 **Status:** Accepted

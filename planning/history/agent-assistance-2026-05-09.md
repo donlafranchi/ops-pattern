@@ -1,3 +1,9 @@
+---
+purpose: Parks agent-assistance as non-b1; digests the four 2026-05-09 reviews.
+layer: how
+status: historical
+---
+
 # Handoff: Agent-Assistance Architecture (Forward-Looking)
 
 **Status:** Forward-looking architecture. **NOT b1 scope.** Captured for future bundles.

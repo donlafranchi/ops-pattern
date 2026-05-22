@@ -1,3 +1,9 @@
+---
+purpose: Create, browse, join, leave Groups manually.
+layer: what
+status: active
+---
+
 # Capability: Group Create and Join
 
 **Description:** A Member creates a Group, browses the Group index, and joins or leaves with one tap. Groups are emergent and self-selected — never auto-assigned by polygon or attendance.

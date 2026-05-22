@@ -1,3 +1,9 @@
+---
+purpose: Member public page — bio, Items, follows, shareable URL.
+layer: what
+status: active
+---
+
 # Member Profile
 
 **Tier:** T1

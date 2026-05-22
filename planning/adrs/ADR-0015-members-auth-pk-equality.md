@@ -1,3 +1,9 @@
+---
+purpose: ADR-15 — members.id equals auth.users.id (same UUID).
+layer: how
+status: active
+---
+
 # ADR-0015: `public.members.id = auth.users.id`; Supabase Auth is the only path to Member creation
 
 **Status:** Accepted

@@ -1,3 +1,9 @@
+---
+purpose: Ticket T023 — you page restructure.
+layer: how
+status: reference
+---
+
 # T023 — You page restructure (identity hub: saves, follows, market, vendor mode)
 
 **Status:** Complete

@@ -1,3 +1,9 @@
+---
+purpose: One scoring core for feed, search, and notifications.
+layer: what
+status: active
+---
+
 # System: Discovery
 
 **Purpose:** Connect Members with Items they will love. The substrate for every feed, search result, and "related" surface. One scoring core, multiple surfaces.

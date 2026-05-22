@@ -1,3 +1,9 @@
+---
+purpose: Ticket T056 — items schema.
+layer: how
+status: active
+---
+
 # T056 — Phase 1: Items schema (`015_items.sql`)
 
 **Scenario:** None. Phase 1 substrate — opens against `product/systems/item.md` + ADR-5 (markets-as-gathering) + ADR-10 (event-log invariants) + ADR-7 (action-layer conformance) + ADR-6 (audit fields).

@@ -1,3 +1,9 @@
+---
+purpose: 2026-05-09 security critique of the agent-assistance specs.
+layer: how
+status: historical
+---
+
 # Agent-Assistance Security & Privacy Review — 2026-05-09
 
 **Reviewer:** Independent (security/privacy focus)

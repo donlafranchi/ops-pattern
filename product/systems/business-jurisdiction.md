@@ -1,3 +1,9 @@
+---
+purpose: Three-tier locally-owned verification without exposing addresses.
+layer: what
+status: active
+---
+
 # System: Business Jurisdiction (locality verification ladder)
 
 **Purpose:** Give kind='business' Groups a way to anchor their "locally owned and operated" claim to a government-verifiable signal — without forcing the owner to expose a home address. The system models a **verification ladder** (self-attested → state-verified → document-verified) whose tier is itself a public signal. The platform's locality-derivation surface (per `groups.md`) reads this signal; without a jurisdiction record on at least one owner Member, a Group cannot claim "local" status.

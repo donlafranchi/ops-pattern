@@ -1,3 +1,9 @@
+---
+purpose: Ticket T044 — auth signup hook.
+layer: how
+status: reference
+---
+
 # T044 — Supabase Auth post-signup hook → `member.create`
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 0 — AI-native floor (`006_auth_signup_hook.sql`)

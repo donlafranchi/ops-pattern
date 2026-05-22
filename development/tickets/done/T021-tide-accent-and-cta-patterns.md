@@ -1,3 +1,9 @@
+---
+purpose: Ticket T021 — tide accent and cta patterns.
+layer: how
+status: reference
+---
+
 # T021 — Tide accent + CTA pattern rollout
 
 **Status:** Complete

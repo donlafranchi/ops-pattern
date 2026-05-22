@@ -1,3 +1,9 @@
+---
+purpose: Constitution: P1–P8, People-First Principle, Decision Test, categorical failures.
+layer: why
+status: active
+---
+
 # Movers, Makers & Shakers — Foundational Principles
 
 > **Status:** The constitution. The single "Never" + the central premise + P1–P8 first principles + the People-First Principle (folded in from the prior `people-first.md` on 2026-05-22) + the Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline. Every proposal grades against this document. The structured 0–3 scoring rubric — the *measuring stick* used to evaluate platform decisions and grade community health periodically — lives in [`design-philosophy.md`](design-philosophy.md), alongside the theory grounding (Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon). Applied policy filter (helpful / harmless / abuse-resistant + opt-out default + anti-Nextdoor commitments) lives in [`policy.md`](policy.md). Read alongside [`platform-promise.md`](platform-promise.md), [`member-journey.md`](../needs/member-journey.md), and [`primitives.md`](primitives.md). When this document and a system spec conflict on a structural mechanism, the system spec wins on the mechanism but the failure must still survive this document's tests.

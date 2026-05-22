@@ -1,3 +1,9 @@
+---
+purpose: Ticket T014 — home feed.
+layer: how
+status: reference
+---
+
 # T014: Home Feed — Etsy-style Modular Layout
 
 **Scenario:** planning/scenarios/F008-home-feed.md

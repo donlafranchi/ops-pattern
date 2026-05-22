@@ -1,3 +1,9 @@
+---
+purpose: Ticket T003 — auth.
+layer: how
+status: reference
+---
+
 # T003: Authentication (Sign Up, Login, Sign Out)
 
 **Scenario:** planning/scenarios/F003-registration-auth.md

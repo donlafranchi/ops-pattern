@@ -1,3 +1,9 @@
+---
+purpose: Ticket T004 — map view colored pins.
+layer: how
+status: reference
+---
+
 # T004: Map View with Colored Ownership Pins
 
 **Scenario:** planning/scenarios/F001-map-view-colored-pins.md

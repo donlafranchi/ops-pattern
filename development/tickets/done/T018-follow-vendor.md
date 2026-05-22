@@ -1,3 +1,9 @@
+---
+purpose: Ticket T018 — follow vendor.
+layer: how
+status: reference
+---
+
 # T018: Follow Vendor + Following List
 
 **Scenario:** planning/scenarios/F012-follow-vendor.md

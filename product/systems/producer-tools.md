@@ -1,3 +1,9 @@
+---
+purpose: Bulletin broadcast and Growth dashboard for producer-capacity Members.
+layer: what
+status: active
+---
+
 # System: Producer Tools
 
 **Purpose:** Two surfaces that together back the producer recruitment pitch ("we'll help you compete with bigger players") and the platform-promise commitment in [`../foundation/platform-promise.md`](../foundation/platform-promise.md). **Bulletin** is the Substack-light broadcast surface that turns a follow from a save-for-later into a subscription to a relationship. **Growth** is the founder dashboard that gives Members operating in producer capacity the kind of business intelligence that big chains take for granted — followers, engagement, what's working, what to do next — tuned for relationship economics, not funnel economics.

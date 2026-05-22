@@ -1,3 +1,9 @@
+---
+purpose: Paste-in template producing pipeline artifacts from raw ideas.
+layer: how
+status: active
+---
+
 # Idea Intake Template
 
 Paste this into any Claude conversation that's exploring an idea for **movers-makers-shakers**. It captures the conversation output in a shape the project pipeline can consume.

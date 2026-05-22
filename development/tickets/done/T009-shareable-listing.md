@@ -1,3 +1,9 @@
+---
+purpose: Ticket T009 — shareable listing.
+layer: how
+status: reference
+---
+
 # T009: Shareable Listing Page with OG Metadata
 
 **Scenario:** planning/scenarios/F004-shareable-listing.md

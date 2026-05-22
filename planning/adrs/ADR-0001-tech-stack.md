@@ -1,3 +1,9 @@
+---
+purpose: ADR-1 — Next.js + Supabase + Mapbox + Vercel stack.
+layer: how
+status: active
+---
+
 # ADR-0001: Tech stack — Next.js + Tailwind v4 + Supabase + Mapbox
 
 **Status:** Accepted

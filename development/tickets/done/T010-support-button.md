@@ -1,3 +1,9 @@
+---
+purpose: Ticket T010 — support button.
+layer: how
+status: reference
+---
+
 # T010: Support Button (Heart)
 
 **Scenario:** planning/scenarios/F005-support-button.md

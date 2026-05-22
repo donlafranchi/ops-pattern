@@ -1,3 +1,9 @@
+---
+purpose: ADR-13 — Groups supersedes community/cooperative/business split.
+layer: how
+status: active
+---
+
 # ADR-0013: Group consolidation — Community / Member Operations / Cooperative absorbed into one primitive
 
 **Status:** Accepted

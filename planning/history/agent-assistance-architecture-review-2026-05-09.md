@@ -1,3 +1,9 @@
+---
+purpose: 2026-05-09 architecture critique of the agent-assistance specs.
+layer: how
+status: historical
+---
+
 # Agent-Assistance Architecture Review — 2026-05-09
 
 **Reviewer:** Independent (no prior session context)

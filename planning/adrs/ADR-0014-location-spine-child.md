@@ -1,3 +1,9 @@
+---
+purpose: ADR-14 — Location spine + child tables per kind.
+layer: how
+status: active
+---
+
 # ADR-0014: Location spine + child architecture — three kinds, locked at create, PostGIS on spine
 
 **Status:** Accepted

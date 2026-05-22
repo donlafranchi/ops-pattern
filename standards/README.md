@@ -1,3 +1,9 @@
+---
+purpose: Standards layer — cross-cutting qualities the build must satisfy.
+layer: how
+status: reference
+---
+
 # Standards
 
 Cross-cutting qualities the build must satisfy — not "what people do in the app," but how

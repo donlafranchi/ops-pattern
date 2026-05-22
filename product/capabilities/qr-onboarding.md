@@ -1,3 +1,9 @@
+---
+purpose: Member-requestable printable QR card for any Item.
+layer: what
+status: active
+---
+
 # QR Card (Item-on-demand affordance)
 
 **Tier:** T1

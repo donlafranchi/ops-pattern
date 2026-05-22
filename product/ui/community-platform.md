@@ -1,3 +1,9 @@
+---
+purpose: Home / Explore / You three-page consumer architecture.
+layer: what
+status: active
+---
+
 # Product: Community Platform (Home, Explore, You)
 
 **One-line description:** The three-page consumer architecture — Home is the locality-aware activity feed, Explore is the searchable catalog, You is your identity and (if you operate in producer capacity) your producer panel.

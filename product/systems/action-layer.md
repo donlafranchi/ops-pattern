@@ -1,3 +1,9 @@
+---
+purpose: One transactional write path; vends agent capabilities per turn.
+layer: what
+status: active
+---
+
 # System: Action Layer
 
 **Purpose:** Establish the action layer as the single canonical write surface for platform state — the substrate that turns a Member's Delegation grants, a Member's direct writes, and a federation peer's protocol calls into safe runtime behavior. The web composer, the in-app assistant, the MCP server, and federation peers are all thin clients over one set of named, schema-validated, transactional handlers. The action layer is also the runtime trust substrate: it vends scoped capabilities per turn, injects credentials at the network edge so agents never hold them, enforces approval gates before sensitive writes commit, and isolates Skill execution from the platform process.

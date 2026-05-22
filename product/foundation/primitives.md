@@ -1,3 +1,9 @@
+---
+purpose: Defines the Person, Item, Location, and Group data spine.
+layer: why
+status: active
+---
+
 # The Primitives
 
 **Status:** Foundational north star. Defines the data-model spine that backs the loops in `member-journey.md` and is implemented across the system specs ([`member.md`](../systems/member.md), [`item.md`](../systems/item.md), [`location.md`](../systems/location.md), [`groups.md`](../systems/groups.md)).

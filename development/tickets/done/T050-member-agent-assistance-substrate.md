@@ -1,3 +1,9 @@
+---
+purpose: Ticket T050 — member agent assistance substrate.
+layer: how
+status: reference
+---
+
 # T050 — Agent-assistance substrate (`012_member_agent_assistance.sql`)
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (`007g_member_self_records.sql` + `007h_member_delegations.sql` in the plan; consolidated into `012_*`).

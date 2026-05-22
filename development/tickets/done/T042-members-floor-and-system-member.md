@@ -1,3 +1,9 @@
+---
+purpose: Ticket T042 — members floor and system member.
+layer: how
+status: reference
+---
+
 # T042 — Members + member_events Phase 0 floor + system Member row
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 0 — AI-native floor (the `002_system_member.sql` step + its implicit prerequisite of a minimal `members` + `member_events` table pair)

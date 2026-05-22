@@ -1,3 +1,9 @@
+---
+purpose: Ticket T013 — bottom navigation.
+layer: how
+status: reference
+---
+
 # T013: Bottom Navigation Shell
 
 **Scenario:** planning/scenarios/F013-bottom-navigation.md

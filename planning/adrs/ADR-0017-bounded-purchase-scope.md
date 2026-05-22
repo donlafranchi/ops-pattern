@@ -1,3 +1,9 @@
+---
+purpose: ADR-17 — bounded_purchase Delegation scope for agent-mediated one-time purchases.
+layer: how
+status: active
+---
+
 # ADR-0017: `bounded_purchase` Delegation scope — agent-mediated one-time purchases within Member-stated bounds
 
 **Status:** Accepted

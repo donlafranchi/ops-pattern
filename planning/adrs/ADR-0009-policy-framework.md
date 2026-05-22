@@ -1,3 +1,9 @@
+---
+purpose: ADR-9 — three-filter test + opt-out default + anti-Nextdoor.
+layer: how
+status: active
+---
+
 # ADR-0009: Policy framework — three-filter test, opt-out default, anti-Nextdoor commitments
 
 **Status:** Accepted (anti-Nextdoor framing softened 2026-05-12)

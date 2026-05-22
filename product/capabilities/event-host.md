@@ -1,3 +1,9 @@
+---
+purpose: Members host events from a venue-page CTA.
+layer: what
+status: active
+---
+
 # Event Host
 
 > **Naming.** User-facing label is **Event**. Schema name is `items.kind = 'gathering'` (durable; do not rename in code). URL is `/e/[slug]`. See [`../../CLAUDE.md`](../../CLAUDE.md) § Naming conventions.

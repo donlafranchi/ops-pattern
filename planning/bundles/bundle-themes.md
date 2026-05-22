@@ -1,3 +1,9 @@
+---
+purpose: Sequences each bundle into 1–2 week sub-themes.
+layer: how
+status: active
+---
+
 # Bundle Themes
 
 **Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`b1-primitives.md`](b1-primitives.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`b1-work-map.md`](b1-work-map.md) (the menu of work per sub-bundle).

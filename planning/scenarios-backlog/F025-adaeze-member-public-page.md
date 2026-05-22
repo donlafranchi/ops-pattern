@@ -1,3 +1,9 @@
+---
+purpose: Backlog scenario — Adaeze creates her Member public page.
+layer: how
+status: draft
+---
+
 # F025: A regular finds when Adaeze will be at the market next
 
 **Bundle:** b1

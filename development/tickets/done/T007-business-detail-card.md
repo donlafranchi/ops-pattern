@@ -1,3 +1,9 @@
+---
+purpose: Ticket T007 — business detail card.
+layer: how
+status: reference
+---
+
 # T007: Business Detail Card
 
 **Scenario:** planning/scenarios/F002-business-detail-card.md

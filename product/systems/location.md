@@ -1,3 +1,9 @@
+---
+purpose: Permanent / recurring-temporary / area places; anti-Nextdoor encoded.
+layer: what
+status: active
+---
+
 # System: Location
 
 **Status:** Drafted 2026-05-10 — pending PM final read. The third foundational primitive (per [`primitives.md`](../foundation/primitives.md)). Fills the gap previously referenced as "forthcoming" across `member.md`, `item.md`, `groups.md`, and `b1-primitives.md`. Independent architectural review pass complete; remaining REVISE items are migration-plan reconciliation (Phase 1 spine+child enumeration) which is the next session's work.

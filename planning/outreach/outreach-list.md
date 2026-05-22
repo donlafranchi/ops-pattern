@@ -1,3 +1,9 @@
+---
+purpose: Founder-recruitment list for Sacramento.
+layer: how
+status: active
+---
+
 # Maker & Service Provider Outreach List
 
 Categories of people to seek out as founding participants on Movers, Makers & Shakers — beyond farmers market vendors. These are the people who make "follow your makers" a genuinely broader platform rather than a market-day app.

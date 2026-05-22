@@ -1,3 +1,9 @@
+---
+purpose: Ticket T046 — locations rls fixes.
+layer: how
+status: reference
+---
+
 # T046 — Locations RLS fix-forward (`008_locations_owner_read.sql`)
 
 **Scenario:** Fix-forward from T045 M2 code-review. Three corrective items the review surfaced as spec divergences or robustness gaps.

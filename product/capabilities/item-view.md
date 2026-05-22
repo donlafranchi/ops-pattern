@@ -1,3 +1,9 @@
+---
+purpose: Public Item page — owner, location, kind-appropriate response action.
+layer: what
+status: active
+---
+
 # Item View
 
 **Tier:** T1

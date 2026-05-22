@@ -1,3 +1,9 @@
+---
+purpose: Ticket T005 — pin clustering.
+layer: how
+status: reference
+---
+
 # T005: Pin Clustering at Low Zoom Levels
 
 **Scenario:** planning/scenarios/F001-map-view-pin-clustering.md

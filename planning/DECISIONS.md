@@ -1,3 +1,9 @@
+---
+purpose: Pointer index mapping every ADR to status and home.
+layer: how
+status: active
+---
+
 # DECISIONS.md — Architectural Decisions (pointer index)
 
 > **This file is the canonical index, nothing more.** One line per ADR, current status, file path. The full text of every ADR lives in [`adrs/`](adrs/). Spec banners and foundation/UI/ops docs carry decision summaries for in-context reading; the canonical record is the file in `adrs/`.

@@ -1,3 +1,9 @@
+---
+purpose: ADR-5 — markets are gathering Items, not a separate kind.
+layer: how
+status: active
+---
+
 # ADR-0005: Markets are Gathering Items — no separate Market entity
 
 **Status:** Accepted

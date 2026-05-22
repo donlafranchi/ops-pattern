@@ -1,3 +1,9 @@
+---
+purpose: Accessibility standard — placeholder for WCAG-shaped requirements.
+layer: how
+status: draft
+---
+
 # Accessibility
 
 > **Stub — created 2026-05-19.** Placeholder for the accessibility standard. To be written:

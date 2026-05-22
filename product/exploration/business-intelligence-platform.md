@@ -1,3 +1,9 @@
+---
+purpose: BI candidate for producer / maker operations — under PM review.
+layer: what
+status: reference
+---
+
 # Business Intelligence Platform: Ideas, Tools & Best Practices
 
 > **Kept 2026-05-19 — live candidate, under PM review for inclusion.** This is slated to

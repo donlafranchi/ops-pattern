@@ -1,3 +1,9 @@
+---
+purpose: Ticket T026 — vendor founder dashboard.
+layer: how
+status: reference
+---
+
 # T026 — Vendor founder dashboard (T1 — followers, activity, top tasks, listing health)
 
 **Status:** Complete

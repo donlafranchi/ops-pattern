@@ -1,3 +1,9 @@
+---
+purpose: Ticket T024 — events driven home feed.
+layer: how
+status: reference
+---
+
 # T024 — Events-driven Home feed (Nextdoor-style local feed)
 
 **Status:** Complete

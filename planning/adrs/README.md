@@ -1,3 +1,9 @@
+---
+purpose: Defines ADR format, lifecycle, and naming convention.
+layer: how
+status: reference
+---
+
 # planning/adrs/ — Architectural Decision Records
 
 > Canonical home for every ADR in the project. One file per ADR. Numbered, dated, immutable once accepted. Indexed from [`../DECISIONS.md`](../DECISIONS.md).

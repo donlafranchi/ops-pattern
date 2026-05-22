@@ -1,3 +1,9 @@
+---
+purpose: Ticket T052 — phase 0 eval helpers.
+layer: how
+status: reference
+---
+
 # T052 — Phase 0 eval helpers: provision the 7 RPCs `floor.spec.ts` waits on
 
 **Scenario:** None. Direct infrastructure unblock. Source: `web/evals/phase-0/floor.spec.ts` (T041–T044 verification spec) calls 7 helper RPCs that don't exist in `web/supabase/migrations/`, so the spec cannot run. The spec's own comments mark each missing helper with `"build provisions"` / `"build adds"` — this ticket lands those provisions.

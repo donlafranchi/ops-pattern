@@ -1,3 +1,9 @@
+---
+purpose: Ticket T002 — database schema.
+layer: how
+status: reference
+---
+
 # T002: Database Schema and Supabase Setup
 
 **Scenario:** N/A (infrastructure, supports F001-F005)

@@ -1,3 +1,9 @@
+---
+purpose: Money movement scored by a wealth-circulation rubric.
+layer: what
+status: active
+---
+
 # System: Payments
 
 **Status:** Drafted 2026-05-12 — companion to `agent-commerce-and-project-amendments.md` (ratified 2026-05-12 by user; Groups A, B, and C integrated). Pending user ratification on the rail selection (§5), the custody partner posture (§6), the fee commitment (§9), and the crypto/stablecoin path (§7). The spec ships as the live home for the forthcoming ADR on the closed-loop-plus-CDFI rail decision (number pending).

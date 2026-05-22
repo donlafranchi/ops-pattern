@@ -1,3 +1,9 @@
+---
+purpose: ADR-20 — locality-scoped URL namespacing for Groups.
+layer: how
+status: active
+---
+
 # ADR-0020: Locality-scoped URLs — place is the organizing principle
 
 **Status:** Proposed

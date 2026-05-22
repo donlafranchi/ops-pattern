@@ -1,3 +1,9 @@
+---
+purpose: ADR-18 — eval-helpers package and bootstrap pattern.
+layer: how
+status: active
+---
+
 # ADR-0018: Eval helpers — folder boundary and failure-injection strategy
 
 **Status:** Accepted

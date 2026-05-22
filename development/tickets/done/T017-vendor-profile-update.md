@@ -1,3 +1,9 @@
+---
+purpose: Ticket T017 — vendor profile update.
+layer: how
+status: reference
+---
+
 # T017: Vendor Profile — Market Schedule + Product Tags
 
 **Scenario:** planning/scenarios/F011-vendor-profile.md

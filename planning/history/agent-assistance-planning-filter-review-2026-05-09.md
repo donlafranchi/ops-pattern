@@ -1,3 +1,9 @@
+---
+purpose: 2026-05-09 scope critique of the agent-assistance specs.
+layer: how
+status: historical
+---
+
 # Planning-Filter Review: Agent-Assistance Substrate
 
 **Date:** 2026-05-09

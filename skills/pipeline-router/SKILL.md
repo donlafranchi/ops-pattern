@@ -12,6 +12,8 @@ Project-agnostic orientation skill. Routes work to the right pipeline role.
 - User asks "what's going on", "what's next", "where did we leave off".
 - Before invoking `pipeline-product`, `pipeline-plan`, `pipeline-build`, or `pipeline-eval` — confirm the right role first.
 
+The session-start check includes a **registry-conformance step** (per `workflow.md` step 9): if the project has a `REGISTRY.md` at the root, verify that every narrative `.md` carries front-matter (`purpose` + `layer` + `status`), has a row in the registry, and that no row points at a missing file. Surface gaps as flags — lightweight orientation, not enforcement.
+
 ## Workflow
 See `workflow.md`.
 

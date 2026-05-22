@@ -1,3 +1,9 @@
+---
+purpose: Self-selected sets of People organized to do things together.
+layer: what
+status: active
+---
+
 # System: Group
 
 **Status:** **Approved 2026-05-10** — ratified by PM. The Community / Member Operations / Cooperative split is retired in favor of this single spine + child architecture. Predecessor specs ([`community.md`](archive/community.md), [`member-operations.md`](archive/member-operations.md), [`cooperative.md`](archive/cooperative.md)) were archived 2026-05-11 — content preserved in `systems/archive/` for historical reference. ADR-13 is pending formal write-up; this status line is the load-bearing ratification until then.

@@ -1,3 +1,9 @@
+---
+purpose: Ticket T008 — business registration.
+layer: how
+status: reference
+---
+
 # T008: Business Registration Form
 
 **Scenario:** planning/scenarios/F003-business-registration.md

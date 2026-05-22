@@ -1,3 +1,9 @@
+---
+purpose: Ticket T047 — members phase1 fk privacy handle history.
+layer: how
+status: reference
+---
+
 # T047 — Members augmentation: FK fortification + privacy + handle history (`009_members_phase1.sql`)
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 1 — Member surface (007 series in the plan; renumbered to 009 per the Phase 1 dependency ordering — locations took 007/008).

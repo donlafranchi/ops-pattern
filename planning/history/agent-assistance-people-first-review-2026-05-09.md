@@ -1,3 +1,9 @@
+---
+purpose: 2026-05-09 principles critique of the agent-assistance specs.
+layer: how
+status: historical
+---
+
 # Agent-Assistance People-First Review — 2026-05-09
 
 **Reviewer hat:** Foundational-principles check — does the agent-assistance stack (member-operations, delegation, member-self-record, skills + ADRs 6-9) honor what `principles.md`, `primitives.md`, `policy.md`, and `canonical-examples.md` refuse?

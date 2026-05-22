@@ -9,7 +9,7 @@
 | **Templates** | none |
 | **Hands to** | whichever pipeline skill the request matches (see routing table below) |
 
-7-step session-start check (project-agnostic):
+Session-start check (project-agnostic):
 
 1. **Read `JOURNAL.md`** at project root — top entry tells you what just changed.
 2. **Read the root `CLAUDE.md`** — project facts (stack, repo structure, north stars).
@@ -19,6 +19,12 @@
 6. **Surface stuck approved scenarios.** Glance at `planning/scenarios/` and `planning/scenarios-backlog/`. If any approved scenario in tickets references a backlog file (`planning/scenarios-backlog/F###`), the build firewall is being violated — surface this as a blocker before any build work. Equally: if any scenario in `planning/scenarios/` has its `Canonical example:` field pointing at a TODO placeholder section of `use-cases.md`, surface as a blocker.
 7. **Surface stale BUILD-LOG.md.** If `web/BUILD-LOG.md` (or equivalent) is more than two weeks behind the most recent ticket close, flag it.
 8. **Surface unsynced sub-bundle.** Glance at `planning/bundles/b{N}-work-map.md` and the last few `development/tickets/done/T*.md` files. If a sub-bundle has closed (all its 🟢 items shipped) but `bundle-themes.md` / `b{N}-work-map.md` has not been touched since, suggest running `pipeline-bundle-resync` before any new scenario writing.
+9. **Registry conformance check (lightweight).** If a `REGISTRY.md` exists at project root, verify three things:
+   - Every `.md` under `product/`, `planning/`, `development/`, `standards/` (and the root `pipeline-process-audit-*.md` audit files), excluding `_attic/`, `housekeeping/`, `web/`, `skills/`, and the R10-reserved root docs (`CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md`, `TRACE.md`), carries YAML front-matter with `purpose` + `layer` + `status`.
+   - Every such doc has a corresponding row in `REGISTRY.md`.
+   - No `REGISTRY.md` row points at a missing file.
+   On failure, surface the specific docs at session start. If `REGISTRY.md` does not exist, skip the check silently (older projects may not have run R09).
+   - **Lightweight = name the gaps, don't gate.** The router is orientation, not enforcement. A failing registry check is a flag, not a stop.
 
 After step 5, route:
 

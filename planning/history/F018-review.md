@@ -1,3 +1,9 @@
+---
+purpose: Architecture and design pre-flight verdict on F018.
+layer: how
+status: reference
+---
+
 # F018 review — Brian declares the Run Club
 
 **Scenario:** [`planning/scenarios-backlog/F018-brian-declares-run-club.md`](../scenarios-backlog/F018-brian-declares-run-club.md)

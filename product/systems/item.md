@@ -1,3 +1,9 @@
+---
+purpose: One kind-varying entity for everything Members declare.
+layer: what
+status: active
+---
+
 # System: Item
 
 **Purpose:** Establish Item as one of the three foundational primitives of Movers, Makers & Shakers — a single, kind-varying entity that represents anything a Person declares: a product, a service, a recurring gathering, a Wonder, an Offer, an Ask, or an Initiative. The Item primitive is what lets the platform's many surfaces share data shape and code while presenting differently. Without it, the platform fragments into per-feature systems that solve the same problem six ways.

@@ -1,3 +1,9 @@
+---
+purpose: Ticket T001 — project init.
+layer: how
+status: reference
+---
+
 # T001: Project Initialization
 
 **Scenario:** N/A (infrastructure)

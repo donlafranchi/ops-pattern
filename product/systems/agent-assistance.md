@@ -1,3 +1,9 @@
+---
+purpose: Delegation + Assistant Context + Skills with five umbrella commitments.
+layer: what
+status: active
+---
+
 # System: Agent Assistance
 
 **Purpose:** Establish agent assistance as a first-class architectural concern, not a bolted-on feature. The platform ships three Member primitives — **Delegation** (scoped, expiring, revocable permission grants), **Assistant Context** (Member-owned context document), **Skills** (versioned, distributable capability bundles) — bound by five umbrella commitments and enforced by the runtime trust substrate ([`action-layer.md`](action-layer.md)). Agent assistance is what lets the platform give community business owners and standing organizers the asymmetric tooling that chains and aggregators monopolize, *without* dissolving the people-first commitment that the platform exists to protect.

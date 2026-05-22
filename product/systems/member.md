@@ -1,3 +1,9 @@
+---
+purpose: Anchor primitive — one row per real human.
+layer: what
+status: active
+---
+
 # System: Member
 
 **Purpose:** Establish Member as the platform's anchor primitive — the record of one real human who declares Items, attaches them to Locations, optionally joins Communities, and accumulates standing presence over time. Every other primitive (Item, Location, Community) and every loop reads from or writes to a Member. This spec defines what a Member is, what is true about a Member at b1 vs. b2 vs. b3, and what data-model commitments must land at b1 so the agent-assistance stack (Operations / Assistant Context / Skills / Delegation), the policy framework, and the federation layer can layer on without retrofit.

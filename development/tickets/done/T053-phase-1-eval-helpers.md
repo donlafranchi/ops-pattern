@@ -1,3 +1,9 @@
+---
+purpose: Ticket T053 — phase 1 eval helpers.
+layer: how
+status: reference
+---
+
 # T053 — Phase 1 eval helpers: provision four introspection RPCs the T045–T050 specs wait on
 
 **Scenario:** None. Direct substrate unblock. Source: `web/evals/phase-1/*.spec.ts` (the Phase 1 verification specs from T045/T047/T048/T049/T050) call four helper RPCs that don't exist in `web/supabase/test-helpers/`, so 11 of 80 tests in `evals/phase-1/` fail with PGRST202 `Could not find the function`. Each failing test's `expect(error, "helper … missing — build adds: …").toBeNull()` annotation includes the exact `CREATE FUNCTION` body the spec author wanted shipped.

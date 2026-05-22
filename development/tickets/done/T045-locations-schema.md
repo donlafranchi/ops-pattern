@@ -1,3 +1,9 @@
+---
+purpose: Ticket T045 — locations schema.
+layer: how
+status: reference
+---
+
 # T045 — Locations spine + 3 children + events (Phase 1 — `007_locations.sql`)
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 1 — Schema floor (Location surface, 008 series in the plan; renumbered to 007 per the Phase 1 dependency reorder)

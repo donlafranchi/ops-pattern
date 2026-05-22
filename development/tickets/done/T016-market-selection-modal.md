@@ -1,3 +1,9 @@
+---
+purpose: Ticket T016 — market selection modal.
+layer: how
+status: reference
+---
+
 # T016: Market Selection Modal
 
 **Scenario:** planning/scenarios/F009-market-selection.md

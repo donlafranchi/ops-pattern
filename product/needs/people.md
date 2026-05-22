@@ -1,3 +1,9 @@
+---
+purpose: Personas the platform serves — one role per section.
+layer: what
+status: draft
+---
+
 # People — who Movers, Makers & Shakers serves
 
 > **Status: DRAFT 2026-05-22.** First synthesis from `use-cases.md` and the b1 scenarios (`F018-brian-declares-run-club.md`, `F025-adaeze-member-public-page.md`). PM to refine — persona set, names, and emphasis not yet ratified. **[PM: confirm]** the persona list, the names, the use-case mapping, and whether any personas should be merged or split.

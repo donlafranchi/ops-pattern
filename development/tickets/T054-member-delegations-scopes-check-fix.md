@@ -1,3 +1,9 @@
+---
+purpose: Ticket T054 — member delegations scopes check fix.
+layer: how
+status: active
+---
+
 # T054 — Fix empty-scopes CHECK on `public.member_delegations` (T050 migration amendment)
 
 **Scenario:** None. Direct schema bug fix on T050. Source: `evals/phase-1/members-agent-assistance.spec.ts:204` — an `insert into member_delegations(member_id, grantee_label, scopes)` with `scopes = []` is expected to be rejected with error code `23514` (CHECK violation); instead the insert succeeds (the spec receives `error?.code === undefined`). T050's intent (per `product/systems/member.md` § Data model implications: delegations carry ≥1 scope) is correct; the implementation predicate is broken.

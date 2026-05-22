@@ -1,3 +1,9 @@
+---
+purpose: Ticket T006 — map search.
+layer: how
+status: reference
+---
+
 # T006: Map Search by Category and Location
 
 **Scenario:** planning/scenarios/F001-map-view-search.md

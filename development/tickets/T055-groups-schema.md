@@ -1,3 +1,9 @@
+---
+purpose: Ticket T055 — groups schema.
+layer: how
+status: active
+---
+
 # T055 — Phase 1: Groups schema (`014_groups.sql`)
 
 **Scenario:** None. Phase 1 substrate — opens against `product/systems/groups.md` + ADR-13 + ADR-10 (event-log invariants) + ADR-7 (action-layer conformance) + ADR-6 (audit fields).

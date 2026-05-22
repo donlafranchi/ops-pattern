@@ -1,3 +1,9 @@
+---
+purpose: Register of unratified absolutes awaiting PM decision.
+layer: how
+status: active
+---
+
 # Pending Ratifications
 
 > **Source:** `agent-commerce-and-project-amendments.md` §0, §7, §10 — the "almost no Never" posture. The single "Never" of the project is extraction-over-circulation. All other absolute language is flagged here for user ratification.

@@ -1,3 +1,9 @@
+---
+purpose: Care-floor surface — Groups looking after shared things together.
+layer: what
+status: draft
+---
+
 > **Relocated 2026-05-19** from `planning/bundles/`. Still bundle-shaped (schema delta +
 > ship-theme framing). Parked here as the canonical home for the stewardship system; needs
 > a rewrite into proper system-spec form. Until then treat the schema and constraints as

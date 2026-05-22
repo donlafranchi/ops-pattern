@@ -1,3 +1,9 @@
+---
+purpose: ADR-4 — locality default is geolocate-then-city-pick, mutable.
+layer: how
+status: active
+---
+
 # ADR-0004: Locality default — geolocate, then city-pick, mutable from any surface
 
 **Status:** Accepted

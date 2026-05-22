@@ -1,3 +1,9 @@
+---
+purpose: Open design question on Offer/Ask reciprocity and goodwill.
+layer: what
+status: reference
+---
+
 # Reciprocity and Goodwill
 
 **Status:** Open design question. Surfaced 2026-05-08 while drafting [`use-cases.md`](../needs/use-cases.md). Not yet a system spec — this doc names the tension, sketches options, and stays out of the way until the question becomes load-bearing for a build.

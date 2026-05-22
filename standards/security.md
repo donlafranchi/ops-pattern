@@ -1,3 +1,9 @@
+---
+purpose: Security standard — placeholder for threat-model and audit.
+layer: how
+status: draft
+---
+
 # Security
 
 > **Stub — created 2026-05-19.** Placeholder for the security standard. To be written:

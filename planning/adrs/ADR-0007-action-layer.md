@@ -1,3 +1,9 @@
+---
+purpose: ADR-7 — action layer is the only write path.
+layer: how
+status: active
+---
+
 # ADR-0007: Action layer is the single canonical write surface
 
 **Status:** Accepted (graduated from cross-cutting to spec-resident 2026-05-11; expanded to include the runtime trust substrate)

@@ -1,3 +1,9 @@
+---
+purpose: Ticket T051 — action layer ci enforcement.
+layer: how
+status: reference
+---
+
 # T051 — Action layer CI enforcement: four structural rules
 
 **Scenario:** None. Direct security hardening on ADR-7 / `product/systems/action-layer.md`. Source: audit conversation 2026-05-12 against the McKinsey/Lily failure mode (22-of-200 endpoints shipped without auth; SQL injection vector). The action-layer spec already commits to these protections in prose; this ticket lands the CI assertions that enforce them.

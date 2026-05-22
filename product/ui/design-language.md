@@ -1,3 +1,9 @@
+---
+purpose: Design tokens, component recipes, CTA patterns.
+layer: what
+status: active
+---
+
 # Main Street DLS
 
 > Neutral chrome + photography + one civic accent. The chrome shuts up so the content speaks.

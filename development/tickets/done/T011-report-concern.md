@@ -1,3 +1,9 @@
+---
+purpose: Ticket T011 — report concern.
+layer: how
+status: reference
+---
+
 # T011: Report a Concern
 
 **Scenario:** planning/scenarios/F005-report-concern.md

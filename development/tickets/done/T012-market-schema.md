@@ -1,3 +1,9 @@
+---
+purpose: Ticket T012 — market schema.
+layer: how
+status: reference
+---
+
 # T012: Market Schema + Seed Data
 
 **Scenario:** planning/scenarios/F009-market-selection.md

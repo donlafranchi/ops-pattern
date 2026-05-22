@@ -1,3 +1,9 @@
+---
+purpose: Defines b1 MVP scope in primitive terms.
+layer: how
+status: active
+---
+
 # MVP Bundle (b1)
 
 **Status:** The first bundle definition. Specifies what ships at b1 in primitive terms (per `primitives.md`), in cluster terms (per `primitives.md`), and in loop terms (per `member-journey.md`). Names what defers, and what data-model commitments are non-negotiable at MVP.

@@ -1,3 +1,9 @@
+---
+purpose: ADR-6 — agent assistance is first-class with three primitives.
+layer: how
+status: active
+---
+
 # ADR-0006: Agent assistance is first-class — three primitives, five commitments
 
 **Status:** Accepted (refined by ADR-9 anti-Nextdoor framing 2026-05-12)

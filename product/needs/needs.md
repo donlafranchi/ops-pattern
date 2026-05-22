@@ -1,3 +1,9 @@
+---
+purpose: Ranked human needs traced to systems, capabilities, and personas.
+layer: what
+status: draft
+---
+
 # Needs — what people come here to do
 
 > **Status: DRAFT 2026-05-22.** First synthesis from `member-journey.md` (the 13 loops), `use-cases.md` (the 12 real situations), `../foundation/principles.md`, and `../foundation/design-philosophy.md`. PM to refine — need set, ranking, and per-need traces not yet ratified. **[PM: confirm]** the need list, the ranking, and the system + capability traces.

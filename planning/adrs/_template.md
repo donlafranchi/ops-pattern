@@ -1,3 +1,9 @@
+---
+purpose: Blank ADR scaffold for new architectural decisions.
+layer: how
+status: reference
+---
+
 # ADR-{NNNN}: {Title}
 
 **Status:** Proposed

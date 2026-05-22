@@ -1,3 +1,9 @@
+---
+purpose: First-visit surface — sign up, log in, browse as guest.
+layer: what
+status: active
+---
+
 # Capability: Landing Page
 
 **Description:** First-time visitors land on a branded page that introduces Movers, Makers & Shakers and offers sign-up, log-in, or guest-browse paths.

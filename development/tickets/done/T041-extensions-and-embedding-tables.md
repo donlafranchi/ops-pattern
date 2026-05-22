@@ -1,3 +1,9 @@
+---
+purpose: Ticket T041 — extensions and embedding tables.
+layer: how
+status: reference
+---
+
 # T041 — Postgres extensions + embedding tables (Phase 0 floor — pgvector, postgis)
 
 **Scenario:** `planning/rebuild-plan.md` § Phase 0 — AI-native floor

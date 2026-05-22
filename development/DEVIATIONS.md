@@ -1,3 +1,9 @@
+---
+purpose: Per-ticket log of implementation-vs-spec drift across the build.
+layer: how
+status: active
+---
+
 # DEVIATIONS.md — Implementation Drift Log
 
 When implementation diverges from spec, log it here with context.

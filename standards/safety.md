@@ -1,3 +1,9 @@
+---
+purpose: Safety standard — placeholder for safety-floor requirements.
+layer: how
+status: draft
+---
+
 # Safety
 
 > **Stub — created 2026-05-19.** Placeholder for the safety standard. To be written:

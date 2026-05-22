@@ -1,3 +1,9 @@
+---
+purpose: The 13 loops Members move through, in five families.
+layer: what
+status: active
+---
+
 # Member Journey
 
 > **Relocated + renamed 2026-05-19** from `foundation/loops.md`. The 13 loops are unchanged

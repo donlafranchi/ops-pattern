@@ -1,3 +1,9 @@
+---
+purpose: Second audit of the agent pipeline (2026-05-22).
+layer: how
+status: historical
+---
+
 # Pipeline Process Audit — 2026-05-22
 
 > Second audit of the agent pipeline, ~2 weeks after [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) (2026-05-09). That audit asked "is the pipeline well-designed?" This one asks three different questions: **did the first audit's fixes hold, where are the handoffs not airtight, and how would we track a concept moving through the pipeline?**

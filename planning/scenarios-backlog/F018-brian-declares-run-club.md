@@ -1,3 +1,9 @@
+---
+purpose: Backlog scenario — Brian declares the Run Club gathering at Drake's.
+layer: how
+status: draft
+---
+
 # F018: Brian declares the Run Club
 
 **Bundle:** b1

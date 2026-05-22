@@ -1,3 +1,9 @@
+---
+purpose: Menu of b1 work tagged core / recommended / defer.
+layer: how
+status: active
+---
+
 # b1 Work Map
 
 **Status:** Drafted 2026-05-18 — pending PM review. Companion to [`bundle-themes.md`](bundle-themes.md) (the sub-bundle sequencer) and [`b1-primitives.md`](b1-primitives.md) (the bundle's scope definition).

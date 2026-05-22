@@ -1,3 +1,9 @@
+---
+purpose: Twelve real situations the platform exists to dissolve.
+layer: what
+status: active
+---
+
 # Use Cases
 
 > **Relocated + renamed 2026-05-19** from `foundation/canonical-examples.md`. The 12 real
