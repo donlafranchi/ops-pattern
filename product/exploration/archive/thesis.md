@@ -1,4 +1,4 @@
-# Thesis: Why Main Street Market Exists
+# Thesis: Why Movers, Makers & Shakers Exists
 
 ## The Problem
 
@@ -24,7 +24,7 @@ Not by rejecting markets — by making them actually competitive again. The free
 - Farmers can't reach the suburban families who would happily buy from them if they knew they existed
 - Nobody can see who owns the brand on the shelf or where the money goes
 
-Main Street Market fixes the information gap. Show people what's local, who grows it, and what the alternative is. Let them decide.
+Movers, Makers & Shakers fixes the information gap. Show people what's local, who grows it, and what the alternative is. Let them decide.
 
 ## Why Food First
 
@@ -47,4 +47,4 @@ Food first. Local business second. The platform that starts by connecting you to
 
 This is not a progressive project. This is not anti-business. This is **pro-competition, pro-free-market, and pro-American.**
 
-The argument is simple: you should be able to see who you're buying from, where your money goes, and what your alternatives are. That's how markets are supposed to work. When a handful of corporations control the food supply and a handful of PE firms buy up Main Street, that's not capitalism — that's a rigged market. Main Street Market unrigs it by making the invisible visible.
+The argument is simple: you should be able to see who you're buying from, where your money goes, and what your alternatives are. That's how markets are supposed to work. When a handful of corporations control the food supply and a handful of PE firms buy up Main Street, that's not capitalism — that's a rigged market. Movers, Makers & Shakers unrigs it by making the invisible visible.

@@ -11,7 +11,7 @@ As a host, I want to highlight the special touches I provide (local coffee, beac
 - Structured amenity categories: essentials, kitchen, outdoor, entertainment, transportation, local touches
 - Custom freeform amenities with descriptions ("Bikes: Two beach cruisers in the garage, helmets included")
 - Visual grid with icons on listing page
-- Cross-link to Main Street Market business listings ("Coffee from [Local Roaster]" → MSM listing)
+- Cross-link to Movers, Makers & Shakers business listings ("Coffee from [Local Roaster]" → MSM listing)
 - Search/filter by specific amenities
 - Top 3 amenities shown on search result cards
 - "What makes this place special" host-written section

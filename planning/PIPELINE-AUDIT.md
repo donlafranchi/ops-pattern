@@ -116,7 +116,7 @@ Last update 2026-04-25. Points to a bundle file that has since been archived. Th
 
 ### F10 🟢 No root `BUILD-LOG.md` symlink
 
-Global scaffold spec: `mainstreetmarket/BUILD-LOG.md → web/BUILD-LOG.md`. Missing. Trivial fix.
+Global scaffold spec: `movers-makers-shakers/BUILD-LOG.md → web/BUILD-LOG.md`. Missing. Trivial fix.
 
 **Fix:** `ln -s web/BUILD-LOG.md BUILD-LOG.md` from project root.
 
@@ -144,7 +144,7 @@ JOURNAL flags `./skills/install.sh` as still pending. The project-resident `pipe
 
 **Why both failure modes look like the agent doing its job.** An agent over-fitting on literal wording is *being faithful to the spec*. An agent reconstructing intent is *being thoughtful about why the spec exists*. Neither failure mode triggers a "this is wrong" signal in the agent's own self-assessment. The check that catches both is external: every load-bearing decision should carry its **why** alongside its **what**, and every gate's runner should read the *why* before judging the *what*. When the *why* isn't written down, the gate's runner has nothing to anchor against and falls into one of the two modes by default.
 
-**The discipline this finding adds.** Both failure modes are caught by the same convention: **co-locate `why` with `what` on every load-bearing decision.** This is the single rule the `Intent:` annotation pattern enforces (per the [archived intent audit](archive/intent-audit-2026-05-12.md); live discipline in the `pipeline-intent-check` / `pipeline-clarify-absolutes` / `pipeline-review-absolute` skills). The same rule should apply to:
+**The discipline this finding adds.** Both failure modes are caught by the same convention: **co-locate `why` with `what` on every load-bearing decision.** This is the single rule the `Intent:` annotation pattern enforces (per the [archived intent audit](archive/intent-audit-2026-05-12.md); live discipline in the `pipeline-intent-check` and `pipeline-ratify-absolute` skills). The same rule should apply to:
 
 - **Scenarios** — every Given/When/Then should carry a *why this clause exists* note for any non-obvious assertion. The eval-writer reads the *why* to write a test that verifies the design intent, not the literal phrasing.
 - **Tickets** — acceptance criteria should carry the design-intent rationale, not just the surface assertion. The build agent reads the *why* to choose the right implementation when multiple satisfy the literal criterion.

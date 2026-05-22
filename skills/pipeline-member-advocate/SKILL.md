@@ -1,6 +1,6 @@
 ---
 name: pipeline-member-advocate
-description: Produce a short bullet (1-2 sentences) advocating for Member interests on a given absolute / spec decision. Recognizes two tension shapes — (a) Member-vs-platform (what one Member loses if the platform errs toward platform-interest) and (b) one-Member-vs-many-Members (what individual Members lose if the platform protects the broader community at their expense, AND what the broader Member community loses if the platform protects the individual at the community's expense). Member-side of the dialectic with pipeline-platform-advocate; PM adjudicates. Use when pipeline-clarify-absolutes detects member-shaped tension on a statement, or when the PM says "what's the Member view on this", "what does the Member lose here", "advocate for the Member on F###", or "run the dialectic on this statement". Reads people-first.md, policy-framework.md, foundational-principles.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet(s) into a 150–250 word position paper on PM request.
+description: Produce a short bullet (1-2 sentences) advocating for Member interests on a given absolute / spec decision. Recognizes two tension shapes — (a) Member-vs-platform (what one Member loses if the platform errs toward platform-interest) and (b) one-Member-vs-many-Members (what individual Members lose if the platform protects the broader community at their expense, AND what the broader Member community loses if the platform protects the individual at the community's expense). Member-side of the dialectic with pipeline-platform-advocate; PM adjudicates. Use when pipeline-ratify-absolute detects member-shaped tension on a statement, or when the PM says "what's the Member view on this", "what does the Member lose here", "advocate for the Member on F###", or "run the dialectic on this statement". Reads people-first.md, policy-framework.md, foundational-principles.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet(s) into a 150–250 word position paper on PM request.
 ---
 
 # pipeline-member-advocate
@@ -17,7 +17,7 @@ This skill is intentionally lightweight. Its job is to surface tension fast, not
 
 ## When to use
 
-- `pipeline-clarify-absolutes` detects member-vs-platform tension on a statement and invokes the dialectic.
+- `pipeline-ratify-absolute` detects member-vs-platform tension on a statement and invokes the dialectic.
 - PM says: "what's the Member view on X" / "what does the Member lose here" / "advocate for the Member on this one" / "run the dialectic on F###."
 - Reviewing a spec decision where Member interests and platform interests pull in different directions — data collection, visibility defaults, moderation severity, monetization shape, agent permissions.
 
@@ -95,4 +95,4 @@ Always paired with `pipeline-platform-advocate`. Both produce a bullet; PM reads
 
 ## Hand off
 
-Output is consumed by `pipeline-clarify-absolutes` (which presents both bullets to the PM as the clarifying material) or directly by the PM. No file writes by default.
+Output is consumed by `pipeline-ratify-absolute` (which presents both bullets to the PM as the clarifying material) or directly by the PM. No file writes by default.

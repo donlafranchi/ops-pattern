@@ -1,6 +1,14 @@
 ---
 name: pipeline-clarify-absolutes
-description: Walk the PM through every absolute-language statement (Never / won't / doesn't / cannot / will not / refuses / no X / deliberately no / always / must / categorically) in a target spec, ADR, or planning doc, and land a `Why:` / `Intent:` annotation (plus bullet revision when the original wording is misleading) on each. Use when the user says "clarify the absolutes in {file}", "review every never-statement", "go over the won't statements in X", "audit the absolutes in {ADR/spec}", "every absolute needs intent", "let's review the never/won't/doesn't statements". Conversational — walks one statement at a time; PM ratifies each; skill lands the change before moving to the next. Refuses to batch-process; refuses to land without ratification. Reads the target file plus related foundation/system specs and recent JOURNAL entries; writes directly to the target file after PM ratifies each statement.
+description: DEPRECATED 2026-05-19 — folded into `pipeline-ratify-absolute`. Do not invoke. The walk discipline (per-statement, no batch, PM ratifies each) is preserved in the successor skill; the decision-rule application from the prior `pipeline-review-absolute` is also folded in. See `pipeline-ratify-absolute/SKILL.md`.
+---
+
+# pipeline-clarify-absolutes — DEPRECATED
+
+**Folded into [`pipeline-ratify-absolute`](../pipeline-ratify-absolute/SKILL.md) on 2026-05-19.** The successor skill preserves the per-statement walk, advocate invocation on Member-shaped tension, and PM ratification contract — plus the lexicographic decision rule from the retired `pipeline-review-absolute`. Use `pipeline-ratify-absolute` instead.
+
+Original SKILL contents preserved below for git history; do not act on them.
+
 ---
 
 # pipeline-clarify-absolutes

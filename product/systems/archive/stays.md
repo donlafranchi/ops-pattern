@@ -66,7 +66,7 @@
 
 ### Local Recommendations
 - Host-curated list of local businesses, restaurants, activities
-- Links to Main Street Market listings where available
+- Links to Movers, Makers & Shakers listings where available
 - "This host recommends 5 independent businesses" as a listing signal
 
 ### Community Impact Score

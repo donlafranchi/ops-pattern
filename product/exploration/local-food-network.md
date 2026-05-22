@@ -44,7 +44,7 @@ The platform becomes infrastructure for local food economies:
 - Health-conscious consumers are a massive and growing market
 - Farmers need this more than any other small business category — they're underserved by tech
 - "Know your farmer" is culturally resonant across political lines
-- Pairs naturally with the Main Street Market mission — same values, different category
+- Pairs naturally with the Movers, Makers & Shakers mission — same values, different category
 
 ## Why This Should Be b2
 

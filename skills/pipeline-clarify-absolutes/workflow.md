@@ -1,4 +1,12 @@
-# pipeline-clarify-absolutes — workflow
+# pipeline-clarify-absolutes — workflow (DEPRECATED 2026-05-19)
+
+> Folded into [`pipeline-ratify-absolute`](../pipeline-ratify-absolute/workflow.md). The successor workflow preserves the per-statement walk, advocate invocation, and PM ratification contract, plus the lexicographic decision rule from the retired `pipeline-review-absolute`, plus a skip-if-ratified precondition the original lacked. Use the successor.
+
+Original workflow preserved below for git history; do not act on it.
+
+---
+
+# pipeline-clarify-absolutes — workflow (original)
 
 ## Cheat sheet
 

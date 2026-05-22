@@ -1,8 +1,8 @@
-# Main Street Market — Founding Scenarios (Food Pivot)
+# Movers, Makers & Shakers — Founding Scenarios (Food Pivot)
 
 ## Product Context
 
-Main Street Market is pivoting from a general local-business map to a **food-first platform** that connects consumers with local farmers, ranchers, and their food. The product helps people understand where their food comes from, who grows it, and why it matters — then makes it easy to buy directly from those producers.
+Movers, Makers & Shakers is pivoting from a general local-business map to a **food-first platform** that connects consumers with local farmers, ranchers, and their food. The product helps people understand where their food comes from, who grows it, and why it matters — then makes it easy to buy directly from those producers.
 
 The platform replaces the DIY (Do It Yourself) mindset with **DIT — Do It Together** — fostering community-based action around food: group buys, shared CSA pickups, neighborhood food co-ops, and collective support of local agriculture.
 
@@ -27,7 +27,7 @@ The platform replaces the DIY (Do It Yourself) mindset with **DIT — Do It Toge
 
 Sarah is a working mom in a mid-sized city. She's been seeing TikTok videos about ultra-processed food, how most grocery store brands are owned by the same few corporations, and how the food supply chain prioritizes shelf life over nutrition. She's alarmed but overwhelmed. She doesn't know what to actually *do* about it. She doesn't have time to research every brand, drive to three different stores, or become a homesteader.
 
-A friend shares a link from Main Street Market. Sarah opens it and sees a map of farms and ranches near her — closer than she expected. She taps on one: "Meadow Creek Farm. Family-owned since 1987. 45 minutes from you. Pasture-raised eggs, seasonal vegetables, grass-fed beef." There's a short TikTok video the farmer posted showing the morning egg collection. It feels real. Below the video is a simple breakdown: what's available this week, pickup locations, and pricing.
+A friend shares a link from Movers, Makers & Shakers. Sarah opens it and sees a map of farms and ranches near her — closer than she expected. She taps on one: "Meadow Creek Farm. Family-owned since 1987. 45 minutes from you. Pasture-raised eggs, seasonal vegetables, grass-fed beef." There's a short TikTok video the farmer posted showing the morning egg collection. It feels real. Below the video is a simple breakdown: what's available this week, pickup locations, and pricing.
 
 Sarah notices a section called "Know Your Brands" — she scans a barcode on her pantry pasta sauce. The app shows her: the brand is owned by a multinational conglomerate, the tomatoes are sourced from industrial farms in three countries, and the sauce contains seven additives. Right below that, the app suggests a local alternative: a small-batch sauce made by a family operation 60 miles away, available through a nearby pickup point. The ingredients are tomatoes, olive oil, garlic, basil, salt.
 
@@ -78,7 +78,7 @@ Sarah went from anxious and overwhelmed to making one small change — without g
 
 Jim runs a 200-acre cattle and vegetable operation outside a growing metro area. He's third generation on this land. He sells grass-fed beef and seasonal produce. His customers love him — the problem is he doesn't have enough of them. He does a farmers market on Saturdays, runs a small CSA with 30 members, and sells some beef by the quarter and half to families who find him through word of mouth. He's on Instagram but posts inconsistently. He made a TikTok once showing a calf being born and it got 40,000 views, but he has no idea how to turn that into sales.
 
-Jim's wife hears about Main Street Market from a farming Facebook group. Jim is skeptical — he's been burned by platforms that promise exposure and deliver nothing, or that take a cut he can't afford. He looks at the sign-up flow: name, location, what he produces, a short bio in his own words, and an optional link to his TikTok or Instagram. No subscription fee to list. It takes him eight minutes on his phone, sitting in his truck after the morning feed.
+Jim's wife hears about Movers, Makers & Shakers from a farming Facebook group. Jim is skeptical — he's been burned by platforms that promise exposure and deliver nothing, or that take a cut he can't afford. He looks at the sign-up flow: name, location, what he produces, a short bio in his own words, and an optional link to his TikTok or Instagram. No subscription fee to list. It takes him eight minutes on his phone, sitting in his truck after the morning feed.
 
 His profile goes live. It shows his farm on the map with a pin. He writes: "Third-generation ranch. Grass-fed beef, no hormones, no feedlot. Seasonal vegetables grown in the same dirt my grandfather planted in." The app pulls in his TikTok video of the calf — it shows up right on his profile. He adds his current availability: quarter beef boxes, eggs by the dozen, and a summer vegetable box starting in June.
 
@@ -86,7 +86,7 @@ He sets up two pickup options: on-farm pickup on Fridays, and a shared drop poin
 
 Within two weeks, Jim gets four new customers he's never met. Two are from a suburb 30 miles away — they'd been looking for local beef and didn't know he existed. One found him by scanning a grocery store steak package and seeing "feedlot, corporate processor, shipped 1,200 miles" — then tapping the "find local alternative" button. The fourth customer is organizing a DIT group buy in her neighborhood and wants to order a whole beef, split eight ways. Jim's never sold a whole beef to a single group before. It's his most profitable single transaction of the year.
 
-Jim starts posting to TikTok more — a 30-second video of moving cattle to fresh pasture, a time-lapse of tomatoes growing. Every video auto-pulls into his Main Street Market profile. He doesn't have to cross-post or manage another platform. He notices that the app shows him simple stats: how many people viewed his profile, what products they clicked on most, and which zip codes his viewers came from. He didn't ask for analytics but it helps him decide where to add another pickup point.
+Jim starts posting to TikTok more — a 30-second video of moving cattle to fresh pasture, a time-lapse of tomatoes growing. Every video auto-pulls into his Movers, Makers & Shakers profile. He doesn't have to cross-post or manage another platform. He notices that the app shows him simple stats: how many people viewed his profile, what products they clicked on most, and which zip codes his viewers came from. He didn't ask for analytics but it helps him decide where to add another pickup point.
 
 A content creator who covers regenerative agriculture reaches out through the platform to feature Jim's ranch in a video. Jim agrees. The creator's video embeds on Jim's profile alongside his own content. Jim gains twelve new customers that month.
 

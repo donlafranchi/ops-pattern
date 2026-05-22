@@ -1,4 +1,4 @@
-# Main Street Market — Foundational Principles
+# Movers, Makers & Shakers — Foundational Principles
 
 **A grading rubric for every decision on this project.**
 

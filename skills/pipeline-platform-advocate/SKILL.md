@@ -1,6 +1,6 @@
 ---
 name: pipeline-platform-advocate
-description: Produce a short bullet (1-2 sentences) on what the platform — including its financial durability — loses if a given absolute / spec decision errs toward member-protection at the cost of platform utility or sustainability. Platform-side of the dialectic with pipeline-member-advocate; PM adjudicates. Use when pipeline-clarify-absolutes detects member-vs-platform tension on a statement, or when the PM says "what's the platform view on this", "what does the platform need here", "advocate for the platform on F###", or "run the dialectic on this statement". Reads foundational-principles.md (Parts on monetization + agent-native), people-first.md, policy-framework.md, payments.md, producer-growth.md, business-jurisdiction.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet into a 150–250 word position paper on PM request.
+description: Produce a short bullet (1-2 sentences) on what the platform — including its financial durability — loses if a given absolute / spec decision errs toward member-protection at the cost of platform utility or sustainability. Platform-side of the dialectic with pipeline-member-advocate; PM adjudicates. Use when pipeline-ratify-absolute detects member-vs-platform tension on a statement, or when the PM says "what's the platform view on this", "what does the platform need here", "advocate for the platform on F###", or "run the dialectic on this statement". Reads foundational-principles.md (Parts on monetization + agent-native), people-first.md, policy-framework.md, payments.md, producer-growth.md, business-jurisdiction.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet into a 150–250 word position paper on PM request.
 ---
 
 # pipeline-platform-advocate
@@ -13,7 +13,7 @@ This skill is intentionally lightweight. Default output is one short bullet. Exp
 
 ## When to use
 
-- `pipeline-clarify-absolutes` detects member-vs-platform tension on a statement and invokes the dialectic.
+- `pipeline-ratify-absolute` detects member-vs-platform tension on a statement and invokes the dialectic.
 - PM says: "what's the platform view on X" / "what does the platform need here" / "advocate for the platform on this one" / "run the dialectic on F###."
 - Reviewing a spec decision where platform utility / sustainability pulls against Member protection — data collection, signal availability, monetization shape, federation infrastructure, agent permissions.
 
@@ -63,4 +63,4 @@ Always paired with `pipeline-member-advocate`. Both produce a bullet; PM reads b
 
 ## Hand off
 
-Output is consumed by `pipeline-clarify-absolutes` (which presents both bullets to the PM as the clarifying material) or directly by the PM. No file writes by default.
+Output is consumed by `pipeline-ratify-absolute` (which presents both bullets to the PM as the clarifying material) or directly by the PM. No file writes by default.

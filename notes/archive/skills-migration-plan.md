@@ -113,7 +113,7 @@ For each skill in this order — `pipeline-plan`, `pipeline-build`, `pipeline-pr
 
 - [ ] 6 skills exist under `skills/` and are symlinked into `~/.claude/skills/`.
 - [ ] Every skill triggers on its target phrases without manual `Read` of any CLAUDE.md.
-- [ ] Skills contain zero references to "Main Street", "mainstreetmarket", or specific feature names.
+- [ ] Skills contain zero references to "Main Street", "movers-makers-shakers", or specific feature names.
 - [ ] Project root has exactly one `CLAUDE.md` (under 60 lines).
 - [ ] `product/CLAUDE.md`, `planning/CLAUDE.md`, `development/CLAUDE.md` are deleted.
 - [ ] `web/CLAUDE.md` contains only tech-stack + commands (no pipeline process).

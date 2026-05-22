@@ -11,7 +11,7 @@ These are not personas. They are test cases. The Run Club exists. Ferrari Fisher
 ## How to use this document
 
 - **Designing a feature?** Find the example(s) the feature would help. If you can't find one, you are designing for a hypothetical user.
-- **Scoping a release?** Map the bundle's scenarios back to these examples. A release that doesn't move at least two of them is the wrong release.
+- **Scoping a release?** Map the bundle's scenarios back to these examples. Every release must move at least one example meaningfully. Some releases go wide; some go deep — depth over breadth when forced to choose. A release that cannot point at one example it makes meaningfully better is the wrong release. (Revised 2026-05-18 from the earlier "at least two examples" rule, which under-rewarded depth and over-rewarded surface coverage.)
 - **Triaging a backlog item?** "Which canonical example does this serve?" is a sharper version of "what loop does this serve?"
 - **Stuck on a system spec?** Walk one example through the system end to end. Whatever breaks is the work.
 

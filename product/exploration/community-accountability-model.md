@@ -4,7 +4,7 @@
 
 The Better Business Bureau had the right idea and the wrong execution. It rates businesses on how they handle complaints — but it's funded by business memberships, so it's toothless. Businesses pay for accreditation. Consumers don't trust it.
 
-Main Street Market can be what the BBB should have been: a community-powered accountability system where the data comes from real people, not from businesses paying for a badge.
+Movers, Makers & Shakers can be what the BBB should have been: a community-powered accountability system where the data comes from real people, not from businesses paying for a badge.
 
 ## The Four Pillars
 
@@ -92,7 +92,7 @@ Questionable ◄─────────────────────�
 
 Someone sees a TikTok of a business mistreating elephants.
 
-1. They open the business on Main Street Market
+1. They open the business on Movers, Makers & Shakers
 2. Tap "Report a concern"
 3. Select 🌍 Planet
 4. Write: "Business documented on video mistreating elephants in their care. Viral video from [date]."

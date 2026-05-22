@@ -15,7 +15,7 @@
 
 ### Then
 - The user sees:
-  - App title "Main Street Market"
+  - App title "Movers, Makers & Shakers"
   - A one-line value proposition
   - A "Sign Up" button (primary)
   - A "Log In" button (secondary)

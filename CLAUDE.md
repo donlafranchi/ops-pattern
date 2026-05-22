@@ -1,4 +1,4 @@
-# Main Street Market
+# Movers, Makers & Shakers
 
 > Solo founder. Re-architecture in flight. Process lives in skills, not nested CLAUDE.md files.
 > First time in this repo? Read this file end-to-end, then [`product/MAP.md`](product/MAP.md) (100k-foot architecture map — one sentence per system), then [`AGENTS.md`](AGENTS.md), then [`JOURNAL.md`](JOURNAL.md).
@@ -7,7 +7,7 @@
 
 - **What it is:** A coordination layer for collective action in a place. People declare things — products, services, gatherings, ideas — at locations. Other people respond. Farmers markets are the wedge; the platform is broader. **People-first, not business-first.** See [`product/foundation/people-first.md`](product/foundation/people-first.md).
 - **Stack:** Next.js (App Router), TypeScript, Tailwind v4 (`@theme inline` tokens), Supabase (Postgres + Auth + Realtime), Mapbox GL JS, Playwright (evals), Vitest (unit), Vercel.
-- **Repo structure:** Two-repo. Parent `mainstreetmarket/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
+- **Repo structure:** Two-repo. Parent `movers-makers-shakers/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
 - **App path:** `./web`
 - **Active bundle:** [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) (Primitives MVP).
 - **Active rebuild:** [`notes/migration-to-primitives.md`](notes/migration-to-primitives.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
@@ -70,27 +70,30 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 
 Pipeline-skills triggers (project-resident, in [`skills/`](skills/)). Match the user's intent to the trigger; invoke the matching skill.
 
-| User says / intent | Skill | Stage |
-|---|---|---|
-| "what's the state of this project", "where are we", session start | `pipeline-router` | 0 |
-| "explore X", "write a system for Y", "what would Z look like" | `pipeline-product` | 1 |
-| "write scenarios for F###", "approve scenarios", "user story for…" | `pipeline-plan` | 2 |
-| "review F###", "architecture check", "design review F###" | `pipeline-review` | 2.5 |
-| "write evals for F###", "Playwright spec for F###" | `pipeline-eval` (write) | 3 |
-| "audit the absolutes F### would encode", "before tickets, review the absolutes", "is this absolute earned at ticket-time", "decide or defer the absolute before code" | `pipeline-review-absolute` | 3.5 |
-| "write tickets for F###", "break F### into tickets" | `pipeline-ticket` | 4 |
-| "implement T###", "TDD this", "build T###" | `pipeline-build` | 5 |
-| "run evals for F###", "verify F### passes" | `pipeline-eval` (run) | 6 |
-| "scaffold a new project" | `pipeline-scaffold` | — |
-| "prune the journal", "DECISIONS.md is heavy", "what should we memorialize", "rotate the journal" | `pipeline-prune` | meta |
-| "resync the work map", "what's drifted since last sub-bundle", "is `b1-work-map.md` still right", "what changed after T###", "scope sync", "did the menu shift" | `pipeline-bundle-resync` | meta |
-| "intent check on F###/system X/ADR-N", "audit Intent annotations", "scan DECISIONS for intent gaps" | `pipeline-intent-check` | meta |
-| "write an ADR for X", "record this decision", "ratify ADR-N", "supersede ADR-M", "what's the next ADR number" | `pipeline-adr` | meta |
-| "clarify the absolutes in {file}", "review every never-statement", "every absolute needs intent", "go over the won't/doesn't statements" | `pipeline-clarify-absolutes` | meta |
-| "review this absolute", "should this be an absolute", "audit our absolutes", "is this earned", "decide or defer on X", "review F### intents" | `pipeline-review-absolute` | meta / 3.5 (ticket-time) |
-| "what's the Member view on this", "advocate for the Member", "what does the Member lose here" | `pipeline-member-advocate` | meta |
-| "what's the platform view on this", "advocate for the platform", "what does the platform need here", "run the dialectic" | `pipeline-platform-advocate` | meta |
-| "I want this to improve itself", "design a self-improvement loop", "Karpathy loop / meta-agent harness", "this should keep getting better on its own" | `loop-designer` | meta |
+**Tool legend (read [`skills/README.md`](skills/README.md) § "Where to run these" for the longer version):**
+- **CC** — Claude Code. Auto-discovers project-local skills; has shell + git without lock-file friction. The only sane home for `pipeline-build` and `pipeline-eval` (run mode).
+- **CW** — Cowork. Does NOT auto-load project-local skills, so invoke its bundled `anthropic-skills:*` equivalents or paste the workflow inline. Best for markdown-heavy spec work where MCP connectors, doc/sheet/deck generation, web research, and scheduled tasks pull their weight.
+- **Both** — markdown-only; pick by surrounding tooling preference.
+
+| User says / intent | Skill | Stage | Tool |
+|---|---|---|---|
+| "what's the state of this project", "where are we", session start | `pipeline-router` | 0 | Both |
+| "explore X", "write a system for Y", "what would Z look like" | `pipeline-product` | 1 | CW |
+| "write scenarios for F###", "approve scenarios", "user story for…" | `pipeline-plan` | 2 | CW |
+| "review F###", "architecture check", "design review F###" | `pipeline-review` | 2.5 | Both |
+| "write evals for F###", "Playwright spec for F###" | `pipeline-eval` (write) | 3 | **CC** |
+| "write tickets for F###", "break F### into tickets" | `pipeline-ticket` | 4 | Both |
+| "implement T###", "TDD this", "build T###" | `pipeline-build` | 5 | **CC** |
+| "run evals for F###", "verify F### passes" | `pipeline-eval` (run) | 6 | **CC** |
+| "scaffold a new project" | `pipeline-scaffold` | — | CC |
+| "prune the journal", "DECISIONS.md is heavy", "what should we memorialize", "rotate the journal" | `pipeline-prune` | meta | CW |
+| "resync the work map", "what's drifted since last sub-bundle", "is `b1-work-map.md` still right", "what changed after T###", "scope sync", "did the menu shift" | `pipeline-bundle-resync` | meta | CW |
+| "intent check on F###/system X/ADR-N", "audit Intent annotations", "scan DECISIONS for intent gaps" | `pipeline-intent-check` | meta | CW |
+| "write an ADR for X", "record this decision", "ratify ADR-N", "supersede ADR-M", "what's the next ADR number" | `pipeline-adr` | meta | Both |
+| "ratify the absolutes in {file}", "review every never-statement", "audit our absolutes", "is this earned", "decide or defer on X", "every absolute needs Intent", "review F### intents" | `pipeline-ratify-absolute` | meta / gate-time | Both |
+| "what's the Member view on this", "advocate for the Member", "what does the Member lose here" | `pipeline-member-advocate` | meta | CW |
+| "what's the platform view on this", "advocate for the platform", "what does the platform need here", "run the dialectic" | `pipeline-platform-advocate` | meta | CW |
+| "I want this to improve itself", "design a self-improvement loop", "Karpathy loop / meta-agent harness", "this should keep getting better on its own" | `loop-designer` | meta | CW |
 
 Full per-skill firewalls and read/write permissions: [`AGENTS.md`](AGENTS.md).
 
@@ -139,9 +142,12 @@ Active until Phase 4 of [`notes/migration-to-primitives.md`](notes/migration-to-
 6. **`DEVIATIONS.md` entry MANDATORY** at the close of every ticket — even a one-line "no deviations." Empty is no longer the default.
 7. **No backlog reads.** `pipeline-build` cannot read `planning/scenarios-backlog/`. If a ticket references a scenario that is still in backlog, **stop and move the file first**. The firewall is load-bearing.
 8. **English-only b1.** i18n deferred to b2 entry criterion.
-9. **`pipeline-intent-check` MANDATORY** before any new ADR lands in `planning/DECISIONS.md` and before `pipeline-plan` ratifies a scenario whose system-spec changes introduced new statements matching Categories 1–8 from [`intent-audit.md`](planning/archive/intent-audit-2026-05-12.md) (archived; live discipline lives in the skills). Verdict CLEAN proceeds; PROPOSE proceeds with PM landing the lines; BLOCK pauses the pipeline until the load-bearing rationale lands; ESCALATE routes Category-2 candidates to `pipeline-clarify-absolutes` for interactive ratification. The audit's eight categories are the bounded surface — the check does not hunt rationale outside them.
-10. **Every Category-2 absolute lands with PM-ratified Intent.** Per `intent-audit.md`'s revised addendum (2026-05-12, archived at [`planning/archive/intent-audit-2026-05-12.md`](planning/archive/intent-audit-2026-05-12.md)), there is no purely-categorical refusal in this project — every "Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no" carries a *why*, and that *why* is what a downstream agent needs to reason correctly when the literal wording doesn't cover the case. `pipeline-clarify-absolutes` is the interactive skill that walks the PM through each absolute and lands the bullet revision (when needed) + `Intent:` annotation.
-11. **`pipeline-review-absolute` MANDATORY at ticket-time** when the scenario for which tickets are about to be written encodes one or more Category-2 absolutes in code (schema constraints, RLS policies, action-handler refusals, UI affordance removals). `pipeline-ticket` pauses, lists the absolutes the tickets will encode, and invokes `pipeline-review-absolute` per absolute. Verdicts: Ratify → tickets proceed; Revise → bullet text + Intent revised in the source spec first, then tickets; Defer → ticket(s) that encode the absolute are removed from the slice with a trigger logged in `planning/DEFERRED.md`; Reject → the scenario returns to `pipeline-plan`. Rationale: the cheapest place to catch an unearned absolute is *before* code encodes it, not at spec-authoring time when the cost is still notional. The absolute is real when a ticket is about to write the constraint that enforces it.
+9. **`pipeline-intent-check` MANDATORY** before any new ADR lands in `planning/DECISIONS.md` and before `pipeline-plan` ratifies a scenario whose system-spec changes introduced new statements matching Categories 1–8 from [`intent-audit.md`](planning/archive/intent-audit-2026-05-12.md) (archived; live discipline lives in the skills). Verdict CLEAN proceeds; PROPOSE proceeds with PM landing the lines; BLOCK pauses the pipeline until the load-bearing rationale lands; ESCALATE routes Category-2 candidates to `pipeline-ratify-absolute` for interactive ratification. The audit's eight categories are the bounded surface — the check does not hunt rationale outside them.
+10. **Every absolute carries a State tag.** There is no purely-categorical refusal in this project — every "Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no" carries a State-tagged `Intent` line co-located with the bullet. The tag is one of `(Ratified YYYY-MM-DD)` or `(Deferred until {trigger}; review by {horizon})`. Absence of the tag means **unratified de-facto** and blocks downstream pipeline. `pipeline-ratify-absolute` is the single skill that walks the PM through unratified absolutes, invokes the member + platform advocates on Member-shaped tension, applies the lexicographic decision rule (Gate 1: platform survival → maximize net member benefit), and lands the State-tagged Intent line.
+11. **Two gates enforce rule 10, both before code.**
+    - **Gate A — `pipeline-plan`.** A scenario cannot move from `scenarios-backlog/` to `scenarios/` if the spec sections it cites contain unratified absolutes the scenario would encode. PM runs `pipeline-ratify-absolute` on those absolutes first; then plan approves.
+    - **Gate B — `pipeline-ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes. `pipeline-ticket` stops, surfaces the unratified statements, and routes to `pipeline-ratify-absolute`. After ratification, ticketing resumes.
+    - By the time tickets reach the build agent, every absolute the code will encode already carries a Ratified or Deferred State tag with PM-approved Intent. The cheapest place to catch an unearned absolute is before code encodes it.
 
 ---
 

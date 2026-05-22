@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human judgment document — architecture</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f1ea;
+    --rule: #c9bfae;
+    --accent: #8b3a2f;
+    --muted: #6b6358;
+    --layer1: #3d2f0f;
+    --layer2: #6e5826;
+    --layer3: #a8895a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    padding: 2rem 1.25rem 3rem;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  h1 {
+    font-size: 1.9rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .deck {
+    font-size: 1rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  h2 {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Three layers stack */
+  .layers {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .layer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1.1rem 1.25rem;
+    border-left: 6px solid var(--layer1);
+    background: rgba(255,255,255,0.4);
+  }
+  @media (min-width: 720px) {
+    .layer {
+      grid-template-columns: 160px 1fr 180px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+  }
+  .layer.l1 { border-left-color: var(--layer1); }
+  .layer.l2 { border-left-color: var(--layer2); }
+  .layer.l3 { border-left-color: var(--layer3); }
+
+  .layer .meta .name {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+  }
+  .layer .meta .title-line {
+    font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .layer .body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .layer .tempo {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .layer .tempo strong {
+    display: block;
+    font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin-top: 0.2rem;
+  }
+
+  /* Loop */
+  .loop {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    counter-reset: step;
+  }
+  @media (min-width: 720px) {
+    .loop { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+  }
+  .step {
+    counter-increment: step;
+    position: relative;
+    padding: 1rem 1rem 1rem 3rem;
+    background: rgba(255,255,255,0.4);
+    border-top: 3px solid var(--accent);
+  }
+  .step::before {
+    content: counter(step);
+    position: absolute;
+    left: 0.9rem;
+    top: 0.9rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .step .head {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .step .name {
+    font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .step .body {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+
+  /* Worked example */
+  .example {
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.55);
+    border: 1px solid var(--rule);
+  }
+  .example .topic {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .example h3 {
+    font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+  .ex-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .ex-row:last-child { border-bottom: none; }
+  @media (min-width: 720px) {
+    .ex-row {
+      grid-template-columns: 130px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+  }
+  .ex-row .label {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 600;
+    padding-top: 0.15rem;
+  }
+  .ex-row .content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .ex-row .content em {
+    font-style: italic;
+    color: var(--muted);
+  }
+  .ex-row.case .content {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    background: rgba(0,0,0,0.04);
+    padding: 0.5rem 0.7rem;
+    border-left: 3px solid var(--layer3);
+  }
+
+  .footnote {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .footnote strong {
+    font-style: normal;
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">System design · Human judgment document</div>
+  <h1>Statute &amp; precedent — for one human</h1>
+  <p class="deck">Three layers that change at different rates, refined by a four-step loop. Same shape as common law: principles up top, cases at the bottom, with promotion in between.</p>
+
+  <h2>The three layers</h2>
+  <div class="layers">
+
+    <div class="layer l1">
+      <div class="meta">
+        <div class="name">Layer 1</div>
+        <div class="title-line">Intent</div>
+      </div>
+      <div class="body">
+        One paragraph per topic answering <em>"what is this domain for, and what would I never trade away?"</em> The non-negotiables and the spirit. Written in your voice, not in rules.
+      </div>
+      <div class="tempo">
+        Tempo
+        <strong>Rarely changes. Years.</strong>
+      </div>
+    </div>
+
+    <div class="layer l2">
+      <div class="meta">
+        <div class="name">Layer 2</div>
+        <div class="title-line">In &amp; out of bounds</div>
+      </div>
+      <div class="body">
+        Explicit defaults — and just as explicit out-of-bounds. The negative space is load-bearing: without it the agent can't tell <em>"covered, decide alone"</em> from <em>"gap, escalate."</em>
+      </div>
+      <div class="tempo">
+        Tempo
+        <strong>Slow. Months.</strong>
+      </div>
+    </div>
+
+    <div class="layer l3">
+      <div class="meta">
+        <div class="name">Layer 3</div>
+        <div class="title-line">Casebook</div>
+      </div>
+      <div class="body">
+        Specific judgments rendered, dated, with one-line rationale. The agent logs every decision it makes; you log every escalation you answer. When N cases on one topic show a pattern, promote the pattern up to Layer 2.
+      </div>
+      <div class="tempo">
+        Tempo
+        <strong>Grows constantly.</strong>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>The refinement loop</h2>
+  <div class="loop">
+
+    <div class="step">
+      <div class="head">Encounter</div>
+      <div class="name">Identify topic</div>
+      <div class="body">Agent classifies the situation against the topic manifest. Loads only that topic's three layers.</div>
+    </div>
+
+    <div class="step">
+      <div class="head">Apply</div>
+      <div class="name">Try layers 1–2</div>
+      <div class="body">If bounds cover it, agent decides and logs as a case in Layer 3. No escalation. You don't see it.</div>
+    </div>
+
+    <div class="step">
+      <div class="head">Escalate (only if gap)</div>
+      <div class="name">Gap diagnosis</div>
+      <div class="body">If bounds don't cover it, agent surfaces: topic, closest existing case, what's different now, recommendation. Not "what should I do" — "here's what isn't covered."</div>
+    </div>
+
+    <div class="step">
+      <div class="head">Refine</div>
+      <div class="name">Promote or just log</div>
+      <div class="body">Your answer becomes a new case. You signal: just log it, or promote to Layer 2 as a new default or boundary. The doc grows from the gap.</div>
+    </div>
+
+  </div>
+
+  <h2>Worked example — one topic, fully populated</h2>
+  <div class="example">
+    <div class="topic">Topic file · vendor-and-cost.md</div>
+    <h3>Vendor selection &amp; recurring spend</h3>
+
+    <div class="ex-row">
+      <div class="label">Layer 1 — Intent</div>
+      <div class="content">Predictable cost structure beats marginal cost optimization. Operational simplicity beats vendor diversity. I'll pay a premium for managed services until the bill itself becomes a forcing function for change.</div>
+    </div>
+
+    <div class="ex-row">
+      <div class="label">Layer 2 — In bounds</div>
+      <div class="content">Managed services under $X/mo: agent picks based on integration fit and documentation quality. Open-source alternatives for foundational infra. Sole-source vendor lock-in acceptable for non-foundational tooling.</div>
+    </div>
+
+    <div class="ex-row">
+      <div class="label">Layer 2 — Out of bounds</div>
+      <div class="content">Anything that requires me to read a contract over $Y/year. Vendors without a clear exit path on customer data. Tools that route my workflow through a closed agentic system I can't inspect.</div>
+    </div>
+
+    <div class="ex-row case">
+      <div class="label">Case · 2026-03-14</div>
+      <div class="content">Picked Voyage AI embeddings over self-hosted sentence-transformers. Rationale: managed beat marginal-cost-savings; ~$12/mo at current volume.</div>
+    </div>
+
+    <div class="ex-row case">
+      <div class="label">Case · 2026-04-02</div>
+      <div class="content">Escalated FWS Platinum extended warranty cancel/keep — out of bounds (recurring spend, exit-path question). Don ruled: cancel. Promote? No — too specific.</div>
+    </div>
+
+    <div class="ex-row case">
+      <div class="label">Case · 2026-05-10</div>
+      <div class="content">Escalated: candidate vendor uses closed agent framework. Don ruled: out of bounds. Promote? <strong>Yes — added to Layer 2 out-of-bounds above.</strong></div>
+    </div>
+
+  </div>
+
+  <div class="footnote">
+    <strong>Read this design as:</strong> the doc isn't written upfront — it's grown from use. Start with one-line intents per topic and let cases accumulate. The agent's logging is the substrate; your judgment on what promotes is the editorial work. Over time, escalations get rarer because the bounds get sharper.
+  </div>
+
+</div>
+</body>
+</html>

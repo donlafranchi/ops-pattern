@@ -1,4 +1,4 @@
-# Main Street Market — Foundational Principles
+# Movers, Makers & Shakers — Foundational Principles
 
 > **Status:** Foundational constitution. The P1–P8 first principles + the Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline that every proposal grades against. Read alongside [`community-design-philosophy.md`](community-design-philosophy.md) — the *structured measuring stick* — and the implementation-level commitments in [`people-first.md`](people-first.md), [`policy-framework.md`](policy-framework.md), [`platform-promise.md`](platform-promise.md), [`loops.md`](loops.md), and [`primitives.md`](primitives.md). When this document and `community-design-philosophy.md` conflict, prefer `community-design-philosophy.md` for the *what good looks like*; this document is the *binary pass/fail filter*. When this document and a system spec conflict on a structural mechanism, the system spec wins on the mechanism but the failure must still survive this document's tests.
 

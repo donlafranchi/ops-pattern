@@ -2,7 +2,7 @@
 
 ## The Model
 
-Main Street Market is a **local food marketplace** — not a social network, not a review site, not a map app. The closest analogues are Etsy and Bandcamp: producer-owned storefronts arranged for consumer browsing, with the platform providing discovery and structure but never inserting itself into the relationship.
+Movers, Makers & Shakers is a **local food marketplace** — not a social network, not a review site, not a map app. The closest analogues are Etsy and Bandcamp: producer-owned storefronts arranged for consumer browsing, with the platform providing discovery and structure but never inserting itself into the relationship.
 
 The key difference: everything is **local and seasonal.** The content changes with the calendar, the weather, and what's in the ground. The app feels alive because local food *is* alive — it has rhythms that the platform surfaces rather than manufactures.
 

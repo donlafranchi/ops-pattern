@@ -222,7 +222,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 ## Meta. Member / Platform Dialectic (Adversarial reasoning for tension-shaped decisions)
 
-> Paired skills invoked by `pipeline-clarify-absolutes` when an absolute touches member-vs-platform tension surfaces (data collection / privacy, visibility defaults, monetization shape, agent permissions, moderation severity, signal availability). The PM adjudicates.
+> Paired skills invoked by `pipeline-ratify-absolute` when an absolute touches member-vs-platform tension surfaces (data collection / privacy, visibility defaults, monetization shape, agent permissions, moderation severity, signal availability). The PM adjudicates.
 
 **Skills:** `pipeline-member-advocate` + `pipeline-platform-advocate`
 **Model:** Claude Opus (cross-spec read, adversarial framing)
@@ -238,102 +238,73 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 - For platform-advocate also: `product/systems/payments.md`, `producer-growth.md`, `business-jurisdiction.md`
 - For member-advocate also: relevant scenario(s) or canonical examples that involve the surface at stake
 
-**Writes:** nothing by default. Output is consumed inline by `pipeline-clarify-absolutes` (or directly by the PM).
+**Writes:** nothing by default. Output is consumed inline by `pipeline-ratify-absolute` (or directly by the PM).
 
 **When to invoke:**
-- `pipeline-clarify-absolutes` detects tension (per its 3c-bis check) and calls both advocates as sub-skills.
+- `pipeline-ratify-absolute` detects Member-shaped tension on a statement and calls both advocates as sub-skills.
 - PM says "run the dialectic on this statement" / "what's the Member view" / "what's the platform view."
 
 **The contract.** Always invoked together — never one without the other. The PM reads both bullets, adjudicates, optionally requests expansion on one or both sides before deciding.
 
 ---
 
-## 3.5. Review Absolute (Ticket-time pre-flight on encoded absolutes)
+## Meta. Ratify Absolute (Single adjudicator for unratified absolutes)
 
-> **MANDATORY during the primitives rebuild** when a scenario about to be ticketed encodes one or more Category-2 absolutes in code (schema constraint, RLS policy, action-handler refusal, UI affordance removal, hard architectural floor). Fires *between* approved scenario and ticket-writing — the cheapest place to catch an unearned absolute is before code encodes it. The PM still adjudicates; the skill structures the adjudication.
+> **MANDATORY during the primitives rebuild** at two gates and out-of-band on every absolute-language statement ("Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no") in any foundation doc, system spec, or ADR. There is no purely-categorical refusal in this project — every absolute carries a State-tagged `Intent` line co-located with the bullet, or it blocks downstream pipeline. This skill is the single adjudicator that lands the State tag.
 
-**Skill:** `pipeline-review-absolute`
-**Model:** Claude Opus (cross-spec read, rule application, careful framing of deferral triggers)
-**Calls in:** `pipeline-member-advocate` and `pipeline-platform-advocate` (always both — never short-circuits one). Optionally `pipeline-clarify-absolutes` downstream when the recommended outcome is Revise and the wording change needs PM-ratified Intent before tickets land.
+**Skill:** `pipeline-ratify-absolute` (folds in and replaces both `pipeline-clarify-absolutes` and `pipeline-review-absolute`, retired 2026-05-19)
+**Model:** Claude Opus (cross-spec read, rule application, careful PM ratification)
+**Calls in:** `pipeline-member-advocate` and `pipeline-platform-advocate` (always both — never short-circuits one) on every statement with Member-shaped tension.
 
-**Reads:**
-- `skills/pipeline-member-advocate/SKILL.md`
-- `skills/pipeline-platform-advocate/SKILL.md`
-- The approved scenario at `planning/scenarios/F###-*.md` and any `planning/reviews/F###-review.md`
-- The system spec(s) that define each absolute the scenario will encode
-- `product/foundation/*.md` (especially `people-first.md`, `policy-framework.md`, `foundational-principles.md`)
-- [`planning/archive/intent-audit-2026-05-12.md`](planning/archive/intent-audit-2026-05-12.md) (archived — historical reference for the Category-2 surface and the Intent-annotation pattern; live discipline lives in the clarify-absolutes and intent-check skills)
-- `planning/DECISIONS.md` (when an ADR is the absolute's source of truth)
+**The State marker.** Co-located with every absolute, exactly one line encodes its state:
 
-**Writes (default):** nothing. Output is the inline review record consumed by the PM. Ticket-writing waits on the PM's adjudication.
+| Line in spec | State |
+|---|---|
+| No `Intent:` line | **Unratified de-facto** — blocks Gates A and B |
+| `Intent: {why}` (no parenthetical tag) | **Drafted, not yet adjudicated** — blocks Gates A and B |
+| `Intent (Ratified YYYY-MM-DD): {why}` | **Terminal-ratified** — downstream relies on the Intent |
+| `Intent (Deferred until {trigger}; review by {horizon}): {interim posture}` | **Terminal-deferred** — current default until trigger fires |
 
-**Writes (on explicit PM request only):**
-- `planning/DECISIONS.md` — when ratifying / revising / superseding the absolute creates a cross-cutting decision
-- The target spec's **Policy posture** or **Decisions encoded here** section — when the absolute is single-system scope and the wording changes
-- `planning/DEFERRED.md` — when the outcome is Defer; entry indexed by trigger so re-entry is automatic when the trigger fires
-
-**Does NOT Read:**
-- `web/` (code) — the absolute is being judged before code, not against it
-- `development/tickets/` or `development/tickets/done/`
-- `planning/scenarios-backlog/` (backlog firewall; the build agent's rule applies here too)
-
-**Does NOT Write:**
-- `web/` (code)
-- `planning/scenarios-backlog/` or `planning/scenarios/` (cannot reshape scenarios; that's `pipeline-plan`'s job — escalate if Reject)
-- `development/tickets/` (cannot produce tickets; that's `pipeline-ticket`'s job, which is paused while this skill runs)
-- The target spec's substantive prose (only the explicit policy/decisions section on explicit PM request)
-
-**Task:** When `pipeline-ticket` is about to write tickets for an approved scenario, scan the scenario + the system specs it references for Category-2 absolutes that will be encoded in code. For each, confirm tension shape (Member-vs-platform | One-vs-many | None), invoke both advocates, apply Gate 1 (platform survival — hard fail blocks ratify and blocks defer), apply maximization (net member benefit with neither lens taking significant harm), recommend one of four outcomes (Ratify | Revise | Defer | Reject). Deferral requires an observable, specific, bounded trigger.
-
-**Outcome → ticket-writing consequence:**
-- **Ratify** → tickets proceed as planned; the absolute lands in code.
-- **Revise** → return to the system spec; revise the bullet + Intent; then resume ticket-writing on the new wording. `pipeline-clarify-absolutes` may be invoked for PM-ratified Intent landing.
-- **Defer** → drop the ticket(s) that would encode the absolute from the slice; log the trigger in `planning/DEFERRED.md`; remaining tickets in the scenario continue.
-- **Reject** → return the scenario to `pipeline-plan` for revision; ticket-writing does not proceed on this scenario.
-
-**When to invoke:**
-- `pipeline-ticket` pauses at the start of breaking down an approved scenario and scans for Category-2 absolutes the tickets will encode. For each, it invokes `pipeline-review-absolute` before writing any ticket that encodes it.
-- PM says "audit the absolutes F### would encode" / "before tickets, review the absolutes" / "is this absolute earned at ticket-time" / "decide or defer the absolute before code."
-- Out-of-band: the PM picks a single ticket-in-flight and asks to re-verify the absolute it encodes before merging.
-
-**Hard constraints:**
-- No scalar scores — surface tension texture, not numbers
-- No deferral without an observable trigger — refuse and force the trigger conversation
-- No Gate-1 deferral — survival-failing absolutes must be revised or rejected, never deferred
-- Never short-circuit by skipping an advocate — both bullets must exist before the rule applies
-- The PM adjudicates the outcome before any ticket lands — the skill recommends, never decides
-- Override always available — the PM can override any step with cause logged
-
----
-
-## Meta. Clarify Absolutes (Interactive PM clarifier)
-
-> **MANDATORY during the primitives rebuild** on every Category-2 absolute (refusal / negation / "deliberately no X" / "we never" / "always" / "must" / "won't") in any foundation doc, system spec, or ADR — at the point the absolute is written or when `pipeline-intent-check` flags it. There is no purely-categorical refusal in this project per the [archived intent audit's](planning/archive/intent-audit-2026-05-12.md) revised addendum (2026-05-12); every absolute lands with PM-ratified Intent. (The audit is archived; the principle now lives in this skill.)
-
-**Skill:** `pipeline-clarify-absolutes`
-**Model:** Claude Opus (cross-spec read, careful PM ratification)
+Rejected absolutes are deleted from the spec; the JOURNAL entry records the removal.
 
 **Reads:**
 - The target file (foundation doc / system spec / ADR / planning doc)
-- [`planning/archive/intent-audit-2026-05-12.md`](planning/archive/intent-audit-2026-05-12.md) (archived; Category 2 in particular — the live framing lives in this skill)
+- `product/foundation/*.md` (especially `people-first.md`, `policy-framework.md`, `foundational-principles.md`)
 - Related foundation/system docs for cross-spec context
-- Recent JOURNAL entries (≤30 days) for related ratifications
+- Recent `JOURNAL.md` entries (≤30 days) for related ratifications
+- [`planning/archive/intent-audit-2026-05-12.md`](planning/archive/intent-audit-2026-05-12.md) (archived; Category 2 in particular — the live framing lives in this skill)
+- `planning/DECISIONS.md` when an ADR is the absolute's source of truth
 
 **Writes:**
-- The target file directly: bullet text revisions (when original wording was misleading) and `Intent:` annotations (always)
-- One `JOURNAL.md` entry per session summarizing what was clarified
+- The target file directly: bullet text revisions (only when original wording is misleading or fails Gate 1) + `Intent (State YYYY-MM-DD): {why}` annotations (always, on every ratified statement)
+- For Rejected outcomes: removes the bullet entirely
+- One `JOURNAL.md` entry per session summarizing what was ratified / deferred / rejected, with `file:line` pointers
 
 **Does NOT Read or Write:**
-- `web/` (code)
-- `development/tickets/`
-- Scenarios, evals, BUILD-LOG.md
+- `web/` (code) — the absolute is being judged before code, not against it
+- `development/tickets/` — ticketing is paused while this skill runs
+- `planning/scenarios/` or `planning/scenarios-backlog/` — cannot reshape scenarios
 
-**Task:** Walk the PM through each absolute interactively, one statement at a time. Ask 1–2 free-form context questions per statement, propose a revision (bullet text if needed + Intent), ratify via AskUserQuestion, land directly to the source file. Refuses to batch-process; refuses to land without per-statement ratification.
+**Task:** Walk the PM through each unratified absolute, one statement at a time. Detect tension shape (Member-vs-platform | One-Member-vs-many-Members | None). On Member-shaped tension, invoke both advocates and surface their bullets. Apply the lexicographic decision rule — **Gate 1** (platform survival — hard fail blocks Ratify and blocks Defer) then **Maximization** (net member benefit with neither lens taking significant unrecoverable harm). Recommend one outcome (Ratify | Revise | Defer | Reject). Deferral requires observable + specific + bounded trigger and review horizon. Ratify via AskUserQuestion per statement; land the State-tagged Intent directly to the source file.
+
+**The two gates this skill backstops:**
+- **Gate A — `pipeline-plan`.** A scenario cannot move from `scenarios-backlog/` to `scenarios/` if the spec sections it cites contain unratified absolutes the scenario would encode. PM runs this skill on those absolutes first; then plan approves.
+- **Gate B — `pipeline-ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes. `pipeline-ticket` stops, surfaces the unratified statements, and routes to this skill.
 
 **When to invoke:**
-- PM says "clarify the absolutes in {file}" / "review every never-statement" / "every absolute needs intent."
-- `pipeline-intent-check`'s ESCALATE verdict flagged Category-2 candidates.
-- A new ADR or system spec contains absolute-language refusals and is about to be ratified — clarify before merging.
+- Gate A or Gate B fails — invoked by the gate caller
+- PM says "ratify the absolutes in {file}" / "review every never-statement" / "audit our absolutes" / "is this earned" / "decide or defer on X" / "every absolute needs Intent"
+- `pipeline-intent-check`'s ESCALATE verdict flagged Category-2 candidates
+- A new ADR or system spec contains absolute-language refusals and is about to be merged — ratify before merging
+
+**Hard constraints:**
+- **Skip-if-ratified.** Statements already carrying `Intent (Ratified ...)` or `Intent (Deferred ...)` are skipped; surface count to PM at start
+- **No batch landing.** Per-statement walk only; PM ratifies each before moving to the next
+- **No scalar scores.** Surface tension texture, not numbers
+- **No deferral without observable trigger + bounded review horizon.** "Decide later" is a punt
+- **No Gate-1 deferral.** Survival-failing absolutes must be Revised or Rejected, never Deferred
+- **Never short-circuit an advocate.** Both bullets must exist before the rule applies, on every Member-shaped tension
+- **PM adjudicates.** Skill recommends; PM ratifies. Override permitted with cause logged.
 
 ---
 
@@ -360,6 +331,43 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 **Task:** Verify that statements matching the eight Category shapes (per the [archived intent audit](planning/archive/intent-audit-2026-05-12.md), encoded in this skill's workflow §2) carry substantive `Intent:` annotations. Verdicts: **CLEAN** (zero misses), **PROPOSE** (PM lands the proposed lines, pipeline proceeds), **BLOCK** (load-bearing rationale missing on a refusal / schema-level commitment / cross-doc commitment whose local scope is unclear; pipeline pauses).
 
 **When to invoke:** any new ADR, any new system spec, any foundation-doc change that introduces a refusal / numeric threshold / naming split / tier deferral / cross-doc commitment. Out-of-band; does not run during an open pipeline phase.
+
+---
+
+## Meta. Bundle Resync (Closed loop between build reality and the roadmap)
+
+> **Recommended at every sub-bundle close** and **mandatory** after any DEVIATIONS.md entry that names a work-map item. The map is allowed to be wrong; pretending it isn't is the failure mode.
+
+**Skill:** `pipeline-bundle-resync`
+**Model:** Claude Sonnet (audit + propose; conservative on structural edits)
+
+**Reads:**
+- `web/BUILD-LOG.md`
+- `development/tickets/done/` (the just-closed sub-bundle's tickets)
+- `development/DEVIATIONS.md`
+- `JOURNAL.md` (last 4 weeks)
+- `planning/scenarios/F*.md` (active sub-bundle only)
+- `planning/bundles/{active}.md`, `planning/bundles/bundle-themes.md`, `planning/bundles/b{N}-work-map.md`
+- `planning/DECISIONS.md` (header status only — does not edit)
+
+**Writes:**
+- `planning/bundles/bundle-themes.md` (re-tag / re-sequence)
+- `planning/bundles/b{N}-work-map.md` (re-tag / add proposed entries)
+- One `JOURNAL.md` entry per run
+
+**Does NOT Read or Write:**
+- `product/` — the resync never invents scope.
+- `web/` (code) beyond `BUILD-LOG.md`.
+- Scenarios or tickets — those flow back through `pipeline-plan` / `pipeline-ticket` if the resync produces an EXPAND.
+
+**Task:** Compare the work the just-closed sub-bundle was predicted to ship (per `b{N}-work-map.md`) to what actually shipped (per BUILD-LOG, done-tickets, DEVIATIONS). Diagnose drift as RE-TAG, RE-SEQUENCE, EXPAND, or ESCALATE. Apply non-structural edits directly; route structural drift to `pipeline-adr` / `pipeline-product` / `pipeline-plan`. CLEAN is a common and correct verdict.
+
+**Verdicts:** CLEAN | RE-TAG | RE-SEQUENCE | EXPAND | ESCALATE.
+
+**When to invoke:**
+- At every sub-bundle close (PM-initiated).
+- Mandatory after any DEVIATIONS.md entry referencing a work-map item.
+- PM says "resync the work map" / "what's drifted" / "did anything shift after T###" / "scope sync" / "did the menu change."
 
 ---
 

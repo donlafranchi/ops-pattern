@@ -1,6 +1,6 @@
 # Capability: Local Recommendations
 
-**Description:** Hosts curate a list of local businesses, restaurants, and activities — linked to Main Street Market listings where possible.
+**Description:** Hosts curate a list of local businesses, restaurants, and activities — linked to Movers, Makers & Shakers listings where possible.
 
 **Bundles:** b2
 
@@ -10,7 +10,7 @@ As a traveler, I want my host's personal recommendations for local spots, so I e
 **Scope:**
 - Host-curated list of recommendations (restaurants, coffee, activities, services)
 - Each recommendation: name, why the host recommends it, category
-- Cross-link to Main Street Market listing if the business is registered
+- Cross-link to Movers, Makers & Shakers listing if the business is registered
 - "This host recommends N independent businesses" signal on listing
 - Travelers can browse recommendations before booking
 
@@ -20,5 +20,5 @@ As a traveler, I want my host's personal recommendations for local spots, so I e
 
 **Related Capabilities:**
 - Amenity Showcase
-- Main Street Market integration
+- Movers, Makers & Shakers integration
 - Community Impact Score

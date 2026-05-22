@@ -1,6 +1,8 @@
 # F{NNN}: {Persona} {does the thing}
 
 **Bundle:** b1 / b2 / b3
+**Sub-bundle:** b{N}.{M} (e.g. `b1.3`) — must match a sub-bundle in `planning/bundles/bundle-themes.md`. Scenarios outside the active sub-bundle stay in `scenarios-backlog/`.
+**Work-map item:** {The 🟢 / 🟡 line from `b{N}-work-map.md` this scenario realizes — e.g. "b1.3 → 🟢 Gathering composer"}
 **Loops:** {Loop number(s) from product/foundation/loops.md}
 **Canonical example:** {name + link to product/foundation/canonical-examples.md#section}
 **Primitive shape:** {Person → Item(kind=…) → Location(…), per product/foundation/primitives.md}

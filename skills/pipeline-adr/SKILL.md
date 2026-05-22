@@ -54,15 +54,14 @@ See [`workflow.md`](workflow.md).
 
 **Next skill (intent gap detected):** `pipeline-intent-check` — already wired into this skill's workflow; if it surfaces missing Intent annotations, PM lands them before the Accepted flip.
 
-**Next skill (architectural concern surfaced during drafting):** `pipeline-review-absolute` if the ADR is encoding a Category-2 absolute (a "never / always / no X / must" claim); `pipeline-product` if the ADR requires extending a system spec first.
+**Next skill (architectural concern surfaced during drafting):** `pipeline-ratify-absolute` if the ADR is encoding a Category-2 absolute (a "never / always / no X / must" claim); `pipeline-product` if the ADR requires extending a system spec first.
 
 **On supersession:** the old ADR stays in `planning/adrs/` with Status: Superseded and a `Superseded by: ADR-M` header line. The file does not move to archive — the Status banner is the indicator.
 
 ## Related skills
 
 - `pipeline-intent-check` — gates ADR ratification; runs automatically per workflow.
-- `pipeline-review-absolute` — invoked when the ADR encodes a Category-2 absolute (interactive ratification of the *why*).
-- `pipeline-clarify-absolutes` — invoked when the ADR's bullets include absolute statements lacking Intent annotation.
+- `pipeline-ratify-absolute` — invoked when the ADR encodes a Category-2 absolute or its bullets include unratified absolute statements; walks each interactively, applies the lexicographic decision rule, lands the State-tagged Intent.
 - `pipeline-product` — invoked when the ADR can't be ratified without extending a system spec first.
 - `pipeline-prune` — quarterly retro of every ADR; flags ones that need supersession or promotion.
 - `pipeline-router` — orient before invoking; ensure no open phase is in flight that would conflict with an ADR landing.

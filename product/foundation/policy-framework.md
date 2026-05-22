@@ -4,7 +4,7 @@
 
 ## What this document does
 
-This is the framework every Main Street Market policy — written or proposed — passes through before it becomes an enforced behavior in the platform. It is not a list of policies; it is the test the policies have to pass and the posture they have to start from.
+This is the framework every Movers, Makers & Shakers policy — written or proposed — passes through before it becomes an enforced behavior in the platform. It is not a list of policies; it is the test the policies have to pass and the posture they have to start from.
 
 The document exists because the architecture is wide enough to invite well-meaning over-strictness on one side ("never share anything, ever, with anyone") and well-meaning under-strictness on the other ("aggregate it all, the platform needs the data"). Neither serves Members. The framework is the middle path: protective defaults, Member-controlled opt-in, and a three-question test that every relaxation must survive.
 

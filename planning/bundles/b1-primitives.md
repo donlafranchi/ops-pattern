@@ -2,6 +2,8 @@
 
 **Status:** The first bundle definition. Specifies what ships at b1 in primitive terms (per `primitives.md`), in cluster terms (per `primitives.md`), and in loop terms (per `loops.md`). Names what defers, and what data-model commitments are non-negotiable at MVP.
 
+**Companions:** [`bundle-themes.md`](bundle-themes.md) sequences b1 into seven sub-bundles (`b1.0`–`b1.6`, plus cross-cutting `b1.x`). [`b1-work-map.md`](b1-work-map.md) lists the menu of work per sub-bundle, tagged 🟢 / 🟡 / ⚪. Read all three to scope an F### scenario.
+
 **Depends on:** `loops.md`, `primitives.md`, `member.md` (T1), `groups.md` (T1 — supersedes `community.md` / `member-operations.md` / `cooperative.md` per the 2026-05-10 Groups ratification), `item.md` (T1), `service-provider.md` (T1), `location.md` (T1), `initiatives.md` (schema-reserved at b1).
 
 ## What this document does
@@ -116,19 +118,9 @@ Every system spec referenced names its own data-model floor. Across all of them 
 
 ## Suggested build sequence
 
-The cluster framing makes the build order legible:
+Sequencing lives in [`bundle-themes.md`](bundle-themes.md) — b1 ships in seven sub-bundles (`b1.x` URL namespacing → `b1.0` through `b1.6`), each 1–2 weeks. The menu of work per sub-bundle, tagged 🟢 / 🟡 / ⚪ for scope decisions, lives in [`b1-work-map.md`](b1-work-map.md). The planner reads both before writing the next F### scenario.
 
-1. **Member T1.** Auth, profile, privacy. Foundational actor exists first.
-2. **Location T1.** Locations must exist before Items can attach.
-3. **Item T1 — kinds product, service, gathering.** The standing-presence cluster: Item page, creation flow, locality attachment, response storage.
-4. **Cluster 3 — locality-first index.** Browse across Items / Persons / Locations.
-5. **Item T1 — kind wonder.** The Cluster 2 verb: includes "I'd be in" response storage.
-6. **Item-level QR card affordance.** Any Member can request a QR card for any of their Items via `item.qr_card.request`; the card encodes the Item's URL. Canonical first instance is the Seller at a farmers-market booth, but the affordance is not gated to vendor booths or any Location kind. Per `qr-onboarding.md`.
-7. **Thesis page.** Static content, linked from every page.
-8. **Service Provider T1, Saved primitive.** Layered onto Item kind=service.
-9. **Community T1 (lightweight).** Schema, create / join / leave, page at `/c/[slug]`, index at `/c`, soft-membership inference from follows and attendance, geographic suggestion at onboarding. **Communities are not auto-created** — none exist until a Member starts one. Posting, stewardship rotation, fund linkage all defer.
-
-Steps 1–7 are non-negotiable. Steps 8–9 are b1-required but lower priority within the bundle.
+The previous primitive-order build sequence (Member → Location → Item → index → Wonder → QR → thesis → Service Provider → Community) is superseded by the sub-bundle sequence as of 2026-05-18. The primitive ordering survives inside individual sub-bundles where it still matters — e.g. b1.0 builds Member before locality-default works, b1.4 builds the product/service Items before the locality-first index queries them.
 
 ## Open questions to resolve before build
 

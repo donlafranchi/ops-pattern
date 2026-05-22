@@ -87,7 +87,7 @@ This is the list of platform policies and features that actively protect local c
 
 7. **Revenue transparency (T3).** Aggregate data (not individual) published quarterly: how much rental income stayed in the community, how many hosts are local residents, average nights booked. Keeps the platform accountable.
 
-8. **Local business integration.** Amenity showcase can link to Main Street Market businesses. "Coffee from [Local Roaster]" links to their MSM listing. Rentals become a channel for local business discovery.
+8. **Local business integration.** Amenity showcase can link to Movers, Makers & Shakers businesses. "Coffee from [Local Roaster]" links to their MSM listing. Rentals become a channel for local business discovery.
 
 9. **No algorithmic pricing pressure.** The platform does not suggest prices, run dynamic pricing, or penalize hosts for pricing "too high." Hosts set their own price. No race to the bottom.
 
@@ -110,7 +110,7 @@ This is the list of platform policies and features that actively protect local c
 - How do we verify single-unit claims? Property records lookup? Honor system with spot checks?
 - Should we charge hosts a flat listing fee (no percentage) to align incentives?
 - How do we handle vacation homes (owner lives there part-time, rents part-time)?
-- ~~What's the right relationship between Main Street Stays and the Main Street Market map?~~ **RESOLVED: Same app, shared platform core, separate vertical. See `product/products/platform.md`.**
+- ~~What's the right relationship between Main Street Stays and the Movers, Makers & Shakers map?~~ **RESOLVED: Same app, shared platform core, separate vertical. See `product/products/platform.md`.**
 - How do we handle markets where Airbnb is deeply entrenched? Do we need a supply-first or demand-first launch strategy?
 
 ## Changelog

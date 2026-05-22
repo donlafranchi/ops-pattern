@@ -60,7 +60,7 @@ Per rebuild-phase rule #9, every new ADR is intent-checked before merging. The c
 - Verdict **CLEAN** → proceed to step 6.
 - Verdict **PROPOSE** → PM lands the proposed Intent lines in the draft, then re-run intent-check.
 - Verdict **BLOCK** → load-bearing decision shipped without rationale. Pause; PM clarifies; re-run.
-- Verdict **ESCALATE** → invoke `pipeline-clarify-absolutes` for interactive ratification (Category-2 candidates).
+- Verdict **ESCALATE** → invoke `pipeline-ratify-absolute` for interactive ratification (Category-2 candidates).
 
 Do not flip Status to Accepted until the verdict is CLEAN.
 

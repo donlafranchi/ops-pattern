@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install Main Street Market pipeline skills globally.
+# Install Movers, Makers & Shakers pipeline skills globally.
 #
 # Default:  symlinks each skills/pipeline-* directory into ~/.claude/skills/
 #           so they auto-trigger on intent in any Claude Code session.

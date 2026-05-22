@@ -5,7 +5,7 @@
 
 ## Context
 
-Main Street Market is pivoting from a general local-business ownership transparency platform to a **food-first platform** connecting consumers with local farmers, ranchers, and their food. The `food-pivot-scenarios.md` file defines two founding scenarios (Consumer Sarah, Farmer Jim) with ~20 new capabilities that replace the current general-business vision. This is a clean restart on product definition while preserving compatible infrastructure (map, auth, tech stack).
+Movers, Makers & Shakers is pivoting from a general local-business ownership transparency platform to a **food-first platform** connecting consumers with local farmers, ranchers, and their food. The `food-pivot-scenarios.md` file defines two founding scenarios (Consumer Sarah, Farmer Jim) with ~20 new capabilities that replace the current general-business vision. This is a clean restart on product definition while preserving compatible infrastructure (map, auth, tech stack).
 
 ## What Changes
 

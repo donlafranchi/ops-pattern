@@ -1,4 +1,4 @@
-# Community Design Philosophy — Main Street Market
+# Community Design Philosophy — Movers, Makers & Shakers
 
 > **Status:** Foundational measuring stick. The structured rubric used to evaluate every platform decision. When this document and another foundation doc conflict on a principle, this wins; when this document and a system spec conflict on a structural mechanism (schema, action handler, anti-Nextdoor surface rule), the system spec wins — that's where the platform's *how* lives. Read alongside [`loops.md`](loops.md) (the 13 loops this document scores), [`people-first.md`](people-first.md) (the schema-level commitments), [`policy-framework.md`](policy-framework.md) (the three filters + anti-Nextdoor commitments), [`platform-promise.md`](platform-promise.md) (the public-facing commitments), and [`foundational-principles.md`](foundational-principles.md) (the P1–P8 constitution + Decision Test). Scoped to the platform's *what we are building toward*; the linked docs encode the *what we have refused at the schema and policy layer*.
 

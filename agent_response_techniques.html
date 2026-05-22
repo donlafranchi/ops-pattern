@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reducing the Don-bottleneck — four moves</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f1ea;
+    --rule: #c9bfae;
+    --accent: #8b3a2f;
+    --muted: #6b6358;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    padding: 2rem 1.25rem 3rem;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  .eyebrow {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  h1 {
+    font-size: 1.9rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .deck {
+    font-size: 1rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .matrix {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 1rem;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-bottom: 1px solid var(--rule);
+    padding: 1.25rem 0;
+  }
+  @media (min-width: 720px) {
+    .row {
+      grid-template-columns: 200px 1fr 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+  }
+  .row.header {
+    border-bottom: 1px solid var(--ink);
+    padding: 0.6rem 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .row.header > div { padding: 0; }
+  @media (max-width: 719px) {
+    .row.header { display: none; }
+  }
+
+  .technique {
+    font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+  }
+  .technique .rank {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+  .technique .name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+  .technique .gloss {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .cell {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+  .cell .label {
+    display: block;
+    font-family: 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0.6rem 0 0.15rem;
+  }
+  @media (min-width: 720px) {
+    .cell .label { display: none; }
+  }
+
+  .pill {
+    display: inline-block;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    font-weight: 600;
+    margin-right: 0.4rem;
+  }
+  .pill.low    { background: #e8e3d6; color: #5a5040; }
+  .pill.medium { background: #d9c9a8; color: #6e5826; }
+  .pill.high   { background: #c4a574; color: #3d2f0f; }
+  .pill.huge   { background: #8b3a2f; color: #f5f1ea; }
+
+  .footer {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .footer strong {
+    font-style: normal;
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Decision matrix · Build-agent prompt additions</div>
+  <h1>Four moves to shrink the 30-minute read</h1>
+  <p class="deck">Ranked by leverage. Not mutually exclusive — additive. The matrix shows where each move pays back.</p>
+
+  <div class="matrix">
+
+    <div class="row header">
+      <div>Move</div>
+      <div>Setup effort</div>
+      <div>Decision-events eliminated</div>
+      <div>Risk if agent gets it wrong</div>
+    </div>
+
+    <div class="row">
+      <div class="technique">
+        <div class="rank">01 · Highest leverage</div>
+        <div class="name">Triage upstream</div>
+        <div class="gloss">Agent classifies every choice before surfacing it.</div>
+      </div>
+      <div class="cell">
+        <span class="label">Setup effort</span>
+        <span class="pill low">Low</span>
+        ~20 lines added to agent's system prompt — three buckets and a default.
+      </div>
+      <div class="cell">
+        <span class="label">Decision-events eliminated</span>
+        <span class="pill huge">Most</span>
+        Many "options" turn out to be implementation choices the agent can make from the ticket.
+      </div>
+      <div class="cell">
+        <span class="label">Risk if agent gets it wrong</span>
+        <span class="pill medium">Medium</span>
+        Agent commits to a path you'd have steered differently. Mitigated by post-hoc visibility — agent logs what it decided.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="technique">
+        <div class="rank">02</div>
+        <div class="name">Constraint-first elicitation</div>
+        <div class="gloss">One question before options, not three options after.</div>
+      </div>
+      <div class="cell">
+        <span class="label">Setup effort</span>
+        <span class="pill low">Low</span>
+        Rule: "If a decision turns on a constraint only Don knows, ask the constraint. Then pick."
+      </div>
+      <div class="cell">
+        <span class="label">Decision-events eliminated</span>
+        <span class="pill high">Many</span>
+        Replaces 30-minute trade-off reads with 60-second constraint answers.
+      </div>
+      <div class="cell">
+        <span class="label">Risk if agent gets it wrong</span>
+        <span class="pill low">Low</span>
+        Worst case: agent asks for a constraint that doesn't matter. Cheap to correct.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="technique">
+        <div class="rank">03 · Best ratio</div>
+        <div class="name">Standing defaults registry</div>
+        <div class="gloss">A short doc the agent reads on every turn.</div>
+      </div>
+      <div class="cell">
+        <span class="label">Setup effort</span>
+        <span class="pill medium">Medium</span>
+        Document grows over time. Each recurring decision becomes a one-line default.
+      </div>
+      <div class="cell">
+        <span class="label">Decision-events eliminated</span>
+        <span class="pill high">Many, compounding</span>
+        Every default you write eliminates a class of future decisions, not just one instance.
+      </div>
+      <div class="cell">
+        <span class="label">Risk if agent gets it wrong</span>
+        <span class="pill low">Low</span>
+        Defaults are explicit and visible. Agent cites them when applying. Easy to override or revise.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="technique">
+        <div class="rank">04 · Cheapest</div>
+        <div class="name">Compression contract</div>
+        <div class="gloss">Hard word budget. Analogy-first technical content.</div>
+      </div>
+      <div class="cell">
+        <span class="label">Setup effort</span>
+        <span class="pill low">Low</span>
+        Lift the BLUF/Minto section from your Claude userPreferences. Paste into agent prompt.
+      </div>
+      <div class="cell">
+        <span class="label">Decision-events eliminated</span>
+        <span class="pill low">Few</span>
+        Doesn't remove decisions — only shortens the read on the ones that remain.
+      </div>
+      <div class="cell">
+        <span class="label">Risk if agent gets it wrong</span>
+        <span class="pill low">Low</span>
+        Detail compressed too aggressively; you ask for more. Reversible per turn.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <strong>Read this matrix as:</strong> Triage upstream removes the most decisions but carries the most risk if the agent misjudges what's yours. Defaults registry has the best leverage-to-effort ratio over time. Compression alone won't move the needle — it narrows the reads you still have to do, but you're still doing them.
+  </div>
+
+</div>
+</body>
+</html>

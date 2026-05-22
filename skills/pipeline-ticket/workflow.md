@@ -26,17 +26,22 @@
 
 1. **Pick the next T-number.** Highest existing across `development/tickets/` and `development/tickets/done/` + 1.
 2. **Re-read the scenario.** Identify each distinct unit of work — a schema migration, an API endpoint, a UI component, a notification path, a cron job. Map them to one ticket each, or group small ones.
-3. **For each unit, write a ticket** using `templates/ticket.md`:
+3. **Gate B — Ratified-Intent pre-flight.** Before drafting any ticket, scan every spec section the tickets will *encode in code* (schema constraints, RLS policies, action-handler refusals, UI affordance removals — anything where a Category-2 absolute becomes literal code) for absolute-language statements. For each match, check the co-located line:
+   - `Intent (Ratified YYYY-MM-DD): ...` or `Intent (Deferred until {trigger}; review by {horizon}): ...` → terminal state. Pass; capture the pointer in the ticket's Notes as "Encodes ratified absolute: `{file}:{line}`".
+   - `Intent: ...` (no parenthetical tag) or no `Intent` line → **unratified. Gate B fails.**
+   - On Gate B failure, **stop**. Do not draft the ticket. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `pipeline-ratify-absolute`. After ratification, re-enter at step 3.
+   - Rationale: by the time tickets are written, every absolute the code will encode must already carry PM-approved Intent. The cheapest place to catch an unearned absolute is *before* a ticket asks the build agent to write the constraint that enforces it.
+4. **For each unit, write a ticket** using `templates/ticket.md`:
    - **Scenario:** path to the approved scenario.
    - **Status:** Open.
    - **Bundle:** copy from the scenario.
    - **Serves:** one-line lineage to a north-star loop and the canonical example. If you can't fill this in, the scenario is missing context — escalate to `pipeline-plan`.
    - **Depends on:** other T-numbers if any.
    - **Acceptance Criteria:** a checklist of *implementable* items — file paths, table names, columns, component names, route paths, test names, BUILD-LOG.md update. Don't restate the scenario's Given/When/Then; restate the *implementation contract*.
-   - **Notes:** practical guidance — where code lives, what to reuse, ADRs, gotchas.
-4. **Sequence the tickets.** Schema migrations first, then APIs, then UI, then notifications/crons. Surface any blocking dependencies in `Depends on`.
-5. **If the scenario produces 5+ tickets, stop.** The scenario is too big. Open a thread in `JOURNAL.md` and ask `pipeline-plan` to split it.
-6. **Do not commit on behalf of build.** Tickets are written, not built.
+   - **Notes:** practical guidance — where code lives, what to reuse, ADRs, gotchas. Include any "Encodes ratified absolute: `file:line`" pointers captured in Gate B.
+5. **Sequence the tickets.** Schema migrations first, then APIs, then UI, then notifications/crons. Surface any blocking dependencies in `Depends on`.
+6. **If the scenario produces 5+ tickets, stop.** A well-scoped scenario realizes one 🟢 work-map item and fans into 2–5 implementation tickets. 5+ tickets means either (a) the scenario merged two work-map items — escalate to `pipeline-plan` to split the scenario; or (b) the work-map item itself is too big — escalate to `pipeline-bundle-resync` to split the menu entry. Either way, open a thread in `JOURNAL.md` first; don't quietly carve up the scenario yourself.
+7. **Do not commit on behalf of build.** Tickets are written, not built.
 
 ## Ticket sizing
 
@@ -82,7 +87,7 @@ Every acceptance-criteria item that encodes a design choice carries its **why** 
 | Situation | Action |
 |---|---|
 | Scenario is ambiguous on a Then-clause | Annotate in the ticket's Notes; flag in `JOURNAL.md` and ask `pipeline-plan` to revise the scenario before build starts. |
-| Scenario produces 5+ tickets | Stop. Ask `pipeline-plan` to split. |
+| Scenario produces 5+ tickets | Stop. If scenario merged two work-map items → `pipeline-plan` splits the scenario. If one work-map item is genuinely too big → `pipeline-bundle-resync` splits the menu entry. |
 | Existing ticket conflicts with this scenario | Surface the conflict; don't silently rewrite the existing ticket. |
 | Schema change needed but no system spec covers it | Stop. Ask `pipeline-product` to extend the relevant `product/systems/{name}.md` first. |
 

@@ -55,8 +55,8 @@ PM's `~/.zshrc` carries this for one-key recovery from the Mac terminal:
 ```bash
 clearlock() {
   local locks=(
-    /Users/don/Projects/mainstreetmarket/.git/index.lock
-    /Users/don/Projects/mainstreetmarket/web/.git/index.lock
+    /Users/don/Projects/movers-makers-shakers/.git/index.lock
+    /Users/don/Projects/movers-makers-shakers/web/.git/index.lock
   )
   for f in "${locks[@]}"; do
     if [ -f "$f" ]; then
@@ -73,5 +73,5 @@ Generalize the paths for other projects.
 - **Date observed:** 2026-05-17
 - **Cowork client:** Claude desktop app (Cowork mode, research preview)
 - **Host OS:** macOS (MacBook Pro)
-- **Repo layout:** two-repo (parent `mainstreetmarket/` + child `web/`)
+- **Repo layout:** two-repo (parent `movers-makers-shakers/` + child `web/`)
 - **Bash tool:** `mcp__workspace__bash` (`bwrap`-based sandbox, per process env)

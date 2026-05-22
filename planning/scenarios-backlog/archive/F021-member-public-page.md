@@ -50,7 +50,7 @@ Any visitor views a Member's public page, which shows their profile, all active 
 
 **Given** the Member page is shared via direct URL
 **When** a link preview is generated
-**Then** OG title = "[Member display name] on Main Street Market", description = bio excerpt or first Item title, image = avatar or first Item photo
+**Then** OG title = "[Member display name] on Movers, Makers & Shakers", description = bio excerpt or first Item title, image = avatar or first Item photo
 
 ## Acceptance Criteria
 

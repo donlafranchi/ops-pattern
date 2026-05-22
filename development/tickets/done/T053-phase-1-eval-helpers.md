@@ -174,8 +174,8 @@ All ten currently fail with PGRST202 `Could not find the function`:
 ## Completion
 
 Date: 2026-05-18
-Commit (web): TBD — PM commits from Mac terminal
-Commit (parent): TBD — `docs(pipeline): T053 ratification` once `pipeline-review` clears
+Commit (web): `b677293` — merged to main via `--no-ff` merge commit
+Commit (parent): `d69bef5` — merged to main via `--no-ff` merge commit
 
 **What landed:**
 

@@ -693,7 +693,7 @@ Main Street (core) → business listings, map, ownership, trust, profiles
 - No algorithmic pricing suggestions. Hosts set their own prices.
 - Hosts compete on amenities (gourmet coffee, bikes, curated guides), not on undercutting each other
 - Natural person requirement — no LLCs, no property management companies
-- Cross-links to Main Street Market business listings from amenity showcase and local recommendations
+- Cross-links to Movers, Makers & Shakers business listings from amenity showcase and local recommendations
 
 **Platform Artifacts Created:**
 - `product/products/platform.md` — Platform architecture overview (shared core + verticals)
@@ -773,7 +773,7 @@ Main Street (core) → business listings, map, ownership, trust, profiles
 - Added `product/exploration/product-identity-what-we-are-not.md` — foundational product strategy doc
 
 **Key Decision:**
-Main Street Market classifies businesses by ownership structure and verifiable facts. It does NOT rate businesses on subjective experience. The one-line test: "Is this about structure/facts or opinions?" If opinions, it doesn't belong.
+Movers, Makers & Shakers classifies businesses by ownership structure and verifiable facts. It does NOT rate businesses on subjective experience. The one-line test: "Is this about structure/facts or opinions?" If opinions, it doesn't belong.
 
 **Product Identity:**
 - We are an ownership transparency platform, not a review platform

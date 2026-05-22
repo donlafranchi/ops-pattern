@@ -226,7 +226,7 @@ The session's net effect: the b1 spec floor is internally consistent and migrati
 
 **Connecting people, joining forces, improving our lives socially and economically, and deciding our future with the strength and power of the many.**
 
-That is what Main Street Market is for. Everything else — the loops, the primitives, the b1 bundle, the rebuild on People / Item / Location — exists to serve that mission.
+That is what Movers, Makers & Shakers is for. Everything else — the loops, the primitives, the b1 bundle, the rebuild on People / Item / Location — exists to serve that mission.
 
 The earlier work circled it. The Slow Economy thesis named the squeeze. The loops named the entry points. The primitives named the data shape. The people-first stance named the constraint. None of those were wrong, but none of them stated the *why* with this clarity. Today the mission is named. The PM journal and the architectural decision log start fresh from here.
 

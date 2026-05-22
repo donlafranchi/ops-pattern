@@ -18,6 +18,7 @@
 5. **Confirm the task serves a north star.** If you can't name which north star (loop, capability, or canonical example) the work serves, ask the user before starting.
 6. **Surface stuck approved scenarios.** Glance at `planning/scenarios/` and `planning/scenarios-backlog/`. If any approved scenario in tickets references a backlog file (`planning/scenarios-backlog/F###`), the build firewall is being violated — surface this as a blocker before any build work. Equally: if any scenario in `planning/scenarios/` has its `Canonical example:` field pointing at a TODO placeholder section of `canonical-examples.md`, surface as a blocker.
 7. **Surface stale BUILD-LOG.md.** If `web/BUILD-LOG.md` (or equivalent) is more than two weeks behind the most recent ticket close, flag it.
+8. **Surface unsynced sub-bundle.** Glance at `planning/bundles/b{N}-work-map.md` and the last few `development/tickets/done/T*.md` files. If a sub-bundle has closed (all its 🟢 items shipped) but `bundle-themes.md` / `b{N}-work-map.md` has not been touched since, suggest running `pipeline-bundle-resync` before any new scenario writing.
 
 After step 5, route:
 
@@ -31,6 +32,7 @@ After step 5, route:
 | Write or run acceptance tests | `pipeline-eval` |
 | Set up a brand-new project with this pipeline | `pipeline-scaffold` |
 | Reflect on / merge / prune memory | `consolidate-memory` |
+| Re-sync the work map / sub-bundle sequence against shipped reality | `pipeline-bundle-resync` |
 
 ## The PM cycle (read once, internalize)
 

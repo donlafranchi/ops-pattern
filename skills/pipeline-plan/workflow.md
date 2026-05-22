@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | `product/foundation/*` (mandatory: `canonical-examples.md`, `loops.md`, `primitives.md`), `product/systems/`, `product/capabilities/`, `planning/bundles/{active}.md` |
+| **Reads** | `product/foundation/*` (mandatory: `canonical-examples.md`, `loops.md`, `primitives.md`), `product/systems/`, `product/capabilities/`, `planning/bundles/{active}.md`, `planning/bundles/bundle-themes.md` (mandatory — sub-bundle sequence), `planning/bundles/b{N}-work-map.md` (mandatory — menu of 🟢/🟡/⚪ work for the active bundle) |
 | **Writes** | `planning/scenarios-backlog/F{NNN}-{persona}-{verb}-{object}.md`, `planning/bundles/` |
 | **Templates** | `templates/scenario.md` (user-story shape — required), `templates/bundle.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios/` (modify-wise — read for reference only) |
@@ -19,7 +19,9 @@
 4. **`product/foundation/people-first.md`** — the no-Business-entity / no-pay-for-visibility / no-engagement-feed / no-auto-Community rules. Every scenario must survive these four refusals. If the scenario asks the platform to treat a Business as more important than the people doing the work, reject before writing acceptance criteria.
 5. **`product/foundation/policy-framework.md`** — three-filter test, opt-out default. Required reading before approving any scenario that touches privacy, monetary flow, data sharing, agent permissions, or visibility.
 6. **`planning/bundles/{active-bundle}.md`** — the current scope. Anything outside the active bundle is deferred, not denied.
-7. **`product/systems/{relevant-system}.md`** — the technical spec for the system the scenario touches.
+7. **`planning/bundles/bundle-themes.md`** — the sub-bundle sequence. Identifies which `b{N}.{M}` is *currently active*. Scenarios for sub-bundles past the active one stay in backlog until the prior sub-bundle ships.
+8. **`planning/bundles/b{N}-work-map.md`** — the menu of work for the active bundle, with 🟢 / 🟡 / ⚪ scope tags. Every new scenario must trace to one item on this map. If the scenario doesn't realize a work-map item, either the map needs an entry (escalate to `pipeline-bundle-resync`) or the scenario is out of scope.
+9. **`product/systems/{relevant-system}.md`** — the technical spec for the system the scenario touches.
 
 ## What you do NOT read
 - `web/` (or `{app}/`) — code. The build agent's domain.
@@ -37,13 +39,20 @@ Apply to every system before approving scenarios from it:
 
 ## Workflow
 
-1. **Identify the canonical example.** What real person from `canonical-examples.md` does this scenario serve? Name them. If no example fits, escalate to `pipeline-product` to add one — do not invent a hypothetical "user."
-2. **Identify the loop(s).** Which of the 13 loops does this exercise? If you can't name one, the scenario doesn't serve a north star.
-3. **Identify the surface.** Where in the app does the persona start? Name a real surface (venue page, Maker page, home feed) — NEVER `/new` with a kind picker.
-4. **Identify the primitive shape.** Person → Item(kind=…) → Location(…). If the scenario doesn't fit the primitives, escalate to `pipeline-product`.
-5. **Write the scenario** in `planning/scenarios-backlog/F{NNN}-{persona}-{verb}-{object}.md` using `templates/scenario.md`.
-6. **Apply the 5 Deadly Sins filter.** Cut, simplify, or escalate.
-7. **PM reviews.** PM moves to `planning/scenarios/` when ready.
+1. **Identify the active sub-bundle.** Read `bundle-themes.md` and confirm which `b{N}.{M}` is currently shipping (the next one whose dependencies are all live). Scenarios for later sub-bundles stay in backlog until their turn — write them anyway if useful, but tag them honestly.
+2. **Pick the next work-map item.** From `b{N}-work-map.md`, pick a 🟢 (or PM-elevated 🟡) item in the active sub-bundle that does not yet have an F### scenario. One scenario per work-map item; if a work-map item is too big for one scenario, escalate — the work-map item should be split before the scenario is written.
+3. **Identify the canonical example.** What real person from `canonical-examples.md` does this scenario serve? Name them. If no example fits, escalate to `pipeline-product` to add one — do not invent a hypothetical "user."
+4. **Identify the loop(s).** Which of the 13 loops does this exercise? If you can't name one, the scenario doesn't serve a north star.
+5. **Identify the surface.** Where in the app does the persona start? Name a real surface (venue page, Maker page, home feed) — NEVER `/new` with a kind picker.
+6. **Identify the primitive shape.** Person → Item(kind=…) → Location(…). If the scenario doesn't fit the primitives, escalate to `pipeline-product`.
+7. **Write the scenario** in `planning/scenarios-backlog/F{NNN}-{persona}-{verb}-{object}.md` using `templates/scenario.md`. Fill the `Sub-bundle` and `Work-map item` fields — they are not optional.
+8. **Apply the 5 Deadly Sins filter.** Cut, simplify, or escalate.
+9. **Gate A — Ratified-Intent precondition (before moving scenario from backlog to approved).** Scan every spec section the scenario cites for absolute-language statements (`Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no X`). For each match, check the line co-located with the bullet:
+   - `Intent (Ratified YYYY-MM-DD): ...` or `Intent (Deferred until {trigger}; review by {horizon}): ...` → terminal state. Pass.
+   - `Intent: ...` (no parenthetical tag) or no `Intent` line at all → **unratified. Gate A fails.**
+   - If Gate A fails, the scenario stays in backlog. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `pipeline-ratify-absolute` for the PM to walk. After ratification, re-run Gate A; on pass, the scenario is eligible for approval.
+   - Scope of the scan: only spec sections the scenario *cites or encodes* — not entire foundation docs. A scenario that touches `groups.md § Joining` triggers the gate on that section, not on every absolute in `groups.md`.
+10. **PM reviews.** PM moves to `planning/scenarios/` when ready.
 
 ## When to invoke `planning-filter`
 
@@ -72,7 +81,7 @@ Skip `planning-filter` when you're writing a single scenario for a known feature
 - **WHO, WHAT, WHY, not HOW.** "Brian arrives at Drake's venue page and taps 'Host something here'" — yes. "Render a kind-picker component on /new" — no.
 - **Testable means testable.** Every Then clause must be verifiable by an automated test or human reviewer. "Has a good experience" is not testable. "A primary CTA labeled 'Host something here' is visible below the venue header" — that's testable.
 - **One persona, one journey, one file.** Multiple distinct beats of the same feature → separate files with the same F-number, different slugs.
-- **Bundle tagging required.** Every scenario declares its bundle (b1/b2/b3).
+- **Bundle + sub-bundle tagging required.** Every scenario declares its bundle (b1/b2/b3) AND its sub-bundle (`b1.0`, `b1.3`, etc., from `bundle-themes.md`). Every scenario also names the 🟢/🟡 work-map line it realizes.
 - **Surface beats schema.** The Surfaces section is required. If you can name the data fields but not the entry point, you're writing a system spec, not a scenario.
 
 ## Co-locate `why` with `what` (per AGENTS.md → PIPELINE-AUDIT F13)

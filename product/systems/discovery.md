@@ -6,7 +6,7 @@
 
 ## Principle
 
-Main Street Market is a place-based, people-first network — not an attention network. Discovery is a **graph + place + time** engine, not a watch-time optimizer. Each engagement (RSVP, pledge, show-up, return) is heavy and meaningful; volume is local, not global. The system must rank well in low-data regimes and degrade gracefully as a Member or Location is new.
+Movers, Makers & Shakers is a place-based, people-first network — not an attention network. Discovery is a **graph + place + time** engine, not a watch-time optimizer. Each engagement (RSVP, pledge, show-up, return) is heavy and meaningful; volume is local, not global. The system must rank well in low-data regimes and degrade gracefully as a Member or Location is new.
 
 **Hard constraints (from `foundation/people-first.md`):**
 

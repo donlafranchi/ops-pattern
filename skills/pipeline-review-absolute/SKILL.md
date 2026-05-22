@@ -1,6 +1,16 @@
 ---
 name: pipeline-review-absolute
-description: Structured review of an absolute / Intent statement, producing one of four outcomes — ratify, revise, defer, or reject — under a lexicographic decision rule (platform-survival hard gate first, then maximize net member benefit). Orchestrates pipeline-member-advocate and pipeline-platform-advocate, surfaces all three views (member-individual, member-community, platform), and applies the rule explicitly with reasoning the PM can audit. Use when the PM says "review this absolute", "should this be an absolute", "audit our absolutes", "review F### intents", "is this earned", "decide or defer on X", or when reviewing absolutes authored by another agent. Handles two modes: proposed (new absolute being considered) and audit (existing absolute being re-examined). Deferral is first-class and requires an explicit trigger condition. Reads people-first.md, policy-framework.md, foundational-principles.md, the target spec, and any cited foundation docs. Writes a review record only on PM request; default is inline output.
+description: DEPRECATED 2026-05-19 — folded into `pipeline-ratify-absolute`. Do not invoke. The lexicographic decision rule (Gate 1 platform survival → maximize net member benefit) and the four-outcome shape (Ratify / Revise / Defer / Reject) are preserved in the successor skill, alongside the per-statement walk discipline from `pipeline-clarify-absolutes`. See `pipeline-ratify-absolute/SKILL.md`.
+---
+
+# pipeline-review-absolute — DEPRECATED
+
+**Folded into [`pipeline-ratify-absolute`](../pipeline-ratify-absolute/SKILL.md) on 2026-05-19.** The successor skill preserves the lexicographic decision rule, the four-outcome shape, the trigger-required deferral discipline, and the advocate orchestration — plus the per-statement walk from the retired `pipeline-clarify-absolutes`. Use `pipeline-ratify-absolute` instead.
+
+The new skill also fixes the gap that produced this rename: it skips statements already carrying a `Ratified` or `Deferred` State tag rather than re-walking ratified decisions.
+
+Original SKILL contents preserved below for git history; do not act on them.
+
 ---
 
 # pipeline-review-absolute
