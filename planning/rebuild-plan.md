@@ -24,7 +24,7 @@
 - **ADR-7** (action layer is the only write surface) — every Phase 1+ ticket implements writes via named action handlers.
 - **ADR-9** (policy framework — opt-out default, three-filter test, anti-Nextdoor commitments).
 - **ADR-10** (action layer + event log invariants) — same-transaction event-row commit, audit fields, view-refresh semantics. **Rewritten 2026-05-10** to drop the dual-write / per-phase rollback / verification-window sections (no live system to coexist with).
-- **ADR-12 SUPERSEDED 2026-05-12** (per `agent-commerce-and-project-amendments.md` §6) — the "Maker mode" framing is retired. The `members.maker_mode_enabled` column is **dropped before any data lands**. Selling tools surface from Group / Item state: ≥1 active `kind='business'` Group membership, or any `items.kind='product'`/`'service'` row. Vocabulary: **Seller** generically; **Producer** in agricultural/food contexts (already used in `producer-bulletin.md`, `producer-growth.md`). "Maker" survives only as a UI label when a Member self-identifies (craftspeople, artisans).
+- **ADR-12 SUPERSEDED 2026-05-12** (per `agent-commerce-and-project-amendments.md` §6) — the "Maker mode" framing is retired. The `members.maker_mode_enabled` column is **dropped before any data lands**. Selling tools surface from Group / Item state: ≥1 active `kind='business'` Group membership, or any `items.kind='product'`/`'service'` row. Vocabulary: **Seller** generically; **Producer** in agricultural/food contexts (already used in `producer-tools.md`, `producer-tools.md`). "Maker" survives only as a UI label when a Member self-identifies (craftspeople, artisans).
 - **ADR-13 pending** — Group consolidation. Spec banner in `groups.md` carries the decision.
 - **ADR-14 pending** — Location spine + child architecture. Spec banner in `location.md` carries the decision.
 
@@ -256,9 +256,9 @@ Each composer carries its kind as known context, never as a picker. The four ent
 **Goal (met):** docs match code; retired specs leave the live tree.
 
 **Completed 2026-05-11:**
-- `product/systems/vendor-bulletin.md` → rewritten as [`producer-bulletin.md`](../product/systems/producer-bulletin.md); original archived.
-- `product/systems/vendor-intelligence.md` → rewritten as [`producer-growth.md`](../product/systems/producer-growth.md); original archived.
-- `product/systems/vendor-self-service.md` → retired as superseded (Location concerns covered by `location.md`; profile-completeness covered by `producer-growth.md` T1; community pin-flagging absorbed into `location.md` T2). Original archived.
+- `product/systems/vendor-bulletin.md` → rewritten as [`producer-tools.md`](../product/systems/producer-tools.md); original archived.
+- `product/systems/vendor-intelligence.md` → rewritten as [`producer-tools.md`](../product/systems/producer-tools.md); original archived.
+- `product/systems/vendor-self-service.md` → retired as superseded (Location concerns covered by `location.md`; profile-completeness covered by `producer-tools.md` T1; community pin-flagging absorbed into `location.md` T2). Original archived.
 - `product/capabilities/pin-accuracy-verification.md` → archived (substrate now in `location.md`).
 - `product/systems/community.md`, `member-operations.md`, `cooperative.md` → archived. The live `groups.md` is the only spec for the Group primitive.
 - `product/foundation/primitives.md` Community section → rewritten as Group section with six-kind framing.
@@ -268,7 +268,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 - `product/capabilities/landing-page.md` → rewritten on Member primitive with anonymous Loop 3 path.
 - `product/capabilities/shareable-listing.md` → renamed "Shareable Entity Pages" and generalized across `/i/`, `/m/`, `/l/`, `/g/` routes.
 - `product/systems/discovery.md` → Community-scoped → Group-scoped throughout.
-- Cross-reference cleanup: `MAP.md`, `canonical-examples.md`, `F018-brian-declares-run-club.md`, `agent-assistance-handoff-2026-05-09.md`, `reciprocity-and-goodwill.md`, `skills.md`, `item-view.md`, `gathering-host.md` — all live broken pointers fixed.
+- Cross-reference cleanup: `MAP.md`, `canonical-examples.md`, `F018-brian-declares-run-club.md`, `agent-assistance-handoff-2026-05-09.md`, `reciprocity-and-goodwill.md`, `agent-assistance.md`, `item-view.md`, `gathering-host.md` — all live broken pointers fixed.
 - `planning/scenarios/F001–F017` (17 pre-primitives scenarios) → archived to `_attic/2026-05-19/planning-scenarios-backlog/` with `PRE-PRIMITIVES-AUDIT-2026-05-11.md` documenting the mapping. Live `planning/scenarios/` contains only F018.
 
 **Exit criterion met:** a new contributor reading the project from `CLAUDE.md` can reach all canonical docs without encountering a "vendor", "Community", "Member Operations", or "cooperative" reference outside `archive/` folders.

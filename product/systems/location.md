@@ -94,7 +94,7 @@ People belong to multiple Locations. A Member lives in West Sacramento, works in
 
 ## T2 — Core Tier
 
-- **Photo galleries.** Multiple photos per Location with captions, one set as primary. Per-Location gallery surfaces on the Location page; producer-facing gallery management lives on [`producer-growth.md`](producer-growth.md) for the Locations a producer Member maintains.
+- **Photo galleries.** Multiple photos per Location with captions, one set as primary. Per-Location gallery surfaces on the Location page; producer-facing gallery management lives on [`producer-tools.md`](producer-tools.md) for the Locations a producer Member maintains.
 - **Claim flow.** A Member can claim maintainership of a Location whose original creator is inactive (no edits in 12 months and no recent Items attached). Claim is a one-tap action handler that fires a `location.claim_requested` event; resolution happens via the original creator's notification with a 14-day response window. Confirmed claims rotate `member_id` to the new maintainer.
 - **Community pin flagging.** Any authenticated Member can flag a Location's pin as "wrong location" via a one-tap action (`location.pin_flagged`). Flag carries an optional note ("pin is across the street," "Location has moved"). Flagged Locations surface to the maintainer's dashboard for review; multiple flags from distinct Members escalate to platform review. Absorbed from the retired `vendor-self-service.md` (re-anchor 2026-05-11) — same pattern, Member-Location-scoped rather than vendor-scoped.
 - **Sub-venue surface.** The reserved `parent_location_id` becomes user-facing — sub-venues render under their parent on the Location page; Items attached to a sub-venue surface on the parent's page with a sub-venue chip.

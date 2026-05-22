@@ -8,7 +8,7 @@
 
 **Decisions encoded:** ADR-4 (locality default = geolocate then city pick, mutable) · ADR-6 (Member-owned context, standing-derived persistence) · ADR-7 (action layer for all writes) · ADR-9 (opt-out default, three-filter test for every privacy/revenue/data-sharing surface) · ADR-12 **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6 (the Maker-mode framing is retired; `members.maker_mode_enabled` column is dropped; selling tools surface from Group / Item state) · ADR-15 (auth.users coupling — `members.id = auth.users.id`, post-signup trigger is the only Member-create path) · ADR-16 (per-row privacy on `member_location_affinities`; algorithms via privileged paths) · ADR-17 (`bounded_purchase` Delegation scope, ratified 2026-05-12 — the Delegation-scopes Policy posture references it). **ADR-8 is fully superseded** by the Groups ratification (`member_operations` retires; standing-tier gate is now defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group). **ADR-3 remains rejected** — the implicit-from-behavior `maker_signal` pattern does not apply.
 
-**Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`principles.md`](../foundation/principles.md) · [`policy.md`](../foundation/policy.md) · [`groups.md`](groups.md) (the unified Group spine — supersedes the prior `community.md` / `member-operations.md` / `cooperative.md` split per the 2026-05-10 ratification) · [`item.md`](item.md) · [`location.md`](location.md) · `delegation.md` / `assistant-context.md` / `skills.md` (forward-looking, schema reserved at b1)
+**Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`principles.md`](../foundation/principles.md) · [`policy.md`](../foundation/policy.md) · [`groups.md`](groups.md) (the unified Group spine — supersedes the prior `community.md` / `member-operations.md` / `cooperative.md` split per the 2026-05-10 ratification) · [`item.md`](item.md) · [`location.md`](location.md) · `agent-assistance.md` / `agent-assistance.md` / `agent-assistance.md` (forward-looking, schema reserved at b1)
 
 **Canonical examples this spec serves:** Maya at Oak Park Sourdough · Ferrari Fisheries · Cafe Capricho's successor · Brian declaring the Run Club at Drake's · Aaron posting a fish-drop Wonder · Maya finding something to do tonight · the West Sac school-parents Community founder. Per [`canonical-examples.md`](../foundation/canonical-examples.md).
 
@@ -78,7 +78,7 @@ There is no "Maker mode" to be in. There is a set of **selling tools** for offer
 - The auto-flip prohibition of the previous ADR-12 dissolves with the mode itself. Since there is no state to flip, there is nothing to forbid auto-flipping.
 - Profile-visibility of selling: the existing `members.show_group_memberships` per-membership privacy toggle (above) hides a business-Group affiliation from the public profile without affecting the Group itself. A Member who wants a private selling presence sets the Group's `discoverability='unlisted'` or `'private'` per `groups.md`.
 
-**Vocabulary.** Per `agent-commerce-and-project-amendments.md` §6b (ratified 2026-05-12): **Seller** is the generic term for a Member offering goods or services. **Producer** is preferred in the agricultural and food context (already used in [`producer-bulletin.md`](producer-bulletin.md) and [`producer-growth.md`](producer-growth.md)). "Maker" survives only as a UI label where the Member specifically self-identifies as such (craftspeople, artisans).
+**Vocabulary.** Per `agent-commerce-and-project-amendments.md` §6b (ratified 2026-05-12): **Seller** is the generic term for a Member offering goods or services. **Producer** is preferred in the agricultural and food context (already used in [`producer-tools.md`](producer-tools.md) and [`producer-tools.md`](producer-tools.md)). "Maker" survives only as a UI label where the Member specifically self-identifies as such (craftspeople, artisans).
 
 ### Standing-tier gate (per `groups.md`) — the data-tier gate
 
@@ -91,8 +91,8 @@ Standing-tier is purely a data state — driven by Group membership rows, not by
 
 This is the gate for:
 
-- The Assistant Context full-tier surface (vs. scratch-tier; per `assistant-context.md`)
-- The Skills subscription surface (per `skills.md`)
+- The Assistant Context full-tier surface (vs. scratch-tier; per `agent-assistance.md`)
+- The Skills subscription surface (per `agent-assistance.md`)
 - The agent-assistance affordances at b2
 
 A Member without any qualifying Group membership is fully welcome and fully functional. They can browse, attend gatherings, RSVP, follow, save, and post Wonders. Joining or creating a Group is what shifts them into the standing tier; the act is **declared, dated, and ungameable** (per the Group event log). The kind='business' Group walkthrough is gated on the explicit **Sell** verb in the composer (per `groups.md` and the CLAUDE.md naming conventions) — Members never reach business-Group creation by accident.
@@ -149,8 +149,8 @@ Per the b1 scope decision: the messages schema lands at b1 so b2 can ship the su
 
 - **DM surface ships.** Compose, thread list, in-thread view, notifications. Same-Community constraint relaxes; Members can opt in to receive DMs from any Member with an explicit "allow DMs from outside my Communities" toggle.
 - **Member Group surfaces** — full Group profile pages (e.g., `/g/oak-park-sourdough`), Group-level analytics for the owner / steward Members, multi-Group switcher in `/you` for Members in multiple business Groups. Per `groups.md`.
-- **Assistant Context surfaces** ship the three update pathways (explicit teach, confirmation-derived, inferred-and-proposed). Per `assistant-context.md`.
-- **Skills subscription** — Members with standing presence (per ADR-8) can subscribe to platform-curated and community-authored Skills. Per `skills.md`.
+- **Assistant Context surfaces** ship the three update pathways (explicit teach, confirmation-derived, inferred-and-proposed). Per `agent-assistance.md`.
+- **Skills subscription** — Members with standing presence (per ADR-8) can subscribe to platform-curated and community-authored Skills. Per `agent-assistance.md`.
 - **Follow stream** — the b1 follow event log gets a surface. Per Loop 8.
 - **Endorsements (service Items)** — Members endorse other Members' Service Items. Community-anchored, no star ratings (per `service-provider.md` and `principles.md`).
 - **Member ↔ Member messaging filters** — block, mute, report. Lightweight moderation surfaces.
@@ -164,12 +164,12 @@ Per the b1 scope decision: the messages schema lands at b1 so b2 can ship the su
 
 - **Stakeholder dashboard** — the producer-facing analytics surface (views, follows, saves, response counts, engagement over time) reads from the b1 event log entries. Per b1-primitives.md, the dashboard ships at b3; the events are required at b1.
 - **Stakeholder visibility** (`stakeholder_visibility` enum, reserved at b1) — `private` (default) / `community_only` / `public`. Controls which surfaces show this Member's accumulated standing patterns to other Members. The default is private; Members opt in.
-- **Member federation** — under Loop 13, a Member's identity, Assistant Context, and (where flagged) Delegations follow them to spawned platforms. Federation handoff per `loops.md` Loop 13 and `delegation.md` T3 surface.
+- **Member federation** — under Loop 13, a Member's identity, Assistant Context, and (where flagged) Delegations follow them to spawned platforms. Federation handoff per `loops.md` Loop 13 and `agent-assistance.md` T3 surface.
 - **Vector embeddings on Member bio** — enables natural-language search like *"who in Folsom does pre-1900 plumbing"* to surface Members directly, not just their Items.
 - **Member chat surface** — the platform's AI chat surface (per `item.md` T3) returns Members as first-class results when relevant.
 - **Member Group transitions** — Members shift between Groups (leaving one business Group to start another, joining a partnership, becoming a steward of an interest Group) via the standard `group.member_join` / `group.member_leave` handlers per `groups.md`. No special "capacity transition" surface needed — the Group lifecycle handlers cover the cases the prior `member-operations.md` model needed dedicated transitions for. T3 may add a multi-Member consent flow when a Group's structural responsibilities (e.g., founder transferring co-ownership) are at stake.
 - **Assistant Context federation portability** — exports follow the Member to spawned platforms with explicit per-spawn re-confirmation.
-- **Skill-author Member surfaces** — Members who author Skills (per `skills.md`) get an authoring surface, version history, install metrics.
+- **Skill-author Member surfaces** — Members who author Skills (per `agent-assistance.md`) get an authoring surface, version history, install metrics.
 
 ---
 
@@ -393,7 +393,7 @@ create index idx_delegations_member_active on member_delegations (member_id)
   where revoked_at is null and (expires_at is null or expires_at > now());
 ```
 
-The `scopes` array carries values from a stable additive enum (`item.read`, `item.create.draft`, `item.publish` (confirmation-required), `member.profile.read`, `delegation.grant` (never delegable), etc.) defined in `delegation.md`. The b1 commitment is that the enum is published and stable; the surface is b2.
+The `scopes` array carries values from a stable additive enum (`item.read`, `item.create.draft`, `item.publish` (confirmation-required), `member.profile.read`, `delegation.grant` (never delegable), etc.) defined in `agent-assistance.md`. The b1 commitment is that the enum is published and stable; the surface is b2.
 
 ### Audit fields on every event log entry (per ADR-6)
 
@@ -541,7 +541,7 @@ Every privacy/revenue/data-sharing surface walks the three filters: helpful? har
 
 **Delegation scopes — confirmation-required for publish-tier; one-time monetary actions delegable only under the schema-enforced `bounded_purchase` scope. Per ADR-6, ADR-9, and `agent-commerce-and-project-amendments.md` §8.**
 - The `recurring_payment` opt-in (per ADR-9) lands at T2 with required caps, recipient allowlist, and required expiry.
-- The `bounded_purchase` opt-in (per `agent-commerce-and-project-amendments.md` §8b, ratified 2026-05-12) lands at T2 with required per-transaction and per-period caps, required `recipient_scope` (one or more of: `community_members`, `locality`, `specific_members`, `specific_groups`, `external_recipients`), required `category_scope`, required expiry, required reversibility window, and first-recipient confirmation defaulting on. See `delegation.md` for the full scope shape and `payments.md` for the rail.
+- The `bounded_purchase` opt-in (per `agent-commerce-and-project-amendments.md` §8b, ratified 2026-05-12) lands at T2 with required per-transaction and per-period caps, required `recipient_scope` (one or more of: `community_members`, `locality`, `specific_members`, `specific_groups`, `external_recipients`), required `category_scope`, required expiry, required reversibility window, and first-recipient confirmation defaulting on. See `agent-assistance.md` for the full scope shape and `payments.md` for the rail.
 
 ---
 
@@ -554,7 +554,7 @@ Every privacy/revenue/data-sharing surface walks the three filters: helpful? har
 - **Group** — Members hold zero or many Group memberships via `group_memberships` (per `groups.md`). `members.primary_group_id` is a soft pointer to a chosen primary Group (most Members have none). The Group primitive is the unified replacement for the prior Community / Member Operations / Cooperative split — kind='business' Group memberships drive standing tier; kind='steward' role on non-business Groups also qualifies.
 - **Assistant Context** — one row per Member in `member_self_records`; row-owner only.
 - **Delegation** — Members grant zero or many Delegations to non-human actors (assistants, Skills, federation peers).
-- **Skills** — Members with standing presence subscribe to Skills (per `skills.md`); subscriptions are per-Member.
+- **Skills** — Members with standing presence subscribe to Skills (per `agent-assistance.md`); subscriptions are per-Member.
 - **Auth** — `members.id = auth.users.id`; Supabase Auth is the identity floor.
   **Intent:** PK equality (1:1, lifetime-stable) is the structural choice. Decoupling auth identity from Member identity — separate IDs joined by FK — would let the two drift over time (orphaned auth rows, multi-Member auth accounts, reconciliation tooling required to keep them aligned). Equating the primary keys removes the entire class of bugs by construction: there is no second row to be out of sync with the first. The cost (auth provider changes are migrations) is paid once; the bug class is closed forever.
 

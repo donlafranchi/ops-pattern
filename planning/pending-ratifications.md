@@ -12,12 +12,12 @@
 
 | Item | Source | Current value | Status | Decision |
 |---|---|---|---|---|
-| Default Delegation expiry | `product/systems/delegation.md` | 90 days | PENDING |  |
-| k-anonymity floor for aggregate analysis | `product/systems/assistant-context.md`, ADR-9 | N >= 10 | PENDING |  |
-| Platform-mediated Skill payment cap | `product/systems/skills.md`, ADR-9 | 5–10% range | PENDING |  |
-| `recurring_payment` Delegation default expiry | `product/systems/delegation.md` | 1-year default, max 2 years | PENDING |  |
+| Default Delegation expiry | `product/systems/agent-assistance.md` | 90 days | PENDING |  |
+| k-anonymity floor for aggregate analysis | `product/systems/agent-assistance.md`, ADR-9 | N >= 10 | PENDING |  |
+| Platform-mediated Skill payment cap | `product/systems/agent-assistance.md`, ADR-9 | 5–10% range | PENDING |  |
+| `recurring_payment` Delegation default expiry | `product/systems/agent-assistance.md` | 1-year default, max 2 years | PENDING |  |
 | Soft-delete revival window | `product/systems/member.md` | 30 days | PENDING |  |
-| Rejected Assistant Context inference cooldown | `product/systems/assistant-context.md` | 90 days | PENDING |  |
+| Rejected Assistant Context inference cooldown | `product/systems/agent-assistance.md` | 90 days | PENDING |  |
 | Handle redirect after handle change | `product/systems/member.md` | 90 days | PENDING |  |
 | Active-member natural group size threshold | `product/foundation/design-philosophy.md` | ~50 | PENDING |  |
 
@@ -25,10 +25,10 @@
 
 | Question | Source | Working answer | Status | Decision |
 |---|---|---|---|---|
-| Cooperative-Member Delegations | `product/systems/delegation.md` | Each Member grants individually; union of grants | PENDING |  |
-| Anonymous Loop 3 traffic | `product/systems/delegation.md` | Assistants allowed with read-only public-data scopes, no Delegation needed | PENDING |  |
+| Cooperative-Member Delegations | `product/systems/agent-assistance.md` | Each Member grants individually; union of grants | PENDING |  |
+| Anonymous Loop 3 traffic | `product/systems/agent-assistance.md` | Assistants allowed with read-only public-data scopes, no Delegation needed | PENDING |  |
 | Account merge | `product/systems/member.md` | Same email = same Member | PENDING |  |
-| Cooperative Skill ownership | `product/systems/skills.md` | The Community is the author | PENDING |  |
+| Cooperative Skill ownership | `product/systems/agent-assistance.md` | The Community is the author | PENDING |  |
 | Markets data model | `product/systems/location.md`, ADR-5 | Location of `kind=recurring_temporary`, not Item `kind=gathering` | PENDING |  |
 | Real-name escalation | `product/systems/member.md` | Deferred to b2 moderation surface | PENDING |  |
 | Avatar moderation | `product/systems/member.md` | Deferred to community report | PENDING |  |
@@ -59,7 +59,7 @@ Per `agent-commerce-and-project-amendments.md` §9 (every community matters equa
 
 ## §6b — Maker rename vocabulary (PARTIALLY RATIFIED 2026-05-12)
 
-User ratified: **Seller** for the generic commercial role; **Producer** preferred in agricultural/food context (already used in `producer-bulletin.md` / `producer-growth.md`). Build agent applies this rename across specs.
+User ratified: **Seller** for the generic commercial role; **Producer** preferred in agricultural/food context (already used in `producer-tools.md` / `producer-tools.md`). Build agent applies this rename across specs.
 
 ## §8b — bounded_purchase scope shape (RATIFIED 2026-05-12)
 
@@ -189,7 +189,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L344: long line.
 - L359: "| ADR-11 | **SUPERSEDED** 2026-05-10 | Cooperative-style coordination (co-owning, voting, distributing) **deferred indefinitely**..." — §2 ADR re-write authorized.
 
-**`delegation.md`**
+**`agent-assistance.md`**
 - L15: "The platform itself never holds an open delegation against a Member; that asymmetry is the load-bearing trust commitment."
 - L37: "...always empty at b1; non-empty at b2..." — trivial.
 - L46: "...the Member always presses publish." — KEEP per architecture review (load-bearing trust line).
@@ -202,7 +202,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L134: long line.
 - L165: ADR-9 status row — "One-time payments and pledges remain categorically not delegable." — RESCIND per §8a.
 
-**`assistant-context.md`**
+**`agent-assistance.md`**
 - L13: "...never visible to other Members, never visible to other Members' assistants, never input to the discovery feed, never used as training data by the platform."
 - L91: example refusal text: "never use 'artisan'" — example data. Trivial.
 - L137–138: long lines.
@@ -212,7 +212,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L179: long line.
 - L180: "| ADR-9 (Assistant Context portion) | Accepted | ... Categorical refusal of feed input *for other Members* is permanent. |"
 
-**`skills.md`**
+**`agent-assistance.md`**
 - L48: "...additive forever, stable from b1."
 - L70: "Scope additions in a new version *always* require re-confirm..."
 - L81: "Suggestions, never auto-subscriptions."
@@ -261,7 +261,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L179: "The document blob is never publicly accessible."
 - L236: long line.
 
-**`producer-bulletin.md`**
+**`producer-tools.md`**
 - L11, L141: long lines.
 - L52: "...references a permanent or recurring-temporary Location..." — enum value. Trivial.
 - L69: "...the producer sees segment sizes and behavior, never individual follower identity beyond what `member_follows` already exposes."
@@ -271,7 +271,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L122: "Bulletins are author-scoped (Member or co-author Members), never Location-scoped..."
 - L161: "...probably always free; the platform's value comes from producers staying..."
 
-**`producer-growth.md`**
+**`producer-tools.md`**
 - L20: "Anonymized aggregates only; never names another producer."
 - L32: "...the Member is never trapped on the platform."
 - L53: "Visible only to the producer themselves; never surfaced to consumers and never used for ranking..."
@@ -406,7 +406,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 
 **`reviews/agent-assistance-architecture-review-2026-05-09.md`**
 - L13: "...The line 'the Member always presses publish' is the structural commitment..."
-- L15: "**Money-flow scopes do not exist** (`delegation.md` T2 + ADR-6). Categorical exclusion of monetary action from Delegation..." — RESCIND per §8a (review will be stale once Group C lands).
+- L15: "**Money-flow scopes do not exist** (`agent-assistance.md` T2 + ADR-6). Categorical exclusion of monetary action from Delegation..." — RESCIND per §8a (review will be stale once Group C lands).
 - L16: long line — `member_self_records` never visible to other Members.
 - L35, L40, L48: long lines.
 
@@ -457,6 +457,6 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - The single "Never" of the project — **extractive wealth over circulative wealth** — is RATIFIED and does not appear in this log.
 - Items in §7a/§7b/§7c stay as-is in their source specs until ratified here; the build agent does not edit them.
 - For each unflagged absolute-language occurrence encountered in future edits, append a row to the "Project-wide flagged" sections.
-- `member.md` L532 (auto-flip Maker mode), L542 (one-time-payments categorically-not-delegable), L586 (reviews permanently deferred), `delegation.md` L47/L94/L109/L165 (one-time-payments categorically-not-delegable), `agent-assistance.md` L41 (same), and `policy.md` ADR-9 status row are tracked as authorized-RESCIND under Groups B4/B7 and C9–C12 of the amendments doc; this file flags them for completeness, but the build agent does not need re-ratification to act on them — the amendments doc is the authority.
+- `member.md` L532 (auto-flip Maker mode), L542 (one-time-payments categorically-not-delegable), L586 (reviews permanently deferred), `agent-assistance.md` L47/L94/L109/L165 (one-time-payments categorically-not-delegable), `agent-assistance.md` L41 (same), and `policy.md` ADR-9 status row are tracked as authorized-RESCIND under Groups B4/B7 and C9–C12 of the amendments doc; this file flags them for completeness, but the build agent does not need re-ratification to act on them — the amendments doc is the authority.
 - `policy.md` §1, §2, §3 categorical language is tracked as authorized-SOFTEN under Group B5; same treatment as above.
 - `groups.md` L13, L298, L359, `b1-primitives.md` L66/L91/L102, `primitives.md` L58, `MAP.md` L59, `capabilities/group-create-join.md` L47, `archive/cooperative.md` L3/L13 — "deferred indefinitely" re cooperative coordination — tracked as authorized-SOFTEN under Group B3 per §2.

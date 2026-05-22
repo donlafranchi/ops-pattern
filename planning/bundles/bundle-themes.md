@@ -174,7 +174,7 @@ A schema decision that must be made before any public URL exists, because it con
 - The locality-first index is the first surface that anonymous Members can use end-to-end (Loop 3 "Land here" — `b1-primitives.md` lists this as full at b1)
 - Item-level QR cards per `qr-onboarding.md` — Member-requestable, generated on demand for any Member-owned Item
 
-**Doesn't ship:** Follow stream surfaces (b2 per `member.md`); Producer Bulletin (b2 per `producer-bulletin.md`); endorsements (b3 per `service-provider.md`); ratings (never — per the categorical-failures commitment).
+**Doesn't ship:** Follow stream surfaces (b2 per `member.md`); Producer Bulletin (b2 per `producer-tools.md`); endorsements (b3 per `service-provider.md`); ratings (never — per the categorical-failures commitment).
 
 **Canonical examples served:** #2 (Ferrari Fisheries) and #3 (Quarterly Dip Vendor) finally have their full shape — the irregular-Item product surface, followers, and the locality-first index. #4 (food truck) gets product + service Items with multi-Location attachment. #10-as-TODO (find a local pro, plumber/vet/mechanic) becomes creatable as a service Item.
 
@@ -245,7 +245,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 ### b2.0 — Producer Bulletin T1
 
-Per [`producer-bulletin.md`](producer-bulletin.md). Member-authored broadcast to followers (Substack-light). The payoff for a b1.4 follow. **Canonical examples served:** #2, #3, #4 (Ferrari, dip vendor, food truck — their followers now hear from them). **Loops:** 5 (Subscribe), 7 (Recur), 8 (Follow).
+Per [`producer-tools.md`](producer-tools.md). Member-authored broadcast to followers (Substack-light). The payoff for a b1.4 follow. **Canonical examples served:** #2, #3, #4 (Ferrari, dip vendor, food truck — their followers now hear from them). **Loops:** 5 (Subscribe), 7 (Recur), 8 (Follow).
 
 ### b2.1 — Offer / Ask
 
@@ -265,7 +265,7 @@ Per [`business-jurisdiction.md`](business-jurisdiction.md). SOS-verified local o
 
 ### b2.4 — Producer Growth Dashboard T1
 
-Per [`producer-growth.md`](producer-growth.md) T1. Followers, profile health, activity. The BI dashboard backing the producer recruitment pitch.
+Per [`producer-tools.md`](producer-tools.md) T1. Followers, profile health, activity. The BI dashboard backing the producer recruitment pitch.
 
 ### b2.5 — Follow streams + notifications
 
@@ -297,7 +297,7 @@ Per `discovery.md` T2. The scoring core matures — graph proximity, time decay,
 
 ### b3.3 — Producer Dashboard T2 / T3
 
-Per `producer-growth.md` T2/T3. Bulletin analytics, follower segmentation, peer benchmarks. T3 competitive intelligence opt-ins (audience overlap matchmaking, revenue context — both Member-owned).
+Per `producer-tools.md` T2/T3. Bulletin analytics, follower segmentation, peer benchmarks. T3 competitive intelligence opt-ins (audience overlap matchmaking, revenue context — both Member-owned).
 
 ### b3.4 — Locality verification Tier 2
 

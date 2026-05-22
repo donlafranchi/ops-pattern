@@ -235,7 +235,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 **Reads:**
 - The target statement + surrounding context
 - `product/foundation/` (especially `principles.md`, `policy.md`, `principles.md`)
-- For platform-advocate also: `product/systems/payments.md`, `producer-growth.md`, `business-jurisdiction.md`
+- For platform-advocate also: `product/systems/payments.md`, `producer-tools.md`, `business-jurisdiction.md`
 - For member-advocate also: relevant scenario(s) or canonical examples that involve the surface at stake
 
 **Writes:** nothing by default. Output is consumed inline by `pipeline-ratify-absolute` (or directly by the PM).

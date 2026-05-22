@@ -16,7 +16,7 @@ Connecting people, joining forces, improving our lives socially and economically
 - **[`primitives.md`](foundation/primitives.md)** — the data spine: Person · Item · Location · Group; everything the platform does is one of these acting on another.
 - **[`principles.md`](foundation/principles.md)** — the platform serves people, not businesses; no Business entity in the schema; personal businesses first-class via kind='business' Groups.
 - **[`policy.md`](foundation/policy.md)** — owns ADR-9: the three-filter test (helpful? harmless? abuse-resistant?), opt-out default, and anti-Nextdoor commitments.
-- **[`agent-assistance.md`](foundation/agent-assistance.md)** — owns ADR-6: agents are loop-shaped not role-shaped; persistence is standing-derived; read-automatable, write-confirmed; Member-owned; federation-portable.
+- **[`agent-assistance.md`](systems/agent-assistance.md)** — owns ADR-6: agents are loop-shaped not role-shaped; persistence is standing-derived; read-automatable, write-confirmed; Member-owned; federation-portable.
 - **[`canonical-examples.md`](foundation/canonical-examples.md)** — the 12 real situations the platform exists to make better; the working test-case set for every feature.
 - **[`platform-promise.md`](foundation/platform-promise.md)** — what the platform commits to and refuses to do, in plain language for the thesis page.
 
@@ -31,11 +31,11 @@ Connecting people, joining forces, improving our lives socially and economically
 
 - **[`discovery.md`](systems/discovery.md)** — the locality-first index across Items / Members / Locations; one materialized view at b1, vector search at T3.
 - **[`action-layer.md`](systems/action-layer.md)** — owns ADR-7: single canonical write surface (named, schema-validated, transactional handlers); same-transaction row+event commit. **Also the home of the event-log substrate** — `item_events`, `member_events`, `group_events`, `location_events` are partitioned monthly, carry audit fields on every row, and are written in the same transaction as their primitive row by the action handler. The runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution) lives here too.
-- **[`delegation.md`](systems/delegation.md)** — agent assistance primitive #1: scoped, expiring, revocable permission grants from a Person to a non-human actor.
-- **[`assistant-context.md`](systems/assistant-context.md)** — agent assistance primitive #2: Member-owned context document carrying voice, tone, tastes, refusals, focus; standing-derived persistence.
-- **[`skills.md`](systems/skills.md)** — agent assistance primitive #3: composable, versioned, distributable capability bundles the assistant subscribes to.
-- **[`producer-bulletin.md`](systems/producer-bulletin.md)** — Member-authored broadcast to Member-followers (Substack-light); optional kind='business' Group branding; ships at b2.
-- **[`producer-growth.md`](systems/producer-growth.md)** — the BI dashboard backing the producer recruitment pitch: followers, activity, profile health, bulletin analytics, peer benchmarks; substrate at b1 (event log), surface at b2 (T1) → b3 (T2/T3).
+- **[`agent-assistance.md`](systems/agent-assistance.md)** — agent assistance primitive #1: scoped, expiring, revocable permission grants from a Person to a non-human actor.
+- **[`agent-assistance.md`](systems/agent-assistance.md)** — agent assistance primitive #2: Member-owned context document carrying voice, tone, tastes, refusals, focus; standing-derived persistence.
+- **[`agent-assistance.md`](systems/agent-assistance.md)** — agent assistance primitive #3: composable, versioned, distributable capability bundles the assistant subscribes to.
+- **[`producer-tools.md`](systems/producer-tools.md)** — Member-authored broadcast to Member-followers (Substack-light); optional kind='business' Group branding; ships at b2.
+- **[`producer-tools.md`](systems/producer-tools.md)** — the BI dashboard backing the producer recruitment pitch: followers, activity, profile health, bulletin analytics, peer benchmarks; substrate at b1 (event log), surface at b2 (T1) → b3 (T2/T3).
 - **[`business-jurisdiction.md`](systems/business-jurisdiction.md)** — the locality-verification ladder for kind='business' Groups (Tier 0 self-attested ZIP → Tier 1 SOS-verified → Tier 2 document-uploaded); the public floor of evidence behind the "locally owned and operated" claim; separates locality (ZIP) from address (street) by design — promoted from exploration on 2026-05-11. Tier 0 ships at b1; Tier 1/2 defer to b2+.
 - **[`payments.md`](systems/payments.md)** — money movement primitive: Member→Member, Member→Group, Member→external-identified-recipient. Closed-loop ledger + ACH via chartered partner at b2; card with friction; stablecoin gated at T3. Wealth-circulation rubric drives every rail/custody/fee decision. Zero platform transaction fees on Member commerce. Substrate at b1 (4 tables, audit fields, handler stubs); rail goes live at b2. Drafted 2026-05-12 with `agent-commerce-and-project-amendments.md`. The rail that honors `bounded_purchase` (ADR-17).
 
@@ -57,9 +57,9 @@ Connecting people, joining forces, improving our lives socially and economically
 - **`community.md`** → [`systems/archive/community.md`](systems/archive/community.md). Absorbed by Groups (kind='place'/'interest'/'practice'/'event_anchored'/'family').
 - **`member-operations.md`** → [`systems/archive/member-operations.md`](systems/archive/member-operations.md). Absorbed by kind='business' Group memberships.
 - **`cooperative.md`** → [`systems/archive/cooperative.md`](systems/archive/cooperative.md). Deferred indefinitely; cooperative-shape served at b1 by kind='business' Groups with multiple owner-role memberships.
-- **`vendor-bulletin.md`** → rewritten as [`producer-bulletin.md`](systems/producer-bulletin.md); original at [`systems/archive/vendor-bulletin.md`](systems/archive/vendor-bulletin.md).
-- **`vendor-intelligence.md`** → rewritten as [`producer-growth.md`](systems/producer-growth.md); original at [`systems/archive/vendor-intelligence.md`](systems/archive/vendor-intelligence.md).
-- **`vendor-self-service.md`** → retired as superseded (Location concerns in [`location.md`](systems/location.md); profile-completeness in `producer-growth.md` T1; community pin flagging in `location.md` T2). Original at [`systems/archive/vendor-self-service.md`](systems/archive/vendor-self-service.md).
+- **`vendor-bulletin.md`** → rewritten as [`producer-tools.md`](systems/producer-tools.md); original at [`systems/archive/vendor-bulletin.md`](systems/archive/vendor-bulletin.md).
+- **`vendor-intelligence.md`** → rewritten as [`producer-tools.md`](systems/producer-tools.md); original at [`systems/archive/vendor-intelligence.md`](systems/archive/vendor-intelligence.md).
+- **`vendor-self-service.md`** → retired as superseded (Location concerns in [`location.md`](systems/location.md); profile-completeness in `producer-tools.md` T1; community pin flagging in `location.md` T2). Original at [`systems/archive/vendor-self-service.md`](systems/archive/vendor-self-service.md).
 
 ## Forward-looking (not gated on b1)
 
@@ -80,7 +80,7 @@ When this map is up to date, the following should all be true. If any of them is
 1. Every Item ultimately FKs to a Member. No corporate shells.
 2. Every Group's owner-role members are Persons. Groups can't own; they organize.
 3. Every messaging surface is item-scoped or group-scoped, never Location-scoped.
-4. Every Member becomes a Seller by joining a kind='business' Group or declaring a kind='product'/'service' Item; no Maker-mode toggle, no role column, no Business entity. (Producer = the agricultural/food variant of Seller in `producer-bulletin.md` / `producer-growth.md`. Maker survives only as a self-identified UI label for craftspeople/artisans.)
+4. Every Member becomes a Seller by joining a kind='business' Group or declaring a kind='product'/'service' Item; no Maker-mode toggle, no role column, no Business entity. (Producer = the agricultural/food variant of Seller in `producer-tools.md` / `producer-tools.md`. Maker survives only as a self-identified UI label for craftspeople/artisans.)
 5. Every write goes through a named action handler with `(acting_member_id, via_delegation_id)` audit fields populated.
 6. Every event row commits in the same transaction as the primitive row it describes.
 7. Every system spec that touches privacy/revenue/data sharing carries a "Policy posture" section walking each opt-in through the three filters.

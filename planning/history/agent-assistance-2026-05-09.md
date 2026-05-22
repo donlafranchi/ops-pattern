@@ -16,9 +16,9 @@ Four system specs, four ADRs, one foundation doc, and one prior architectural re
 - [`product/foundation/policy.md`](../product/foundation/policy.md) — three-filter test (helpful? harmless? abuse-resistant?) + opt-out default. Useful immediately as a guiding doc; does not require b1 implementation.
 
 **Systems (forward-looking — none ship at b1):**
-- [`product/systems/delegation.md`](../product/systems/delegation.md) — agent permission grants
-- [`product/systems/assistant-context.md`](../product/systems/assistant-context.md) — Member-owned context for the assistant
-- [`product/systems/skills.md`](../product/systems/skills.md) — composable agent capability bundles
+- [`product/systems/agent-assistance.md`](../product/systems/agent-assistance.md) — agent permission grants
+- [`product/systems/agent-assistance.md`](../product/systems/agent-assistance.md) — Member-owned context for the assistant
+- [`product/systems/agent-assistance.md`](../product/systems/agent-assistance.md) — composable agent capability bundles
 - ~~`product/systems/member-operations.md`~~ — **Archived 2026-05-11.** The Operation primitive was absorbed into kind='business' Group memberships per ADR-13. See [`product/systems/groups.md`](../product/systems/groups.md).
 
 **ADRs (in [`planning/DECISIONS.md`](../planning/DECISIONS.md)):**

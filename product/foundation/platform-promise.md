@@ -46,7 +46,7 @@ Producers — makers, growers, ranchers, bakers, fermenters, hosts, and any smal
 
 **Your growth is the metric.** When we measure ourselves, the question is not "how many users do we have" but "are the producers in our communities thriving more this year than last." If they aren't, we're not doing the work.
 
-The systems backing this promise — the founder dashboard, bulletins, follower analytics, profile health, peer benchmarks, weekly digest, and what comes after — are documented in [systems/producer-growth.md](../systems/producer-growth.md) (the dashboard and analytics surface) and [systems/producer-bulletin.md](../systems/producer-bulletin.md) (the broadcast-to-followers surface).
+The systems backing this promise — the founder dashboard, bulletins, follower analytics, profile health, peer benchmarks, weekly digest, and what comes after — are documented in [systems/producer-tools.md](../systems/producer-tools.md) (the dashboard and analytics surface) and [systems/producer-tools.md](../systems/producer-tools.md) (the broadcast-to-followers surface).
 
 ## Our Promise to Aspiring Producers
 

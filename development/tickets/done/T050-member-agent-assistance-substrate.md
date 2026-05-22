@@ -8,7 +8,7 @@
 
 **Serves:**
 - **Loop:** None directly at b1 — substrate only. All five loop families indirectly, because every write that flows through the action layer is audited via `acting_member_id` + `via_delegation_id` per ADR-6. This ticket closes the audit-field circle.
-- **Canonical example:** Agent assistance is parked per `product/foundation/agent-assistance.md`; the substrate tables let future Member-owned context (`assistant-context.md`) and delegated agent surfaces (`delegation.md`) land without retrofit. The substrate exists at b1 even though no surface reads it yet.
+- **Canonical example:** Agent assistance is parked per `product/systems/agent-assistance.md`; the substrate tables let future Member-owned context (`agent-assistance.md`) and delegated agent surfaces (`agent-assistance.md`) land without retrofit. The substrate exists at b1 even though no surface reads it yet.
 - **Primitive shape:** Person → self-context-document; Person → Delegation → Skill / scoped capability. No shell entity.
 
 ## Workflow gates
@@ -88,7 +88,7 @@ The fix: drop the time predicate; index on `(member_id) where revoked_at is null
 
 Record in DEVIATIONS at close. If `member.md` should be updated, hand back to `pipeline-product`.
 
-**`scopes` is a text[] not a separate join table.** `member.md` line 364 declares `scopes text[]`. The controlled vocabulary (`item.read`, `item.create.draft`, `item.publish`, etc. per `delegation.md`) is enforced by the action layer's `member.delegation.grant` handler, not by the schema. The handler rejects any scope not in the published enum. Trade-off: stable additive enum updates require no migration; the cost is no DB-level enforcement of the enum. This matches the `member_interests.tag` pattern.
+**`scopes` is a text[] not a separate join table.** `member.md` line 364 declares `scopes text[]`. The controlled vocabulary (`item.read`, `item.create.draft`, `item.publish`, etc. per `agent-assistance.md`) is enforced by the action layer's `member.delegation.grant` handler, not by the schema. The handler rejects any scope not in the published enum. Trade-off: stable additive enum updates require no migration; the cost is no DB-level enforcement of the enum. This matches the `member_interests.tag` pattern.
 
 **No bootstrap for `member_self_records`.** Most Members will never opt into agent assistance at b1. Auto-creating a row per Member would create N empty rows for no purpose. Pattern: row exists when the Member writes to it; absent otherwise. The action handler `member.self_record.update` does the insert-or-update.
 

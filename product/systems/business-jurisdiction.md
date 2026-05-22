@@ -199,7 +199,7 @@ This system touches public visibility and the locally-owned claim. Three-filter 
 - **Group public surface** — renders the "Claimed / Verified / Documented local owner" badge.
 - **Locality-first index** (Cluster 3) — promotion weight depends on jurisdiction tier + proximity pass.
 - **Locally-owned filter / badge** — surfaces in browse, search, Explore tab.
-- **Producer growth dashboard** (per `producer-growth.md`) — surfaces "your locality claim is at Tier N — climb the ladder to surface higher" as an opt-in nudge at T2+.
+- **Producer growth dashboard** (per `producer-tools.md`) — surfaces "your locality claim is at Tier N — climb the ladder to surface higher" as an opt-in nudge at T2+.
 
 ---
 

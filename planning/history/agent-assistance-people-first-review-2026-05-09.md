@@ -2,7 +2,7 @@
 
 **Reviewer hat:** Foundational-principles check — does the agent-assistance stack (member-operations, delegation, member-self-record, skills + ADRs 6-9) honor what `principles.md`, `primitives.md`, `policy.md`, and `canonical-examples.md` refuse?
 
-**Specs reviewed:** `product/systems/member-operations.md`, `product/systems/delegation.md`, `product/systems/member-self-record.md`, `product/systems/skills.md`, `planning/DECISIONS.md` ADRs 6-9.
+**Specs reviewed:** `product/systems/member-operations.md`, `product/systems/agent-assistance.md`, `product/systems/member-self-record.md`, `product/systems/agent-assistance.md`, `planning/DECISIONS.md` ADRs 6-9.
 
 ---
 

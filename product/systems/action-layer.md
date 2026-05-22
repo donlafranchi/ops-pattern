@@ -32,14 +32,14 @@ The action layer enforces a closed-world catalog: every scope a caller might exe
 
 > **Intent:** Allowlist semantics are what make policy refusals become *unreachable code* rather than runtime checks that could be bypassed (or forgotten, or commented out). A future feature that needs a new capability has to add the scope to the catalog deliberately, which surfaces the policy review at the point of code change — the three-filter test from `policy.md` runs there, by construction, because there is nowhere else for the scope to come from. The closed-world property is also what lets the anti-Nextdoor commitment be enforced by *absence* (no `message.send.location-scope` capability exists, so it can't be exercised); the moment the catalog becomes open-world, that enforcement becomes a runtime check, and runtime checks erode.
 
-The catalog is also the surface every other spec references. `delegation.md` lists scopes a Member can grant; `skills.md` lists scopes a Skill can declare at install; `policy.md` walks new opt-in scopes through the three filters; this spec is where the catalog itself is enforced.
+The catalog is also the surface every other spec references. `agent-assistance.md` lists scopes a Member can grant; `agent-assistance.md` lists scopes a Skill can declare at install; `policy.md` walks new opt-in scopes through the three filters; this spec is where the catalog itself is enforced.
 
 The closed-world property is load-bearing: anti-Nextdoor commitments (per `policy.md`) are enforced here by *absence* — there is no `message.send.location-scope` capability in the catalog, so no handler can accept it, so no client can construct it. Policy refusals become unreachable code, not runtime checks that could be bypassed.
 
 **Monetary-flow scope catalog (T2):** the catalog carries `delegation.recurring_payment` and `delegation.bounded_purchase` as the two monetary-flow scopes ratified to date. Each is bound to a handler with schema-enforced invariants:
 
 - `delegation.recurring_payment` → handler invariants: cap enforcement (`max_per_transaction_cents`, `max_per_month_cents`), recipient validation against the Delegation's allowlist, expiry check, per-execution event write (`delegation.recurring_payment_executed`).
-- `delegation.bounded_purchase` → handler invariants: cap enforcement (`max_per_transaction_cents` + `max_per_period_cents` against the `period_window`), recipient validation against the Delegation's `recipient_scope` (and `recipient_kind` derivation: member / group / external_recipient), category validation against `category_scope` (where applicable), first-recipient confirmation gate when `first_recipient_confirmation = true` and the recipient is new to the Member, reversibility-window state seeding on success (`reversibility_window_ends_at` computed at execution), per-execution event write (`delegation.bounded_purchase_executed`), and the parallel `delegation.bounded_purchase_reversed` event when the Member exercises one-tap reversal within the window. Per `delegation.md` Policy posture and `payments.md`.
+- `delegation.bounded_purchase` → handler invariants: cap enforcement (`max_per_transaction_cents` + `max_per_period_cents` against the `period_window`), recipient validation against the Delegation's `recipient_scope` (and `recipient_kind` derivation: member / group / external_recipient), category validation against `category_scope` (where applicable), first-recipient confirmation gate when `first_recipient_confirmation = true` and the recipient is new to the Member, reversibility-window state seeding on success (`reversibility_window_ends_at` computed at execution), per-execution event write (`delegation.bounded_purchase_executed`), and the parallel `delegation.bounded_purchase_reversed` event when the Member exercises one-tap reversal within the window. Per `agent-assistance.md` Policy posture and `payments.md`.
 
 A handler that fails to enforce any one of these invariants — caps, scope, category, confirmation, audit — is rejected by code review and CI per `agent-commerce-and-project-amendments.md` §8b ratification (2026-05-12). The invariants are schema-enforced, not policy-enforced.
 
@@ -69,7 +69,7 @@ Per-turn selection pairs with the catalog: the edge consults the catalog to deci
 
 ### 6. Sandboxed Skill execution
 
-Skills (per `skills.md`) run in an isolated execution context, not in the platform process. A Skill's runtime sees: the Member's Assistant Context sections it was granted at install, the public data its read scopes admit, and the action-layer client. It does not see: other Members' Assistant Contexts, the platform's internal state, the credentials of the Member it runs for, the credentials of any other Skill, or any cross-tenant data.
+Skills (per `agent-assistance.md`) run in an isolated execution context, not in the platform process. A Skill's runtime sees: the Member's Assistant Context sections it was granted at install, the public data its read scopes admit, and the action-layer client. It does not see: other Members' Assistant Contexts, the platform's internal state, the credentials of the Member it runs for, the credentials of any other Skill, or any cross-tenant data.
 
 The sandbox is the answer to two distinct concerns. First, prompt-injection containment: a Skill that reads untrusted user content (Item descriptions, incoming messages, Group posts) cannot use that content to manipulate other Skills, the platform, or the Member's other context. Second, multi-tenancy: peer-shared and federation-provided Skills (b3) run on behalf of one Member but are authored by another; the sandbox is what makes that safe.
 
@@ -86,7 +86,7 @@ The b1 commitment is **handler invariant, audit fields populated, system Member 
 - CI assertion: no service-role SQL writes from controllers; every write goes through a named handler.
 - Eval-runners assert the same-transaction property via deliberate failure injection (force the event-log insert to fail and verify the row insert rolls back) on every Cluster 1+ ticket.
 
-The scope catalog exists in code at b1 with the b1 vocabulary (read scopes, draft scopes, confirmation scopes per `delegation.md`); it is empty of active grants because no Delegations are issued.
+The scope catalog exists in code at b1 with the b1 vocabulary (read scopes, draft scopes, confirmation scopes per `agent-assistance.md`); it is empty of active grants because no Delegations are issued.
 
 ## T2 — Core Tier
 
@@ -97,14 +97,14 @@ The runtime trust substrate ships. Agent assistance becomes safe to expose.
 - **Per-turn selection.** Each agent turn mints fresh capabilities bound to the stated intent. The catalog maps intent → scope → handler; intents that don't map cleanly are rejected.
 - **Approval gate enforcement.** Confirmation-required scopes are honored at handler entry. Confirmation tokens are minted only from real Member taps in the UI; the handler rejects any confirmation-required call without a fresh confirmation token.
 - **Skill sandbox.** The Skill execution context is isolated from the platform process. The contract above is enforced; specific runtime choice is a b2 architecture call (recorded as a follow-up ADR when chosen).
-- **Per-Delegation observability.** Each capability use writes a `delegation.scope_used` event (per `delegation.md`) including the handler invoked and the scope exercised. Member-visible at `/you/agents`.
+- **Per-Delegation observability.** Each capability use writes a `delegation.scope_used` event (per `agent-assistance.md`) including the handler invoked and the scope exercised. Member-visible at `/you/agents`.
 
 ## T3 — Polish Tier
 
 Federation-grade handoff and audit-grade transparency.
 
 - **Federation peers as action-layer clients.** A federated platform (per Loop 13) calls the action layer through the same handlers, authenticated by a federation-grade Delegation. No separate external API; federation peers are thin clients over the same surface.
-- **Cross-platform capability portability.** When a Member moves identity to a federated platform, active Delegations that carry a portability flag (per `delegation.md`) carry their capability shapes; the receiving platform's action layer mints capabilities under the same contract.
+- **Cross-platform capability portability.** When a Member moves identity to a federated platform, active Delegations that carry a portability flag (per `agent-assistance.md`) carry their capability shapes; the receiving platform's action layer mints capabilities under the same contract.
 - **Audit dashboard.** The Member can view a chronological log of every capability minted, every handler invoked, every confirmation prompt presented, every confirmation declined — filterable by date, scope, grantee, and outcome. Surfaced at `/you/agents`.
 - **Granular capability shaping.** A Member can constrain a Delegation's capabilities mid-life (narrow scope, lower caps, shrink allowlist) without revoking and re-granting.
 
@@ -120,7 +120,7 @@ The action layer does not require its own tables. Capabilities are ephemeral (in
 
 ## Policy posture
 
-The action layer does not introduce opt-ins of its own. Opt-ins live in `delegation.md` (which scopes the Member grants) and `skills.md` (which Skills the Member installs). What the action layer encodes structurally:
+The action layer does not introduce opt-ins of its own. Opt-ins live in `agent-assistance.md` (which scopes the Member grants) and `agent-assistance.md` (which Skills the Member installs). What the action layer encodes structurally:
 
 - **Closed-world catalog.** No scope exists outside the catalog; no handler accepts an uncatalogued scope. Anti-Nextdoor refusals (per `policy.md`) are enforced by absence in the catalog.
 - **Confirmation-required scopes are unbypassable.** Code review and CI assertion enforce this; no handler can ship that lets a confirmation-tier scope execute without a fresh confirmation token.
@@ -140,9 +140,9 @@ The three-filter test (per `policy.md` / ADR-9) applies to every new scope added
 ## Integration Points
 
 - **Connects to:**
-  - **Delegation** (the action layer validates Delegation scope on every agent-originated call; per [`delegation.md`](delegation.md))
-  - **Assistant Context** (Assistant Context reads/writes flow through the action layer with scope enforcement; per [`assistant-context.md`](assistant-context.md))
-  - **Skills** (Skills run in the sandbox defined here; Skill writes flow through the action layer; per [`skills.md`](skills.md))
+  - **Delegation** (the action layer validates Delegation scope on every agent-originated call; per [`agent-assistance.md`](agent-assistance.md))
+  - **Assistant Context** (Assistant Context reads/writes flow through the action layer with scope enforcement; per [`agent-assistance.md`](agent-assistance.md))
+  - **Skills** (Skills run in the sandbox defined here; Skill writes flow through the action layer; per [`agent-assistance.md`](agent-assistance.md))
   - **Event log** (every action writes its event row in the same transaction as the primitive row; the `*_events` tables — `item_events`, `member_events`, `group_events`, `location_events` — are the canonical history, partitioned monthly, with audit fields per ADR-7)
   - **All primitive writes** (Item, Group, Member, Location lifecycle handlers; per their respective specs)
 - **Used by:**
@@ -157,7 +157,7 @@ The three-filter test (per `policy.md` / ADR-9) applies to every new scope added
 - **Edge function placement.** The credential-injection edge can run as Next.js middleware, a separate Vercel function, or an in-process server module. Each has different latency, cold-start, and isolation characteristics. Decide at b2 design; recorded as a follow-up ADR.
 - **Sandbox runtime.** V8 isolate, WASM (Wasmtime / Wasmer), separate process, or a managed runtime (Vercel Sandbox, Cloudflare Workers). Skills are mostly read-then-suggest at b2, so heavy isolation may be overkill initially. Decide at b2 design; ADR.
 - **Capability lifetime.** Seconds (5–60s window per call) vs. minutes (5–10min for a session of related calls). Trade-off between refresh chatter and blast radius if a capability leaks. Empirical question; instrument and decide.
-- **Federation capability shape.** Federation Delegations need to carry capability hints across platforms (per `delegation.md` portability flag). What exactly is portable — the scope, the caps, the allowlist, the confirmation policy? T3 design question.
+- **Federation capability shape.** Federation Delegations need to carry capability hints across platforms (per `agent-assistance.md` portability flag). What exactly is portable — the scope, the caps, the allowlist, the confirmation policy? T3 design question.
 - **Rate limiting on capability minting.** Anti-abuse: a misbehaving agent that mints capabilities at 1000/sec needs to be throttled. Where the throttle lives (edge, handler, both) and what it counts (per Member, per Delegation, per scope) is a b2 design call.
 
 ## Decisions encoded here

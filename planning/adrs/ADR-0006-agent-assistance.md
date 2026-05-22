@@ -4,7 +4,7 @@
 **Date:** 2026-05-09
 **Deciders:** PM
 **Scope:** How AI agents (Claude / future LLMs / federation peers) act on a Member's behalf — the persistence model, the consent model, the trust model, the federation portability commitment
-**Touches:** [`product/foundation/agent-assistance.md`](../../product/foundation/agent-assistance.md) (canonical home — umbrella commitments, the long-form prose), [`product/systems/delegation.md`](../../product/systems/delegation.md) (Delegation primitive — bounded scopes, schema-enforced caps), [`product/systems/assistant-context.md`](../../product/systems/assistant-context.md) (Member-Owned Context primitive), [`product/systems/skills.md`](../../product/systems/skills.md) (Skill subscriptions, sandboxed execution), [`product/systems/action-layer.md`](../../product/systems/action-layer.md) (ADR-7 — agent writes flow through the same action handlers as human writes), [`product/systems/member.md`](../../product/systems/member.md) (`member_delegations`, `member_self_records`)
+**Touches:** [`product/systems/agent-assistance.md`](../../product/systems/agent-assistance.md) (canonical home — umbrella commitments, the long-form prose), [`product/systems/agent-assistance.md`](../../product/systems/agent-assistance.md) (Delegation primitive — bounded scopes, schema-enforced caps), [`product/systems/agent-assistance.md`](../../product/systems/agent-assistance.md) (Member-Owned Context primitive), [`product/systems/agent-assistance.md`](../../product/systems/agent-assistance.md) (Skill subscriptions, sandboxed execution), [`product/systems/action-layer.md`](../../product/systems/action-layer.md) (ADR-7 — agent writes flow through the same action handlers as human writes), [`product/systems/member.md`](../../product/systems/member.md) (`member_delegations`, `member_self_records`)
 
 ## Decision
 
@@ -24,7 +24,7 @@ Five umbrella commitments bind all three:
 4. **Member-owned, never platform-owned.** Assistant Context, Delegations, and Skill subscriptions belong to the Member. The platform does not aggregate, sell, or train on this data.
 5. **Federation-portable.** Every agent surface is designed to survive a Member moving to a federated peer without rebuilding state from scratch. The Member-owned data structures travel.
 
-The full prose lives in [`agent-assistance.md`](../../product/foundation/agent-assistance.md). This ADR is the canonical index entry.
+The full prose lives in [`agent-assistance.md`](../../product/systems/agent-assistance.md). This ADR is the canonical index entry.
 
 ## Trade-offs
 
@@ -46,16 +46,16 @@ ADR-9's anti-Nextdoor framing was softened 2026-05-12 in ways that refined this 
 - Schema reservations at b1 (`member_self_records`, `member_delegations`) per [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) Phase 1 (007 series). Surfaces ship b2.
 - ADR-17 (`bounded_purchase` scope) is the first concrete Delegation scope and the prototype for all future scopes — caps, recipient_scope, category_scope, reversibility window, first-recipient confirmation.
 - Member-Owned Context is not a "settings page" — it is a primitive. UI label is "Assistant Context" per the naming-conventions table in root `CLAUDE.md`.
-- Skills sandboxing is mandatory — every Skill runs in a sandbox per [`skills.md`](../../product/systems/skills.md). No exception for "trusted" Skills.
+- Skills sandboxing is mandatory — every Skill runs in a sandbox per [`agent-assistance.md`](../../product/systems/agent-assistance.md). No exception for "trusted" Skills.
 - The platform never mines `member_self_records` for cross-Member analytics, training, advertising signals, or feature shaping. Per Commitment 4. RLS enforces this at the database level (per ADR-16's row-privacy pattern, applied to Assistant Context).
 - This ADR forecloses a path where agent assistance is bolted on as a third-party integration after b1 ships. Reversible at significant cost; the foreclosure preserves the Member-owned-by-design property.
 
 ## Action Items
 
 1. [x] Decision ratified 2026-05-09.
-2. [x] [`agent-assistance.md`](../../product/foundation/agent-assistance.md) umbrella commitments section is the user-facing ratification.
+2. [x] [`agent-assistance.md`](../../product/systems/agent-assistance.md) umbrella commitments section is the user-facing ratification.
 3. [x] Pointer line in [`../DECISIONS.md`](../DECISIONS.md) pointer index.
-4. [x] [`delegation.md`](../../product/systems/delegation.md), [`assistant-context.md`](../../product/systems/assistant-context.md), [`skills.md`](../../product/systems/skills.md) are the per-primitive homes.
+4. [x] [`agent-assistance.md`](../../product/systems/agent-assistance.md), [`agent-assistance.md`](../../product/systems/agent-assistance.md), [`agent-assistance.md`](../../product/systems/agent-assistance.md) are the per-primitive homes.
 5. [x] ADR-9 refinement 2026-05-12 — anti-Nextdoor framing narrowed to messaging-scope; this ADR's federation-portability commitment is unaffected.
 6. [ ] Phase 1 migrations land the substrate (`member_self_records`, `member_delegations`); surfaces deferred to b2.
 7. [ ] ADR-17 (`bounded_purchase`) is the first applied Delegation scope; further scopes require their own ADRs.

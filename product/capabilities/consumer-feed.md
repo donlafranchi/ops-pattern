@@ -35,7 +35,7 @@ This feed is **locality-aware** — content surfaces based on the Member's local
 - Personalized / algorithmic ranking (T3 — signals: follows, supports, views, time of day, locality affinity strength).
 - Saved/bookmarked Items (T3).
 - Push notifications for new content (T3).
-- Producer bulletin cards (T2 — depends on [`../systems/producer-bulletin.md`](../systems/producer-bulletin.md)).
+- Producer bulletin cards (T2 — depends on [`../systems/producer-tools.md`](../systems/producer-tools.md)).
 - Group activity cards (T2 — when a Group the Member belongs to declares an Item).
 - Location-follow activity cards (T2 — the Concerts-in-the-Park surface per [`../systems/location.md`](../systems/location.md)).
 

@@ -199,7 +199,7 @@ P6 (default-private), P7 (bad actors fail), and the privacy / security baseline 
 
 ## Part 6: Self-Assessment of Existing System Specs
 
-> **[PM: confirm]** This section was written from a pre-primitives working set (`community.md`, `initiatives.md`, `member.md`, `service-provider.md` — all retired or renamed in the 2026-05 work). The strong-alignment / weak-coverage analysis is preserved for historical context but no longer maps to the live spec set. A refresh against the current system specs (`member.md`, `item.md`, `location.md`, `groups.md`, `discovery.md`, `action-layer.md`, `producer-bulletin.md`, `producer-growth.md`, `business-jurisdiction.md`, `payments.md`, plus the forward-looking `delegation.md`, `assistant-context.md`, `skills.md`) belongs in a follow-up pass after R10 completes.
+> **[PM: confirm]** This section was written from a pre-primitives working set (`community.md`, `initiatives.md`, `member.md`, `service-provider.md` — all retired or renamed in the 2026-05 work). The strong-alignment / weak-coverage analysis is preserved for historical context but no longer maps to the live spec set. A refresh against the current system specs (`member.md`, `item.md`, `location.md`, `groups.md`, `discovery.md`, `action-layer.md`, `producer-tools.md`, `business-jurisdiction.md`, `payments.md`, plus `agent-assistance.md`) belongs in a follow-up pass after R10 completes.
 
 **Strong alignment.**
 

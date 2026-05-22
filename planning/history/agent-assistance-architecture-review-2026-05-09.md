@@ -1,7 +1,7 @@
 # Agent-Assistance Architecture Review — 2026-05-09
 
 **Reviewer:** Independent (no prior session context)
-**Artifacts:** `product/systems/delegation.md`, `product/systems/member-self-record.md`, `product/systems/skills.md`, `planning/DECISIONS.md` ADR-6.
+**Artifacts:** `product/systems/agent-assistance.md`, `product/systems/member-self-record.md`, `product/systems/agent-assistance.md`, `planning/DECISIONS.md` ADR-6.
 
 ## Verdict
 

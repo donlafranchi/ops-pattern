@@ -4,7 +4,7 @@
 **Date:** 2026-05-09
 **Deciders:** PM
 **Scope:** Every write to every table the platform owns — `members`, `items`, `locations`, `groups`, every `*_events` log, every join table — flows through named action handlers. Six runtime-trust concerns are enforced here
-**Touches:** [`product/systems/action-layer.md`](../../product/systems/action-layer.md) (canonical home — the entire document carries the load-bearing prose), every Phase 0/1 migration in [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md), `web/src/actions/` (the implementation directory), every other system spec (action handlers ship alongside their tables), [`product/foundation/agent-assistance.md`](../../product/foundation/agent-assistance.md) (ADR-6 — agent writes flow through the same handlers as human writes), ADR-10 (consolidated into this ADR 2026-05-10 — same-transaction invariant, audit fields, view-refresh semantics)
+**Touches:** [`product/systems/action-layer.md`](../../product/systems/action-layer.md) (canonical home — the entire document carries the load-bearing prose), every Phase 0/1 migration in [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md), `web/src/actions/` (the implementation directory), every other system spec (action handlers ship alongside their tables), [`product/systems/agent-assistance.md`](../../product/systems/agent-assistance.md) (ADR-6 — agent writes flow through the same handlers as human writes), ADR-10 (consolidated into this ADR 2026-05-10 — same-transaction invariant, audit fields, view-refresh semantics)
 **Supersedes:** Original ADR-10 transactional model (consolidated 2026-05-10 when the rebuild reframe retired dual-write / per-phase rollback / verification-window concerns)
 
 ## Decision
@@ -26,7 +26,7 @@ The runtime trust substrate (six concerns, each enforced structurally at the act
 3. **Approval gates — confirmation-required scopes.** Some scopes require explicit Member confirmation per call (e.g., `bounded_purchase` per ADR-17). The gate is unbypassable.
 4. **Network-layer credential injection.** Credentials never reach the model / agent. The action-layer edge injects them at the network boundary.
 5. **Per-turn credential selection.** The active Delegation determines which credentials are minted for this turn. No credential persists across turns.
-6. **Sandboxed Skill execution.** Skills run in a sandbox per [`skills.md`](../../product/systems/skills.md). No exception.
+6. **Sandboxed Skill execution.** Skills run in a sandbox per [`agent-assistance.md`](../../product/systems/agent-assistance.md). No exception.
 
 View-refresh semantics: the `discoverable_items` materialized view refreshes synchronously on `item.published` via an AFTER INSERT trigger on `item_events` (per [`item.md`](../../product/systems/item.md) lines 128–136). At b1, synchronous. T2 transitions to async when p99 view-refresh latency exceeds 30s for a week.
 

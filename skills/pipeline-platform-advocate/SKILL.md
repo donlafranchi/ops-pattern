@@ -1,6 +1,6 @@
 ---
 name: pipeline-platform-advocate
-description: Produce a short bullet (1-2 sentences) on what the platform — including its financial durability — loses if a given absolute / spec decision errs toward member-protection at the cost of platform utility or sustainability. Platform-side of the dialectic with pipeline-member-advocate; PM adjudicates. Use when pipeline-ratify-absolute detects member-vs-platform tension on a statement, or when the PM says "what's the platform view on this", "what does the platform need here", "advocate for the platform on F###", or "run the dialectic on this statement". Reads principles.md (Parts on monetization + agent-native), principles.md, policy.md, payments.md, producer-growth.md, business-jurisdiction.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet into a 150–250 word position paper on PM request.
+description: Produce a short bullet (1-2 sentences) on what the platform — including its financial durability — loses if a given absolute / spec decision errs toward member-protection at the cost of platform utility or sustainability. Platform-side of the dialectic with pipeline-member-advocate; PM adjudicates. Use when pipeline-ratify-absolute detects member-vs-platform tension on a statement, or when the PM says "what's the platform view on this", "what does the platform need here", "advocate for the platform on F###", or "run the dialectic on this statement". Reads principles.md (Parts on monetization + agent-native), principles.md, policy.md, payments.md, producer-tools.md, business-jurisdiction.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet into a 150–250 word position paper on PM request.
 ---
 
 # pipeline-platform-advocate
@@ -30,7 +30,7 @@ This skill is intentionally lightweight. Default output is one short bullet. Exp
 - **P5** — Federated, stakeholder-owned, locally run. The platform must function as the infrastructure for federation.
 - **P8** — Agent-native. The platform must remain navigable, useful, and safe through assistant channels.
 - The locality-and-community-support question — *is this local / does this entity support my community / should I support it* — must be answerable.
-- Producer growth (`producer-growth.md`), producer bulletins (`producer-bulletin.md`), business-jurisdiction verification (`business-jurisdiction.md`), payments (`payments.md`) all require the platform to function as more than a passive directory.
+- Producer growth (`producer-tools.md`), producer bulletins (`producer-tools.md`), business-jurisdiction verification (`business-jurisdiction.md`), payments (`payments.md`) all require the platform to function as more than a passive directory.
 
 **Financial durability — can the platform afford to exist?**
 
