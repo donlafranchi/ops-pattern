@@ -99,4 +99,9 @@ git commit -m "docs(consolidation): phase 4 — dissolve notes; scaffold standar
 
 ## Completion
 
-Date: {YYYY-MM-DD} · Commit: {hash} · Notes: {divergences}
+Date: 2026-05-22 · Commit: `903a100` · Notes:
+
+- **`notes/` did NOT disappear.** A fourth file, `notes/deploy-to-hetzner.md`, was added in the initial pre-R01 doc-cleanup commit (`f9e2f9e`) — after the consolidation plan was written. R04's plan only covers three files and the ticket assumes empty-after-moves. `deploy-to-hetzner.md` left in place; `notes/` remains as a single-file directory. **[PM: confirm]** disposition — `operations/DEPLOY.md`? `planning/deploy-to-hetzner.md`? Or expand `standards/` to cover deploy?
+- **`standards/` created** with 5 stubs (safety, security, accessibility, performance, responsiveness) + README per the ticket's template.
+- **32-file cross-reference sweep** for `migration-to-primitives.md` → `rebuild-plan.md` succeeded with one bulk sed pass plus a separate pass for the two archived dead files. Negative-lookbehind verification confirms no live `notes/` references remain (the only `notes/migration-to-primitives` / `notes/cowork-sandbox` / `notes/eval-helpers` strings now live in `_attic/2026-05-19/`).
+- **`places.md` still untracked.** Per PM ("part of another agent's workflow"), left untouched.
