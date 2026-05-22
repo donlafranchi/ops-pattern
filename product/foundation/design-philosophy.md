@@ -1,6 +1,8 @@
 # Community Design Philosophy — Movers, Makers & Shakers
 
-> **Status:** Foundational measuring stick. The structured rubric used to evaluate every platform decision. When this document and another foundation doc conflict on a principle, this wins; when this document and a system spec conflict on a structural mechanism (schema, action handler, anti-Nextdoor surface rule), the system spec wins — that's where the platform's *how* lives. Read alongside [`loops.md`](loops.md) (the 13 loops this document scores), [`people-first.md`](people-first.md) (the schema-level commitments), [`policy-framework.md`](policy-framework.md) (the three filters + anti-Nextdoor commitments), [`platform-promise.md`](platform-promise.md) (the public-facing commitments), and [`foundational-principles.md`](foundational-principles.md) (the P1–P8 constitution + Decision Test). Scoped to the platform's *what we are building toward*; the linked docs encode the *what we have refused at the schema and policy layer*.
+> **Status:** Foundational measuring stick. The structured 0–3 scored rubric used to evaluate every platform decision and periodically audit community health. When this document and another foundation doc conflict on a principle, the principle in [`principles.md`](principles.md) wins (this document is the *how-to-grade*; `principles.md` is the *what we have committed to*). When this document and a system spec conflict on a structural mechanism (schema, action handler, anti-Nextdoor surface rule), the system spec wins — that's where the platform's *how* lives. Read alongside [`principles.md`](principles.md) (the P1–P8 constitution, the People-First Principle, the binary Decision Test, the categorical failures — folded from the prior `people-first.md` + `foundational-principles.md` on 2026-05-22), [`policy.md`](policy.md) (the three filters + anti-Nextdoor commitments + opt-out default), [`platform-promise.md`](platform-promise.md) (the public-facing commitments), [`loops.md`](loops.md) (the 13 loops this document scores), and [`primitives.md`](primitives.md) (Person / Item / Location / Group, the data spine every checklist item is graded against). Scoped to the platform's *what we are building toward*; the linked docs encode the *what we have refused at the schema and policy layer*.
+
+> **Scoring scheme is subject to change.** The 0–3 scale, the five sections, and the per-item weighting are working defaults — useful for a structured measuring stick, not load-bearing as written. As real Members + real communities surface what's actually measurable (and what isn't), expect the rubric to evolve: items may collapse or split, sections may reweight, scores may shift to qualitative grades. The *pattern* — periodic structured audit complementing the per-proposal binary Decision Test — is what's load-bearing; the specific instrument is iterable.
 
 A working document for evaluating platform design decisions against what makes communities actually work. Use this as a rubric, a feature roadmap lens, and a gut-check when building.
 
@@ -48,7 +50,7 @@ Score each 0 (absent) → 1 (emerging) → 2 (strong) → 3 (thriving):
 - Create natural "third place" spaces — low-stakes, informal, not transactional.
 - Build cross-community discovery so bonding capital doesn't calcify into silos.
 
-> **How this is encoded in the platform.** The Item primitive ([`../systems/item.md`](../systems/item.md)) makes member contribution structurally visible. Group ([`../systems/groups.md`](../systems/groups.md)) is opt-in and self-selected — no auto-assigned community membership. The anti-Nextdoor commitments in [`policy-framework.md`](policy-framework.md) (messaging-scope item-or-group-only, complaint downvote/removal, "fix it" path) are the structural enforcement of attributes 1.5, 1.7, and 1.8.
+> **How this is encoded in the platform.** The Item primitive ([`../systems/item.md`](../systems/item.md)) makes member contribution structurally visible. Group ([`../systems/groups.md`](../systems/groups.md)) is opt-in and self-selected — no auto-assigned community membership. The anti-Nextdoor commitments in [`policy.md`](policy.md) (messaging-scope item-or-group-only, complaint downvote/removal, "fix it" path) are the structural enforcement of attributes 1.5, 1.7, and 1.8.
 
 ---
 
@@ -157,7 +159,7 @@ Avoid the trap of reducing trust to a single number. A "4.7 star" rating flatten
 
 **Platform implications:** Build a multi-dimensional reputation system. Track actions (trades completed, events hosted, proposals passed, commitments kept) and let context determine which dimensions are visible. Provide a "new member boost" pathway — perhaps through vouching, mentorship, or verified introductory activities.
 
-> **In the platform.** [`people-first.md`](people-first.md) explicitly refuses star ratings — "No reviews, no ratings. Reviewing a person feels different than reviewing a business." The action layer ([`../systems/action-layer.md`](../systems/action-layer.md)) audits every action with `acting_member_id` + `via_delegation_id`, giving every Member an earned, contextual track record by construction.
+> **In the platform.** [`principles.md`](principles.md) Part 2 (The People-First Principle) refuses ranking of people — "No ranking of people. We review *treatment*, not the person." Star-rating leaderboards are the Yelp / Angi failure mode and are categorically refused; treatment reviews (the four pillars: Customers / Employees / Community / Planet) surface as peer-pressure for good behavior without producing a price-of-being-found column. The action layer ([`../systems/action-layer.md`](../systems/action-layer.md)) audits every action with `acting_member_id` + `via_delegation_id`, giving every Member an earned, contextual track record by construction.
 
 ---
 
@@ -223,7 +225,7 @@ Bad behavior thrives in darkness. Make actions visible:
 - Create transparency dashboards for group finances, decisions, and activity.
 - Make the restorative path explicit — what does a member need to do to recover from a violation?
 
-> **In the platform.** The anti-Nextdoor commitments in [`policy-framework.md`](policy-framework.md) — messaging-scope item-or-group-only, community downvote/removal as the affirmative replacement for moderation-by-deletion, "create an Item to lead the fix" replacing the complaint surface — are the structural answer for 3.4, 3.6, and 3.10. The Group's role-per-kind system in [`../systems/groups.md`](../systems/groups.md) gives groups governance tooling without imposing it.
+> **In the platform.** The anti-Nextdoor commitments in [`policy.md`](policy.md) — messaging-scope item-or-group-only, community downvote/removal as the affirmative replacement for moderation-by-deletion, "create an Item to lead the fix" replacing the complaint surface — are the structural answer for 3.4, 3.6, and 3.10. The Group's role-per-kind system in [`../systems/groups.md`](../systems/groups.md) gives groups governance tooling without imposing it.
 
 ---
 
@@ -456,7 +458,7 @@ Aggregate intelligence that helps communities without compromising individuals:
 - Build the safety floor (fraud detection, legal compliance, identity) so communities don't have to, but keep the ceiling open — don't cap what communities can do.
 - Make platform governance itself transparent. If you're asking communities to be transparent, the platform must lead by example.
 
-> **In the platform.** [`platform-promise.md`](platform-promise.md) is the public-voice version of this section: the fee philosophy, "your relationships with your customers belong to you," "you will never pay for visibility," "your growth is the metric." [`policy-framework.md`](policy-framework.md) encodes the three-filter test that every revenue line and data-sharing surface must survive. [`foundational-principles.md`](foundational-principles.md) Categorical Failures rules out the illegitimate roles structurally (no ad injection, no data-as-product, no gatekeeping ratings, no founder-as-CEO patterns, no centralized override).
+> **In the platform.** [`platform-promise.md`](platform-promise.md) is the public-voice version of this section: the fee philosophy, "your relationships with your customers belong to you," "you will never pay for visibility," "your growth is the metric." [`policy.md`](policy.md) encodes the three-filter test that every revenue line and data-sharing surface must survive. [`principles.md`](principles.md) Categorical Failures rules out the illegitimate roles structurally (no ad injection, no data-as-product, no gatekeeping ratings, no founder-as-CEO patterns, no centralized override).
 
 ---
 

@@ -5,7 +5,7 @@
 
 ## Project Facts
 
-- **What it is:** A coordination layer for collective action in a place. People declare things — products, services, gatherings, ideas — at locations. Other people respond. Farmers markets are the wedge; the platform is broader. **People-first, not business-first.** See [`product/foundation/people-first.md`](product/foundation/people-first.md).
+- **What it is:** A coordination layer for collective action in a place. People declare things — products, services, gatherings, ideas — at locations. Other people respond. Farmers markets are the wedge; the platform is broader. **People-first, not business-first.** See [`product/foundation/principles.md`](product/foundation/principles.md).
 - **Stack:** Next.js (App Router), TypeScript, Tailwind v4 (`@theme inline` tokens), Supabase (Postgres + Auth + Realtime), Mapbox GL JS, Playwright (evals), Vitest (unit), Vercel.
 - **Repo structure:** Two-repo. Parent `movers-makers-shakers/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
 - **App path:** `./web`
@@ -164,14 +164,14 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/adrs/`](planning/adrs/) | The canonical home for every ADR. Format and lifecycle in [`adrs/README.md`](planning/adrs/README.md). |
 | [`product/foundation/loops.md`](product/foundation/loops.md) | North-star check — does this serve a loop? |
 | [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |
-| [`product/foundation/people-first.md`](product/foundation/people-first.md) | Anything that risks treating a business as more important than the people doing the work |
+| [`product/foundation/principles.md`](product/foundation/principles.md) | Anything that risks treating a business as more important than the people doing the work |
 | [`product/foundation/agent-assistance.md`](product/foundation/agent-assistance.md) | Anything agent-shaped — the umbrella for Delegation / Assistant Context / Skills |
 | [`product/foundation/canonical-examples.md`](product/foundation/canonical-examples.md) | Real situations the platform exists to serve. The working test-case set for any feature. |
-| [`product/foundation/policy-framework.md`](product/foundation/policy-framework.md) | Any surface touching data sharing, monetary flow, or visibility |
+| [`product/foundation/policy.md`](product/foundation/policy.md) | Any surface touching data sharing, monetary flow, or visibility |
 | [`product/systems/item.md`](product/systems/item.md) | Any feature that creates or surfaces a thing-being-declared |
 | [`product/systems/groups.md`](product/systems/groups.md) | Anything Group-shaped — Groups, joining, role-per-kind, member lists, addressable scopes, business-Group operating, partnership/co-owner shape. **Supersedes `community.md` / `member-operations.md` / `cooperative.md` per the 2026-05-10 ratification.** Any feature that risks auto-assigning Members to a Group. |
 | [`product/systems/member.md`](product/systems/member.md) | Anything Person-shaped. The anchor primitive of the platform. Includes multi-Location affinities (`member_location_affinities`), DM substrate, taste profile. (Maker mode retired 2026-05-12 per amendment §6 — selling tools surface from Group/Item state.) |
-| [`product/systems/location.md`](product/systems/location.md) | Anything place-shaped — permanent / recurring-temporary / area Locations, multi-Location belonging, Location-follow, the Concerts-in-the-Park surface. **The anti-Nextdoor commitment** (no Location-scoped messaging or feeds) is encoded here and in `policy-framework.md`. |
+| [`product/systems/location.md`](product/systems/location.md) | Anything place-shaped — permanent / recurring-temporary / area Locations, multi-Location belonging, Location-follow, the Concerts-in-the-Park surface. **The anti-Nextdoor commitment** (no Location-scoped messaging or feeds) is encoded here and in `policy.md`. |
 | [`product/systems/action-layer.md`](product/systems/action-layer.md) | Anything write-shaped or runtime-trust-shaped — the action handler contract, same-transaction row+event invariant, scope catalog, scoped capability vending, credential injection at the network edge, confirmation-gate enforcement, Skill sandbox. **Owns ADR-7.** Read when designing how agents transact on Members' behalf or when adding any new write capability. |
 | [`product/systems/producer-bulletin.md`](product/systems/producer-bulletin.md) | Anything broadcast-to-followers — Member-authored bulletins, optional kind='business' Group branding, in-app + email delivery, rate limits, mute/unsubscribe, T2/T3 rich composition + scheduling + segmentation. Re-anchored from `vendor-bulletin.md` on 2026-05-11. |
 | [`product/systems/producer-growth.md`](product/systems/producer-growth.md) | Anything producer-dashboard-shaped or BI-shaped — the founder dashboard, followers/activity/profile-health surfaces, peer benchmarks, weekly digest, T3 competitive intelligence. Backs the producer recruitment pitch and the platform-promise commitment. Re-anchored from `vendor-intelligence.md` on 2026-05-11. |
@@ -183,8 +183,8 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/rebuild-plan.md`](planning/rebuild-plan.md) | The rebuild plan — four phases, clean-slate, ticket sequencing. Filename retained for git history; the plan supersedes the prior 7-phase migration. |
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
 | [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
-| [`product/foundation/community-design-philosophy.md`](product/foundation/community-design-philosophy.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
-| [`product/foundation/foundational-principles.md`](product/foundation/foundational-principles.md) | The constitution — P1–P8 first principles + the Decision Test + categorical failures + metrics baseline + privacy/security baseline + monetization hypothesis. Binary pass/fail filter for every proposal. |
+| [`product/foundation/design-philosophy.md`](product/foundation/design-philosophy.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
+| [`product/foundation/principles.md`](product/foundation/principles.md) | The constitution — P1–P8 first principles + the Decision Test + categorical failures + metrics baseline + privacy/security baseline + monetization hypothesis. Binary pass/fail filter for every proposal. |
 
 **Retired specs** (archived 2026-05-11 — Phase 4 cleanup): `product/systems/community.md`, `product/systems/member-operations.md`, `product/systems/cooperative.md` now live in [`_attic/2026-05-19/product-systems/`](_attic/2026-05-19/product-systems/). Do not cite as live — use `groups.md`.
 

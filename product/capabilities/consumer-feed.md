@@ -28,7 +28,7 @@ As a Member, I want to open the app and see what's happening near me — gatheri
 
 ## Anti-Nextdoor commitment (structural)
 
-This feed is **locality-aware** — content surfaces based on the Member's locality and the locality of the Item — but **never Location-message-scoped**. The feed is anchored on Items declared by Members; there is no surface that lets anyone address "everyone in West Sac." This commitment is structural per [`../foundation/policy-framework.md`](../foundation/policy-framework.md) and enforced by the absence of any Location-scoped messaging handler in the action layer ([`../systems/action-layer.md`](../systems/action-layer.md)).
+This feed is **locality-aware** — content surfaces based on the Member's locality and the locality of the Item — but **never Location-message-scoped**. The feed is anchored on Items declared by Members; there is no surface that lets anyone address "everyone in West Sac." This commitment is structural per [`../foundation/policy.md`](../foundation/policy.md) and enforced by the absence of any Location-scoped messaging handler in the action layer ([`../systems/action-layer.md`](../systems/action-layer.md)).
 
 ## Out of scope (deferred)
 

@@ -18,7 +18,7 @@
 
 ## Policy posture (required if this system touches privacy, monetary flow, data sharing, agent permissions, or visibility)
 
-Per `product/foundation/policy-framework.md` and ADR-9. If this system touches none of those surfaces, write `N/A — no policy surface.`
+Per `product/foundation/policy.md` and ADR-9. If this system touches none of those surfaces, write `N/A — no policy surface.`
 
 1. **Default state.** State the protective default — almost always off / closed / private.
 2. **Available opt-ins.** List what a Member can choose to enable, with scope and granularity.

@@ -73,7 +73,7 @@ So the pipeline's own ticket-writer workflow forbids the exact path 17 tickets t
 
 The build agent cannot write to `product/`. When it discovers the spec is wrong, it logs "flagged for `pipeline-product`" in DEVIATIONS and moves on. There is no gate, no owner, and no queue that forces those patches to land. Confirmed accumulation:
 
-- **T049** — flagged `member.md`, `groups.md`, `policy-framework.md` for patching.
+- **T049** — flagged `member.md`, `groups.md`, `policy.md` for patching.
 - **T050** — flagged `member.md` (the delegations partial-index predicate).
 - **T056** — reconciled `items.state` to `draft/published/withdrawn/fulfilled/closed`; `item.md` still carries two *conflicting, both-wrong* state vocabularies.
 

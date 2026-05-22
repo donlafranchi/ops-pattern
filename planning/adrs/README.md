@@ -94,7 +94,7 @@ A decision can have a *home doc* (a system spec, foundation doc, UI doc) where i
 
 2. **Spec-resident ADRs** (decision shapes one primitive or system). Full text lives in the system spec; the spec's status banner is the load-bearing ratification. An ADR file here carries the decision summary + cross-reference to the spec. Examples: ADR-7 (action layer → `action-layer.md`), ADR-13 (Groups consolidation → `groups.md`), ADR-14 (Location architecture → `location.md`).
 
-3. **Foundation/UI/ops ADRs** (decision *is* a foundational principle or tech-stack reality). Full text lives in the home doc; ADR file carries summary + cross-reference. Examples: ADR-1 (tech stack → `web/CLAUDE.md`), ADR-2 (bottom-anchored UI → `design-language.md`), ADR-6 (agent assistance → `agent-assistance.md`), ADR-9 (policy framework → `policy-framework.md`).
+3. **Foundation/UI/ops ADRs** (decision *is* a foundational principle or tech-stack reality). Full text lives in the home doc; ADR file carries summary + cross-reference. Examples: ADR-1 (tech stack → `web/CLAUDE.md`), ADR-2 (bottom-anchored UI → `design-language.md`), ADR-6 (agent assistance → `agent-assistance.md`), ADR-9 (policy framework → `policy.md`).
 
 In all three patterns, **DECISIONS.md is the single index** and **planning/adrs/ has a file per ADR**. The differentiator is where the load-bearing prose lives.
 

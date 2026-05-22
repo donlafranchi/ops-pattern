@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | The target file (foundation doc, system spec, ADR, or planning doc). Plus: `product/foundation/people-first.md`, `product/foundation/policy-framework.md`, `product/foundation/foundational-principles.md`, related foundation/system docs for cross-spec context, recent JOURNAL entries (≤30 days), [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (the eight categories — Category 2 is the absolute-refusal shape this skill handles). |
+| **Reads** | The target file (foundation doc, system spec, ADR, or planning doc). Plus: `product/foundation/principles.md`, `product/foundation/policy.md`, `product/foundation/principles.md`, related foundation/system docs for cross-spec context, recent JOURNAL entries (≤30 days), [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (the eight categories — Category 2 is the absolute-refusal shape this skill handles). |
 | **Writes** | Directly to the target file: bullet text revisions (only when original wording is misleading), `Intent (State YYYY-MM-DD): {why}` lines (always, on every ratified statement). Plus one JOURNAL entry per session. For Rejected outcomes: removes the bullet entirely. |
 | **Invokes** | `pipeline-member-advocate` and `pipeline-platform-advocate` on every statement with Member-shaped tension. Never short-circuits by skipping an advocate. |
 | **Hands to** | nothing. PM owns what comes next. |
@@ -86,7 +86,7 @@ Surface the bullets to the PM:
 
 **2d. Apply the lexicographic decision rule.** State the reasoning inline; don't hide it.
 
-**Gate 1 — Platform survival (hard).** Does ratifying this absolute as drafted threaten the platform's ability to exist — its utility OR its financial durability (no-VC posture per `foundational-principles.md`)? Read the platform-advocate's bullet. If **yes** to any of:
+**Gate 1 — Platform survival (hard).** Does ratifying this absolute as drafted threaten the platform's ability to exist — its utility OR its financial durability (no-VC posture per `principles.md`)? Read the platform-advocate's bullet. If **yes** to any of:
 
 - Forecloses a revenue line the platform needs to remain durable
 - Prevents a function the platform must perform (federation, agent-native navigability, business-jurisdiction verification, payments)

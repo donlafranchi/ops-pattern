@@ -7,8 +7,8 @@
 **Source documents:**
 - [`product/foundation/loops.md`](../product/foundation/loops.md) — north star
 - [`product/foundation/primitives.md`](../product/foundation/primitives.md) — data spine
-- [`product/foundation/people-first.md`](../product/foundation/people-first.md) — values stake
-- [`product/foundation/policy-framework.md`](../product/foundation/policy-framework.md) — three-filter test, opt-out default, anti-Nextdoor commitments
+- [`product/foundation/principles.md`](../product/foundation/principles.md) — values stake
+- [`product/foundation/policy.md`](../product/foundation/policy.md) — three-filter test, opt-out default, anti-Nextdoor commitments
 - [`product/systems/item.md`](../product/systems/item.md) — Item primitive (spine + 4 child tables)
 - [`product/systems/groups.md`](../product/systems/groups.md) — Group primitive (spine + 2 child tables; supersedes Community / Operations / Cooperative)
 - [`product/systems/member.md`](../product/systems/member.md) — Member primitive (anchor; multi-Location affinities; DM substrate)
@@ -121,7 +121,7 @@ Four phases. Each produces working software. No reversibility constraints betwee
 - `007b_member_interests.sql` — controlled-vocabulary tag list per Member.
 - `007c_member_follows.sql` — Loop 8 substrate. Composite PK; soft-unfollow.
 - `007d_member_handle_history.sql` — T2 surface; schema reserved at b1.
-- `007e_member_threads.sql` + `007f_member_messages.sql` + thread-participants — DM substrate per `member.md`. `member_threads.group_id` (nullable FK to groups). **No `location_id` column ever** — per the no-Location-messaging commitment in `policy-framework.md`. Surface b2; substrate-only at b1.
+- `007e_member_threads.sql` + `007f_member_messages.sql` + thread-participants — DM substrate per `member.md`. `member_threads.group_id` (nullable FK to groups). **No `location_id` column ever** — per the no-Location-messaging commitment in `policy.md`. Surface b2; substrate-only at b1.
 - `007g_member_self_records.sql` + `007h_member_delegations.sql` — agent-assistance substrate per ADR-6. Surface b2/b3.
 - `007i_member_location_affinities.sql` — multi-Location belonging per `member.md`. Composite PK on `(member_id, location_id, affinity_kind)`; affinity_kind enum (`lives`, `works`, `plays`, `visits`, `follows`, `liked`). Indexes on `(member_id, affinity_kind)` for the Member's own surfaces and on `(location_id) where affinity_kind='follows'` for the b2 follow-Location feed and `(location_id, affinity_kind) where affinity_kind in ('lives','works')` for the locality-promotion derivation in `groups.md`.
 - `007j_member_events.sql` — Member event log, partitioned monthly per ADR-10. Carries `acting_member_id NOT NULL` + `via_delegation_id` per ADR-6. Partition rotation routine (pg_partman or pg_cron) installed here. Event kinds at b1: `member.created`, `member.profile_updated`, `member.handle_changed` (T2 surface; reserved), `member.home_location_set`, `member.privacy_changed`, `member.maker_mode_changed`, `member.followed` / `member.unfollowed`, `member.location_affinity_added` / `member.location_affinity_removed`, `member.interest_added` / `member.interest_removed`, `member.delegation_granted` / `member.delegation_revoked`, `member.deleted` / `member.restored`, `member.export_requested`, `member.purge_executed`.
@@ -233,7 +233,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 - `/explore` — locality-first index. **No-login browseable.** Filterable by kind, category, distance, schedule. Reads `discoverable_items` materialized view exclusively.
 - `/g` — Group browse index. Filterable by anchor Location, kind, follow-graph, size.
 - `/g/new` — Group create flow. Six kinds; each kind walks role-per-kind validity (e.g., kind='business' creates founder owner-role membership).
-- `/why` — thesis page. Static content. Links from every page footer. Uses content from `canonical-examples.md`, `people-first.md`, `loops.md` distilled.
+- `/why` — thesis page. Static content. Links from every page footer. Uses content from `canonical-examples.md`, `principles.md`, `loops.md` distilled.
 
 **Surfaces:**
 
@@ -342,7 +342,7 @@ Every phase exit requires the named eval set to pass. Playwright + RLS-matrix ev
 - Ship reviews or ratings (permanently deferred per `service-provider.md` — community-anchored endorsements at T2 instead).
 - Re-do the design system.
 - Cooperative-style coordination (deferred indefinitely per Groups ratification).
-- Location-scoped messaging or feeds (anti-Nextdoor commitment per `policy-framework.md`).
+- Location-scoped messaging or feeds (anti-Nextdoor commitment per `policy.md`).
 
 Each of those is real, downstream, and not the work of the floor.
 

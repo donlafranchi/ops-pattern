@@ -13,7 +13,7 @@ This handoff doc captures what was drafted, what the reviewers said, and what de
 Four system specs, four ADRs, one foundation doc, and one prior architectural review — all of which sit upstream of the work the PM is actually doing in b1.
 
 **Foundation:**
-- [`product/foundation/policy-framework.md`](../product/foundation/policy-framework.md) — three-filter test (helpful? harmless? abuse-resistant?) + opt-out default. Useful immediately as a guiding doc; does not require b1 implementation.
+- [`product/foundation/policy.md`](../product/foundation/policy.md) — three-filter test (helpful? harmless? abuse-resistant?) + opt-out default. Useful immediately as a guiding doc; does not require b1 implementation.
 
 **Systems (forward-looking — none ship at b1):**
 - [`product/systems/delegation.md`](../product/systems/delegation.md) — agent permission grants

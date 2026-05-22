@@ -234,7 +234,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 **Reads:**
 - The target statement + surrounding context
-- `product/foundation/` (especially `people-first.md`, `policy-framework.md`, `foundational-principles.md`)
+- `product/foundation/` (especially `principles.md`, `policy.md`, `principles.md`)
 - For platform-advocate also: `product/systems/payments.md`, `producer-growth.md`, `business-jurisdiction.md`
 - For member-advocate also: relevant scenario(s) or canonical examples that involve the surface at stake
 
@@ -269,7 +269,7 @@ Rejected absolutes are deleted from the spec; the JOURNAL entry records the remo
 
 **Reads:**
 - The target file (foundation doc / system spec / ADR / planning doc)
-- `product/foundation/*.md` (especially `people-first.md`, `policy-framework.md`, `foundational-principles.md`)
+- `product/foundation/*.md` (especially `principles.md`, `policy.md`, `principles.md`)
 - Related foundation/system docs for cross-spec context
 - Recent `JOURNAL.md` entries (≤30 days) for related ratifications
 - [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; Category 2 in particular — the live framing lives in this skill)

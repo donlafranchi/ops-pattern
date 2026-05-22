@@ -1,10 +1,10 @@
 # Agent Assistance
 
-**Status:** Foundational. Read alongside [`people-first.md`](people-first.md), [`policy-framework.md`](policy-framework.md), [`loops.md`](loops.md), and [`primitives.md`](primitives.md). This document is the umbrella for the three Member primitives that implement agent assistance — [`delegation.md`](../systems/delegation.md), [`assistant-context.md`](../systems/assistant-context.md), [`skills.md`](../systems/skills.md) — and the runtime substrate that enforces them — [`action-layer.md`](../systems/action-layer.md). It owns the cross-cutting commitments; the system specs own the per-primitive (and per-substrate) detail.
+**Status:** Foundational. Read alongside [`principles.md`](principles.md), [`policy.md`](policy.md), [`loops.md`](loops.md), and [`primitives.md`](primitives.md). This document is the umbrella for the three Member primitives that implement agent assistance — [`delegation.md`](../systems/delegation.md), [`assistant-context.md`](../systems/assistant-context.md), [`skills.md`](../systems/skills.md) — and the runtime substrate that enforces them — [`action-layer.md`](../systems/action-layer.md). It owns the cross-cutting commitments; the system specs own the per-primitive (and per-substrate) detail.
 
 ## What this document does
 
-The current technology landscape is built around forms-and-fields UI. LLM-based assistants are routinely asked to act on humans' behalf and struggle with that surface. A people-first platform that ignores agent assistance cedes the asymmetric tooling advantage to chains and aggregators — exactly the structural posture [`people-first.md`](people-first.md) exists to refuse.
+The current technology landscape is built around forms-and-fields UI. LLM-based assistants are routinely asked to act on humans' behalf and struggle with that surface. A people-first platform that ignores agent assistance cedes the asymmetric tooling advantage to chains and aggregators — exactly the structural posture [`principles.md`](principles.md) exists to refuse.
 
 Agent assistance is a first-class architectural concern, not a bolted-on feature. It ships in three primitives — Delegation, Assistant Context, Skills — and inherits the people-first commitments of the data model. This document names the **umbrella commitments** that bind the three primitives. Each commitment is enforced structurally (data model, action layer, policy posture), not by hope or convention.
 
@@ -24,7 +24,7 @@ The five commitments below are what make the three primitives a coherent archite
 
 A single Member uses agent assistance across many loops — finding their people, floating an idea, listing a product, organizing a gathering, leading an initiative. The assistant specializes contextually (by which loop the Member is in, with which Skills loaded), not by identity. There is no Maker-Agent or Vendor-Agent or Organizer-Agent type. There is the Member's assistant, doing whatever loop the Member is currently in.
 
-This mirrors the role-as-verb commitment in [`people-first.md`](people-first.md): the platform refuses identity-as-claim throughout, including at the agent layer.
+This mirrors the role-as-verb commitment in [`principles.md`](principles.md): the platform refuses identity-as-claim throughout, including at the agent layer.
 
 ### 2. Persistence is standing-derived, not toggle-derived
 
@@ -42,7 +42,7 @@ Reading public data, drafting Items, querying the locality index, proposing Assi
 
 > **Intent:** This is the substantive trust commitment, not a UX flourish. An agent that can publish without confirmation can be prompt-injected into publishing on the Member's behalf — which compromises every loop the platform exists to surface (trust between neighbors, durability of pledges, integrity of money flows). The read/write asymmetry is what lets the platform be genuinely agent-friendly without becoming agent-controlled. Future proposals to "let the agent post for you when X is true" should be read as proposals to convert a structural commitment into a heuristic, and rejected.
 
-Money flows are the strictest tier. Outside an active monetary-flow Delegation, every monetary action is Member-direct. The two schema-enforced monetary-flow scopes (per [`policy-framework.md`](policy-framework.md), [`../systems/delegation.md`](../systems/delegation.md), [`../systems/payments.md`](../systems/payments.md), and `agent-commerce-and-project-amendments.md` §8) are: `recurring_payment` (caps + recipient allowlist + expiry + per-execution observability) and `bounded_purchase` (per-transaction + per-period caps + `recipient_scope` + `category_scope` + reversibility window + first-recipient confirmation + per-execution audit). Pledges remain Member-direct until a pledge-shaped scope passes its own three-filter test. Each monetary-flow scope is opt-in, schema-enforced, and per-execution observable; caps cannot be modified by the agent.
+Money flows are the strictest tier. Outside an active monetary-flow Delegation, every monetary action is Member-direct. The two schema-enforced monetary-flow scopes (per [`policy.md`](policy.md), [`../systems/delegation.md`](../systems/delegation.md), [`../systems/payments.md`](../systems/payments.md), and `agent-commerce-and-project-amendments.md` §8) are: `recurring_payment` (caps + recipient allowlist + expiry + per-execution observability) and `bounded_purchase` (per-transaction + per-period caps + `recipient_scope` + `category_scope` + reversibility window + first-recipient confirmation + per-execution audit). Pledges remain Member-direct until a pledge-shaped scope passes its own three-filter test. Each monetary-flow scope is opt-in, schema-enforced, and per-execution observable; caps cannot be modified by the agent.
 
 The confirmation-required scopes are not a UX convention — they are a hard schema-level constraint on Delegation use. Code review rejects any action handler that lets the confirmation gate be bypassed.
 
@@ -54,7 +54,7 @@ The Assistant Context is the Member's property. It is fully exportable (one-clic
 
 Skill subscriptions are equally Member-owned. The platform-curated catalog is free forever; community/peer/federation Skills default to off-platform payment with no platform cut. The opt-in platform-mediated payment (capped 5–10%, per ADR-9) is the Member's choice for each Skill they install, not a default.
 
-This is the relational realization of `people-first.md`'s refusal of the surveillance-and-ranking model. The Member's context is theirs, not the platform's product.
+This is the relational realization of `principles.md`'s refusal of the surveillance-and-ranking model. The Member's context is theirs, not the platform's product.
 
 ### 5. Federation-portable
 

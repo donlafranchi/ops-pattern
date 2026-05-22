@@ -19,7 +19,7 @@
 | Soft-delete revival window | `product/systems/member.md` | 30 days | PENDING |  |
 | Rejected Assistant Context inference cooldown | `product/systems/assistant-context.md` | 90 days | PENDING |  |
 | Handle redirect after handle change | `product/systems/member.md` | 90 days | PENDING |  |
-| Active-member natural group size threshold | `product/foundation/community-design-philosophy.md` | ~50 | PENDING |  |
+| Active-member natural group size threshold | `product/foundation/design-philosophy.md` | ~50 | PENDING |  |
 
 ## §7b — Working answers to open questions
 
@@ -73,7 +73,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 
 ### product/foundation/
 
-**`foundational-principles.md`** — the constitution itself; these are the meta-statements about absolute language and so are KEEP-by-construction. Listed for completeness:
+**`principles.md`** — the constitution itself; these are the meta-statements about absolute language and so are KEEP-by-construction. Listed for completeness:
 - L19–23: The single "Never" subsection — defines the only absolute commitment. KEEP.
 - L31: "These two commitments sit directly under the single 'Never'..." KEEP.
 - L76: "## Part 3: Categorical Failures" — section heading frames the next list as binary fails. PENDING.
@@ -85,14 +85,14 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L239: "**Data sales or licensing.** Categorical fail."
 - L300: "...weakening a categorical failure..." — process language, not commitment. Trivial.
 
-**`people-first.md`** — also a meta-doc.
+**`principles.md`** — also a meta-doc.
 - L5–17: The single "Never" subsection — meta-statement. KEEP.
 - L54: "Accountability comes from structured reports against pillars... that surface only as patterns, never as individual public text — never as stars."
 - L61: "A Community is people deciding they are a group — never a polygon, never a postal code, never an algorithm grouping accounts that look similar to each other. Communities cannot be auto-assigned by geography. They cannot be owned by a corporate entity."
 - L63: "Membership is a relationship Members enter into; it is never a status the platform imposes for living somewhere or following someone."
 - L65: "People-first means the platform earns Community membership by being worth choosing — never by inferring you must already belong."
 
-**`policy-framework.md`**
+**`policy.md`**
 - L9: "well-meaning over-strictness on one side ('never share anything, ever, with anyone')" — characterizing a posture to reject. Trivial.
 - L39: "...the platform never assumes durability."
 - L45: "...no Business entity, no role-as-identity, no engagement-optimized feed, no pay-for-visibility, no auto-assigned Communities. Those are categorical refusals at the data-model and incentive level, and they remain in force."
@@ -131,7 +131,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L39: "Your relationships with your customers belong to you. Followers, contact lists, engagement data — yours. Exportable, portable, never sold, never gated behind a paywall designed to lock you in."
 - L41: "**You will never pay for visibility.** No sponsored placement, no pay-to-rank, no auction for the top of the feed."
 
-**`community-design-philosophy.md`**
+**`design-philosophy.md`**
 - L155: "Reputation can recover — past mistakes don't **permanently** brand someone" — design-criterion in a checklist, anti-permanence framing.
 - L168: "...the same way healthy neighborhoods, cooperatives, and professional communities have always worked." — historical claim. Trivial.
 - L299: "**Community land trusts** — Collectively owned land held for permanent community benefit..." — example. Trivial.
@@ -168,7 +168,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L539: "**Assistant Context (per ADR-6 and ADR-9) — never visible to other Members, never trained on, never feed input. Permanent commitments.**"
 - L540: "Categorical refusal of feed input *for other Members* is permanent."
 - L542: "**Delegation scopes — confirmation-required for publish-tier; categorically not delegable for one-time payments and pledges. Per ADR-6 and ADR-9.**" — RESCIND per §8a (Group C11).
-- L586: "Reviews, ratings on Members. Permanently deferred (per `people-first.md`)." — RESCIND per §3 (Group B4).
+- L586: "Reviews, ratings on Members. Permanently deferred (per `principles.md`)." — RESCIND per §3 (Group B4).
 - L623–625: "...never paint into a corner." / "ship empty, fill later, never paint into a corner." — design-heuristic language.
 
 **`groups.md`**
@@ -244,7 +244,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 **`location.md`**
 - L5, L13, L15: enum-value `permanent` in primitive description. Trivial.
 - L30: long line.
-- L32: "The platform never collapses them into a single 'business listing' record — that is the directory failure mode named in `people-first.md`."
+- L32: "The platform never collapses them into a single 'business listing' record — that is the directory failure mode named in `principles.md`."
 - L37, L39, L53, L56, L63, L67, L99, L119, L128, L156, L158, L184, L186, L201, L241: enum-value `permanent` references; mostly trivial. (L184 and L204 carry commitment-bearing "never" — see below.)
 - L61: "Soft-delete via `deleted_at`. Hard deletes never ship."
 - L128: SQL comment — "small extras, never queried." Trivial.
@@ -278,7 +278,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L82: "Always anonymized aggregates — no individual producer comparison..."
 - L123: "### Revenue context (Member-supplied, never required)"
 - L125: "**Never required, never shared with any other Member or third party, never sold.**"
-- L137: "...The pay-for-visibility refusal in [`people-first.md`](../foundation/people-first.md) applies here categorically."
+- L137: "...The pay-for-visibility refusal in [`principles.md`](../foundation/principles.md) applies here categorically."
 - L140: "**No named-competitor benchmarking.** Anonymized peer aggregates only. Never 'here's how Sally's Bakery compares to yours.'"
 - L175: "...the producer never sees individual follower demographics beyond what `member_follows` and `home_location_id` already expose."
 - L180: "...followers are never identified..."
@@ -457,6 +457,6 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - The single "Never" of the project — **extractive wealth over circulative wealth** — is RATIFIED and does not appear in this log.
 - Items in §7a/§7b/§7c stay as-is in their source specs until ratified here; the build agent does not edit them.
 - For each unflagged absolute-language occurrence encountered in future edits, append a row to the "Project-wide flagged" sections.
-- `member.md` L532 (auto-flip Maker mode), L542 (one-time-payments categorically-not-delegable), L586 (reviews permanently deferred), `delegation.md` L47/L94/L109/L165 (one-time-payments categorically-not-delegable), `agent-assistance.md` L41 (same), and `policy-framework.md` ADR-9 status row are tracked as authorized-RESCIND under Groups B4/B7 and C9–C12 of the amendments doc; this file flags them for completeness, but the build agent does not need re-ratification to act on them — the amendments doc is the authority.
-- `policy-framework.md` §1, §2, §3 categorical language is tracked as authorized-SOFTEN under Group B5; same treatment as above.
+- `member.md` L532 (auto-flip Maker mode), L542 (one-time-payments categorically-not-delegable), L586 (reviews permanently deferred), `delegation.md` L47/L94/L109/L165 (one-time-payments categorically-not-delegable), `agent-assistance.md` L41 (same), and `policy.md` ADR-9 status row are tracked as authorized-RESCIND under Groups B4/B7 and C9–C12 of the amendments doc; this file flags them for completeness, but the build agent does not need re-ratification to act on them — the amendments doc is the authority.
+- `policy.md` §1, §2, §3 categorical language is tracked as authorized-SOFTEN under Group B5; same treatment as above.
 - `groups.md` L13, L298, L359, `b1-primitives.md` L66/L91/L102, `primitives.md` L58, `MAP.md` L59, `capabilities/group-create-join.md` L47, `archive/cooperative.md` L3/L13 — "deferred indefinitely" re cooperative coordination — tracked as authorized-SOFTEN under Group B3 per §2.

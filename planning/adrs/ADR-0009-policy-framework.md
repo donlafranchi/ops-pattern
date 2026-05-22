@@ -4,7 +4,7 @@
 **Date:** 2026-05-09
 **Deciders:** PM
 **Scope:** Every system spec that introduces a policy surface — data sharing, monetary flow, visibility, agent action, complaint handling, content moderation
-**Touches:** [`product/foundation/policy-framework.md`](../../product/foundation/policy-framework.md) (canonical home — entire document carries the load-bearing prose), every system spec under [`product/systems/`](../../product/systems/) (must include a "Policy posture" section when touching a policy surface), [`product/systems/member.md`](../../product/systems/member.md) (DM substrate — no `location_id` column ever per anti-Nextdoor commitment), [`product/systems/groups.md`](../../product/systems/groups.md) (group-scoped messaging only), ADR-16 (per-row privacy on `member_location_affinities` — the hard architectural floor under this ADR's privacy commitments), [`product/foundation/people-first.md`](../../product/foundation/people-first.md), [`product/foundation/foundational-principles.md`](../../product/foundation/foundational-principles.md) Part 3 + Part 8
+**Touches:** [`product/foundation/policy.md`](../../product/foundation/policy.md) (canonical home — entire document carries the load-bearing prose), every system spec under [`product/systems/`](../../product/systems/) (must include a "Policy posture" section when touching a policy surface), [`product/systems/member.md`](../../product/systems/member.md) (DM substrate — no `location_id` column ever per anti-Nextdoor commitment), [`product/systems/groups.md`](../../product/systems/groups.md) (group-scoped messaging only), ADR-16 (per-row privacy on `member_location_affinities` — the hard architectural floor under this ADR's privacy commitments), [`product/foundation/principles.md`](../../product/foundation/principles.md), [`product/foundation/principles.md`](../../product/foundation/principles.md) Part 3 + Part 8
 
 ## Decision
 
@@ -38,7 +38,7 @@ The anti-Nextdoor framing is about *messaging-scope and complaint-handling*, not
 
 ADR-16 (per-row privacy on `member_location_affinities`) is the hard architectural floor under these commitments — the RLS enforcement is non-negotiable; the surface design above it is a per-feature conversation.
 
-The full prose lives in [`policy-framework.md`](../../product/foundation/policy-framework.md). This ADR is the canonical index entry.
+The full prose lives in [`policy.md`](../../product/foundation/policy.md). This ADR is the canonical index entry.
 
 ## Trade-offs
 
@@ -57,13 +57,13 @@ ADR-16's RLS enforcement is the architectural floor: even when a surface "loosen
 - The DM substrate ships with `group_id` only (per [`member.md`](../../product/systems/member.md) Phase 1 migration `007e_member_threads.sql`). The `location_id` column **never** lands. Structural.
 - `member_location_affinities` ships at b1 substrate-only; surfaces ship at b2 with their own three-filter analysis per surface.
 - ADR-16's per-row privacy on `member_location_affinities` is the load-bearing RLS floor.
-- The "abuse-resistant" filter has surfaced concrete refusals: no engagement-shaped ad injection (per `foundational-principles.md` Part 3, narrowed 2026-05-12 from "ads of any kind"), no Member-data sale, no venture capital funding (Part 8, 2026-05-12), no aggregate surveillance even on transacting Members.
+- The "abuse-resistant" filter has surfaced concrete refusals: no engagement-shaped ad injection (per `principles.md` Part 3, narrowed 2026-05-12 from "ads of any kind"), no Member-data sale, no venture capital funding (Part 8, 2026-05-12), no aggregate surveillance even on transacting Members.
 - This ADR forecloses a path where the platform ships a Nextdoor-style location-locked feed even under a different name. Reversible only by replacing this ADR — a deliberate architectural change, not a per-feature decision. The foreclosure is the load-bearing safety guarantee for the platform's "messaging-scope, not location-scope" promise.
 
 ## Action Items
 
-1. [x] Decision ratified 2026-05-09; anti-Nextdoor framing softened 2026-05-12 (per JOURNAL entry; the canonical prose in `policy-framework.md` carries the revision).
-2. [x] [`policy-framework.md`](../../product/foundation/policy-framework.md) is the canonical home for the full prose.
+1. [x] Decision ratified 2026-05-09; anti-Nextdoor framing softened 2026-05-12 (per JOURNAL entry; the canonical prose in `policy.md` carries the revision).
+2. [x] [`policy.md`](../../product/foundation/policy.md) is the canonical home for the full prose.
 3. [x] Pointer line in [`../DECISIONS.md`](../DECISIONS.md) pointer index.
 4. [x] ADR-16 lands the per-row RLS floor on `member_location_affinities`.
 5. [ ] Every Phase 1 / Phase 2 / Phase 3 system spec ships with a Policy posture section.

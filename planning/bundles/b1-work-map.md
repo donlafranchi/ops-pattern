@@ -99,7 +99,7 @@ Not a sub-bundle of its own. One decision that locks in URLs across everything t
 
 **MVP cut:** the six 🟢 items. Add hashtag autocomplete if you want it from day one (it's not free but the cost compounds across all later composers). Drop check-in entirely until you need it.
 
-**Why this theme is the headline metric:** real-world meetings are the platform's reason for being. The first time someone shows up to an event they found on the platform is the moment that proves the whole thesis. Per `foundational-principles.md` Part 6 — "measure interactions that produce real-world meetings."
+**Why this theme is the headline metric:** real-world meetings are the platform's reason for being. The first time someone shows up to an event they found on the platform is the moment that proves the whole thesis. Per `principles.md` Part 6 — "measure interactions that produce real-world meetings."
 
 ---
 

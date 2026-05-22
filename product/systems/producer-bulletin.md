@@ -8,7 +8,7 @@
 
 ## What Producer Bulletin Is and Why It Matters
 
-A bulletin is a Member-authored broadcast to that Member's followers. Authorship is always a Member, never a Group — relationships on this platform are between people, never between people and corporate shells (per [`people-first.md`](../foundation/people-first.md) and the Group is-not-an-actor commitment in [`groups.md`](groups.md)). When a Member operating in producer capacity authors a bulletin, the bulletin can be **branded** with the Member's kind='business' Group affiliation for display ("from Drake's Bakery"); the social connection — who is on the receiving end, who hits "follow," who can reply — is still Member-to-Member.
+A bulletin is a Member-authored broadcast to that Member's followers. Authorship is always a Member, never a Group — relationships on this platform are between people, never between people and corporate shells (per [`principles.md`](../foundation/principles.md) and the Group is-not-an-actor commitment in [`groups.md`](groups.md)). When a Member operating in producer capacity authors a bulletin, the bulletin can be **branded** with the Member's kind='business' Group affiliation for display ("from Drake's Bakery"); the social connection — who is on the receiving end, who hits "follow," who can reply — is still Member-to-Member.
 
 The argument for elevating the bulletin to its own system (rather than treating it as a special Item kind) is that a bulletin is shaped differently from an Item: it is push-delivered, audience-scoped to followers, ephemeral on the feed but persistent in the author's outbox, and gated on producer capacity rather than on Item-create permissions. Conflating bulletins with Items would either dilute Item semantics or attach broadcast machinery to surfaces that don't need it.
 
@@ -74,7 +74,7 @@ The minimum surface that lets us ship "follow a Member, receive their bulletins.
 
 ### Two-way comms
 - Followers can reply to a bulletin. Reply lands in the bulletin's thread, scoped to (bulletin, follower) — a thread per follower, owned by the bulletin's author.
-- Replies use the existing `member_threads` DM substrate (per [`member.md`](member.md)) with `bulletin_id` as the conversation anchor; the bulletin is the addressable scope, consistent with the messaging-scope commitment (item-or-group-scoped, never Location-scoped — see [`policy-framework.md`](../foundation/policy-framework.md)).
+- Replies use the existing `member_threads` DM substrate (per [`member.md`](member.md)) with `bulletin_id` as the conversation anchor; the bulletin is the addressable scope, consistent with the messaging-scope commitment (item-or-group-scoped, never Location-scoped — see [`policy.md`](../foundation/policy.md)).
 - Optional: producer surfaces replies as a public Q&A thread under the bulletin.
 
 ### Cross-promotion
@@ -116,7 +116,7 @@ The minimum surface that lets us ship "follow a Member, receive their bulletins.
 
 ## Policy posture
 
-Per [`policy-framework.md`](../foundation/policy-framework.md) — protective defaults, opt-in expansions.
+Per [`policy.md`](../foundation/policy.md) — protective defaults, opt-in expansions.
 
 **Defaults:**
 - Bulletins are author-scoped (Member or co-author Members), never Location-scoped. The messaging-scope commitment is upheld structurally: there is no `bulletin.location_id` field, no Location-scoped bulletin surface, and no handler that accepts a Location as a delivery target.
@@ -166,5 +166,5 @@ Per [`policy-framework.md`](../foundation/policy-framework.md) — protective de
 This spec does not own any ADR. It *consumes*:
 - **ADR-6** ([`agent-assistance.md`](../foundation/agent-assistance.md)) — producer-capacity gating uses `member_has_standing_presence` (standing-derived).
 - **ADR-7** ([`action-layer.md`](action-layer.md)) — every publish/schedule/mute/reply is a named handler with same-transaction row+event commit.
-- **ADR-9** ([`policy-framework.md`](../foundation/policy-framework.md)) — protective defaults, anti-Nextdoor messaging-scope commitment, three-filter test on segmentation opt-in.
+- **ADR-9** ([`policy.md`](../foundation/policy.md)) — protective defaults, anti-Nextdoor messaging-scope commitment, three-filter test on segmentation opt-in.
 - **ADR-13** ([`groups.md`](groups.md)) — branding attribution via kind='business' Group memberships; Groups are decoration on bulletins, not authors.

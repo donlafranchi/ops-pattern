@@ -8,7 +8,7 @@
 
 Movers, Makers & Shakers is a place-based, people-first network — not an attention network. Discovery is a **graph + place + time** engine, not a watch-time optimizer. Each engagement (RSVP, pledge, show-up, return) is heavy and meaningful; volume is local, not global. The system must rank well in low-data regimes and degrade gracefully as a Member or Location is new.
 
-**Hard constraints (from `foundation/people-first.md`):**
+**Hard constraints (from `foundation/principles.md`):**
 
 - Never rank by business size, follower count alone, or anything that amplifies corporate shells over Members.
   **Intent:** Discovery is the single highest-leverage place a chains-vs-locals bias could enter the platform — once it's in the score, it's in every surface that uses the score. Forcing the constraint into the *scoring formula itself* (rather than into review process or content moderation) makes "but it would just be more relevant to rank by popularity" structurally unavailable; the feature can't ship without modifying the scorer, which surfaces the policy review at the point of code change. Any future weight that correlates with size proxies (review counts, follower-count standalone, listing age treated as authority) should be read as the failure mode this constraint refuses.
@@ -110,13 +110,13 @@ w_social = 0.5, w_recency = 0.3, w_seen = 0.4, w_dismiss = 1.5
 
 - Watch-time / dwell-time as primary objective. Bad fit for an action-oriented platform.
 - Infinite scroll without a daily cap. Discovery should feel curated; ~20 well-chosen Items/day beats endless feed.
-- Boost based on payment, "promoted Items," or business size. Violates `people-first.md`.
+- Boost based on payment, "promoted Items," or business size. Violates `principles.md`.
 - Auto-membership in a Group just because a Member engaged with its Items. Groups are intentional and Member-declared (per [`groups.md`](groups.md)) — soft signals (follows, attendance) compute at query time only and never write membership rows.
 - Hidden / unlogged ranking. T1 must log everything so T2 has training data.
 
 ## Integration Points
 
-- **Reads:** [`item.md`](item.md) (Item shape, kinds), [`groups.md`](groups.md) (Group-scoped feeds in T3), [`location.md`](location.md) (locality scope, multi-Location affinities), [`member.md`](member.md) (follower edges as signal), [`../foundation/primitives.md`](../foundation/primitives.md) (verb edges as signal), [`../foundation/loops.md`](../foundation/loops.md) (loop families, adjacency), [`../foundation/people-first.md`](../foundation/people-first.md) (hard constraints).
+- **Reads:** [`item.md`](item.md) (Item shape, kinds), [`groups.md`](groups.md) (Group-scoped feeds in T3), [`location.md`](location.md) (locality scope, multi-Location affinities), [`member.md`](member.md) (follower edges as signal), [`../foundation/primitives.md`](../foundation/primitives.md) (verb edges as signal), [`../foundation/loops.md`](../foundation/loops.md) (loop families, adjacency), [`../foundation/principles.md`](../foundation/principles.md) (hard constraints).
 - **Used by:** Home feed, Explore, search, Item detail "related," notifications, You page activity.
 - **Writes:** Ranking event log (training data for T2/T3).
 

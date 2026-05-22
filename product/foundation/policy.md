@@ -1,6 +1,6 @@
 # Policy Framework
 
-**Status:** Foundational. Read alongside [people-first.md](people-first.md), [loops.md](loops.md), and [primitives.md](primitives.md). Every system spec that touches privacy, revenue, monetary flow, data sharing, or third-party access is governed by this document.
+**Status:** Foundational. Read alongside [principles.md](principles.md), [loops.md](loops.md), and [primitives.md](primitives.md). Every system spec that touches privacy, revenue, monetary flow, data sharing, or third-party access is governed by this document.
 
 ## What this document does
 
@@ -46,7 +46,7 @@ The opt-out default is what lets the platform offer real benefits to Members who
 
 ## Why this works for a people-first platform
 
-The people-first commitment in [people-first.md](people-first.md) refuses several things outright: no Business entity, no role-as-identity, no engagement-optimized feed, no pay-for-visibility, no auto-assigned Communities. Those are categorical refusals at the data-model and incentive level, and they remain in force.
+The people-first commitment in [principles.md](principles.md) refuses several things outright: no Business entity, no role-as-identity, no engagement-optimized feed, no pay-for-visibility, no auto-assigned Communities. Those are categorical refusals at the data-model and incentive level, and they remain in force.
 
 The policy framework here covers the *next* layer of decisions: where the architecture *could* offer a useful capability that involves data sharing, monetary flow, or agent action, *what posture does the platform take*. The answer is consistent with people-first: the Member is the decision-maker. The platform is the custodian. Defaults are protective. Opt-ins are real choices. The three filters keep choices honest.
 

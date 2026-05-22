@@ -1,6 +1,6 @@
 ---
 name: pipeline-platform-advocate
-description: Produce a short bullet (1-2 sentences) on what the platform — including its financial durability — loses if a given absolute / spec decision errs toward member-protection at the cost of platform utility or sustainability. Platform-side of the dialectic with pipeline-member-advocate; PM adjudicates. Use when pipeline-ratify-absolute detects member-vs-platform tension on a statement, or when the PM says "what's the platform view on this", "what does the platform need here", "advocate for the platform on F###", or "run the dialectic on this statement". Reads foundational-principles.md (Parts on monetization + agent-native), people-first.md, policy-framework.md, payments.md, producer-growth.md, business-jurisdiction.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet into a 150–250 word position paper on PM request.
+description: Produce a short bullet (1-2 sentences) on what the platform — including its financial durability — loses if a given absolute / spec decision errs toward member-protection at the cost of platform utility or sustainability. Platform-side of the dialectic with pipeline-member-advocate; PM adjudicates. Use when pipeline-ratify-absolute detects member-vs-platform tension on a statement, or when the PM says "what's the platform view on this", "what does the platform need here", "advocate for the platform on F###", or "run the dialectic on this statement". Reads principles.md (Parts on monetization + agent-native), principles.md, policy.md, payments.md, producer-growth.md, business-jurisdiction.md, and the target spec/statement. Writes nothing by default — produces inline output for the PM. Can expand the bullet into a 150–250 word position paper on PM request.
 ---
 
 # pipeline-platform-advocate
@@ -37,7 +37,7 @@ This skill is intentionally lightweight. Default output is one short bullet. Exp
 - **No venture capital.** The platform won't be VC-funded. Revenue must come from product use, not from raising rounds.
 - **Multi-source revenue, early on.** Member fees are one small part. The platform needs many revenue streams (producer success-fees, federation partner revenue sharing, sponsorship, etc.) to be durable.
 - **Sustainability is a foundation concern, not a vendor concern.** A platform that can't pay its bills can't deliver on P1, P4, or P5. Financial durability protects the mission.
-- **Earn-before-extract is the design intent** (per `foundational-principles.md` Part 6). Revenue lands after success, not before — but it does need to land.
+- **Earn-before-extract is the design intent** (per `principles.md` Part 6). Revenue lands after success, not before — but it does need to land.
 - Refusing revenue at the wrong altitude — refusing a revenue line that doesn't violate principles, in the name of purity — is the failure mode the platform-advocate guards against.
 
 ## The default output

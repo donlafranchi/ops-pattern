@@ -251,7 +251,7 @@ Mechanism: the test-helper `04_auth_user_seeding.sql` `create or replace`s `hand
 
 **Why:** Per CLAUDE.md rebuild rule firewall — build agents implement to the ticket and escalate spec divergence rather than rewriting upstream specs. Anchors to ticket § Notes ("Schema-spec divergence — RLS shape") and AGENTS.md escalation table.
 
-**Disposition:** flag-for-spec-revision — `pipeline-product` to patch `member.md` (RLS section), `groups.md` (locally-owned pseudocode), and `policy-framework.md` (anti-doxxing language) against ADR-16. JOURNAL.md entry at ticket close carries the forward-pointer.
+**Disposition:** flag-for-spec-revision — `pipeline-product` to patch `member.md` (RLS section), `groups.md` (locally-owned pseudocode), and `policy.md` (anti-doxxing language) against ADR-16. JOURNAL.md entry at ticket close carries the forward-pointer.
 
 ## 2026-05-12 — T051 — Rule 4 annotation placement: above the call, not inline-on-interpolation-line
 
@@ -377,7 +377,7 @@ The constraint trigger is the realistic third path: it expresses the predicate a
 
 **Deviation:** The T045 code-review discussion surfaced a deeper product question about anti-doxxing posture for home-based businesses claiming "local" status. The PM directed the build agent to capture the reasoning in a document so the discussion is preserved.
 
-**Reason:** Build agent writing product-tier docs is technically outside its lane (per `pipeline-build/workflow.md` "Does NOT read product/foundation/, product/surfaces/"). PM authorized the write because the alternative was losing the discussion. The file lives in `product/exploration/` (the spot for in-flight ideas) so `pipeline-product` can promote it to a system spec or fold it into `groups.md` / `policy-framework.md` when ready.
+**Reason:** Build agent writing product-tier docs is technically outside its lane (per `pipeline-build/workflow.md` "Does NOT read product/foundation/, product/surfaces/"). PM authorized the write because the alternative was losing the discussion. The file lives in `product/exploration/` (the spot for in-flight ideas) so `pipeline-product` can promote it to a system spec or fold it into `groups.md` / `policy.md` when ready.
 
 **Impact:** New file `product/exploration/locally-owned-verification.md` captures: the doxxing problem, the available US tax/business-registration anchors, a three-tier verification ladder (Tier 0 self-attested at b1; Tiers 1-2 deferred to post-revenue), schema sketch for `member_business_jurisdictions`, the PM's six decisions (locality ≠ address; verification-source as public signal; Tier 0 is voluntary-but-incentivized), and six open questions parked for `pipeline-product`.
 

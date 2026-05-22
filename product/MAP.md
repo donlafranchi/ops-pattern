@@ -10,12 +10,12 @@ Connecting people, joining forces, improving our lives socially and economically
 
 ## Foundation (the why and the how)
 
-- **[`community-design-philosophy.md`](foundation/community-design-philosophy.md)** — the structured measuring stick; 5 sections of platform-decision rubric grounded in Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon. Score every decision against the checklists.
-- **[`foundational-principles.md`](foundation/foundational-principles.md)** — the constitution; P1–P8 first principles + Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline. Binary pass/fail filter.
+- **[`design-philosophy.md`](foundation/design-philosophy.md)** — the structured measuring stick; 5 sections of platform-decision rubric grounded in Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon. Score every decision against the checklists.
+- **[`principles.md`](foundation/principles.md)** — the constitution; P1–P8 first principles + Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline. Binary pass/fail filter.
 - **[`loops.md`](foundation/loops.md)** — north star; 13 loops in 5 families (Gathering → Sharing → Trade → Pooling → Federation); activation energy ascends, belief ascends, stake accumulates.
 - **[`primitives.md`](foundation/primitives.md)** — the data spine: Person · Item · Location · Group; everything the platform does is one of these acting on another.
-- **[`people-first.md`](foundation/people-first.md)** — the platform serves people, not businesses; no Business entity in the schema; personal businesses first-class via kind='business' Groups.
-- **[`policy-framework.md`](foundation/policy-framework.md)** — owns ADR-9: the three-filter test (helpful? harmless? abuse-resistant?), opt-out default, and anti-Nextdoor commitments.
+- **[`principles.md`](foundation/principles.md)** — the platform serves people, not businesses; no Business entity in the schema; personal businesses first-class via kind='business' Groups.
+- **[`policy.md`](foundation/policy.md)** — owns ADR-9: the three-filter test (helpful? harmless? abuse-resistant?), opt-out default, and anti-Nextdoor commitments.
 - **[`agent-assistance.md`](foundation/agent-assistance.md)** — owns ADR-6: agents are loop-shaped not role-shaped; persistence is standing-derived; read-automatable, write-confirmed; Member-owned; federation-portable.
 - **[`canonical-examples.md`](foundation/canonical-examples.md)** — the 12 real situations the platform exists to make better; the working test-case set for every feature.
 - **[`platform-promise.md`](foundation/platform-promise.md)** — what the platform commits to and refuses to do, in plain language for the thesis page.

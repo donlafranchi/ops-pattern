@@ -53,7 +53,7 @@ Apply in order. Do not collapse into a single score.
 *Does ratifying this absolute threaten the platform's ability to exist — its utility OR its financial durability?*
 
 Read the platform-advocate bullet. Ask:
-- Does this absolute foreclose a revenue line the platform needs to remain durable (no-VC posture per `foundational-principles.md`)?
+- Does this absolute foreclose a revenue line the platform needs to remain durable (no-VC posture per `principles.md`)?
 - Does this absolute prevent a function the platform must perform (federation, agent-native navigability, business-jurisdiction verification, payments)?
 - Does this absolute make the platform unable to deliver on P1 / P4 / P5 over a horizon longer than the deferral window allows?
 

@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-09
 **Reviewer role:** pipeline-plan
-**Artifacts reviewed:** delegation.md, member-self-record.md, skills.md, member-operations.md, ADR-6/7/8/9, policy-framework.md
+**Artifacts reviewed:** delegation.md, member-self-record.md, skills.md, member-operations.md, ADR-6/7/8/9, policy.md
 **Anchor:** [`planning/bundles/b1-primitives.md`](../bundles/b1-primitives.md)
 
 ## Verdict
@@ -33,7 +33,7 @@
 - **`/you/data` page surface** is referenced by member-self-record.md and the policy framework but not defined anywhere in b1-primitives.md or as its own spec. Build agent has no source of truth for what it contains beyond export+purge buttons.
 - **No spec covers what happens when a Member with active Operations ends them all.** Standing-tier collapses; do affordances vanish silently? Does the Self-Record degrade? Skills get unsubscribed? This is the inverse of the standing-tier gate and isn't addressed.
 - **Anonymous Loop 3 traffic + assistant** is listed as "open question" in delegation.md but is the most common b1 traffic shape. Newcomer browses, no Member exists, no Delegation possible. The spec waves at a working answer; b1 needs a yes/no.
-- **policy-framework.md governance** says "policy changes that affect existing Members' opt-in state require explicit re-confirmation." No spec defines the re-confirmation surface, the cadence, or the failure mode (what happens to a Delegation while re-confirmation is pending). At b1 this is hypothetical; before b2 ships it must be real.
+- **policy.md governance** says "policy changes that affect existing Members' opt-in state require explicit re-confirmation." No spec defines the re-confirmation surface, the cadence, or the failure mode (what happens to a Delegation while re-confirmation is pending). At b1 this is hypothetical; before b2 ships it must be real.
 - **member-operations.md §T1** says active Operations render on the Member profile. The Member profile spec for b1 ([`b1-primitives.md`](../bundles/b1-primitives.md) lines 18–20) does not describe an Operations section. Cross-spec gap.
 
 ### 4. Unrealistic schedules
@@ -64,7 +64,7 @@ In strict order:
 3. **`member_self_records` + `member_self_record_entries` tables created.** Schema-only. No actions, no `/you/data` page.
 4. **`skills` + `skill_subscriptions` + `skill_versions` tables created.** Schema-only. No catalog, no endpoints, no manifest contract published.
 5. **Scope vocabulary lives in code as a TypeScript enum + Postgres enum.** Stable but *internal*; not published as an external contract.
-6. **policy-framework.md adopted as foundational reading.** No opt-in implementations land at b1. The protective defaults are the platform's behavior because the opt-ins do not exist.
+6. **policy.md adopted as foundational reading.** No opt-in implementations land at b1. The protective defaults are the platform's behavior because the opt-ins do not exist.
 
 This floor is real ticket work (4–6 tickets) but does not crowd out the b1-primitives.md sequence and gives the b2/b1.5 work a clean substrate to land on.
 

@@ -139,7 +139,7 @@ This is a deliberate choice with consequences:
 
 ## Revenue posture
 
-Per [`policy-framework.md`](../foundation/policy-framework.md): default is the protective stance for both Member and Skill author; opt-in unlocks platform-mediated payment; the three filters apply.
+Per [`policy.md`](../foundation/policy.md): default is the protective stance for both Member and Skill author; opt-in unlocks platform-mediated payment; the three filters apply.
 
 **Defaults:**
 
@@ -155,7 +155,7 @@ Per [`policy-framework.md`](../foundation/policy-framework.md): default is the p
 
 - A Skill's catalog page surfaces price (if any), payment handler (platform-mediated or off-platform), and the cut (if platform-mediated) clearly. The Member sees the full picture before subscribing.
 
-This posture preserves the platform's revenue thesis ("Revenue flows from buyers, sponsors, and federation partners" per [`people-first.md`](../foundation/people-first.md)) while adding a Member-author-controlled, transparent, capped revenue stream from value created on the platform — which is structurally different from the "pay-for-visibility" model the foundation rejects.
+This posture preserves the platform's revenue thesis ("Revenue flows from buyers, sponsors, and federation partners" per [`principles.md`](../foundation/principles.md)) while adding a Member-author-controlled, transparent, capped revenue stream from value created on the platform — which is structurally different from the "pay-for-visibility" model the foundation rejects.
 
 ## What Skills rule in and rule out
 

@@ -39,7 +39,7 @@ For each system the scenario touches:
 6. **Shell-entity check.** Does any column, relationship, or user-facing label introduce an entity that owns Items without being a Person or a Community? Vocabulary to flag: "vendor," "business," "merchant," "establishment," "operator." If any column reads as `*_id` pointing to a non-Person/Community entity holding Items, flag EXTEND. People-first compliance is structural, not aspirational.
 7. **Policy posture present.** If the scenario touches data sharing, monetary flow, agent permissions, or visibility (Member→Member, Member→third-party, Member→platform), the relevant `product/systems/{name}.md` MUST have a "Policy posture" section with the three-filter analysis written out per ADR-9. If absent, verdict is EXTEND — back to `pipeline-product` to write it before tickets open. Default-on data sharing or unanalyzed opt-ins are auto-EXTEND.
 
-Reference: `product/systems/`, `product/foundation/primitives.md`, `product/foundation/people-first.md`, `product/foundation/loops.md`, `product/foundation/policy-framework.md`, `planning/DECISIONS.md`.
+Reference: `product/systems/`, `product/foundation/primitives.md`, `product/foundation/principles.md`, `product/foundation/loops.md`, `product/foundation/policy.md`, `planning/DECISIONS.md`.
 
 ### Design check
 

@@ -1,6 +1,6 @@
 # Agent-Assistance People-First Review — 2026-05-09
 
-**Reviewer hat:** Foundational-principles check — does the agent-assistance stack (member-operations, delegation, member-self-record, skills + ADRs 6-9) honor what `people-first.md`, `primitives.md`, `policy-framework.md`, and `canonical-examples.md` refuse?
+**Reviewer hat:** Foundational-principles check — does the agent-assistance stack (member-operations, delegation, member-self-record, skills + ADRs 6-9) honor what `principles.md`, `primitives.md`, `policy.md`, and `canonical-examples.md` refuse?
 
 **Specs reviewed:** `product/systems/member-operations.md`, `product/systems/delegation.md`, `product/systems/member-self-record.md`, `product/systems/skills.md`, `planning/DECISIONS.md` ADRs 6-9.
 

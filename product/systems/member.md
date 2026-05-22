@@ -8,7 +8,7 @@
 
 **Decisions encoded:** ADR-4 (locality default = geolocate then city pick, mutable) · ADR-6 (Member-owned context, standing-derived persistence) · ADR-7 (action layer for all writes) · ADR-9 (opt-out default, three-filter test for every privacy/revenue/data-sharing surface) · ADR-12 **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6 (the Maker-mode framing is retired; `members.maker_mode_enabled` column is dropped; selling tools surface from Group / Item state) · ADR-15 (auth.users coupling — `members.id = auth.users.id`, post-signup trigger is the only Member-create path) · ADR-16 (per-row privacy on `member_location_affinities`; algorithms via privileged paths) · ADR-17 (`bounded_purchase` Delegation scope, ratified 2026-05-12 — the Delegation-scopes Policy posture references it). **ADR-8 is fully superseded** by the Groups ratification (`member_operations` retires; standing-tier gate is now defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group). **ADR-3 remains rejected** — the implicit-from-behavior `maker_signal` pattern does not apply.
 
-**Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`people-first.md`](../foundation/people-first.md) · [`policy-framework.md`](../foundation/policy-framework.md) · [`groups.md`](groups.md) (the unified Group spine — supersedes the prior `community.md` / `member-operations.md` / `cooperative.md` split per the 2026-05-10 ratification) · [`item.md`](item.md) · [`location.md`](location.md) · `delegation.md` / `assistant-context.md` / `skills.md` (forward-looking, schema reserved at b1)
+**Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`principles.md`](../foundation/principles.md) · [`policy.md`](../foundation/policy.md) · [`groups.md`](groups.md) (the unified Group spine — supersedes the prior `community.md` / `member-operations.md` / `cooperative.md` split per the 2026-05-10 ratification) · [`item.md`](item.md) · [`location.md`](location.md) · `delegation.md` / `assistant-context.md` / `skills.md` (forward-looking, schema reserved at b1)
 
 **Canonical examples this spec serves:** Maya at Oak Park Sourdough · Ferrari Fisheries · Cafe Capricho's successor · Brian declaring the Run Club at Drake's · Aaron posting a fish-drop Wonder · Maya finding something to do tonight · the West Sac school-parents Community founder. Per [`canonical-examples.md`](../foundation/canonical-examples.md).
 
@@ -20,7 +20,7 @@ A Member is the platform's record of one real human. One row, one human, lifetim
 
 A Member is **not** a role. Per `primitives.md`, the platform models verbs, not identities. A Member who posts product Items is acting as a Seller (Producer in agricultural / food context); the same Member organizing a recurring gathering is acting as a host; the same Member founding a cooperative bakery Community is acting as a steward. None of those activities are stored as a `role` column on `members`. They surface as conditional affordances on the Member's profile when the underlying activity exists, and they retract when it doesn't. The legacy `vendor-*` system files are wrong about this and are being re-anchored on this primitive in Phase 6 of the migration.
 
-A Member is **not** a business. Per `people-first.md`, there is no Business entity in the schema, ever. A Member who runs a personal business does so through a kind='business' Group (per `groups.md`) — a Group of one (sole proprietor), of two-plus owners (partnership), or of owners + staff (operating team). The Group carries the brand label (`group_businesses.display_name`), the optional `legal_entity_kind` (LLC, sole_prop, partnership, etc.), and the membership rows. A cooperative-shape operation is a kind='business' Group with multiple owner-role memberships, not a separate primitive — cooperative-style coordination (co-owning, voting, distributing) is deferred until real-world need + explicit user prioritization per `groups.md` and `agent-commerce-and-project-amendments.md` §2. The absence of a Business row is what keeps the platform structurally honest about who is doing the work; the Group primitive is what records the *people organizing to do it together*.
+A Member is **not** a business. Per `principles.md`, there is no Business entity in the schema, ever. A Member who runs a personal business does so through a kind='business' Group (per `groups.md`) — a Group of one (sole proprietor), of two-plus owners (partnership), or of owners + staff (operating team). The Group carries the brand label (`group_businesses.display_name`), the optional `legal_entity_kind` (LLC, sole_prop, partnership, etc.), and the membership rows. A cooperative-shape operation is a kind='business' Group with multiple owner-role memberships, not a separate primitive — cooperative-style coordination (co-owning, voting, distributing) is deferred until real-world need + explicit user prioritization per `groups.md` and `agent-commerce-and-project-amendments.md` §2. The absence of a Business row is what keeps the platform structurally honest about who is doing the work; the Group primitive is what records the *people organizing to do it together*.
 
 A Member is **not** a Location. Members are humans; Locations are places. A Member's relationship to Locations beyond home is recorded as multi-Location affinities in `member_location_affinities` (live, work, play, visit, follow, liked) per the Multi-Location belonging section below. The `home_location_id` column is the locality default (per ADR-4); the affinity table holds the rest. Members do not have stored addresses.
 
@@ -107,7 +107,7 @@ A Member without any qualifying Group membership is fully welcome and fully func
 
 ### Group membership
 
-- A Member holds zero or many Group memberships via `group_memberships` (per `groups.md`). All explicit, none auto-assigned (per `people-first.md` and `groups.md`).
+- A Member holds zero or many Group memberships via `group_memberships` (per `groups.md`). All explicit, none auto-assigned (per `principles.md` and `groups.md`).
 - `members.primary_group_id` (nullable FK to `groups.id`) — set explicitly by the Member at onboarding *if* they choose one (most don't). Used as the default `group_id` for Wonders, Offers, Asks (b2) the Member posts. (Replaces the prior `members.primary_community_id` per the 2026-05-10 Groups ratification.)
 - `group_memberships.source = 'soft_via_follow'` and `'soft_via_attendance'` rows exist for the platform's internal index suggestion only — they are invisible to other Members and do not count toward addressability or pooling (per `groups.md`).
 - A Member can hold any role across multiple Groups simultaneously per `groups.md` (e.g., owner of one business Group, member of another business Group as staff, steward of an interest Group, member of a family Group).
@@ -124,7 +124,7 @@ A Member belongs to multiple Locations — they live somewhere, work somewhere, 
 
 - `member_location_affinities` table: `member_id`, `location_id`, `affinity_kind` (enum: `lives`, `works`, `plays`, `visits`, `follows`, `liked`), `created_at`, `removed_at` (soft, nullable). Composite PK on `(member_id, location_id, affinity_kind)` — a Member can hold multiple kinds of affinity for the same Location (a Member who both `lives` and `plays` at the same neighborhood Location).
 - `members.home_location_id` (unchanged) stays as the single locality default per ADR-4. The affinity table is additive — `home_location_id` is NOT replaced; it remains the Member's "near me" default scope. Many Members will also have an affinity row of kind=`lives` pointing at the same Location, but the two surfaces serve different purposes.
-- **Affinity does not grant addressability.** Per the no-Location-messaging commitment in `policy-framework.md` and `location.md`, no DM, feed, or wall is scoped to a Location. A Member with `lives` affinity to West Sacramento cannot be addressed because of that affinity. Affinities surface in: the Member's "Locations I belong to" list (private profile by default), the Location's reverse query (the Location page may show "N Members live here" without naming them — privacy-respecting), and the locality-promotion derivation in `groups.md` (a Group's local-owner test reads any of `lives` / `works`).
+- **Affinity does not grant addressability.** Per the no-Location-messaging commitment in `policy.md` and `location.md`, no DM, feed, or wall is scoped to a Location. A Member with `lives` affinity to West Sacramento cannot be addressed because of that affinity. Affinities surface in: the Member's "Locations I belong to" list (private profile by default), the Location's reverse query (the Location page may show "N Members live here" without naming them — privacy-respecting), and the locality-promotion derivation in `groups.md` (a Group's local-owner test reads any of `lives` / `works`).
 - **Follows drive notifications.** The `affinity_kind='follows'` row is the b2 surface that delivers the "Concerts in the Park" feed: when an Item attaches to a followed Location, the follower's feed surfaces it. Wire-up is the same as Member follow fan-out — `item.location_attached` event triggers a per-follower fan-out to the followers of the affected Location.
 - Affinity events: `member.location_affinity_added`, `member.location_affinity_removed`. Reserved at b1; the Location-follow surface ships at b2.
 
@@ -152,7 +152,7 @@ Per the b1 scope decision: the messages schema lands at b1 so b2 can ship the su
 - **Assistant Context surfaces** ship the three update pathways (explicit teach, confirmation-derived, inferred-and-proposed). Per `assistant-context.md`.
 - **Skills subscription** — Members with standing presence (per ADR-8) can subscribe to platform-curated and community-authored Skills. Per `skills.md`.
 - **Follow stream** — the b1 follow event log gets a surface. Per Loop 8.
-- **Endorsements (service Items)** — Members endorse other Members' Service Items. Community-anchored, no star ratings (per `service-provider.md` and `people-first.md`).
+- **Endorsements (service Items)** — Members endorse other Members' Service Items. Community-anchored, no star ratings (per `service-provider.md` and `principles.md`).
 - **Member ↔ Member messaging filters** — block, mute, report. Lightweight moderation surfaces.
 - **Multi-locality awareness** — `home_location_id` becomes plural via a new `member_localities` table (introduced at T2 — *not* reserved at b1; the single `home_location_id` column on `members` covers b1) with a primary marker. Useful for travel and split households.
 - **Handle changes** — Members can change handle once per quarter; old handle becomes a redirect for 90 days. Reserve `member_handle_history` table at b1 for this.
@@ -210,7 +210,7 @@ Notes on choices:
 - `stakeholder_visibility` is reserved at b1 for the b3 dashboard. Default `private` — opt-out default per ADR-9.
 - **No `maker_mode_enabled` column.** Per `agent-commerce-and-project-amendments.md` §6 (ratified 2026-05-12), the "mode" framing is dropped. Selling-tool surfaces are driven by Group membership (≥1 active kind='business' Group) and / or Item kind (`product` / `service` rows), not by a Member-level boolean. ADR-12 is superseded by the amendment; see Decisions encoded section.
 - No `role` column. Roles are verbs surfaced from Item + Group activity, not stored.
-- No `business_id`. There is no Business entity (per `people-first.md`).
+- No `business_id`. There is no Business entity (per `principles.md`).
 
 ### `member_privacy` (one row per Member, opt-out defaults per ADR-9)
 
@@ -331,7 +331,7 @@ The decision belongs to `pipeline-product` (UX + identity-recovery trade-offs ar
 create table member_threads (
   id uuid primary key default gen_random_uuid(),
   group_id uuid references groups(id),
-  -- No location_id column — per policy-framework.md, no message channel is Location-scoped.
+  -- No location_id column — per policy.md, no message channel is Location-scoped.
   created_at timestamptz not null default now(),
   archived_at timestamptz
 );
@@ -363,7 +363,7 @@ create index idx_messages_thread_recent on member_messages (thread_id, created_a
   where deleted_at is null;
 ```
 
-RLS at b1 enforces the same-Group constraint: a `member_messages` row is visible to a Member only if that Member holds an explicit `group_memberships` row in the thread's `group_id` Group. The `member_threads.community_id` column becomes `member_threads.group_id` per the 2026-05-10 Groups ratification. The b2 surface relaxes this with explicit allow-DM toggles per the privacy controls. **The DM substrate does not now and will not ever carry a `location_id` column** — per the no-Location-messaging commitment in `policy-framework.md`, no message channel is Location-scoped.
+RLS at b1 enforces the same-Group constraint: a `member_messages` row is visible to a Member only if that Member holds an explicit `group_memberships` row in the thread's `group_id` Group. The `member_threads.community_id` column becomes `member_threads.group_id` per the 2026-05-10 Groups ratification. The b2 surface relaxes this with explicit allow-DM toggles per the privacy controls. **The DM substrate does not now and will not ever carry a `location_id` column** — per the no-Location-messaging commitment in `policy.md`, no message channel is Location-scoped.
 
 ### Agent-assistance substrate (per ADR-6) — schema reserved at b1, no surface
 
@@ -632,7 +632,7 @@ The two most consequential commitments encoded here:
 
 **Schema reserved for the agent-assistance stack at b1, surface deferred.** The `member_self_records`, `member_delegations`, and the `acting_member_id` + `via_delegation_id` audit fields land at b1 even though no surface uses them. This is the single decision that prevents the b2/b3 agent-assistance work from becoming a multi-month retrofit. The cost at b1 is small — three tables, two columns on every event log row, no UI. The cost at b2 if skipped is rewriting every action handler and event row to retroactively populate the audit trail. The same logic applies that drove the event log itself: ship empty, fill later, never paint into a corner.
 
-The deliberate refusal of a `role` column is the relational realization of `people-first.md`. The deliberate substrate-at-b1 for Assistant Context and Delegation is the realization of ADR-6's "agent-friendly natively, not bolted on." The opt-out default across every privacy field is the realization of ADR-9's three-filter test. These three commitments do most of the long-term work; the rest of the spec is the surface that lets them ship.
+The deliberate refusal of a `role` column is the relational realization of `principles.md`. The deliberate substrate-at-b1 for Assistant Context and Delegation is the realization of ADR-6's "agent-friendly natively, not bolted on." The opt-out default across every privacy field is the realization of ADR-9's three-filter test. These three commitments do most of the long-term work; the rest of the spec is the surface that lets them ship.
 
 ## Decisions encoded here
 

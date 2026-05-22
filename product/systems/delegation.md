@@ -101,7 +101,7 @@ Federation scopes (T3, reserved at MVP) — `federation_read_initiatives`, `fede
 
 ## Policy posture
 
-Per [`policy-framework.md`](../foundation/policy-framework.md): default is the protective stance; opt-in unlocks specific scopes; the three filters apply to every scope.
+Per [`policy.md`](../foundation/policy.md): default is the protective stance; opt-in unlocks specific scopes; the three filters apply to every scope.
 
 **Defaults:**
 

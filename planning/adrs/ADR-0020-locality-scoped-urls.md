@@ -95,7 +95,7 @@ This relationship is separate from the place-anchor hierarchy. A Group anchored 
 
 ## Trade-offs
 
-**Why hierarchical place wins.** The platform's foundational premise is locality-first (`foundational-principles.md` P1). Place hierarchy is how humans actually think about geography ("I'm at Drake's, in Oak Park, in Sacramento"). Modeling that hierarchy directly in `places` + reflecting it in URLs aligns the platform's information architecture with everyday speech. The same architecture that prevents slug collisions at scale also signals what kind of platform this is to anyone reading a URL.
+**Why hierarchical place wins.** The platform's foundational premise is locality-first (`principles.md` P1). Place hierarchy is how humans actually think about geography ("I'm at Drake's, in Oak Park, in Sacramento"). Modeling that hierarchy directly in `places` + reflecting it in URLs aligns the platform's information architecture with everyday speech. The same architecture that prevents slug collisions at scale also signals what kind of platform this is to anyone reading a URL.
 
 **Why parent-scoped slugs win.** Two Oak Parks (Sacramento, Illinois) exist as distinct places without name mangling. The hierarchy carries the disambiguation; the slug stays human-readable. Globally-unique slugs would force `oak-park-sacramento` / `oak-park-illinois` as a workaround, which leaks state into a name that shouldn't carry it.
 
@@ -162,7 +162,7 @@ This relationship is separate from the place-anchor hierarchy. A Group anchored 
 This ADR encodes three absolutes that need explicit `Intent:` annotations per `intent-audit.md`.
 
 - **"URLs are locality-scoped wherever a place is the most stable anchor."**
-  *Intent:* The platform's foundational commitment is locality-first (`foundational-principles.md` P1). URLs are the most public expression of that commitment — the schema choice for slug-scoping makes the platform's claim visible in every share-link. Reversing this later means rewriting every public URL the platform has ever issued, which destroys the durability of share links and SEO. We commit now because the cost of committing later is much higher than the cost of committing wrong now (we can always extend; we can never quietly un-commit).
+  *Intent:* The platform's foundational commitment is locality-first (`principles.md` P1). URLs are the most public expression of that commitment — the schema choice for slug-scoping makes the platform's claim visible in every share-link. Reversing this later means rewriting every public URL the platform has ever issued, which destroys the durability of share links and SEO. We commit now because the cost of committing later is much higher than the cost of committing wrong now (we can always extend; we can never quietly un-commit).
 
 - **"Members keep a single global handle."**
   *Intent:* The Member is the auth identity. Exactly one auth user per Member, one handle per Member, claimable across the lifetime of the platform. Members move — between neighborhoods, cities, countries — without losing identity. Scoping handles to places would force handle changes on every relocation, destroying identity continuity. The handle is one of the few intentionally global namespaces on the platform; the cost is bounded (handles are short, profanity-filtered, regex-constrained) and the benefit is high (one identity per human, durable across moves).

@@ -50,7 +50,7 @@ The minimum that lets the platform say "see your followers and how you're growin
 ### Profile health
 - Completeness score (0–100) with breakdown of: photo count, story length, Locations listed, hours filled (per `location_permanent.public_hours`), Item count.
 - Suggested next field to fill, ranked by impact.
-- Visible only to the producer themselves; never surfaced to consumers and never used for ranking in `discoverable_items` (per the no-pay-for-visibility commitment in [`people-first.md`](../foundation/people-first.md)).
+- Visible only to the producer themselves; never surfaced to consumers and never used for ranking in `discoverable_items` (per the no-pay-for-visibility commitment in [`principles.md`](../foundation/principles.md)).
 
 ## T2 — Engagement Insights (b3)
 
@@ -134,9 +134,9 @@ Pairs with the producer-bulletin T3 drip surface:
 
 Per the people-first / policy-framework commitments:
 
-- **No ad sales or sponsored placement.** The whole point is to give producers leverage *without* paying for visibility. Sponsored slots break the trust model. The pay-for-visibility refusal in [`people-first.md`](../foundation/people-first.md) applies here categorically.
+- **No ad sales or sponsored placement.** The whole point is to give producers leverage *without* paying for visibility. Sponsored slots break the trust model. The pay-for-visibility refusal in [`principles.md`](../foundation/principles.md) applies here categorically.
 - **No demographic targeting on followers.** The platform will not tell producers a follower's age, gender, race, or income. Geographic city-level (via `home_location_id`) is the limit.
-- **No sale of producer data to third parties.** Ever. This is in [`policy-framework.md`](../foundation/policy-framework.md), not just this roadmap.
+- **No sale of producer data to third parties.** Ever. This is in [`policy.md`](../foundation/policy.md), not just this roadmap.
 - **No named-competitor benchmarking.** Anonymized peer aggregates only. Never "here's how Sally's Bakery compares to yours."
 - **No public follower-count badges by default.** Public counts create vanity dynamics; producers can opt in to show their follower count on `/m/[handle]` (per [`member.md`](member.md) privacy settings).
 
@@ -168,7 +168,7 @@ These are cheap to write at b1 (the action layer already commits an event per wr
 
 ## Policy posture
 
-Per [`policy-framework.md`](../foundation/policy-framework.md) — protective defaults, opt-in expansions, three-filter test.
+Per [`policy.md`](../foundation/policy.md) — protective defaults, opt-in expansions, three-filter test.
 
 **Defaults:**
 - Producer dashboard is private to the producer Member. No data leaves the dashboard surface unless the producer exports it.
@@ -221,6 +221,6 @@ Per [`policy-framework.md`](../foundation/policy-framework.md) — protective de
 This spec does not own any ADR. It *consumes*:
 - **ADR-6** ([`agent-assistance.md`](../foundation/agent-assistance.md)) — standing-derived gating via `member_has_standing_presence`; the full producer-growth surface is the standing-tier producer's view.
 - **ADR-7** ([`action-layer.md`](action-layer.md)) — every action is captured in the event log in the same transaction; producer-growth is a read over that log.
-- **ADR-9** ([`policy-framework.md`](../foundation/policy-framework.md)) — protective defaults; three-filter analysis on every opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
+- **ADR-9** ([`policy.md`](../foundation/policy.md)) — protective defaults; three-filter analysis on every opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
 - **ADR-12** ([`member.md`](member.md) status banner) — **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6. There is no Maker mode; the producer-growth surface gates on kind='business' Group membership (per ADR-13) directly.
 - **ADR-13** ([`groups.md`](groups.md)) — kind='business' Group steward/owner role is producer capacity; multi-Location producers use kind='business' Group structure.

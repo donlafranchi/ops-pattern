@@ -66,7 +66,7 @@ A user-facing capability + a tiered system spec that supports it.
 - `product/foundation/canonical-examples.md` — Brian + Run Club is example #1.
 - `product/foundation/loops.md` — Loops 1 (Find your people), 4 (Gather regularly).
 - `product/foundation/primitives.md` — Person → Item(kind=gathering) → Location.
-- `product/foundation/people-first.md` — surface-shaped, not data-model-shaped.
+- `product/foundation/principles.md` — surface-shaped, not data-model-shaped.
 
 ### What this stage explicitly does NOT produce
 

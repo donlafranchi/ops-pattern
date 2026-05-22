@@ -6,7 +6,7 @@
 
 **Bundles:** b1 (T1 — substrate only; tables reserved; no money moves), b2 (T2 — closed-loop ledger live, ACH via chartered partner, card-network access for newcomers with friction), b3 (T3 — multi-rail, federation-portable payment identity, platform-custodied stablecoin path gated on consumer-readiness and rubric alignment).
 
-**Companion specs:** [`delegation.md`](delegation.md) · [`../foundation/agent-assistance.md`](../foundation/agent-assistance.md) · [`action-layer.md`](action-layer.md) · [`../foundation/policy-framework.md`](../foundation/policy-framework.md) · [`../foundation/people-first.md`](../foundation/people-first.md) · [`groups.md`](groups.md) · [`member.md`](member.md) · [`item.md`](item.md) · `agent-commerce-and-project-amendments.md` (the introducing amendment).
+**Companion specs:** [`delegation.md`](delegation.md) · [`../foundation/agent-assistance.md`](../foundation/agent-assistance.md) · [`action-layer.md`](action-layer.md) · [`../foundation/policy.md`](../foundation/policy.md) · [`../foundation/principles.md`](../foundation/principles.md) · [`groups.md`](groups.md) · [`member.md`](member.md) · [`item.md`](item.md) · `agent-commerce-and-project-amendments.md` (the introducing amendment).
 
 **North stars served:** All five families. Payments are the substrate of the economic loops (7, 8, 9 — Make, Follow, Find a pro) and the pooling loops (10, 11 — Start something, Pool resources). Without this rail, agent commerce defaults to the extractive industry standard (Visa/Mastercard/Stripe), and the wealth-circulation thesis dies at checkout.
 
@@ -258,7 +258,7 @@ The most consequential funding commitment in this spec:
 
 What makes the platform structurally different from existing commerce surfaces isn't the absence of fees — it's where the fees go. Yelp gates visibility behind fees that fund VC shareholders. Etsy takes a cut that funds VC shareholders. Stripe takes a cut that funds VC shareholders. Facebook Marketplace doesn't charge per transaction but extracts via attention sold to advertisers. The platform's fee revenue funds platform operations and routes excess back to communities — member dividends, community grants, CDFI lending, federation reserves. The other apps are extractive because their fees compound out. The platform's fees compound in.
 
-**Where the platform's funding comes from instead** (per `foundational-principles.md` Part 8):
+**Where the platform's funding comes from instead** (per `principles.md` Part 8):
 
 - Voluntary Member dues (community-level fund contributions, optional platform-level support).
 - Producer success-fees — fees triggered only after a producer's revenue exceeds a defined floor. **Earn-before-extract.** Specifics pending design.
@@ -269,7 +269,7 @@ What makes the platform structurally different from existing commerce surfaces i
 
 - Extractive transaction-fee shapes on Member commerce (per §9 test) — pay-to-rank, pay-to-be-visible, exclusionary tiering, fee revenue compounding to external shareholders.
 - Fees on closed-loop balance funding, holding, or redemption (the partner's cost is the partner's cost, but the platform doesn't mark it up).
-- Visibility fees, ranking fees, promoted listings — categorically excluded per `foundational-principles.md`.
+- Visibility fees, ranking fees, promoted listings — categorically excluded per `principles.md`.
   **Intent:** Fails §9 prong 1 (gates access). These are the levers Yelp / Angi / Google Business pull to charge small operators for visibility, which is the exact extraction shape the platform was built to refuse. Categorically excluded means no carve-out under the §9 non-extraction test — access-gating IS the extraction.
 - Data sales — categorically excluded.
   **Intent:** Fails §9 prong 5 (revenue must route back to communities, not external buyers). Data sales route Member behavior to advertisers, brokers, or AI training pipelines whose revenue compounds out. Categorically excluded because the wealth-circulation rubric makes data-as-product structurally incompatible with the platform's mission.
@@ -292,7 +292,7 @@ Both parties to every transaction see each other. Specifically:
 
 **Cross-Community visibility:** transaction history is private by default to the parties involved. Cumulative wealth-circulation metrics ("Members in this community spent $X with each other this month, vs. $Y leaving the community") are aggregate-only and never identify individual transactions. The aggregate surface is a T3 capability.
 
-> **Intent:** Refuses transaction-level deanonymization at the Cross-Community surface; allows community-level totals. Aggregate stats are the wealth-circulation narrative the platform exists to tell. Individual-level transaction history at the Cross-Community surface is the surveillance pattern (Cambridge-Analytica-shape) that would break the privacy-by-default posture per `policy-framework.md`. Threshold: any metric that could be reverse-engineered to identify a specific Member's transactions must be suppressed (small-cell thresholds, differential privacy, or omission).
+> **Intent:** Refuses transaction-level deanonymization at the Cross-Community surface; allows community-level totals. Aggregate stats are the wealth-circulation narrative the platform exists to tell. Individual-level transaction history at the Cross-Community surface is the surveillance pattern (Cambridge-Analytica-shape) that would break the privacy-by-default posture per `policy.md`. Threshold: any metric that could be reverse-engineered to identify a specific Member's transactions must be suppressed (small-cell thresholds, differential privacy, or omission).
 
 ---
 
@@ -394,7 +394,7 @@ Every event row carries `acting_member_id`, `via_delegation_id`, `rail`, `wealth
 
 ## 14. Policy posture
 
-Per `policy-framework.md`: default is the protective stance; opt-ins unlock specific capabilities; the three filters apply.
+Per `policy.md`: default is the protective stance; opt-ins unlock specific capabilities; the three filters apply.
 
 **Defaults:**
 
@@ -452,7 +452,7 @@ Per `policy-framework.md`: default is the protective stance; opt-ins unlock spec
 ## 16. Open questions
 
 - **Partner selection for the b2 launch region (Sacramento).** Which specific CDFI, credit union, or cooperative bank serves as the b2 launch partner? This requires real-world outreach and pilot agreement. Working answer: identify three candidates by Q3 of the build year, pilot with one for b2 launch.
-- **Producer success-fee threshold.** What revenue level triggers the producer success-fee, and what's the fee structure? Per `foundational-principles.md` Part 8 this is an open question already; this spec depends on the answer for the platform's funding model. Working answer: pending separate user ratification in a future deep dive.
+- **Producer success-fee threshold.** What revenue level triggers the producer success-fee, and what's the fee structure? Per `principles.md` Part 8 this is an open question already; this spec depends on the answer for the platform's funding model. Working answer: pending separate user ratification in a future deep dive.
 - **Closed-loop balance limit per Member.** Practical cap on how much balance a Member can hold (since the partner's per-Member FDIC/NCUA insurance is finite). Working answer: $25,000 per Member at b2, configurable upward through sweep arrangements at T3. Confirm with partner during onboarding.
 - **Refund vs. reverse semantics.** A "refund" (the seller proactively returns funds) and a "reverse" (the buyer unilaterally pulls back within the window) are different operations. Working answer: both are first-class; both write events; sellers can refund at any time with buyer notification, buyers can reverse only within the window.
 - **Multi-Member transactions.** A Member buys from a `kind='business'` Group with three owner-role Members; how is the inbound payment split? Working answer: per the Group's recorded distribution agreement (a child table on `groups` that captures the percentage split); if no agreement is recorded, the inbound payment lands in a Group-level escrow that requires consensus to disburse. T2 design surface.
@@ -474,7 +474,7 @@ This spec also *consumes* and enforces decisions from other ADRs without owning 
 
 - **ADR-6** ([`../foundation/agent-assistance.md`](../foundation/agent-assistance.md)) — Delegations from `delegation.md` are honored at execution.
 - **ADR-7** ([`action-layer.md`](action-layer.md)) — all payment writes flow through named handlers with capability vending.
-- **ADR-9** ([`../foundation/policy-framework.md`](../foundation/policy-framework.md)) — three-filter test, opt-out default.
+- **ADR-9** ([`../foundation/policy.md`](../foundation/policy.md)) — three-filter test, opt-out default.
 - **ADR-17** (cross-cutting in [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md)) — `bounded_purchase` Delegation scope; this spec is the rail that honors it.
 - **`agent-commerce-and-project-amendments.md`** — the corrected stance on money flow (visible-and-accountable, not strict Member-to-Member), the central premise of equal community priority, the single "Never" on extraction vs. circulation.
 

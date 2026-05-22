@@ -2,7 +2,7 @@
 
 **Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`b1-primitives.md`](b1-primitives.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`b1-work-map.md`](b1-work-map.md) (the menu of work per sub-bundle).
 
-**Depends on:** `b1-primitives.md`, `loops.md`, `primitives.md`, `canonical-examples.md`, `foundational-principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
+**Depends on:** `b1-primitives.md`, `loops.md`, `primitives.md`, `canonical-examples.md`, `principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
 
 **What this doc does.** `b1-primitives.md` defines what ships in bundle 1 in primitive and cluster terms. This doc takes that scope and *sequences* it — what ships first, what second, what depends on what, and what each release is tested against. The unit of release is a **sub-bundle**, decimal-numbered (`b1.0`, `b1.1`, …). Each sub-bundle is small enough to ship in 1–2 weeks, demoable on its own, and metered against canonical examples.
 
@@ -314,14 +314,14 @@ The URL namespacing from b1.x earns its keep here. A Sacramento subdomain become
 Per the categorical commitments throughout the project. Listed so they cannot install themselves by default:
 
 - **Payments / commerce rails on-platform.** Items surface availability and contact; transaction is off-platform.
-- **Ad injection of any kind.** Categorical failure per `foundational-principles.md` Part 3.
+- **Ad injection of any kind.** Categorical failure per `principles.md` Part 3.
 - **Data sales or licensing.** Categorical failure.
 - **Star ratings / gatekeeping ratings.** Permanently deferred per `service-provider.md`.
 - **Cooperative-style coordination on-platform** (voting, distributions, treasury, securities filings). Deferred indefinitely per `groups.md`. Off-platform verbs the platform may record but does not drive.
 - **Engagement-optimized feed / time-on-platform metrics.** Categorical failure.
-- **Auto-assigned Communities or Groups** based on geography or demographics. Categorical failure per `people-first.md`.
+- **Auto-assigned Communities or Groups** based on geography or demographics. Categorical failure per `principles.md`.
 - **Founder-as-permanent-CEO patterns inside Communities.** Categorical failure.
-- **Location-scoped messaging walls.** The anti-Nextdoor commitment per `policy-framework.md`.
+- **Location-scoped messaging walls.** The anti-Nextdoor commitment per `policy.md`.
 
 ---
 
@@ -331,7 +331,7 @@ Every theme is graded against:
 
 1. **Canonical examples.** Does it move at least one canonical example meaningfully? (Per the rule in `canonical-examples.md`.) Depth over breadth when forced to choose — a theme that goes deep on one example is preferred to one that nudges three. If a theme cannot find even one example, the scope is wrong.
 2. **Loop coverage.** Does it advance the loops it claims to? Verified by walking one canonical example end-to-end through the theme's surfaces.
-3. **Foundational principles.** Does it pass the P1–P8 Decision Test in `foundational-principles.md`? Any categorical failure (Part 3) is disqualifying.
+3. **Foundational principles.** Does it pass the P1–P8 Decision Test in `principles.md`? Any categorical failure (Part 3) is disqualifying.
 4. **Metrics.** Do the metrics distinguish success from noise? If a "successful" theme would look identical in the dashboard to a "failed" theme, the metrics are wrong.
 5. **Architectural commitments.** ADRs in `planning/DECISIONS.md` — every theme inherits, none weakens.
 
@@ -382,7 +382,7 @@ b1.1 (Groups people can join)
 
 This document is the sequencing layer that the build pipeline reads when deciding what to work on next. `b1-primitives.md` answers *what's in scope for the MVP*; this doc answers *what ships next within that scope*; [`b1-work-map.md`](b1-work-map.md) answers *what work is in each sub-bundle, tagged for scope decisions*. Together the three give the planning tier a sufficient view: scope from primitives, sequence from themes, menu from work-map.
 
-The decision to slice b1 into seven sub-bundles (b1.0 through b1.6, plus the cross-cutting b1.x) is the structural commitment to *shipping often*. It is what makes the difference between a six-month b1 release that lands as one giant motion and a seven-stage rollout where the team learns from real users at every step. The smaller the slice, the faster the loop between "we built it" and "we know if it works." Per `foundational-principles.md` Part 1 — lightweight, performant, evolvable — the slicing posture honors P1 at the release level, not just the feature level.
+The decision to slice b1 into seven sub-bundles (b1.0 through b1.6, plus the cross-cutting b1.x) is the structural commitment to *shipping often*. It is what makes the difference between a six-month b1 release that lands as one giant motion and a seven-stage rollout where the team learns from real users at every step. The smaller the slice, the faster the loop between "we built it" and "we know if it works." Per `principles.md` Part 1 — lightweight, performant, evolvable — the slicing posture honors P1 at the release level, not just the feature level.
 
 The canonical-examples-first testing posture is the discipline that keeps the slices honest. Every theme has to point at at least one real situation in `canonical-examples.md` that it makes meaningfully better. If a theme cannot find its example, the theme is wrong — not the example.
 

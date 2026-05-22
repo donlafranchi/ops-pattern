@@ -121,7 +121,7 @@ A read-only view (per [`groups.md`](groups.md)) returning Members with `member_h
 
 ## Policy posture
 
-Per [`policy-framework.md`](../foundation/policy-framework.md): default is the protective stance; opt-in unlocks richer behavior; every opt-in passes the three filters (helpful? harmless? abuse-resistant?).
+Per [`policy.md`](../foundation/policy.md): default is the protective stance; opt-in unlocks richer behavior; every opt-in passes the three filters (helpful? harmless? abuse-resistant?).
 
 **Defaults (no opt-ins active):**
 

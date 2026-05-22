@@ -1,6 +1,6 @@
 # Movers, Makers & Shakers — Foundational Principles
 
-> **Status:** Foundational constitution. The P1–P8 first principles + the Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline that every proposal grades against. Read alongside [`community-design-philosophy.md`](community-design-philosophy.md) — the *structured measuring stick* — and the implementation-level commitments in [`people-first.md`](people-first.md), [`policy-framework.md`](policy-framework.md), [`platform-promise.md`](platform-promise.md), [`loops.md`](loops.md), and [`primitives.md`](primitives.md). When this document and `community-design-philosophy.md` conflict, prefer `community-design-philosophy.md` for the *what good looks like*; this document is the *binary pass/fail filter*. When this document and a system spec conflict on a structural mechanism, the system spec wins on the mechanism but the failure must still survive this document's tests.
+> **Status:** The constitution. The single "Never" + the central premise + P1–P8 first principles + the People-First Principle (folded in from the prior `people-first.md` on 2026-05-22) + the Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline. Every proposal grades against this document. The structured 0–3 scoring rubric — the *measuring stick* used to evaluate platform decisions and grade community health periodically — lives in [`design-philosophy.md`](design-philosophy.md), alongside the theory grounding (Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon). Applied policy filter (helpful / harmless / abuse-resistant + opt-out default + anti-Nextdoor commitments) lives in [`policy.md`](policy.md). Read alongside [`platform-promise.md`](platform-promise.md), [`loops.md`](loops.md), and [`primitives.md`](primitives.md). When this document and a system spec conflict on a structural mechanism, the system spec wins on the mechanism but the failure must still survive this document's tests.
 
 **A grading rubric for every decision on this project.**
 
@@ -8,9 +8,9 @@
 
 ## Purpose
 
-This document is the constitution. Designers, planners, architects, build agents, reviewers, and security personnel all grade their work against it. If a proposal cannot pass the Decision Test in Part 2, it does not ship — regardless of how well-crafted it is. Other system specs, scenarios, tickets, and code are subordinate to these principles. When they conflict, this wins.
+This document is the constitution. Designers, planners, architects, build agents, reviewers, and security personnel all grade their work against it. If a proposal cannot pass the Decision Test in Part 3, it does not ship — regardless of how well-crafted it is. Other system specs, scenarios, tickets, and code are subordinate to these principles. When they conflict, this wins.
 
-The principles are written to be quotable. Each is short enough to drop into an agent prompt. Each test in Part 2 returns a binary answer. Each anti-pattern in Part 3 is a categorical fail.
+The principles are written to be quotable. Each is short enough to drop into an agent prompt. The Decision Test in Part 3 returns binary answers. The structured 0–3 scoring rubric (periodic community-health audit) lives in [`design-philosophy.md`](design-philosophy.md). Each anti-pattern in Part 4 is a categorical fail.
 
 ---
 
@@ -58,7 +58,88 @@ The platform is designed for a near future where AI assistants act on members' b
 
 ---
 
-## Part 2: The Decision Test
+## Part 2: The People-First Principle
+
+> This is the structural commitment under P1 (serves people, not the other way around) — the schema-level and corollary-level encoding of "serves people." Folded in from the prior `people-first.md` on 2026-05-22.
+
+### The distinction
+
+This platform is about people connecting. It is not about businesses.
+
+We are not anti-business. A person who makes sourdough and sells it to neighbors is running a business, and we want that business to thrive. A person who runs a hardware store, hosts a guest cottage, plumbs houses, or teaches piano is running a business. We celebrate every one of them. Size is not the issue. **Personality is.**
+
+A business that remains personal — owned, operated, and accountable to a real human or a small group of humans whose names appear on it — is something we treat as a person doing work. A business that has been abstracted away from the people who do the work — a corporate shell, a private-equity rollup, a franchise where the operator has no say — is a different kind of thing entirely. We do not pretend it is the same.
+
+The data model encodes this distinction directly. **There is no *impersonal* Business entity in our schema** — no business on its own without a person, no business without human social capital behind it. A Person makes Items. An Item has a label the Person chooses to put on it ("Oak Park Sourdough," "Curtis Park Candles," "Folsom Plumbing"). The label is a display field on the Items, not a separate record that owns them. When a cooperative emerges, the cooperative is a `kind='business'` Group with multiple owner-role memberships, anchored to a Location, with Items declared by individual Members operating under the Group's branding — still no shell entity between Persons and the work.
+
+> **Intent:** The end goal is *personal*. Personal businesses are welcome — what the schema refuses is the *impersonal* business shape, because impersonality is the extractive vector (the corporate-shell that hides the human, the rollup that strips operator discretion, the franchise where the operator has no say). A Business row would be the attachment point that lets impersonality re-enter; without the row, every commercial activity has to surface through a Member or through a `kind='business'` Group whose owners are named Members. Future "shouldn't we just add a businesses table" proposals should be read as "let's add a place for impersonal commerce to land," and refused on those terms.
+>
+> **Tied to Member-anchored social capital.** Per the framework ratified during the 2026-05-12 `groups.md` walk and codified in [`../systems/groups.md`](../systems/groups.md) line 125, social capital is anchored on the Member primitive — every business is, structurally, the social capital of the human(s) behind it. A "business" without human social capital is a corporate shell; the schema's refusal of the Business entity is the schema's refusal of corporate shells. The two commitments are the same commitment seen from two angles.
+
+### The question business Groups exist to answer
+
+> **Is this local to my community? Does this entity support my community? Should I support it?**
+
+This is the question every Member is implicitly asking when they encounter a business on the platform. It is the question business Groups exist to surface an answer to. Every capability surrounding business Groups — locality-promotion, producer-bulletin, business-jurisdiction verification, accumulated social capital, peer recommendations — is in service of helping Members answer this three-part question. Not in service of helping the business be findable, rank higher, or grow.
+
+The corollary is the test: any feature surrounding business Groups that doesn't help Members answer "is this local / does it support my community / should I support it" is *extra* — a candidate for refusal regardless of how clever or useful-looking it is. When proposing a new capability, name the way it advances the three-part question. If you can't, the proposal doesn't earn its slot.
+
+This is the load-bearing purpose, the load-bearing test, and (per the people-first commitment above) the load-bearing reason the platform refuses corporate shells: Members can't reliably answer the three-part question against a corporate shell, because there's no *whom* to evaluate. Personal businesses make the question answerable; impersonal businesses make it impossible.
+
+### Why this matters
+
+**Business serves people, not the other way around.** Every directory we are competing with — Yelp, Angi, Google Business, Facebook Pages — models the business as the primary entity and demotes the human to an attribute. The result is predictable: the platform serves the business that pays the most, the human doing the work becomes invisible behind a corporate listing, and the relationship between buyer and maker degrades into a transaction with a brand. This pattern is the structural reason local commerce feels hollow online. We are not going to reproduce it.
+
+**Personal scales.** A baker who grows from one oven to a small bakery to a cooperative bakery is still a person — or a small group of people — doing work. The platform should make that growth visible (followers, repeat customers, market history) without requiring the baker to convert into a Brand. The same Item primitive that holds the first loaf of sourdough holds the hundredth, and the same Member primitive holds the baker through every stage. Size changes the metadata, not the kind.
+
+**Personal is what fails when extracted.** When a beloved local business gets bought by a national chain, what's lost isn't the building or the recipe — it's the personal accountability, the discretion, the ability of the Person doing the work to make a judgment call. Our refusal to model a Business entity is structural insurance against the moment a community-owned thing pretends to still be community-owned after the people are gone. If the Person is gone, the Items lose their author. The platform notices.
+
+### What this rules in
+
+- A maker selling at three markets is a Member with Items attached to three Locations. Personal.
+- A cooperative bakery is a `kind='business'` Group with multiple owner-role memberships, anchored to a Location, with Items declared by individual Members under the Group's branding. Personal.
+- A national B Corp with a local outlet, where the local outlet has discretion and a named operator, can be modeled as a Member running an Item-of-kind=service. Personal at the Item level.
+- A family-owned hardware store with three generations of owners is a Member (or a succession of Members) with Items. Personal.
+
+### What this rules out
+
+- A franchise where the operator has no say in pricing, hours, or product is not personal. It does not get a Member treatment; if it is listed at all, it is a label on someone else's Items.
+- A private-equity-owned operator pretending to be local is not personal. We do not provide a profile shape that lets it perform locality.
+- A "business listing" that has no named human accountable for it is not personal. If no Member's name is on it, it does not exist on this platform.
+
+### The corollaries
+
+This principle is what makes the rest of the architecture make sense:
+
+- **No ranking of people. We review *treatment*, not the person.** When a Member offers a good, service, gathering, or any public-facing thing, the public can convey their experiences with how they were treated. Reviews surface as treatment patterns and structured reports against the four pillars — Customers / Employees / Community / Planet — never as a single star score, never as a leaderboard, never as a price-of-being-found column. The point is peer pressure for good behavior: reward Members who treat others well; surface (without amplifying meanness) the patterns when they don't. Producer-review surfaces are designed in `systems/member.md` per the 2026-05-12 amendment.
+  **Intent:** Star ratings as a *ranking surface for people* are the Yelp / Angi failure mode — the column becomes the price-of-being-found column, and the platform's incentives flip to selling visibility to the rated. The platform refuses the *ranking* shape, not the *review* shape. Reviews of how publicly-offering Members treat others are exactly the peer-pressure mechanism the platform wants — they reward good behavior and identify mistreatment without making a leaderboard. Future proposals should be read against the distinction: "compare two sellers head-to-head on a number" is the refusal; "let neighbors share how they were treated" is the design intent.
+- **Social capital rewards being personal and helpful.** Members who help, host, gather, mentor, and steward accumulate visible standing — not as a number on a public leaderboard, but as a record the Member can point to and that the platform can recognize when standing-tier surfaces unlock (per `systems/agent-assistance.md` and the social-capital design in `systems/member.md` §3b, planned).
+  **Intent:** Reviews surface mistreatment; social capital surfaces good treatment. The two together are the platform's peer-pressure mechanism for good behavior. Without the positive pole, the system becomes a complaint surface (Yelp's failure mode); without the negative pole, the system has no accountability. Both, paired, are how the platform encourages the relational behaviors that make community work and discourages meanness without becoming punitive.
+- **No pay-for-visibility.** A person should not have to pay to be findable in their own community. We do not sell discovery to producers. Revenue flows from buyers, sponsors, and federation partners.
+- **No engagement-optimized feed.** People do not need an algorithm to want to find each other. The locality-first index is enough. Engagement optimization is what consumes humans for advertiser revenue; we are doing the opposite.
+- **Federation, not consolidation.** When deeper infrastructure is needed (banking, insurance, intelligence), it spawns into separate dedicated platforms (per Loop 13 in `loops.md`). The platform stays small enough to remain accountable to the people on it.
+
+### Communities, too, are people-first
+
+The same principle holds at the relational layer. A Community is people deciding they are a group — never a polygon, never a postal code, never an algorithm grouping accounts that look similar to each other. Communities cannot be auto-assigned by geography. They cannot be owned by a corporate entity. They cannot be created and populated by the platform on behalf of users it suspects share an interest. They are started, joined, stewarded, and dissolved by Members, and by Members alone.
+
+A Community without Members ceases to exist. That asymmetry — Members can dissolve a Community; a Community cannot dissolve a Member — is the structural posture that extends people-first all the way down through the relational layer. Membership is a relationship Members enter into; it is never a status the platform imposes for living somewhere or following someone. Soft affiliations the platform infers (a follow, an RSVP) surface as suggestions; they never become memberships without an explicit choice.
+
+The Drake's Run Club captures the principle in miniature: the Gathering works without a Community. The Community comes into being only if the regulars decide they want to be a "we." If they never do, the Gathering keeps running and nothing is missing. People-first means the platform earns Community membership by being worth choosing — never by inferring you must already belong.
+
+> **[PM: confirm]** This sub-section uses the legacy "Community" terminology that was superseded by "Group" per the 2026-05-10 Groups ratification. The substance applies equally to Groups; the wording should be reframed during a later sweep. Preserved verbatim here per the R05 "do not drop a single unique commitment" rule.
+
+### Closing this part
+
+The data model is a values statement. People declare things. Things attach to places. Other people respond. That is the whole grammar, and the absence of a Business entity in the middle is what keeps the grammar honest.
+
+Every PR, every scenario, every system spec must hold up against this principle. If a feature requires the platform to treat a business as more important than the people who do its work, the feature is wrong, regardless of how clean the implementation looks.
+
+**Buy close. Build community. Build the future together.** And keep the people — every Person, every Member — at the center of the schema.
+
+---
+
+## Part 3: The Decision Test
 
 Every proposal — feature, spec, ticket, design, code change — passes through this checklist. If any answer is "no" or "unclear," the proposal is reworked or rejected.
 
@@ -75,15 +156,15 @@ Every proposal — feature, spec, ticket, design, code change — passes through
 
 ---
 
-## Part 3: Categorical Failures
+## Part 4: Categorical Failures
 
 These are not judgment calls. Any proposal exhibiting one of these fails by definition.
 
 - **Engagement-as-goal metrics.** Time-on-platform, scroll depth, sessions-per-day, notification CTR. Optimizing for these violates P1.
   **Intent:** Time-on-platform is the metric of every directory and social network the platform is structurally refusing to become. Naming it as a categorical fail (not a debate) is the only way to keep it out of dashboards by inertia — once it's a number on a chart, the gravity of "improve the chart" makes the principle unenforceable. Pair this with a positive North-Star metric (member outcomes, not session counts) so the gap doesn't get filled by drift.
 - **Dark patterns.** Streaks, loss aversion, faux-scarcity, hidden defaults, hard-to-cancel flows.
-- **Engagement-shaped ad injection.** Ads inserted into the engagement stream to optimize for click-through, dwell time, behavioral targeting, or attention-capture — same failure mode as the engagement-as-goal-metrics entry above. Other forms of advertising are *not* categorically refused; see Part 8 for the revenue-design space where constrained non-engagement-shaped advertising forms (sponsorship, vetted local promotions, federation-partner placements, etc.) live as open design.
-  **Intent:** The earlier "Ad injection. Of any kind, from any party." entry (revised 2026-05-12) was over-broad and conflated *advertising as a revenue category* with the specific *engagement-feed-injection* failure mode that's the load-bearing concern. What's categorically refused is the engagement-shape: ads that turn the platform into an attention-capture surface. Other ad shapes — community-vetted local sponsorship, federation-partner placements, verified-local-business promotion lines — are revenue-design space the platform may explore under the multi-source-revenue commitment (Part 8). The narrower refusal preserves the load-bearing principle while leaving the financial-durability door open.
+- **Engagement-shaped ad injection.** Ads inserted into the engagement stream to optimize for click-through, dwell time, behavioral targeting, or attention-capture — same failure mode as the engagement-as-goal-metrics entry above. Other forms of advertising are *not* categorically refused; see Part 9 for the revenue-design space where constrained non-engagement-shaped advertising forms (sponsorship, vetted local promotions, federation-partner placements, etc.) live as open design.
+  **Intent:** The earlier "Ad injection. Of any kind, from any party." entry (revised 2026-05-12) was over-broad and conflated *advertising as a revenue category* with the specific *engagement-feed-injection* failure mode that's the load-bearing concern. What's categorically refused is the engagement-shape: ads that turn the platform into an attention-capture surface. Other ad shapes — community-vetted local sponsorship, federation-partner placements, verified-local-business promotion lines — are revenue-design space the platform may explore under the multi-source-revenue commitment (Part 9). The narrower refusal preserves the load-bearing principle while leaving the financial-durability door open.
 - **Data-as-product.** Selling, sharing, or licensing member data to third parties for any purpose other than what the member explicitly directed.
 - **Gatekeeping ratings.** Star-rating systems whose primary function becomes the platform's leverage over the small operator (Yelp / Angi pattern).
 - **Founder-as-CEO patterns inside chapters.** Permanent admin / owner roles that calcify community governance.
@@ -94,10 +175,10 @@ These are not judgment calls. Any proposal exhibiting one of these fails by defi
 
 ---
 
-## Part 4: How to Use This Document by Role
+## Part 5: How to Use This Document by Role
 
 ### Designer
-Before drafting an interface, read Parts 1–3. Every screen, flow, and interaction is a small bet about which principle wins. Bring the Decision Test to design review.
+Before drafting an interface, read Parts 1–4. Every screen, flow, and interaction is a small bet about which principle wins. Bring the Decision Test (Part 3) to design review. Use the structured 0–3 rubric in [`design-philosophy.md`](design-philosophy.md) quarterly for community-health audit.
 
 ### Planner / Scenario Writer
 Scenarios must name which principles they advance and which they're at risk of violating. A scenario that doesn't engage with at least one principle is not yet a scenario worth approving.
@@ -106,19 +187,19 @@ Scenarios must name which principles they advance and which they're at risk of v
 System designs must be checked against P5 (federation), P7 (adversarial use), and P8 (agent-native). These are architectural concerns, not feature concerns — they're decided at the system-shape level or not at all.
 
 ### Build Agent
-Use Parts 2 and 3 as preflight checks. Tickets that cannot answer the Decision Test are not yet implementable; send them back.
+Use Parts 3 and 5 as preflight checks. Tickets that cannot answer the Decision Test are not yet implementable; send them back.
 
 ### Reviewer / Evaluator
 Grade work against principles, not just acceptance criteria. A spec that meets its acceptance criteria but violates a principle has failed.
 
 ### Security Personnel
-P6 (default-private), P7 (bad actors fail), and the privacy / security baseline in Part 7 are your domain. Threat-model every system before launch.
+P6 (default-private), P7 (bad actors fail), and the privacy / security baseline in Part 8 are your domain. Threat-model every system before launch.
 
 ---
 
-## Part 5: Self-Assessment of Existing System Specs
+## Part 6: Self-Assessment of Existing System Specs
 
-This section assesses the four system specs visible in the working set: `community.md`, `initiatives.md`, `member.md`, `service-provider.md`, plus the supporting files `maker_outreach_list.md`, `Use_Cases`, and `Resources_`. Other project documents not visible in the working set are flagged in Part 9.
+> **[PM: confirm]** This section was written from a pre-primitives working set (`community.md`, `initiatives.md`, `member.md`, `service-provider.md` — all retired or renamed in the 2026-05 work). The strong-alignment / weak-coverage analysis is preserved for historical context but no longer maps to the live spec set. A refresh against the current system specs (`member.md`, `item.md`, `location.md`, `groups.md`, `discovery.md`, `action-layer.md`, `producer-bulletin.md`, `producer-growth.md`, `business-jurisdiction.md`, `payments.md`, plus the forward-looking `delegation.md`, `assistant-context.md`, `skills.md`) belongs in a follow-up pass after R10 completes.
 
 **Strong alignment.**
 
@@ -134,11 +215,11 @@ This section assesses the four system specs visible in the working set: `communi
 - **P1 lightweight / performant — undefined.** No performance targets, no bundle-size budget, no guardrail against feature bloat.
 - **No metrics.** No definition of what success looks like in-app.
 
-These are not failures of the existing specs — they are gaps that need to be filled by separate documents (see Part 9).
+These are not failures of the existing specs — they are gaps that need to be filled by separate documents (see Part 10).
 
 ---
 
-## Part 6: Default Platform Metrics
+## Part 7: Default Platform Metrics
 
 **Operating principle: measure what happens inside the app.** The platform cannot honestly measure local economic impact, multiplier effects, or community health outside the app's own surface. Those are downstream consequences the movement claims philosophically; they are not metrics the platform reports until and unless the data exists to support the claim.
 
@@ -186,7 +267,7 @@ The rule: measure interactions that produce real-world meetings, transactions, o
 
 ---
 
-## Part 7: Privacy & Security Baseline
+## Part 8: Privacy & Security Baseline
 
 What a regular person should be able to assume about this platform without reading the privacy policy.
 
@@ -222,11 +303,11 @@ What a regular person should be able to assume about this platform without readi
 - Public commitments to data handling are versioned; changes are announced before they take effect.
 
 ### What this baseline does not yet include
-A formal threat model, a security audit cadence, and a coordinated disclosure / bug-bounty program. These are flagged in Part 9.
+A formal threat model, a security audit cadence, and a coordinated disclosure / bug-bounty program. These are flagged in Part 10.
 
 ---
 
-## Part 8: Monetization (Working Hypothesis)
+## Part 9: Monetization (Working Hypothesis)
 
 Stated for the constitution because how the platform makes money determines whether it can honor every other principle.
 
@@ -248,13 +329,13 @@ The platform needs several of these operating from early on. Reliance on any sin
 
 - **Member dues.** Voluntary or tiered membership contributions, possibly community-level (community dues paid into a community fund) and platform-level (small contribution to platform sustainability). *One of several lines, not the primary.*
 - **Vendor success-fees.** Vendors pay only after their participation crosses a defined success threshold — e.g., a percentage of revenue above a floor, or a fee triggered by sustained sales volume. **Earn-before-extract is the design intent.**
-- **Constrained advertising (design space open).** Non-engagement-shaped advertising forms are revenue-design space — community-vetted local-business sponsorship, sponsored verified-local badges, federation-partner placements, sponsored community gatherings, etc. **Engagement-shaped ad injection** (feed-injection, behavioral targeting, attention-capture surfaces) remains categorically refused per Part 3. The specific constrained forms acceptable are an open question — see below.
+- **Constrained advertising (design space open).** Non-engagement-shaped advertising forms are revenue-design space — community-vetted local-business sponsorship, sponsored verified-local badges, federation-partner placements, sponsored community gatherings, etc. **Engagement-shaped ad injection** (feed-injection, behavioral targeting, attention-capture surfaces) remains categorically refused per Part 4. The specific constrained forms acceptable are an open question — see below.
 - **Federated services revenue (long-horizon).** When the cooperative-services layer (bookkeeping, insurance pool, legal templates) ships, members may pay for those services; margin sustains the platform.
 - **Sponsored federation handoffs (long-horizon).** When the platform spawns federated infrastructure (banking, insurance, BI), the federation partners may pay placement-shaped fees that don't compromise Member-side experience.
 
 ### What is forbidden
 
-- **Engagement-shaped ad injection.** Ads optimized for click-through, dwell time, behavioral targeting, or attention-capture. Categorical fail per Part 3.
+- **Engagement-shaped ad injection.** Ads optimized for click-through, dwell time, behavioral targeting, or attention-capture. Categorical fail per Part 4.
 - **Venture capital funding.** Refused as a funding model. VC alignment with exit is misaligned with the platform's purpose; VC pressure on growth metrics creates structural pressure toward the engagement-optimization failure modes. Revenue must come from product use.
 - **Data sales or licensing.** Categorical fail.
 - **Charging the small operator before they succeed.** Any vendor-fee structure that taxes a struggling operator violates P4.
@@ -275,7 +356,7 @@ These questions must be answered before launch. The principles in Part 1 do not 
 
 ---
 
-## Part 9: Gaps This Document Cannot Yet Fill
+## Part 10: Gaps This Document Cannot Yet Fill
 
 This section names what is missing and offers direction for filling each gap.
 
@@ -305,17 +386,17 @@ The principle is clear. The test is not.
 **Suggestion.** Define the test for the cases the platform will see in practice — overlapping or competing nearby communities, makers serving multiple cities, Service Providers whose service area expands. A feature passes if a benefit to one party cannot be shown to harm another within the platform. Out-of-platform externalities are not measurable but should still inform design.
 
 ### Metrics with real thresholds
-Part 6 names categories and default metrics. It does not name pass / fail thresholds, because the platform has no users yet.
+Part 7 names categories and default metrics. It does not name pass / fail thresholds, because the platform has no users yet.
 
 **Suggestion.** After 90 days of real usage, revisit each metric category and set thresholds (e.g., "find-to-engage rate ≥ 25% by month 3"). Until then, track trends, not targets. Resist the temptation to set thresholds before there is data; arbitrary targets become arbitrary product decisions.
 
 ### Detailed monetization plan
-Part 8 is a working hypothesis, not a plan.
+Part 9 is a working hypothesis, not a plan.
 
 **Suggestion.** Before launch, write a separate `monetization.md` that resolves the open questions and is reviewable against this constitution.
 
 ### Bug bounty and security audit cadence
-Part 7 names the privacy / security baseline. It does not specify how the platform proves it.
+Part 8 names the privacy / security baseline. It does not specify how the platform proves it.
 
 **Suggestion.** Plan for an independent security review before launch and on an annual cadence after. Establish a coordinated-disclosure policy and (post-launch) a small bug-bounty program.
 

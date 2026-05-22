@@ -7,7 +7,7 @@
 
 **Status:** Drafted 2026-05-18 — pending PM review. Slots into b1 as a discrete ship-theme between Wonder (S6) and the b2 themes. Depends on Groups, Locations, Items (gathering), and the existing `steward` role on affiliate Group kinds. No new primitive; one small child table on Groups.
 
-**Depends on:** `b1-primitives.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `loops.md` (Loops 11–12), `community-design-philosophy.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `canonical-examples.md`.
+**Depends on:** `b1-primitives.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `loops.md` (Loops 11–12), `design-philosophy.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `canonical-examples.md`.
 
 **North stars served:** Loop 11 (Pool resources) — partial, the lightest version. Loop 12 (Steward what we built) — full, the canonical surface. Family 1 (gathering rhythm) — reused as the upkeep cadence.
 
@@ -243,7 +243,7 @@ These two are paired because they share a structure — a small group of househo
 - Group kind: `place` (for a block-based pod) or `interest` (for a buying-shape coordination), role: `steward` required
 - Suggested Gathering: pods — quarterly in-person check-in plus an always-on group chat; clubs — monthly or quarterly order assembly + pickup
 - Suggested steward count: 1–2 coordinators per pod, 1–3 per buying club (one ordering + one logistics + one bookkeeping when group is larger)
-- Suggested size cap: 20 households for a pod, 10 for a buying club — both split when they outgrow the cap (mirrors the natural-size advice in `community-design-philosophy.md` §2b)
+- Suggested size cap: 20 households for a pod, 10 for a buying club — both split when they outgrow the cap (mirrors the natural-size advice in `design-philosophy.md` §2b)
 
 **Canonical external sources:**
 
@@ -322,7 +322,7 @@ That's the full footprint. Less than a week of build for a single engineer if th
 - **Multi-stewardship Members** — Members participating in 2+ stewardships. The seed-library-then-tool-library pipeline. This is the strongest leading indicator of the ownership arc compounding.
 
 ### Anti-metrics — explicitly never optimized for
-Per `foundational-principles.md` Part 6, listed so they cannot install themselves:
+Per `principles.md` Part 6, listed so they cannot install themselves:
 
 - Stewardship count as a vanity number absent survival data
 - Time-on-platform or session length on stewardship pages
@@ -339,7 +339,7 @@ Each of the following is real and downstream. None ships at S6.5:
 - **Money flow.** No shared treasury, no fee collection, no payments. Stewardships that need to handle money do so off-platform (a steward's PayPal, a fiscal sponsor, a CDFI account). Per the cross-cutting payment deferral in `b1-primitives.md`.
 - **Legal entity formation tooling.** No LLC walkthrough, no bylaws templates, no insurance partner. Stewardships that incorporate do so off-platform with their lawyer; the platform records the transition (`archived_reason`).
 - **Cross-stewardship federation surfaces.** A stewardship that wants to coordinate with the regional Tool Library Alliance does so off-platform at b1.5. The federation surface for stewardships (a "stewardship network" primitive) defers to b3+.
-- **Stewardship-scoped messaging.** The existing item-or-group-only messaging-scope commitment in `policy-framework.md` holds. Stewardships use Group-scoped DMs through the existing surface; no special-cased messaging.
+- **Stewardship-scoped messaging.** The existing item-or-group-only messaging-scope commitment in `policy.md` holds. Stewardships use Group-scoped DMs through the existing surface; no special-cased messaging.
 - **Steward rotation algorithms.** Per `groups.md` open questions, rotation tooling is b2+. At S6.5 stewards add and remove themselves manually; the event log records what happened.
 - **Endorsement / verification badges for stewardships.** Per the no-ratings commitment.
 - **A platform-curated "what stewardship should we start" recommender.** Auto-assignment violates the people-first commitment. The seven templates are presented as a catalog Members browse, not as suggestions pushed at them.

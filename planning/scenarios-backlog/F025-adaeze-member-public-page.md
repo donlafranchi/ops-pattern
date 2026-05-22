@@ -34,7 +34,7 @@ Maya taps the Follow button, sees the count tick up, and bookmarks the page. Nex
   - Group page member roster — clicking her name in *Adaeze's Kitchen*'s public Members list.
   - Search (b2 surface; not required at b1 — direct URL + Item byline cover the b1 path).
 - **Anon vs auth:** the page is anon-readable per `members` RLS (listed Member, no soft-delete). Anon sees everything *except* the Follow CTA (which prompts sign-in with a return URL when tapped).
-- **No write affordances** beyond Follow. No DM CTA on the public page — DMs require a shared Group per `policy-framework.md` § anti-Nextdoor; Maya can't DM Adaeze unless they're in a Group together. If they are, the "Message" CTA surfaces on the page; if not, it's absent. (DM substrate ships at b1; DM surface ships at b2 — at b1 the CTA is absent for everyone.)
+- **No write affordances** beyond Follow. No DM CTA on the public page — DMs require a shared Group per `policy.md` § anti-Nextdoor; Maya can't DM Adaeze unless they're in a Group together. If they are, the "Message" CTA surfaces on the page; if not, it's absent. (DM substrate ships at b1; DM surface ships at b2 — at b1 the CTA is absent for everyone.)
 - **Resolve-up rendering** (per `item.md`): when an Item is filed under a kind='business' Group, the Item card shows the Group's `display_name` as the brand. When two Items share the same `brand_label` and same `member_id`, they cluster as "locally owned multi-location."
 - **Privacy gates:**
   - `member_location_affinities` of any kind: hidden from the public page by default; opt-in surfaces via `member_privacy` (b2 toggle; b1 ships with the substrate + default-private).
@@ -123,7 +123,7 @@ Maya taps the Follow button, sees the count tick up, and bookmarks the page. Nex
 
 **Given** Maya and Adaeze share no active Group memberships
 **When** Maya loads `/m/adaeze`
-**Then** no "Message" CTA appears on the page (per the anti-Nextdoor commitment in `policy-framework.md`).
+**Then** no "Message" CTA appears on the page (per the anti-Nextdoor commitment in `policy.md`).
 
 ## Edge Cases
 
@@ -153,7 +153,7 @@ Maya taps the Follow button, sees the count tick up, and bookmarks the page. Nex
 - Location affinities surfaced publicly — opt-in toggle is b2.
 - The "Edit profile" / "Manage items" CTAs that surface only for auth-self viewing the page — separate ticket; this scenario covers the public read shape.
 - QR card for the Member — QR cards are Item-level only per `qr-onboarding.md`, never Member-level.
-- Block / report — `policy-framework.md` complaint surface — separate scenario.
+- Block / report — `policy.md` complaint surface — separate scenario.
 
 ## Loop fidelity check (for pipeline-review)
 

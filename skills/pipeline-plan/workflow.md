@@ -16,8 +16,8 @@
 1. **`product/foundation/canonical-examples.md`** — the working set of real situations the platform exists to serve. Every scenario must anchor here.
 2. **`product/foundation/loops.md`** — the 13 loops. Every scenario must serve at least one.
 3. **`product/foundation/primitives.md`** — Person / Item / Location / (optional) Community. Every scenario must respect these primitives.
-4. **`product/foundation/people-first.md`** — the no-Business-entity / no-pay-for-visibility / no-engagement-feed / no-auto-Community rules. Every scenario must survive these four refusals. If the scenario asks the platform to treat a Business as more important than the people doing the work, reject before writing acceptance criteria.
-5. **`product/foundation/policy-framework.md`** — three-filter test, opt-out default. Required reading before approving any scenario that touches privacy, monetary flow, data sharing, agent permissions, or visibility.
+4. **`product/foundation/principles.md`** — the no-Business-entity / no-pay-for-visibility / no-engagement-feed / no-auto-Community rules. Every scenario must survive these four refusals. If the scenario asks the platform to treat a Business as more important than the people doing the work, reject before writing acceptance criteria.
+5. **`product/foundation/policy.md`** — three-filter test, opt-out default. Required reading before approving any scenario that touches privacy, monetary flow, data sharing, agent permissions, or visibility.
 6. **`planning/bundles/{active-bundle}.md`** — the current scope. Anything outside the active bundle is deferred, not denied.
 7. **`planning/bundles/bundle-themes.md`** — the sub-bundle sequence. Identifies which `b{N}.{M}` is *currently active*. Scenarios for sub-bundles past the active one stay in backlog until the prior sub-bundle ships.
 8. **`planning/bundles/b{N}-work-map.md`** — the menu of work for the active bundle, with 🟢 / 🟡 / ⚪ scope tags. Every new scenario must trace to one item on this map. If the scenario doesn't realize a work-map item, either the map needs an entry (escalate to `pipeline-bundle-resync`) or the scenario is out of scope.

@@ -45,8 +45,8 @@ A decision is silently load-bearing if **all four** are true:
 
 A few canonical project examples to calibrate against:
 
-- *Silently load-bearing:* "No `role` column on `members`." Code has no `members.role`, so a new contributor seeing two role-shaped flags elsewhere might cheerfully add one. The decision is enforced only by `people-first.md`'s principle, and by this assertion if it's in MAP.md.
-- *Silently load-bearing:* "Messaging is item-or-group scoped, never Location-scoped." `policy-framework.md` carries the principle now (and `member.md` adds RLS enforcement per ADR-16); was silently load-bearing before either landed.
+- *Silently load-bearing:* "No `role` column on `members`." Code has no `members.role`, so a new contributor seeing two role-shaped flags elsewhere might cheerfully add one. The decision is enforced only by `principles.md`'s principle, and by this assertion if it's in MAP.md.
+- *Silently load-bearing:* "Messaging is item-or-group scoped, never Location-scoped." `policy.md` carries the principle now (and `member.md` adds RLS enforcement per ADR-16); was silently load-bearing before either landed.
 - *Not silently load-bearing:* "Action layer is the only write surface." Enforced by CI assertion + code review per ADR-7. Visible in code.
 - *Not silently load-bearing:* "Same-transaction event-row commit." Enforced by eval-runners on every ticket per ADR-7.
 
@@ -57,7 +57,7 @@ If a decision is silently load-bearing and has no home, **memorialize it before 
 For each silently-load-bearing decision, pick the *first* of the following that fits:
 
 1. **MAP.md alignment-check line** — if it's a binary "always true" assertion ("every X is Y"). Cheap to add; high signal at session start. Preferred.
-2. **Foundation doc** (`people-first.md`, `policy-framework.md`, `agent-assistance.md`, etc.) — if it's a principle that fits an existing foundation theme.
+2. **Foundation doc** (`principles.md`, `policy.md`, `agent-assistance.md`, etc.) — if it's a principle that fits an existing foundation theme.
 3. **System spec "Decisions encoded here" footer** — if it shapes one spec and the spec already has a footer.
 4. **New short foundation doc** under `product/foundation/` — only if the decision doesn't fit any existing home. Rare. Justify in writing.
 5. **New cross-cutting ADR** in DECISIONS.md — only when the decision is genuinely cross-cutting and has no doc home anywhere. Even rarer. Re-check: is the goal really to add an ADR, or to retire the heaviness?
@@ -178,7 +178,7 @@ Heuristics for "load-bearing" (memorialize before archiving):
 ### Should this go in MAP.md or a foundation doc?
 
 - MAP.md alignment-check — one line, binary, structural. "Every Item ultimately FKs to a Member."
-- Foundation doc — needs a paragraph of context, names a principle, applies to many specs. Goes into `people-first.md` / `policy-framework.md` / etc.
+- Foundation doc — needs a paragraph of context, names a principle, applies to many specs. Goes into `principles.md` / `policy.md` / etc.
 
 If the decision can be expressed in one binary sentence, MAP.md is enough. If it needs explanation, it's a foundation doc.
 

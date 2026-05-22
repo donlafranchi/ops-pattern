@@ -34,7 +34,7 @@ Three patterns (from `planning/adrs/README.md` § "What belongs here vs. elsewhe
 
 1. **Cross-cutting** — touches many specs, no single owner. Full text lives in the ADR file. Examples: ADR-15, ADR-16, ADR-17, ADR-18, ADR-19.
 2. **Spec-resident** — shapes one primitive or system. Long-form text lives in the system spec; ADR file carries summary + cross-reference. Examples: ADR-5 (`item.md`), ADR-7 (`action-layer.md`), ADR-13 (`groups.md`), ADR-14 (`location.md`).
-3. **Foundation/UI/ops-resident** — *is* a foundational principle, UI principle, or tech-stack reality. Long-form text lives in the home doc; ADR file carries summary + cross-reference. Examples: ADR-1 (`web/CLAUDE.md`), ADR-2 (`design-language.md`), ADR-6 (`agent-assistance.md`), ADR-9 (`policy-framework.md`).
+3. **Foundation/UI/ops-resident** — *is* a foundational principle, UI principle, or tech-stack reality. Long-form text lives in the home doc; ADR file carries summary + cross-reference. Examples: ADR-1 (`web/CLAUDE.md`), ADR-2 (`design-language.md`), ADR-6 (`agent-assistance.md`), ADR-9 (`policy.md`).
 
 Pick one. The decision determines how much text goes in the ADR file vs. the home doc.
 

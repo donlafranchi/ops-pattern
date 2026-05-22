@@ -192,7 +192,7 @@ The page anyone lands on for a Location — Drake's, the brewery, the community 
 **What this surface does not have:**
 - Two competing primary CTAs. The "Host something here" button is the one primary on the page.
 - Producer-recruitment copy. This surface is for hosts and visitors, not for venue-owner onboarding (that's a separate flow).
-- Reviews or ratings (per `people-first.md`'s no-reviews stance).
+- Reviews or ratings (per `principles.md`'s no-reviews stance).
 
 ### Other surfaces (cross-reference)
 

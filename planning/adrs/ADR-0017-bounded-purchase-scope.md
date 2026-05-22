@@ -4,7 +4,7 @@
 **Date:** 2026-05-12
 **Deciders:** PM
 **Scope:** A new monetary-flow Delegation scope authorizing a Member's assistant (or a subscribed Skill) to find and complete one-time purchases within stated bounds; schema-enforced, not policy-enforced
-**Touches:** `product/systems/delegation.md` (Policy posture + `bounded_purchase` scope), `product/systems/action-layer.md` (scope catalog + handler invariants), `product/foundation/agent-assistance.md` (money-flow umbrella commitment), `product/systems/member.md` (Delegation-scopes Policy posture), `product/foundation/policy-framework.md` (ADR-9 status table), `product/systems/skills.md` (declarable-scopes vocabulary), `product/systems/payments.md` (rail integration), `notes/agent-commerce-and-project-amendments.md` (the §8b amendment that introduced this scope)
+**Touches:** `product/systems/delegation.md` (Policy posture + `bounded_purchase` scope), `product/systems/action-layer.md` (scope catalog + handler invariants), `product/foundation/agent-assistance.md` (money-flow umbrella commitment), `product/systems/member.md` (Delegation-scopes Policy posture), `product/foundation/policy.md` (ADR-9 status table), `product/systems/skills.md` (declarable-scopes vocabulary), `product/systems/payments.md` (rail integration), `notes/agent-commerce-and-project-amendments.md` (the §8b amendment that introduced this scope)
 
 ## Decision
 
@@ -36,7 +36,7 @@ Required execution semantics:
 - `action-layer.md` adds `delegation.bounded_purchase` to the closed-world scope catalog with handler invariants (cap enforcement, recipient validation against `recipient_scope`, category validation against `category_scope`, first-recipient-confirmation gate, reversibility-window state seeding, per-execution audit).
 - `agent-assistance.md` rewrites the money-flow umbrella commitment to name `recurring_payment` + `bounded_purchase` as the two schema-enforced monetary-flow scopes; pledges remain Member-direct.
 - `member.md` Delegation-scopes Policy posture mentions both scopes; the prior "categorically not delegable for one-time payments and pledges" framing is retired.
-- `policy-framework.md` ADR-9 status table includes `bounded_purchase` in the concrete opt-in shapes.
+- `policy.md` ADR-9 status table includes `bounded_purchase` in the concrete opt-in shapes.
 - `skills.md` declarable-scopes vocabulary includes `bounded_purchase`; Rules in adds the "find local eggs and buy them" pattern.
 - `payments.md` Integration with agent commerce section is the rail for honoring this scope; the rail decision (closed-loop + chartered-partner ACH at b2) makes the scope economical at agent scale.
 - The introducing authority is `agent-commerce-and-project-amendments.md` §8b. That amendment is temporary; this ADR (plus the per-spec edits it ratifies) is the permanent record.
@@ -46,6 +46,6 @@ Required execution semantics:
 
 1. [x] Decision ratified 2026-05-12 via `agent-commerce-and-project-amendments.md` §8b.
 2. [x] Pointer line in `../DECISIONS.md` pointer index.
-3. [x] Per-spec edits landed across `delegation.md`, `action-layer.md`, `agent-assistance.md`, `member.md`, `policy-framework.md`, `skills.md`, `payments.md`.
+3. [x] Per-spec edits landed across `delegation.md`, `action-layer.md`, `agent-assistance.md`, `member.md`, `policy.md`, `skills.md`, `payments.md`.
 4. [ ] Default `expires_at` value ratified per §7a Pending Ratifications.
 5. [ ] Future ADRs for variable invoicing / agent-initiated refunds / pledge scopes each carry their own three-filter analysis.

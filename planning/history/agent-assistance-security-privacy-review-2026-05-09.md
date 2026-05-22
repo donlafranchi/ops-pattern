@@ -1,7 +1,7 @@
 # Agent-Assistance Security & Privacy Review — 2026-05-09
 
 **Reviewer:** Independent (security/privacy focus)
-**Artifacts:** `delegation.md`, `member-self-record.md`, `skills.md`, `member-operations.md`, ADRs 6/7/8/9, `policy-framework.md`, `people-first.md`.
+**Artifacts:** `delegation.md`, `member-self-record.md`, `skills.md`, `member-operations.md`, ADRs 6/7/8/9, `policy.md`, `principles.md`.
 
 ## Verdict
 

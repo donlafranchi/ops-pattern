@@ -80,7 +80,7 @@
 
 _Intent: Likes and follows are personal signals — they shape the Member's own feed and aggregate into platform-side ranking, not peer visibility. Aggregation is the anonymizer. If a future surface needs per-Member attribution (e.g., "your followed Members like this place"), it lands as a new SECURITY DEFINER function with its own access logic and scoping decisions, not by extending the count functions. PM-ratified 2026-05-13._
 
-**Schema-spec divergence — RLS shape.** `member.md`'s RLS section is sketchier than what ADR-16 mandates. The patch is `pipeline-product`'s job: update `member.md` RLS section, `groups.md` locally-owned-derivation pseudocode, and `policy-framework.md` anti-doxxing language. T049 implements the schema; the spec patches catch up. Record the divergence in DEVIATIONS at close.
+**Schema-spec divergence — RLS shape.** `member.md`'s RLS section is sketchier than what ADR-16 mandates. The patch is `pipeline-product`'s job: update `member.md` RLS section, `groups.md` locally-owned-derivation pseudocode, and `policy.md` anti-doxxing language. T049 implements the schema; the spec patches catch up. Record the divergence in DEVIATIONS at close.
 
 **Bootstrap — handler-side, not trigger-side.** T049 ships the table only; no Postgres trigger auto-creates rows. The auto-derivation lives in the action handler: when `members.home_location_id` is set (via `member.create` or `member.locality.set`), the same transaction inserts a `lives` affinity row at the corresponding Location and emits `member.location_affinity_added`. The Member can remove the auto-inserted row via `member.location_affinity.remove` — derivation is the default, not the destiny. Updating `home_location_id` to a new Location inserts a `lives` row at the new Location; the prior row stays until the Member removes it explicitly (a Member may still live partly at the old place).
 
@@ -103,10 +103,10 @@ Commit: (set on push)
 
 **Conformance.** `npm run check:action-layer` clean (32 protected tables, 0 violations). The new table inherits the project-wide RLS-coverage gate from T051.
 
-**Deviations.** Three entries appended to `development/DEVIATIONS.md` (2026-05-17): sandbox runner committed alongside the Vitest suite; functions implemented `language sql` not `plpgsql` (planner-inlining win, identical ADR-16 semantics); schema-spec RLS divergence flagged for `pipeline-product` follow-up on `member.md` / `groups.md` / `policy-framework.md`.
+**Deviations.** Three entries appended to `development/DEVIATIONS.md` (2026-05-17): sandbox runner committed alongside the Vitest suite; functions implemented `language sql` not `plpgsql` (planner-inlining win, identical ADR-16 semantics); schema-spec RLS divergence flagged for `pipeline-product` follow-up on `member.md` / `groups.md` / `policy.md`.
 
 **Forward-pointers.**
 - Action-handler ticket (covering `member.locality.set` + the `member.create` extension that auto-inserts a `lives` affinity when `home_location_id` is set, plus `member.location_affinity.add` / `.remove`) is the next layer up — not landed by T049 per the ticket's "Forward-pointer to handler ticket" note. PM to scope.
-- Spec patches: `pipeline-product` to update `member.md` RLS section to cite ADR-16 verbatim; `groups.md` locally-owned-derivation pseudocode to call `public.member_is_local_to_location()` rather than JOINing the table directly; `policy-framework.md` anti-doxxing language to point at the RLS floor.
+- Spec patches: `pipeline-product` to update `member.md` RLS section to cite ADR-16 verbatim; `groups.md` locally-owned-derivation pseudocode to call `public.member_is_local_to_location()` rather than JOINing the table directly; `policy.md` anti-doxxing language to point at the RLS floor.
 
 **Studio smoke verification.** Pending — runs against the user's local Supabase Studio after `supabase db reset`. All five Studio probes from the ticket are listed in the acceptance criteria; they exercise the runtime shape that the file-shape suite cannot.

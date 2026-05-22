@@ -32,7 +32,7 @@ The alternative — agent assistance as a post-MVP add-on layered on top of a hu
 
 The five-commitment framing is load-bearing because the failure modes the framing prevents are real and recurring in the broader industry:
 
-- A platform that lets agents accumulate role-bound persistence ("you are the producer's assistant") eventually models the Member as a vector of roles rather than a person. The platform's "people-first" commitment ([`people-first.md`](../../product/foundation/people-first.md)) is incompatible with role-shaped agents.
+- A platform that lets agents accumulate role-bound persistence ("you are the producer's assistant") eventually models the Member as a vector of roles rather than a person. The platform's "people-first" commitment ([`principles.md`](../../product/foundation/principles.md)) is incompatible with role-shaped agents.
 - A platform that lets agents write without human confirmation eventually produces a system where the Member's relationship with the platform is mediated by an agent the Member did not consciously consent to. The "writes require confirmation" commitment puts a human in the loop where stake exists.
 - A platform that owns the Member's Assistant Context can train on it, sell access to it, or shape the Member's behavior through it. Member-owned context is the structural prevention.
 

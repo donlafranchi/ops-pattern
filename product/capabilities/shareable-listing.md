@@ -29,7 +29,7 @@ All pages:
 
 ## Anti-spam consideration
 
-Stable shareable URLs are a vector for SEO-style listing creation; the [no-admin-queue principle](../systems/location.md) (Members enter their own data) + Member rate limits (per [`../systems/member.md`](../systems/member.md)) + content-policy review (per [`../foundation/policy-framework.md`](../foundation/policy-framework.md)) are the layered defenses.
+Stable shareable URLs are a vector for SEO-style listing creation; the [no-admin-queue principle](../systems/location.md) (Members enter their own data) + Member rate limits (per [`../systems/member.md`](../systems/member.md)) + content-policy review (per [`../foundation/policy.md`](../foundation/policy.md)) are the layered defenses.
 
 ## Out of scope (deferred)
 
