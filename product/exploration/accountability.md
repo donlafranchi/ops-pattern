@@ -8,6 +8,8 @@ status: reference
 
 > **Status:** Exploration, not b1. Folded together 2026-05-22 from two prior takes on one system: the public-record transparency framing (formerly `business-accountability.md`) and the community-driven four-pillars + sliding-scale framing (formerly `community-accountability-model.md`). Both perspectives preserved below; the merge is intentionally non-reconciling — the PM picks which framing (or which blend) becomes the system spec when this graduates from exploration.
 
+> **PM direction (2026-05-23).** When this graduates, only **Framing 2 — the community four-pillars model** — is built. Framing 1 is *not* a separate platform feature: the platform does not build court/agency-record integration. Court records survive only as **optional evidence a community member may attach to a concern report** — the "bring receipts" path, which the Framing 2 report flow already supports. The point being encoded: the community has agency, and their work holding each other accountable carries real consequences. The visible output is an **aggregated business accountability profile** — the platform won't necessarily expose individual report details. Its exact shape — and whether it reads as a score, a standing, or a vibe — is deferred to spec time, and must stay within `principles.md`'s refusal of star-ratings and leaderboards.
+
 This doc covers two complementary perspectives on the same problem: **how does the platform surface accountability information about kind='business' Groups (and the Members behind them) without becoming a moral judge, a political arena, or a complaint-attractor?**
 
 The two framings answer different sub-questions:
