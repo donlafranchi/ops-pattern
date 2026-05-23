@@ -53,6 +53,8 @@ Three kinds at b1, fixed. The kind is set at creation and **does not transition*
 
 The kind enum is intentionally narrow at b1. Future candidates if real cases warrant: `route` (a recurring path — a delivery route, a foot-race course), `mobile` (an ambulatory operator without a fixed point — the truly nomadic food truck) — not in scope at b1. The food-truck canonical example (#4) is modeled at b1 as a Member with multiple recurring-temporary Locations they post to in sequence; route/mobile become valuable when that pattern stops being expressive enough.
 
+> **Intent (Ratified 2026-05-23):** Each of the three kinds earns its slot — `permanent`, `recurring_temporary`, and `area` each carry a distinct child table (`location_permanent` / `location_recurring_temporary` / `location_areas`), distinct geometry semantics (a true Point vs. a polygon-centroid Point), and distinct handlers (`location.update_polygon` is area-only; `location.set_hours` is permanent/recurring-only). This is a feature-bearing enum — the kind genuinely branches schema and behaviour, unlike a descriptive label. Kept narrow on purpose: `route` / `mobile` are added only when a real case can't be modelled by the three (per Open Questions).
+
 ## T1 — MVP Tier (b1)
 
 **Identity.**
