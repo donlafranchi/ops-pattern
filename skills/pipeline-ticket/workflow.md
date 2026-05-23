@@ -32,7 +32,7 @@
    - On Gate B failure, **stop**. Do not draft the ticket. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `pipeline-ratify-absolute`. After ratification, re-enter at step 3.
    - Rationale: by the time tickets are written, every absolute the code will encode must already carry PM-approved Intent. The cheapest place to catch an unearned absolute is *before* a ticket asks the build agent to write the constraint that enforces it.
 4. **For each unit, write a ticket** using `templates/ticket.md`:
-   - **Scenario:** path to the approved scenario.
+   - **Scenario:** path to the approved scenario — OR `substrate` (see Substrate lane below).
    - **Status:** Open.
    - **Bundle:** copy from the scenario.
    - **Serves:** one-line lineage to a north-star loop and the canonical example. If you can't fill this in, the scenario is missing context — escalate to `pipeline-plan`.
@@ -42,6 +42,27 @@
 5. **Sequence the tickets.** Schema migrations first, then APIs, then UI, then notifications/crons. Surface any blocking dependencies in `Depends on`.
 6. **If the scenario produces 5+ tickets, stop.** A well-scoped scenario realizes one 🟢 work-map item and fans into 2–5 implementation tickets. 5+ tickets means either (a) the scenario merged two work-map items — escalate to `pipeline-plan` to split the scenario; or (b) the work-map item itself is too big — escalate to `pipeline-bundle-resync` to split the menu entry. Either way, open a thread in `JOURNAL.md` first; don't quietly carve up the scenario yourself.
 7. **Do not commit on behalf of build.** Tickets are written, not built.
+
+## Substrate lane (no-scenario tickets)
+
+Legalized by `pipeline-process-audit-2026-05-22.md` R3 — codifies what T041–T057 did de-facto. Use **only** when a ticket has no user-facing behavior to test against a Given/When/Then:
+
+- Schema floor (tables, columns, constraints, RLS policies, indexes, migrations).
+- Action-handler scaffolding without a UI surface.
+- Eval-helper infrastructure (test fixtures, helpers, CI gates).
+- ADR ratification side-effects that must land in code (e.g. an enum reconciliation).
+
+Substrate-ticket header differs from a scenario-driven ticket on three fields only:
+
+- **Scenario:** `substrate`
+- **Serves:** name the system spec section(s) + ADR(s) that are the contract — e.g. `product/systems/member.md § Schema; ADR-7`. The system-spec section *is* the Given/When/Then for substrate work; the ADR(s) supply the rationale.
+- **Acceptance Criteria:** mirror the spec section literally — column names, constraint names, RLS policy names. Drift from the spec is a `DEVIATIONS.md` entry, same as any other ticket.
+
+**Gate B still applies to substrate tickets.** Schema and RLS are the canonical Category-2 code surface — if any absolute the substrate will encode lacks a Ratified/Deferred Intent tag, stop and route to `pipeline-ratify-absolute`.
+
+**Substrate is not an escape hatch for skipping scenarios.** If a user-facing surface exists, write a scenario. The substrate lane is for the floor *under* surfaces, not a back door around the planner.
+
+**TRACE.md substrate column.** Substrate tickets do not get F-numbers but are still tracked — in `planning/TRACE.md`, log substrate tickets in the dedicated substrate table (an `S-` group by spec section or phase), so schema work has the same visibility as feature work.
 
 ## Ticket sizing
 
@@ -92,6 +113,8 @@ Every acceptance-criteria item that encodes a design choice carries its **why** 
 | Schema change needed but no system spec covers it | Stop. Ask `pipeline-product` to extend the relevant `product/systems/{name}.md` first. |
 
 ## Hand off
+
+**STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Tickets column with the T-number range and today's date. For substrate tickets, stamp the corresponding row in the Substrate table with the new T-number(s).
 
 **You produced:** one or more tickets in `development/tickets/`.
 

@@ -53,6 +53,25 @@ For each surface the scenario names:
 
 Reference: `product/ui/design-language.md`, root `CLAUDE.md` "Language & Framing" section.
 
+### Sibling-scenario consistency check (audit R9)
+
+Fulfills `pipeline-process-audit-2026-05-22.md` **R9** — closes the H5 gap (cross-feature consistency had no owner; F018's `<GatheringComposer>` and F019's `<DropComposer>` were called out as the canonical case nobody was checking).
+
+**Trigger.** Run this check whenever the scenario under review is **the 2nd-or-later sibling** in the same loop family (per `product/needs/member-journey.md`) approved within the current bundle phase, OR introduces a composer / list row / detail surface that has a structurally analogous counterpart in another approved scenario.
+
+**Reads.** Every other scenario in `planning/scenarios/` plus any other `planning/history/F{NNN}-review.md` from this phase.
+
+**What to check.**
+
+1. **Shared base components.** If this scenario introduces `<XComposer>` / `<XListRow>` / `<XDetail>` and a sibling already introduces `<YComposer>` / `<YListRow>` / `<YDetail>` for an analogous Item kind, name the shared base (`<KindComposer>`, `<ItemListRow>`) the ticket writer should extract. Flag if the two surfaces would diverge on copy, layout, or interaction without justification.
+2. **Vocabulary alignment.** Confirm both scenarios use the same UI label for the same database entity per the root `CLAUDE.md` naming-conventions table (Event/Product/Service/Idea/Offer/Ask/Initiative). Flag any scenario calling the same kind two different things.
+3. **Loop-shape alignment.** If both serve the same loop, confirm they don't fork its mechanic (one optimizes for friction-down, the other for stake-up — surface the tradeoff to the PM).
+4. **Empty / loading / error state consistency.** If sibling defines a pattern, this scenario should match or explicitly justify divergence.
+
+**Output.** A bordered "Sibling-consistency findings" section in the review document, listing each sibling F-number checked and any divergence flagged. Verdict integrates with the overall PROCEED/REVISE/EXTEND. Divergence that requires extracting a shared base is **PROCEED-with-extract-note** — the ticket writer extracts the base in the first ticket touching either composer.
+
+If no sibling exists yet, write one line: "First in family — no sibling check applicable."
+
 ## Workflow
 
 1. Read the approved scenario at `planning/scenarios/F{NNN}-{slug}.md`.
@@ -63,6 +82,7 @@ Reference: `product/ui/design-language.md`, root `CLAUDE.md` "Language & Framing
 6. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
 7. Save to `planning/history/F{NNN}-review.md`.
 8. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
+9. **STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Reviewed column: `{VERDICT} YYYY-MM-DD`. A second review appends, does not overwrite, so two-cycle reviews like F018 are visible.
 
 ## Verdict semantics
 

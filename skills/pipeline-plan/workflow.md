@@ -104,6 +104,8 @@ Every non-obvious Given/When/Then clause in a scenario carries its **why** along
 
 ## Hand off
 
+**STAGE-LEDGER stamp (final step).** Append (or backfill) a row in `planning/STAGE-LEDGER.md` for the F-number: stage `plan-backlog`, date today. If the PM later approves and moves the file to `planning/scenarios/`, update the row to `plan-approved` with the approval date. A regression (approved → backlog) appends a new dated entry rather than overwriting — the audit's R4 makes round-trips visible by design.
+
 **You produced:** a scenario in `planning/scenarios-backlog/`, with `Why:` annotations on every non-obvious Given/When/Then clause.
 
 **You hand to:** the PM, who reviews and either approves (moves to `planning/scenarios/`) or rejects (annotates and leaves in backlog or archives).
