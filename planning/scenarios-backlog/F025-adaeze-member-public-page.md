@@ -12,6 +12,8 @@ status: draft
 **Primitive shape:** Person → `/m/[handle]` (read-only display of Member + their Items + Group memberships + Location affinities)
 **Status:** draft — Phase 2 opener; awaiting `pipeline-review` before promote.
 
+> **ADR-20 reframe pending (2026-05-23).** ADR-20 (accepted) recommends F025's *slot* become the **Group public page** (`/p/[…place path]/g/[slug]`) — the heavier producer / business / event-anchored surface — with the Member public page (`/m/[handle]`, this scenario's current subject) split into a separate, lighter scenario. The `/m/adaeze` URLs below stay correct (Member handles are global per ADR-20); the `/g/[slug]` references need place-scoping to `/p/[…place path]/g/[slug]`. This is a `pipeline-plan` reframing call for the PM — not yet applied. See ADR-0020 Action Item 6.
+
 ## The Person
 
 Adaeze makes African-inspired dips and condiments. She doesn't have a website, doesn't run social, and shows up at Sacramento-area farmers markets when she has stock and time — not on a schedule. Her regulars want one thing: a page they can check that says when she'll be at the market next. Today they stalk the markets she's mentioned, ask vendors, or stumble into her. The Member public page is the surface that makes her intermittent presence persistent.

@@ -30,15 +30,17 @@ T1 ships a subset; T2 and T3 add more.
 
 > **Naming.** "Item" is the spec/schema term for the unified entity. It is **not** used in user-facing copy or URLs — the UI always uses the specific kind. The mapping below is the load-bearing translation. See [`../../CLAUDE.md`](../../CLAUDE.md) § Naming conventions for the platform-wide rules.
 
-| Schema (`items.kind`) | URL | UI label | UI verb (CTA) | Tier |
+| Schema (`items.kind`) | URL segment | UI label | UI verb (CTA) | Tier |
 |---|---|---|---|---|
-| `product` | `/p/[slug]` | Product | Sell · Share | T1 |
-| `service` | `/s/[slug]` | Service | Offer | T1 |
-| `gathering` | `/e/[slug]` | **Event** | Host | T1 |
-| `wonder` | `/i/[slug]` | **Idea** | Wonder · Float | T1 |
-| `offer` | `/o/[slug]` | Offer | Offer up | T2 |
-| `ask` | `/a/[slug]` | Ask | Ask | T2 |
-| `initiative` | `/initiative/[slug]` | Initiative | Lead · Start | T2 |
+| `product` | `…/p/[slug]` | Product | Sell · Share | T1 |
+| `service` | `…/s/[slug]` | Service | Offer | T1 |
+| `gathering` | `…/e/[slug]` | **Event** | Host | T1 |
+| `wonder` | `…/i/[slug]` | **Idea** | Wonder · Float | T1 |
+| `offer` | `…/o/[slug]` | Offer | Offer up | T2 |
+| `ask` | `…/a/[slug]` | Ask | Ask | T2 |
+| `initiative` | `…/initiative/[slug]` | Initiative | Lead · Start | T2 |
+
+Per ADR-20, the URL column shows the **resource segment** only — the full canonical URL is place-scoped. An Item filed under a Group nests under that Group's place path (`/p/[…place path]/g/[group-slug]/[segment]`); an Item with no Group (Member-owned) nests under the owner's handle (`/m/[handle]/[segment]`). The per-kind `URL:` lines further down show the same resource segment. See [`../../CLAUDE.md`](../../CLAUDE.md) § Naming conventions rule 6.
 
 The schema names are durable; URLs and UI labels can evolve. Two enum values use friendlier user-facing labels: `gathering` → "Event," `wonder` → "Idea." Code references the schema name; surfaces render the label.
 

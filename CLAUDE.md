@@ -41,18 +41,19 @@ Source: [`product/foundation/primitives.md`](product/foundation/primitives.md). 
 
 The platform uses a three-layer naming pattern. Each layer has a distinct purpose; mixing them is the most common source of doc/code drift. The mapping below is load-bearing — when you touch any spec, surface, or copy, match the right layer.
 
-| Schema (durable) | URL (public, single-letter where possible) | UI label (user-facing) | UI verb (CTAs) |
+| Schema (durable) | URL (public — place-scoped per ADR-20) | UI label (user-facing) | UI verb (CTAs) |
 |---|---|---|---|
-| `members` | `/m/[handle]` | Member · Seller (when ≥1 active kind='business' Group membership or kind='product'/'service' Item) · Producer (ag/food context) | Sign up · Sell · Offer |
-| `groups` | `/g/[slug]` | Group · Shop (kind='business') · Circle (kind='interest'/'practice') | Start a group · Join |
-| `locations` | `/l/[slug]` | Place · Venue | Add a place |
-| `items.kind = 'gathering'` | `/e/[slug]` | **Event** | Host |
-| `items.kind = 'product'` | `/p/[slug]` | Product | Sell · Share |
-| `items.kind = 'service'` | `/s/[slug]` | Service | Offer |
-| `items.kind = 'wonder'` | `/i/[slug]` | **Idea** | Wonder · Float |
-| `items.kind = 'offer'` | `/o/[slug]` | Offer | Offer up |
-| `items.kind = 'ask'` | `/a/[slug]` | Ask | Ask |
-| `items.kind = 'initiative'` | `/initiative/[slug]` | Initiative | Lead · Start |
+| `members` | `/m/[handle]` (global — not place-scoped) | Member · Seller (when ≥1 active kind='business' Group membership or kind='product'/'service' Item) · Producer (ag/food context) | Sign up · Sell · Offer |
+| `places` | `/p/[…place path]` | **Place** | — (platform-curated; no Member create surface) |
+| `groups` | `/p/[…place path]/g/[slug]` | Group · Shop (kind='business') · Circle (kind='interest'/'practice') | Start a group · Join |
+| `locations` | `/p/[…place path]/l/[slug]` | Venue | Add a place |
+| `items.kind = 'gathering'` | `…/e/[slug]` | **Event** | Host |
+| `items.kind = 'product'` | `…/p/[slug]` | Product | Sell · Share |
+| `items.kind = 'service'` | `…/s/[slug]` | Service | Offer |
+| `items.kind = 'wonder'` | `…/i/[slug]` | **Idea** | Wonder · Float |
+| `items.kind = 'offer'` | `…/o/[slug]` | Offer | Offer up |
+| `items.kind = 'ask'` | `…/a/[slug]` | Ask | Ask |
+| `items.kind = 'initiative'` | `…/initiative/[slug]` | Initiative | Lead · Start |
 | `member_self_records` | n/a (not a public surface) | **Assistant Context** | Edit · Teach |
 
 ### Rules
@@ -62,6 +63,7 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 3. **No umbrella word for Items in UI copy.** "Item" is the database term. In the UI, always use the specific kind: Event, Product, Service, Idea, Offer, Ask, Initiative. The Explore tab can use kind-specific filter copy ("Browse events," "Browse what's for sale") rather than "Browse items."
 4. **"Seller" is the generic UI term for a Member offering goods or services.** It applies whenever a Member has ≥1 active kind='business' Group membership or has posted an `items.kind='product'` / `'service'` row. There is no `maker_mode_enabled` toggle (dropped per `agent-commerce-and-project-amendments.md` §6, ratified 2026-05-12). **"Producer"** is preferred in the agricultural and food context — used in `producer-tools.md`, `producer-tools.md`, and `platform-promise.md`. **"Maker"** survives only as a UI label when the Member specifically self-identifies as such (craftspeople, artisans); it is not a default role.
 5. **Loop names stay conceptual.** Loop 2 is "Wonder," Loop 4 is "Gather regularly." Loop names are durable spec language; they don't migrate to the new UI labels.
+6. **URLs are place-scoped (ADR-20).** Every public URL except the Member page nests under a variable-depth place path — `/p/[…ancestor place slugs]/[place slug]`. Groups append `/g/[slug]`, Locations append `/l/[slug]`. Items take the resource segment (`/e/`, `/p/`, `/s/`, `/i/`, `/o/`, `/a/`, `/initiative/`) appended to either their Group's place path (`/p/[…place]/g/[group-slug]/p/[slug]`) or — for Items not filed under a Group — the owner's Member path (`/m/[handle]/p/[slug]`). The Member page (`/m/[handle]`) is the one intentionally global namespace: the handle is the auth identity and must survive relocation. Outer `/p/` (place) and inner `/p/` (product) are positionally unambiguous. Places are platform-curated — there is no Member-facing create surface for a `places` row; the UI label "Place" belongs to `places`, while a specific Location is a "Venue."
 
 ### When in doubt
 

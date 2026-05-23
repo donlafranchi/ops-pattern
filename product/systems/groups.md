@@ -180,11 +180,12 @@ Mirrors `item.md`'s pattern. One spine, kind-specific child tables for kinds tha
 create table groups (
   id uuid primary key default gen_random_uuid(),
   name text not null,
-  slug text unique not null,
+  slug text not null,
   kind text not null check (kind in (
     'place','interest','practice','event_anchored','family','business'
   )),
   anchor_location_id uuid references locations(id) on delete set null,
+  place_id uuid references places(id),  -- anchor Place (ADR-20); derived — see Place anchoring below
   parent_group_id uuid references groups(id) on delete set null,
   founder_member_id uuid not null references members(id),
   description text not null,
@@ -196,10 +197,12 @@ create table groups (
   created_at timestamptz not null default now(),
   dormant_at timestamptz,           -- when entered dormancy (null otherwise)
   dissolves_at timestamptz,         -- scheduled dissolution time during dormancy
-  dissolved_at timestamptz
+  dissolved_at timestamptz,
+  unique (place_id, slug)           -- per-Place slug namespace (ADR-20); replaces global unique on slug
 );
 
 create index idx_groups_anchor on groups (anchor_location_id) where dissolved_at is null;
+create index idx_groups_place on groups (place_id) where dissolved_at is null;
 create index idx_groups_parent on groups (parent_group_id) where dissolved_at is null;
 create index idx_groups_kind on groups (kind) where dissolved_at is null;
 ```
@@ -246,6 +249,30 @@ Role validation per kind is enforced in the action layer (per ADR-7), not by che
 
 - A kind='business' Group may anchor to a Location via `groups.anchor_location_id`. The Location renders the Group's storefront affordances on its public page.
 - Brand label precedence on the Location page: `group_businesses.display_name` (canonical when an anchored Group exists) wins over `locations.brand_label` (the Location-level fallback for places without a Group anchor — e.g., Drake's the bar). Per [`location.md`](location.md), `locations.brand_label` is denormalized to power resolve-up rendering when no Group is anchored; the Location page renderer must check Group first, then fall back.
+
+**Place anchoring (per ADR-20).**
+
+- `groups.place_id` anchors every Group to a curated [`places`](places.md) row. It is **derived, not user-chosen**: a Group with an `anchor_location_id` inherits that Location's `place_id`; an anchorless Group falls back to the founder's home Location's place; a federation Group whose Members span multiple places anchors at the **smallest common ancestor** place. Stored as a column with a trigger that recomputes on `anchor_location_id` change (per the `places.md` working assumption — drift is bounded because Locations rarely move).
+- **Default anchor depth for kind='business' Groups: neighborhood when the neighborhood-place exists, city otherwise.** Granularity rolls up automatically; the founder is not asked to choose.
+- The canonical Group URL is place-scoped: `/p/[…place path]/g/[slug]`. Slug uniqueness is per-Place (`UNIQUE (place_id, slug)`) — an Oak Park, CA Group and an Oak Park, IL Group with the same slug do not collide. Items filed under a Group inherit the Group's place path for their own URLs.
+
+**Group-of-Group relationship (per ADR-20).**
+
+A Group can be a *vendor / member / participant* of another Group — a many-to-many relationship distinct from Member↔Group memberships and distinct from the `parent_group_id` hierarchy column.
+
+```sql
+create table group_group_memberships (
+  parent_group_id uuid not null references groups(id) on delete cascade,
+  child_group_id  uuid not null references groups(id) on delete cascade,
+  role            text not null,   -- e.g. 'vendor', 'participant'; validated in the action layer
+  source          text not null default 'explicit',
+  joined_at       timestamptz not null default now(),
+  left_at         timestamptz,
+  primary key (parent_group_id, child_group_id)
+);
+```
+
+The food-truck-at-farmers-market pattern: a kind='business' Group (Adaeze's Kitchen) is a `vendor` in several kind='place' / kind='event_anchored' Groups (Oak Park Farmers Market, Davis Farmers Market) — one row per relationship. The child Group's public page can inherit event dates from each parent Group's attached Items. This relationship is independent of the place-anchor hierarchy: a Group anchored in Oak Park can vendor at a Group anchored in Davis; its URL stays at its own place anchor.
 
 **Event log entries (required at b1):** `group.created`, `group.member_joined`, `group.member_left`, `group.role_changed`, `group.steward_transferred`, `group.dormant`, `group.dormancy_extended`, `group.revived`, `group.dissolved`. Append-only, partitioned monthly per ADR-10. Audit fields per ADR-6.
 
@@ -424,14 +451,16 @@ The Group of one is the same shape as the partnership of three or the bakery-wit
 
 ## Decisions encoded here
 
-This spec is the live home for the following architectural decisions. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register; the entries below are the single-system decisions whose status banner in this file *is* the load-bearing ratification (until ADR-13 is written).
+This spec is the live home for the following architectural decisions. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register; the entries below are the single-system decisions whose status banner in this file *is* the load-bearing ratification.
 
 | ADR | Status | What lives here |
 |---|---|---|
 | ADR-8 | **SUPERSEDED** 2026-05-10 | The `member_operations` primitive retires. Capacities (sole-prop / partner / staff / cooperative-member / volunteer-organizer) are absorbed into kind='business' Group memberships with role-per-kind. Standing-tier gate `member_has_standing_presence` redefined here: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group. Historical text in [`../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md`](../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md). |
 | ADR-11 | **SUPERSEDED** 2026-05-10 (framing softened 2026-05-12 per `agent-commerce-and-project-amendments.md` §2) | Cooperative-style coordination (co-owning, voting, distributing) **deferred until real-world need + explicit user prioritization**. No `cooperatives` / `cooperative_assets` tables, no `cooperative_cohort` Item kind, no `pledge_intent` response_kind — these architectural decisions stand as current-scope. Cooperative-shape use case ships at b1 as kind='business' Group with multiple owner-role memberships. Historical text in [`../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md`](../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md). |
-| ADR-13 | **Pending formal write-up** — this status banner is the ratification | Group consolidation. Community / Member Operations / Cooperative absorbed into one Group primitive with spine + child architecture and six kinds at b1: five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) + one operate (`business`). |
+| ADR-13 | Accepted — see [`ADR-0013`](../../planning/adrs/ADR-0013-groups-consolidation.md); this spec is the home doc | Group consolidation. Community / Member Operations / Cooperative absorbed into one Group primitive with spine + child architecture and six kinds at b1: five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) + one operate (`business`). |
 
 This spec also reflects ADR-12's supersession (per `agent-commerce-and-project-amendments.md` §6): the kind='business' Group walkthrough replaces the prior "Become a Maker" CTA, and selling tools surface from Group / Item state rather than from a Member-level toggle. The live home of ADR-12 (now superseded) is [`member.md`](member.md).
 
 This spec also *encodes* (but does not own) ADR-16 (per-row privacy on `member_location_affinities`): the locality-promotion derivation in the **Locality and promotion** section above is the load-bearing surface — it calls `public.member_is_local_to_location()` rather than JOINing against `member_location_affinities` directly. ADR-16 lives cross-cutting in [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md).
+
+This spec also *encodes* (but does not own) ADR-20 (locality-scoped URLs): the **Place anchoring** and **Group-of-Group relationship** sections above carry the Group-side substrate — `groups.place_id`, per-Place slug uniqueness, the place-scoped URL form (`/p/[…place path]/g/[slug]`), and the `group_group_memberships` join table. ADR-20's home docs are [`places.md`](places.md) and [`location.md`](location.md).
