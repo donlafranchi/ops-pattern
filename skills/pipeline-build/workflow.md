@@ -132,6 +132,12 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 ## Hand off
 
+**STAGE-LEDGER stamp.** When the first commit lands for a scenario's tickets, flip the F-number's row to `building` with today's date. When the last ticket for the scenario closes and evals are green, flip to `done`. For substrate tickets, stamp the corresponding row in the Substrate table.
+
+**SPEC-PATCHES queue.** If you flagged a `product/` spec for `pipeline-product` patching in DEVIATIONS, also append an entry to `planning/SPEC-PATCHES.md` with the spec path, section, what's wrong, and the ticket that caught it. The DEVIATIONS entry is the audit trail; SPEC-PATCHES is the queue that ensures the patch lands.
+
+**Commit-hash backfill is non-optional.** Per audit H4, T055/T056/T057 still carry `{pending}` placeholders. After PM commits, immediately edit the ticket Completion section to fill in the hash — do not defer.
+
 **You produced:** code + tests on branch `t{nnn}`, updated ticket, a `DEVIATIONS.md` entry with `Why:` and `Disposition:` lines, updated `BUILD-LOG.md`, and a **commit summary** for the PM. You did NOT commit — PM commits from Mac terminal and pastes back the hash.
 
 **Commit-hash backfill.** After PM commits and confirms the hash, you (in the same session, or the next) edit the ticket's Completion section to fill in the hash. That edit is a file write, not a git call — safe to do from the sandbox.

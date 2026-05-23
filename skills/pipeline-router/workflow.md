@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/{active}.md`, optionally root `AGENTS.md` |
+| **Reads** | root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/{active}.md`, optionally root `AGENTS.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/OPEN-QUESTIONS.md`, `planning/DECISIONS.md` (for drift check) |
 | **Writes** | nothing — orientation only (may suggest a `JOURNAL.md` entry but does not write one) |
 | **Templates** | none |
 | **Hands to** | whichever pipeline skill the request matches (see routing table below) |
@@ -17,7 +17,24 @@ Session-start check (project-agnostic):
 4. **Confirm the task is in scope.** If the user's request isn't in the bundle's scope, surface that and ask whether to proceed or escalate.
 5. **Confirm the task serves a north star.** If you can't name which north star (loop, capability, or canonical example) the work serves, ask the user before starting.
 6. **Surface stuck approved scenarios.** Glance at `planning/scenarios/` and `planning/scenarios-backlog/`. If any approved scenario in tickets references a backlog file (`planning/scenarios-backlog/F###`), the build firewall is being violated — surface this as a blocker before any build work. Equally: if any scenario in `planning/scenarios/` has its `Canonical example:` field pointing at a TODO placeholder section of `use-cases.md`, surface as a blocker.
-7. **Surface stale BUILD-LOG.md.** If `web/BUILD-LOG.md` (or equivalent) is more than two weeks behind the most recent ticket close, flag it.
+7. **Drift check (audit-derived, runs every session).** This is the keystone return-path mechanism from `pipeline-process-audit-2026-05-22.md` R1 — every hygiene finding the audit caught silently regressing is on this list. Run as a fixed checklist; flag each failure with its source rule. Do not gate routing on these — name them, then route. The list:
+
+   | Check | Source |
+   |---|---|
+   | `planning/scenarios/` is empty while any `development/tickets/` (incl. `done/`) file references a `Scenario: F###` — H1 firewall vacated | Audit H1 |
+   | `web/BUILD-LOG.md` cites a bundle file that doesn't exist (e.g. `b1-mvp.md` while `b1-primitives.md` is active) — E3 | Audit E3 |
+   | `.claude/worktrees/` is non-empty AND not in `.gitignore` — shadow-repo hazard | Audit E8 |
+   | `development/DEVIATIONS.md` over 400 lines without a rotation pointer at top — E2 | Audit E2 |
+   | `{pending}` or `{commit hash}` placeholders in `development/tickets/done/*.md` Completion sections — H4 | Audit H4 |
+   | Retired skill directories present on disk (currently `skills/pipeline-clarify-absolutes/`, `skills/pipeline-review-absolute/`) — H6 | Audit H6 |
+   | `planning/SPEC-PATCHES.md` has any open patch older than the current bundle's open date — Build → Product loop not draining | Audit H3 |
+   | Any ADR cited as live in a ticket but marked `superseded` in `planning/DECISIONS.md` (ADR-10 → ADR-7 is the active example) — E6 | Audit E6 |
+   | `planning/TRACE.md` row exists in stage `building` for >14 days, or any F# has artifacts (ticket exists) but no `plan-approved` stamp — return-path break | Audit R4 |
+
+   Report each failure with: the check name, the offending file(s), and the one-line fix. Do not attempt the fix — the router routes, it doesn't patch.
+
+   **Also surface any `planning/OPEN-QUESTIONS.md` entry older than 14 days** — that file is the PM-decision queue from the audit + coverage passes, and stale entries mean a PM decision is blocking pipeline work.
+
 8. **Surface unsynced sub-bundle.** Glance at `planning/bundles/b{N}-work-map.md` and the last few `development/tickets/done/T*.md` files. If a sub-bundle has closed (all its 🟢 items shipped) but `bundle-themes.md` / `b{N}-work-map.md` has not been touched since, suggest running `pipeline-bundle-resync` before any new scenario writing.
 9. **Registry conformance check (lightweight).** If a `REGISTRY.md` exists at project root, verify three things:
    - Every `.md` under `product/`, `planning/`, `development/`, `standards/` (and the root `pipeline-process-audit-*.md` audit files), excluding `_attic/`, `housekeeping/`, `web/`, `skills/`, and the R10-reserved root docs (`CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md`, `TRACE.md`), carries YAML front-matter with `purpose` + `layer` + `status`.

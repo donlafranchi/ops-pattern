@@ -76,6 +76,8 @@ Every test you write carries its **why** alongside its **what**. The test's `nam
 
 ## Hand off
 
+**STAGE-LEDGER stamp.** Write mode: stamp the F-number's Eval-spec column with today's date. Run mode pass: flip stage to `done` with date. Run mode fail: leave stage at `eval` and append the fail date.
+
 **Write mode → `pipeline-build`.** Tests land in `{app}/evals/features/F{NNN}.spec.ts`. Build agent implements without reading them.
 
 **Run mode, pass → PM.** The loop closes. PM picks the next scenario or asks `pipeline-ticket` for the next ticket.

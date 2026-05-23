@@ -8,6 +8,24 @@ status: active
 
 When implementation diverges from spec, log it here with context.
 
+## Rotation policy
+
+Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 finding (605-line single file, unreadable in one pass, no archive policy). Mirrors `JOURNAL.md`'s pattern.
+
+- **Live file** carries entries for the **current rebuild phase** only (see `planning/rebuild-plan.md`).
+- **At each phase boundary**, the PM rotates closed-phase entries to `development/archive/DEVIATIONS-phase-{N}.md` and resets the live file's TOC.
+- **Soft cap on live file:** ~400 lines. `pipeline-router` flags above that.
+- **Empty entries are still mandatory** per the rebuild rule — a one-line "no deviations" with a `Why:` qualifies as an entry.
+- **Archive index:** a short table at the bottom of this file links every archived phase file.
+
+## Archive
+
+| Phase | Tickets covered | File |
+|---|---|---|
+| *(none yet — first rotation happens at Phase 1→2 boundary)* | | |
+
+---
+
 ## 2026-05-19 — T057 — No spec deviation; eval-RPC column-name mismatch caught at first run
 
 **Deviation:** None against spec. T057 lands the `discoverable_items` view, refresh trigger, and indexes exactly as ticketed.

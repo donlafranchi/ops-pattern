@@ -6,7 +6,7 @@ status: active
 
 # AGENTS.md — Development Pipeline
 
-> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. The 2026-05-09 pipeline audit that originally drove this definition is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md); its findings live in this file. The 2026-05-22 follow-up audit is at [`pipeline-process-audit-2026-05-22.md`](pipeline-process-audit-2026-05-22.md).
+> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. The 2026-05-09 pipeline audit that originally drove this definition is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md); its findings live in this file. The 2026-05-22 follow-up audit is at [`_attic/2026-05-23/pipeline-process-audit-2026-05-22.md`](_attic/2026-05-23/pipeline-process-audit-2026-05-22.md) — findings absorbed into the pipeline on 2026-05-23.
 
 Seven specialized roles handle the full development lifecycle. Each is implemented as a skill in [`skills/`](skills/) and routed by `pipeline-router`. Process lives in skills, not in nested CLAUDE.md files.
 
@@ -173,6 +173,8 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 - Eval test code
 
 **Task:** Break each approved scenario into ordered, session-sized tickets (~1–3 hours, one cohesive commit each). Each ticket references exactly one scenario via `Scenario:`. If a scenario produces 5+ tickets, escalate to `pipeline-plan` to split.
+
+**Substrate lane.** Schema, RLS, action-handler scaffolding, eval helpers, and similar floor-level work have no user-facing behavior and therefore no scenario. These tickets carry `Scenario: substrate` and bind to a system-spec section + ADR(s) instead. Full contract in `skills/pipeline-ticket/workflow.md` § Substrate lane. Substrate work appears in `planning/TRACE.md` under the substrate table, parallel to F-numbered feature work. **Substrate is not a backdoor around the planner** — if a user-facing surface exists, write a scenario.
 
 ---
 
