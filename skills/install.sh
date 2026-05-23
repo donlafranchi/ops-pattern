@@ -28,8 +28,9 @@ SKILLS_DEST="$HOME/.claude/skills"
 
 mkdir -p "$SKILLS_DEST"
 
-echo "Linking project pipeline skills → $SKILLS_DEST"
-for skill in "$SKILLS_SRC"/pipeline-*/; do
+echo "Linking project pipeline + meta skills → $SKILLS_DEST"
+for skill in "$SKILLS_SRC"/pipeline-*/ "$SKILLS_SRC"/doc-*/ "$SKILLS_SRC"/skills-housekeeping/ "$SKILLS_SRC"/loop-designer/; do
+  [[ -d "$skill" ]] || continue
   name="$(basename "$skill")"
   target="$SKILLS_DEST/$name"
 

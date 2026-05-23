@@ -30,6 +30,8 @@ Session-start check (project-agnostic):
    | `planning/SPEC-PATCHES.md` has any open patch older than the current bundle's open date — Build → Product loop not draining | Audit H3 |
    | Any ADR cited as live in a ticket but marked `superseded` in `planning/DECISIONS.md` (ADR-10 → ADR-7 is the active example) — E6 | Audit E6 |
    | `planning/TRACE.md` row exists in stage `building` for >14 days, or any F# has artifacts (ticket exists) but no `plan-approved` stamp — return-path break | Audit R4 |
+   | Any `.md` or `.html` at repo root other than the load-bearing set (`CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md`, `TRACE.md`, `REGISTRY.md`, `BUILD-LOG.md`) — anti-sprawl, the doc belongs in `_inbox/` or a real home | 2026-05-23 |
+   | `_inbox/` non-empty for >7 days — triage backlog | 2026-05-23 |
 
    Report each failure with: the check name, the offending file(s), and the one-line fix. Do not attempt the fix — the router routes, it doesn't patch.
 
