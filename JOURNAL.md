@@ -14,6 +14,23 @@ status: active
 
 ---
 
+## 2026-05-23 — ADR-20 accepted; Places primitive finalized; location.md reconciled
+
+**Places is now the platform's locality organizing principle.** Surfaced mid-walkthrough of `pending-ratifications.md` (item #17, city picker source) and ratified by PM direction.
+
+- **ADR-20 accepted** (Proposed → Accepted, in `DECISIONS.md` and the ADR file). Locality-scoped URLs; the `places` primitive — hierarchical, platform-curated, parent-scoped slug uniqueness.
+- **`places.md` finalized** — draft → active; stale pre-consolidation refs fixed (`foundational-principles.md` → `principles.md`, `policy-framework.md` → `policy.md`); ADR-20 banner updated to Accepted. Still git-untracked — commit pending.
+- **`location.md` reconciled with Places** (~15 edits). Locations now carry `place_id` (anchor Place, reverse-geocoded at create); slug uniqueness moved global → `UNIQUE (place_id, slug)`; canonical URL is place-scoped (`/p/[…path]/l/[slug]`). The `location_areas.area_kind` enum **dropped `city` and `region`** — civic geography is the Places primitive, not a Member-declared area Location; `service_radius` / `neighborhood` / `custom` remain. Open question #5 (city picker source) resolved; status banner, decisions-encoded footer, integration points updated. Stale "ADR-14 pending formal write-up" claims corrected (ADR-14 is Accepted).
+- **`pending-ratifications.md`** — items #16 (address normalization — deferral ratified, Intent line in `location.md`) and #17 (city picker source — curation ratified, source superseded by Places) recorded.
+
+**Next session pickup:**
+
+1. **ADR-20 propagation is NOT finished** — this round was scoped to `location.md` only. ADR-0020 Action Items 2–4, 6 remain open: `CLAUDE.md` § Naming conventions (URL column → place-scoped paths), `item.md` naming table, `groups.md` (place-anchor inheritance + Group-of-Group relationship), `member.md` (confirm `/m/[handle]` unchanged), F025 reframe (Group producer page).
+2. **Schema follow-up** — when build picks it up, the `locations` migration needs `place_id` + `UNIQUE (place_id, slug)` + the `area_kind` enum change; the `places` table is new Phase 2 work per ADR-20.
+3. **Resume the `pending-ratifications.md` walkthrough** — paused at §7c (Location/Group kinds) and §9 (Sacramento seed rows).
+
+---
+
 ## 2026-05-22 — Doc Consolidation effort CLOSED (R01–R10, 10 phases, all green)
 
 **The doc tree is now in its consolidated shape.** Ten phases ran sequentially, each one commit on `main`:

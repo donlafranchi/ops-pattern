@@ -6,7 +6,7 @@ status: active
 
 # System: Location
 
-**Status:** Drafted 2026-05-10 — pending PM final read. The third foundational primitive (per [`primitives.md`](../foundation/primitives.md)). Fills the gap previously referenced as "forthcoming" across `member.md`, `item.md`, `groups.md`, and `b1-primitives.md`. Independent architectural review pass complete; remaining REVISE items are migration-plan reconciliation (Phase 1 spine+child enumeration) which is the next session's work.
+**Status:** Active — reconciled with the Places primitive 2026-05-23 (ADR-20 accepted). The third foundational primitive (per [`primitives.md`](../foundation/primitives.md)). Locations now anchor to [`places.md`](places.md) via `place_id`; canonical URLs are place-scoped (`/p/[…place path]/l/[slug]`) and slug uniqueness is per-Place. Recognized civic geography — city / neighborhood / MSA / region — lives in the Places primitive, **not** in `kind=area` Locations.
 
 **Purpose:** Establish Location as the platform's primitive for *physical places where things happen*. Three kinds — permanent, recurring-temporary, area — share a spine with kind-specific child tables, mirroring the Item and Group primitives. The platform's grammar becomes legible at the data layer: **People form Groups to do things using Items, attached to Locations.** Locations are where the attaching happens.
 
@@ -14,11 +14,11 @@ status: active
 
 **Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`item.md`](item.md) · [`member.md`](member.md) · [`groups.md`](groups.md) · [`policy.md`](../foundation/policy.md) · [`discovery.md`](discovery.md)
 
-**Decisions encoded:** ADR-2 (bottom-anchored mobile-first UI — relevant to the locality-default affordance per ADR-4) · ADR-4 (locality default = geolocate then city pick, mutable from any surface — `members.home_location_id` references this primitive) · ADR-5 (a market is a Gathering Item, not a Location-of-kind=gathering — this spec encodes the corollary that markets ARE Locations of kind=recurring-temporary, and the gathering side lives on Items attached) · ADR-6 (audit fields on every event row) · ADR-7 (action layer is the only write surface) · ADR-9 (policy framework, opt-out default, three-filter test for any Location surface that exposes Member presence). **ADR-14 pending formal write-up** — the spine+child decision parallel to the Item/Group split (paired with ADR-13 from groups.md, also pending). Both ADRs deferred to the migration plan rewrite session per the user's sequencing decision.
+**Decisions encoded:** ADR-2 (bottom-anchored mobile-first UI — relevant to the locality-default affordance per ADR-4) · ADR-4 (locality default = geolocate then city pick, mutable from any surface — `members.home_location_id` references this primitive) · ADR-5 (a market is a Gathering Item, not a Location-of-kind=gathering — this spec encodes the corollary that markets ARE Locations of kind=recurring-temporary, and the gathering side lives on Items attached) · ADR-6 (audit fields on every event row) · ADR-7 (action layer is the only write surface) · ADR-9 (policy framework, opt-out default, three-filter test for any Location surface that exposes Member presence) · ADR-14 (Location spine+child architecture — this spec is the home doc) · ADR-20 (locality-scoped URLs — Locations anchor to Places via `place_id`, with place-scoped slugs and URLs).
 
 **North stars served:** All five families. Locations are present on at least one side of every loop that involves doing-something-somewhere. Specific kinds map to specific surfaces (permanent → standing presence, recurring-temporary → market booths and recurring gatherings, area → service radii and neighborhood scopes), but the primitive itself is shared infrastructure.
 
-**Canonical examples this spec serves:** Drake's hosting the Run Club and Barn Movie Night (permanent, with sub-venue) · the Sacramento farmers market the Quarterly Dip Vendor visits (recurring-temporary) · Ferrari Fisheries' boat dock pickup point (recurring-temporary, intermittent) · the food truck's sequence of stops (area + recurring-temporary stops) · a plumber's service radius (area) · West Sacramento as a city scope for locality default (area) · **Concerts in the Park** — a Member follows multiple parks across the Sacramento MSA and gets a feed of outdoor live-music gathering Items attached to those parks (permanent, multi-Location follow, taste-profile filtered). Per [`use-cases.md`](../needs/use-cases.md).
+**Canonical examples this spec serves:** Drake's hosting the Run Club and Barn Movie Night (permanent, with sub-venue) · the Sacramento farmers market the Quarterly Dip Vendor visits (recurring-temporary) · Ferrari Fisheries' boat dock pickup point (recurring-temporary, intermittent) · the food truck's sequence of stops (area + recurring-temporary stops) · a plumber's service radius (area) · **Concerts in the Park** — a Member follows multiple parks across the Sacramento MSA and gets a feed of outdoor live-music gathering Items attached to those parks (permanent, multi-Location follow, taste-profile filtered). Per [`use-cases.md`](../needs/use-cases.md).
 
 ---
 
@@ -32,7 +32,7 @@ A Location is the structural alternative to "venue," "neighborhood," "service ar
 
 The boundaries here are load-bearing. Each negation is a structural commitment.
 
-- **Not a Group.** West Sacramento is a Location of kind=area — a polygon, a name, a geometry. The West Sac school-parents Group is a different record entirely; it may *anchor* to West Sacramento but it is not equal to it. People affiliate with *Groups*; they have *affinities* with Locations (live, work, play, visit, follow — see Person↔Location relationship below). The two are not the same.
+- **Not a Group.** A neighborhood park is a Location of kind=permanent; a Member-drawn service-area polygon is a Location of kind=area. (Recognized civic geography — the *city* of West Sacramento, a named neighborhood — is a **Place**, not a Location: see [`places.md`](places.md).) The Group that gathers at a Location is a different record entirely; it may *anchor* to a Location but it is not equal to it. People affiliate with *Groups*; they have *affinities* with Locations (live, work, play, visit, follow — see Person↔Location relationship below). The two are not the same.
 - **Not a complaint surface.** This is the structural anti-Nextdoor commitment. Nextdoor's failure mode is location-scoped commenting/messaging, which attracts complaint posts and erodes the surface. The platform's response is two-fold and lives outside Location structure: (1) when messaging surfaces ship (b2+), they are scoped to Items or Groups only — never to Locations. There is no Location wall, no Location feed, no Location DM. (2) Complaint-style content in any feed surface can be downvoted and removed from circulation. The platform's affordance for "I have a problem with this place" is to create an Item — a Wonder ("would folks be into fixing the broken playground?") or an Initiative ("let's organize the playground rebuild") — and lead the fix. Per [`policy.md`](../foundation/policy.md).
 - **Not a Person.** A Member's `home_location_id` is a soft pointer to their preferred locality scope (per ADR-4). It is not their address. The platform does not store addresses for Members. A Member's relationships to Locations beyond home (places they work, play, visit, follow) live in `member_location_affinities` (see member.md), not as columns on `members`.
 - **Not a Business.** A storefront is a Location. The Member who operates there is a Member. The Group they operate through is a kind='business' Group anchored to that Location. Three records, three primitives, one place. The platform never collapses them into a single "business listing" record — that is the directory failure mode named in `principles.md`.
@@ -47,7 +47,9 @@ Three kinds at b1, fixed. The kind is set at creation and **does not transition*
 
 **Recurring-temporary.** A coordinate that hosts activity on a recurring cadence — a market booth at a parking lot Saturdays 8-1, a bar where a Run Club meets Thursdays evenings, a parking lot that becomes a food-truck rally one Friday a month. The Location's geometry is still a Point (where the activity happens), but the Location carries an operating schedule (when the *Location itself* is active). This is distinct from `item_locations.schedule_metadata` (per `item.md`), which describes when a *specific Item* appears at this Location.
 
-**Area.** A polygonal region — a neighborhood boundary, a service radius, a city scope. Geometry is a Polygon (PostGIS `geography(Polygon)`). Used for service-area inclusion queries (does this plumber serve this address?), for locality scopes (does this Member's home Location fall within this neighborhood?), and for browse filters (Items in West Sacramento). Areas have a representative Point (auto-computed centroid) so they participate in the same proximity queries as the other kinds without special-casing.
+**Area.** A polygonal region a Member declares — a service radius, a custom delivery zone, a neighborhood-shaped boundary that isn't infrastructural. Geometry is a Polygon (PostGIS `geography(Polygon)`). Used for service-area inclusion queries (does this plumber serve this address?) and for browse filters over Member-declared zones. Areas have a representative Point (auto-computed centroid) so they participate in the same proximity queries as the other kinds without special-casing.
+
+**Recognized civic geography — cities, neighborhoods, MSAs, regions — is *not* a kind=area Location.** That is the **Places** primitive (per [`places.md`](places.md), ADR-20): platform-curated, hierarchical, the anchor every Location and URL nests under. Area Locations are for *Member-declared* geographic scopes; Places are *infrastructural* scopes nobody declares. A Location is a specific point a Member declared; a Place is the bucket it sits inside.
 
 The kind enum is intentionally narrow at b1. Future candidates if real cases warrant: `route` (a recurring path — a delivery route, a foot-race course), `mobile` (an ambulatory operator without a fixed point — the truly nomadic food truck) — not in scope at b1. The food-truck canonical example (#4) is modeled at b1 as a Member with multiple recurring-temporary Locations they post to in sequence; route/mobile become valuable when that pattern stops being expressive enough.
 
@@ -56,7 +58,7 @@ The kind enum is intentionally narrow at b1. Future candidates if real cases war
 **Identity.**
 - `label` (required, text, 1–120 chars). The Location's display name. Member-authored, written naturally. ("Drake's", "California Family Fitness Parking Lot", "West Sacramento", "30-mile radius from Folsom").
   **Intent:** 120 chars sits above "name" length (≈40) and below "tagline" length (≈200+) — the upper bound is deliberately positioned to leave room for "California Family Fitness Parking Lot" but discourage promotional copy in what's meant to be a declarative locator field. If a future proposal wants a taglines or short-bio field on Location, that's a different column — not a wider label.
-- `slug` (required, unique, lowercased alphanumeric + hyphen, derived from label at create with disambiguation). Powers the canonical Location URL `/l/[slug]`.
+- `slug` (required, lowercased alphanumeric + hyphen, derived from label at create with disambiguation). Unique per anchor Place — `UNIQUE (place_id, slug)`, not global (per ADR-20). Powers the canonical Location URL, which is place-scoped: `/p/[…place path]/l/[slug]`.
 - `description` (optional, text up to 1000 chars, written naturally for human + future embedding readability). What this place is, what happens here, what newcomers should know. Not a marketing pitch.
 - `kind` (required, enum: `permanent` / `recurring_temporary` / `area`).
 
@@ -125,9 +127,10 @@ Mirrors `item.md` and `groups.md`. One spine, kind-specific child tables for kin
 create table locations (
   id                  uuid primary key default gen_random_uuid(),
   member_id           uuid not null references members(id),
+  place_id            uuid references places(id),  -- anchor Place (ADR-20); reverse-geocoded at create
   kind                text not null check (kind in ('permanent','recurring_temporary','area')),
   label               text not null,
-  slug                text unique not null,
+  slug                text not null,
   description         text,
   geography           geography(Point, 4326) not null,  -- Point for all kinds; centroid for area
   parent_location_id  uuid references locations(id) on delete set null,  -- sub-venue, T2 surface
@@ -140,15 +143,19 @@ create table locations (
   federation_origin   text,
   created_at          timestamptz not null default now(),
   updated_at          timestamptz not null default now(),
-  deleted_at          timestamptz
+  deleted_at          timestamptz,
+  unique (place_id, slug)  -- per-Place slug namespace (ADR-20); replaces the global unique on slug
 );
 
 create index idx_locations_geog on locations using gist (geography) where deleted_at is null;
 create index idx_locations_kind on locations (kind) where deleted_at is null;
 create index idx_locations_member on locations (member_id) where deleted_at is null;
+create index idx_locations_place on locations (place_id) where deleted_at is null;
 create index idx_locations_parent on locations (parent_location_id) where deleted_at is null;
 create index idx_locations_brand on locations (brand_label) where brand_label is not null and deleted_at is null;
 ```
+
+**Place anchor.** `place_id` ties every Location to its closest matching [`places`](places.md) row (per ADR-20). The action layer resolves it by reverse-geocoding the Location's coordinates at create. The column is nullable only for the brief insert→resolve window and catastrophic-failure recovery — from the action layer's perspective every live Location carries a Place. The Place is the Location's URL prefix and the namespace its `slug` is unique within.
 
 **Kind-specific child tables** (1:1 with `locations` where `locations.kind` matches; FK = `location_id`):
 
@@ -156,7 +163,7 @@ create index idx_locations_brand on locations (brand_label) where brand_label is
 
 - **`location_recurring_temporary`** — `location_id` PK FK, `recurrence_rule` (text, RRULE format, nullable at b1), `session_start_time` (time, nullable), `session_end_time` (time, nullable). At b1 the recurrence is stored as JSONB on the spine's `ambient_extras` (`{days, start_time, end_time}`); T2 promotes to typed columns + RRULE. **No QR-card columns on Locations** — QR cards are an Item-level Member-requestable affordance per [`item.md`](item.md), not a Location property. A Member who wants a QR card to be found requests it on their Item; it resolves to the Item's page, not to a Location.
 
-- **`location_areas`** — `location_id` PK FK, `polygon` (`geography(Polygon, 4326)` not null), `area_kind` (enum: `service_radius`, `neighborhood`, `city`, `region`, `custom`), `radius_meters` (int, nullable — populated when `area_kind = 'service_radius'` and the area is a circle around a point). On insert/update, a trigger computes the polygon's centroid and writes it to the spine's `geography` column so proximity queries work uniformly across kinds.
+- **`location_areas`** — `location_id` PK FK, `polygon` (`geography(Polygon, 4326)` not null), `area_kind` (enum: `service_radius`, `neighborhood`, `custom`), `radius_meters` (int, nullable — populated when `area_kind = 'service_radius'` and the area is a circle around a point). On insert/update, a trigger computes the polygon's centroid and writes it to the spine's `geography` column so proximity queries work uniformly across kinds. **The `city` and `region` values were dropped on the 2026-05-23 Places reconciliation** — recognized civic geography is the Places primitive (ADR-20), not a Member-declared area Location. `area_kind='neighborhood'` survives only for Member-drawn neighborhood-shaped zones that are *not* curated Places.
 
 **Action handlers (per ADR-7).** Every write goes through a named handler. Initial set at b1:
 
@@ -182,7 +189,7 @@ The Location primitive is the spatial substrate of the platform. Three things ri
 
 **Inclusion queries** — "is this Member's home Location inside the West Sacramento polygon?" — JOIN `locations` to `location_areas` and run `ST_Contains(polygon, point)`. Only kind=area participates; no special-casing required at the query site.
 
-**Locality default (per ADR-4)** — `members.home_location_id` references this primitive. The locality default is set at onboarding via geolocation (preferred) or city pick from a list. The "city pick" list is populated from kind=area Locations with `area_kind='city'` near launch (Sacramento metro and surrounding cities). Mutation is one tap from any locality-dependent surface; the affordance is bottom-anchored per ADR-2.
+**Locality default (per ADR-4)** — `members.home_location_id` references this primitive. The locality default is set at onboarding via geolocation (preferred) or city pick from a list. The "city pick" list is populated from [`places`](places.md) rows of `kind='city'` (Sacramento metro and surrounding cities at launch) — **not** from `kind=area` Locations. Places are platform-curated *by construction*: Members structurally cannot add cities (user-declared geographic scopes go to `kind=area` Locations); the curation commitment and its Intent are ratified in [`places.md`](places.md) per ADR-20. Mutation is one tap from any locality-dependent surface; the affordance is bottom-anchored per ADR-2.
 
 **Promotion-locality (interaction with `groups.md`)** — `groups.md` defines locally-owned-and-operated as a derivable property: a kind='business' Group is locally owned when at least one owner Member is locally affiliated with the Group's `anchor_location_id`. The proximity check uses the Member's `member_location_affinities` (any of `lives` / `works`) — not just `home_location_id` — because a Member who works in Folsom is a real local owner of a Folsom business even when their home is elsewhere. The Location primitive is what makes the derivation tractable; the affinity table is what makes it accurate.
 
@@ -193,6 +200,7 @@ The Location primitive is the spatial substrate of the platform. Three things ri
 - **Member** — `members.home_location_id` (nullable, FK) per ADR-4. Soft pointer, never an address. `member_location_affinities` (per `member.md`) holds the multi-Location belonging — `lives` / `works` / `plays` / `visits` / `follows` / `liked` — for every Member, with no cap on the number of affinities. Members are the creators-of-record for Location rows; affinities are separate from creation.
 - **Item** — `item_locations` (per `item.md`) attaches Items to Locations with a per-attachment schedule. An Item can attach to multiple Locations (the Quarterly Dip Vendor's appearances at three different markets); a Location can host many Items across many Members. Items also carry their own QR-card affordance (Member-requestable, resolves to Item page) — see `item.md`. Locations do not carry QR cards.
 - **Group** — `groups.anchor_location_id` (per `groups.md`) lets a Group anchor to a Location. A `place`-kind Group anchored to West Sacramento; an `event_anchored` Group born from a recurring Gathering at Drake's; a `business`-kind Group whose storefront is a permanent Location. Locations have no symmetrical pointer back; Groups discover their anchored Location via the FK, the Location page lists anchored Groups via reverse query.
+- **Places** — `locations.place_id` (per [`places.md`](places.md), ADR-20) anchors every Location to its closest matching curated Place, reverse-geocoded from the Location's coordinates at create. The Place supplies the Location's URL prefix (`/p/[…place path]/l/[slug]`) and its slug-uniqueness namespace. A Location is a declared point; a Place is the infrastructural scope it sits inside — they never collapse into one row.
 - **Action layer** (ADR-7) — every Location write goes through a named handler.
 - **Event log** (ADR-6) — every Location event row carries `acting_member_id` + `via_delegation_id`.
 - **Discovery** — `discoverable_items` materialized view JOINs to nearest Location for every row; the view's locality column is populated from `locations.geography`. The Venue page pattern (per `community-platform.md`) is the Location's user-facing surface — header layout, sections, primary "Host something here" CTA. The b2 follow-Location feed reads from `member_location_affinities` joined to `item_locations` for surfaced Items.
@@ -214,6 +222,8 @@ Per [`policy.md`](../foundation/policy.md):
 
 **No address normalization at b1.** `street_address` is Member-authored free text. The platform does not run addresses through a geocoder, does not validate against postal records, and does not auto-correct. This keeps the platform from becoming an address-canonicalization service and avoids the privacy footprint of a normalized address store. T2 may revisit if the signal-to-noise ratio degrades.
 
+> **Intent (Deferred until the first 100 Locations exist and the duplicate rate is measured; review at b2 entry):** Free-text `street_address` keeps the platform out of the address-canonicalization business and avoids standing up a normalized-address store — a new sensitive dataset carrying its own privacy footprint. Ratified 2026-05-23: the deferral is earned, not scope-laziness — the trigger and review horizon are concrete (see Open Questions §4). T2 revisits only if duplicate Locations measurably degrade discovery.
+
 ## What does not ship at b1
 
 - Auto-population from third-party sources (Google Places, OSM, public registries) — T3, opt-in only, gated on policy review.
@@ -229,7 +239,7 @@ Per [`policy.md`](../foundation/policy.md):
 
 ## Open questions
 
-1. **Polygon authoring UI.** Drawing a polygon for an area Location is a real UX challenge. b1 ships with a small set of pre-defined city/neighborhood polygons (loaded as seed data at launch — Sacramento metro and surrounding areas). User-drawn polygons defer until the surface is designed. Tracked: how many area-creation attempts hit "polygon I want isn't here" in the first month.
+1. **Polygon authoring UI.** Drawing a polygon for an area Location (a service radius, a custom zone) is a real UX challenge. User-drawn polygons defer until the surface is designed. Civic geography is *not* affected — cities, neighborhoods, MSAs and regions ship as seeded [`places`](places.md) rows with curated polygons (per ADR-20), independent of the area-Location authoring surface. Tracked: how many area-creation attempts hit "polygon I want isn't here" in the first month.
 
 2. **Sub-venue creation flow.** Schema reserves `parent_location_id` at b1 but no surface composes it. When sub-venue surface ships at T2, the flow likely lives on the parent Location page ("Add a sub-venue") rather than as a kind picker on the create flow. Confirm with first canonical case (Drake's barn).
 
@@ -237,7 +247,7 @@ Per [`policy.md`](../foundation/policy.md):
 
 4. **Address normalization at scale.** b1 ships free-text `street_address`. If duplicate Locations proliferate (two Members each add "Drake's, West Sac" with slightly different lat/lng and label spelling), the dedup story gets harder. Open whether T2 introduces a soft-merge surface ("you might be adding a Location that already exists") or stays out of normalization entirely. Defer until first 100 Locations are added and the duplicate rate is measured.
 
-5. **City picker source.** The onboarding city picker (per ADR-4) reads from kind=area Locations with `area_kind='city'`. Open whether that list is platform-curated (a known, vetted set) or accepts Member additions. Working answer: platform-curated at launch; revisit if Members start adding their own cities. Affects the locality-default UX more than the data model.
+5. **City picker source — RESOLVED 2026-05-23 (ADR-20).** The onboarding city picker reads [`places`](places.md) rows of `kind='city'`, not `kind=area` Locations. Places are platform-curated *by construction*; Members structurally cannot add cities (user-declared geographic scopes go to `kind=area` Locations). The prior "revisit if Members start adding their own cities" hedge is moot — the Places primitive forecloses it. Ratified via `pending-ratifications.md` #17.
 
 6. **Sub-venue depth.** Reserved `parent_location_id` is a self-reference, allowing arbitrary depth. Practical question: do we surface only direct parent (Drake's barn → Drake's) or full ancestry (Drake's barn → Drake's → West Sacramento)? Working answer: direct parent only at T2; ancestry deferred until use case appears.
 
@@ -257,6 +267,6 @@ This spec is the live home for the following architectural decision. See [`../..
 
 | ADR | Status | What lives here |
 |---|---|---|
-| ADR-14 | **Pending formal write-up** — this status banner is the ratification | Location spine + child architecture. `location_permanent`, `location_recurring_temporary`, `location_areas`. PostGIS geography on spine (Point for all kinds; centroid for area). Three kinds locked at create. |
+| ADR-14 | Accepted — see [`ADR-0014`](../../planning/adrs/ADR-0014-location-spine-child.md); this spec is the home doc | Location spine + child architecture. `location_permanent`, `location_recurring_temporary`, `location_areas`. PostGIS geography on spine (Point for all kinds; centroid for area). Three kinds locked at create. |
 
-This spec also *encodes* (but does not own) ADR-2 (bottom-anchored UI surfaces), ADR-4 (locality default via `members.home_location_id`), ADR-5 (markets are Gathering Items, not Locations of a special kind), ADR-6 (action handlers + audit fields), ADR-7 (action layer), ADR-9 (anti-Nextdoor: messaging-scope item-or-group-only). Those live cross-cutting in `DECISIONS.md`.
+This spec also *encodes* (but does not own) ADR-2 (bottom-anchored UI surfaces), ADR-4 (locality default via `members.home_location_id`), ADR-5 (markets are Gathering Items, not Locations of a special kind), ADR-6 (action handlers + audit fields), ADR-7 (action layer), ADR-9 (anti-Nextdoor: messaging-scope item-or-group-only), and ADR-20 (locality-scoped URLs — Locations anchor to Places via `place_id`, with place-scoped slugs and URLs; the Places substrate itself lives in [`places.md`](places.md)). Those live cross-cutting in `DECISIONS.md`.

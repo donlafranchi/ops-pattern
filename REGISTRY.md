@@ -51,7 +51,7 @@ status: active
 | `product/systems/location.md` | Permanent / recurring-temporary / area places; anti-Nextdoor encoded. | active |
 | `product/systems/member.md` | Anchor primitive — one row per real human. | active |
 | `product/systems/payments.md` | Money movement scored by a wealth-circulation rubric. | active |
-| `product/systems/places.md` | Places primitive — recognized geographic scope for locality URLs. | draft |
+| `product/systems/places.md` | Places primitive — recognized geographic scope for locality URLs. | active |
 | `product/systems/producer-tools.md` | Bulletin broadcast and Growth dashboard for producer-capacity Members. | active |
 | `product/systems/stewardships.md` | Care-floor surface — Groups looking after shared things together. | draft |
 | `product/ui/community-platform.md` | Home / Explore / You three-page consumer architecture. | active |

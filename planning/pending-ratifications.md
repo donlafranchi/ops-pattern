@@ -38,8 +38,8 @@ status: active
 | Markets data model | `product/systems/location.md`, ADR-5 | Location of `kind=recurring_temporary`, not Item `kind=gathering` | PENDING |  |
 | Real-name escalation | `product/systems/member.md` | Deferred to b2 moderation surface | PENDING |  |
 | Avatar moderation | `product/systems/member.md` | Deferred to community report | PENDING |  |
-| Address normalization | `product/systems/location.md` | Deferred | PENDING |  |
-| City picker source | `product/systems/location.md` | Platform-curated at launch | PENDING |  |
+| Address normalization | `product/systems/location.md` | Deferred | KEEP | Ratified 2026-05-23 — deferral upheld. State tag: *Deferred until the first 100 Locations exist and the duplicate rate is measured; review at b2 entry.* Intent line landed in `location.md`. |
+| City picker source | `product/systems/location.md` → `places.md` | Platform-curated at launch | KEEP | Ratified 2026-05-23 — curation commitment upheld: Places is platform-curated *by construction* (Members structurally cannot declare cities). **Source table superseded** — picker reads the `places` table (`kind='city'`), not `kind=area` Locations. ADR-20 accepted 2026-05-23; `location.md` reconciled (city-pick paragraph + open-question #5 now point to `places.md`). Curation Intent lives in `places.md` (ADR-0020 Intent annotation: "Places are platform-curated, not user-created"). |
 
 ## §7c — Structural enumerations
 
@@ -303,14 +303,10 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 
 **`archive/`** (community.md, cooperative.md, member-operations.md, vendor-*.md) — all archived per CLAUDE.md instructions. Not scanned for ratification; superseded by live specs.
 
-### product/surfaces/
+### product/ui/
 
 **`community-platform.md`**
 - L131: "Do community projects need a separate 'host' entity, or do they always attach to a Member or a Group? Working answer..." — open-question prose. Trivial.
-
-**`archive/marketplace-format.md`** — archived; not in scope.
-
-### product/ui/
 
 **`design-language.md`**
 - L7: "**One accent color.** Civic green (`#1B7A3D`) is reserved for primary CTAs and the brand mark. Ownership tier colors live only on badges — never on buttons, links, or backgrounds."

@@ -6,7 +6,7 @@ status: active
 
 # ADR-0020: Locality-scoped URLs — place is the organizing principle
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-05-22
 **Deciders:** PM
 **Scope:** All public URLs on the platform — Members, places, Locations, Groups, Items.
