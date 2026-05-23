@@ -10,7 +10,7 @@ status: draft
 
 ## How to read this
 
-Each entry: a human need stated in plain voice ("I want to ..."), then its trace through the platform — which loop(s) it touches, which system(s) serve it, which capability(ies) surface it, which persona(s) come here with it. This doc is the bridge from *why we exist* (foundation) to *what we built* (systems and capabilities).
+Each entry: a human need stated in plain voice ("I want to ..."), then its trace through the platform — which loop(s) it touches, which system(s) serve it, which capability(ies) surface it, which role(s) come here with it. This doc is the bridge from *why we exist* (foundation) to *what we built* (systems and capabilities).
 
 Needs are ranked **by loop family in the order the Member's stake accumulates** — Gathering → Sharing → Trade → Pooling → Federation — because that is the order the platform's [`../foundation/principles.md`](../foundation/principles.md) Part 1 puts the loops in, and the sources do not yet support a finer ranking. **[PM: confirm]** whether to refine the ranking by importance / volume / business priority once data exists.
 
@@ -28,7 +28,7 @@ The need at the doorway. A Member arrives in the locality or in the platform wit
 - **Loop:** 1 (Find your people).
 - **Served by:** [`../systems/groups.md`](../systems/groups.md) (the six Group kinds at b1; Member-declared, never auto-assigned), [`../systems/member.md`](../systems/member.md) (the Member profile + follow substrate), [`../systems/discovery.md`](../systems/discovery.md) (the locality-first index).
 - **Capabilities:** [`../capabilities/group-create-join.md`](../capabilities/group-create-join.md), [`../capabilities/member-profile.md`](../capabilities/member-profile.md).
-- **Persona(s):** [The Affinity-Group Seeker](people.md#6-the-affinity-group-seeker), [The Newcomer / Wanderer](people.md#3-the-newcomer--wanderer), [The Everyday Neighbor](people.md#8-the-everyday-neighbor).
+- **Role(s):** [Member](people.md#1-member) — the affinity-seeker and newcomer types.
 - **Use case anchor:** [#7 Bumble BFF Refugees](use-cases.md#7-the-bumble-bff-refugees).
 
 ### 2. I want to float an idea
@@ -39,7 +39,7 @@ A Member has an idea they aren't ready to commit to hosting — a Sunday coffee 
 - **Loop:** 2 (Float an idea).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=wonder).
 - **Capabilities:** Item composer (kind picker) in [`../capabilities/item-view.md`](../capabilities/item-view.md); Wonder → Gathering conversion (b2 — schema reserved).
-- **Persona(s):** **[PM: confirm]** — the Idea-Floater persona is named in [`people.md`](people.md) as a TBD; this need is the load-bearing reason for that persona.
+- **Role(s):** [Member](people.md#1-member) — the idea-floater type.
 - **Use case anchor:** [#8 (TODO) Float an idea](use-cases.md#8-todo-float-an-idea--loop-2) — slot is reserved for a real instance.
 
 ### 3. I want to land somewhere new
@@ -50,7 +50,7 @@ A Member is new to the locality and wants to find the activity that's already ha
 - **Loop:** 3 (Land here).
 - **Served by:** [`../systems/discovery.md`](../systems/discovery.md) (the locality-first index, the `discoverable_items` materialized view, the `/explore` surface).
 - **Capabilities:** [`../ui/community-platform.md`](../ui/community-platform.md) (Home — locality feed; Explore — locality browse).
-- **Persona(s):** [The Newcomer / Wanderer](people.md#3-the-newcomer--wanderer), [The Everyday Neighbor](people.md#8-the-everyday-neighbor).
+- **Role(s):** [Member](people.md#1-member) — the newcomer type.
 - **Use case anchor:** [#5 Barn Movie Night](use-cases.md#5-barn-movie-night-at-drakes) (newcomer side), [#12 Concerts in the Park](use-cases.md#12-concerts-in-the-park) (Loop 3 entry).
 
 ### 4. I want to gather regularly
@@ -61,7 +61,7 @@ A Member wants to host a recurring gathering — a Run Club, a Movie Night, a bo
 - **Loop:** 4 (Gather regularly).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=gathering, recurring), [`../systems/location.md`](../systems/location.md) (permanent + recurring-temporary Locations).
 - **Capabilities:** [`../capabilities/event-host.md`](../capabilities/event-host.md), the gathering composer (b1).
-- **Persona(s):** [The Convener](people.md#2-the-convener-recurring-host), [The Everyday Neighbor](people.md#8-the-everyday-neighbor) (as audience).
+- **Role(s):** [Convener](people.md#3-convener) (host); [Member](people.md#1-member) — the event-goer type, as audience.
 - **Use case anchor:** [#1 Run Club at Drake's](use-cases.md#1-the-unofficial-run-club-at-drakes), [#5 Barn Movie Night](use-cases.md#5-barn-movie-night-at-drakes), [#12 Concerts in the Park](use-cases.md#12-concerts-in-the-park).
 
 ---
@@ -76,7 +76,7 @@ A Member has extra capacity — extra zucchini, a pressure washer collecting dus
 - **Loop:** 5 (Share what you have).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=offer).
 - **Capabilities:** The Offer surface in the Item composer ([`../capabilities/item-view.md`](../capabilities/item-view.md)); the response substrate per [`../systems/item.md`](../systems/item.md).
-- **Persona(s):** **[PM: confirm]** — the Mutual-Aid Member persona is named in [`people.md`](people.md) as a TBD; covers both Offer and Ask sides.
+- **Role(s):** [Member](people.md#1-member) — the giver type.
 - **Use case anchor:** [#9 (TODO) Share / Ask](use-cases.md#9-todo-share--ask--loops-5-and-6-paired) — slot reserved.
 
 ### 6. I want to ask for help
@@ -87,7 +87,7 @@ A Member needs something — a truck for an hour, a stand mixer for a weekend, h
 - **Loop:** 6 (Ask for help).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=ask).
 - **Capabilities:** The Ask surface in the Item composer; the response substrate per [`../systems/item.md`](../systems/item.md). The open design tension around how reciprocity and goodwill surface here lives in [`../exploration/reciprocity-and-goodwill.md`](../exploration/reciprocity-and-goodwill.md).
-- **Persona(s):** Same as #5 — the Mutual-Aid Member persona covers both sides. **[PM: confirm]** whether Offer-side and Ask-side warrant separate personas.
+- **Role(s):** [Member](people.md#1-member) — the help-seeker type.
 - **Use case anchor:** [#9 (TODO) Share / Ask](use-cases.md#9-todo-share--ask--loops-5-and-6-paired).
 
 ---
@@ -102,7 +102,7 @@ A Member is making something — bread, ceramics, wild-caught fish, dips, repair
 - **Loop:** 7 (Make and be found).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=product or kind=service), [`../systems/groups.md`](../systems/groups.md) (kind='business' Group for the sole-prop / cooperative / partnership cases), [`../systems/discovery.md`](../systems/discovery.md), [`../systems/business-jurisdiction.md`](../systems/business-jurisdiction.md) (locality verification).
 - **Capabilities:** Item composer for product/service kinds; the Seller section in [`../ui/community-platform.md`](../ui/community-platform.md); [`../systems/producer-tools.md`](../systems/producer-tools.md) (Bulletin + Growth).
-- **Persona(s):** [The Producer (irregular supply)](people.md#1-the-producer-irregular-supply).
+- **Role(s):** [Producer](people.md#2-producer).
 - **Use case anchor:** [#2 Ferrari Fisheries](use-cases.md#2-ferrari-fisheries), [#3 Quarterly Dip Vendor](use-cases.md#3-the-quarterly-dip-vendor), [#4 Food Truck Without a Calendar](use-cases.md#4-the-food-truck-without-a-calendar).
 
 ### 8. I want to follow what I love
@@ -113,7 +113,7 @@ A Member has chosen a Producer or a Convener and wants to be alerted when they h
 - **Loop:** 8 (Follow what you love).
 - **Served by:** [`../systems/member.md`](../systems/member.md) (the `member_follows` substrate at b1; the surface at b2), [`../systems/location.md`](../systems/location.md) (Location-follow surface, the Concerts-in-the-Park pattern), [`../systems/producer-tools.md`](../systems/producer-tools.md) (Bulletin delivery).
 - **Capabilities:** Follow surface in [`../capabilities/member-profile.md`](../capabilities/member-profile.md) and the Location page surface in [`../systems/location.md`](../systems/location.md).
-- **Persona(s):** [The Follower (loyalty-shaped)](people.md#7-the-follower-loyalty-shaped).
+- **Role(s):** [Member](people.md#1-member) — the follower type.
 - **Use case anchor:** [#2 Ferrari Fisheries](use-cases.md#2-ferrari-fisheries), [#3 Quarterly Dip Vendor](use-cases.md#3-the-quarterly-dip-vendor), [#4 Food Truck](use-cases.md#4-the-food-truck-without-a-calendar), [#12 Concerts in the Park](use-cases.md#12-concerts-in-the-park).
 
 ### 9. I want to find a local pro
@@ -124,7 +124,7 @@ A Member needs to hire someone — a plumber, a vet, a piano teacher, a hairdres
 - **Loop:** 9 (Find a local pro).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=service), [`../systems/member.md`](../systems/member.md) (treatment-review surfaces per the 2026-05-12 amendment).
 - **Capabilities:** Service-Item view; service-Item search via [`../ui/community-platform.md`](../ui/community-platform.md) Explore.
-- **Persona(s):** **[PM: confirm]** — the Trades-Pro Seeker persona is named in [`people.md`](people.md) as a TBD; this need is its load-bearing reason.
+- **Role(s):** [Member](people.md#1-member) — the service-seeker type. The pro being sought is a [Producer](people.md#2-producer) (trades-pro or professional-service type).
 - **Use case anchor:** [#10 (TODO) Find a local pro](use-cases.md#10-todo-find-a-local-pro--loop-9).
 
 ---
@@ -139,7 +139,7 @@ A Member wants to lead a community-scale undertaking — reopen a beloved closed
 - **Loop:** 10 (Start something).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=initiative; schema reserved at b1, full surface b3), the Initiative-pledge substrate.
 - **Capabilities:** **[PM: confirm]** — the Initiative composer ships at b3 (per [`../foundation/platform-promise.md`](../foundation/platform-promise.md)); the capability file does not yet exist as a separate doc.
-- **Persona(s):** [The Steward / Initiator](people.md#4-the-steward--initiator).
+- **Role(s):** [Member](people.md#1-member) — starting something is a Member act; the Member takes on the Producer or Convener role once the thing exists.
 - **Use case anchor:** [#6 Cafe Capricho's Successor](use-cases.md#6-cafe-caprichos-successor).
 
 ### 11. I want to pool resources
@@ -150,7 +150,7 @@ A Member is part of a group that wants to pool money, time, or commitments towar
 - **Loop:** 11 (Pool resources).
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=initiative + the pledge response substrate); [`../systems/payments.md`](../systems/payments.md) at the rail layer (Member→Group commerce, the ledger).
 - **Capabilities:** Pledge surface (b3); [`../systems/stewardships.md`](../systems/stewardships.md) (ship-theme S6.5 — the care-floor smallest-ownership-step).
-- **Persona(s):** [The Backer](people.md#5-the-backer), [The Steward / Initiator](people.md#4-the-steward--initiator).
+- **Role(s):** [Member](people.md#1-member) — the supporter / backer type.
 - **Use case anchor:** [#6 Cafe Capricho's Successor](use-cases.md#6-cafe-caprichos-successor); future #11 placeholder (stewardship case).
 
 ### 12. I want to steward what we built
@@ -161,7 +161,7 @@ A Member is part of a small group keeping something alive — a tool library, a 
 - **Loop:** 12 (Steward what we built).
 - **Served by:** [`../systems/stewardships.md`](../systems/stewardships.md) (the ship-theme S6.5 schema delta — `group_stewardships` table + seven curated templates), [`../systems/groups.md`](../systems/groups.md) (Groups with the steward role on affiliate kinds).
 - **Capabilities:** **[PM: confirm]** — capability docs for stewardship UI not yet authored; surface ships with ship-theme S6.5 per `stewardships.md`.
-- **Persona(s):** **[PM: confirm]** — the Community Steward persona named in [`people.md`](people.md) as a TBD; this need is its load-bearing reason.
+- **Role(s):** [Producer](people.md#2-producer) — the steward type (the unpaid Producer running a community resource).
 - **Use case anchor:** [#11 (TODO) Steward what we built](use-cases.md#11-todo-steward-what-we-built--loop-12).
 
 ---
@@ -176,7 +176,7 @@ A Member (or a Group, or a thriving community-owned enterprise) has accumulated 
 - **Loop:** 13 (Federation).
 - **Served by:** [`../systems/agent-assistance.md`](../systems/agent-assistance.md) (federation-portable Delegations, Assistant Context portability — both T3), [`../systems/action-layer.md`](../systems/action-layer.md) (the event log invariants that make portability possible), Member data export (per ADR-6 b1).
 - **Capabilities:** Data export at `/you/data` (b1 substrate, b2 surface). Federation handoff flows (b3).
-- **Persona(s):** Cross-cutting — every persona above benefits from federation portability. Most acutely felt by [The Steward / Initiator](people.md#4-the-steward--initiator) and [The Producer](people.md#1-the-producer-irregular-supply), whose accumulated stake is the highest.
+- **Role(s):** Cross-cutting — every role benefits from federation portability. Felt most acutely by [Producers](people.md#2-producer) and [Conveners](people.md#3-convener), whose accumulated stake is highest.
 - **Use case anchor:** **[PM: confirm]** — federation does not have a single canonical example (per `use-cases.md`); the use case is structural rather than situational. The canonical-examples doc explicitly notes Loop 13 "is architectural and does not anchor to a single example."
 
 ---
@@ -185,4 +185,3 @@ A Member (or a Group, or a thriving community-owned enterprise) has accumulated 
 
 - **Does not stack-rank needs by importance or volume.** The ranking above is by loop family in the published order. **[PM: confirm]** whether to refine — e.g., by b1 volume (Land here + Make and be found + Gather regularly are likely highest at MVP), by stake accumulation (Steward + Pool are highest later), by some PM judgment of urgency.
 - **Does not address Member-Operations needs separately** (Maker mode is retired per ADR-12 SUPERSEDED 2026-05-12). All "I want to operate commercially" needs route through the kind='business' Group walkthrough (per [`../systems/groups.md`](../systems/groups.md)); the surface is the same as #7 (Make and be found).
-- **Three of the thirteen needs name personas as `[PM: confirm]` TBD** — the Idea-Floater (Loop 2), the Trades-Pro Seeker (Loop 9), and the Community Steward (Loop 12). These match the persona TBDs in [`people.md`](people.md) and resolve together.
