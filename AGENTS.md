@@ -6,7 +6,7 @@ status: active
 
 # AGENTS.md — Development Pipeline
 
-> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. The 2026-05-09 pipeline audit that originally drove this definition is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md); its findings live in this file. The 2026-05-22 follow-up audit is at [`_attic/2026-05-23/pipeline-process-audit-2026-05-22.md`](_attic/2026-05-23/pipeline-process-audit-2026-05-22.md) — findings absorbed into the pipeline on 2026-05-23.
+> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. The 2026-05-09 pipeline audit that originally drove this definition is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md); its findings live in this file. The 2026-05-22 follow-up audit is at [`housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md`](housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md) — findings absorbed into the pipeline on 2026-05-23.
 
 Seven specialized roles handle the full development lifecycle. Each is implemented as a skill in [`skills/`](skills/) and routed by `pipeline-router`. Process lives in skills, not in nested CLAUDE.md files.
 

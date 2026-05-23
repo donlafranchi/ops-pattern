@@ -17,7 +17,7 @@ status: active
 - **App path:** `./web`
 - **Active bundle:** [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) (Primitives MVP).
 - **Active rebuild:** [`planning/rebuild-plan.md`](planning/rebuild-plan.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
-- **Pipeline audit history:** the 2026-05-09 audit was the load-bearing one; its findings live in this file and `AGENTS.md`. The original is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) for trace; the 2026-05-22 follow-up audit lives at [`_attic/2026-05-23/pipeline-process-audit-2026-05-22.md`](_attic/2026-05-23/pipeline-process-audit-2026-05-22.md) — its R1–R10 findings were absorbed into the pipeline on 2026-05-23 (STAGE-LEDGER, SPEC-PATCHES, JUDGMENT, OPEN-QUESTIONS, the router drift check, the substrate lane, the sibling-scenario check, and the DEVIATIONS rotation policy). Read either only when revisiting process history.
+- **Pipeline audit history:** the 2026-05-09 audit was the load-bearing one; its findings live in this file and `AGENTS.md`. The original is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) for trace; the 2026-05-22 follow-up audit lives at [`housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md`](housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md) — its R1–R10 findings were absorbed into the pipeline on 2026-05-23 (STAGE-LEDGER, SPEC-PATCHES, JUDGMENT, OPEN-QUESTIONS, the router drift check, the substrate lane, the sibling-scenario check, and the DEVIATIONS rotation policy). Read either only when revisiting process history.
 - **ADR home:** [`planning/adrs/`](planning/adrs/) — one file per ADR, indexed from [`planning/DECISIONS.md`](planning/DECISIONS.md). Format and lifecycle in [`planning/adrs/README.md`](planning/adrs/README.md). Use the `pipeline-adr` skill to write a new one.
 
 ## North Star — The Loops
@@ -70,6 +70,32 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 - Writing UI copy or composer CTAs → use the UI label as the noun and the UI verb as the action.
 - Naming a new entity → propose all four columns at once.
 
+### File and directory naming
+
+A separate set of rules from entity naming — these govern *where docs live* and *what they're called*. Anti-sprawl. Enforced by `doc-housekeeping` and the `pipeline-router` drift check.
+
+| Kind | Pattern | Example | Lives in |
+|---|---|---|---|
+| Active spec / system | `kebab-case.md`, no date | `groups.md` | `product/systems/`, `product/foundation/`, `product/ui/`, etc. |
+| ADR | `ADR-NNNN-{slug}.md` (4-digit, zero-padded) | `ADR-0019-clean-slate-rebuild.md` | `planning/adrs/` |
+| Scenario | `F###-{slug}.md` | `F018-brian-declares-run-club.md` | `planning/scenarios-backlog/` (draft) → `planning/scenarios/` (approved) |
+| Review | `F###-review.md` | `F018-review.md` | `planning/history/` |
+| Ticket | `T###-{slug}.md` (no zero-padding) | `T056-items-state-enum.md` | `development/tickets/` (open) → `development/tickets/done/` |
+| Bundle | `b{N}-{slug}.md` or `b{N}.{x}-{slug}.md` | `b1-primitives.md` | `planning/bundles/` |
+| Dated work product | `housekeeping/YYYY-MM-DD-{slug}/` | `housekeeping/2026-05-23-pipeline-coverage/` | `housekeeping/` |
+| Retired spec | `_attic/YYYY-MM-DD/{original-path}` | `_attic/2026-05-19/product-systems/community.md` | `_attic/` |
+| Untriaged | `_inbox/{name}.{ext}` | `_inbox/some-draft.md` | `_inbox/` |
+| Audit | `pipeline-process-audit-YYYY-MM-DD.md` (named at root during the audit; **moved to `housekeeping/YYYY-MM-DD-{slug}/` on absorption**) | `pipeline-process-audit-2026-05-22.md` → `housekeeping/2026-05-23-pipeline-coverage/` | (transient at root) |
+| Skill | `skills/{kebab-name}/SKILL.md` + `workflow.md` | `skills/doc-home-finder/` | `skills/` |
+
+### Anti-sprawl rules
+
+1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
+2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `doc-housekeeping` enforces.
+3. **One doc, one home.** If a new doc would overlap 70%+ with an existing one, fold it in rather than stand it up. `doc-home-finder` recommends.
+4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally.
+5. **Renames break cites.** Do not rename a live doc casually — `doc-housekeeping` proposes, PM ratifies, the same skill updates back-references.
+
 ---
 
 ## Agent routing — use which skill when
@@ -100,6 +126,9 @@ Pipeline-skills triggers (project-resident, in [`skills/`](skills/)). Match the 
 | "what's the Member view on this", "advocate for the Member", "what does the Member lose here" | `pipeline-member-advocate` | meta | CW |
 | "what's the platform view on this", "advocate for the platform", "what does the platform need here", "run the dialectic" | `pipeline-platform-advocate` | meta | CW |
 | "I want this to improve itself", "design a self-improvement loop", "Karpathy loop / meta-agent harness", "this should keep getting better on its own" | `loop-designer` | meta | CW |
+| "triage the inbox", "where should this doc go", "find a home for this", "drain `_inbox/`", "is this a new doc or does it fold into X", "name this properly" | `doc-home-finder` | meta | Both |
+| "doc housekeeping", "sweep the docs", "is anything rotting", "any docs need attention", "propagation check", "what changed and what needs to follow", "anything to archive" | `doc-housekeeping` | meta / quiet-only | Both |
+| "audit the skills", "are the skills up to date", "skills housekeeping", "did the skills miss the new audit", "do any skills reference dead files" | `skills-housekeeping` | meta / quiet-only | Both |
 
 Full per-skill firewalls and read/write permissions: [`AGENTS.md`](AGENTS.md).
 

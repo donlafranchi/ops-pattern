@@ -6,7 +6,7 @@ status: active
 
 # JUDGMENT — statute & precedent for one human
 
-> Source concepts: [`_attic/2026-05-23/human_judgment_document_architecture.html`](../_attic/2026-05-23/human_judgment_document_architecture.html) (the three layers + refinement loop) and [`_attic/2026-05-23/agent_response_techniques.html`](../_attic/2026-05-23/agent_response_techniques.html) (the four moves: triage upstream, constraint-first elicitation, standing defaults, compression contract). Archived once absorbed into this file.
+> Source concepts: [`housekeeping/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html`](../housekeeping/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html) (the three layers + refinement loop) and [`housekeeping/2026-05-23-pipeline-coverage/agent_response_techniques.html`](../housekeeping/2026-05-23-pipeline-coverage/agent_response_techniques.html) (the four moves: triage upstream, constraint-first elicitation, standing defaults, compression contract). Archived once absorbed into this file.
 >
 > **The problem this solves.** Solo founder. Every decision the agent surfaces is a 30-minute read. The pipeline already filters work downstream well; this file is the **escalation filter** — what should reach the founder, in what shape, and what shouldn't reach them at all.
 >
