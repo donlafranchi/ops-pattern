@@ -125,15 +125,13 @@ This principle is what makes the rest of the architecture make sense:
 - **No engagement-optimized feed.** People do not need an algorithm to want to find each other. The locality-first index is enough. Engagement optimization is what consumes humans for advertiser revenue; we are doing the opposite.
 - **Federation, not consolidation.** When deeper infrastructure is needed (banking, insurance, intelligence), it spawns into separate dedicated platforms (per Loop 13 in `member-journey.md`). The platform stays small enough to remain accountable to the people on it.
 
-### Communities, too, are people-first
+### Groups, too, are people-first
 
-The same principle holds at the relational layer. A Community is people deciding they are a group — never a polygon, never a postal code, never an algorithm grouping accounts that look similar to each other. Communities cannot be auto-assigned by geography. They cannot be owned by a corporate entity. They cannot be created and populated by the platform on behalf of users it suspects share an interest. They are started, joined, stewarded, and dissolved by Members, and by Members alone.
+The same principle holds at the relational layer. A Group is people deciding they are an intentional unit — never a polygon, never a postal code, never an algorithm grouping accounts that look similar to each other. Groups cannot be auto-assigned by geography. They cannot be owned by a corporate entity. They cannot be created and populated by the platform on behalf of users it suspects share an interest. They are started, joined, stewarded, and dissolved by Members, and by Members alone.
 
-A Community without Members ceases to exist. That asymmetry — Members can dissolve a Community; a Community cannot dissolve a Member — is the structural posture that extends people-first all the way down through the relational layer. Membership is a relationship Members enter into; it is never a status the platform imposes for living somewhere or following someone. Soft affiliations the platform infers (a follow, an RSVP) surface as suggestions; they never become memberships without an explicit choice.
+A Group without Members ceases to exist. That asymmetry — Members can dissolve a Group; a Group cannot dissolve a Member — is the structural posture that extends people-first all the way down through the relational layer. Membership is a relationship Members enter into; it is never a status the platform imposes for living somewhere or following someone. Soft affiliations the platform infers (a follow, an RSVP) surface as suggestions; they never become memberships without an explicit choice.
 
-The Drake's Run Club captures the principle in miniature: the Gathering works without a Community. The Community comes into being only if the regulars decide they want to be a "we." If they never do, the Gathering keeps running and nothing is missing. People-first means the platform earns Community membership by being worth choosing — never by inferring you must already belong.
-
-> **[PM: confirm]** This sub-section uses the legacy "Community" terminology that was superseded by "Group" per the 2026-05-10 Groups ratification. The substance applies equally to Groups; the wording should be reframed during a later sweep. Preserved verbatim here per the R05 "do not drop a single unique commitment" rule.
+The Drake's Run Club captures the principle in miniature: the Gathering works without a Group. The Group comes into being only if the regulars decide they want to be a "we." If they never do, the Gathering keeps running and nothing is missing. People-first means the platform earns Group membership by being worth choosing — never by inferring you must already belong.
 
 ### Closing this part
 

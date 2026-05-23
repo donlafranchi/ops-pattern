@@ -8,7 +8,7 @@
 | **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Produces a **commit summary** for the PM — does NOT run git itself (per CLAUDE.md Commit Rules). |
 | **Branch** | One per ticket: `t{nnn}`. Agent creates at session start (`git switch -c t{nnn}`); PM merges to `main` at close. |
 | **Templates** | none — ticket template lives in `pipeline-ticket/`; build implements, doesn't author specs |
-| **Does NOT read** | `planning/scenarios-backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/`, `product/surfaces/` |
+| **Does NOT read** | `planning/scenarios-backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
 | **Does NOT run** | `git add`, `git commit`, `git push`. Branch creation (`git switch -c`) is fine — that doesn't touch `.git/index`. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
 | **Hands to** | `pipeline-eval` (run mode) — verifies F### evals pass against the scenario |
@@ -58,7 +58,7 @@
 
 - The project's design language doc (if it has one) — for any UI work.
 - The relevant `product/systems/{name}.md` — for any schema change. Read its "Data model implications" section and include forward-looking columns at MVP.
-- The project's surface file (e.g. `product/surfaces/{name}.md`) — for page roles and capability tiers.
+- The project's surface file (e.g. `product/ui/community-platform.md`) — for page roles and capability tiers.
 
 ## When the deliverable is not code
 

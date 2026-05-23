@@ -464,7 +464,7 @@ Aggregate intelligence that helps communities without compromising individuals:
 - Build the safety floor (fraud detection, legal compliance, identity) so communities don't have to, but keep the ceiling open — don't cap what communities can do.
 - Make platform governance itself transparent. If you're asking communities to be transparent, the platform must lead by example.
 
-> **In the platform.** [`platform-promise.md`](platform-promise.md) is the public-voice version of this section: the fee philosophy, "your relationships with your customers belong to you," "you will never pay for visibility," "your growth is the metric." [`policy.md`](policy.md) encodes the three-filter test that every revenue line and data-sharing surface must survive. [`principles.md`](principles.md) Categorical Failures rules out the illegitimate roles structurally (no ad injection, no data-as-product, no gatekeeping ratings, no founder-as-CEO patterns, no centralized override).
+> **In the platform.** [`platform-promise.md`](platform-promise.md) is the public-voice version of this section: the fee philosophy, "your relationships with your customers belong to you," "you will never pay for visibility," "your growth is the metric." [`policy.md`](policy.md) encodes the three-filter test that every revenue line and data-sharing surface must survive. [`principles.md`](principles.md) Categorical Failures rules out the illegitimate roles structurally (no engagement-shaped ad injection, no data-as-product, no gatekeeping ratings, no founder-as-CEO patterns, no centralized override).
 
 ---
 

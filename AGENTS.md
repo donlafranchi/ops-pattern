@@ -59,7 +59,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 **Writes:**
 - `product/capabilities/`
 - `product/systems/` (with mandatory "Data model implications" section)
-- `product/surfaces/`
+- `product/ui/` (consumer-facing surface descriptions)
 - `product/exploration/`
 - `product/templates/`
 - `product/needs/use-cases.md` (extends with new real situations)

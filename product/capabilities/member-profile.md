@@ -39,7 +39,7 @@ The Member page is one of the four shareable entity surfaces (Item / Member / Lo
 
 **Anti-spam.** Same layered defense as Item pages: no-admin-queue, Member rate limits, content-policy review.
 
-**Deferred:** Custom OG image upload (T2); embed widgets (T3); per-Member short-link aliases (T3).
+**Deferred (shareable URL):** Custom OG image upload (T2); embed widgets (T3); per-Member short-link aliases (T3).
 
 ## Deferred
 

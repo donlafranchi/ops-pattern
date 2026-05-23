@@ -14,6 +14,8 @@ Each entry: a human need stated in plain voice ("I want to ..."), then its trace
 
 Needs are ranked **by loop family in the order the Member's stake accumulates** — Gathering → Sharing → Trade → Pooling → Federation — because that is the order the platform's [`../foundation/principles.md`](../foundation/principles.md) Part 1 puts the loops in, and the sources do not yet support a finer ranking. **[PM: confirm]** whether to refine the ranking by importance / volume / business priority once data exists.
 
+**What this platform doesn't serve.** Some needs are deliberately refused — the engagement-feed scroll, the rank-and-rate browse, the Location-locked complaint surface. Those refusals live in [`../foundation/principles.md`](../foundation/principles.md) Part 4 and [`../foundation/policy.md`](../foundation/policy.md) — not duplicated here.
+
 ---
 
 ## Family 1 — Gathering (civic on-ramp)
@@ -182,6 +184,5 @@ A Member (or a Group, or a thriving community-owned enterprise) has accumulated 
 ## What this draft does not yet do
 
 - **Does not stack-rank needs by importance or volume.** The ranking above is by loop family in the published order. **[PM: confirm]** whether to refine — e.g., by b1 volume (Land here + Make and be found + Gather regularly are likely highest at MVP), by stake accumulation (Steward + Pool are highest later), by some PM judgment of urgency.
-- **Does not include anti-needs.** There are needs the platform deliberately does *not* serve — the engagement-feed scroll, the rank-and-rate browse, the location-locked complaint surface (per the anti-Nextdoor commitment in [`../foundation/policy.md`](../foundation/policy.md)). Whether to enumerate those here is a PM call.
 - **Does not address Member-Operations needs separately** (Maker mode is retired per ADR-12 SUPERSEDED 2026-05-12). All "I want to operate commercially" needs route through the kind='business' Group walkthrough (per [`../systems/groups.md`](../systems/groups.md)); the surface is the same as #7 (Make and be found).
 - **Three of the thirteen needs name personas as `[PM: confirm]` TBD** — the Idea-Floater (Loop 2), the Trades-Pro Seeker (Loop 9), and the Community Steward (Loop 12). These match the persona TBDs in [`people.md`](people.md) and resolve together.

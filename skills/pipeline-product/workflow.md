@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | `product/foundation/*` (loops, primitives, people-first, canonical-examples), `product/exploration/`, `product/specs/`, root `CLAUDE.md` |
-| **Writes** | `product/capabilities/`, `product/systems/`, `product/surfaces/`, `product/exploration/`, `product/templates/`, extends `product/needs/use-cases.md` |
+| **Writes** | `product/capabilities/`, `product/systems/`, `product/ui/`, `product/exploration/`, `product/templates/`, extends `product/needs/use-cases.md` |
 | **Templates** | `templates/system.md`, `templates/capability.md`, `templates/product.md` |
 | **Does NOT read** | `planning/`, `development/`, `web/` |
 | **Hands to** | `pipeline-plan` (for system → scenarios) |
@@ -18,16 +18,15 @@
 | `product/exploration/` | Raw ideas, narrative scenarios, freeform incubation. |
 | `product/capabilities/` | Atomic user-facing capabilities. One per file. |
 | `product/systems/` | Tiered technical system specs (T1/T2/T3). |
-| `product/surfaces/` | Consumer-facing surface descriptions. One per major surface (e.g., `community-platform.md` covers Home / Explore / You). Renamed from `product/products/` on 2026-05-11. |
 | `product/templates/` | Workflow/intake templates (e.g., `idea-intake.md`) used by upstream chats. |
 | `product/specs/` | Full platform specs (vision, not MVP-bound). |
-| `product/ui/` | UI inventory, design language, visual patterns. |
+| `product/ui/` | UI inventory, design language, visual patterns, and consumer-facing surface descriptions (e.g., `community-platform.md` covers Home / Explore / You). |
 
 ## Workflow
 
 1. Raw ideas → `product/exploration/` as freeform writing.
 2. Mature ideas become **capabilities** (user-facing) or **systems** (technical).
-3. When a surface is added or its role changes, update the relevant `product/surfaces/{slug}.md` so the architecture index stays current.
+3. When a surface is added or its role changes, update the relevant `product/ui/{slug}.md` so the architecture index stays current.
 
 ## Required: Data model implications
 

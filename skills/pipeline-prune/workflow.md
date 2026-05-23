@@ -83,7 +83,7 @@ Archive header format (the very top of each monthly archive file):
 
 > Archived from the active [`../../JOURNAL.md`](../../JOURNAL.md) on YYYY-MM-DD. The active JOURNAL keeps only the current top entry and a pinned "Next session pickup." Older entries live here for trace.
 
-For pre-mission-clarity entries, see [`JOURNAL-pre-mission-clarity-2026-05-08.md`](JOURNAL-pre-mission-clarity-2026-05-08.md).
+For pre-mission-clarity entries, see [`JOURNAL-pre-mission-clarity-2026-05-08.md`](../2026-05-19/planning/JOURNAL-pre-mission-clarity-2026-05-08.md).
 
 ---
 ```

@@ -8,7 +8,7 @@ status: historical
 
 > Second audit of the agent pipeline, ~2 weeks after [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) (2026-05-09). That audit asked "is the pipeline well-designed?" This one asks three different questions: **did the first audit's fixes hold, where are the handoffs not airtight, and how would we track a concept moving through the pipeline?**
 >
-> Standalone deliverable — not yet filed into the pipeline doc tree. Decide placement after reading (candidate homes noted at the end).
+> A dated audit file kept at repo root, referenced from `CLAUDE.md`. Future pipeline audits follow the same `pipeline-process-audit-YYYY-MM-DD.md` convention at root — see Placement at the end.
 
 ---
 
@@ -224,8 +224,6 @@ Not a critique of the pipeline's *design* — seven roles with real firewalls is
 
 Every concrete claim was checked against the filesystem on 2026-05-22: the empty `scenarios/`; `b1-mvp.md` absent; `{pending}` in T055–T057; retired skill directories present; the worktree's 15-vs-17 skill count; `DEVIATIONS.md` at 605 lines / 49 entries; the on-disk `CLAUDE.md` correctly using `pipeline-ratify-absolute`; F13's *why*-annotation present in the ticket/build/eval workflows; `web/evals/features/` holding 10 scrapped-scenario specs. The one briefing-vs-disk discrepancy (CLAUDE.md absolutes skills) was run down and is *not* a finding — see Method.
 
-## Candidate homes for this document
+## Placement
 
-- Append as a dated section to `_attic/2026-05-19/planning/PIPELINE-AUDIT.md` (keeps audit history together).
-- New file `planning/audits/2026-05-22-pipeline-process-audit.md` (versioned audit series).
-- Leave at repo root as-is and action R1–R4 directly into the skills.
+Resolved: this audit lives at repo root as `pipeline-process-audit-2026-05-22.md` and is referenced from `CLAUDE.md`. Future pipeline audits follow the same convention — one dated file per audit at repo root (`pipeline-process-audit-YYYY-MM-DD.md`) — rather than appending to a single growing file. The 2026-05-09 audit is archived at `_attic/2026-05-19/planning/PIPELINE-AUDIT.md`; audit history is read by walking the dated files in order, not from one consolidated doc.

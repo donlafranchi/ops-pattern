@@ -41,7 +41,7 @@ The Item page is one of the four shareable entity surfaces (Item / Member / Loca
 
 **Anti-spam.** Stable shareable URLs are a vector for SEO-style listing creation; the [no-admin-queue principle](../systems/location.md) (Members enter their own data) + Member rate limits (per [`../systems/member.md`](../systems/member.md)) + content-policy review (per [`../foundation/policy.md`](../foundation/policy.md)) are the layered defenses.
 
-**Deferred:** Custom OG image upload per entity (T2 — depends on photo upload); embed widgets for external sites (T3); per-entity short-link aliases (T3).
+**Deferred (shareable URL):** Custom OG image upload per entity (T2 — depends on photo upload); embed widgets for external sites (T3); per-entity short-link aliases (T3).
 
 ## Deferred
 

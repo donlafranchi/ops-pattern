@@ -14,6 +14,8 @@ One section per persona. A real kind of person, not a market segment. Each perso
 
 Names are illustrative. Where a use case in `use-cases.md` already names a real person, this doc uses that name; otherwise the persona is a composite drawn from the use cases.
 
+**Who this is *not* for.** The platform deliberately doesn't serve the corporate-shell franchise, the rollup-acquirer, or the engagement-optimizer. Those refusals live in [`../foundation/principles.md`](../foundation/principles.md) Part 2 — not duplicated here.
+
 ---
 
 ## 1. The Producer (irregular supply)
@@ -110,5 +112,4 @@ The use cases include four `[TODO]` slots in `use-cases.md` (#8 Float an idea, #
 ## What this draft does not yet do
 
 - **Does not stack-rank the personas.** Different personas matter most at different bundle phases — Producers and Conveners drive b1 supply; Newcomers and Everyday Neighbors drive b1 demand; Initiators and Backers come into focus at b3. PM to decide whether to rank globally or per-bundle.
-- **Does not name explicit anti-personas.** The platform deliberately doesn't serve some shapes — the corporate-shell franchise, the rollup-acquirer, the engagement-optimizer. Those refusals live in [`../foundation/principles.md`](../foundation/principles.md) Part 2 (the People-First Principle); whether they need a "who this is *not* for" section here is a PM call.
 - **Does not define personas at the Group level.** Groups are sets of People; they don't have their own personas. But the Group surfaces (kind='business' Group steward, kind='interest' Group founder, kind='event_anchored' Group convener) may warrant their own framing if the spec layer goes that direction. **[PM: confirm]** whether Group-role personas belong here or in [`../systems/groups.md`](../systems/groups.md).
