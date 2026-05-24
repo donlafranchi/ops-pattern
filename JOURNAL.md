@@ -14,6 +14,122 @@ status: active
 
 ---
 
+## 2026-05-23 — Pipeline-plan: F026–F029 drafted; b1-work-map resynced for ADR-21
+
+`pipeline-plan` ran on the four b1 candidates ADR-21 unblocked. All four scenarios in `planning/scenarios-backlog/` pending PM approval. The fifth candidate (`member_saved_searches` substrate at b1) lands as a **substrate ticket** per `CLAUDE.md` rule 14 — no F-number; binds to ADR-21 + `member.md` Saved searches section.
+
+**b1-work-map.md resync** (preliminary, in lockstep with this skill rather than escalating to `pipeline-bundle-resync`):
+- **b1.0** — added 🟢 "Place-interest scope" and 🟢 "Community-awareness feed (per ADR-21)" alongside the existing locality default.
+- **b1.2** — retired "Become a Maker" / "Maker mode toggle" lines (already retired by ADR-12 supersession 2026-05-12; the work map had not been updated). Clarified that the existing "Claimed local owner" badge line reads `member_business_jurisdictions` per `business-jurisdiction.md`.
+- **b1.4** — added 🟢 "Locally Made claim (Tier 0)" and 🟢 "`member_saved_searches` substrate (no surface)"; retired "Follow a Location" as a standalone item (per ADR-21, it's a saved-search shape now; surface at b2).
+
+**Scenarios drafted (all in `scenarios-backlog/`, stamped in STAGE-LEDGER.md):**
+
+- **[F026 — Maya claims Locally Owned](planning/scenarios-backlog/F026-maya-claims-locally-owned.md)** (b1.2). Sell walkthrough adds Tier 0 self-attested ZIP step → "Claimed local owner" badge surfaces on Group page when proximity test passes. Includes the "ZIP outside metro" honest-preview path and the "Skip for now" graceful-no-claim path.
+- **[F027 — Maya claims Locally Made](planning/scenarios-backlog/F027-maya-claims-locally-made.md)** (b1.4). Product composer adds optional `made_at_place_id` step → "Claimed locally made" badge surfaces on Item page conditional on viewer's place-interest proximity. Asserts the sibling-badges-with-different-proximity-context behavior from `use-cases.md` #13.
+- **[F028 — Sam lands in awareness feed](planning/scenarios-backlog/F028-sam-lands-in-awareness-feed.md)** (b1.0). Newcomer's onboarding seeds `primary_home` → feed has content on first land. Asserts the city-default traversal, the MSA-depth opt-in, the secondary-Place expansion, and the anonymous-visitor IP fallback.
+- **[F029 — Maya manages place-interest scope](planning/scenarios-backlog/F029-maya-manages-place-interest-scope.md)** (b1.0). `/you/locality` surface — add/remove secondaries (≤5 cap action-layer-enforced), promote/demote via atomic swap (unique-primary-home invariant), change granularity. Companion to F028; together they deliver the b1.0 place-interest commitment.
+
+**Gate A** (pipeline-plan workflow step 9 — ratified-Intent precondition): all four scenarios cite spec sections that carry Ratified or substantive `Intent` lines as of the 2026-05-23 intent-check CLEAN re-run. Gate A passes; PM can move from `scenarios-backlog/` to `scenarios/` when ready.
+
+**Substrate-ticket lane (per CLAUDE.md rule 14):** `member_saved_searches` ships at b1 as a substrate ticket. No F-number; the ticket binds to ADR-21 + `member.md` Saved searches section. The ticket creates the table + indexes + RLS + action handlers (`member.saved_search.create` / `.update` / `.remove`) + event log entries. No UI ships at b1; the b2 surface (saved-search composer + fan-out worker + "Follow this venue" affordance) reads this substrate. Also queued in the same lane: `make_at_*` column additions to `009_items.sql` and the enum rename (`sos_lookup` → `community_attested`) on `member_business_jurisdictions`. STAGE-LEDGER row added under Substrate: "Phase 1+ — Member↔Geography substrate (ADR-21)."
+
+**5 Deadly Sins filter applied:**
+- *Scope creep* — F026/F027 don't include Tier 1 community-attestation (correctly b2+). F028 doesn't include the b1.4 "discover" page surface (separate scenario). F029 doesn't include cross-Place navigation filters (deferred).
+- *Gold plating* — no Place-interest aggregate insights, no scope-sharing between Members, no bulk import.
+- *Missing requirements* — all four scenarios anchor to use-cases.md (#12 or #13), name the surface, name the primitive shape, and have testable Given/When/Then beats with `Why:` annotations on non-obvious clauses.
+- *Unrealistic schedules* — each scenario produces an estimated 2–5 tickets (well within the workflow's "split if 5+" rule). F029 has the most beats but each beat is small.
+- *Poor communication* — every Then-clause carries either obvious-mechanics or a `Why:` annotation pointing to the foundation/system doc that justifies it.
+
+**Pipeline state:** Ready for PM approval. After PM moves files to `scenarios/`, `pipeline-review` runs (mandatory during rebuild phase per CLAUDE.md rule 1), then `pipeline-ticket` and `pipeline-eval` (write mode) in parallel, then `pipeline-build`.
+
+**Next session pickup:**
+1. PM reviews F026–F029; approves (move to `scenarios/`) or annotates for revision.
+2. `pipeline-review` on each approved scenario (architecture / design pre-flight; mandatory in rebuild phase).
+3. `pipeline-ticket` breaks each into 2–5 tickets; substrate-lane tickets for the schema work land in parallel.
+4. `pipeline-eval` write mode writes Playwright specs from each scenario.
+5. `pipeline-build` implements; `pipeline-eval` run mode verifies.
+
+---
+
+## 2026-05-23 — All intent-check flags ratified; verification ladder reshape; ADR-16 fully superseded
+
+Closing pass on the [`intent-ADR-21-and-spec-patches-2026-05-23.md`](planning/history/intent-ADR-21-and-spec-patches-2026-05-23.md) review. All 8 flags resolved; verification ladder reshaped per PM direction; ADR-16 fully (not partially) superseded by ADR-21.
+
+**Flags resolved (Intent landed):**
+
+- **Flag 1 — `member.md` ≤5 secondary place-interests.** Soft commitment — 5 is a starting point; revisit as Members hit the cap. Action-layer-enforced, tuneable without migration.
+- **Flag 2 — `member.md` saved-search label + `discovery.md` search vision.** Labeled-saved-search is a *starting point*. Larger vision per PM: rich, LLM-enhanced search as "probably the platform's most helpful tool" — search patterns feed consumer-wants intelligence, seed Member-authored Wonders + new Groups + business proposals. New "Search as the load-bearing surface" section added to `discovery.md` covering the b1 → T3 progression.
+- **Flag 3 — `discovery.md` city-depth traversal default.** Intent landed as proposed (city = legible-locality default; MSA = opt-in).
+- **Flag 4 — `business-jurisdiction.md` Tier 0 b1 floor.** Intent landed against the *new* ladder shape (community-attestation Tier 1, not SOS). The b2+ deferral is about interaction-graph density, not integration cost.
+- **Flag 5 — `member.md` unique primary_home (reframed).** PM observation: the constraint isn't about scope SIZE (a Place can be a neighborhood, city, or MSA), it's about the AWARENESS DEFAULT ANCHOR. Members pick their own granularity; the single primary_home enforces *one default*. Intent reframed accordingly.
+- **Flag 6 — `item.md` made_at default `'none'`.** Intent landed against the new ladder; explicit `community_attested` Tier 1.
+- **Flags 7+8 — full supersession of ADR-16.** Per PM direction: no "partial" disambiguation; ADR-16 is superseded by ADR-21 outright. The owner-only-RLS posture for private Member geography substrates belongs to ADR-21 now. Updates landed across `DECISIONS.md`, ADR-0016 (status: superseded), ADR-0021 (Supersedes: in full), `member.md`, `business-jurisdiction.md`, `groups.md`, `places.md`, `policy.md`, `ADR-0006-agent-assistance.md`, and `rebuild-plan.md`. ADR-16 file is now historical-record only.
+
+**Verification-ladder reshape (PM ratification 2026-05-23) — major architecture change.** Both "Locally Owned" (jurisdiction) and "Locally Made" (provenance) share the same three-tier ladder:
+
+- **Tier 0** — self-attested. Seller declares own jurisdiction / provenance. (b1)
+- **Tier 1** — **community-attested.** Buyers and community Members attest to the seller's claim via friction-light prompts after qualifying interactions ("Does this Group operate locally?" — confirm / dissent). "Peer pressure for the greater good." Substrate (`member_business_jurisdiction_attestations`, `item_made_at_attestations`) + threshold worker + buyer-side surface ship at b2+ when the interaction graph reaches density.
+- **Tier 2** — document-supported. Strongest evidence path. (b2+/b3)
+
+The original Tier 1 framing for jurisdiction (SOS API lookup) is **retired** — community-attestation carries ground-truth that public records can't. The substrate is platform-internal (no third-party integration), structurally aligned with the two-signal framing PM ratified earlier today on E2.
+
+Files updated for the ladder reshape: `business-jurisdiction.md` T2 (full rewrite SOS → community-attestation; new Intent block), enum values (`sos_lookup` → `community_attested`), action handlers (`verify_via_sos` → `attest_community`), event log, Policy posture three-filter analysis, Open Questions; `item.md` Provenance section (enum extended with `community_attested`; new action handler `item.attest_made_at_community`; new event); ADR-0021 Consequences (ladder reshape memorialized); `rebuild-plan.md` b1 commitments (item #8 added); `use-cases.md` #13 Maya table (updated to new tier labels).
+
+**Pipeline state:** ESCALATE / PROPOSE cleared. Intent-check re-run pending (next session) to confirm CLEAN verdict. Once CLEAN, `pipeline-plan` can scenarioize.
+
+**Next session pickup:**
+1. Re-run `pipeline-intent-check` on ADR-21 + the seven (now eight: + `policy.md`) patched specs for CLEAN verdict.
+2. If CLEAN, hand off to `pipeline-plan` for F-numbers. Likely first scenarios:
+   - **Locally Owned + Locally Made badges (Tier 0 self-attested)** — substrate already specced; surface ratification needed.
+   - **Community-awareness feed** — b1 surface over `member_place_interests` × `member_interests` + Place-hierarchy traversal.
+   - **Saved-search composer + fan-out (b2)** — substrate ships at b1; surface at b2.
+   - **Community-attestation surface + threshold worker (b2)** — Tier 1 promotion for both badges.
+
+---
+
+## 2026-05-23 — Category-2 absolutes from ADR-21 ratified via `pipeline-ratify-absolute` (soft-framing posture applied)
+
+**3 statements walked, 3 revised + ratified with State-tagged Intent.** Output of `pipeline-intent-check` review [`planning/history/intent-ADR-21-and-spec-patches-2026-05-23.md`](planning/history/intent-ADR-21-and-spec-patches-2026-05-23.md). PM directed soft-framing posture across all three — no categorical refusals; commitments are "we don't do X by default, unless a defined benefit emerges, with safety measures landing alongside if X ever does."
+
+- **E1 — `product/systems/member.md` (no stored addresses + three-substrate split).** Revised wording from "Members do not have stored addresses" to a soft commitment that the platform doesn't store street addresses at b1, revisits only on defined Member benefit, and pre-commits to safety mechanisms (per-Member opt-in, granular precision, anti-bulk-exfiltration) if addresses ever land. Intent (Ratified 2026-05-23 — soft commitment) lands as a block-quote on the *Not a Location* paragraph.
+- **E2 — `product/systems/business-jurisdiction.md` + `product/systems/groups.md` (only signal → first signal + community corroboration).** Major reframe: the jurisdiction substrate is the **first signal** at b1, not the *only* signal. A **second signal** — community-member corroboration via interaction reconnaissance — comes online at b2+ when the interaction graph reaches enough density. "Peer pressure for the greater good": badge tier reflects both signals when both are present. Updated text in `business-jurisdiction.md` *What this system is* + Comments + Decisions encoded; propagated to `groups.md` Locality-and-promotion rule + pseudocode comment.
+- **E3 — `product/systems/discovery.md` (no stored follow-edge for awareness feed).** Soft commitment: computation-not-storage is the b1 shape; the platform revisits only if cost / quality argues for materialization, and any stored follow-edge would land as a *performance cache* under the existing query — never as a competing product surface or follow-graph optimized for engagement. Intent block-quote landed in the *Community-awareness feed* section.
+
+**Posture:** "No more absolutes" (PM directive 2026-05-23) — consistent with the standing soft-framing-over-absolutes preference. All three statements are now soft commitments with explicit test-for-future-proposals criteria, not categorical refusals.
+
+**Pipeline state:** ESCALATE verdict cleared. The 5 Category-1/5/6 PROPOSE flags from the intent-check review still pending (numeric caps, label range, traversal depth, Tier 0 floor, default-`'none'`) — landable in-line by the PM without dialectic. The 2 Category-7 cross-doc flags (ADR-16 partially-superseded references in member.md and business-jurisdiction.md) likewise pending. Once those land, re-run `pipeline-intent-check` for a CLEAN verdict; then `pipeline-plan` can scenarioize.
+
+**Next session pickup:** Land the 5 PROPOSE + 2 Category-7 Intent lines from the intent-check review. Re-run intent-check. Then pipeline-plan on F-numbers for the awareness feed, saved-search composer, and Locally Made badge UI.
+
+---
+
+## 2026-05-23 — ADR-21 accepted; member↔geography substrate split; six-kind affinity enum retired
+
+**`member_location_affinities` dissolves. Three purpose-owned substrates land in its place.** Routed from `pending-ratifications.md` §7c #19 (the SOFTEN-redesign verdict earlier in the day), explored end-to-end via `pipeline-product`, ratified as ADR-0021.
+
+- **Exploration written** — [`product/exploration/member-geography-redesign.md`](product/exploration/member-geography-redesign.md). Names the diagnosis (the six-kind enum fused three threads with different units, lifecycles, RLS postures), proposes the three-substrate split, resolves the five PM-routed questions, lists the seven spec-patch shapes.
+- **ADR-0021 accepted** — [`planning/adrs/ADR-0021-member-geography-substrate-split.md`](planning/adrs/ADR-0021-member-geography-substrate-split.md). Decision, options A–D, trade-offs, consequences, 8 action items. Partially supersedes ADR-16 (privacy posture survives; table-specific text retires).
+- **DECISIONS.md** — ADR-21 pointer row added; ADR-16 row updated to "Partially superseded by ADR-21."
+- **`pending-ratifications.md` §7c** — item #19 (affinity-kind enum) → **RATIFIED — RETIRED**; item #22 (ADR-16) → **PARTIALLY SUPERSEDED by ADR-21**.
+- **Spec patches landed** across seven docs (member, location, places, business-jurisdiction, groups, discovery, item):
+  - `member.md` — *Multi-Location belonging* section retired; replaced with *Place-interest scope* (`member_place_interests` table — one `primary_home` + up to 5 `secondary` Places) and *Saved searches* (`member_saved_searches` — generalized labeled-filter shape; absorbs "follow this venue"). Old `member_location_affinities` DDL removed. RLS sketch + action handlers + event log + integration points + decisions-encoded all updated.
+  - `location.md` — *Person↔Location relationship* rewritten (Items + Groups + saved-searches; no per-Location affinity row). *Member-following-Location* section rewritten as a saved-search affordance. Location-page follower rollups dropped.
+  - `places.md` — `member_place_interests` integration note added; private per ADR-16-carried-forward posture.
+  - `business-jurisdiction.md` — locality derivation rewrite (this spec is now the *only* substrate); "Locally Made" companion-claim cross-reference added; affinity-table notes retired.
+  - `groups.md` — *Locality and promotion* pseudocode rewritten to read `member_business_jurisdictions` via `zip_is_proximal_to_location()` exclusively; `member_is_local_to_location()` references retired; the Location-vs-Group Nextdoor-pattern Intent rewritten in saved-search terms.
+  - `discovery.md` — *Community-awareness feed* section added to T1 (reads `member_place_interests` × `member_interests` × `places.parent_id` traversal); candidate generation reordered.
+  - `item.md` — new *Provenance claims — "Locally Made"* section: `made_at_place_id`, `made_at_verification_source` enum, action handlers, event log. Substrate at b1; surface deferred pending verification-ladder design.
+- **Locally Made vs Locally Owned now sibling badges by design.** Jurisdiction answers "does the money go to a local owner?"; provenance answers "is the product made here?" Same evidence-ladder shape, different signal.
+
+**Migration impact (clean-slate; no live data).** The migration ticket sequence in `planning/rebuild-plan.md` needs updating: don't create `member_location_affinities`; do create `member_place_interests` + `member_saved_searches` + the two new columns on `items`. Drop the three RLS-helper migration steps tied to ADR-16's named functions. **Pending — not yet done as part of this ratification.**
+
+**Pipeline-intent-check pending.** ADR-21 + the seven patched specs introduced new absolute statements ("the Member never declares `lives`/`works` for any platform purpose," "no stored follow row drives the awareness feed," etc.) that need State-tagged `Intent:` lines. Schedule the check.
+
+**Next session pickup.** Update `planning/rebuild-plan.md` ticket sequence; extend `product/needs/use-cases.md` with the "Locally Made" canonical anchor; run `pipeline-intent-check` on ADR-21 + patched specs; then `pipeline-plan` can scenarioize.
+
+---
+
 ## 2026-05-23 — ADR-20 accepted; Places primitive finalized; location.md reconciled
 
 **Places is now the platform's locality organizing principle.** Surfaced mid-walkthrough of `pending-ratifications.md` (item #17, city picker source) and ratified by PM direction.

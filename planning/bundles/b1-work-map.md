@@ -41,13 +41,15 @@ Not a sub-bundle of its own. One decision that locks in URLs across everything t
 - 🟢 Auth flow (sign up + log in) — needs your decision on magic link / social / email-password
 - 🟢 Profile editor (name, photo, bio, locality)
 - 🟢 Public profile page at `/m/[handle]`
-- 🟢 Set your home location (geolocate OR pick a city from a list)
+- 🟢 Set your home location (geolocate OR pick a city from a list) — derives the Member's `primary_home` Place per ADR-21
+- 🟢 **Place-interest scope** (per ADR-21) — Member can pick any granularity (neighborhood / city / MSA) as `primary_home`; can add up to 5 `secondary` Places for cross-Place interests (work city, hometown, vacation spot)
+- 🟢 **Community-awareness feed** (per ADR-21) — computed at query time from `member_place_interests` × `member_interests` + traversal up `places.parent_id` to city by default; MSA-depth opt-in is a setting
 - 🟢 Privacy controls panel — the b1 toggles for what's visible
-- 🟢 City-scope browse (people and things visible to anyone, no login required)
+- 🟢 City-scope browse (people and things visible to anyone, no login required) — same query path as the awareness feed, with a default anonymous-visitor scope
 - 🟡 Account deletion and full-history export
 - ⚪ Profile completeness nudges ("add a photo to finish setting up")
 
-**MVP cut:** the six 🟢 items. Skip the deletion/export at first launch only if you ship it within four weeks after; the people-first commitment requires it eventually. Skip the nudges entirely until you have data on what gets people stuck.
+**MVP cut:** the eight 🟢 items. Place-interest + the awareness feed are load-bearing for ADR-21's community-awareness commitment; they replace the prior six-kind affinity table's "follow a Location" pattern with a substrate-light, computed feed. Skip the deletion/export at first launch only if you ship it within four weeks after; the people-first commitment requires it eventually. Skip the nudges entirely until you have data on what gets people stuck.
 
 **Open decision:** auth method. Magic link is simplest and most respectful of password fatigue; social login (Google, Apple) is fastest for the user but introduces a dependency. Email+password is conventional and works without external dependencies.
 
@@ -77,15 +79,13 @@ Not a sub-bundle of its own. One decision that locks in URLs across everything t
 **What the user sees.** A maker / sole proprietor / small business owner can declare themselves on the platform, claim their ZIP for the "locally owned" badge, and have a business page — even before they post a single product.
 
 **The work:**
-- 🟢 Create-a-business-Group flow — extends b1.1 with: founder identity, owner role, anchor location, ZIP for Tier 0 self-attestation
-- 🟢 The "Claimed local owner" badge (Tier 0) on the business page
-- 🟢 "Become a Maker" CTA on the regular profile
-- 🟢 Maker mode toggle in profile settings (lets the user pause maker surfaces without leaving the Group)
+- 🟢 Create-a-business-Group flow — extends b1.1 with: founder identity, owner role, anchor location, **self-attested ZIP for Tier 0 jurisdiction** per `business-jurisdiction.md` (Tier 1 community-attestation ships at b2+ per ADR-21)
+- 🟢 The "Claimed local owner" badge (Tier 0) on the business page — reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` against the Group's anchor Location
 - 🟢 Business Group public page
 - 🟡 Founder = operating owner enforcement (the founder is immutably the operating owner per the existing groups spec)
 - ⚪ Multi-owner / partnership business Groups (sole props cover the canonical examples)
 
-**MVP cut:** the five 🟢 items. Partnership Groups can wait — Ferrari Fisheries, the dip vendor, the food truck are all sole props. Founder-as-operating-owner is structurally important but can be enforced in code without a separate ticket.
+**MVP cut:** the three 🟢 items. The "Become a Maker" / "Maker mode toggle" lines are retired per ADR-12 supersession (2026-05-12) — selling tools surface from Group / Item state, not from a Member-level toggle. The Sell verb in the universal composer is the entry point. Partnership Groups can wait — Ferrari Fisheries, the dip vendor, the food truck are all sole props. Founder-as-operating-owner is structurally important but can be enforced in code without a separate ticket.
 
 ---
 
@@ -114,16 +114,17 @@ Not a sub-bundle of its own. One decision that locks in URLs across everything t
 **What the user sees.** Makers can post products and services. Anyone can follow a maker, save a product, follow a place. The "near me" browse shows everything in one feed.
 
 **The work:**
-- 🟢 Product composer (post a product — title, description, price-or-not, location attachment)
+- 🟢 Product composer (post a product — title, description, price-or-not, location attachment, **optional `made_at_place_id` per ADR-21**)
 - 🟢 Service composer (post a service — title, description, service-area attachment)
 - 🟢 Follow button on Member profiles
 - 🟢 Save button on Items
-- 🟢 Follow a Location (e.g. the park where outdoor concerts happen)
+- 🟢 **Locally Made claim (Tier 0 self-attested)** per ADR-21 — seller picks `made_at_place_id` in the product composer; "Claimed locally made" badge surfaces on the Item page conditional on the viewer's place-interest proximity to `made_at_place_id`. Sibling badge to Locally Owned (Tier 0 ships at b1; Tier 1 community-attested ships at b2+)
+- 🟢 **`member_saved_searches` substrate (no surface)** per ADR-21 — substrate-only ticket; the table lands at b1 so the "Follow this venue" UI affordance can ship cleanly at b2 alongside the saved-search composer + fan-out worker. Substrate-ticket lane (per CLAUDE.md rule 14); no Given/When/Then scenario needed.
 - 🟢 The "discover" page — locality-first browse across people, things, and places
 - 🟡 QR card generator (Member can request a printable QR code for any Item they own)
 - ⚪ Service-area polygon editor (vs. radius-from-point) — radius works for most cases at b1
 
-**MVP cut:** the six 🟢 items. Add QR if the farmers-market wedge is going live within weeks — it's the load-bearing onboarding affordance for in-person signup at booths. Skip the polygon editor until a plumber asks for it.
+**MVP cut:** the seven 🟢 items. The prior "Follow a Location" line is retired — per ADR-21, location-following lives as a saved-search shape (`member_saved_searches` with `location_id` set), and the surface ships at b2 alongside the composer; the b1 commitment is substrate-only. Add QR if the farmers-market wedge is going live within weeks — it's the load-bearing onboarding affordance for in-person signup at booths. Skip the polygon editor until a plumber asks for it.
 
 ---
 
