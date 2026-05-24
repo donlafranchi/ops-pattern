@@ -12,7 +12,7 @@ status: active
 
 **North stars served:** All five loop families. Members are present on at least one side of every loop. Specific surfaces (Maker affordances, host affordances, steward affordances) appear conditionally based on what the Member is *doing* — the role-as-verb posture from `primitives.md`.
 
-**Decisions encoded:** ADR-4 (locality default = geolocate then city pick, mutable) · ADR-6 (Member-owned context, standing-derived persistence) · ADR-7 (action layer for all writes) · ADR-9 (opt-out default, three-filter test for every privacy/revenue/data-sharing surface) · ADR-12 **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6 (the Maker-mode framing is retired; `members.maker_mode_enabled` column is dropped; selling tools surface from Group / Item state) · ADR-15 (auth.users coupling — `members.id = auth.users.id`, post-signup trigger is the only Member-create path) · ADR-16 (per-row privacy on `member_location_affinities`; algorithms via privileged paths) · ADR-17 (`bounded_purchase` Delegation scope, ratified 2026-05-12 — the Delegation-scopes Policy posture references it). **ADR-8 is fully superseded** by the Groups ratification (`member_operations` retires; standing-tier gate is now defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group). **ADR-3 remains rejected** — the implicit-from-behavior `maker_signal` pattern does not apply.
+**Decisions encoded:** ADR-4 (locality default = geolocate then city pick, mutable) · ADR-6 (Member-owned context, standing-derived persistence) · ADR-7 (action layer for all writes) · ADR-9 (opt-out default, three-filter test for every privacy/revenue/data-sharing surface) · ADR-12 **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6 (the Maker-mode framing is retired; `members.maker_mode_enabled` column is dropped; selling tools surface from Group / Item state) · ADR-15 (auth.users coupling — `members.id = auth.users.id`, post-signup trigger is the only Member-create path) · ADR-16 **SUPERSEDED by ADR-21** 2026-05-23 (historical only — cite ADR-21) · ADR-17 (`bounded_purchase` Delegation scope, ratified 2026-05-12 — the Delegation-scopes Policy posture references it) · ADR-21 (Member↔Geography substrate split: jurisdiction + place-interests + saved-searches replace the six-kind affinity enum; ratified 2026-05-23). **ADR-8 is fully superseded** by the Groups ratification (`member_operations` retires; standing-tier gate is now defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group). **ADR-3 remains rejected** — the implicit-from-behavior `maker_signal` pattern does not apply.
 
 **Companion specs:** [`primitives.md`](../foundation/primitives.md) · [`principles.md`](../foundation/principles.md) · [`policy.md`](../foundation/policy.md) · [`groups.md`](groups.md) (the unified Group spine — supersedes the prior `community.md` / `member-operations.md` / `cooperative.md` split per the 2026-05-10 ratification) · [`item.md`](item.md) · [`location.md`](location.md) · `agent-assistance.md` / `agent-assistance.md` / `agent-assistance.md` (forward-looking, schema reserved at b1)
 
@@ -28,7 +28,9 @@ A Member is **not** a role. Per `primitives.md`, the platform models verbs, not 
 
 A Member is **not** a business. Per `principles.md`, there is no Business entity in the schema, ever. A Member who runs a personal business does so through a kind='business' Group (per `groups.md`) — a Group of one (sole proprietor), of two-plus owners (partnership), or of owners + staff (operating team). The Group carries the brand label (`group_businesses.display_name`), the optional `legal_entity_kind` (LLC, sole_prop, partnership, etc.), and the membership rows. A cooperative-shape operation is a kind='business' Group with multiple owner-role memberships, not a separate primitive — cooperative-style coordination (co-owning, voting, distributing) is deferred until real-world need + explicit user prioritization per `groups.md` and `agent-commerce-and-project-amendments.md` §2. The absence of a Business row is what keeps the platform structurally honest about who is doing the work; the Group primitive is what records the *people organizing to do it together*.
 
-A Member is **not** a Location. Members are humans; Locations are places. A Member's relationship to Locations beyond home is recorded as multi-Location affinities in `member_location_affinities` (live, work, play, visit, follow, liked) per the Multi-Location belonging section below. The `home_location_id` column is the locality default (per ADR-4); the affinity table holds the rest. Members do not have stored addresses.
+A Member is **not** a Location. Members are humans; Locations are places. Per ADR-21 (2026-05-23), a Member's relationships to geography are recorded across three purpose-owned substrates rather than one fused six-kind table: (1) `home_location_id` — the private locality default per ADR-4; (2) `member_place_interests` — the Member's awareness scope (one `primary_home` Place plus up to 5 `secondary` Places), private; (3) `member_saved_searches` — generalized follow / interest-in-a-Place subscriptions, private. Public seller-locality claims (the "Locally Owned" badge) live in `member_business_jurisdictions` per [`business-jurisdiction.md`](business-jurisdiction.md); the "Locally Made" product-provenance claim lives on `items.made_at_place_id` per [`item.md`](item.md). At b1 the platform does not store Member street addresses — ZIPs, Places, and radius queries are sufficient for every locality feature in scope, and the absence of an address store keeps the doxxing surface minimal. The platform revisits this only on a clear, defined Member benefit; if addresses ever land, the platform commits to active safety measures for Members who could be harmed by exposure (per-Member opt-in, granular precision, defense against bulk exfiltration).
+
+> **Intent (Ratified 2026-05-23 — soft commitment):** The three-substrate split (per ADR-21) is the structural shape; the address-storage posture is the *current* answer to "do we need a street-address column on `members`?" — at b1, no, because ZIPs / Places / radius queries cover every locality feature on the b1–b3 horizon and the absence of an address store keeps the doxxing blast-radius small. The commitment is *"we don't store addresses by default, unless a defined benefit emerges"* — not a categorical refusal. **Test for future proposals:** does the proposal want a stored-address column or to re-fuse the geography substrates? If yes, name the defined Member benefit and the safety mechanism that lands with it — the soft commitment doesn't refuse the column, it refuses the column-without-rationale.
 
 The Member primitive is the structural anchor of every loop. If a feature requires a record of an actor, that record is a Member. If it requires a record of a business, the platform does not provide one — the Member declares an Operation and the work shows up as Items with that Operation's label. If it requires a record of a group, the platform provides Community, and Communities are sets of Members. The schema cascades from Member outward; nothing precedes it.
 
@@ -124,19 +126,34 @@ A Member without any qualifying Group membership is fully welcome and fully func
 - `member_follows` table: `follower_member_id`, `followed_member_id`, `created_at`, `unfollowed_at` (soft, nullable). Composite PK.
 - Follow events: `member.followed`, `member.unfollowed`. The b2 follow stream and the eventual notification surfaces read from these.
 
-### Multi-Location belonging (substrate at b1; surface at b2)
+### Place-interest scope (substrate at b1; surface at b2) — per ADR-21
 
-A Member belongs to multiple Locations — they live somewhere, work somewhere, play somewhere, visit places, follow places, and like places. The platform records all of these as **affinities**, distinct from Group memberships and distinct from `home_location_id`.
+A Member has an **awareness scope**: a set of Places they care about for the community-awareness feed. One `primary_home` Place plus up to 5 `secondary` Places.
 
-- `member_location_affinities` table: `member_id`, `location_id`, `affinity_kind` (enum: `lives`, `works`, `plays`, `visits`, `follows`, `liked`), `created_at`, `removed_at` (soft, nullable). Composite PK on `(member_id, location_id, affinity_kind)` — a Member can hold multiple kinds of affinity for the same Location (a Member who both `lives` and `plays` at the same neighborhood Location).
-- `members.home_location_id` (unchanged) stays as the single locality default per ADR-4. The affinity table is additive — `home_location_id` is NOT replaced; it remains the Member's "near me" default scope. Many Members will also have an affinity row of kind=`lives` pointing at the same Location, but the two surfaces serve different purposes.
-- **Affinity does not grant addressability.** Per the no-Location-messaging commitment in `policy.md` and `location.md`, no DM, feed, or wall is scoped to a Location. A Member with `lives` affinity to West Sacramento cannot be addressed because of that affinity. Affinities surface in: the Member's "Locations I belong to" list (private profile by default), the Location's reverse query (the Location page may show "N Members live here" without naming them — privacy-respecting), and the locality-promotion derivation in `groups.md` (a Group's local-owner test reads any of `lives` / `works`).
-- **Follows drive notifications.** The `affinity_kind='follows'` row is the b2 surface that delivers the "Concerts in the Park" feed: when an Item attaches to a followed Location, the follower's feed surfaces it. Wire-up is the same as Member follow fan-out — `item.location_attached` event triggers a per-follower fan-out to the followers of the affected Location.
-- Affinity events: `member.location_affinity_added`, `member.location_affinity_removed`. Reserved at b1; the Location-follow surface ships at b2.
+- `member_place_interests` table: `member_id`, `place_id`, `scope_kind` (enum: `primary_home`, `secondary`), `created_at`, `removed_at` (soft, nullable). Composite PK on `(member_id, place_id, scope_kind)`.
+- `primary_home` is derived from `home_location_id`'s `place_id` at onboarding (the `member.locality.set` action handler maintains the trigger). Mutable. One row per Member.
+- `secondary` captures cross-Place interests — a Member who lives in West Sac but cares about Folsom because they work there; a Member who lives in Oak Park but wants Sacramento-wide awareness; a Member with a hometown they still follow. Up to 5 secondaries at b1.
+
+  > **Intent (Ratified 2026-05-23 — soft commitment):** 5 is a starting point, not a structural commitment. The cap exists to bound the community-awareness feed candidate-set cost while we learn what Members actually want. We'll watch how many Members hit the cap and what they do when they hit it — if the pattern says 5 is too low, we raise it (and reshape the feed query if cardinality argues for it). The cap is action-layer-enforced, not DDL-enforced, so it's tuneable without migration. **Test for future proposals:** does the proposal want to raise / lower the cap? Land a measurement story alongside (how many Members hit the current cap, what they dropped to add the new one).
+- **The hierarchy in `places.parent_id` handles within-hierarchy traversal.** A Member with `primary_home=Oak Park` traverses up to Sacramento by default for the awareness feed — they don't need separate rows for Oak Park, Sacramento, and Sacramento MSA. The secondary set is for *cross-hierarchy* interests, not parent-of-home interests.
+- **Place-interests do not grant addressability.** Per the anti-Nextdoor commitments in `policy.md` and `location.md`, no DM, feed, or wall is scoped to a Place. `member_place_interests` is read by feed candidate generation (per [`discovery.md`](discovery.md) community-awareness feed), never consulted for messaging targets.
+- Events: `member.place_interest_added`, `member.place_interest_removed`, `member.place_interest_promoted` (secondary → primary_home), `member.place_interest_demoted`.
+
+### Saved searches (substrate at b1; surface at b2) — per ADR-21
+
+A Member subscribes to streams of Items via a general saved-search shape rather than per-Location follow rows. Subsumes "follow this venue," "notify me about outdoor live music in any park I care about," "let me know about sourdough drops in Oak Park."
+
+- `member_saved_searches` table: `id` UUID PK, `member_id`, `label` (Member-authored, 1–80 chars), `place_id` (nullable FK to `places`), `location_id` (nullable FK to `locations`), `interest_tags` text[], `item_kinds` text[], `created_at`, `removed_at` (soft, nullable). Check constraint: at least one of `place_id`, `location_id`, or non-empty `interest_tags` must be set.
+- Member-labeled. The label is intent ("Concerts in the parks I like," "Anything at Drake's," "Sourdough drops in Oak Park") and is private to the Member.
+
+  > **Intent (Ratified 2026-05-23 — soft commitment + forward note):** The labeled-saved-search shape (`label` + structured filters) is a *starting point*, not the end state. The larger vision per PM direction 2026-05-23: a **rich, LLM-enhanced search experience** where search patterns inform the platform's understanding of consumer wants and preferences, seed Member-authored Wonders, and surface ideation opportunities for new Groups, businesses, and community initiatives. Search is — per the PM — *probably the platform's most helpful tool*. The b1 substrate (`member_saved_searches`) is honest enough to ship the saved-subscription pattern and to feed the search-intelligence layer when it lands. The 1–80 char label range is sized to be a legible intent string in a list-of-subscriptions UI and is tuneable. **Test for future proposals:** does the proposal want to add structured filter fields the LLM-search layer can consume (semantic-query embedding, free-text-search column)? Welcome — additive to the substrate. Does it want to replace labels with auto-derived names? Walk that through `pipeline-product` — labels-as-Member-intent is the b1 commitment.
+- **The "Follow this venue" UI affordance** on a Location page creates a saved-search row with `location_id` set and a default label derived from the venue's name. The Member can edit filters and label afterward.
+- **Notification fan-out is pull-shaped at b1.** When a new Item attaches to a Location, the platform evaluates `member_saved_searches` rows whose filters match the new Item and notifies the saving Member. Pull-shape is fine at b1 scale; push (precomputed) is a T2/T3 question.
+- Events: `member.saved_search.created`, `member.saved_search.updated`, `member.saved_search.removed`. Reserved at b1; surface and fan-out worker ship at b2.
 
 ### Taste profile (extends `member_interests` — substrate at b1, richer surface at b2)
 
-`member_interests` (the controlled-vocabulary tag list per Member, b1) carries the Member's stated affinities for kinds of things — `live-music`, `outdoor`, `summer-evenings`, `vegan-food`, `pre-1900-plumbing`. Combined with `member_location_affinities` of kind=`follows`, this powers compositional queries the Member can run against the locality-first index — *"places near me where outdoor live-music gathering Items happen in summer."* The b1 substrate ships the tags + the follow rows; b2 surfaces the compositional query as a saved-search affordance ("create a feed for outdoor live music in Sacramento MSA"). T3 layers vector embeddings over Member interests + Location descriptions for natural-language equivalents ("find places near me with summer concerts in the park").
+`member_interests` (the controlled-vocabulary tag list per Member, b1) carries the Member's stated affinities for kinds of things — `live-music`, `outdoor`, `summer-evenings`, `vegan-food`, `pre-1900-plumbing`. Combined with `member_place_interests` and `member_saved_searches` (per ADR-21), this powers compositional queries against the locality-first index — *"gatherings tagged outdoor+live-music in any park inside my place-interest set."* The b1 substrate ships the tags + the place-interest rows + the saved-search rows. b2 surfaces saved-search composition explicitly ("create a feed for outdoor live music in Sacramento MSA"); the community-awareness feed in `discovery.md` already reads place-interests × interest tags at b1. T3 layers vector embeddings over Member interests + Place descriptions for natural-language equivalents.
 
 ### Direct messaging (substrate only at b1; surface at b2)
 
@@ -237,7 +254,7 @@ create table member_privacy (
 
 A trigger on `members` insert creates the matching `member_privacy` row with defaults. Changes append `member.privacy_changed` events with a JSON diff so the audit log is complete.
 
-**Scope shift — follow visibility is public-by-default at b1** (2026-05-11 product decision, surfaced at T048 M2 review; flagged here for `pipeline-product` to memorialize when convenient). The `show_following` and `show_followers` columns ship at b1 as reserved substrate, but the **schema does not enforce them**: `member_follows.member_follows_public_read` is `using (true)`. Rationale: the threat model behind ADR-9's opt-out posture is *cross-community discovery by bad actors*, not intra-community visibility. Follow graph is social fabric — same-community Members already know who hangs out with whom. The privacy investment ADR-9 targets earns its keep on `member_location_affinities` (T049): the `lives` and `works` affinity rows are owner-only at the row level, with cross-Member computation only via the three SECURITY DEFINER functions named below (see "Structural enforcement"). If real-Member feedback at b2 surfaces follow-graph opt-out as a need, the action layer can wire the existing toggles in — action-layer-applied gating, not RLS-applied. If the b2 surface never asks for them, these two columns become candidates for deletion at the next privacy-spec consolidation.
+**Scope shift — follow visibility is public-by-default at b1** (2026-05-11 product decision, surfaced at T048 M2 review). The `show_following` and `show_followers` columns ship at b1 as reserved substrate, but the **schema does not enforce them**: `member_follows.member_follows_public_read` is `using (true)`. Rationale: the threat model behind ADR-9's opt-out posture is *cross-community discovery by bad actors*, not intra-community visibility. Follow graph is social fabric — same-community Members already know who hangs out with whom. The privacy investment ADR-9 targets earns its keep on the geography substrates per ADR-21: `member_place_interests` and `member_saved_searches` are owner-only at the row level (doxxing-prevention). If real-Member feedback at b2 surfaces follow-graph opt-out as a need, the action layer can wire the existing toggles in — action-layer-applied gating, not RLS-applied. If the b2 surface never asks for them, these two columns become candidates for deletion at the next privacy-spec consolidation.
 
 ### `member_interests` (one row per interest tag a Member declares)
 
@@ -270,46 +287,67 @@ create index idx_follows_follower_active on member_follows (follower_member_id)
   where unfollowed_at is null;
 ```
 
-### `member_location_affinities` (multi-Location belonging — substrate at b1, surface at b2)
+### `member_place_interests` (community-awareness scope — per ADR-21)
 
 ```sql
-create table member_location_affinities (
-  member_id uuid not null references members(id) on delete cascade,
-  location_id uuid not null references locations(id) on delete cascade,
-  affinity_kind text not null
-    check (affinity_kind in ('lives','works','plays','visits','follows','liked')),
-  created_at timestamptz not null default now(),
-  removed_at timestamptz,
-  primary key (member_id, location_id, affinity_kind)
+create table member_place_interests (
+  member_id   uuid not null references members(id) on delete cascade,
+  place_id    uuid not null references places(id) on delete cascade,
+  scope_kind  text not null
+    check (scope_kind in ('primary_home','secondary')),
+  created_at  timestamptz not null default now(),
+  removed_at  timestamptz,
+  primary key (member_id, place_id, scope_kind)
 );
 
-create index idx_affinity_member_active on member_location_affinities (member_id, affinity_kind)
+create index idx_place_interests_member_active
+  on member_place_interests (member_id, scope_kind)
   where removed_at is null;
-create index idx_affinity_location_followers on member_location_affinities (location_id)
-  where affinity_kind = 'follows' and removed_at is null;
-create index idx_affinity_location_locals on member_location_affinities (location_id, affinity_kind)
-  where affinity_kind in ('lives','works') and removed_at is null;
+create unique index ux_place_interests_primary_home
+  on member_place_interests (member_id)
+  where scope_kind = 'primary_home' and removed_at is null;
 ```
 
-The composite PK allows a Member to hold multiple kinds of affinity for the same Location (a Member who both `lives` and `plays` at a neighborhood Location). The `idx_affinity_location_followers` index serves the b2 follow-Location feed (per `location.md` Member-following-Location section), accessed through the `public.count_followers_for_location()` aggregate function. The `idx_affinity_location_locals` index serves the locally-owned-and-operated derivation in `groups.md` (any of `lives` / `works` is sufficient for a Member to count as a local owner), accessed exclusively through the `public.member_is_local_to_location()` SECURITY DEFINER function — direct `SELECT` against another Member's affinity rows is blocked at the RLS layer per ADR-16.
+The unique partial index enforces exactly one active `primary_home` row per Member. The `secondary` cap (≤5 per Member) is enforced in the `member.place_interest.add` action handler rather than at the column level (action-layer guard rather than DDL constraint, so the cap can be tuned without migration).
 
-`affinity_kind` semantics:
-- `lives` — Member-declared residential affinity. Default candidate for `home_location_id` but not auto-set; the Member sets `home_location_id` separately.
-- `works` — Member-declared work affinity. Useful for the Folsom-business-with-West-Sac-resident-owner case in the locality-promotion derivation.
-- `plays` — Member-declared recreational affinity. Surfaces in the Member's "places I go" private profile section at b2.
-- `visits` — Member-declared lighter affinity. Travel, occasional places.
-- `follows` — Standing relationship that drives notifications. The Concerts-in-the-Park surface reads from this kind.
-- `liked` — Save / bookmark. Surfaces in the Member's "Locations I like" list without driving notifications.
+> **Intent (Ratified 2026-05-23):** Exactly-one `primary_home` is about the *awareness-default anchor*, not about scope size. The Member picks the **granularity they want their default community to be** — a neighborhood (Oak Park), a city (Sacramento), or an MSA (Sacramento–Roseville) — because the `places` hierarchy supports any of those (per `places.md`). The unique constraint enforces that there's *one* such default, not that the default has to be small. A Member who feels their community is "the whole Sacramento MSA" sets primary_home to the MSA Place; a Member who feels their community is "Oak Park, specifically" sets primary_home to the neighborhood Place. Secondaries handle cross-Place interests that don't fit a single hierarchy line (work city, hometown, vacation spot). **Test for future proposals:** does the proposal want multiple primary_homes (treating "home" as plural)? Walk through what *one default* means in the feed — the awareness query needs a single starting point for the parent-traversal; ambiguity here cascades into "which home wins when they conflict" questions that the secondary-set was designed to absorb. Does it want to remove the unique constraint and let Members hold multiple primary_homes? Strong burden-of-proof: the secondary-set + the choice-of-granularity already covers every shape we've identified.
 
-**No addressability.** Per the no-Location-messaging commitment, no surface in the platform sends messages, posts, or any kind of content to "Members affiliated with Location X." Affinities are read by feeds the Member opted into (their own follow feed, their own profile) and by query-time aggregations on the Location side (the Location page may display "N Members like / follow / live near here" without naming them — via the `public.count_likes_for_location()` and `public.count_followers_for_location()` SECURITY DEFINER functions per ADR-16; raw rows remain owner-only). They are never used as a *send-to* target.
+### `member_saved_searches` (generalized follow / interest-in-a-Place — per ADR-21)
 
-**Structural enforcement (per ADR-16).** All six `affinity_kind` values are **owner-only at the row level**. Peer Members, anonymous visitors, and signed-in non-owners cannot `SELECT` another Member's affinity rows under any condition. Three privileged paths exist for cross-Member computation, all named and audited:
+```sql
+create table member_saved_searches (
+  id             uuid primary key default gen_random_uuid(),
+  member_id      uuid not null references members(id) on delete cascade,
+  label          text not null check (char_length(label) between 1 and 80),
+  place_id       uuid references places(id),
+  location_id    uuid references locations(id),
+  interest_tags  text[] not null default '{}',
+  item_kinds     text[] not null default '{}',
+  created_at     timestamptz not null default now(),
+  removed_at     timestamptz,
+  check (place_id is not null
+         or location_id is not null
+         or array_length(interest_tags, 1) > 0)
+);
 
-1. `public.count_likes_for_location(location_id uuid) returns integer` — public-callable; powers Location-page rollups.
-2. `public.count_followers_for_location(location_id uuid) returns integer` — public-callable; powers Location-page rollups.
-3. `public.member_is_local_to_location(member_id uuid, location_id uuid) returns boolean` — public-callable; the **only** path for the `groups.md` locally-owned-and-operated derivation. Reads `lives` and `works` rows internally; returns a boolean only.
+create index idx_saved_searches_member_active
+  on member_saved_searches (member_id)
+  where removed_at is null;
+create index idx_saved_searches_place
+  on member_saved_searches (place_id)
+  where place_id is not null and removed_at is null;
+create index idx_saved_searches_location
+  on member_saved_searches (location_id)
+  where location_id is not null and removed_at is null;
+```
 
-Backend services (recommendation engine, embedding pipeline) connect with the service-role key, bypass RLS, and compute over the full row set. Outputs to users are anonymized aggregates (similarity-driven recommendations, taste-matched location lists). **Per-Member identity never surfaces in a recommendation.** No per-Member opt-out for similarity matching ships at b1 — similarity matching discloses no Member identity to any other Member; the benefit is to many and harms none.
+**Notification fan-out.** When a new Item attaches to a Location, the platform evaluates `member_saved_searches` rows whose filters match (place ancestry, location, interest-tag overlap, kind overlap) and notifies the saving Member. Pull-shape at b1; push (precomputed follower-set per saved-search) is a T2/T3 question.
+
+**Structural privacy (per ADR-21).** Both `member_place_interests` and `member_saved_searches` are **owner-only at the row level** (`member_id = auth.uid()`). Peer Members, anonymous visitors, and signed-in non-owners cannot `SELECT` another Member's rows under any condition. The Member's awareness scope and subscription set are private — doxxing-prevention. If a future surface needs an aggregate ("how many Members opted into Sacramento as a place-interest?"), it lands as a named SECURITY DEFINER function — owner-only RLS + named-function aggregates is the standard posture for private geography substrates under ADR-21.
+
+Backend services (recommendation engine, embedding pipeline) connect with the service-role key, bypass RLS, and compute over the full row set. Outputs to users are anonymized aggregates. **Per-Member identity never surfaces in a recommendation.**
+
+**No addressability.** Per the anti-Nextdoor commitments in `policy.md` and `location.md`, no surface in the platform sends messages, posts, or any content to "Members with place-interest in X" or "Members with a saved-search matching Y." Place-interests are read by feed candidate generation in `discovery.md`; saved-searches are read by the fan-out worker. Neither is ever a *send-to* target.
 
 ### `member_handle_history` (T2 surface — schema reserved at b1)
 
@@ -436,7 +474,8 @@ Initial event kinds at b1:
 - `member.home_location_set`
 - `member.privacy_changed` (with diff in payload)
 - `member.followed` / `member.unfollowed`
-- `member.location_affinity_added` / `member.location_affinity_removed` (payload includes `{location_id, affinity_kind}`)
+- `member.place_interest_added` / `member.place_interest_removed` / `member.place_interest_promoted` / `member.place_interest_demoted` (per ADR-21)
+- `member.saved_search.created` / `member.saved_search.updated` / `member.saved_search.removed` (per ADR-21)
 - `member.interest_added` / `member.interest_removed`
 - `member.delegation_granted` / `member.delegation_revoked`
 - `member.self_record_updated` (T2 surface; event reserved at b1)
@@ -472,7 +511,8 @@ Every write that touches a Member row goes through a named action handler. Initi
 - (Selling-tools handlers retired per `agent-commerce-and-project-amendments.md` §6.) The prior `member.maker_mode.toggle`, `member.maker_mode.activate`, and `member.maker.full_stop` handlers are removed. To start selling, a Member invokes `group.create` (kind='business') and `group.member_join` directly — composer flows wrap these but no Member-level state changes. To stop selling, the Member invokes `group.member_leave` for each owner-role business-Group membership (per `groups.md` lifecycle).
 - `member.interests.add` / `member.interests.remove` — writes to `member_interests`, fires events.
 - `member.follow` / `member.unfollow` — writes to `member_follows`, fires events.
-- `member.location_affinity.add` / `member.location_affinity.remove` — writes to `member_location_affinities` (`{location_id, affinity_kind}`), fires `member.location_affinity_added` / `member.location_affinity_removed`. Validates `affinity_kind` against the enum; rejects writes targeting another Member's affinity rows. The action handler enforces the no-addressability commitment by exposing no surface that *reads* affinities for messaging-target purposes — it only writes them.
+- `member.place_interest.add` / `member.place_interest.remove` / `member.place_interest.promote` / `member.place_interest.demote` — writes to `member_place_interests` (per ADR-21). The add handler enforces the secondary-cap (≤5 per Member); the promote handler atomically demotes the previous `primary_home` row before promoting the target row, preserving the unique partial index. Rejects writes targeting another Member's rows.
+- `member.saved_search.create` / `.update` / `.remove` — writes to `member_saved_searches` (per ADR-21). Validates the check constraint (≥1 of place_id, location_id, non-empty interest_tags). Rejects writes targeting another Member's rows. The fan-out worker is a b2 surface and does not ship at b1.
 - `member.delete` — sets `deleted_at`, retracts public surfaces, fires `member.deleted`.
 - `member.export.request` — produces the JSON export per ADR-6, fires `member.export_requested`.
 - `member.purge.execute` — destroys the Member and cascades, fires `member.purge_executed` *before* the cascade so the audit log persists.
@@ -494,8 +534,10 @@ No write to `members` or `member_*` tables occurs outside these handlers. Read p
 - `member_interests` INSERT/DELETE: row-owner only.
 - `member_follows` SELECT: row-owner always; followed Member sees their followers if `show_followers` is true; followers see their following list if `show_following` is true.
 - `member_follows` INSERT/DELETE: row-owner only (the follower).
-- `member_location_affinities` SELECT: **owner-only at the row level (per ADR-16)** — `member_id = auth.uid()`. No peer-Member access, no anon access, no per-kind public-read across all six `affinity_kind` values (`lives`, `works`, `plays`, `visits`, `follows`, `liked`). Cross-Member computation goes through the three SECURITY DEFINER functions named above; backend services use the service-role key.
-- `member_location_affinities` INSERT/DELETE: row-owner only, only via action handlers (`member.location_affinity.add` / `member.location_affinity.remove`).
+- `member_place_interests` SELECT: **owner-only at the row level (per ADR-21)** — `member_id = auth.uid()`. No peer-Member access, no anon access. Future cross-Member aggregates land as named SECURITY DEFINER functions.
+- `member_place_interests` INSERT/UPDATE/DELETE: row-owner only, only via action handlers (`member.place_interest.*`).
+- `member_saved_searches` SELECT: **owner-only at the row level (per ADR-21)** — `member_id = auth.uid()`. Saved-search labels carry Member intent and are private. Backend fan-out worker (b2) connects via service-role.
+- `member_saved_searches` INSERT/UPDATE/DELETE: row-owner only, only via action handlers (`member.saved_search.*`).
 - `member_messages` SELECT: only Members in the thread, and only if both Members share an active Community membership (b1 constraint; relaxed at b2).
 - `member_messages` INSERT: thread participants only.
 - `member_self_records` SELECT/UPDATE: row-owner only. **Never visible to other Members or their assistants. Never input to recommendation surfaces. Never trained on.** Per ADR-6 and ADR-9.
@@ -556,7 +598,7 @@ Every privacy/revenue/data-sharing surface walks the three filters: helpful? har
 **Connects to:**
 
 - **Item** — every Item has a `member_id` author. Most Items have one Member; multi-Member co-creation (T2) adds `item_collaborators`.
-- **Location** — Members have a soft `home_location_id` for locality default per ADR-4 (not an address). They hold multi-Location affinities (live, work, play, visit, follow, liked) via `member_location_affinities` per the Multi-Location belonging section above.
+- **Location** — Members have a soft `home_location_id` for locality default per ADR-4 (not an address). Per ADR-21, the six-kind `member_location_affinities` substrate is retired. A Member's relationship to specific Locations beyond home flows through Items they create (which attach to Locations), Groups they belong to (which anchor to Locations), and `member_saved_searches` rows scoped to a `location_id` (the "follow this venue" affordance — see the Saved searches section above).
 - **Group** — Members hold zero or many Group memberships via `group_memberships` (per `groups.md`). `members.primary_group_id` is a soft pointer to a chosen primary Group (most Members have none). The Group primitive is the unified replacement for the prior Community / Member Operations / Cooperative split — kind='business' Group memberships drive standing tier; kind='steward' role on non-business Groups also qualifies.
 - **Assistant Context** — one row per Member in `member_self_records`; row-owner only.
 - **Delegation** — Members grant zero or many Delegations to non-human actors (assistants, Skills, federation peers).
@@ -582,7 +624,7 @@ Every Member is designed to be queryable via natural language at T3. The MVP doe
 
 - **Bio as embedding substrate.** Member bios are written in natural language (first-person, plain English, no keyword stuffing). The same bio that reads well to a human will embed well for semantic search.
 - **Group memberships and `group_businesses.display_name`** (per `groups.md`) provide the structured layer. An LLM mapping "who in Folsom does pre-1900 plumbing" maps Group `display_name` + the Member's role (`owner` / `member`) + locality (via Member affinities and Item-Location attachments) + linked Service Items.
-- **Member interests** (`member_interests`) constrain the topical surface to terms an LLM can reason over. Combined with `member_location_affinities` of kind=`follows`, these power compositional queries like the Concerts-in-the-Park surface (per `use-cases.md` example #12).
+- **Member interests** (`member_interests`) constrain the topical surface to terms an LLM can reason over. Combined with `member_place_interests` (per ADR-21), these power compositional queries like the Concerts-in-the-Park surface (per `use-cases.md` example #12) — a Member with `outdoor`+`live-music` interest tags and place-interest in parks under Sacramento MSA sees gathering Items at those parks via the community-awareness feed in `discovery.md`.
 - **Reserved embedding column** — when the parallel `member_embeddings` table is built at T3, it indexes against `bio`, the Member's active Group `display_name` values, and the Member's `member_interests`.
 
 The MVP serves structured-filter search (handle, display name lookup, Items by Member, Members in Community); T3 adds vector search across bios; T3 also surfaces the chat surface that resolves natural-language Member queries.
@@ -649,4 +691,4 @@ This spec is the live home for the following architectural decisions. See [`../.
 | ADR-3 | **REJECTED** — superseded by the 2026-05-10 Groups ratification and the 2026-05-12 ADR-12 supersession (no Member-level mode at all per `agent-commerce-and-project-amendments.md` §6) | The implicit-from-behavior Maker model. Historical text in [`../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md`](../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md). |
 | ADR-12 | **SUPERSEDED** 2026-05-12 by `agent-commerce-and-project-amendments.md` §6 | The "Maker mode" framing is retired. There is no Member-level boolean — `members.maker_mode_enabled` is dropped. Selling tools surface from Group membership (kind='business') and Item kind (`product` / `service`). The auto-flip prohibition dissolves with the mode itself. Vocabulary: **Seller** is the generic term; **Producer** is preferred in agricultural/food context (per the amendment §6b ratification). Historical text of the prior ADR-12 interpretations lives in [`../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md`](../../_attic/2026-05-19/planning/DECISIONS-superseded-2026-05-10.md). |
 
-This spec also *encodes* (but does not own) ADR-4 (locality default), ADR-6 (Assistant Context + Delegation substrate at b1), ADR-7 (action layer), ADR-9 (opt-out privacy defaults), ADR-15 (auth.users coupling — `members.id = auth.users.id` and the post-signup trigger pattern), and ADR-16 (per-row privacy on `member_location_affinities` — the RLS sketch above and the `member_location_affinities` substrate section above are the load-bearing surfaces). Those live cross-cutting in `DECISIONS.md`.
+This spec also *encodes* (but does not own) ADR-4 (locality default), ADR-6 (Assistant Context + Delegation substrate at b1), ADR-7 (action layer), ADR-9 (opt-out privacy defaults), ADR-15 (auth.users coupling — `members.id = auth.users.id` and the post-signup trigger pattern), and ADR-21 (Member↔Geography substrate split — the `member_place_interests` and `member_saved_searches` sections + their RLS entries above are the load-bearing surfaces; the owner-only-RLS posture belongs to ADR-21 outright; jurisdiction lives in `business-jurisdiction.md`; Locally Made provenance lives in `item.md`). ADR-16 was superseded by ADR-21 (2026-05-23); cite ADR-21 only. Those live cross-cutting in `DECISIONS.md`.

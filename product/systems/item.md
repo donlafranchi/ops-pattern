@@ -85,6 +85,32 @@ The kind enum is extensible. Future kinds (Class, Tool-share, CSA Subscription, 
 - **Item collections** — a Person's curated catalog view of their own Items (a Maker's full product line, a teacher's class series).
 - Endorsement-style responses for Service Items (per `service-provider.md` T2).
 
+## Provenance claims — "Locally Made" (per ADR-21)
+
+Per ADR-21 (2026-05-23), kind='product' Items carry an optional **product-provenance claim** — the platform's "Locally Made" badge. This is a *sibling* signal to "Locally Owned" (per [`business-jurisdiction.md`](business-jurisdiction.md)): jurisdiction answers "does the money go to a local owner?"; provenance answers "is the product made here?" The two diverge often — a Sacramento-resident Member who imports finished goods is *Locally Owned* but not *Locally Made*; a Member who designs and assembles every piece in their Oak Park studio is both; a national-chain franchise is neither (though the franchisee owner may be locally resident, surfacing only Locally Owned).
+
+**Substrate (reserved at b1; surface ratification deferred — verification ladder is open product policy).**
+
+- `items.made_at_place_id` (nullable FK to `places.id`) — the Place the Member declares the product is made in. Only meaningful when `kind='product'`; the action handler enforces this. NULL means no claim.
+- `items.made_at_verification_source` enum — values: `none` (default for all rows), `self_attested` (Member declared the Place; Tier 0), `community_attested` (buyers attested to the provenance claim; Tier 1, b2+), `document_supported` (T3 evidence — facility lease, manufacturing-source attestation, etc.; Tier 2, b2+/b3). The Tier 1 ladder shape mirrors `business-jurisdiction.md` — community-attestation is the platform-internal verification path for both badges. Buyers who actually receive a product carry ground-truth about where it came from; that ground-truth is what the platform records.
+
+**Action handlers (per ADR-7).**
+
+- `item.set_made_at(item_id, place_id)` — Tier 0 write. Rejects if `kind != 'product'`. Sets `made_at_place_id`, `made_at_verification_source='self_attested'`. Fires `item.made_at_set`.
+- `item.remove_made_at(item_id)` — clears the claim. Fires `item.made_at_removed`.
+- `item.attest_made_at_community(item_id)` (b2+) — Tier 1 write triggered by the attestation-threshold worker when confirming buyer attestations cross the threshold. Sets `made_at_verification_source='community_attested'`. Demotion path also lives here when dissent flags. Fires `item.made_at_community_attested`. Buyer-side attestations land in a sibling table (`item_made_at_attestations`) — substrate ships at b2 alongside the surface, designed in lockstep with `member_business_jurisdiction_attestations` per `business-jurisdiction.md`.
+- `item.verify_made_at_document(item_id, document_blob_id)` (b2+/b3) — Tier 2 write; queues OCR/manual review. Fires `item.made_at_documented` on confirmation.
+
+**Event log entries:** `item.made_at_set` (Tier 0, b1), `item.made_at_removed` (b1), `item.made_at_community_attested` (Tier 1, b2+), `item.made_at_documented` (Tier 2, b2+/b3). All append-only, audit-field-bearing per ADR-6 / ADR-10.
+
+> **Intent (Ratified 2026-05-23):** Default `'none'` because the "Locally Made" badge is a Member-affirmative *claim*, not a platform inference. Defaulting to `self_attested` (or auto-deriving from the seller's jurisdiction ZIP) would either lie about the evidence level or quietly conflate ownership with provenance — the exact conflation ADR-21's substrate split exists to prevent. The climb path mirrors `business-jurisdiction.md`: Member self-attests at Tier 0 → buyers attest at Tier 1 (b2+, peer pressure for the greater good) → document-supported at Tier 2 (b2+/b3). The Member declares the claim; the community confirms it; the platform records both honestly. **Test for future proposals:** does the proposal want to auto-populate `made_at_verification_source` from any other field (the seller's jurisdiction ZIP, the seller's home Location, the seller's `kind='business'` Group anchor)? If yes, refuse — that would re-merge ownership and provenance, which the substrate split keeps separate.
+
+**Surface — deferred to PM ratification.** The "Locally Made" badge surface on Item pages and Item cards in discovery ships when the verification-ladder design lands. The b1 commitment is the substrate (columns, action handlers, event log); the badge UI, the "viewer's place vs. made-at place" proximity rule, and the document-evidence shape route back through `pipeline-product` once a real seller case forces the question. Open Questions parked in [`product/exploration/member-geography-redesign.md`](../exploration/member-geography-redesign.md):
+
+- Edge case: "designed in Sacramento, assembled in Vietnam" — does the badge require both? Working answer: the badge reads on `made_at_place_id` (where final assembly happens); "designed in" is a separate, lower-trust signal.
+- Edge case: services have no physical provenance — the column is intentionally not extended to kind='service'.
+- The document-evidence shape differs from jurisdiction (facility lease ≠ SOS filing); the Tier 2 ladder is unfinished.
+
 ## T3 — Polish Tier
 
 - **Vector embeddings** for all Items, enabling natural-language search across the platform. Embeddings indexed against a parallel table, refreshed on Item update.
@@ -109,6 +135,8 @@ The mental model in `primitives.md` is one Item primitive with a `kind` enum. Th
 - `brand_label` (nullable text — same `member_id` + same `brand_label` = locally owned multi-location; powers resolve-up rendering. When `group_id` references a kind='business' Group, the Group's `group_businesses.display_name` is the canonical brand source and `brand_label` is the Location/Item-level fallback per `groups.md`.)
 - `qr_card_url` (nullable text — populated on demand when the Member requests a QR card for this Item via the `item.qr_card.request` action handler. Resolves to the Item's canonical kind-specific page (per the naming table above). Per [`qr-onboarding.md`](../capabilities/qr-onboarding.md): QR cards are an **Item-level Member-requestable affordance** — there is no Location-level QR card, no participating-market gating, no kind restriction. Any Member can request a QR for any of their Items.)
 - `ambient_extras` (JSONB — small, for fields not worth a column and never queried; **not** the dumping ground)
+- `made_at_place_id` (nullable FK to `places.id`; meaningful only when `kind='product'`; per ADR-21) — the Place the product is made in; powers the "Locally Made" badge. See *Provenance claims* section.
+- `made_at_verification_source` (text, default `'none'`; check constraint over `('none','self_attested','community_attested','document_supported')`; per ADR-21) — the evidence tier for the provenance claim. Tier 1 (`community_attested`) lands at b2+ alongside the buyer-attestation surface; the enum value is reserved at b1 so the column shape never changes.
 - `created_at`, `updated_at`, `fulfilled_at` (nullable), `deleted_at` (soft)
 - **Reserved at MVP, populated later:** `parent_item_id`, `collection_id`, `federation_origin`, `embedding_id`
 

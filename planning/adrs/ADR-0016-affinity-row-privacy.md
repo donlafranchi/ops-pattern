@@ -1,13 +1,14 @@
 ---
-purpose: ADR-16 — RLS owner-only on member_location_affinities; aggregate functions only.
+purpose: ADR-16 — superseded by ADR-21 (2026-05-23). Historical record only.
 layer: how
-status: active
+status: superseded
 ---
 
 # ADR-0016: Per-row privacy on `member_location_affinities`; algorithms via privileged paths
 
-**Status:** Accepted
+**Status:** **Superseded by ADR-21** (2026-05-23). The target table (`member_location_affinities`) and its three named SECURITY DEFINER functions retire with ADR-21's substrate split. The owner-only-RLS posture this ADR established is preserved and now belongs to ADR-21 outright; cite ADR-21 only. This file is the historical record.
 **Date:** 2026-05-11
+**Superseded by:** [ADR-0021](ADR-0021-member-geography-substrate-split.md) 2026-05-23
 **Deciders:** PM
 **Scope:** Row-level privacy posture on the six `affinity_kind` values in `public.member_location_affinities`; the three named SECURITY DEFINER access patterns; the structural enforcement of the anti-doxxing commitment
 **Touches:** `product/systems/member.md` (RLS section + Decisions-encoded header), `product/systems/groups.md` (locally-owned derivation), `product/foundation/policy.md` (anti-doxxing — ADR-9 scope), `product/systems/business-jurisdiction.md` (Tier 0 ZIP verification follows the same pattern), `web/supabase/migrations/` (RLS policies + the three SECURITY DEFINER functions)

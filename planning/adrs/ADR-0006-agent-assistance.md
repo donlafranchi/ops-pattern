@@ -34,7 +34,7 @@ The full prose lives in [`agent-assistance.md`](../../product/systems/agent-assi
 
 ## Trade-offs
 
-The alternative — agent assistance as a post-MVP add-on layered on top of a human-only platform — was rejected because the action layer (ADR-7), the bounded-purchase delegation (ADR-17), and the affinity-row privacy (ADR-16) all encode agent-aware invariants at the substrate level. Retrofitting agent-awareness onto a non-agent-aware substrate would mean rewriting the substrate. Better to write it once, agent-aware from day one, even though the surfaces don't ship until b2.
+The alternative — agent assistance as a post-MVP add-on layered on top of a human-only platform — was rejected because the action layer (ADR-7), the bounded-purchase delegation (ADR-17), and the Member-geography substrate privacy (ADR-21, superseding ADR-16) all encode agent-aware invariants at the substrate level. Retrofitting agent-awareness onto a non-agent-aware substrate would mean rewriting the substrate. Better to write it once, agent-aware from day one, even though the surfaces don't ship until b2.
 
 The five-commitment framing is load-bearing because the failure modes the framing prevents are real and recurring in the broader industry:
 
@@ -44,7 +44,7 @@ The five-commitment framing is load-bearing because the failure modes the framin
 
 The cost: agent assistance is more expensive to build than a non-agent platform would be, even at the substrate level. The action layer's runtime trust substrate (six concerns in [`action-layer.md`](../../product/systems/action-layer.md)) exists *because* of this ADR; without it the action layer could ship simpler.
 
-ADR-9's anti-Nextdoor framing was softened 2026-05-12 in ways that refined this ADR — Member-Location relationships are not refused per se; what's refused is Location-scoped messaging and feeds. Agent assistance built on `member_location_affinities` (e.g., a Concerts-in-the-Park surface assistant) inherits that refinement.
+ADR-9's anti-Nextdoor framing was softened 2026-05-12 in ways that refined this ADR — Member-Location relationships are not refused per se; what's refused is Location-scoped messaging and feeds. Agent assistance built on the new Member-geography substrates (`member_place_interests`, `member_saved_searches`, per ADR-21) — e.g., a Concerts-in-the-Park surface assistant — inherits that refinement.
 
 ## Consequences
 
@@ -53,7 +53,7 @@ ADR-9's anti-Nextdoor framing was softened 2026-05-12 in ways that refined this 
 - ADR-17 (`bounded_purchase` scope) is the first concrete Delegation scope and the prototype for all future scopes — caps, recipient_scope, category_scope, reversibility window, first-recipient confirmation.
 - Member-Owned Context is not a "settings page" — it is a primitive. UI label is "Assistant Context" per the naming-conventions table in root `CLAUDE.md`.
 - Skills sandboxing is mandatory — every Skill runs in a sandbox per [`agent-assistance.md`](../../product/systems/agent-assistance.md). No exception for "trusted" Skills.
-- The platform never mines `member_self_records` for cross-Member analytics, training, advertising signals, or feature shaping. Per Commitment 4. RLS enforces this at the database level (per ADR-16's row-privacy pattern, applied to Assistant Context).
+- The platform never mines `member_self_records` for cross-Member analytics, training, advertising signals, or feature shaping. Per Commitment 4. RLS enforces this at the database level (the owner-only row-privacy pattern is the same shape ADR-21 applies to private Member geography substrates).
 - This ADR forecloses a path where agent assistance is bolted on as a third-party integration after b1 ships. Reversible at significant cost; the foreclosure preserves the Member-owned-by-design property.
 
 ## Action Items
