@@ -26,6 +26,25 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 findin
 
 ---
 
+## 2026-05-25 — T065 — Stryker required a narrowed TS + Vitest config to clear pre-existing baseline noise
+
+**Deviation:** Ticket spec assumed Stryker could run against the base `tsconfig.json` and the default `vitest.config.ts`. Both rejected the first runs for reasons unrelated to T065.
+
+**Reason:**
+1. **TS checker** failed against the base tsconfig because of pre-existing strict-mode errors in `scripts/check-action-layer-conformance.ts` (Node `readdirSync` `Dirent<NonSharedBuffer>` overload mismatch) and `tests/migrations-t042.test.ts` (regex `/d` flag needs ES2018+ target). Both are build-tolerated today but Stryker's dry-run compile is stricter.
+2. **Vitest baseline** failed because Stryker's previous failed run left a `.stryker-tmp/sandbox-*` tree that the next `npm test` walked into, matching tests inside Stryker's vendored zod. Plus 12 pre-existing failures in `tests/migrations-T0NN.test.ts` (stale directory-snapshot assertions broken since T055).
+
+**Impact:**
+- Added `tsconfig.stryker.json` extending the base, narrowing `include` to `src/**` and bumping target to ES2018.
+- Added `vitest.stryker.config.ts` scoping the runner to `src/**/*.test.ts(x)` (the unit-test convention in `web/CLAUDE.md`), excluding the `tests/` directory.
+- Patched `vitest.config.ts` (the production config) with `.stryker-tmp/**` and `reports/**` excludes so future leftover sandboxes do not poison `npm test`. Same fix earned its own line because it affects the regular test runner, not just Stryker.
+
+**Escalation:** None — the pre-existing TS strictness gaps and the 12 stale migration snapshots are real but out of T065's scope. Surfaced here for future tickets.
+
+**Resolution:** Stryker now runs end-to-end. Baseline: 30% total mutation score over 162 mutants; `market-dates.ts` 82.5%, the other four `src/lib` files at 0% (no sibling unit tests). Runtime ~3 minutes on M-series Mac. Real follow-up — add unit tests for `slugify.ts`, `categories.ts`, `geocoding.ts`, `action-context.ts` — is a separate ticket; T065 is the tooling-only landing.
+
+---
+
 ## 2026-05-19 — T057 — No spec deviation; eval-RPC column-name mismatch caught at first run
 
 **Deviation:** None against spec. T057 lands the `discoverable_items` view, refresh trigger, and indexes exactly as ticketed.
@@ -627,3 +646,126 @@ The URL isn't strictly "secret" but Vault stores arbitrary text without complain
 
 **Resolution:** `resolveActionContext` now passes a `Proxy<PoolClient>` sentinel that throws on any access. Type safety preserved; pool slots not consumed; any accidental direct use of ctx.db outside `withTransaction` raises a clear error rather than producing subtle bugs. Sandbox-verified: 33/33 file-shape checks pass; Vitest runtime check defers to the user's darwin run.
 
+
+## 2026-05-25 — b1.x substrate sprint (T058–T064) — bundled deviations
+
+The b1.x sprint shipped 5 migrations + 5 action handlers in one pass. Per-ticket DEVIATIONS entries collected here.
+
+### T058 — `places` table
+
+**Deviation 1: `geography` typed as `MultiPolygon` (not `Polygon`).** Sprint doc § A1 said `Polygon`; `places.md` § Data model implications said `MultiPolygon`. Spec is authoritative. **Resolution:** `MultiPolygon`. The spec form handles civic boundaries that are multi-piece (islands, exclaves) without later schema migration.
+
+**Deviation 2: NULL-parent root uniqueness via partial UNIQUE.** Sprint doc § A1 mentioned "the NULL-parent root case handled" without specifying mechanism. Postgres treats NULLs as distinct under a composite UNIQUE, so `UNIQUE (parent_id, slug)` alone would allow two NULL-parent rows with the same slug. **Resolution:** added `uniq_places_root_slug` partial unique index on `(slug) WHERE parent_id IS NULL AND deleted_at IS NULL` alongside the composite unique. Closes the gap.
+
+**Deviation 3: `place_events` ships now, not deferred.** Sprint doc flagged "open for `places.md` to settle" whether event log ships at A1 or later. **Resolution:** ships now. ADR-10 mandates event-log-from-day-one, and the rebuild-plan rule 6 + project principle "event logs from day one" make deferral inconsistent. No additional cost — partition-rotation pattern reused verbatim from `015_items.sql`.
+
+### T059, T060 — surface code deferred
+
+**Deviation:** the substrate-sprint exit criterion calls for reverse-geocoder + URL routing skeleton at this sprint. Tickets drafted with full acceptance criteria; **implementation deferred to dedicated CC sessions.** Rationale: each is non-trivial (Mapbox integration with cache + Postgres ST_Contains + Playwright eval for the route) and benefits from focused TDD rather than being squeezed into the substrate batch. The substrate (migrations, RLS, handlers) is the gating dependency for b1.0; surface code can ride right behind it without blocking the work-map.
+
+**Escalation:** none — flagged at sprint close so the PM can sequence T059 + T060 explicitly.
+
+### T061 — retire affinities
+
+**Deviation: stale comments in `010_member_interests_follows.spec.ts` and `floor.spec.ts` rewritten in-place rather than via a separate doc-housekeeping ticket.** Per the ticket's Notes: "cosmetic stale comments… can be patched in a follow-up doc-housekeeping ticket, NOT this one. Migrations are append-only; rewriting old migration comments is out-of-band." This was honored for the *migration files*. The *eval files*, however, are not append-only; rewriting them in-ticket is the correct move (otherwise the floor census + ADR-16 cite-comment would silently reference a dropped table). **Resolution:** delete `members-affinities.spec.ts`; patch `floor.spec.ts` (remove array literal + rewrite cite comment to ADR-21); patch `members-interests-follows.spec.ts:131` cite-comment.
+
+**Order-of-application note:** migrations 018 (T062) and 019 (T063) rewrite `member_events.event_kind` CHECK to *add* new kinds while still including the two retired affinity kinds in their allow-list. Migration 021 (T061) rewrites once more to drop the dead kinds. Inclusion of the retired kinds in 018 + 019 is intentional — it keeps the migration chain valid against any intermediate state without requiring the migrations to be applied as one atomic unit.
+
+### T062 — `member_place_interests`
+
+**Deviation: action-layer SECONDARY_LIMIT constant, not a DB CHECK.** Sprint doc described "≤5 `secondary` per Member (tuneable without migration)." A DB CHECK on row count is not possible without a trigger; the cap is action-layer-only. **Resolution:** `SECONDARY_LIMIT = 5` exported from `place-interest-add.ts`; the handler counts active secondaries before insert; raises `ConflictError('member.place_interest.secondary_limit_exceeded', { limit, active })`. The cap can be raised by changing the constant (no migration). If a peer Member's count is needed for any future scenario, a SECURITY DEFINER count function would be the lift — none required at b1.
+
+**Resurrect-on-re-add:** the handler uses `ON CONFLICT … DO UPDATE SET removed_at = null, created_at = now()` rather than insisting on a fresh row. This means the row's `created_at` reflects the latest active period, not the first-ever interest. Working assumption: the latest-active timestamp is what surfaces care about (e.g., "How long has the Member followed this place?"). If first-ever history is needed, fold it through the event log, not the row.
+
+### T063 — `member_saved_searches`
+
+**Deviation: at-least-one-filter validated twice (DB CHECK + Zod refinement).** The DB CHECK is the load-bearing copy; the Zod refinement is the fast-feedback copy. Defensible duplication: the action handler raises a useful error before round-tripping to the DB; the DB CHECK catches any path that bypasses the action handler (which is supposed to be impossible per ADR-7, but T051 enforcement is grep-based and not the schema's last line of defense).
+
+**Update path validates against merged final state.** The update handler reconstructs the post-update row (current ∪ patch) and validates the invariant against it, not just the patch fields. Necessary because a patch that nulls the last filter would pass a patch-only validation but fail the DB CHECK at write time.
+
+### T064 — `items.made_at_*`
+
+**Doc-patch landed in-ticket: `planning/rebuild-plan.md:148`.** The CHECK enum in the rebuild-plan example was the older 3-value form (`'none','self_attested','document_supported'`); ADR-21's verification-ladder reshape (Ratified 2026-05-23) adds `community_attested` and rule 8 of the same doc already had the 4-value form. Drift between rule and example is exactly what the session-start drift check is supposed to catch; fixed in-ticket rather than via a separate housekeeping pass.
+
+### Sprint-wide
+
+**Lint + TypeScript across new files:** clean. **`npm run check:action-layer`:** OK (137 files scanned; 32 protected tables; 0 violations; 0 exemptions). **Vitest on new files:** 85/85 green. **Pre-existing `migrations-t04*.test.ts` failures** (`toEqual` brittle pattern broken since T055 landed migration 014) are independent and not introduced by this sprint.
+
+**Workflow gates pending:**
+- M2 (`engineering:code-review`) on each diff: NOT YET INVOKED.
+- M3 (`design:accessibility-review`) on T060's landing page: not applicable until T060 ships.
+- M4 (`engineering:deploy-checklist`) before merge to main: NOT YET INVOKED.
+- Live-DB Phase 1 eval run on the new schemas: NOT YET INVOKED.
+
+PM to drive the gates and commit timing per project commit protocol (CLAUDE.md § Commit Rules).
+
+## 2026-05-25 — b1.x substrate sprint — M2 code-review fixes
+
+Code-review verdict: **Approve** after these 2 medium-severity findings auto-fixed before merge. Sprint-wide block above remains the canonical record.
+
+### T063 — saved_search update + remove: existence-vs-auth leak
+
+**Deviation:** the initial drafts of `saved-search-update.ts` and `saved-search-remove.ts` raised `AuthorizationError` for a non-owner caller and `NotFoundError` for a missing id. The distinction lets an attacker with a guessed UUID determine whether a row exists at all.
+
+**Reason:** privacy posture (ADR-9 + sibling `place-interest-remove.ts` pattern) calls for collapsing both cases to `NotFoundError` so existence is not leaked.
+
+**Impact:** practically low (122-bit UUID space makes guessing computationally bounded) but trivially fixable.
+
+**Resolution:** both handlers now raise `NotFoundError` for not-owner + missing + (saved_search_update) already-removed. AuthorizationError dropped from both files.
+
+### M2 suggestions logged (not fixes — informational)
+
+| # | File | Suggestion |
+|---|---|---|
+| 1 | `017_places.sql` § place_events policy | Public-read on `place_events` will expose curator identity once b2 admin curation ships. At b1 only the system Member writes, so moot. Add JOURNAL note before b2. |
+| 2 | `place-interest-add.ts` | TOCTOU on SECONDARY_LIMIT — `SELECT count(*)` then INSERT is read-committed; two concurrent calls could both observe 4 active and both insert → 6 total. Low severity (Member-scoped, not adversarial); fix would require SELECT FOR UPDATE on the Member's row set, an exclusion constraint, or a count-trigger. |
+| 3 | `place-interest-add.ts` | `ON CONFLICT DO UPDATE SET created_at = now()` resets the first-added timestamp on resurrect. First-ever history available through the event log. |
+| 4 | `saved-search-create.ts` | Dead-code `if (!savedSearchId)` removed inline. `RETURNING id` either yields a row or the INSERT already threw. |
+| 5 | `reverse-geocode.ts` | slugify diacritic-strip regex rewritten from literal codepoint range to `\p{Mn}` (Mark, Nonspacing) Unicode property — same semantics, source-file legibility no longer relies on combining-character rendering. |
+
+### Action-layer conformance scope update
+
+The PROTECTED_TABLES list in `web/scripts/check-action-layer-conformance.ts` was extended with the 4 new sprint tables (`places`, `place_events`, `member_place_interests`, `member_saved_searches`) and trimmed to drop `member_location_affinities` (table retired by 021). Without this, any future code drift that wrote directly to the new tables (bypassing the action layer) would have escaped the CI gate.
+
+**Resolution:** scanner now covers 35 protected tables (was 32 → +4 new, -1 retired). Conformance check still OK.
+
+## 2026-05-25 — T066 — ADR-22 + ADR-23 corrections applied pre-commit
+
+T066 is the pre-commit correction ticket for the geography substrate (T058–T064), applying ADR-0022 (county tier replaces MSA) and ADR-0023 (URL path compaction: USPS state codes + county-transparent URLs). T058–T064 had built but not yet committed; this corrects them on branch `t65` before the first commit. No rollback, no fix-forward.
+
+### Scope verified against T066 acceptance
+
+- `places.kind` CHECK enum = `region / state / county / city / neighborhood` (no `msa`). ✓
+- Seed chain: California (slug `ca`) → Sacramento County → Sacramento (city) → 5 neighborhoods (Oak Park, Curtis Park, East Sacramento, Midtown, Land Park). West Sacramento seeded as a `city` under Yolo County (NOT a Sacramento neighborhood, fixing the prior misclassification). ✓
+- URL form: `/p/ca/sacramento/oak-park` resolves; county tier present in data but transparent in URL when a city ancestor exists; `/p/ca/yolo` falls through to the county because no city `yolo` exists. ✓
+- City slug uniqueness scoped to the state (partial UNIQUE `(ancestor_state_id, slug) WHERE kind='city'`); `places_city_must_have_state_ancestor` CHECK guards the constraint precondition; trigger `places_set_ancestor_state_id` populates the denormalized column. ✓
+- Reverse-geocoder Mapbox `types=` includes `district` mapped to `county` kind. ✓
+- Jurisdiction ZIP-to-metro proximity code (`zip_metro_crosswalk`, `zip_is_proximal_to_location`, business-jurisdiction surfaces) **untouched**. Grep-confirmed clean. ✓
+
+### 9th file — accepted in-scope deviation (per T066 § Files)
+
+T066 names 8 core files (017_places.sql, resolve-path.ts, reverse-geocode.ts, page.tsx, places.spec.ts, place-routing.spec.ts, migrations-t058.test.ts, places-resolve-path.test.ts) and pre-accepts a 9th: `supabase/test-helpers/05_places_polygons.sql`. The helper signature gained a `p_kind` parameter to disambiguate the Sacramento city/county slug collision; the old 2-arg signature is dropped via `drop function if exists` so callers that forget to pass kind fail loudly. The corresponding eval (`reverse-geocode.spec.ts`) was updated to pass kind on every call.
+
+Also touched as collateral:
+- `evals/phase-1/member-saved-searches.spec.ts` — one test was looking up `getSeededPlace('sacramento')` via `.single()`, which now errors because two rows share that slug. Switched the test to use `'oak-park'` (unambiguous neighborhood). Not a logic change; the test just needed a non-colliding seed slug.
+- `evals/phase-1/places.spec.ts` — added `test.describe.configure({ mode: "serial" })` because the parent-slug-uniqueness test inserts/cleans up a temporary `test-twin-slug` row whose presence would otherwise leak into the parallel-running neighborhood-count test.
+
+### Gate results post-correction
+
+- **Unit tests:** 116/116 green (`npx vitest run` on the 9 sprint test files).
+- **Phase 1 evals:** 191/191 green (`npx playwright test evals/phase-1`).
+- **`npm run check:action-layer`:** OK — 35 protected tables, 0 violations.
+- **DB seed verified by direct SELECT:** 13 rows total — 1 state (ca/California), 5 counties, 2 cities (Sacramento under Sacramento County; West Sacramento under Yolo County), 5 neighborhoods.
+
+### Lock pre-flight
+
+`web/.git/index.lock` cleared at the start of the T066 session; no git operations performed (per project commit protocol — PM commits, agent produces summary).
+
+### Branch hygiene — PM decision needed
+
+Branch `t65` carries T058–T064 plus this T066 correction. Two viable shapes for the commit:
+
+1. **One batched commit** — `T058–T066: b1.x geography substrate (places + URL routing + county tier per ADR-22/23)`. Single atomic landing; reads as one cohesive unit in git history. Simpler.
+2. **Per-ticket reconstruction** — replay T058, then T061, T062, T063, T064, T059, T060 as 7 commits, with T066's corrections folded into the T058/T059/T060/etc commits they belong to. More work; preserves ticket-level granularity but rewrites history to a state that never literally existed (T058 was built pre-ADR-22 and corrected by T066).
+
+Recommend **#1** (batched). The substrate was developed as a unit and the ADR-22/23 corrections are inseparable from the substrate's first commit. Per-ticket commits buy nothing this session that the BUILD-LOG + DEVIATIONS records don't already supply.

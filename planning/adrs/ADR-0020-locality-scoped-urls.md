@@ -11,6 +11,7 @@ status: active
 **Deciders:** PM
 **Scope:** All public URLs on the platform — Members, places, Locations, Groups, Items.
 **Touches:** `CLAUDE.md` § Naming conventions, `product/systems/item.md` § naming table, `product/systems/groups.md`, `product/systems/location.md`, `product/systems/member.md`, forthcoming `product/systems/places.md`, every Phase 2 route + composer scenario (F025+).
+**Amended by:** ADR-0022 (place `kind` enum: `msa` → `county`; entity slug format) · ADR-0023 (URL path compaction — Accepted 2026-05-25).
 
 ## Decision
 
@@ -155,13 +156,13 @@ This relationship is separate from the place-anchor hierarchy. A Group anchored 
 
 ## Action Items
 
-1. [ ] Write `product/systems/places.md` (new system spec) — what a place is, hierarchy + kind enum, curation policy, granularity, polygon semantics, reverse-geocoding contract, URL-prefix derivation rules, redirect / history semantics.
+1. [x] Write `product/systems/places.md` (new system spec) — what a place is, hierarchy + kind enum, curation policy, granularity, polygon semantics, reverse-geocoding contract, URL-prefix derivation rules, redirect / history semantics. *(Landed; 208 lines covering T1/T2/T3 + Data model implications + ADR-20 encoding table.)*
 2. [ ] Update `CLAUDE.md` § Naming conventions table to reflect variable-depth place paths.
 3. [ ] Update `product/systems/item.md` § Item Kinds naming table to match.
 4. [ ] Annotate `product/systems/groups.md` with the place-anchor inheritance rules (default neighborhood-when-available, smallest-common-ancestor for federation) and the Group-of-Group relationship.
 5. [ ] Annotate `product/systems/location.md` with the place FK and the locality-scoped URL.
 6. [ ] Revise F025 as the **Group producer page** (not the Member page), anchored under `/p/[…place path]/g/[slug]`.
-7. [ ] `pipeline-intent-check` on this ADR before ratification (per rebuild-phase rule #9 — ADRs land with Intent annotations on any Category-2 absolutes).
+7. [x] `pipeline-intent-check` on this ADR before ratification (per rebuild-phase rule #9 — ADRs land with Intent annotations on any Category-2 absolutes). *(Verdict: CLEAN, 2026-05-25 — see [`planning/history/intent-ADR-20-2026-05-25.md`](../history/intent-ADR-20-2026-05-25.md). All three Category-2 absolutes carry substantive Intent.)*
 
 ## Intent annotations
 
