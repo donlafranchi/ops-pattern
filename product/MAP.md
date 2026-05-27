@@ -24,7 +24,7 @@ The constitution and the policy filter — what the platform refuses, what it co
 - **[`platform-promise.md`](foundation/platform-promise.md)** — what the platform commits to and refuses to do, in plain language for the thesis page.
 - **[`primitives.md`](foundation/primitives.md)** — the data spine: Person · Item · Location · Group; everything the platform does is one of these acting on another.
 
-## Needs — WHAT we serve (4 docs)
+## Needs — WHAT we serve (5 docs)
 
 Who the platform serves, what they want, how they move through it.
 
@@ -32,6 +32,7 @@ Who the platform serves, what they want, how they move through it.
 - **[`member-journey.md`](needs/member-journey.md)** — north star; 13 loops in 5 families (Gathering → Sharing → Trade → Pooling → Federation); activation energy ascends, belief ascends, stake accumulates.
 - **[`people.md`](needs/people.md)** — DRAFT; the personas the platform serves (Producer, Convener, Newcomer, Steward, Backer, Affinity-Seeker, Follower, Everyday Neighbor) traced to use cases.
 - **[`needs.md`](needs/needs.md)** — DRAFT; 13 human needs in plain voice, each traced to loop / system / capability / persona.
+- **[`producer-capability-taxonomy.md`](needs/producer-capability-taxonomy.md)** — producer/seller capabilities organized by business function (Presence · Listing · Locality · Marketing · Relationships · Analytics · Operations · Payments · Reputation · Collaboration); each category lists Now (Phase 2) / Later / Won't. Read by `scope` before writing producer-facing scenarios; Won't bullets are PM-ratified boundaries; every scenario's `## Capabilities unlocked` section traces here.
 
 ## Primitives — the data spine (T1 floor)
 

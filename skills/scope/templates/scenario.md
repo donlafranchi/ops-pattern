@@ -64,3 +64,12 @@ Implicit (set by the surface, not asked of the user): {`items.kind = …`, `item
 ## Out of Scope
 
 - {Deferred capabilities — name the bundle they'd land in (b2, b3) and link to that bundle file}
+
+## Capabilities unlocked
+
+> Required. List the producer (or member) capabilities this scenario realizes, by category from [`product/needs/producer-capability-taxonomy.md`](../../../product/needs/producer-capability-taxonomy.md). Each line names the taxonomy category and the specific "Now (Phase 2)" bullet(s) it satisfies. If the scenario realizes a capability that does not yet appear in the taxonomy, add it there first — don't invent a category here.
+>
+> If the scenario would realize a "Won't" capability, stop. The scenario is mis-scoped; route back to `explore` or `scope`. The taxonomy's "Won't" bullets are PM-ratified boundaries.
+
+- **{Taxonomy category}** — {specific bullet(s) from the Now/Later list realized here}
+- {…}

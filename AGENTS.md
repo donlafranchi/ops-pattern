@@ -93,13 +93,13 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Tool:** Cowork. **Model:** Opus.
 
-**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`.
+**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `product/needs/producer-capability-taxonomy.md` (mandatory — refuses to write scenarios for "Won't" capabilities; every scenario's `## Capabilities unlocked` section traces to taxonomy categories), `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`, `planning/phase-2-scenario-strategy.md` (active phase only).
 
 **Writes:** `planning/scenarios-backlog/` (PM moves approved → `planning/scenarios/`), `planning/bundles/`.
 
 **Does NOT read:** `development/tickets/`, `web/`, `planning/scenarios/` (read-only for reference).
 
-**Task:** Convert systems into user-story-shaped scenarios anchored to canonical examples. Apply the 5 Deadly Sins filter (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Surfaces the smallest version that proves the bet. Refuses to write tickets.
+**Task:** Convert systems into user-story-shaped scenarios anchored to canonical examples. Apply the 5 Deadly Sins filter (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Surfaces the smallest version that proves the bet. Refuses to write tickets. Every scenario must include a `## Capabilities unlocked` section mapping to the producer capability taxonomy.
 
 **Calls in:** `anthropic-skills:planning-filter` when ranking a sprawling backlog.
 

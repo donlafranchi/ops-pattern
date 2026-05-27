@@ -12,7 +12,7 @@ status: active
 
 **Meta / navigational docs** are catalogued in a dedicated Meta section at the bottom — they're the navigation, not the content.
 
-**Total catalogued:** 117 narrative docs by layer + 6 meta / navigational docs = 123 docs. **Excluded:** everything under `_attic/`, `housekeeping/`, `web/`, `skills/`.
+**Total catalogued:** 119 narrative docs by layer + 6 meta / navigational docs = 125 docs. **Excluded:** everything under `_attic/`, `housekeeping/`, `web/`, `skills/`.
 
 ## WHY — product/foundation/
 
@@ -44,6 +44,7 @@ status: active
 | `product/needs/member-journey.md` | The 13 loops Members move through, in five families. | active |
 | `product/needs/needs.md` | Ranked human needs traced to systems, capabilities, and personas. | draft |
 | `product/needs/people.md` | Personas the platform serves — one role per section. | draft |
+| `product/needs/producer-capability-taxonomy.md` | Producer capabilities by business function — Now / Later / Won't per category. | active |
 | `product/needs/use-cases.md` | Twelve real situations the platform exists to dissolve. | active |
 | `product/systems/action-layer.md` | One transactional write path; vends agent capabilities per turn. | active |
 | `product/systems/agent-assistance.md` | Delegation + Assistant Context + Skills with five umbrella commitments. | active |
@@ -138,6 +139,7 @@ status: active
 | `planning/reviews/intent-ADR-0023-2026-05-25.md` | Intent-check verdict for ADR-23. | reference |
 | `planning/outreach/outreach-list.md` | Founder-recruitment list for Sacramento. | active |
 | `planning/pending-ratifications.md` | Register of unratified absolutes awaiting PM decision. | active |
+| `planning/phase-2-scenario-strategy.md` | Phase 2 scenario ordering and structure — read by `scope` before writing Phase 2 scenarios. | draft |
 | `planning/rebuild-plan.md` | The approved clean-slate rebuild plan on primitives. | active |
 | `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's. | draft |
 | `planning/scenarios-backlog/F025-adaeze-member-public-page.md` | Backlog scenario — Adaeze creates her Member public page. | draft |
