@@ -1,15 +1,12 @@
 ---
-purpose: BI candidate for producer / maker operations — under PM review.
+purpose: Archived pre-primitives BI brainstorm — superseded by producer-tools.md + market-intelligence.md.
 layer: what
-status: reference
+status: historical
 ---
 
 # Business Intelligence Platform: Ideas, Tools & Best Practices
 
-> **Kept 2026-05-19 — live candidate, under PM review for inclusion.** This is slated to
-> become a tool for producers and makers to improve their operations. Vocabulary here is
-> pre-primitives ("business"); read it for intent, not current terms. Related to
-> [`systems/producer-tools.md`](../systems/producer-tools.md). Not yet an approved system.
+> **Archived 2026-05-23 — superseded.** Raw pre-primitives brainstorm. Its two halves now live in current docs: the *seller's own operational tools* in `product/systems/producer-tools.md`, and the *platform-wide market-intelligence direction* captured fresh in `product/exploration/market-intelligence.md`. Kept for trace only — read for historical intent, not current terms or scope.
 
 > Raw exploration. Decompose into capabilities/, systems/, and products/ as pieces mature.
 
