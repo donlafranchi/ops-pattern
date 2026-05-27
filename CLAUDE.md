@@ -236,7 +236,7 @@ Read before working in the named area. The pipeline skills already know to read 
 
 ## Commit Rules
 
-**Branch per ticket.** Every ticket starts on its own branch — `cd web && git switch -c t{nnn}` (or in parent for parent-repo work). PM merges to `main` at ticket close. Branch name `t{nnn}` is the convention; matches the ticket number, no zero-padding.
+**Branch per ticket, worktree per branch.** Every ticket starts on its own branch in its own worktree — from the main `web/` working tree: `git worktree add ../web-t{nnn} -b t{nnn}` (or `git worktree add ../community-t{nnn} -b t{nnn}` from the parent for parent-repo work). All ticket work happens in `../web-t{nnn}/`. PM merges and removes the worktree at ticket close: `cd web && git switch main && git merge --no-ff t{nnn} && git worktree remove ../web-t{nnn} && git branch -d t{nnn}`. Branch name `t{nnn}` is the convention; matches the ticket number, no zero-padding. Worktrees isolate concurrent agents — without them, two agents in the shared `web/` tree can overwrite each other's uncommitted edits (observed 2026-05-26: a T058–T066 commit landed on top of T065's pending edits and blew them away; the T065 agent had to re-apply them).
 
 **Claude Code commits code — always with PM permission.** `build` ends a ticket by asking: "Ready to commit T### on branch t### with message `T###: title`? (y/n)." On `y`, `build` runs the commit. On `n`, PM amends or defers. Past pattern (PM commits everything from the Mac terminal) was a workaround for Cowork's sandbox git-lock bug; Claude Code's shell does not have that bug and should own its commits.
 
@@ -252,7 +252,7 @@ clearlock && cd /Users/don/Projects/community && \
 
 The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` files that wedge subsequent agent calls (see [`_attic/2026-05-19/notes/cowork-sandbox-git-bug.md`](_attic/2026-05-19/notes/cowork-sandbox-git-bug.md)). The skill provides the line; the PM runs it.
 
-**Lock pre-flight (Claude Code).** Before any read-or-write work, `build` runs `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` first. Do not attempt to remove the lock — the sandbox lacks the permission.
+**Lock pre-flight (Claude Code).** Before any read-or-write work, `build` runs `ls web/.git/index.lock web/.git/worktrees/*/index.lock .git/index.lock .git/worktrees/*/index.lock 2>/dev/null`. If any prints a path, stop and ask the PM to run `clearlock` first. Do not attempt to remove the lock — the sandbox lacks the permission. The PM's `clearlock` shell function must include the parent + web `.git/worktrees/*/index.lock` glob to cover worktree-resident locks (the lock for `../web-t{nnn}` lives at `web/.git/worktrees/t{nnn}/index.lock`, not in the worktree itself).
 
 **Format.** `T{NNN}: {title}` — one-line, no body, no co-author tag.
 

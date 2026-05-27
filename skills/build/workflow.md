@@ -6,18 +6,18 @@
 |---|---|
 | **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/scenarios/{F-slug}.md` (the scenario the ticket references), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
 | **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Produces a **commit summary** for the PM — does NOT run git itself (per CLAUDE.md Commit Rules). |
-| **Branch** | One per ticket: `t{nnn}`. Agent creates at session start (`git switch -c t{nnn}`); PM merges to `main` at close. |
+| **Branch** | One per ticket: `t{nnn}`, **in its own worktree** at `../web-t{nnn}/` (or `../community-t{nnn}/` for parent-repo work). Agent creates at session start via `git worktree add`; PM merges to `main` at close. Worktrees isolate concurrent agents so uncommitted edits in one ticket can't be overwritten by another agent committing in the shared `web/` tree. |
 | **Templates** | none — ticket template lives in `ticket/`; build implements, doesn't author specs |
 | **Does NOT read** | `planning/scenarios-backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
-| **Does NOT run** | `git add`, `git commit`, `git push`. Branch creation (`git switch -c`) is fine — that doesn't touch `.git/index`. |
+| **Does NOT run** | `git add`, `git commit`, `git push`. Worktree creation (`git worktree add ../web-t{nnn} -b t{nnn}`) is fine — that doesn't touch `.git/index`. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
 | **Hands to** | `test` (run mode) — verifies F### evals pass against the scenario |
 | **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the commit-summary handoff per CLAUDE.md rebuild-phase rule #3. The reviewed state is what gets handed to PM for commit; fixes happen in the same loop, not as follow-up commits. |
 
 ## TDD loop (every ticket)
 
-0. **Lock pre-flight.** Run `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` before continuing. Do NOT attempt to remove the lock yourself — the sandbox lacks the permission and silent failure here wedges every later git call. Per CLAUDE.md Commit Rules.
-1. **Start the ticket branch.** `cd web && git switch -c t{nnn}` (or in parent for parent-repo work). Confirms a clean working slate and isolates this ticket's commits from main. PM merges back at close.
+0. **Lock pre-flight.** Run `ls web/.git/index.lock web/.git/worktrees/*/index.lock .git/index.lock .git/worktrees/*/index.lock 2>/dev/null`. If any prints a path, stop and ask the PM to run `clearlock` before continuing. Do NOT attempt to remove the lock yourself — the sandbox lacks the permission and silent failure here wedges every later git call. Per CLAUDE.md Commit Rules.
+1. **Start the ticket worktree.** From the main `web/` working tree run `git worktree add ../web-t{nnn} -b t{nnn}` (or `git worktree add ../community-t{nnn} -b t{nnn}` from the parent repo for parent-repo work). Then `cd ../web-t{nnn}` and do all subsequent work there. Worktrees share the underlying `.git/` but have independent working trees and indices — uncommitted edits in `../web-t{nnn}/` cannot be overwritten by an agent committing in `web/` or in a sibling worktree. PM merges back at close and removes the worktree (`git worktree remove ../web-t{nnn}`).
 2. Read `BUILD-LOG.md` for current state.
 3. Read the ticket in `development/tickets/T{NNN}-{slug}.md`.
 4. Read the approved scenario at `planning/scenarios/{F-slug}.md` referenced by the ticket.
@@ -146,4 +146,4 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 **On eval failure:** evaluator hands back to you. Run the TDD loop again — fix forward, never roll back. New iteration stays on the same `t{nnn}` branch; PM commits each pass.
 
-**On eval pass:** the loop closes. PM merges `t{nnn}` to `main` (`git switch main && git merge --no-ff t{nnn} && git branch -d t{nnn}`) and picks the next scenario or asks `ticket` for the next ticket.
+**On eval pass:** the loop closes. PM merges `t{nnn}` to `main` from the main `web/` working tree (`cd web && git switch main && git merge --no-ff t{nnn} && git worktree remove ../web-t{nnn} && git branch -d t{nnn}`) and picks the next scenario or asks `ticket` for the next ticket.
