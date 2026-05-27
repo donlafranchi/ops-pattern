@@ -19,7 +19,7 @@ status: active
 - [`product/systems/groups.md`](../product/systems/groups.md) — Group primitive (spine + 2 child tables; supersedes Community / Operations / Cooperative)
 - [`product/systems/member.md`](../product/systems/member.md) — Member primitive (anchor; multi-Location affinities; DM substrate)
 - [`product/systems/location.md`](../product/systems/location.md) — Location primitive (spine + 3 child tables)
-- [`planning/bundles/b1-primitives.md`](../planning/bundles/b1-primitives.md) — b1 scope
+- [`planning/bundles/b1-primitives-plan.md`](../planning/bundles/b1-primitives-plan.md) — b1 scope
 - [`planning/DECISIONS.md`](../planning/DECISIONS.md) — active ADRs
 
 **Decisions ratified in this plan:**
@@ -31,8 +31,8 @@ status: active
 - **ADR-9** (policy framework — opt-out default, three-filter test, anti-Nextdoor commitments).
 - **ADR-10** (action layer + event log invariants) — same-transaction event-row commit, audit fields, view-refresh semantics. **Rewritten 2026-05-10** to drop the dual-write / per-phase rollback / verification-window sections (no live system to coexist with).
 - **ADR-12 SUPERSEDED 2026-05-12** (per `agent-commerce-and-project-amendments.md` §6) — the "Maker mode" framing is retired. The `members.maker_mode_enabled` column is **dropped before any data lands**. Selling tools surface from Group / Item state: ≥1 active `kind='business'` Group membership, or any `items.kind='product'`/`'service'` row. Vocabulary: **Seller** generically; **Producer** in agricultural/food contexts (already used in `producer-tools.md`, `producer-tools.md`). "Maker" survives only as a UI label when a Member self-identifies (craftspeople, artisans).
-- **ADR-13 pending** — Group consolidation. Spec banner in `groups.md` carries the decision.
-- **ADR-14 pending** — Location spine + child architecture. Spec banner in `location.md` carries the decision.
+- **ADR-13 Accepted** — Group consolidation. Spec banner in `groups.md` carries the decision; canonical ADR at `planning/adrs/ADR-0013-groups-consolidation.md`.
+- **ADR-14 Accepted** — Location spine + child architecture. Spec banner in `location.md` carries the decision; canonical ADR at `planning/adrs/ADR-0014-location-spine-child.md`.
 
 ---
 
@@ -174,14 +174,14 @@ Four phases. Each produces working software. No reversibility constraints betwee
 
 **Action handlers** ship alongside their tables (per ADR-7). Initial set:
 
-- **Member:** `member.create`, `member.profile.update`, `member.handle.set`, `member.privacy.update`, `member.locality.set`, `member.location_affinity.add`, `member.location_affinity.remove`, `member.maker_mode.toggle`, `member.maker_mode.activate`, `member.maker.full_stop`, `member.interests.add`, `member.interests.remove`, `member.follow`, `member.unfollow`, `member.delete`, `member.export.request`, `member.purge.execute`, `member.delegation.grant`, `member.delegation.revoke`.
+- **Member:** `member.create`, `member.profile.update`, `member.handle.set`, `member.privacy.update`, `member.locality.set`, `member.place_interest.add`, `member.place_interest.remove`, `member.place_interest.promote`, `member.place_interest.demote`, `member.saved_search.create`, `member.saved_search.update`, `member.saved_search.remove`, `member.interests.add`, `member.interests.remove`, `member.follow`, `member.unfollow`, `member.delete`, `member.export.request`, `member.purge.execute`, `member.delegation.grant`, `member.delegation.revoke`. **Retired — do not implement:** `member.location_affinity.add` / `.remove` (table retired per ADR-21); `member.maker_mode.toggle` / `.activate` / `member.maker.full_stop` (Maker mode retired per ADR-12 SUPERSEDED 2026-05-12 — selling tools surface from kind='business' Group membership or kind='product'/'service' Item, not from a Member-level toggle).
 - **Location:** `location.create`, `location.update_metadata`, `location.move` (same-coords-or-flag rule), `location.update_polygon`, `location.set_hours`, `location.delete`, `location.restore`.
 - **Item:** `item.create`, `item.update`, `item.publish` (transitions state, fires `item.published`, triggers view refresh), `item.attach_location`, `item.detach_location`, `item.respond`, `item.withdraw_response`, `item.set_state`, `item.delete`, `item.qr_card.request` (generates PNG, writes `qr_card_url`).
 - **Group:** `group.create`, `group.member_join`, `group.member_leave`, `group.role_change`, `group.steward_transfer` (community kinds only), `group.extend_dormancy`, `group.revive`, `group.dissolve`.
 
 **RLS:** every table passes the anon vs auth-self vs auth-other matrix smoke test. Public-read tables (`items` where `state='active'` and discoverability allows; `locations` where `discoverability != 'private'`; `groups` where `discoverability='listed'`) are anon-readable; owner-writes only via action layer.
 
-**Tickets:** ~10-15 (per-migration plus the action-handler set). `pipeline-ticket` decides allocation when the work begins.
+**Tickets:** ~10-15 (per-migration plus the action-handler set). `ticket` decides allocation when the work begins.
 
 **Effort:** ~2-3 weeks. **Risk:** low — additive only; no live data to corrupt.
 
@@ -193,16 +193,21 @@ Four phases. Each produces working software. No reversibility constraints betwee
 
 **Goal:** A Person can sign up, create an Item of any of the four b1 kinds (product / service / gathering / wonder), attach a Location, and reach a public page in <90 seconds.
 
-**New routes** (all new; old routes don't exist):
+**New routes** (all new; old routes don't exist). All public URLs except the Member page nest under a variable-depth place path per ADR-20, with state as the 2-letter USPS code and county URL-transparent per ADR-23. Canonical form: `/p/ca/sacramento/oak-park/...`. Entity slugs carry a short random suffix per ADR-22.
 
-- `/m/[handle]` — Member public page. Items grouped by `brand_label`. Group memberships visible per privacy. Multi-Location affinities surface privately on `/you`, publicly only when the Member opts in.
-- Kind-specific Item URLs (`/e/[event]`, `/p/[product]`, `/s/[service]`, `/i/[idea]`, `/o/[offer]`, `/a/[ask]`, `/initiative/[init]` per `item.md` naming table) — Item public pages, first-class, not buried. Includes resolve-up rendering (per `item.md`):
+- `/m/[handle]` — Member public page. **Global namespace — the one intentional exception to place-scoping** (the handle is the auth identity and must survive relocation). Items grouped by `brand_label`. Group memberships visible per privacy. Place interests surface privately on `/you`, publicly only when the Member opts in.
+- **Kind-specific Item URLs** — Item public pages, first-class, not buried. Two URL shapes per the CLAUDE.md naming table:
+  - Items filed under a Group: `/p/[…place]/g/[group-slug]/{resource}/[item-slug]` where `{resource}` is `e` (event), `p` (product), `s` (service), `i` (idea), `o` (offer), `a` (ask), or `initiative`.
+  - Items not filed under a Group: `/m/[handle]/{resource}/[item-slug]` — anchors to the owner's Member namespace.
+
+  Outer `/p/` (place) and inner `/p/` (product) are positionally unambiguous per ADR-20. Resolve-up rendering (per `item.md`):
+
   - **Owner.** Member name + link to `/m/[handle]`. Always.
   - **Brand.** `group_businesses.display_name` if filed under kind='business' Group; else `items.brand_label` if set.
   - **Multi-location:** same brand_label + same `member_id` → "Local — one owner" badge with linked siblings; same brand_label + different `member_id`s → "Franchise — local operator" badge.
-  - **Group.** Linked to `/g/[slug]` if `items.group_id` is set.
-- `/l/[slug]` — Location public page. Venue page pattern per `community-platform.md`: header (hero image → name → address+distance), primary CTA "Host something here" → gathering composer with this Location pre-attached. Sections: "What's happening here," "About," "Items here." Optional "Follow this venue" CTA — per ADR-21, creates a `member_saved_searches` row with `location_id` set and an auto-derived label; the Member can edit filters (interest_tags, item_kinds) afterward.
-- `/g/[slug]` — Group public page. Header, Members visible per privacy, Items filed under the Group, anchored Location.
+  - **Group.** Linked to the Group's URL (`/p/[…place]/g/[group-slug]`) if `items.group_id` is set.
+- `/p/[…place]/l/[slug]` — Location (venue) public page. Venue page pattern per `community-platform.md`: header (hero image → name → address+distance), primary CTA "Host something here" → gathering composer with this Location pre-attached. Sections: "What's happening here," "About," "Items here." Optional "Follow this venue" CTA — per ADR-21, creates a `member_saved_searches` row with `location_id` set and an auto-derived label; the Member can edit filters (interest_tags, item_kinds) afterward.
+- `/p/[…place]/g/[slug]` — Group public page. Header, Members visible per privacy, Items filed under the Group, anchored Location.
 
 **Surface-specific composers per loop** (no unified `/new` picker):
 
@@ -229,7 +234,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 
 **Effort:** ~3-4 weeks. **Risk:** medium (new design surface area; the 90-second composer is a real challenge).
 
-**Exit criterion:** a new Member can sign up, create an Item, attach a Location, and reach a public page in <90 seconds. The F018-F021 scenarios pass evals end-to-end. Surface-specific composers reachable from their named entry points (no `/new` picker exists). Item-level QR card affordance generates a PNG. The "Sell" CTA creates a kind='business' Group.
+**Exit criterion:** a new Member can sign up, create an Item, attach a Location, and reach a public page in <90 seconds. Fresh Phase 2 scenarios authored at Phase 2 open under the current primitives (covers product / service / gathering / wonder composer flows + Member page + Location page) pass evals end-to-end. F018 (Run Club) is a rewrite candidate when the b1 work-map recommends pulling it in; F019–F024 scrapped per PRE-PRIMITIVES-AUDIT-2026-05-11. Surface-specific composers reachable from their named entry points (no `/new` picker exists). Item-level QR card affordance generates a PNG. The "Sell" CTA creates a kind='business' Group.
 
 ---
 
@@ -284,7 +289,7 @@ Each composer carries its kind as known context, never as a picker. The four ent
 
 **Still optional (not blockers):**
 - Update `web/CLAUDE.md` route conventions for the new surfaces (only when Phase 2 surface tickets land).
-- Final pass on `b1-primitives.md` to clean any phrasing that referenced the old 7-phase structure (cosmetic).
+- Final pass on `b1-primitives-plan.md` to clean any phrasing that referenced the old 7-phase structure (cosmetic).
 - Write ADR-13 (Group consolidation) and ADR-14 (Location spine+child) formal entries if the spec banners aren't enough. Per the DECISIONS.md format, banners may be sufficient permanently.
 
 **Tickets:** 0 (doc-only work; no code changes).
@@ -377,7 +382,7 @@ PM signed off on this plan 2026-05-10 (rebuild reframe; supersedes the prior 7-p
 
 - **Phase 0 — DONE 2026-05-10.** Substrate runtime-verified end-to-end.
 - **Phase 1 — DONE 2026-05-19.** All schema, RLS, evals shipped: Members + Locations + Groups + Items + discoverable_items. Eval state: **142/142 Phase 1 green**; action-layer conformance 0 violations across 125 files / 32 protected tables. Tickets T041–T057 complete. Migration sequence (dependency-driven, deviated from plan): 007 locations → 008 locations RLS → 009 members_phase1 → 010 member interests/follows → 011 affinities → 012 agent assistance → 013 delegations CHECK → 014 groups → 015 items → 016 discoverable_items. Two going-forward rules added to DEVIATIONS at T055/T057 close: (1) SECURITY DEFINER pattern for cross-table RLS recursion; (2) `eval_indexes_for_table` returns `pg_indexes` column names (`indexname`, `indexdef`). Action handlers for Locations / Groups / Items intentionally NOT shipped in Phase 1 — they land with the Phase 2 surface composers that need them.
-- **Phase 2 — NEXT.** Fresh F-numbered scenarios authored at Phase 2 open via `pipeline-product` → `pipeline-plan` against the now-closed Phase 1 substrate. F018 (Run Club gathering composer) is the rewrite candidate when the b1 implementation plan recommends pulling it in; rewrite punch list preserved in [`../_attic/2026-05-27/planning-history/F018-review.md`](../_attic/2026-05-27/planning-history/F018-review.md).
+- **Phase 2 — NEXT.** Fresh F-numbered scenarios authored at Phase 2 open via `explore` → `scope` against the now-closed Phase 1 substrate. F018 (Run Club gathering composer) is the rewrite candidate when the b1 implementation plan recommends pulling it in; rewrite punch list preserved in [`../_attic/2026-05-27/planning-history/F018-review.md`](../_attic/2026-05-27/planning-history/F018-review.md).
 - **Phase 3 — NOT STARTED.**
 - **Phase 4 — DONE 2026-05-11.** Doc cleanup complete.
 

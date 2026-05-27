@@ -14,6 +14,22 @@ status: active
 
 ---
 
+## 2026-05-27 — rebuild-plan.md re-reviewed; bundle lifecycle pattern codified
+
+PM session (Cowork) handled two pipeline-doc passes back-to-back. **[Bundle lifecycle pattern](meta/cowork-pipeline/DEV-PATTERN.md#the-bundle-lifecycle--how-a-package-of-work-moves-through)** codified in DEV-PATTERN.md + CLAUDE.md naming table — filename kind suffixes (`-plan` / `-sprint` / `-work-map` / `-audit` / `-rebuild` / `-wrapup`), `status: planned | active | done` frontmatter, `vN-{slug}` rename on ship, unified `_attic/YYYY-MM-DD-{slug}/` archival, `RELEASES.md` indexing. Retires `planning/bundles/`. Commit `351bc1f`.
+
+**`rebuild-plan.md` accuracy re-review** — verdict **REVISE**. Plan structure intact across the ADR-20/21/22/23 wave; 7 mechanical patches required (stale skill names, retired handlers in Member handler list, pre-ADR-20 URL patterns in Phase 2, Phase 2 exit referencing scrapped F-numbers, ADR-13/14 marked "pending"). Load-bearing blocker upstream of the patches: 3 SPEC-PATCHES open since 2026-05-19 against `item.md`, `member.md`, `groups.md`, `policy.md`. Full punch list at [`planning/reviews/intent-rebuild-plan-2026-05-27.md`](planning/reviews/intent-rebuild-plan-2026-05-27.md).
+
+**SPEC-PATCHES drain — DONE.** Tracked at [`planning/bundles/b1.x-spec-drain-sprint.md`](planning/bundles/b1.x-spec-drain-sprint.md). Three patches landed (-0001 `item.md` state enum reconciled to `draft / published / withdrawn / fulfilled / closed`; -0002 `member.md` delegations partial-index predicate aligned with shipped T050; -0004 ADR-21 drift fixed in `primitives.md` + `payments.md` + `agent-assistance.md` + `affinity-derived-groups.md`); one rescinded (-0003 — both targets `member_location_affinities` table + `member_is_local_to_location()` function dissolved by ADR-21 before the patch could land; mitigation: one-line entry queued in OPEN-QUESTIONS.md so any real stale text gets noticed via the next `build` flag). Phase 2 blocker cleared.
+
+**rebuild-plan.md 7 patches — DONE.** P1 + P2 (stale `pipeline-*` skill names → `ticket` / `explore` / `scope`). P3 (Member handler list — dropped `location_affinity.*` + `maker_mode.*` retired handlers, added `place_interest.*` + `saved_search.*` per ADR-21; retirement line appended). P4 + P5 (ADR-13 + ADR-14 marked Accepted, canonical adrs/ paths added). P6 (Phase 2 routes rewritten to place-scoped per ADR-20/22/23 — `/p/[…place]/g/[slug]`, `/p/[…place]/l/[slug]`; Item URLs now two-shape with Group-anchored vs Member-anchored; `/m/[handle]` preserved as the one intentional global namespace; ADR-22 random-suffix mention added). P7 (Phase 2 exit criterion — dropped F019–F024 scrapped reference, F018 framed as rewrite candidate when work-map recommends).
+
+**Follow-up tidy queued:** bundle file renames (`b1-primitives-plan.md` → `b1-primitives-plan.md`, etc.), `status:` backfill on existing bundle docs, retire `planning/bundles/`, scaffold `planning/RELEASES.md`, update `orient` + `tidy` skill workflows to enforce new conventions, move T054–T066 from `development/tickets/` to `development/tickets/done/` per STAGE-LEDGER `done` rows.
+
+**Status / next:** Phase 2 unblocked. Run `scope` to author the first Phase 2 scenarios under current primitives — product / service / gathering composer flows + Member page + Location page. F018 rewrite remains a candidate; per the patched plan, the work-map drives that call.
+
+---
+
 ## 2026-05-25 — URL & slug naming: ADR-0022 ratified; ADR-0023 (path compaction) drafted
 
 PM session (Cowork) worked through the place-hierarchy "region tier" and URL/slug naming. Two ADRs resulted. **[ADR-0022 — URL & slug naming refinements](planning/adrs/ADR-0022-url-slug-naming-refinements.md)** — Status: **Accepted** (ratified 2026-05-25, intent-check CLEAN): county replaces MSA, entity slugs readable + random suffix, place slugs stay readable. **[ADR-0023 — URL path compaction](planning/adrs/ADR-0023-url-path-compaction.md)** — Status: **Proposed**: state 2-letter codes + a URL-transparent county tier (`/p/ca/sacramento/oak-park`). Both amend ADR-0020; its locality-scoped-URL architecture otherwise stands.
@@ -40,7 +56,7 @@ PM session (Cowork) worked through the place-hierarchy "region tier" and URL/slu
 
 `pipeline-plan` ran on the four b1 candidates ADR-21 unblocked. All four scenarios in `planning/scenarios-backlog/` pending PM approval. The fifth candidate (`member_saved_searches` substrate at b1) lands as a **substrate ticket** per `CLAUDE.md` rule 14 — no F-number; binds to ADR-21 + `member.md` Saved searches section.
 
-**b1-work-map.md resync** (preliminary, in lockstep with this skill rather than escalating to `pipeline-bundle-resync`):
+**b1-primitives-work-map.md resync** (preliminary, in lockstep with this skill rather than escalating to `pipeline-bundle-resync`):
 - **b1.0** — added 🟢 "Place-interest scope" and 🟢 "Community-awareness feed (per ADR-21)" alongside the existing locality default.
 - **b1.2** — retired "Become a Maker" / "Maker mode toggle" lines (already retired by ADR-12 supersession 2026-05-12; the work map had not been updated). Clarified that the existing "Claimed local owner" badge line reads `member_business_jurisdictions` per `business-jurisdiction.md`.
 - **b1.4** — added 🟢 "Locally Made claim (Tier 0)" and 🟢 "`member_saved_searches` substrate (no surface)"; retired "Follow a Location" as a standalone item (per ADR-21, it's a saved-search shape now; surface at b2).
