@@ -21,4 +21,4 @@ status: draft
 
 ## Verification
 
-(to be written)
+- Mutation testing (Stryker) on `web/src/lib/**` via `npm run mutate` — local-only at b1; CI gate deferred until a baseline threshold is established. T065.
