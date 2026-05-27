@@ -8,7 +8,7 @@
 **Serves:**
 - **Spec:** [`product/systems/places.md`](../../product/systems/places.md) § T1 — MVP Tier (URL routing bullet) + § Open questions (place-name aliases deferred to T3).
 - **ADRs:** [ADR-0020](../../planning/adrs/ADR-0020-locality-scoped-urls.md) § *URL hierarchy*.
-- **Sprint:** [`planning/bundles/b1x-substrate-sprint.md`](../../planning/bundles/b1x-substrate-sprint.md) § A3.
+- **Sprint:** [`planning/bundles/b1.x-substrate-sprint.md`](../../planning/bundles/b1.x-substrate-sprint.md) § A3.
 
 ## Workflow gates
 

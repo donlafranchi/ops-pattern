@@ -100,7 +100,7 @@ Implicit (read by the feed, not written by Sam):
 - The onboarding flow (auth + profile + locality step + interest tags) exists per b1.0 work-map.
 - `places` seed data covers Oak Park, Curtis Park, Sacramento, Sacramento MSA, Folsom, Davis, West Sacramento — per `places.md` b1 seed list.
 - The `discoverable_items` materialized view (per `discovery.md` T1) reads `item_locations` joined to `locations.place_id` and surfaces the place-ancestry chain.
-- Hashtag / `member_interests` controlled vocabulary is seeded at b1 (per `b1-primitives.md` open question on initial vocabulary).
+- Hashtag / `member_interests` controlled vocabulary is seeded at b1 (per `b1-primitives-plan.md` open question on initial vocabulary).
 - The Discovery T1 scorer (per `discovery.md`) is the ranking layer; this scenario asserts the **candidate set** is correctly bounded by place-interest traversal — ranking quality is a separate scenario.
 
 ## Out of Scope

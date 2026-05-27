@@ -27,7 +27,7 @@ status: active
 ## 2 · BUILD-LOG.md prose cleanup (audit R7)
 
 **What.** `web/BUILD-LOG.md` ticket table is current (142/142). Surrounding prose has rotted:
-- Header cites `b1-mvp.md` (does not exist; active is `b1-primitives.md`).
+- Header cites `b1-mvp.md` (does not exist; active is `b1-primitives-plan.md`).
 - "Remaining b1 MVP Work" lists T025/T026 as remaining though both are ✅ Complete.
 - "Latest Commits" stops at T046 (11 tickets behind).
 - "Notes" says "51/51 passing" (Phase 1 is 142/142).

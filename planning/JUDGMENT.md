@@ -114,7 +114,7 @@ Source casebook: `DEVIATIONS.md`, `SPEC-PATCHES.md`
 Last reviewed: 2026-05-23
 
 ### Scope
-Source intent: `product/foundation/principles.md` § Decision Test; active bundle `b1-primitives.md`
+Source intent: `product/foundation/principles.md` § Decision Test; active bundle `b1-primitives-plan.md`
 Source casebook: `DEVIATIONS.md`, `JOURNAL.md`
 
 **In bounds:**

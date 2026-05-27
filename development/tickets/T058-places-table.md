@@ -8,7 +8,7 @@
 **Serves:**
 - **Spec:** [`product/systems/places.md`](../../product/systems/places.md) § T1 — MVP Tier + § Data model implications.
 - **ADRs:** [ADR-0020](../../planning/adrs/ADR-0020-locality-scoped-urls.md) (Accepted 2026-05-23), [ADR-0019](../../planning/adrs/ADR-0019-clean-slate-rebuild.md) (rebuild plan), [ADR-0007](../../planning/adrs/ADR-0007-action-layer.md) (action-layer-only writes), [ADR-0010](../../planning/adrs/ADR-0010-events-from-day-one.md) (event-log invariants).
-- **Sprint:** [`planning/bundles/b1x-substrate-sprint.md`](../../planning/bundles/b1x-substrate-sprint.md) § A1.
+- **Sprint:** [`planning/bundles/b1.x-substrate-sprint.md`](../../planning/bundles/b1.x-substrate-sprint.md) § A1.
 
 ## Workflow gates
 

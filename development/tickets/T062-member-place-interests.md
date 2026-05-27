@@ -8,7 +8,7 @@
 **Serves:**
 - **Spec:** [`product/systems/member.md`](../../product/systems/member.md) § Place-interest scope.
 - **ADRs:** [ADR-0021](../../planning/adrs/ADR-0021-member-geography-substrate-split.md) (Ratified 2026-05-23), [ADR-0007](../../planning/adrs/ADR-0007-action-layer.md), [ADR-0010](../../planning/adrs/ADR-0010-events-from-day-one.md).
-- **Sprint:** [`planning/bundles/b1x-substrate-sprint.md`](../../planning/bundles/b1x-substrate-sprint.md) § B2.
+- **Sprint:** [`planning/bundles/b1.x-substrate-sprint.md`](../../planning/bundles/b1.x-substrate-sprint.md) § B2.
 
 ## Workflow gates
 

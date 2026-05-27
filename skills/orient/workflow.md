@@ -4,15 +4,15 @@
 
 | | |
 |---|---|
-| **Reads** | root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/{active}.md`, optionally `AGENTS.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/OPEN-QUESTIONS.md`, `planning/DECISIONS.md`, `planning/bundles/b{N}-work-map.md`, `web/BUILD-LOG.md`, `development/tickets/done/T*.md` (last sub-bundle), `_inbox/` |
-| **Writes** | nothing by default. May suggest a JOURNAL entry. In folded prune mode (step 10), writes JOURNAL.md / DECISIONS.md / archive files only on PM ratification. In folded bundle-resync mode (step 11), writes `bundle-themes.md` / `b{N}-work-map.md` only on PM ratification. |
+| **Reads** | root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/b{N}-{slug}-plan.md` (the file with `status: active`), optionally `AGENTS.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/OPEN-QUESTIONS.md`, `planning/DECISIONS.md`, `planning/RELEASES.md`, `planning/bundles/b{N}-{slug}-work-map.md`, `web/BUILD-LOG.md`, `development/tickets/done/T*.md` (last sub-bundle), `_inbox/` |
+| **Writes** | nothing by default. May suggest a JOURNAL entry. In folded prune mode (step 10), writes JOURNAL.md / DECISIONS.md / archive files only on PM ratification. In folded bundle-resync mode (step 11), writes `bundle-themes.md` / `b{N}-{slug}-work-map.md` only on PM ratification. |
 | **Hands to** | whichever pipeline skill the request matches (see routing table) |
 
 Session-start check (project-agnostic):
 
 1. **Read `JOURNAL.md`** at project root — top entry tells you what just changed.
 2. **Read the root `CLAUDE.md`** — project facts (stack, repo structure, north stars).
-3. **Read the active bundle** at `planning/bundles/` (default `b1-*.md`) — current scope and hypothesis.
+3. **Read the active bundle plan.** Pick the file in `planning/bundles/` whose frontmatter carries `status: active` and whose name matches `b{N}-{slug}-plan.md`. Directory placement no longer signals state — `status:` does. If multiple plan files carry `status: active`, flag as drift and stop.
 4. **Confirm the task is in scope.** If the user's request isn't in the bundle's scope, surface that and ask whether to proceed or escalate.
 5. **Confirm the task serves a north star.** If you can't name which north star the work serves, ask the user before starting.
 6. **Surface stuck approved scenarios.** Glance at `planning/scenarios/` and `planning/scenarios-backlog/`. If any approved scenario in tickets references a backlog file (`planning/scenarios-backlog/F###`), the build firewall is being violated — surface as a blocker. Equally: if any scenario in `planning/scenarios/` has its `Canonical example:` field pointing at a TODO placeholder section of `use-cases.md`, surface as a blocker.
@@ -31,12 +31,16 @@ Session-start check (project-agnostic):
    | Any F# has artifacts (ticket exists) but no `plan-approved` stamp in STAGE-LEDGER — return-path break | Audit R4 |
    | Any `.md` or `.html` at repo root other than the load-bearing set — anti-sprawl | 2026-05-23 |
    | `_inbox/` non-empty for >7 days — triage backlog | 2026-05-23 |
+   | `planning/bundles/done/` exists on disk — directory-as-state retired in favor of `status:` field | 2026-05-27 |
+   | Any file in `planning/bundles/` missing `status:` in frontmatter, or carrying a value outside {`active`, `done`, `deferred`} | 2026-05-27 |
+   | Any file in `planning/bundles/` whose name does not match `b{N}-{slug}-plan.md` or `b{N}[.{x}]-{slug}-{kind}.md` (kind ∈ {sprint, work-map, audit, rebuild, wrapup}), excluding cross-bundle sequencers like `bundle-themes.md` | 2026-05-27 |
+   | `planning/RELEASES.md` row count does not match the number of `_attic/YYYY-MM-DD-vN-{slug}/` archives (drift in the shipped-version index) | 2026-05-27 |
 
    Report each failure with: check name, offending file(s), one-line fix. Do not attempt the fix.
 
    **Also surface any `planning/OPEN-QUESTIONS.md` entry older than 14 days.**
 
-8. **Surface unsynced sub-bundle.** Glance at `planning/bundles/b{N}-work-map.md` and the last few `development/tickets/done/T*.md`. If a sub-bundle has closed but `bundle-themes.md` / `b{N}-work-map.md` hasn't been touched since, suggest running step 11 (folded bundle-resync) before any new scenario writing.
+8. **Surface unsynced sub-bundle.** Glance at `planning/bundles/b{N}-{slug}-work-map.md` and the last few `development/tickets/done/T*.md`. If a sub-bundle has closed but `bundle-themes.md` / `b{N}-{slug}-work-map.md` hasn't been touched since, suggest running step 11 (folded bundle-resync) before any new scenario writing.
 
 9. **Registry conformance check (lightweight).** If `REGISTRY.md` exists at project root, verify three things:
    - Every `.md` under `product/`, `planning/`, `development/`, `standards/` (excluding `_attic/`, `housekeeping/`, `web/`, `skills/`, and the load-bearing root set) carries YAML front-matter with `purpose` + `layer` + `status`.
@@ -72,7 +76,7 @@ Session-start check (project-agnostic):
       - *Hidden work* (tickets implemented something not on map) → **EXPAND**.
       - *Phantom work* (map predicted, sub-bundle didn't ship and didn't drop) → flag PM; retire if legit-dropped; escalate to `scope` if forgotten.
       - *Structural drift* (ticket produced ADR-shape) → **ESCALATE** to `memo` / `explore`.
-    - **Propose edits before writing.** RE-TAG: flip emoji + `(re-tagged 2026-MM-DD: {reason})`. RE-SEQUENCE: move bullet between sub-bundle sections in both `bundle-themes.md` and `b{N}-work-map.md`; update dependency graph if arrow changed. EXPAND: new 🟢/🟡/⚪ line with one-line rationale.
+    - **Propose edits before writing.** RE-TAG: flip emoji + `(re-tagged 2026-MM-DD: {reason})`. RE-SEQUENCE: move bullet between sub-bundle sections in both `bundle-themes.md` and `b{N}-{slug}-work-map.md`; update dependency graph if arrow changed. EXPAND: new 🟢/🟡/⚪ line with one-line rationale.
     - **PM ratifies; apply.** Then write the JOURNAL entry:
 
       ```
@@ -86,7 +90,7 @@ Session-start check (project-agnostic):
 
       **Files touched:**
       - planning/bundles/bundle-themes.md ({what changed})
-      - planning/bundles/b{N}-work-map.md ({what changed})
+      - planning/bundles/b{N}-{slug}-work-map.md ({what changed})
 
       **Hand-off:** none | scope (F### needed for new EXPAND line) | memo (ADR-shaped drift) | explore (new system / capability)
       ```
@@ -183,6 +187,6 @@ If any of these are missing, suggest `scaffold`.
 
 ## Hand off
 
-**You produced:** orientation. Possibly an updated `JOURNAL.md` entry if you observed drift. In folded prune mode (step 10): trimmed JOURNAL.md / DECISIONS.md + archive files. In folded resync mode (step 11): updated `bundle-themes.md` + `b{N}-work-map.md` + a JOURNAL entry.
+**You produced:** orientation. Possibly an updated `JOURNAL.md` entry if you observed drift. In folded prune mode (step 10): trimmed JOURNAL.md / DECISIONS.md + archive files. In folded resync mode (step 11): updated `bundle-themes.md` + `b{N}-{slug}-work-map.md` + a JOURNAL entry.
 
 **Next skill:** whichever entry in the routing table fits. You do not implement; you route once and step back. If the request is ambiguous, ask one clarifying question rather than guessing — routing the wrong skill costs more than a clarifying question.

@@ -32,7 +32,7 @@ The plumber leaves a QR card on a fridge after a service call — scan resolves 
 - The card image is generated server-side and stored as `items.qr_card_url` (text, nullable on `items` per `item.md`).
 - The Member can re-generate (replaces the URL? no — Item slugs are stable, so re-generation is a re-render of the same QR; useful only for design refresh).
 - Card-image format: PNG at print-quality DPI; downloadable from the Item edit screen. The Member prints; the platform doesn't fulfill physical cards.
-- Scan flow: scanner lands on the Item's kind-specific page like any other URL visitor. Anonymous browse is allowed (Loop 3 / `b1-primitives.md`); the visitor sees the Item, can respond (RSVP / follow / save / "I'd be in") with auth-gate prompt at response time.
+- Scan flow: scanner lands on the Item's kind-specific page like any other URL visitor. Anonymous browse is allowed (Loop 3 / `b1-primitives-plan.md`); the visitor sees the Item, can respond (RSVP / follow / save / "I'd be in") with auth-gate prompt at response time.
 - The 90-second target — for the canonical farmers-market case where the Maker is creating their first Item *and* requesting the QR card in one flow — composer to printable QR in 90 seconds. Achieved by the QR generation being a single button on the post-create confirmation screen, not a separate tool.
 
 ## Deferred

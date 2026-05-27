@@ -159,7 +159,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L23: long line.
 - L55: "Privacy: never shared with other Members, never visible on the Member's public profile."
 - L94: "...Members never reach business-Group creation by accident."
-- L137: "Hard delete never ships at any tier (per b1-primitives.md)."
+- L137: "Hard delete never ships at any tier (per b1-primitives-plan.md)."
 - L231: long line; covers ADR-9 follow-visibility scope shift; uses "never" in commitment-bearing way re cross-community discovery.
 - L295: "They are never used as a *send-to* target." (re Location affinities — anti-Nextdoor)
 - L303: "**Per-Member identity never surfaces in a recommendation.**"
@@ -393,7 +393,7 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - L165: "Reads scenario only. Never reads code."
 - L166: "Reads scenario + review. Never reads code or backlog."
 
-**`bundles/b1-primitives.md`**
+**`bundles/b1-primitives-plan.md`**
 - L23, L25, L105: long lines.
 - L66: "**Cooperative-style coordination is deferred indefinitely** per the Groups ratification — no `cooperative_*` schema lands at b1." — §2 SOFTEN authorized.
 - L70: "**Reviews, ratings.** Permanently deferred (per `service-provider.md` Comments — community-anchored endorsements at T2 instead, no star ratings ever)." — §3 RESCIND authorized (Group B4 ripple).
@@ -463,4 +463,4 @@ Each entry below is a candidate "Never / Permanent / Categorical / Indefinite / 
 - For each unflagged absolute-language occurrence encountered in future edits, append a row to the "Project-wide flagged" sections.
 - `member.md` L532 (auto-flip Maker mode), L542 (one-time-payments categorically-not-delegable), L586 (reviews permanently deferred), `agent-assistance.md` L47/L94/L109/L165 (one-time-payments categorically-not-delegable), `agent-assistance.md` L41 (same), and `policy.md` ADR-9 status row are tracked as authorized-RESCIND under Groups B4/B7 and C9–C12 of the amendments doc; this file flags them for completeness, but the build agent does not need re-ratification to act on them — the amendments doc is the authority.
 - `policy.md` §1, §2, §3 categorical language is tracked as authorized-SOFTEN under Group B5; same treatment as above.
-- `groups.md` L13, L298, L359, `b1-primitives.md` L66/L91/L102, `primitives.md` L58, `MAP.md` L59, `capabilities/group-create-join.md` L47, `archive/cooperative.md` L3/L13 — "deferred indefinitely" re cooperative coordination — tracked as authorized-SOFTEN under Group B3 per §2.
+- `groups.md` L13, L298, L359, `b1-primitives-plan.md` L66/L91/L102, `primitives.md` L58, `MAP.md` L59, `capabilities/group-create-join.md` L47, `archive/cooperative.md` L3/L13 — "deferred indefinitely" re cooperative coordination — tracked as authorized-SOFTEN under Group B3 per §2.

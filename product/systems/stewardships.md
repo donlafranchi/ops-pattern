@@ -13,7 +13,7 @@ status: draft
 
 **Status:** Drafted 2026-05-18 — pending PM review. Slots into b1 as a discrete ship-theme between Wonder (S6) and the b2 themes. Depends on Groups, Locations, Items (gathering), and the existing `steward` role on affiliate Group kinds. No new primitive; one small child table on Groups.
 
-**Depends on:** `b1-primitives.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `member-journey.md` (Loops 11–12), `design-philosophy.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `use-cases.md`.
+**Depends on:** `b1-primitives-plan.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `member-journey.md` (Loops 11–12), `design-philosophy.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `use-cases.md`.
 
 **North stars served:** Loop 11 (Pool resources) — partial, the lightest version. Loop 12 (Steward what we built) — full, the canonical surface. Family 1 (gathering rhythm) — reused as the upkeep cadence.
 
@@ -342,7 +342,7 @@ Per `principles.md` Part 6, listed so they cannot install themselves:
 Each of the following is real and downstream. None ships at S6.5:
 
 - **Inventory management** for tool libraries, seed libraries, and buying clubs. The mature external ecosystem (myTurn, Local Food Marketplace, Wholeshare) already covers this. The platform's job is the *social* layer; inventory lives in purpose-built tools, linked from the stewardship's profile.
-- **Money flow.** No shared treasury, no fee collection, no payments. Stewardships that need to handle money do so off-platform (a steward's PayPal, a fiscal sponsor, a CDFI account). Per the cross-cutting payment deferral in `b1-primitives.md`.
+- **Money flow.** No shared treasury, no fee collection, no payments. Stewardships that need to handle money do so off-platform (a steward's PayPal, a fiscal sponsor, a CDFI account). Per the cross-cutting payment deferral in `b1-primitives-plan.md`.
 - **Legal entity formation tooling.** No LLC walkthrough, no bylaws templates, no insurance partner. Stewardships that incorporate do so off-platform with their lawyer; the platform records the transition (`archived_reason`).
 - **Cross-stewardship federation surfaces.** A stewardship that wants to coordinate with the regional Tool Library Alliance does so off-platform at b1.5. The federation surface for stewardships (a "stewardship network" primitive) defers to b3+.
 - **Stewardship-scoped messaging.** The existing item-or-group-only messaging-scope commitment in `policy.md` holds. Stewardships use Group-scoped DMs through the existing surface; no special-cased messaging.

@@ -110,7 +110,7 @@ M2 runs **before** the commit. Past mistake: committing first, then running M2, 
 
 ## The bundle lifecycle — how a package of work moves through
 
-A bundle is a package of work in flight: scope, sequencing, execution, ship. Lives in `planning/bundles/` until shipped, then archives to `_attic/`. Every bundle file carries a kind suffix in its filename and a status in its frontmatter — together they replace dir-based state tracking. `planning/bundles/done/` retires.
+A bundle is a package of work in flight: scope, sequencing, execution, ship. Lives in `planning/bundles/` until shipped, then archives to `_attic/`. Every bundle file carries a kind suffix in its filename and a status in its frontmatter — together they replace dir-based state tracking. `planning/bundles/` retires.
 
 **Filename kind suffixes.** Borrowed from agile/PM vocabulary that already has loaded meaning — the suffix tells Claude Code (and you, grepping) what kind of work the file holds without opening it.
 
@@ -194,5 +194,5 @@ Add to this list whenever a new friction surfaces. Date it. Name it. Write the f
 
 ## Update log
 
-- *2026-05-27* — Added bundle lifecycle section: filename kind suffixes (`-plan` / `-sprint` / `-work-map` / `-audit` / `-rebuild` / `-wrapup`), `status` frontmatter (`planned` / `active` / `done`), phase decomposition rule, `vN-{slug}` rename on ship, unified `_attic/` archival, `RELEASES.md` indexing. Retired `bundles/done/`.
+- *2026-05-27* — Added bundle lifecycle section: filename kind suffixes (`-plan` / `-sprint` / `-work-map` / `-audit` / `-rebuild` / `-wrapup`), `status` frontmatter (`planned` / `active` / `done`), phase decomposition rule, `vN-{slug}` rename on ship, unified `_attic/` archival, `RELEASES.md` indexing. Retired `bundles/`.
 - *2026-05-26* — Initial draft after audit. Ten skills, new commit rule, M2 left of commit, bundle wrap-up convention.

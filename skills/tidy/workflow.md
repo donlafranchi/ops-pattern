@@ -100,7 +100,7 @@ Periodic sweep of the documentation tree. Finds doc rot. **Requires quiescence g
 - Every `.md` and `.html` under `product/`, `planning/`, `development/`, `standards/`, `housekeeping/`, and root.
 - `REGISTRY.md`, `product/MAP.md`, `product/TRACE.md`, `CLAUDE.md`, `git log`.
 
-### Six findings categories
+### Seven findings categories
 
 Walk in order. Report per category.
 
@@ -112,13 +112,20 @@ Walk in order. Report per category.
 
 **4. Naming consistency.** Check active specs `kebab-case.md`; dated work products `housekeeping/YYYY-MM-DD-{slug}/`; ADRs `ADR-NNNN-{slug}.md`; tickets `T###-{slug}.md`; reviews `F###-review.md`. Propose renames — don't auto-rename.
 
+**4a. Bundle filename + status convention.** Walk `planning/bundles/`:
+- Every file matches `b{N}-{slug}-plan.md` (bundle plan), `b{N}[.{x}]-{slug}-{kind}.md` with kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`}, or is a cross-bundle sequencer (no `b{N}` prefix — currently only `bundle-themes.md`).
+- Every file carries `status:` in frontmatter ∈ {`active`, `done`, `deferred`}.
+- `planning/bundles/done/` must not exist. State lives in `status:`, not in directory placement. If present → propose `rmdir` (after confirming empty; if non-empty, move contents up + set their `status: done` first).
+- Every file with `status: done` either lives at `planning/bundles/{file}.md` (still cited by active work) OR has been archived to `_attic/YYYY-MM-DD-vN-{slug}/` with a row in `planning/RELEASES.md`. Surface drift in either direction.
+- Every shipped user-visible version has a one-line row in `planning/RELEASES.md` pointing at its `_attic/YYYY-MM-DD-vN-{slug}/RELEASE.md`. Surface missing rows.
+
 **5. Completed housekeeping efforts.** Walk `housekeeping/*/README.md`. Status `complete` AND no modification in >30 days → propose archive to `_attic/{date}/housekeeping-{slug}/`. Don't auto-move.
 
 **6. Propagation check.** For every doc under `product/` and `planning/`: get last-modified date; grep for cites; if any cite source is older than the cited file's last mod → surface as possible propagation gap. Reverse check: every cite in CLAUDE.md / AGENTS.md / MAP.md / TRACE.md / REGISTRY.md points at an existing file.
 
 ### Report shape
 
-Single document, six sections. Each finding: file(s), one-line description, proposed action. PM ratifies (or skips) each.
+Single document, seven sections (1, 2, 3, 4, 4a, 5, 6). Each finding: file(s), one-line description, proposed action. PM ratifies (or skips) each.
 
 ### Execution
 

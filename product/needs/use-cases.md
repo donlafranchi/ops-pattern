@@ -28,29 +28,34 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 - **Deferred (b2+)** — not in b1; design questions are bounded and expected to resolve in the next bundle or two.
 - **Deferred (far horizon)** — not in the foreseeable bundle plan; design or coordination questions are too open or scope too large.
 
+**Build status** (added 2026-05-27, tracks what exists after Phase 2 ships):
+- 🟩 **Built** — fully functional after Phase 2.
+- 🟨 **Partial** — core surfaces ship at Phase 2; some functionality deferred.
+- ⬜ **Not built** — no user-facing surface ships at Phase 2 (substrate may exist).
+
 ---
 
 ## Index
 
-| Code | Category | Activity | Lead example | Status |
-|---|---|---|---|---|
-| [C1](#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) | Consumer | Searches, follows, gets a locality feed | A newcomer to Sacramento setting `home_location_id` | MVP |
-| [C2](#c2-a-member-organizes-awareness-across-multiple-places) | Consumer | Organizes awareness across multiple Places | A Sacramentan tracking Concerts in the Park | MVP substrate; surface b2 |
-| [C3](#c3-a-member-finds-a-trusted-local-service-provider) | Consumer | Finds a trusted local service provider | Someone needs a plumber, vet, electrician, piano teacher | Deferred (b2+) |
-| [C4](#c4-a-member-shares-extras-and-asks-for-help-mutual-aid) | Consumer | Shares extras and asks for help (mutual aid) | "I have extra zucchini" / "I need a truck for an hour" | Deferred (b2+) |
-| [C5](#c5-a-member-vouches-for-a-producer-or-attests-to-another-member) | Consumer | Vouches / attests | A buyer confirms Maya's Locally Made claim | Deferred (b2+) |
-| [C6](#c6-members-find-each-other-by-shared-interest-before-any-gathering-exists) | Consumer | Finds others by shared interest, no gathering exists yet | Bumble BFF refugees on Facebook | Deferred (b2+) |
-| [P1](#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) | Producer | Creates profile + lists products/services | Any small seller making their work findable | MVP |
-| [P2](#p2-a-producer-posts-bulletins-about-hours-stock-and-location) | Producer | Posts bulletins (write own or link Instagram/TikTok) | A bakery posts "Saturday 8–noon, fresh sourdough" | MVP |
-| [P3](#p3-a-producer-with-variable-cadence-stays-findable-to-followers) | Producer | Has variable cadence — irregular / intermittent / ambulatory | Ferrari Fisheries · Dip Vendor · Food Truck | MVP |
-| [P4](#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges) | Producer | Earns and displays Locally Owned + Locally Made badges | Maya at Oak Park Sourdough | MVP substrate; badge UI deferred |
-| [P5](#p5-a-service-provider-tradesperson-builds-trust-with-prospective-customers) | Producer | Service-provider builds trust with prospective customers | A plumber, electrician, hairdresser, piano teacher | Deferred (b2+) |
-| [O1](#o1-a-group-meets-at-a-regular-time-and-place) | Organizer | A group meets at a regular time and place | The Thursday Run Club at Drake's | MVP |
-| [O2](#o2-a-venues-recurring-program-becomes-findable-alongside-everything-nearby) | Organizer | A venue's recurring program is findable alongside everything nearby | Barn Movie Night at Drake's | MVP |
-| [O3](#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed) | Organizer | A multi-venue series spans Places, members find it via the awareness feed | Concerts in the Park across the Sacramento MSA | MVP substrate; surface b2 |
-| [O4](#o4-a-member-floats-an-idea-to-test-interest-before-committing-to-host) | Organizer | Floats an idea to test interest before committing to host | Someone thinking about a Sunday coffee walk | Deferred (b2+) |
-| [O5](#o5-a-community-steward-keeps-an-ongoing-operation-alive) | Organizer | A steward keeps an ongoing operation alive | A community garden lead, a tool library volunteer | Deferred (b2+) |
-| [O6](#o6-a-community-coordinates-around-a-vacant-space) | Organizer | A community coordinates around a vacant space | Cafe Capricho's would-be successor | **Deferred (far horizon)** |
+| Code | Category | Activity | Lead example | Status | Build |
+|---|---|---|---|---|---|
+| [C1](#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) | Consumer | Searches, follows, gets a locality feed | A newcomer to Sacramento setting `home_location_id` | MVP | 🟨 Partial — feed + follow ship; text/semantic search deferred |
+| [C2](#c2-a-member-organizes-awareness-across-multiple-places) | Consumer | Organizes awareness across multiple Places | A Sacramentan tracking Concerts in the Park | MVP substrate; surface b2 | 🟨 Partial — place-interest management ships; saved-search surface deferred |
+| [C3](#c3-a-member-finds-a-trusted-local-service-provider) | Consumer | Finds a trusted local service provider | Someone needs a plumber, vet, electrician, piano teacher | Deferred (b2+) | ⬜ Not built |
+| [C4](#c4-a-member-shares-extras-and-asks-for-help-mutual-aid) | Consumer | Shares extras and asks for help (mutual aid) | "I have extra zucchini" / "I need a truck for an hour" | Deferred (b2+) | ⬜ Not built |
+| [C5](#c5-a-member-vouches-for-a-producer-or-attests-to-another-member) | Consumer | Vouches / attests | A buyer confirms Maya's Locally Made claim | Deferred (b2+) | ⬜ Not built |
+| [C6](#c6-members-find-each-other-by-shared-interest-before-any-gathering-exists) | Consumer | Finds others by shared interest, no gathering exists yet | Bumble BFF refugees on Facebook | Deferred (b2+) | ⬜ Not built |
+| [P1](#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) | Producer | Creates profile + lists products/services | Any small seller making their work findable | MVP | 🟩 Built — business Group + product + service composers ship |
+| [P2](#p2-a-producer-posts-bulletins-about-hours-stock-and-location) | Producer | Posts bulletins (write own or link Instagram/TikTok) | A bakery posts "Saturday 8–noon, fresh sourdough" | MVP | ⬜ Not built — bulletin composer + delivery are b2 |
+| [P3](#p3-a-producer-with-variable-cadence-stays-findable-to-followers) | Producer | Has variable cadence — irregular / intermittent / ambulatory | Ferrari Fisheries · Dip Vendor · Food Truck | MVP | 🟨 Partial — Items listable with location; bulletin push-to-followers deferred |
+| [P4](#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges) | Producer | Earns and displays Locally Owned + Locally Made badges | Maya at Oak Park Sourdough | MVP substrate; badge UI deferred | 🟨 Partial — Tier 0 self-attested badges ship; Tier 1+ community-attested deferred |
+| [P5](#p5-a-service-provider-tradesperson-builds-trust-with-prospective-customers) | Producer | Service-provider builds trust with prospective customers | A plumber, electrician, hairdresser, piano teacher | Deferred (b2+) | ⬜ Not built |
+| [O1](#o1-a-group-meets-at-a-regular-time-and-place) | Organizer | A group meets at a regular time and place | The Thursday Run Club at Drake's | MVP | 🟩 Built — recurring gathering composer + venue page ship |
+| [O2](#o2-a-venues-recurring-program-becomes-findable-alongside-everything-nearby) | Organizer | A venue's recurring program is findable alongside everything nearby | Barn Movie Night at Drake's | MVP | 🟨 Partial — venue page + gathering by business Group ship; sub-venue deferred |
+| [O3](#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed) | Organizer | A multi-venue series spans Places, members find it via the awareness feed | Concerts in the Park across the Sacramento MSA | MVP substrate; surface b2 | 🟨 Partial — feed aggregation via place hierarchy works; saved-search surface deferred |
+| [O4](#o4-a-member-floats-an-idea-to-test-interest-before-committing-to-host) | Organizer | Floats an idea to test interest before committing to host | Someone thinking about a Sunday coffee walk | Deferred (b2+) | ⬜ Not built |
+| [O5](#o5-a-community-steward-keeps-an-ongoing-operation-alive) | Organizer | A steward keeps an ongoing operation alive | A community garden lead, a tool library volunteer | Deferred (b2+) | ⬜ Not built |
+| [O6](#o6-a-community-coordinates-around-a-vacant-space) | Organizer | A community coordinates around a vacant space | Cafe Capricho's would-be successor | **Deferred (far horizon)** | ⬜ Not built |
 
 ---
 

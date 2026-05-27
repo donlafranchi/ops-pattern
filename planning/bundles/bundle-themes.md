@@ -6,11 +6,11 @@ status: active
 
 # Bundle Themes
 
-**Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`b1-primitives.md`](b1-primitives.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`b1-work-map.md`](b1-work-map.md) (the menu of work per sub-bundle).
+**Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`b1-primitives-plan.md`](b1-primitives-plan.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`b1-primitives-work-map.md`](b1-primitives-work-map.md) (the menu of work per sub-bundle).
 
-**Depends on:** `b1-primitives.md`, `member-journey.md`, `primitives.md`, `use-cases.md`, `principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
+**Depends on:** `b1-primitives-plan.md`, `member-journey.md`, `primitives.md`, `use-cases.md`, `principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
 
-**What this doc does.** `b1-primitives.md` defines what ships in bundle 1 in primitive and cluster terms. This doc takes that scope and *sequences* it — what ships first, what second, what depends on what, and what each release is tested against. The unit of release is a **sub-bundle**, decimal-numbered (`b1.0`, `b1.1`, …). Each sub-bundle is small enough to ship in 1–2 weeks, demoable on its own, and metered against canonical examples.
+**What this doc does.** `b1-primitives-plan.md` defines what ships in bundle 1 in primitive and cluster terms. This doc takes that scope and *sequences* it — what ships first, what second, what depends on what, and what each release is tested against. The unit of release is a **sub-bundle**, decimal-numbered (`b1.0`, `b1.1`, …). Each sub-bundle is small enough to ship in 1–2 weeks, demoable on its own, and metered against canonical examples.
 
 ---
 
@@ -20,7 +20,7 @@ To prevent the same confusion that produced the prior `S`/`T` ambiguity:
 
 | Symbol | Meaning | Source |
 |---|---|---|
-| **b** | **Bundle.** Major release phase (`b1`, `b2`, `b3`). Defined in `b1-primitives.md`. The unit of "where we are in the platform's lifecycle." |
+| **b** | **Bundle.** Major release phase (`b1`, `b2`, `b3`). Defined in `b1-primitives-plan.md`. The unit of "where we are in the platform's lifecycle." |
 | **b1.N** | **Sub-bundle.** A sequenced slice within a bundle, decimal-numbered. `b1.0` ships before `b1.1`, etc. The unit of "what ships next." |
 | **T** | **Tier within a system spec** (`T1`, `T2`, `T3`). Defined per-system in each system spec. A system has tiers; tiers ship inside bundles. The unit of "how mature is this system." |
 | Theme name | **Plain-English label** for a sub-bundle (e.g. "Show up & be seen"). The user-facing description of what the release is for. |
@@ -48,7 +48,7 @@ Themes are sequenced strictly; later themes assume earlier themes are live.
 
 ## Bundle 1 — the MVP arc
 
-**Hypothesis being tested across b1.** Ordinary people will step forward where they live, and their neighbors will show up for them. Per `b1-primitives.md`. The b1 success metric is behavioral — Item creation across kinds, response rate, return visits, cross-kind engagement — not commerce volume.
+**Hypothesis being tested across b1.** Ordinary people will step forward where they live, and their neighbors will show up for them. Per `b1-primitives-plan.md`. The b1 success metric is behavioral — Item creation across kinds, response rate, return visits, cross-kind engagement — not commerce volume.
 
 **Total b1 scope.** Six core themes (`b1.0`–`b1.5`), one care-floor theme (`b1.6`), one cross-cutting schema commitment (`b1.x` — applies across all of b1). Target window: 6–10 weeks end-to-end, 1–2 weeks per theme.
 
@@ -83,7 +83,7 @@ A schema decision that must be made before any public URL exists, because it con
 - URL namespacing per `b1.x` lands here
 - Soft-delete with credit preservation per the people-first commitment
 
-**Doesn't ship:** DM surface (substrate yes, UI at b2 per `b1-primitives.md`); follow stream (storage yes, surface b2); search beyond city-scope browse.
+**Doesn't ship:** DM surface (substrate yes, UI at b2 per `b1-primitives-plan.md`); follow stream (storage yes, surface b2); search beyond city-scope browse.
 
 **Canonical examples served:** all of them — every example assumes a Member can sign up and be found. b1.0 is the prerequisite for the rest.
 
@@ -177,7 +177,7 @@ A schema decision that must be made before any public URL exists, because it con
 - Item kinds `product` and `service` per `item.md` T1
 - Follow primitives: Member-to-Member follow (storage; stream is b2), Save an Item, Location follow (`member_location_affinities.affinity_kind='follows'`)
 - Locality-first discovery index — the `discoverable_items` materialized view per `discovery.md` and `item.md`
-- The locality-first index is the first surface that anonymous Members can use end-to-end (Loop 3 "Land here" — `b1-primitives.md` lists this as full at b1)
+- The locality-first index is the first surface that anonymous Members can use end-to-end (Loop 3 "Land here" — `b1-primitives-plan.md` lists this as full at b1)
 - Item-level QR cards per `qr-onboarding.md` — Member-requestable, generated on demand for any Member-owned Item
 
 **Doesn't ship:** Follow stream surfaces (b2 per `member.md`); Producer Bulletin (b2 per `producer-tools.md`); endorsements (b3 per `service-provider.md`); ratings (never — per the categorical-failures commitment).
@@ -279,7 +279,7 @@ Per `member.md` and `member-journey.md`. The follow surface from b1.4 substrate.
 
 ### b2.6 — Group feeds (selectively)
 
-Per `b1-primitives.md` deferral list — "Communities exist at b1 as a primitive; Community feeds with discussion and structured posting defer to b2." Lands here, with care. The anti-Nextdoor commitments hold: messaging-scope item-or-group-only, complaint downvote/removal, "create an Item to lead the fix" replacing the complaint surface.
+Per `b1-primitives-plan.md` deferral list — "Communities exist at b1 as a primitive; Community feeds with discussion and structured posting defer to b2." Lands here, with care. The anti-Nextdoor commitments hold: messaging-scope item-or-group-only, complaint downvote/removal, "create an Item to lead the fix" replacing the complaint surface.
 
 ---
 
@@ -386,7 +386,7 @@ b1.1 (Groups people can join)
 
 ## Comments
 
-This document is the sequencing layer that the build pipeline reads when deciding what to work on next. `b1-primitives.md` answers *what's in scope for the MVP*; this doc answers *what ships next within that scope*; [`b1-work-map.md`](b1-work-map.md) answers *what work is in each sub-bundle, tagged for scope decisions*. Together the three give the planning tier a sufficient view: scope from primitives, sequence from themes, menu from work-map.
+This document is the sequencing layer that the build pipeline reads when deciding what to work on next. `b1-primitives-plan.md` answers *what's in scope for the MVP*; this doc answers *what ships next within that scope*; [`b1-primitives-work-map.md`](b1-primitives-work-map.md) answers *what work is in each sub-bundle, tagged for scope decisions*. Together the three give the planning tier a sufficient view: scope from primitives, sequence from themes, menu from work-map.
 
 The decision to slice b1 into seven sub-bundles (b1.0 through b1.6, plus the cross-cutting b1.x) is the structural commitment to *shipping often*. It is what makes the difference between a six-month b1 release that lands as one giant motion and a seven-stage rollout where the team learns from real users at every step. The smaller the slice, the faster the loop between "we built it" and "we know if it works." Per `principles.md` Part 1 — lightweight, performant, evolvable — the slicing posture honors P1 at the release level, not just the feature level.
 

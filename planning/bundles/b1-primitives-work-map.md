@@ -6,7 +6,7 @@ status: active
 
 # b1 Work Map
 
-**Status:** Drafted 2026-05-18 — pending PM review. Companion to [`bundle-themes.md`](bundle-themes.md) (the sub-bundle sequencer) and [`b1-primitives.md`](b1-primitives.md) (the bundle's scope definition).
+**Status:** Drafted 2026-05-18 — pending PM review. Companion to [`bundle-themes.md`](bundle-themes.md) (the sub-bundle sequencer) and [`b1-primitives-plan.md`](b1-primitives-plan.md) (the bundle's scope definition).
 
 **What this is.** A map of the work that makes up bundle 1, broken down to the **menu grain** — one level above the F### scenario and two levels above the T### ticket. Each 🟢 / 🟡 / ⚪ line is roughly one *intent unit* that the planner converts to a scenario (F###), which the ticket-writer then fans into 2–5 implementation tickets (T###). Use this to decide what's actually in your MVP. Full ticket specs (APIs, events, abuse vectors, acceptance criteria) get written by the `ticket` skill once a scenario is approved; this doc is the menu the planner picks from.
 
@@ -229,7 +229,7 @@ Use this doc to scope. Use the pipeline to execute. Don't write the technical sp
 
 ## Vocabulary collision avoided
 
-The intent grain here is **not** a T### ticket. The pipeline reserves `T###` for files in `development/tickets/`. The 🟢 / 🟡 / ⚪ items on this map are one level above that — closer to F### scenarios in size, but pre-acceptance-criteria. Renaming this doc from `b1-ticket-map.md` to `b1-work-map.md` on 2026-05-18 was the explicit fix.
+The intent grain here is **not** a T### ticket. The pipeline reserves `T###` for files in `development/tickets/`. The 🟢 / 🟡 / ⚪ items on this map are one level above that — closer to F### scenarios in size, but pre-acceptance-criteria. Renaming this doc from `b1-ticket-map.md` to `b1-primitives-work-map.md` on 2026-05-18 was the explicit fix.
 
 ---
 

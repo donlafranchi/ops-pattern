@@ -8,7 +8,7 @@ status: active
 
 **Scenario:** None. Phase 1 substrate — opens against `product/systems/groups.md` + ADR-13 + ADR-10 (event-log invariants) + ADR-7 (action-layer conformance) + ADR-6 (audit fields).
 **Status:** Build complete; closed 2026-05-19
-**Bundle:** b1 (Phase 1 substrate — Group primitive at T1 scope per `b1-primitives.md`).
+**Bundle:** b1 (Phase 1 substrate — Group primitive at T1 scope per `b1-primitives-plan.md`).
 **Depends on:** T042 (members), T045 (locations — `anchor_location_id` FK).
 
 **Serves:**

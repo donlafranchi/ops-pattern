@@ -8,7 +8,7 @@
 **Serves:**
 - **Spec:** [`product/systems/item.md`](../../product/systems/item.md) § Provenance claims — "Locally Made".
 - **ADRs:** [ADR-0021](../../planning/adrs/ADR-0021-member-geography-substrate-split.md) (Ratified 2026-05-23), [ADR-0010](../../planning/adrs/ADR-0010-events-from-day-one.md), [ADR-0019](../../planning/adrs/ADR-0019-clean-slate-rebuild.md) b1 rule 8.
-- **Sprint:** [`planning/bundles/b1x-substrate-sprint.md`](../../planning/bundles/b1x-substrate-sprint.md) § B4.
+- **Sprint:** [`planning/bundles/b1.x-substrate-sprint.md`](../../planning/bundles/b1.x-substrate-sprint.md) § B4.
 
 ## Workflow gates
 

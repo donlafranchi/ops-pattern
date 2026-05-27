@@ -8,7 +8,7 @@ status: active
 
 **Status:** The first bundle definition. Specifies what ships at b1 in primitive terms (per `primitives.md`), in cluster terms (per `primitives.md`), and in loop terms (per `member-journey.md`). Names what defers, and what data-model commitments are non-negotiable at MVP.
 
-**Companions:** [`bundle-themes.md`](bundle-themes.md) sequences b1 into seven sub-bundles (`b1.0`–`b1.6`, plus cross-cutting `b1.x`). [`b1-work-map.md`](b1-work-map.md) lists the menu of work per sub-bundle, tagged 🟢 / 🟡 / ⚪. Read all three to scope an F### scenario.
+**Companions:** [`bundle-themes.md`](bundle-themes.md) sequences b1 into seven sub-bundles (`b1.0`–`b1.6`, plus cross-cutting `b1.x`). [`b1-primitives-work-map.md`](b1-primitives-work-map.md) lists the menu of work per sub-bundle, tagged 🟢 / 🟡 / ⚪. Read all three to scope an F### scenario.
 
 **Depends on:** `member-journey.md`, `primitives.md`, `member.md` (T1), `groups.md` (T1 — supersedes `community.md` / `member-operations.md` / `cooperative.md` per the 2026-05-10 Groups ratification), `item.md` (T1), `service-provider.md` (T1), `location.md` (T1), `initiatives.md` (schema-reserved at b1).
 
@@ -124,7 +124,7 @@ Every system spec referenced names its own data-model floor. Across all of them 
 
 ## Suggested build sequence
 
-Sequencing lives in [`bundle-themes.md`](bundle-themes.md) — b1 ships in seven sub-bundles (`b1.x` URL namespacing → `b1.0` through `b1.6`), each 1–2 weeks. The menu of work per sub-bundle, tagged 🟢 / 🟡 / ⚪ for scope decisions, lives in [`b1-work-map.md`](b1-work-map.md). The planner reads both before writing the next F### scenario.
+Sequencing lives in [`bundle-themes.md`](bundle-themes.md) — b1 ships in seven sub-bundles (`b1.x` URL namespacing → `b1.0` through `b1.6`), each 1–2 weeks. The menu of work per sub-bundle, tagged 🟢 / 🟡 / ⚪ for scope decisions, lives in [`b1-primitives-work-map.md`](b1-primitives-work-map.md). The planner reads both before writing the next F### scenario.
 
 The previous primitive-order build sequence (Member → Location → Item → index → Wonder → QR → thesis → Service Provider → Community) is superseded by the sub-bundle sequence as of 2026-05-18. The primitive ordering survives inside individual sub-bundles where it still matters — e.g. b1.0 builds Member before locality-default works, b1.4 builds the product/service Items before the locality-first index queries them.
 

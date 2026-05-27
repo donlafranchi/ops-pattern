@@ -8,7 +8,7 @@
 **Serves:**
 - **Spec:** ADR-21 § *Supersedes* (retires the table installed by ADR-16); [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) b1 rule 7.
 - **ADRs:** [ADR-0021](../../planning/adrs/ADR-0021-member-geography-substrate-split.md) (Ratified 2026-05-23), [ADR-0016](../../planning/adrs/ADR-0016-affinity-row-privacy.md) (fully superseded).
-- **Sprint:** [`planning/bundles/b1x-substrate-sprint.md`](../../planning/bundles/b1x-substrate-sprint.md) § B1.
+- **Sprint:** [`planning/bundles/b1.x-substrate-sprint.md`](../../planning/bundles/b1.x-substrate-sprint.md) § B1.
 
 ## Workflow gates
 

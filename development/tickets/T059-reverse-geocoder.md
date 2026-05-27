@@ -8,7 +8,7 @@
 **Serves:**
 - **Spec:** [`product/systems/places.md`](../../product/systems/places.md) § Data model implications → *Reverse-geocoder contract* + § T1 — MVP Tier (Edge-Function bullet).
 - **ADRs:** [ADR-0020](../../planning/adrs/ADR-0020-locality-scoped-urls.md) § *Anchoring rules* + § *Costs*.
-- **Sprint:** [`planning/bundles/b1x-substrate-sprint.md`](../../planning/bundles/b1x-substrate-sprint.md) § A2.
+- **Sprint:** [`planning/bundles/b1.x-substrate-sprint.md`](../../planning/bundles/b1.x-substrate-sprint.md) § A2.
 
 ## Workflow gates
 

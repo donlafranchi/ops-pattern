@@ -10,7 +10,7 @@ status: active
 **Date:** 2026-05-10
 **Deciders:** PM
 **Scope:** The decision to rebuild the data layer, action layer, and user-facing surfaces from scratch on Person / Item / Location / Group primitives, while preserving the Next.js / Tailwind / Supabase / Mapbox framework foundation
-**Touches:** `planning/rebuild-plan.md` (the long-form plan — phases, sequencing, what stays, what goes), `planning/bundles/b1-primitives.md` (the scope this rebuild ships), every `product/systems/*.md` spec (each one is a target of the rebuild), `web/supabase/migrations/` (replaced from scratch), `web/src/` (re-derived from new schema), `development/tickets/` (T027+ are rebuild tickets; T001–T026 archived as reference)
+**Touches:** `planning/rebuild-plan.md` (the long-form plan — phases, sequencing, what stays, what goes), `planning/bundles/b1-primitives-plan.md` (the scope this rebuild ships), every `product/systems/*.md` spec (each one is a target of the rebuild), `web/supabase/migrations/` (replaced from scratch), `web/src/` (re-derived from new schema), `development/tickets/` (T027+ are rebuild tickets; T001–T026 archived as reference)
 **Supersedes:** the original ADR-10 dual-write / per-phase rollback / two-week verification-window plan. Surviving invariants from the original ADR-10 (same-transaction event commit, audit fields, view-refresh semantics) were consolidated into ADR-7.
 
 ## Decision

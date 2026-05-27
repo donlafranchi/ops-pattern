@@ -8,7 +8,7 @@ status: active
 
 **Scenario:** None. Phase 1 substrate — opens against `product/systems/item.md` + ADR-5 (markets-as-gathering) + ADR-10 (event-log invariants) + ADR-7 (action-layer conformance) + ADR-6 (audit fields).
 **Status:** Build complete; closed 2026-05-19
-**Bundle:** b1 (Phase 1 substrate — Item primitive at T1 scope per `b1-primitives.md`).
+**Bundle:** b1 (Phase 1 substrate — Item primitive at T1 scope per `b1-primitives-plan.md`).
 **Depends on:** T042 (members), T045 (locations — FK from `item_locations.location_id`), T055 (groups — FK from `items.group_id`; also closes T055's deferred `group_event_anchored.seeded_by_item_id` FK).
 
 **Serves:**

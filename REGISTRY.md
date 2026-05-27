@@ -127,10 +127,10 @@ status: active
 | `planning/adrs/ADR-0023-url-path-compaction.md` | ADR-23 — 2-letter state codes; URL-transparent county tier. | active |
 | `planning/adrs/README.md` | Defines ADR format, lifecycle, and naming convention. | reference |
 | `planning/adrs/_template.md` | Blank ADR scaffold for new architectural decisions. | reference |
-| `planning/bundles/b1-primitives.md` | Defines b1 MVP scope in primitive terms. | active |
-| `planning/bundles/b1-work-map.md` | Menu of b1 work tagged core / recommended / defer. | active |
+| `planning/bundles/b1-primitives-plan.md` | Defines b1 MVP scope in primitive terms. | active |
+| `planning/bundles/b1-primitives-work-map.md` | Menu of b1 work tagged core / recommended / defer. | active |
 | `planning/bundles/bundle-themes.md` | Sequences each bundle into 1–2 week sub-themes. | active |
-| `planning/bundles/done/b1x-substrate-sprint.md` | Completed b1.x geography substrate sprint (closed 2026-05-25). | complete |
+| `planning/bundles/b1.x-substrate-sprint.md` | Completed b1.x geography substrate sprint (closed 2026-05-25). | complete |
 | `planning/reviews/intent-ADR-20-2026-05-25.md` | Intent-check verdict for ADR-20 (CLEAN). | reference |
 | `planning/reviews/intent-ADR-21-and-spec-patches-2026-05-23.md` | Intent-check verdict covering ADR-21 + same-day spec patches. | reference |
 | `planning/reviews/intent-ADR-21-and-spec-patches-2026-05-23-recheck.md` | Re-check after ratifications landed. | reference |
