@@ -14,6 +14,28 @@ status: active
 
 ---
 
+## 2026-05-25 — URL & slug naming: ADR-0022 ratified; ADR-0023 (path compaction) drafted
+
+PM session (Cowork) worked through the place-hierarchy "region tier" and URL/slug naming. Two ADRs resulted. **[ADR-0022 — URL & slug naming refinements](planning/adrs/ADR-0022-url-slug-naming-refinements.md)** — Status: **Accepted** (ratified 2026-05-25, intent-check CLEAN): county replaces MSA, entity slugs readable + random suffix, place slugs stay readable. **[ADR-0023 — URL path compaction](planning/adrs/ADR-0023-url-path-compaction.md)** — Status: **Proposed**: state 2-letter codes + a URL-transparent county tier (`/p/ca/sacramento/oak-park`). Both amend ADR-0020; its locality-scoped-URL architecture otherwise stands.
+
+**Decisions captured:**
+
+- **County replaces MSA** as the `places.kind` tier between `state` and `city`. Enum becomes `region / state / county / city / neighborhood`. MSAs leave ~1,200 rural counties with no anchor and merge sprawling metros into single tiles; counties tile the U.S. with no gaps (stable FIPS), with an admin-level-2 equivalent worldwide. The `region` kind stays for colloquial groupings ("the Bay Area"). Resolves the long-standing `places.md` open question "MSA vs metro-area definitions."
+- **Entity slugs = readable + random suffix** (`summer-concert-7gx9`) for Items/Groups/Locations — readable for humans + agents, non-enumerable, collision-proof. `@handle` stays the one user-chosen vanity namespace.
+- **Place slugs stay human-readable** (reaffirms ADR-0020). Readability and scrape-resistance are independent axes; the random suffix handles enumeration.
+- **Design test recorded:** every naming/structural pattern is judged against *elegant, helpful, simple, reduce abuse*.
+
+**Premise (accepted by ratifying ADR-0022):** the readable-slug rationale presumes the platform wants open-web + answer-engine discoverability.
+
+**Status / next:**
+
+1. ADR-0022 ratified; `places.md` patched to the county model; `DECISIONS.md` carries the ADR-22 row; ADR-0020 header + row marked "Amended by ADR-22."
+2. ADR-0023 (URL path compaction) drafted **Proposed** — needs `pipeline-intent-check` then PM ratification; spec patches (`places.md` URL-rendering note, `CLAUDE.md` naming table, `location.md` / `groups.md` examples) follow ratification.
+3. **Claude Code is implementing both ADRs** on web branch `t65` — handed a consolidated 8-item change set 2026-05-25 (msa→county across ~8 files + the URL compaction). T058–T064 are built but uncommitted on `t65`; this is a pre-commit fix. Clear the `web/.git/index.lock` before git ops.
+4. **Open — `discovery.md` ripple (PM decision):** the community-awareness feed's wider-than-city opt-in was MSA-shaped (one opt-in reached a whole multi-county metro). `county` is narrower — the opt-in becomes county-depth, and metro-wide reach now needs a `region` row or extra `secondary` Place-interests. `discovery.md`, `member.md`, and scenarios F027–F029 say "MSA-depth opt-in" and must be re-expressed — a semantic change, not a rename.
+
+---
+
 ## 2026-05-23 — Pipeline-plan: F026–F029 drafted; b1-work-map resynced for ADR-21
 
 `pipeline-plan` ran on the four b1 candidates ADR-21 unblocked. All four scenarios in `planning/scenarios-backlog/` pending PM approval. The fifth candidate (`member_saved_searches` substrate at b1) lands as a **substrate ticket** per `CLAUDE.md` rule 14 — no F-number; binds to ADR-21 + `member.md` Saved searches section.
