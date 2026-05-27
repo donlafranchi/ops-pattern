@@ -294,7 +294,7 @@ Both parties to every transaction see each other. Specifically:
 - **Agent commerce visibility:** when a transaction is via `bounded_purchase`, the audit trail records `via_delegation_id` so the Member can see what their agent did. The recipient sees the buyer Member, not the agent. The agent is unnamed labor.
 - **External recipients:** displayed with their identifying information (e.g., "Sacramento West Girl Scouts Troop 4422, registered 501(c)(3)"), so the Member knows exactly where their money is going.
 - **Group recipients:** displayed with the Group's display name and owner-role Members' names where relevant (e.g., "Oak Park Sourdough — Maya, Sam").
-- **Locality surfacing:** every transaction surfaces whether the recipient is locally owned (per `groups.md`'s `member_is_local_to_location` derivation). Locally-owned recipients get a visible affordance in the buyer's view.
+- **Locality surfacing:** every transaction surfaces whether the recipient is locally owned (per `groups.md`'s locality derivation — reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` per `business-jurisdiction.md`, the only locality path under ADR-21). Locally-owned recipients get a visible affordance in the buyer's view.
 
 **Cross-Community visibility:** transaction history is private by default to the parties involved. Cumulative wealth-circulation metrics ("Members in this community spent $X with each other this month, vs. $Y leaving the community") are aggregate-only and never identify individual transactions. The aggregate surface is a T3 capability.
 

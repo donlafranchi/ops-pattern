@@ -65,7 +65,7 @@ The kind enum is extensible. Future kinds (Class, Tool-share, CSA Subscription, 
 ## T1 — MVP Tier
 
 - A Person can create an Item of kind `product`, `service`, `gathering`, or `wonder`.
-- Item record carries `title`, `description`, `state` (active / fulfilled / withdrawn), `category` (controlled vocabulary, kind-specific), and `metadata` (JSONB, kind-specific schema).
+- Item record carries `title`, `description`, `state` (draft / published / withdrawn / fulfilled / closed — per the reconciled enum shipped in T056; see *Data model implications* below), `category` (controlled vocabulary, kind-specific), and `metadata` (JSONB, kind-specific schema).
 - Items attach to Locations via `item_locations` with optional schedule (one-time / recurring / ongoing / by-appointment).
 - Each Item has a public page at a stable URL — first-class, not buried inside the creating Person's profile.
 - Items are discoverable via the locality-first index (Cluster 3): filterable by kind, category, location, distance, schedule.
@@ -130,7 +130,7 @@ The mental model in `primitives.md` is one Item primitive with a `kind` enum. Th
 - `id`, `member_id` (FK to Person), `kind` (enum: `product`, `service`, `gathering`, `wonder`; `offer`, `ask`, `initiative` reserved at MVP). **No `cooperative_cohort` value** — the prior ADR-11 reservation was dropped per the Groups ratification (2026-05-10); cooperative-style coordination is deferred until real-world need + explicit user prioritization per `agent-commerce-and-project-amendments.md` §2 (the retiring `cooperative.md` is archived).
 - `group_id` (nullable FK to `groups.id` — replaces the prior `community_id`; per `groups.md`). Set when the Item is filed under a Group; null for one-off sales and non-commercial Items.
 - `title`, `description` (text — written for human + future embedding readability)
-- `state` (enum: `active`, `fulfilled`, `withdrawn`, `closed`)
+- `state` (enum: `draft`, `published`, `withdrawn`, `fulfilled`, `closed`) — `draft` is the create state; `published` is the visible-to-discovery state and the lifecycle target for new Items (the `item.published` event fires on the `draft`→`published` transition, per *Key event semantics* below); `withdrawn`, `fulfilled`, and `closed` are the terminal states. The prior `'active'` value was dropped in T056's reconciliation — `'published'` is the equivalent for visible Items.
 - `category` (text — controlled vocabulary per kind)
 - `brand_label` (nullable text — same `member_id` + same `brand_label` = locally owned multi-location; powers resolve-up rendering. When `group_id` references a kind='business' Group, the Group's `group_businesses.display_name` is the canonical brand source and `brand_label` is the Location/Item-level fallback per `groups.md`.)
 - `qr_card_url` (nullable text — populated on demand when the Member requests a QR card for this Item via the `item.qr_card.request` action handler. Resolves to the Item's canonical kind-specific page (per the naming table above). Per [`qr-onboarding.md`](../capabilities/qr-onboarding.md): QR cards are an **Item-level Member-requestable affordance** — there is no Location-level QR card, no participating-market gating, no kind restriction. Any Member can request a QR for any of their Items.)

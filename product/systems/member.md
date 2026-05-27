@@ -60,7 +60,7 @@ The b1 surface is the smallest version of Member that lets the central hypothesi
 
 ### Locality (per ADR-4)
 
-- `home_location_id` (nullable FK to `locations` — schema per forthcoming `location.md`; see `b1-primitives.md` Suggested build sequence step 2) — the Member's chosen locality scope. Set during onboarding via geolocation (preferred) or city pick from a list (Sacramento metro + surrounding cities at launch). Mutable from any locality-dependent surface; the affordance is visible on Home and Explore per ADR-2 and ADR-4.
+- `home_location_id` (nullable FK to `locations` — schema per forthcoming `location.md`; see `b1-primitives-plan.md` Suggested build sequence step 2) — the Member's chosen locality scope. Set during onboarding via geolocation (preferred) or city pick from a list (Sacramento metro + surrounding cities at launch). Mutable from any locality-dependent surface; the affordance is visible on Home and Explore per ADR-2 and ADR-4.
 - The home Location is a *scope*, not an address. A Member who lives in Bryte but works in Folsom can set Folsom as home and reset to Bryte later — the platform does not police it. Privacy: never shared with other Members, never visible on the Member's public profile.
 
 ### Privacy controls (b1 surface, opt-out default per ADR-9)
@@ -161,7 +161,7 @@ Per the b1 scope decision: the messages schema lands at b1 so b2 can ship the su
 
 ### Account lifecycle
 
-- **Soft delete only.** Setting `deleted_at` retracts the Member from public surfaces, hides their Items (which retain `member_id` for attribution), and removes them from active Community memberships. Hard delete never ships at any tier (per b1-primitives.md).
+- **Soft delete only.** Setting `deleted_at` retracts the Member from public surfaces, hides their Items (which retain `member_id` for attribution), and removes them from active Community memberships. Hard delete never ships at any tier (per b1-primitives-plan.md).
 - **Data export** (per ADR-6 b1 commitment) — `/you/data` surface offers a JSON export of the Member's records (profile, Operations, Items, follows, memberships, Assistant Context). One-tap purge action also lives there.
 - **Assistant Context substrate** (per ADR-6) — `member_self_records` table reserved at b1 (one row per Member, JSONB document, append-only). No surface ships at b1; the schema exists so b2 can land the three update pathways without retrofit.
 - **Delegation substrate** (per ADR-6) — `member_delegations` table + scope enum reserved at b1. No surface ships at b1; the schema exists so the b2/b3 agent-assistance surfaces and the eventual MCP server land cleanly.
@@ -185,7 +185,7 @@ Per the b1 scope decision: the messages schema lands at b1 so b2 can ship the su
 
 ## T3 — Polish Tier
 
-- **Stakeholder dashboard** — the producer-facing analytics surface (views, follows, saves, response counts, engagement over time) reads from the b1 event log entries. Per b1-primitives.md, the dashboard ships at b3; the events are required at b1.
+- **Stakeholder dashboard** — the producer-facing analytics surface (views, follows, saves, response counts, engagement over time) reads from the b1 event log entries. Per b1-primitives-plan.md, the dashboard ships at b3; the events are required at b1.
 - **Stakeholder visibility** (`stakeholder_visibility` enum, reserved at b1) — `private` (default) / `community_only` / `public`. Controls which surfaces show this Member's accumulated standing patterns to other Members. The default is private; Members opt in.
 - **Member federation** — under Loop 13, a Member's identity, Assistant Context, and (where flagged) Delegations follow them to spawned platforms. Federation handoff per `member-journey.md` Loop 13 and `agent-assistance.md` T3 surface.
 - **Vector embeddings on Member bio** — enables natural-language search like *"who in Folsom does pre-1900 plumbing"* to surface Members directly, not just their Items.
@@ -434,8 +434,10 @@ create table member_delegations (
 );
 
 create index idx_delegations_member_active on member_delegations (member_id)
-  where revoked_at is null and (expires_at is null or expires_at > now());
+  where revoked_at is null;
 ```
+
+> **Note on the partial-index predicate (per T050 DEVIATIONS, 2026-05-17).** The predicate is `revoked_at is null` only — `expires_at` is filtered at *query time* by the action layer, not by the index. Postgres evaluates partial-index predicates at INSERT time using the constant value of `now()` at insert; a row inserted today with `expires_at = today + 1 day` would enter the index and remain in it after tomorrow's `now()` advances past `expires_at` (no implicit re-evaluation). The behavioral intent is "active = unrevoked AND unexpired"; the index narrows on the durable half (revocation), and `expires_at` is added to every `WHERE` clause that reads active Delegations.
 
 The `scopes` array carries values from a stable additive enum (`item.read`, `item.create.draft`, `item.publish` (confirmation-required), `member.profile.read`, `delegation.grant` (never delegable), etc.) defined in `agent-assistance.md`. The b1 commitment is that the enum is published and stable; the surface is b2.
 
@@ -666,7 +668,7 @@ Members earn **social capital** through participation, helping others, contribut
 - **Handle redirect history.** When the b2 handle change ships, old handles redirect for 90 days. Open: do they also resolve in the locality search results, or just direct-URL? Working answer: direct-URL only.
 - **Member privacy + Item privacy interaction.** A Member with `profile_visibility=members_only` who posts a `public` Item — does the Item card link back to a profile a non-member can see? Working answer: no; the link is hidden for non-members but the Item itself remains discoverable. Confirm in the design review of the Item card pattern.
 - **Onboarding length.** The b1 hypothesis depends on conversion: a newcomer arrives via a shared URL, lands on an Item, and signs up to RSVP / follow / save. Open: how many fields are *required* at signup? Working answer: email (auth) + display name + handle. Bio, avatar, locality, interests are post-signup nudges, not blockers. Confirm with the F021 Member-public-page scenario before T1 ticket sequencing.
-- **Initial interest vocabulary.** `member_interests.tag` is sized from the same controlled vocabulary as `item_tags`. The initial vocabulary list per Item kind is an open question on `b1-primitives.md` (Open question: *Initial tag vocabulary per Item kind*). Member's initial interest options should be drawn from that list once it's sized.
+- **Initial interest vocabulary.** `member_interests.tag` is sized from the same controlled vocabulary as `item_tags`. The initial vocabulary list per Item kind is an open question on `b1-primitives-plan.md` (Open question: *Initial tag vocabulary per Item kind*). Member's initial interest options should be drawn from that list once it's sized.
 
 ---
 

@@ -224,7 +224,7 @@ Per [`../foundation/policy.md`](../foundation/policy.md): default is the protect
   - `expires_at` — required; default subject to deep-dive ratification per the Pending Ratifications list.
   - `reversibility_window_hours` — buyer's-remorse window during which the Member can unilaterally reverse the purchase. Default subject to ratification; per `payments.md` §8 the default range is 24–72 hours configurable at grant time.
   - `first_recipient_confirmation` — boolean, default true; first purchase from any new recipient requires per-action confirmation even within an active Delegation.
-  - `prefer_local` — boolean, default true; when multiple matches exist, the agent surfaces locally-owned options first (computed per `groups.md`'s `member_is_local_to_location` function).
+  - `prefer_local` — boolean, default true; when multiple matches exist, the agent surfaces locally-owned options first (computed per `groups.md`'s locality derivation, which reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` per `business-jurisdiction.md` — the only locality path under ADR-21).
 - **Required execution semantics:**
   - Any transaction exceeding caps, scope, or category → auto-blocked; surfaced as a re-confirm prompt.
   - Per-execution event: `delegation.bounded_purchase_executed` with `amount_cents`, `recipient_ref`, `recipient_kind` (member / group / external), `item_id` (if applicable), `caps_in_force`, `via_delegation_id`.

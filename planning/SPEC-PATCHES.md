@@ -36,17 +36,17 @@ Check the box and append `· landed YYYY-MM-DD ({commit hash})` when product pat
 
 ## Open
 
-- [ ] **SPEC-PATCH-0001** · 2026-05-19 · `product/systems/item.md` § State machine — `items.state` enum in spec text carries two divergent, both-wrong vocabularies; the schema and T056 reconciled to `draft / published / withdrawn / fulfilled / closed`. Spec must be patched to match. Caught by T056. DEVIATIONS: T056 entry 2026-05-19. **Notes:** audit E1/H3 — this was parked behind F018; do not wait on F018 to land this patch.
-- [ ] **SPEC-PATCH-0002** · 2026-05-1x · `product/systems/member.md` § Delegations — partial-index predicate diverged from what T050 implemented. Caught by T050. DEVIATIONS: T050 entry. **Notes:** audit H3.
-- [ ] **SPEC-PATCH-0003** · 2026-05-1x · `product/systems/member.md`, `product/systems/groups.md`, `product/foundation/policy.md` — three docs flagged by T049 for review against shipped member_location_affinities + group-membership behavior. Caught by T049. DEVIATIONS: T049 entry. **Notes:** audit H3.
+*(none — queue clear as of 2026-05-27, b1.x-spec-drain-sprint)*
 
 ## Landed
 
-*(none yet — entries move here as `explore` patches them)*
+- [x] **SPEC-PATCH-0001** · 2026-05-19 · `product/systems/item.md` § State machine — `items.state` enum in spec text carries two divergent, both-wrong vocabularies; the schema and T056 reconciled to `draft / published / withdrawn / fulfilled / closed`. Spec must be patched to match. Caught by T056. DEVIATIONS: T056 entry 2026-05-19. **Notes:** audit E1/H3 — this was parked behind F018; do not wait on F018 to land this patch. · landed 2026-05-27 (4fed43f) — item.md lines 68 + 133 reconciled; the dropped `'active'` value documented inline as superseded by `'published'`.
+- [x] **SPEC-PATCH-0002** · 2026-05-1x · `product/systems/member.md` § Delegations — partial-index predicate diverged from what T050 implemented. Caught by T050. DEVIATIONS: T050 entry. **Notes:** audit H3. · landed 2026-05-27 (4fed43f) — predicate matched to shipped (`where revoked_at is null` only); added an inline note explaining why `expires_at` filters at query time instead of in the index.
+- [x] **SPEC-PATCH-0004** · 2026-05-27 · ADR-21 drift sweep — four sites still reference retired identifiers as live: `product/foundation/primitives.md:96` (Person↔Location relationship described via `member_location_affinities`); `product/systems/payments.md:297` (locality surfacing cites `member_is_local_to_location` function); `product/systems/agent-assistance.md:227` (`prefer_local` Delegation flag cites same function); `product/exploration/affinity-derived-groups.md:103` (cites the "`member_location_affinities` pattern in `member.md` line 294" — pattern retired, line shifted). Caught by grep run during b1.x-spec-drain-sprint. **Notes:** opened in lieu of expanding rescinded -0003 scope; clean separation of cause vs. cure. · landed 2026-05-27 (4fed43f) — all four sites rewritten to the ADR-21 substrates (`member_place_interests` / `member_saved_searches` / `member_business_jurisdictions` + `zip_is_proximal_to_location`); retired-table mentions retained only inside explicit "per ADR-21, retired" framing.
 
 ## Rescinded
 
-*(spec stands; code was wrong; follow-up ticket opened)*
+- [~] **SPEC-PATCH-0003** · 2026-05-1x · `product/systems/member.md`, `product/systems/groups.md`, `product/foundation/policy.md` — three docs flagged by T049 for review against shipped member_location_affinities + group-membership behavior. Caught by T049. DEVIATIONS: T049 entry. · **rescinded 2026-05-27** — superseded by ADR-0021 (2026-05-23). The patch's two targets (tightening member.md RLS against ADR-16; updating groups.md to call `member_is_local_to_location()`) both reference text and identifiers that ADR-21 retired. ADR-16's RLS posture migrated to the new ADR-21 substrates (handled in their own spec sections); the function is gone. Drift that genuinely exists post-ADR-21 was captured under SPEC-PATCH-0004, not folded into this entry.
 
 ---
 
