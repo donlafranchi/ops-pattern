@@ -8,7 +8,7 @@ status: draft
 
 **Bundle:** b1
 **Loops:** 1 (Find your people), 4 (Gather regularly)
-**Canonical example:** [Run Club at Drake's](../../product/needs/use-cases.md#1-the-unofficial-run-club-at-drakes)
+**Canonical example:** [O1 — A group meets at a regular time and place](../../product/needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) — Run Club at Drake's is the anchor example.
 **Primitive shape:** Person → Item(kind=gathering, recurring) → Location(Drake's, permanent)
 **Status:** deferred (2026-05-18) — needs rewrite; do not promote until the b1 implementation plan recommends pulling it in. The 2026-05-18 review ([`../history/F018-review.md`](../history/F018-review.md)) lands a REVISE verdict with three blockers (item.md state-enum reconciliation, design-language.md component recipes for kind picker / Share-link / Event-page recurring surface, `/i/` → `/e/` + kind-label harmonization). The rewrite should incorporate those fixes and re-anchor against the post-2026-05-11 naming pass. T045–T049 (the Phase 1 schema tickets) do not depend on F018; they open against system specs directly.
 

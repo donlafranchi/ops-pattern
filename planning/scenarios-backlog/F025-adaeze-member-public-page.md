@@ -8,11 +8,11 @@ status: draft
 
 **Bundle:** b1
 **Loops:** 7 (Make and be found), 8 (Follow what you love), 9 (Find a local pro — adjacent)
-**Canonical example:** [The Quarterly Dip Vendor](../../product/needs/use-cases.md#3-the-quarterly-dip-vendor)
+**Canonical example:** [P3 — A producer with variable cadence (intermittent market sub-flavor)](../../product/needs/use-cases.md#p3-a-producer-with-variable-cadence-stays-findable-to-followers) — the Quarterly Dip Vendor is the anchor example.
 **Primitive shape:** Person → `/m/[handle]` (read-only display of Member + their Items + Group memberships + Location affinities)
-**Status:** draft — Phase 2 opener; awaiting `pipeline-review` before promote.
+**Status:** draft — Phase 2 opener; awaiting `review` before promote.
 
-> **ADR-20 reframe pending (2026-05-23).** ADR-20 (accepted) recommends F025's *slot* become the **Group public page** (`/p/[…place path]/g/[slug]`) — the heavier producer / business / event-anchored surface — with the Member public page (`/m/[handle]`, this scenario's current subject) split into a separate, lighter scenario. The `/m/adaeze` URLs below stay correct (Member handles are global per ADR-20); the `/g/[slug]` references need place-scoping to `/p/[…place path]/g/[slug]`. This is a `pipeline-plan` reframing call for the PM — not yet applied. See ADR-0020 Action Item 6.
+> **ADR-20 reframe pending (2026-05-23).** ADR-20 (accepted) recommends F025's *slot* become the **Group public page** (`/p/[…place path]/g/[slug]`) — the heavier producer / business / event-anchored surface — with the Member public page (`/m/[handle]`, this scenario's current subject) split into a separate, lighter scenario. The `/m/adaeze` URLs below stay correct (Member handles are global per ADR-20); the `/g/[slug]` references need place-scoping to `/p/[…place path]/g/[slug]`. This is a `scope` reframing call for the PM — not yet applied. See ADR-0020 Action Item 6.
 
 ## The Person
 
@@ -175,7 +175,7 @@ Maya taps the Follow button, sees the count tick up, and bookmarks the page. Nex
 - ❌ No Business entity surfaces. Adaeze is the Person; *Adaeze's Kitchen* is a kind='business' Group anchored to her. The brand resolves up from the Group's `display_name`, not from a business shell.
 - ❌ No corporate-shell rendering. The page never says "View business profile" — it says "View Group" when linking to *Adaeze's Kitchen*.
 
-## Open questions for `pipeline-review`
+## Open questions for `review`
 
 1. **Pagination shape for the Items list.** Page-with-load-more, infinite-scroll, or numbered pages? `design-language.md` doesn't lock this. Probably load-more at 20-per-page mirroring typical mobile-first patterns; defer to design review.
 2. **Standing-presence badge copy.** "Seller" vs "Producer" detection — what signals trigger Producer (ag / food category tags + business kind='business' Group)? Working answer: any active Item with `category` in a curated ag/food list OR `item_tags` containing one of `food-makers`, `farm`, `csa`, `producer`. Confirm at design review.

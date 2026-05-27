@@ -12,7 +12,7 @@ status: active
 **Bundle:** b1
 **Primitive:** Item (kind=gathering) at a Location
 **Loops served:** 1 (Find your people), 4 (Gather regularly)
-**Canonical example:** [Run Club at Drake's](../needs/use-cases.md#1-the-unofficial-run-club-at-drakes); [Barn Movie Night at Drake's](../needs/use-cases.md#5-barn-movie-night-at-drakes)
+**Canonical example:** [O1 — A group meets at a regular time and place](../needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) (Run Club at Drake's); [O2 — A venue's recurring program becomes findable](../needs/use-cases.md#o2-a-venues-recurring-program-becomes-findable-alongside-everything-nearby) (Barn Movie Night at Drake's)
 
 ## What a Member can do
 

@@ -1,222 +1,469 @@
 ---
-purpose: Twelve real situations the platform exists to dissolve.
+purpose: Real situations the platform exists to dissolve, organized by category and progressive type.
 layer: what
 status: active
 ---
 
 # Use Cases
 
-> **Relocated + renamed 2026-05-19** from `foundation/canonical-examples.md`. The 12 real
-> use cases here are the working test-case set for every feature. Specs may still say
-> "canonical example" as a term; the file is `use-cases.md`.
+> **Restructured 2026-05-26 (second pass).** Cases are organized by category (Consumer / Producer / Organizer) and ordered within each category by increasing functional requirements — each type builds on the prior type's functionality and adds something new. Find your case in the [Index](#index) and jump straight there.
 
-**Status:** Foundational reference. The working set of real-world situations the platform exists to serve. Read alongside [`member-journey.md`](member-journey.md), [`../foundation/primitives.md`](../foundation/primitives.md), and [`../foundation/principles.md`](../foundation/principles.md). Replaces the prior `founding-scenarios.md` and `mission.md`, both of which predated the loops/primitives reframe.
+**Status:** Foundational reference. The working set of real-world situations the platform exists to serve. Read alongside [`member-journey.md`](member-journey.md), [`../foundation/primitives.md`](../foundation/primitives.md), and [`../foundation/principles.md`](../foundation/principles.md).
 
 ## What this is
 
-A list of concrete, mostly real situations — drawn from West Sacramento, East Sacramento, and the surrounding region — that the platform is being built to dissolve. Each example names a real friction, the loop(s) it exercises, and the primitive shape it takes in the data model. Together they are the canon: if a feature does not make at least one of these situations meaningfully better, it does not belong in the build.
-
-These are not personas. They are test cases. The Run Club exists. Ferrari Fisheries exists. Cafe Capricho closed last month. The work is to make the next one of each go differently.
+Concrete situations — drawn from West Sacramento, East Sacramento, and the surrounding region — that the platform is being built to dissolve. Each case names a real friction, the loop(s) it exercises, the primitive shape it takes, and the distinct functionality it requires. These are not personas. They are situations. The Run Club exists. Ferrari Fisheries exists. Cafe Capricho closed last month.
 
 ## How to use this document
 
-- **Designing a feature?** Find the example(s) the feature would help. If you can't find one, you are designing for a hypothetical user.
-- **Scoping a release?** Map the bundle's scenarios back to these examples. Every release must move at least one example meaningfully. Some releases go wide; some go deep — depth over breadth when forced to choose. A release that cannot point at one example it makes meaningfully better is the wrong release. (Revised 2026-05-18 from the earlier "at least two examples" rule, which under-rewarded depth and over-rewarded surface coverage.)
-- **Triaging a backlog item?** "Which canonical example does this serve?" is a sharper version of "what loop does this serve?"
-- **Stuck on a system spec?** Walk one example through the system end to end. Whatever breaks is the work.
+- **You are an agent looking for the relevant case for a scenario, ticket, or feature decision.** Scan the [Index](#index) by category, pick the case whose activity matches your work, jump to that section. Each case fits on roughly a screen.
+- **Designing a feature?** Find the case it would help. The "Distinct functionality this case requires" line names what your design must enable.
+- **Scoping a release?** MVP cases ship at b1. Cases tagged *Deferred (b2+)* are not yet in scope but their problem statements are. Cases tagged *Deferred (far horizon)* are out of scope for the foreseeable bundle plan; their problem statements stay in the canon so we don't forget them.
 
-Examples below are tagged with the loop(s) they exercise (per [`loops.md`](loops.md)) and the primitive shape they take (per [`primitives.md`](primitives.md)).
+Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](member-journey.md)) and the primitive shape they take (per [`../foundation/primitives.md`](../foundation/primitives.md)).
 
----
-
-## 1. The Unofficial Run Club at Drake's
-
-**Loops:** 1 (Find your people), 4 (Gather regularly)
-**Primitive shape:** Person → Item(kind=gathering, recurring) → Location(Drake's, permanent)
-
-Every Thursday evening, a group of runners meets at Drake's in West Sacramento, runs together, and stays for a beer. There is no website. There is no calendar. The way you find out about it is by being there on a Thursday and asking, or by knowing one of the regulars. There is a WhatsApp group, but you have to be invited. There is no Strava club, or there is and it doesn't update.
-
-What the platform does: a public, locality-first page anchored at Drake's, with a recurring time and a clean URL the regulars can chalk on a board, text to a friend, or post in any group chat. A stranger searching the locality for "what's happening near Drake's this week" can find it and show up Thursday. An organizer who is currently doing the platform's work without the platform's tools gets a single shareable link that replaces the three-app sprawl.
-
-**What's notable:** the Run Club works without a Group. It is a Gathering Item at a Location with a recurring schedule. The regulars become a Group (kind='event_anchored' or kind='interest') only if they choose to — and most of the value lands without that choice.
+**Status taxonomy:**
+- **MVP** — ships at b1, fully.
+- **MVP substrate; surface deferred** — substrate at b1, surface at b2 or later.
+- **Deferred (b2+)** — not in b1; design questions are bounded and expected to resolve in the next bundle or two.
+- **Deferred (far horizon)** — not in the foreseeable bundle plan; design or coordination questions are too open or scope too large.
 
 ---
 
-## 2. Ferrari Fisheries
+## Index
 
-**Loops:** 7 (Make and be found), 8 (Follow what you love)
-**Primitive shape:** Person → Item(kind=product, irregular) → Location(boat dock or pickup point, recurring-temporary)
-
-A fisherman with a boat catches wild fish off the California coast and sells direct. Supply is irregular — what comes in depends on the catch. He alerts customers by text when he has fish available, where he'll be, and for how long. The window is sometimes hours.
-
-What the platform does: a Maker profile with an irregular-Item shape — a way to declare "I have salmon, today only, here, until 4pm" that pushes to followers. The Item primitive carries the same data shape as a market booth with a recurring schedule, but with a one-time event-style cadence. Following him is the standing form of the texting list — except neighbors can find him without already knowing his number.
-
-**What's notable:** the existing tooling for this (Square, a personal text list, a Squarespace site nobody updates) optimizes for any maker except an irregular one. The platform's Item primitive treats irregular and recurring as the same kind, varying only by schedule. That is what makes Ferrari Fisheries findable in the same surface as the Saturday market.
-
----
-
-## 3. The Quarterly Dip Vendor
-
-**Loops:** 7 (Make and be found), 8 (Follow what you love)
-**Primitive shape:** Person → Item(kind=product, recurring-irregular) → Location(market booth, recurring-temporary, intermittent)
-
-A vendor who makes African-inspired dips and condiments shows up at a Sacramento farmers market sometimes — not every week, not on any schedule the market publishes, not announced on any social channel. If you discovered them once and want to find them again, you check the market each week and hope. Most of the time you miss them.
-
-What the platform does: a Maker profile that lives at the *Maker* level, not the market level. The market lists vendors who appear there; the Maker's profile lists which markets they will be at *next*. Followers see the dip-vendor's next appearance the moment it's declared. The platform makes the vendor's intermittent presence persistent in a way the market itself cannot.
-
-**What's notable:** the market is a Location of kind=recurring-temporary. The vendor's *appearance* at that Location is itself an Item with a date. A buyer following the Maker is following the schedule, not the booth.
-
----
-
-## 4. The Food Truck Without a Calendar
-
-**Loops:** 7 (Make and be found), 8 (Follow what you love)
-**Primitive shape:** Person → Item(kind=service or product, ambulatory) → Location(area + sequence of recurring-temporary stops)
-
-A food truck operator works the Sacramento region. He posts on Instagram occasionally, but not where he'll be next, or only after the fact. His regulars track him by stalking the truck, asking him directly, or stumbling into him. He is not lazy — he's running a business and posting events on Instagram is friction he hasn't built into his week.
-
-What the platform does: a Maker profile where declaring "Tuesday lunch at Cesar Chavez Plaza, Wednesday dinner at Drake's parking lot" is the *core* surface, not an afterthought to a marketing post. Followers get the schedule, the platform shows it on the locality-first map, and the operator does the work he was already doing — just into a tool that compounds it.
-
-**What's notable:** the truck is the inverse of a permanent shop. The Maker is fixed; the Location varies. The Item primitive's flexibility on schedule and Location attachment is what makes this work in the same schema as a maker with one home base.
-
----
-
-## 5. Barn Movie Night at Drake's
-
-**Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly)
-**Primitive shape:** Person → Item(kind=gathering, recurring) → Location(Drake's barn, permanent, sub-venue)
-
-Drake's in West Sacramento runs a recurring barn movie night. To know about it, you have to follow Drake's on Instagram, or check Drake's website, or be on a mailing list, or have a friend who knows. To find out about *all* the events like it within ten miles — Barn Movie Night, the running club, the open-mic night at the brewery, the dance class at the community center, the kids' soccer pickup at the park — you would currently have to follow dozens of accounts, scrape dozens of websites, and remember they all exist. Most people give up.
-
-What the platform does: the locality-first index. One page that answers "what's happening near me this week that I could just show up to," populated by gathering Items declared by Persons at Locations. Barn Movie Night is one row. The Run Club is another. The dance class is another. The newcomer who just moved to Bryte and has lost their network can find their footing without first decoding the entire Sacramento social-media graph.
-
-**What's notable:** this is the loop where the platform's value is highest for the user with the *least* prior context — the newcomer (Loop 3). The work is reducing the discovery cost of recurring real-world life to near zero.
-
----
-
-## 6. Cafe Capricho's Successor
-
-**Loops:** 10 (Start something), 11 (Pool resources), with mentorship and economic-capacity threads
-**Primitive shape:** Person → Item(kind=initiative) → Location(the closed cafe, permanent, vacant); pledges from a Group of would-be backers (kind='event_anchored' around this Initiative); mentorship relationships from Persons with relevant experience
-
-Cafe Capricho was an East Sacramento cafe that shut down last month. The owner and her husband retired. The space is a beloved community staple — the kind of room a neighborhood organizes itself around — and now it's empty. Somewhere in Sacramento, there is at least one person who would take it over: an aspiring entrepreneur with the skills and the will, but without the capital, the mentorship, or the certainty that the community would back them. Somewhere in that same neighborhood are dozens of regulars who would back a successor — with money, with patronage commitments, with hours of help — if there were a way to do so.
-
-Today, those two sides do not find each other. The aspiring operator doesn't know the regulars exist as backers. The regulars don't know the operator exists as a candidate. The space gets leased to a chain or sits vacant.
-
-What the platform does: an Initiative — *"Take over Cafe Capricho. Reopen it as a neighborhood cafe under new ownership."* Encouragement signals interest. Pledges accumulate (capital, patronage commitments, hours of help, mentorship from existing operators). A linked Gathering brings the candidate, the regulars, and the experienced mentors into a room. The platform doesn't run the financing — that's where federated infrastructure (a CDFI partner, securities-compliant capital structures) eventually picks up. The platform's job is to make the *coordination* possible: surfacing that the demand is real, finding the candidate, structuring the pledges so a lender can see them.
-
-**What's notable:** this is the loop where the platform's people-first commitment is most directly tested. The same situation modeled by every other directory — an empty commercial space — is invisible to most platforms because there is no business yet. The Initiative primitive is what lets a community organize *around an absence* rather than around an existing listing. It is also where the platform must remain disciplined about its own boundary: surfacing demand and structuring pledges, not lending money.
-
----
-
-## 7. The Bumble BFF Refugees
-
-**Loops:** 1 (Find your people) — affinity-first, gathering-second
-**Primitive shape:** Person → Group(kind=interest, optional anchor Location) → Items(kind=gathering) hosted by Group members
-
-A handful of women in Sacramento are using Bumble BFF — the friend-matching mode of the dating app — to find new friends. The mechanism is one-on-one swiping: match with a stranger, message back and forth, maybe meet for coffee, repeat. After a few rounds several of them notice the obvious — they are all looking for the same thing, they would all like each other, and the one-at-a-time format is friction. They start handing off: when two of them match, instead of starting another DM thread, they point each other to a private Facebook group they spun up for "Sacramento women looking for friends." The group becomes the actual product. The need they had was never online conversation — it was real-world coordination among an affinity set, and the dating-app's one-on-one format made that nearly impossible.
-
-What the platform does: a Group is the native shape for what they spun up in Facebook. A Member starts *Sacramento Women Looking for Friends* — `kind=interest`, anchor Location optional, discoverability `listed`. Other Members find it through the `/g` index, through geographic suggestion when they set their home Location, and through soft-membership inference. One tap to join. Once the Group has critical mass, any Member declares a gathering Item attached to the Group — a Sunday hike, a wine night, a craft fair trip — and other members see it on the Group page and in their locality feed. The Group becomes addressable: future Wonders ("would folks be into a book club?") can scope to the group rather than the whole city.
-
-**What's notable:** every other canonical example has a Group emerging *out of* a recurring Gathering — the Run Club regulars become a Group after months at Drake's. This is the inverse: the Group comes *first*, before any gathering exists, because the affinity is recognized before any one of them has stepped forward to host. The platform's job is to make the affinity declarable as a thing on its own — a page and a join button — so saying "we're a group" doesn't require anyone to also commit to running a Sunday meetup. Once the Group exists, gatherings emerge from inside it; the gathering is no longer a precondition for the group.
-
-This example is also where **Groups cannot be auto-assigned** is most directly tested. The polygon "Sacramento women aged 25–40" is not this Group. The Group is the women who said *we are this group*. Geography is suggestion; the choice is theirs. (See [`groups.md`](../systems/groups.md) — emergent and optional Group formation; the platform never auto-assigns based on polygon or demographic.)
-
----
-
-## Loop coverage and gaps
-
-The seven examples above cover Loops 1, 3, 4, 7, 8, 10, 11 — with #7 exercising Loop 1 from the inverse direction (affinity-first rather than gathering-first). Example #12 (Concerts in the Park, below) is the eighth filled example and the load-bearing test case for multi-Location belonging and Location-follow surfaces. The canonical set will eventually cover 12 of the 13 loops (Loop 13, federation, is architectural and does not anchor to a single example). Slots #8–#11 below are placeholders to be filled with real situations.
-
-### 8. [TODO: Float an idea — Loop 2]
-
-A Wonder example. Someone in the area has been thinking about starting a Sunday coffee walk, a monthly clothing swap, a beginner pickleball morning, a fermentation skill-share — and doesn't want to commit to hosting before they know there is interest. Fill with a real instance.
-
-### 9. [TODO: Share / Ask — Loops 5 and 6, paired]
-
-A mutual-aid example. Spans both Offer (someone has extra zucchini, a pressure washer, two hours on Saturday) and Ask (someone needs a truck, a stand mixer, help with a faucet). Treat as one example with both surfaces, because in lived experience they are one mutual-aid relationship. Open design tension: see [`exploration/reciprocity-and-goodwill.md`](../exploration/reciprocity-and-goodwill.md).
-
-### 10. [TODO: Find a local pro — Loop 9]
-
-A trusted-tradesperson example. The plumber, vet, mechanic, hairdresser, or piano teacher whose business is mostly word-of-mouth and barely findable online. Fill with a real instance.
-
-### 11. [TODO: Steward what we built — Loop 12]
-
-A community-stewardship example. A garden, tool library, repair café, kitchen co-op, or shared space that is keeping itself alive on group-text-and-spreadsheets energy and would benefit from durable coordination tools. Fill with a real instance.
-
----
-
-## 12. Concerts in the Park
-
-**Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly), 8 (Follow what you love)
-**Primitive shape:** Person → `member_place_interests`(Sacramento MSA + secondary Places) × `member_interests`(`outdoor`, `live-music`, `summer-evenings`) → community-awareness feed → Items(kind=gathering, recurring, category=concert) attached to Locations(kind=permanent — parks) ← Persons(hosts). Per ADR-21 (2026-05-23).
-
-A Member loves outdoor live music in the summer. Across the Sacramento MSA, a dozen public parks host concert series — Capitol Mall on Friday evenings, Cesar Chavez Plaza summer noon series, Land Park's amphitheater, William Land Park, McKinley Park rose garden, Old Sacramento waterfront, Davis's Central Park, Folsom's Plaza Park, Roseville's Civic Center plaza. Each series is run by a different host (city Parks & Rec, a nonprofit, a local rotary, a small promoter), publishes on a different website (or Facebook page, or Instagram, or paper flyer), and surfaces in no shared place. Today, the Member learns about most of these by accident — a friend's text, a neighbor's mention, a sign they pass on a walk. They miss most of them.
-
-What the platform does (per ADR-21):
-
-1. The Member's awareness scope is already set from onboarding — `primary_home` = Oak Park (a `places.kind='neighborhood'` row), with the Sacramento MSA traversed as parent by the community-awareness feed. The Member optionally adds Davis and Folsom as `secondary` Places (`member_place_interests` rows of `scope_kind='secondary'`). No per-park follow row is required.
-2. Each park's concert series exists as recurring gathering Items (per the gathering composer in `item.md`), attached to that park's Location via `item_locations`. Each Location anchors to a Place (the park's neighborhood or city) via `locations.place_id`. Hosts post once; the Item carries the date, the band, the cost (free), what to bring.
-3. The community-awareness feed in `discovery.md` reads `member_place_interests` × `member_interests` × Place-hierarchy traversal: gathering Items whose attached Location's `place_id` falls under any of the Member's place-interests, filtered by `member_interests` tag overlap (`outdoor`, `live-music`, `summer-evenings`). "Friday Concert Series at Capitol Mall: Junior Brown, 6pm, free" surfaces because Capitol Mall's Place is under Sacramento, which is in the Member's place-interest set, and the Item's tags match.
-4. **Narrower subscriptions live in saved-searches.** A Member who wants a specific filter — *"anything at Drake's"* or *"sourdough drops in Oak Park"* — creates a `member_saved_searches` row (per `member.md`) with the appropriate `location_id` or `place_id` + `interest_tags`. The "Follow this venue" UI affordance on a Location page is the single-tap saved-search composer. b2 ships the surface + fan-out worker; b1 ships the substrate.
-5. At Loop 3 entry — a newcomer who just moved to Sacramento — the awareness feed works on day one. As soon as they set `home_location_id`, their `primary_home` place-interest row lands and the feed has a candidate set. They tweak interest tags to taste; no manual per-park follow click is required.
-
-**What's notable:** this example demonstrates four platform mechanics that none of the prior examples exercise as cleanly.
-
-- **Awareness without explicit subscription.** Per ADR-21, the community-awareness feed is *computed at query time* from the Member's Place-interests × interest tags. The Member doesn't need to enumerate twelve parks; the Place hierarchy in `places.md` does that work structurally. This is the substrate change: where the retired six-kind affinity model required twelve `member_location_affinities` rows of `affinity_kind='follows'`, the new model requires zero — Place-interest set + interest tags compose.
-- **Saved-searches for the narrower case.** When the Member *does* want a granular subscription ("only Drake's gathering Items, not its Run Club's wonders"), the `member_saved_searches` substrate (per ADR-21) holds the labeled filter. The general shape absorbs "follow this venue," "notify me about outdoor live music in any park I care about," and "let me know about sourdough drops in Oak Park" in one substrate — no special-cased per-Location affinity table.
-- **Multi-Place belonging.** A Member's Place-interest set is structurally multi (one `primary_home` + up to 5 `secondary`). The Member who lives in Oak Park but works in Folsom keeps both as Place-interests; the feed serves both. The single `home_location_id` (per ADR-4) is the locality default; place-interests are the Member's actual awareness map.
-- **Anti-Nextdoor in the affirmative.** A Member can have place-interest in Capitol Park's neighborhood and get a feed of *what is happening there*. They cannot get a feed of *what people are saying about there.* Per ADR-21, both `member_place_interests` and `member_saved_searches` are owner-only at the row level — neither is an addressability surface. No Place wall, no Place DM, no Place-scoped commentary. Same anti-Nextdoor commitment, structurally enforced by the substrate-private posture inherited from ADR-16.
-
-This example also names what's b1 substrate vs. b2 surface (per ADR-21): **the community-awareness feed substrate** (`member_place_interests`, `member_interests`, the Place hierarchy) ships at b1 and powers a basic locality feed immediately; **the saved-search UI composer + fan-out worker** ship at b2; **natural-language compositional queries** ("places near me with summer concerts in the park") wait for the T3 vector layer over `places` and `member_interests`.
-
----
-
-## 13. Maya at Oak Park Sourdough — Locally Owned + Locally Made (sibling badges)
-
-**Loops:** 7 (Buy close), 9 (Make a living locally)
-**Primitive shape:** Person(Maya, owner) → Group(kind=`business`, anchored at Oak Park) → `member_business_jurisdictions`(ZIP in Sacramento MSA, Tier 0 self-attested) → "Locally Owned" badge; Person(Maya) → Items(kind=`product`, `made_at_place_id` = Oak Park) → "Locally Made" badge. Per ADR-21 (2026-05-23).
-
-Maya bakes sourdough at home in Oak Park, sells at the Sacramento farmers market on Saturdays, and posts product Items the platform helps her customers find. She wants the locality signals — both of them — surfaced honestly without exposing her home address.
-
-**The two badges are distinct, and they diverge often.** Three contrasting cases make the design clean:
-
-| Member | Owner residence (jurisdiction ZIP) | Product made at | Locally Owned | Locally Made |
+| Code | Category | Activity | Lead example | Status |
 |---|---|---|---|---|
-| Maya at Oak Park Sourdough | Sacramento MSA (Tier 0 self-attested at b1; Tier 1 community-attested as buyers confirm at b2+) | Oak Park (the bakery's home) | ✓ | ✓ |
-| Bob the Sacramento-resident reseller of imported textiles | Sacramento MSA (Tier 0 self-attested; buyers may dissent on locality once they receive imported goods — pushing badge toward demotion at b2+) | Hanoi, Vietnam | ✓ (until community dissent thresholds at b2+) | ✗ |
-| A national-chain coffee franchise | Franchisee resident in Sacramento (Tier 0) | Roasted in Seattle, brewed locally | ✓ (franchisee) | partial (brewing, not roasting — design open) |
-| An out-of-state designer who labels products "from Sacramento" | Out-of-state ZIP (no jurisdiction record passes proximity) | Sacramento (declared) | ✗ | ✓ at Tier 0; community-attestation at b2+ surfaces whether buyers actually receive product made in Sacramento (likely dissent if not, demoting the claim) |
+| [C1](#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) | Consumer | Searches, follows, gets a locality feed | A newcomer to Sacramento setting `home_location_id` | MVP |
+| [C2](#c2-a-member-organizes-awareness-across-multiple-places) | Consumer | Organizes awareness across multiple Places | A Sacramentan tracking Concerts in the Park | MVP substrate; surface b2 |
+| [C3](#c3-a-member-finds-a-trusted-local-service-provider) | Consumer | Finds a trusted local service provider | Someone needs a plumber, vet, electrician, piano teacher | Deferred (b2+) |
+| [C4](#c4-a-member-shares-extras-and-asks-for-help-mutual-aid) | Consumer | Shares extras and asks for help (mutual aid) | "I have extra zucchini" / "I need a truck for an hour" | Deferred (b2+) |
+| [C5](#c5-a-member-vouches-for-a-producer-or-attests-to-another-member) | Consumer | Vouches / attests | A buyer confirms Maya's Locally Made claim | Deferred (b2+) |
+| [C6](#c6-members-find-each-other-by-shared-interest-before-any-gathering-exists) | Consumer | Finds others by shared interest, no gathering exists yet | Bumble BFF refugees on Facebook | Deferred (b2+) |
+| [P1](#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) | Producer | Creates profile + lists products/services | Any small seller making their work findable | MVP |
+| [P2](#p2-a-producer-posts-bulletins-about-hours-stock-and-location) | Producer | Posts bulletins (write own or link Instagram/TikTok) | A bakery posts "Saturday 8–noon, fresh sourdough" | MVP |
+| [P3](#p3-a-producer-with-variable-cadence-stays-findable-to-followers) | Producer | Has variable cadence — irregular / intermittent / ambulatory | Ferrari Fisheries · Dip Vendor · Food Truck | MVP |
+| [P4](#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges) | Producer | Earns and displays Locally Owned + Locally Made badges | Maya at Oak Park Sourdough | MVP substrate; badge UI deferred |
+| [P5](#p5-a-service-provider-tradesperson-builds-trust-with-prospective-customers) | Producer | Service-provider builds trust with prospective customers | A plumber, electrician, hairdresser, piano teacher | Deferred (b2+) |
+| [O1](#o1-a-group-meets-at-a-regular-time-and-place) | Organizer | A group meets at a regular time and place | The Thursday Run Club at Drake's | MVP |
+| [O2](#o2-a-venues-recurring-program-becomes-findable-alongside-everything-nearby) | Organizer | A venue's recurring program is findable alongside everything nearby | Barn Movie Night at Drake's | MVP |
+| [O3](#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed) | Organizer | A multi-venue series spans Places, members find it via the awareness feed | Concerts in the Park across the Sacramento MSA | MVP substrate; surface b2 |
+| [O4](#o4-a-member-floats-an-idea-to-test-interest-before-committing-to-host) | Organizer | Floats an idea to test interest before committing to host | Someone thinking about a Sunday coffee walk | Deferred (b2+) |
+| [O5](#o5-a-community-steward-keeps-an-ongoing-operation-alive) | Organizer | A steward keeps an ongoing operation alive | A community garden lead, a tool library volunteer | Deferred (b2+) |
+| [O6](#o6-a-community-coordinates-around-a-vacant-space) | Organizer | A community coordinates around a vacant space | Cafe Capricho's would-be successor | **Deferred (far horizon)** |
 
-What the platform does:
+---
 
-1. **Locally Owned (the existing `business-jurisdiction.md` substrate).** Maya creates her kind='business' Group through the Sell walkthrough. The composer prompts for a self-attested ZIP for the business jurisdiction. She enters a Sacramento ZIP (her registered-agent's office, not her home). The `member_business_jurisdictions` row lands with `verification_source='self_attested'`. The Group's public surface shows "Claimed local owner" alongside the Locally Owned badge, because `public.zip_is_proximal_to_location(zip, anchor_location_id)` returns true for the Oak Park anchor. Her home address never enters the system.
-2. **Locally Made (per ADR-21, new at b1 substrate; surface deferred).** When Maya posts a kind='product' Item, the composer offers an optional "where is this made?" step. She picks Oak Park (a `places.kind='neighborhood'` row). The Item lands with `made_at_place_id=Oak Park's place_id`, `made_at_verification_source='self_attested'`. The "Locally Made" badge renders on the Item page and on Item cards in discovery, conditional on the viewer's place-interest proximity to Oak Park.
-3. **Discovery uses both signals — separately.** The locality-first index in `discovery.md` reads jurisdiction (for Group-level Locally Owned filter) and provenance (for Item-level Locally Made filter). A Member browsing "Locally Owned bakeries near me" finds Maya's Group; a Member browsing "Locally Made sourdough near me" finds Maya's products. Bob's textile shop appears in the first list but not the second — honestly. The national-chain coffee franchise appears in the first list (franchisee resident); whether it qualifies for the second depends on the design call still open (the "brewed here vs. roasted elsewhere" case in the table).
-4. **Evidence tier is publicly visible.** Tier 0 self-attested is the b1 floor. Tier 1 **community-attested** (per the 2026-05-23 ratification — *peer pressure for the greater good*) lands at b2+ for both jurisdiction and provenance: buyers and other community Members confirm or dissent via friction-light prompts after qualifying interactions. Tier 2 document-supported lands at b2/b3. The badge always shows the tier — "Claimed" / "Community-confirmed" / "Documented" — and the parallel labels for Made. Members aren't punished for being at Tier 0; the platform is transparent about the evidence level. The original Tier 1 framing (SOS API lookup) is retired in favor of community-attestation, which carries ground-truth that government records can't.
+# Consumers
 
-**What's notable:** this example demonstrates the substrate split ADR-21 ratified.
+> **Baseline functionality (implicit in every Consumer case below):** member profile creation, `member_place_interests` (primary + secondary Places), `member_interests` (taste tags), `home_location_id`, basic browse of public Item / Group / Location pages. Members get a locality feed the moment they set their home Location.
 
-- **Two badges, two substrates, designed together.** Jurisdiction (`member_business_jurisdictions`) answers *does the money go to a local owner?*; provenance (`items.made_at_place_id`) answers *is the product made here?* The platform never collapses them; the two signals can — and often do — diverge. A reseller is Locally Owned but not Locally Made; an out-of-state-owned business making products here is Locally Made but not Locally Owned. The substrate split (ADR-21) is what lets the platform answer honestly in all four quadrants.
-- **Public claims with public evidence tiers — never address.** Both substrates store ZIPs and Places, never street addresses. The home stays in `members.home_location_id` (per ADR-4), owner-only. The Member declares jurisdiction and provenance because they want the badges; the platform's job is to evidence-tier them honestly, not to require disclosure of anything that would expose the Member's home.
-- **The retired affinity model couldn't tell the difference.** The six-kind `member_location_affinities` enum tried to be both private (residence as `lives`) and public (residence as locality input). It carried no concept of product provenance at all. The retire-and-replace per ADR-21 is what lets the platform answer all three quadrants — owner residence, product provenance, community awareness — each through its right substrate.
-- **The surface is gated on verification-ladder design.** The "Locally Made" badge ships at the substrate layer at b1 (column, action handlers, event log) but the badge UI, the viewer-side proximity rule (does the viewer's place-interest determine whether the Locally Made badge renders?), and the document-evidence ladder (facility lease ≠ EIN letter) are open product policy. Surface ratification routes back through `pipeline-product` once a real seller case forces the question — see Open Questions in [`product/exploration/member-geography-redesign.md`](../exploration/member-geography-redesign.md).
+---
 
-This example names a deliberate gap at b1: **the "Locally Made" badge UI** (where it renders, when it renders, how viewer place-interest interacts with the rendering rule). The substrate is honest at b1; the surface waits.
+## C1. A member searches for what's nearby and follows what they love
+
+**Status:** MVP (b1)
+**Loops:** 3 (Land here), 7 (Buy close), 8 (Follow what you love)
+**Primitive shape:** Person → `member_place_interests` × `member_interests` → discovery feed; Person → `member_follows` → Person | Group | Location.
+
+**Persona examples:**
+- A newcomer to Sacramento sets `home_location_id` to Oak Park, picks two interest tags ("live music," "sourdough"), and immediately sees a candidate feed of things happening nearby.
+- A neighbor of Maya's bakery clicks "follow" on her Group page so they're told when she posts new product.
+- A regular at Drake's clicks "follow" on the venue page so they're told about new gatherings hosted there.
+
+**Distinct functionality this case requires:**
+- `member_follows` substrate (member → person | group | location).
+- Follow CTA surface on Person, Group, and Location pages.
+- "Things you follow" management surface on the member's profile.
+- Discovery feed reads `member_place_interests` × `member_interests` × Place-hierarchy traversal at query time.
+
+**What the platform does:** the locality-first index. One page that answers "what's happening near me this week that I could just show up to," populated by Items declared by Persons and Groups at Locations. Following is the standing form of "tell me when this person/group/place has news"; the feed surfaces follow-targets' Items alongside taste-matched discovery. This is the baseline member experience; every other Consumer case builds on it.
+
+---
+
+## C2. A member organizes awareness across multiple Places
+
+**Status:** MVP substrate (b1); saved-search surface deferred to b2
+**Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly), 8 (Follow what you love)
+**Primitive shape:** Person → `member_place_interests`(primary + up to 5 secondary) × `member_interests` → community-awareness feed × Place-hierarchy traversal. Optional `member_saved_searches`(`location_id` or `place_id` + interest tags) for narrower subscriptions. Per ADR-21 (2026-05-23).
+
+**Persona examples:**
+- A Sacramentan loves outdoor live music in the summer. A dozen public parks across the Sacramento MSA host concert series. The member's `primary_home` is Oak Park and the MSA traverses as parent; the awareness feed serves every park's concerts without any per-park follow click.
+- A member lives in Oak Park but works in Folsom — adds Folsom as a `secondary` Place-interest; the feed serves both.
+- A member who wants a narrower filter ("anything at Drake's") creates a `member_saved_searches` row via a "Follow this venue" CTA (b2 surface).
+
+**Distinct functionality this case requires beyond C1:**
+- `member_place_interests` with primary + multiple secondary rows (substrate at b1 — done in C1 baseline; the multi-Place usage is what's distinct here).
+- Place-hierarchy traversal so adding "Sacramento MSA" covers every neighborhood under it without enumeration.
+- `member_saved_searches` substrate (b1) for parameterized "follow this venue" / "follow this filter" rows.
+- Saved-search UI composer + fan-out worker (**b2 surface — deferred**).
+- T3 natural-language compositional query layer ("places near me with summer concerts in the park") waits for the vector layer over `places` and `member_interests`.
+
+**What the platform does:** awareness without explicit subscription. The Place hierarchy does the structural work; the member doesn't enumerate every park. Anti-Nextdoor in the affirmative — the member gets a feed of *what's happening there*, never a feed of *what people are saying about there*. Both substrates are owner-only at the row level; neither is an addressability surface.
+
+**Cross-reference:** the host-side situation that motivates this case (a multi-venue series spans Places) lives at [O3](#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed). The badge variant of this awareness ("Locally Made sourdough near me") interacts with [P4](#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges).
+
+**Deferral note:** substrate ships b1; saved-search composer + fan-out ship b2.
+
+---
+
+## C3. A member finds a trusted local service provider
+
+**Status:** Deferred (b2+)
+**Loops:** 9 (Find a local pro)
+**Primitive shape:** Person(seeker) → search over Items(kind=service) + Groups(kind='business') → trust signals (attestations, prior bookings, references) → contact.
+
+**Persona examples:**
+- Someone needs a plumber whose business is mostly word-of-mouth and barely findable online — Yelp returns ads and out-of-area chains, Nextdoor returns a thread from 2019.
+- Someone needs a vet they can trust for a new puppy.
+- Someone needs a piano teacher for their kid; they want signal richer than "five stars on Google."
+
+**Distinct functionality this case requires beyond C1:**
+- Service-Item shape with richer fields (service area, appointment availability, scope of work, pricing model).
+- Service-Item search surface in Explore with locality-aware filters.
+- Read side of the attestation surface (see [C5](#c5-a-member-vouches-for-a-producer-or-attests-to-another-member)).
+
+**Cross-reference:** producer side of this situation lives at [P5](#p5-a-service-provider-tradesperson-builds-trust-with-prospective-customers).
+
+**Deferral statement:** the service-Item shape is partly covered by the existing Item primitive but has not been walked through a real case end to end. The trust-signal layer overlaps with C5 and is similarly unresolved. Deferred until the service-Item profile is walked through a real Sacramento case (a real plumber, a real vet) and the trust-signal layer has a designed answer.
+
+---
+
+## C4. A member shares extras and asks for help (mutual aid)
+
+**Status:** Deferred (b2+)
+**Loops:** 5 (Share what you have), 6 (Ask for help) — paired
+**Primitive shape:** Person → Item(kind=offer) and Person → Item(kind=ask); both surfaces of one mutual-aid relationship.
+
+**Persona examples:**
+- Someone has extra zucchini, a pressure washer, two hours on Saturday, a spare bedroom, a skill.
+- Someone else needs a truck for an hour, a stand mixer for a weekend, help with a faucet, an introduction to a vet, a hand moving.
+- In lived experience, give and take are one mutual-aid relationship; the platform's job is to make both surfaces addressable in one place.
+
+**Distinct functionality this case requires beyond C1:**
+- Offer Item kind and Ask Item kind with composers.
+- Response substrate per `item.md`.
+- Reciprocity model — does the platform track give/take balance, or treat it as fully gift-economy?
+- Abuse prevention without making the surface transactional.
+
+**Deferral statement:** the reciprocity model is unresolved — see [`../exploration/reciprocity-and-goodwill.md`](../exploration/reciprocity-and-goodwill.md). Open questions: tracking give/take, preventing abuse, connecting Offer/Ask with the broader Items surface without diluting it. Deferred until the reciprocity model has a designed answer.
+
+---
+
+## C5. A member vouches for a producer or attests to another member
+
+**Status:** Deferred (b2+)
+**Loops:** crosses 7 (Buy close), 9 (Find a local pro), 12 (Steward what we built)
+**Primitive shape:** Person(voucher) → attestation → Person(producer or member) or Group(kind='business'); attestation surfaces in the target's public profile and in discovery signal.
+
+**Persona examples:**
+- A buyer confirms Maya's "Locally Made" claim after receiving sourdough — community-attestation tier in [P4](#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges).
+- A long-time Run Club regular vouches for the lead organizer.
+- A handful of customers attest that a kind='business' Group is run by a real local owner.
+- An established member attests to a new member's standing — the social-trust thread that would have lived in the Cafe Capricho case had it not been deferred-far.
+
+**Distinct functionality this case requires beyond C1:**
+- Attestation Item kind with composer.
+- Attestation read-render on target profile (Person / Group / Item).
+- Reputation discipline: how attestations age, whether they can be withdrawn, whether they aggregate into a numeric signal or stay qualitative.
+- Abuse prevention: how the platform prevents a producer from collecting attestations from their own family.
+
+**Cross-reference:** the producer-side use of this functionality at the badge tier lives at [P4](#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges); the consumer-side use for finding trusted service providers lives at [C3](#c3-a-member-finds-a-trusted-local-service-provider) and [P5](#p5-a-service-provider-tradesperson-builds-trust-with-prospective-customers).
+
+**Deferral statement:** the attestation surface and reputation discipline are not yet designed. The Tier 1 community-attestation slot in P4 (Locally Made / Locally Owned) is the load-bearing seed and likely the first surface where this case lands. Deferred until the attestation surface and reputation discipline are designed.
+
+---
+
+## C6. Members find each other by shared interest before any gathering exists
+
+**Status:** Deferred (b2+)
+**Loops:** 1 (Find your people) — affinity-first, gathering-second
+**Primitive shape:** Person → Group(kind='interest', optional anchor Location) → Items(kind=gathering) hosted by Group members.
+
+**Persona examples:**
+- The Bumble BFF refugees — a handful of women in Sacramento using a dating app's friend-matching mode notice they're all looking for the same thing, hand each other off to a private Facebook group, and the group becomes the actual product.
+- New parents in a neighborhood looking for other new parents.
+- Hobbyists (kayakers, knitters, board-gamers) trying to find each other before any meetup exists.
+
+**Distinct functionality this case requires beyond C1:**
+- Affinity-first Group discovery surface — showing a member "here are Groups you'd probably like to join" before any gathering exists inside them.
+- Discoverability for kind='interest' Groups with no anchored Location and no recurring Item.
+- Soft-membership inference (geographic suggestion when a member sets their home Location).
+- The "Groups cannot be auto-assigned" boundary holds — geography is suggestion, the choice is the member's.
+
+**Deferral statement:** affinity-first Group discovery is not yet designed. The case stress-tests the "Groups cannot be auto-assigned" commitment in [`../systems/groups.md`](../systems/groups.md) — the polygon "Sacramento women aged 25–40" is not this Group; the Group is the women who said *we are this group*. Deferred until affinity-first discovery is designed without violating that boundary.
+
+---
+
+# Producers
+
+> **Baseline functionality (implicit in every Producer case below):** Person creates a kind='business' Group (the platform's representation of a personal business or shop), and lists what they sell as Items (kind='product' or kind='service'). Producers may exist without a business Group when they sell as an individual; in that case the Items attach to the Member directly. Every Producer case extends this baseline.
+
+---
+
+## P1. A producer creates a profile and lists their products or services
+
+**Status:** MVP (b1)
+**Loops:** 7 (Buy close), 9 (Make a living locally)
+**Primitive shape:** Person → Group(kind='business', optional) → Items(kind='product' or 'service').
+
+**Persona examples:**
+- A neighborhood coffee shop creates a Group, lists its drinks menu, posts its weekly hours.
+- A jewelry maker who sells through one annual studio sale creates a Group, lists current inventory.
+- A piano teacher creates a Group and lists a Service Item with rates and location radius.
+
+**Distinct functionality this case requires:**
+- Group composer for kind='business'.
+- Item composer for kind='product' and kind='service'.
+- Public Group page at `/p/[…place path]/g/[slug]` with listed Items.
+- Member can sell as an individual without standing up a Group — Items attach to the Member directly.
+
+**What the platform does:** the baseline producer surface. A producer who doesn't post updates, doesn't have variable cadence, and doesn't claim locality badges still gets a findable page, a clean URL, and the ability to be followed. Every richer producer case extends this baseline.
+
+---
+
+## P2. A producer posts bulletins about hours, stock, and location
+
+**Status:** MVP (b1)
+**Loops:** 7 (Buy close), 8 (Follow what you love)
+**Primitive shape:** Person → Bulletin → followers; Bulletin body is either composed in-platform or imported via link from Instagram, TikTok, or Facebook.
+
+**Persona examples:**
+- A bakery posts "Open Saturday 8–noon, fresh sourdough at 9am."
+- A restaurant links a TikTok video of tonight's special into a bulletin.
+- A coffee shop posts "Closed Monday for staff training."
+
+**Distinct functionality this case requires beyond P1:**
+- Bulletin composer per [`../systems/producer-tools.md`](../systems/producer-tools.md).
+- Bulletin delivery to followers (in-app + email at b1 floor).
+- **Social-link import (Instagram / TikTok / Facebook)** — the linked post becomes the bulletin body, optionally augmented with the producer's own text. The producer-tools spec does not yet name this pathway explicitly; flagged for SPEC-PATCHES update to [`../systems/producer-tools.md`](../systems/producer-tools.md).
+
+**What the platform does:** the producer's existing social posting becomes platform-native bulletin content without requiring the producer to write twice. The bulletin substrate is what makes following meaningful — a follow without a delivery channel is a bookmark.
+
+---
+
+## P3. A producer with variable cadence stays findable to followers
+
+**Status:** MVP (b1)
+**Loops:** 7 (Buy close), 8 (Follow what you love)
+**Primitive shape:** Person → Item(kind='product' or 'service', cadence varies) → Location(varies); Item cadences include irregular (one-off windows), recurring-irregular (intermittent at a known venue), and ambulatory (sequence of stops).
+
+**Persona examples (three flavors of variable cadence):**
+
+- **3a. Irregular supply — Ferrari Fisheries.** A fisherman with a boat catches wild fish off the California coast. Supply is irregular; he alerts customers by text when he has fish available, where he'll be, and for how long. The window is sometimes hours. The platform lets him declare "I have salmon, today only, here, until 4pm" and push to followers.
+- **3b. Intermittent market presence — the Quarterly Dip Vendor.** A producer of African-inspired dips shows up at a Sacramento farmers market sometimes — not every week, not on any schedule the market publishes. The platform's producer profile lives at the producer level, not the market level; followers see the next appearance the moment it's declared.
+- **3c. Ambulatory / multi-stop — the Food Truck without a calendar.** A food truck operator works the Sacramento region — Tuesday lunch at Cesar Chavez Plaza, Wednesday dinner at Drake's parking lot. The producer is fixed; the Location varies. The platform lets him declare the sequence of stops as the core surface, not an afterthought to a marketing post.
+
+**Distinct functionality this case requires beyond P2:**
+- Item composer accepts irregular cadence (one-off Item with a date and a window).
+- Item attachment to Locations of kind='recurring-temporary' (markets, popup venues) and to Locations of kind='area' (a Sacramento-wide service area for ambulatory work).
+- Producer-level scheduling view that aggregates upcoming Items across Locations.
+- Push to followers triggered on Item declaration (riding on the P2 bulletin substrate).
+
+**What the platform does:** treats irregular and recurring as the same Item kind, varying only by schedule and Location attachment. That schema flexibility is what makes a fisherman, an intermittent market vendor, and a food truck findable in the same surface as a producer with one home base.
+
+---
+
+## P4. A locally-owned, locally-made producer earns and displays both badges
+
+**Status:** MVP substrate (b1); badge UI deferred
+**Loops:** 7 (Buy close), 9 (Make a living locally)
+**Primitive shape:** Person(owner) → Group(kind='business', anchored at a Place) → `member_business_jurisdictions`(ZIP, tiered evidence) → "Locally Owned" badge; Person → Items(kind='product', `made_at_place_id`) → "Locally Made" badge. Per ADR-21 (2026-05-23).
+
+**Persona examples (illustrating the two badges diverging):**
+
+| Producer | Owner residence (jurisdiction) | Product made at | Locally Owned | Locally Made |
+|---|---|---|---|---|
+| **Maya at Oak Park Sourdough** (anchor) | Sacramento MSA (self-attested at b1) | Oak Park | ✓ | ✓ |
+| Sacramento-resident reseller of imported textiles | Sacramento MSA | Hanoi, Vietnam | ✓ | ✗ |
+| National-chain coffee franchise | Franchisee resident in Sacramento | Roasted Seattle, brewed local | ✓ (franchisee) | partial (open) |
+| Out-of-state designer labeling products "from Sacramento" | Out-of-state ZIP | Sacramento (declared) | ✗ | ✓ at Tier 0; community-attestation at b2+ |
+
+**Distinct functionality this case requires beyond P1:**
+- `member_business_jurisdictions` substrate (ZIP, `verification_source`, tiered evidence).
+- `items.made_at_place_id` column on the Items table.
+- `public.zip_is_proximal_to_location(zip, anchor_location_id)` derivation function.
+- **Badge UI rendering rule** — where the badge renders, when it renders, how viewer place-interest interacts with rendering (**deferred surface**).
+- Tier 1 community-attestation surface (paired with [C5](#c5-a-member-vouches-for-a-producer-or-attests-to-another-member); deferred to b2+).
+
+**What the platform does:** two badges, two substrates, designed together. Jurisdiction answers *does the money go to a local owner?*; provenance answers *is the product made here?* The platform never collapses them. Both store ZIPs and Places, never street addresses — home stays in `members.home_location_id` (per ADR-4), owner-only.
+
+**Deferral note:** substrate ships b1 (columns, action handlers, event log). Badge UI rendering rule, viewer-side proximity check, document-evidence ladder, and Tier 1 community-attestation surface are deferred. Surface ratification routes back through `explore` once a real seller case forces the question.
+
+---
+
+## P5. A service-provider (tradesperson) builds trust with prospective customers
+
+**Status:** Deferred (b2+)
+**Loops:** 9 (Find a local pro), 12 (Steward what we built — repeat-customer thread)
+**Primitive shape:** Person → Group(kind='business') → Items(kind='service') with richer fields; attestation rows from prior customers and references.
+
+**Persona examples:**
+- A plumber whose business is 90% word-of-mouth and who has no findable online presence beyond a Yelp page with three reviews from 2018.
+- A vet who has a Yelp ad but wants a richer page that reflects how their actual clients describe them.
+- A hairdresser building a book at a new salon.
+- A piano teacher whose Google search result is a generic chain's location page.
+
+**Distinct functionality this case requires beyond P2:**
+- Service-Item shape with richer fields than a product Item: service area (radius or named neighborhoods), appointment availability, scope of work, pricing model (flat / hourly / per-session), prerequisites.
+- Optional appointment-booking integration (may stay external).
+- Attestation surface (paired with [C5](#c5-a-member-vouches-for-a-producer-or-attests-to-another-member)) — prior customers vouching, references the provider lists themselves.
+- Treatment-review surface per the 2026-05-12 amendment (review the *treatment* received, not the provider as a person — per the no-ranking-of-people corollary in [`../foundation/principles.md`](../foundation/principles.md)).
+
+**Cross-reference:** the consumer side of this situation lives at [C3](#c3-a-member-finds-a-trusted-local-service-provider).
+
+**Deferral statement:** the service-Item profile shape and the trust-signal layer (attestation, treatment-review, prior-customer references) are not yet designed. Deferred until at least one real Sacramento service provider is walked through end to end and the trust-signal architecture is named.
+
+---
+
+# Organizers
+
+> **Baseline functionality (implicit in every Organizer case below):** Person creates an Item of kind='gathering' at a Location. The simplest case — a one-off backyard barbecue with a single date — needs only the gathering-Item composer plus a Location reference. Every Organizer case below extends this baseline by adding cadence, host shape, or scope.
+
+---
+
+## O1. A group meets at a regular time and place
+
+**Status:** MVP (b1)
+**Loops:** 1 (Find your people), 4 (Gather regularly)
+**Primitive shape:** Person → Item(kind='gathering', recurring) → Location(permanent); optional Group(kind='event_anchored' or 'interest') emerges from the regulars.
+
+**Persona examples:**
+- The unofficial Run Club at Drake's — every Thursday evening, a group of runners meets, runs together, and stays for a beer. Currently no website, no calendar; you find out by being there.
+- A weekly board game night at a brewery.
+- A monthly book club rotating between members' homes.
+- A weekend pickup soccer game at a public park.
+
+**Distinct functionality this case requires beyond the baseline:**
+- Recurring schedule on the gathering Item (weekly, monthly, by-day-of-week patterns).
+- Public Item page at `/p/[…place path]/g/[group-slug]/e/[slug]` (if filed under a Group) or `/m/[handle]/e/[slug]` (if filed under a Member).
+- Share-link surface — a chalk-on-a-board-able URL the regulars can text, post, or flyer.
+- Optional Group emergence — `kind='event_anchored'` or `kind='interest'` Group that forms from the regulars without requiring it to exist first.
+
+**What the platform does:** a public, locality-first page anchored at the Location with a recurring time and a clean URL. A stranger searching "what's happening near Drake's this week" can find it and show up Thursday. The organizer doing the platform's work without the platform's tools gets a single shareable link that replaces the three-app sprawl. The regulars become a Group only if they choose to — most of the value lands without that choice.
+
+---
+
+## O2. A venue's recurring program becomes findable alongside everything nearby
+
+**Status:** MVP (b1)
+**Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly)
+**Primitive shape:** Group(kind='business' — the venue) → Item(kind='gathering', recurring) → Location(sub-venue, permanent); host is a kind='business' Group rather than an individual Person.
+
+**Persona examples:**
+- Barn Movie Night at Drake's — Drake's runs a recurring barn movie night. To know about it today, you have to follow Drake's on Instagram or be on a mailing list. To find out about *all* the events like it within ten miles, you'd follow dozens of accounts.
+- A weekly open-mic night at a neighborhood brewery.
+- A monthly poetry reading at an independent bookstore.
+- A Saturday morning kids' story hour at a coffee shop.
+
+**Distinct functionality this case requires beyond O1:**
+- Host is a kind='business' Group (not just a Person) — Item attaches to the Group as host.
+- Sub-venue Location support — Drake's barn is a sub-venue of Drake's; reserved schema at b1, surface at T2.
+- Cross-host discovery feed — the locality-first index aggregates gatherings from every host in the area into one page.
+
+**What the platform does:** the locality-first index for events. One page that answers "what's happening near me this week," populated by gathering Items declared by Persons and Groups at Locations. The newcomer who just moved to Bryte and has lost their network can find their footing without first decoding the entire Sacramento social-media graph. The platform's value here is highest for the user with the *least* prior context.
+
+---
+
+## O3. A multi-venue series spans Places and members find it via the awareness feed
+
+**Status:** MVP substrate (b1); saved-search surface deferred to b2
+**Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly), 8 (Follow what you love)
+**Primitive shape:** Multiple hosts (Person or Group) → recurring gathering Items → Locations across multiple Places → Place-hierarchy aggregation → member's community-awareness feed (per ADR-21).
+
+**Persona examples:**
+- Concerts in the Park summer series across the Sacramento MSA — a dozen public parks host concert series (Capitol Mall, Cesar Chavez Plaza, Land Park amphitheater, etc.). Each is run by a different host (city Parks & Rec, a nonprofit, a local rotary, a small promoter), publishes on a different website, and surfaces in no shared place today.
+- A regional farmers-market circuit spanning four counties run by independent market operators.
+- A summer outdoor-cinema series with screenings at a dozen partner venues.
+
+**Distinct functionality this case requires beyond O2:**
+- Cross-host aggregation — gatherings from independent hosts surface in the same feed if they share place + interest match.
+- Place-hierarchy traversal — a gathering at Capitol Mall surfaces for any member whose place-interest set includes Sacramento (the parent Place).
+- `member_saved_searches` substrate so a member can subscribe to a narrower filter ("outdoor live music in any park I care about") — substrate at b1.
+- Saved-search UI composer + fan-out worker — **b2 surface, deferred**.
+
+**What the platform does:** awareness without explicit subscription. Each park's concert series exists as recurring gathering Items; the awareness feed reads place-interests × interest tags × Place-hierarchy at query time. "Friday Concert Series at Capitol Mall: Junior Brown, 6pm, free" surfaces because the Item's tags match the member's interests and Capitol Mall's Place falls under their place-interest set.
+
+**Cross-reference:** the member-side situation that motivates this case is [C2](#c2-a-member-organizes-awareness-across-multiple-places). The two cases share substrate; the difference is whose situation drives the design call.
+
+---
+
+## O4. A member floats an idea to test interest before committing to host
+
+**Status:** Deferred (b2+) — placeholder for a real instance
+**Loops:** 2 (Float an idea)
+**Primitive shape:** Person → Item(kind='wonder') → encouragement signals from other Persons → tipping-point conversion to Initiative or recurring Gathering.
+
+**Persona examples:** (slot reserved for a real instance — fill once the Wonder surface exists)
+- Someone has been thinking about starting a Sunday coffee walk, a monthly clothing swap, a beginner pickleball morning, a fermentation skill-share.
+- They don't want to commit to hosting before they know there is interest.
+- Today, the only way to test interest is to commit to hosting and see who shows up — which is the friction.
+
+**Distinct functionality this case requires beyond O1:**
+- Wonder Item kind with composer.
+- Interest-signaling mechanic — how a member declares "yes I'm interested."
+- Tipping-point flow — how interest above a threshold converts a Wonder into an actual Gathering or Initiative.
+- Response handling when interest is below threshold — does the Wonder expire, accumulate, hand off?
+
+**Deferral statement:** the Wonder Item kind exists in [`../foundation/primitives.md`](../foundation/primitives.md) but the signaling mechanic, threshold logic, and tipping-point conversion are not yet designed. Deferred until the Wonder → response → tipping-point flow is designed.
+
+---
+
+## O5. A community steward keeps an ongoing operation alive
+
+**Status:** Deferred (b2+) — placeholder for a real instance
+**Loops:** 12 (Steward what we built)
+**Primitive shape:** Person(steward) → Group(kind varies — 'practice' for tool library, 'interest' for repair café, 'business' for kitchen co-op) → operational tooling (schedules, inventories, member coordination).
+
+**Persona examples:** (slot reserved for a real instance — fill from a real Sacramento community garden, tool library, or repair café)
+- A garden lead coordinating volunteer plots, watering rotations, and seed swaps.
+- A tool library volunteer tracking checkouts, returns, and equipment condition.
+- A repair-café organizer scheduling pop-ups, recruiting fixers, tracking projects.
+
+**Distinct functionality this case requires beyond O2 / O3:**
+- `group_stewardships` schema delta per [`../systems/stewardships.md`](../systems/stewardships.md).
+- Shared schedules and shift sign-ups (volunteer rotations).
+- Shared inventory tracking (tool library, seed library, equipment).
+- Optional dues collection (low-stakes, not the Cafe Capricho capital-structure flavor).
+- Curated stewardship templates (the seven from ship-theme S6.5).
+
+**Deferral statement:** the stewardship tooling layer — what a steward needs beyond a Group with members — is not yet fully designed. The minimum-viable steward toolkit (which subset of schedules / inventory / shift-signup / dues lands first) is the open question. Deferred until at least one real stewarded Sacramento community is walked through end to end.
+
+---
+
+## O6. A community coordinates around a vacant space
+
+**Status:** **Deferred (far horizon)** — set 2026-05-26 per PM; the case is too complex for the foreseeable bundle plan
+**Loops:** 10 (Start something), 11 (Pool resources), with mentorship and economic-capacity threads
+**Primitive shape:** Person → Item(kind='initiative') → Location(the vacant space); pledges from a Group of would-be backers; mentorship relationships from Persons with relevant experience; eventual handoff to federated financing infrastructure.
+
+**Persona examples:**
+- Cafe Capricho's Successor — Cafe Capricho was an East Sacramento cafe that shut down. The space is a beloved community staple, now empty. Somewhere in Sacramento, there is at least one person who would take it over but lacks capital, mentorship, or certainty the community would back them. Somewhere in the neighborhood are dozens of regulars who would back a successor with money, patronage commitments, or hours. Today, those two sides do not find each other.
+- A beloved hardware store whose owner is retiring with no buyer.
+- A community garden plot whose lead steward has moved away with no backstop.
+
+**Distinct functionality this case requires beyond every other case:**
+- Initiative Item kind with composer.
+- Pledge response substrate — capital pledges, patronage commitments, mentorship hours, sweat equity.
+- Pledge aggregation surface — visible to others contemplating their own pledge.
+- The platform / financing boundary — surfacing demand and structuring pledges versus running financing (CDFI partner, securities-compliant structures pick up at the boundary).
+- Coordination flows between candidate-operators, backers, and experienced mentors.
+
+**Deferral statement (far horizon):** the case requires the Initiative + Pledge primitive, the platform/financing boundary discipline, and multi-actor coordination flows none of which exist as designs. It also requires the trust signals from [C5](#c5-a-member-vouches-for-a-producer-or-attests-to-another-member) and the stewardship base from [O5](#o5-a-community-steward-keeps-an-ongoing-operation-alive). **PM decision 2026-05-26:** deferred past the foreseeable bundle plan. The problem statement stays in the canon because it's load-bearing for the platform's long-term thesis (community-scale undertakings, the Cleveland Model / Mondragon trajectory) but no build-pipeline work attaches to it until the prerequisite cases land and the platform's coordination capabilities deepen.
 
 ---
 
 ## What success looks like
 
-Every example above ends in a recurring relationship, not a one-off transaction:
+Every MVP case above ends in a recurring relationship, not a one-off transaction:
 
 - The newcomer at Barn Movie Night becomes a regular, then a host of something themselves.
 - The Run Club gains members from people who walked past Drake's, not just the ones who already knew.
 - Ferrari Fisheries' followers come back when the fish do.
-- The dip vendor's intermittent appearances accumulate a real customer base.
+- The dip producer's intermittent appearances accumulate a real customer base.
 - The food truck's schedule stops being a loyalty test.
-- Cafe Capricho reopens — under new ownership, with the regulars who saved it as part-owners or guaranteed customers.
+- Maya's locally-made sourdough finds the customers who specifically want it.
 
-The shape of victory is the same in every case: a Person, declaring a thing, at a place — and other people responding, returning, and over time taking on more of the work themselves.
+The deferred cases — service-provider trust, mutual aid, attestation, affinity-first finding, stewardship, the long-horizon Initiative case — extend the same pattern into territory the platform isn't yet ready to serve, but the shape of victory is the same in every one of them: a Person, declaring a thing, at a place — and other people responding, returning, and over time taking on more of the work themselves.
 
 **Buy close. Build community. Build the future together.**

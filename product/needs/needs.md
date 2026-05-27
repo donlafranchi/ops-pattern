@@ -29,7 +29,7 @@ The need at the doorway. A Member arrives in the locality or in the platform wit
 - **Served by:** [`../systems/groups.md`](../systems/groups.md) (the six Group kinds at b1; Member-declared, never auto-assigned), [`../systems/member.md`](../systems/member.md) (the Member profile + follow substrate), [`../systems/discovery.md`](../systems/discovery.md) (the locality-first index).
 - **Capabilities:** [`../capabilities/group-create-join.md`](../capabilities/group-create-join.md), [`../capabilities/member-profile.md`](../capabilities/member-profile.md).
 - **Role(s):** [Member](people.md#1-member) — the affinity-seeker and newcomer types.
-- **Use case anchor:** [#7 Bumble BFF Refugees](use-cases.md#7-the-bumble-bff-refugees).
+- **Use case anchor:** [C6 — Members find each other by shared interest](use-cases.md#c6-members-find-each-other-by-shared-interest-before-any-gathering-exists) — deferred (b2+).
 
 ### 2. I want to float an idea
 
@@ -40,7 +40,7 @@ A Member has an idea they aren't ready to commit to hosting — a Sunday coffee 
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=wonder).
 - **Capabilities:** Item composer (kind picker) in [`../capabilities/item-view.md`](../capabilities/item-view.md); Wonder → Gathering conversion (b2 — schema reserved).
 - **Role(s):** [Member](people.md#1-member) — the idea-floater type.
-- **Use case anchor:** [#8 (TODO) Float an idea](use-cases.md#8-todo-float-an-idea--loop-2) — slot is reserved for a real instance.
+- **Use case anchor:** [O4 — A member floats an idea to test interest](use-cases.md#o4-a-member-floats-an-idea-to-test-interest-before-committing-to-host) — deferred (b2+); slot reserved for a real instance.
 
 ### 3. I want to land somewhere new
 
@@ -51,7 +51,7 @@ A Member is new to the locality and wants to find the activity that's already ha
 - **Served by:** [`../systems/discovery.md`](../systems/discovery.md) (the locality-first index, the `discoverable_items` materialized view, the `/explore` surface).
 - **Capabilities:** [`../ui/community-platform.md`](../ui/community-platform.md) (Home — locality feed; Explore — locality browse).
 - **Role(s):** [Member](people.md#1-member) — the newcomer type.
-- **Use case anchor:** [#5 Barn Movie Night](use-cases.md#5-barn-movie-night-at-drakes) (newcomer side), [#12 Concerts in the Park](use-cases.md#12-concerts-in-the-park) (Loop 3 entry).
+- **Use case anchor:** [O2 — A venue's recurring program becomes findable](use-cases.md#o2-a-venues-recurring-program-becomes-findable-alongside-everything-nearby) (newcomer side), [C2 — A member organizes awareness across Places](use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) (Loop 3 entry).
 
 ### 4. I want to gather regularly
 
@@ -62,7 +62,7 @@ A Member wants to host a recurring gathering — a Run Club, a Movie Night, a bo
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=gathering, recurring), [`../systems/location.md`](../systems/location.md) (permanent + recurring-temporary Locations).
 - **Capabilities:** [`../capabilities/event-host.md`](../capabilities/event-host.md), the gathering composer (b1).
 - **Role(s):** [Convener](people.md#3-convener) (host); [Member](people.md#1-member) — the event-goer type, as audience.
-- **Use case anchor:** [#1 Run Club at Drake's](use-cases.md#1-the-unofficial-run-club-at-drakes), [#5 Barn Movie Night](use-cases.md#5-barn-movie-night-at-drakes), [#12 Concerts in the Park](use-cases.md#12-concerts-in-the-park).
+- **Use case anchor:** [O1 — A group meets at a regular time and place](use-cases.md#o1-a-group-meets-at-a-regular-time-and-place), [O2 — A venue's recurring program becomes findable](use-cases.md#o2-a-venues-recurring-program-becomes-findable-alongside-everything-nearby), [O3 — A multi-venue series spans Places](use-cases.md#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed).
 
 ---
 
@@ -77,7 +77,7 @@ A Member has extra capacity — extra zucchini, a pressure washer collecting dus
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=offer).
 - **Capabilities:** The Offer surface in the Item composer ([`../capabilities/item-view.md`](../capabilities/item-view.md)); the response substrate per [`../systems/item.md`](../systems/item.md).
 - **Role(s):** [Member](people.md#1-member) — the giver type.
-- **Use case anchor:** [#9 (TODO) Share / Ask](use-cases.md#9-todo-share--ask--loops-5-and-6-paired) — slot reserved.
+- **Use case anchor:** [C4 — A member shares extras and asks for help (mutual aid)](use-cases.md#c4-a-member-shares-extras-and-asks-for-help-mutual-aid) — deferred (b2+); slot reserved.
 
 ### 6. I want to ask for help
 
@@ -88,7 +88,7 @@ A Member needs something — a truck for an hour, a stand mixer for a weekend, h
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=ask).
 - **Capabilities:** The Ask surface in the Item composer; the response substrate per [`../systems/item.md`](../systems/item.md). The open design tension around how reciprocity and goodwill surface here lives in [`../exploration/reciprocity-and-goodwill.md`](../exploration/reciprocity-and-goodwill.md).
 - **Role(s):** [Member](people.md#1-member) — the help-seeker type.
-- **Use case anchor:** [#9 (TODO) Share / Ask](use-cases.md#9-todo-share--ask--loops-5-and-6-paired).
+- **Use case anchor:** [C4 — A member shares extras and asks for help (mutual aid)](use-cases.md#c4-a-member-shares-extras-and-asks-for-help-mutual-aid) — deferred (b2+).
 
 ---
 
@@ -103,7 +103,7 @@ A Member is making something — bread, ceramics, wild-caught fish, dips, repair
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=product or kind=service), [`../systems/groups.md`](../systems/groups.md) (kind='business' Group for the sole-prop / cooperative / partnership cases), [`../systems/discovery.md`](../systems/discovery.md), [`../systems/business-jurisdiction.md`](../systems/business-jurisdiction.md) (locality verification).
 - **Capabilities:** Item composer for product/service kinds; the Seller section in [`../ui/community-platform.md`](../ui/community-platform.md); [`../systems/producer-tools.md`](../systems/producer-tools.md) (Bulletin + Growth).
 - **Role(s):** [Producer](people.md#2-producer).
-- **Use case anchor:** [#2 Ferrari Fisheries](use-cases.md#2-ferrari-fisheries), [#3 Quarterly Dip Vendor](use-cases.md#3-the-quarterly-dip-vendor), [#4 Food Truck Without a Calendar](use-cases.md#4-the-food-truck-without-a-calendar).
+- **Use case anchor:** [P1 — A producer creates a profile and lists products/services](use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services), [P2 — A producer posts bulletins about hours, stock, and location](use-cases.md#p2-a-producer-posts-bulletins-about-hours-stock-and-location), [P3 — A producer with variable cadence (irregular / intermittent / ambulatory)](use-cases.md#p3-a-producer-with-variable-cadence-stays-findable-to-followers).
 
 ### 8. I want to follow what I love
 
@@ -114,7 +114,7 @@ A Member has chosen a Producer or a Convener and wants to be alerted when they h
 - **Served by:** [`../systems/member.md`](../systems/member.md) (the `member_follows` substrate at b1; the surface at b2), [`../systems/location.md`](../systems/location.md) (Location-follow surface, the Concerts-in-the-Park pattern), [`../systems/producer-tools.md`](../systems/producer-tools.md) (Bulletin delivery).
 - **Capabilities:** Follow surface in [`../capabilities/member-profile.md`](../capabilities/member-profile.md) and the Location page surface in [`../systems/location.md`](../systems/location.md).
 - **Role(s):** [Member](people.md#1-member) — the follower type.
-- **Use case anchor:** [#2 Ferrari Fisheries](use-cases.md#2-ferrari-fisheries), [#3 Quarterly Dip Vendor](use-cases.md#3-the-quarterly-dip-vendor), [#4 Food Truck](use-cases.md#4-the-food-truck-without-a-calendar), [#12 Concerts in the Park](use-cases.md#12-concerts-in-the-park).
+- **Use case anchor:** [P3 — A producer with variable cadence](use-cases.md#p3-a-producer-with-variable-cadence-stays-findable-to-followers), [C2 — A member organizes awareness across Places](use-cases.md#c2-a-member-organizes-awareness-across-multiple-places).
 
 ### 9. I want to find a local pro
 
@@ -125,7 +125,7 @@ A Member needs to hire someone — a plumber, a vet, a piano teacher, a hairdres
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=service), [`../systems/member.md`](../systems/member.md) (treatment-review surfaces per the 2026-05-12 amendment).
 - **Capabilities:** Service-Item view; service-Item search via [`../ui/community-platform.md`](../ui/community-platform.md) Explore.
 - **Role(s):** [Member](people.md#1-member) — the service-seeker type. The pro being sought is a [Producer](people.md#2-producer) (trades-pro or professional-service type).
-- **Use case anchor:** [#10 (TODO) Find a local pro](use-cases.md#10-todo-find-a-local-pro--loop-9).
+- **Use case anchor:** [C3 — A member finds a trusted local service provider](use-cases.md#c3-a-member-finds-a-trusted-local-service-provider) — deferred (b2+); paired with [P5 — A service-provider builds trust](use-cases.md#p5-a-service-provider-tradesperson-builds-trust-with-prospective-customers).
 
 ---
 
@@ -140,7 +140,7 @@ A Member wants to lead a community-scale undertaking — reopen a beloved closed
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=initiative; schema reserved at b1, full surface b3), the Initiative-pledge substrate.
 - **Capabilities:** **[PM: confirm]** — the Initiative composer ships at b3 (per [`../foundation/platform-promise.md`](../foundation/platform-promise.md)); the capability file does not yet exist as a separate doc.
 - **Role(s):** [Member](people.md#1-member) — starting something is a Member act; the Member takes on the Producer or Convener role once the thing exists.
-- **Use case anchor:** [#6 Cafe Capricho's Successor](use-cases.md#6-cafe-caprichos-successor).
+- **Use case anchor:** [O6 — A community coordinates around a vacant space](use-cases.md#o6-a-community-coordinates-around-a-vacant-space) — **deferred (far horizon)** per PM 2026-05-26.
 
 ### 11. I want to pool resources
 
@@ -151,7 +151,7 @@ A Member is part of a group that wants to pool money, time, or commitments towar
 - **Served by:** [`../systems/item.md`](../systems/item.md) (Item with kind=initiative + the pledge response substrate); [`../systems/payments.md`](../systems/payments.md) at the rail layer (Member→Group commerce, the ledger).
 - **Capabilities:** Pledge surface (b3); [`../systems/stewardships.md`](../systems/stewardships.md) (ship-theme S6.5 — the care-floor smallest-ownership-step).
 - **Role(s):** [Member](people.md#1-member) — the supporter / backer type.
-- **Use case anchor:** [#6 Cafe Capricho's Successor](use-cases.md#6-cafe-caprichos-successor); future #11 placeholder (stewardship case).
+- **Use case anchor:** [O6 — A community coordinates around a vacant space](use-cases.md#o6-a-community-coordinates-around-a-vacant-space) — **deferred (far horizon)** per PM 2026-05-26; see also [O5 — A community steward keeps an ongoing operation alive](use-cases.md#o5-a-community-steward-keeps-an-ongoing-operation-alive).
 
 ### 12. I want to steward what we built
 
@@ -162,7 +162,7 @@ A Member is part of a small group keeping something alive — a tool library, a 
 - **Served by:** [`../systems/stewardships.md`](../systems/stewardships.md) (the ship-theme S6.5 schema delta — `group_stewardships` table + seven curated templates), [`../systems/groups.md`](../systems/groups.md) (Groups with the steward role on affiliate kinds).
 - **Capabilities:** **[PM: confirm]** — capability docs for stewardship UI not yet authored; surface ships with ship-theme S6.5 per `stewardships.md`.
 - **Role(s):** [Producer](people.md#2-producer) — the steward type (the unpaid Producer running a community resource).
-- **Use case anchor:** [#11 (TODO) Steward what we built](use-cases.md#11-todo-steward-what-we-built--loop-12).
+- **Use case anchor:** [O5 — A community steward keeps an ongoing operation alive](use-cases.md#o5-a-community-steward-keeps-an-ongoing-operation-alive) — deferred (b2+).
 
 ---
 
