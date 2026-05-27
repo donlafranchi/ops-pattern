@@ -6,7 +6,7 @@ status: active
 
 # System: Places
 
-**Purpose:** Establish Places as the platform's primitive for *recognized geographic scope* — region, state, metropolitan area, city, neighborhood. Places are the platform's curated hierarchy of geographies that everything else anchors to: Locations sit *inside* a place; Groups carry a place anchor; Items inherit one from their Group; URLs nest under the place tree (per [ADR-0020](../../planning/adrs/ADR-0020-locality-scoped-urls.md)). Places are deliberately distinct from Locations — a Location is a specific point a Member declared (Drake's Bar at 38.58° N); a place is an infrastructural scope nobody declares (the neighborhood Oak Park, the city Sacramento, the MSA Sacramento–Roseville).
+**Purpose:** Establish Places as the platform's primitive for *recognized geographic scope* — region, state, county, city, neighborhood. Places are the platform's curated hierarchy of geographies that everything else anchors to: Locations sit *inside* a place; Groups carry a place anchor; Items inherit one from their Group; URLs nest under the place tree (per [ADR-0020](../../planning/adrs/ADR-0020-locality-scoped-urls.md)). Places are deliberately distinct from Locations — a Location is a specific point a Member declared (Drake's Bar at 38.58° N); a place is an infrastructural scope nobody declares (the neighborhood Oak Park, the city Sacramento, the county Sacramento County).
 
 **Bundles:** b1 (T1 — primitive + URL plumbing + reverse-geocode anchor), b2 (T2 — admin curation surface, neighborhood polygon library), b3 (T3 — federation-aware place identity, cross-region browse).
 
@@ -24,7 +24,7 @@ status: active
 A place is a recognized geographic scope that the platform treats as a discovery and addressing primitive. It exists to answer two questions structurally:
 
 1. **Where does this URL belong?** Every public resource (Location, Group, Item filed under a Group) anchors under a place. The URL path walks the place tree from outermost to innermost.
-2. **What's near me?** The locality-first index (Cluster 3) browses by place-containment: "what's in Oak Park," "what's in Sacramento," "what's in the Sacramento–Roseville MSA." Places are the granularity at which "near" is defined.
+2. **What's near me?** The locality-first index (Cluster 3) browses by place-containment: "what's in Oak Park," "what's in Sacramento," "what's in Sacramento County." Places are the granularity at which "near" is defined.
 
 Places are **platform-curated, not user-created.** This is a deliberate constraint. A "city" is a unit of recognized civic geography; if Members could declare cities, one person could declare their block a city and own the URL namespace forever. User-declared geographic scopes are handled by `locations.kind='area'` — service areas, custom polygons, neighborhood-shaped Locations that aren't infrastructural. The platform's curation of places is what makes the URL hierarchy and the locality index trustworthy.
 
@@ -42,11 +42,11 @@ Places are self-referential — each place has a parent. The hierarchy is variab
 |---|---|---|
 | `region` | Pacific Northwest, Sacramento Valley | `country` (reserved at b1; root if absent) or another `region` |
 | `state` | California, Oregon | `country` or `region` |
-| `msa` | Sacramento–Roseville MSA, Bay Area MSA | `state` |
-| `city` | Sacramento, Davis, San Francisco | `msa` or `state` |
+| `county` | Sacramento County, Yolo County | `state` (or `region`) |
+| `city` | Sacramento, Davis, San Francisco | `county` or `state` |
 | `neighborhood` | Oak Park (Sacramento), Mission (San Francisco) | `city` |
 
-Granularities can be skipped. A small town without a recognized MSA jumps city → state. Some neighborhoods don't have universally-recognized boundaries and never get a `neighborhood` row; their Locations anchor to the parent city directly.
+Granularities can be skipped. A small town's `city` row can parent directly to `state`, skipping `county`, where the county adds no navigational value. Some neighborhoods don't have universally-recognized boundaries and never get a `neighborhood` row; their Locations anchor to the parent city directly.
 
 **Country is reserved** as a top-level kind for the federation horizon (T3). At b1 the platform launches U.S.-only; country can be NULL on the root row.
 
@@ -61,7 +61,7 @@ Granularities can be skipped. A small town without a recognized MSA jumps city �
 ## T1 — MVP Tier
 
 - A `places` table exists with the kind enum, parent_id, slug, display_name, optional polygon, and audit fields.
-- The platform seeds a starter set of places sufficient to launch the b1 markets — at minimum: Sacramento (city), the Sacramento–Roseville MSA, California (state), and a small set of neighborhoods that the b1 launch covers (Oak Park, Curtis Park, East Sacramento, Midtown, West Sacramento, Land Park; the exact list is a curation call at launch time).
+- The platform seeds a starter set of places sufficient to launch the b1 markets — at minimum: California (state), Sacramento County, Sacramento (city), and a small set of Sacramento neighborhoods (Oak Park, Curtis Park, East Sacramento, Midtown, Land Park; the exact list is a curation call at launch time). West Sacramento is seeded as a separate `city` under Yolo County — it is a distinct incorporated city across the county line, not a Sacramento neighborhood.
 - `locations.place_id` (nullable FK to `places`) — every Location anchors to a place at create-time. Reverse-geocoded from the Location's coordinates against the seeded polygon library; falls back to the parent city when the neighborhood is undetermined.
 - `groups.place_id` (derived view or stored column — see Data model implications) — inherited from `anchor_location_id` for Groups with an anchor; computed at create-time for federation Groups (smallest common ancestor of Member home Locations).
 - URL routing reads `places` to resolve `/p/[…segments]/...` and dispatches to the right resource handler.
@@ -74,7 +74,7 @@ Granularities can be skipped. A small town without a recognized MSA jumps city �
 
 - Place landing pages at `/p/[…path]` — a curated surface per place that lists Locations / Groups / recent Items in that scope. Cluster 3 (browse) reads this surface heavily.
 - A populated neighborhood polygon library for the launch markets (Sacramento + Davis + a couple Bay Area cities). Polygons are sourced from civic GIS data + manual curation.
-- An admin curation surface — a privileged Member can propose new places (region, neighborhood, MSA) that the platform reviews and admits. This is a curation workflow, not a public composer.
+- An admin curation surface — a privileged Member can propose new places (region, neighborhood, county) that the platform reviews and admits. This is a curation workflow, not a public composer.
 - Place-aware search: query "near Sacramento" interprets "Sacramento" against `places.slug` first, then falls back to coordinate matching.
 - URL-history table per resource type (`groups_url_history`, `locations_url_history`, `items_url_history` if applicable) for 301-redirect after a place anchor moves.
 
@@ -84,7 +84,7 @@ Granularities can be skipped. A small town without a recognized MSA jumps city �
 
 - Country-level rows fully populated as the federation horizon opens. Cross-country browse: places carry an `iso_country_code` for federation peering.
 - Federation-aware place identity — a place row references its peer place on a federated platform, enabling cross-platform browse ("the Run Club in Portland — Portland-the-place is hosted on a sibling platform").
-- Place-aware search at scale: vector embeddings on place display names + descriptions, so "Sac" resolves to Sacramento, "the Bay" resolves to Bay Area MSA.
+- Place-aware search at scale: vector embeddings on place display names + descriptions, so "Sac" resolves to Sacramento, "the Bay" resolves to the Bay Area region.
 - Place-aware recommendation: surfaces "places you might browse next" based on a Member's affinities + Group memberships.
 
 ---
@@ -98,9 +98,9 @@ Granularities can be skipped. A small town without a recognized MSA jumps city �
 - `id` UUID PK
 - `parent_id` (nullable FK to `places.id`) — self-referential. NULL only for top-level rows (typically country or region).
 - `slug` text — parent-scoped unique (`UNIQUE (parent_id, slug)`).
-- `display_name` text — human-readable; can differ from slug ("Sacramento–Roseville" display vs `sacramento-roseville-msa` slug).
-- `kind` enum — `region`, `state`, `msa`, `city`, `neighborhood`. (Extensible. `country` reserved at b1 for the federation horizon.)
-- `geography` geography(MultiPolygon, 4326) NULL — optional polygon for containment lookups. Cities and neighborhoods carry one when civic GIS is available; regions and MSAs may stay coordinate-free.
+- `display_name` text — human-readable; can differ from slug ("Sacramento County" display vs `sacramento-county` slug).
+- `kind` enum — `region`, `state`, `county`, `city`, `neighborhood`. (Extensible. `country` reserved at b1 for the federation horizon.)
+- `geography` geography(MultiPolygon, 4326) NULL — optional polygon for containment lookups. Counties, cities, and neighborhoods carry one when GIS is available; regions may stay coordinate-free if a polygon would be unwieldy.
 - `iso_country_code` text NULL — reserved for federation (T3).
 - `metadata` jsonb — population estimate (informational only), GIS source attribution, etc.
 - `created_at`, `updated_at`, `deleted_at` (soft-delete; places do not get hard-deleted — they get superseded or merged).
@@ -137,7 +137,7 @@ When a place anchor changes (rare — a Group relocates, a neighborhood is recla
 
 The platform needs a deterministic `(lat, lon) → place_id` resolution path. Two layers:
 
-1. **Polygon containment** — when a place has `geography`, point-in-polygon resolves. Most specific match wins (neighborhood > city > MSA > state).
+1. **Polygon containment** — when a place has `geography`, point-in-polygon resolves. Most specific match wins (neighborhood > city > county > state).
 2. **Mapbox fallback** — when polygons are absent or the point lies outside all known polygons, reverse-geocode via Mapbox Geocoding API; map the returned admin levels onto place rows by name match.
 
 The fallback path is brittle (name matching is heuristic) and only fires when the polygon library is incomplete. The b1 polygon seed for Sacramento + surrounding markets should be complete enough that fallback is rare.
@@ -146,7 +146,7 @@ The fallback path is brittle (name matching is heuristic) and only fires when th
 
 - `place.created` — admin seeds a new place row.
 - `place.updated` — display name, polygon, parent change.
-- `place.superseded` — one place row supersedes another (e.g., MSA boundary redrawn). Records the new place ID.
+- `place.superseded` — one place row supersedes another (e.g., a place boundary redrawn or reclassified). Records the new place ID.
 - `place.merged` — two place rows merge into one (rare; reserved for curation correction).
 
 Append-only, audit-field-bearing per ADR-6 / ADR-10. Partitioned monthly per the established pattern.
@@ -176,7 +176,7 @@ Append-only, audit-field-bearing per ADR-6 / ADR-10. Partitioned monthly per the
 ## Open questions
 
 - **Neighborhood granularity policy.** How small is too small for a `neighborhood` row? A single block? A school district? A historic district? The b1 working answer: a neighborhood ships when it has *a recognized civic boundary* (city-published polygon, postal code-aligned, or community-board-recognized) and *active platform demand* (≥3 Locations or ≥1 kind='business' Group present). Below either threshold, the parent city is the anchor. Revisit when the b1 launch markets are fully seeded.
-- **MSA vs metro-area definitions.** U.S. Census Bureau MSAs are the candidate authority, but they sometimes don't match how locals talk ("the Bay Area" isn't a Census MSA; it's a colloquial region spanning multiple MSAs). Working answer: use Census MSAs as the canonical kind='msa' rows; add a `kind='region'` row for colloquial regions ("the Bay Area" as a region containing multiple MSAs). Defer the exact list to launch curation.
+- **County tier — RESOLVED 2026-05-25 ([ADR-0022](../../planning/adrs/ADR-0022-url-slug-naming-refinements.md)).** The tier between `state` and `city` is `county`, not `msa`. Counties and county-equivalents (Louisiana parishes, Alaska boroughs, independent cities) tile the entire U.S. via FIPS codes with no coverage gaps; MSAs left ~1,200 rural counties with no anchor. Colloquial metro groupings ("the Bay Area," "Greater Sacramento") are `kind='region'` rows that group multiple counties. The exact b1 seed list is still a launch-curation call.
 - **Reverse-geocoder boundary handling.** What happens when a Member declares a Location whose coordinates fall on a neighborhood polygon boundary (within ~50m of two neighborhoods)? Working answer: pick the neighborhood whose centroid is closer; surface the call in the Location's `metadata.geocode_diagnostic` for admin review.
 - **User-perceived place vs computed place.** A Member says "I'm in Oak Park" but their geocoded home Location resolves to "Curtis Park" (adjacent neighborhood, boundary ambiguity). Should the platform let the Member override? Working answer: at b1 no — the geocoded place is authoritative. At T2, an "I disagree" affordance can route to admin review without letting the Member self-assign. The locality-precision privacy enum (`city` / `neighborhood` / `none`) is the b1 escape hatch — a Member who feels mis-bucketed can drop precision to city.
 - **Place-name aliases.** "SF" → San Francisco; "Sac" → Sacramento; "the Bay" → Bay Area. Should these resolve at the URL layer or only at the search layer? Working answer: only at search. URLs are canonical; aliases are search affordances. Deferred to T3 search work.
@@ -204,5 +204,6 @@ This spec is the live home for:
 | ADR | Status | What lives here |
 |---|---|---|
 | ADR-20 | Accepted 2026-05-23 — see [`ADR-0020`](../../planning/adrs/ADR-0020-locality-scoped-urls.md) | Places as a hierarchical, platform-curated primitive; kind enum; parent-scoped slug uniqueness; URL hierarchy walks the place tree; reverse-geocode anchoring; smallest-common-ancestor for federation Groups; default neighborhood-when-available for business Groups. The ADR has the *decision*; this spec has the *substrate*. |
+| ADR-22 | Accepted 2026-05-25 — see [`ADR-0022`](../../planning/adrs/ADR-0022-url-slug-naming-refinements.md) | The `kind` tier between `state` and `city` is `county` (`msa` retired); colloquial metro groupings are `region` rows. Amends ADR-20's kind enum. |
 
 This spec also *encodes* (but does not own) ADR-6 (audit fields on every `place_events` row), ADR-7 (action-layer-only writes to `places` — admin handler, not public), ADR-9 (the curation policy reflects the opt-out / three-filter posture by being platform-curated rather than user-claimable). Those live cross-cutting in `DECISIONS.md`.
