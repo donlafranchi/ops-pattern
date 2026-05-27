@@ -1,4 +1,4 @@
-# pipeline-product — workflow
+# explore — workflow
 
 ## Cheat sheet
 
@@ -8,7 +8,7 @@
 | **Writes** | `product/capabilities/`, `product/systems/`, `product/ui/`, `product/exploration/`, `product/templates/`, extends `product/needs/use-cases.md` |
 | **Templates** | `templates/system.md`, `templates/capability.md`, `templates/product.md` |
 | **Does NOT read** | `planning/`, `development/`, `web/` |
-| **Hands to** | `pipeline-plan` (for system → scenarios) |
+| **Hands to** | `scope` (for system → scenarios) |
 
 ## Directory map
 
@@ -40,7 +40,7 @@ Use the templates in `templates/`. Stub copy into the right project directory an
 
 **You produced:** a system, capability, product file, or exploration note.
 
-**Next skill:** `pipeline-plan`. Plan converts systems/capabilities into user-story scenarios.
+**Next skill:** `scope`. Plan converts systems/capabilities into user-story scenarios.
 
 **Plan will refuse your system if:**
 - It has no "Data model implications" section.

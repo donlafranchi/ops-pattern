@@ -1,4 +1,4 @@
-# pipeline-plan — workflow
+# scope — workflow
 
 ## Cheat sheet
 
@@ -9,7 +9,7 @@
 | **Templates** | `templates/scenario.md` (user-story shape — required), `templates/bundle.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios/` (modify-wise — read for reference only) |
 | **Calls in** | `planning-filter` (Anthropic) for sprawling-backlog ranking |
-| **Hands to** | PM for review → `pipeline-eval` (write mode) and `pipeline-ticket` |
+| **Hands to** | PM for review → `test` (write mode) and `ticket` |
 
 ## What you read first (every time)
 
@@ -20,7 +20,7 @@
 5. **`product/foundation/policy.md`** — three-filter test, opt-out default. Required reading before approving any scenario that touches privacy, monetary flow, data sharing, agent permissions, or visibility.
 6. **`planning/bundles/{active-bundle}.md`** — the current scope. Anything outside the active bundle is deferred, not denied.
 7. **`planning/bundles/bundle-themes.md`** — the sub-bundle sequence. Identifies which `b{N}.{M}` is *currently active*. Scenarios for sub-bundles past the active one stay in backlog until the prior sub-bundle ships.
-8. **`planning/bundles/b{N}-work-map.md`** — the menu of work for the active bundle, with 🟢 / 🟡 / ⚪ scope tags. Every new scenario must trace to one item on this map. If the scenario doesn't realize a work-map item, either the map needs an entry (escalate to `pipeline-bundle-resync`) or the scenario is out of scope.
+8. **`planning/bundles/b{N}-work-map.md`** — the menu of work for the active bundle, with 🟢 / 🟡 / ⚪ scope tags. Every new scenario must trace to one item on this map. If the scenario doesn't realize a work-map item, either the map needs an entry (escalate to `orient`) or the scenario is out of scope.
 9. **`product/systems/{relevant-system}.md`** — the technical spec for the system the scenario touches.
 
 ## What you do NOT read
@@ -41,16 +41,16 @@ Apply to every system before approving scenarios from it:
 
 1. **Identify the active sub-bundle.** Read `bundle-themes.md` and confirm which `b{N}.{M}` is currently shipping (the next one whose dependencies are all live). Scenarios for later sub-bundles stay in backlog until their turn — write them anyway if useful, but tag them honestly.
 2. **Pick the next work-map item.** From `b{N}-work-map.md`, pick a 🟢 (or PM-elevated 🟡) item in the active sub-bundle that does not yet have an F### scenario. One scenario per work-map item; if a work-map item is too big for one scenario, escalate — the work-map item should be split before the scenario is written.
-3. **Identify the canonical example.** What real person from `use-cases.md` does this scenario serve? Name them. If no example fits, escalate to `pipeline-product` to add one — do not invent a hypothetical "user."
+3. **Identify the canonical example.** What real person from `use-cases.md` does this scenario serve? Name them. If no example fits, escalate to `explore` to add one — do not invent a hypothetical "user."
 4. **Identify the loop(s).** Which of the 13 loops does this exercise? If you can't name one, the scenario doesn't serve a north star.
 5. **Identify the surface.** Where in the app does the persona start? Name a real surface (venue page, Maker page, home feed) — NEVER `/new` with a kind picker.
-6. **Identify the primitive shape.** Person → Item(kind=…) → Location(…). If the scenario doesn't fit the primitives, escalate to `pipeline-product`.
+6. **Identify the primitive shape.** Person → Item(kind=…) → Location(…). If the scenario doesn't fit the primitives, escalate to `explore`.
 7. **Write the scenario** in `planning/scenarios-backlog/F{NNN}-{persona}-{verb}-{object}.md` using `templates/scenario.md`. Fill the `Sub-bundle` and `Work-map item` fields — they are not optional.
 8. **Apply the 5 Deadly Sins filter.** Cut, simplify, or escalate.
 9. **Gate A — Ratified-Intent precondition (before moving scenario from backlog to approved).** Scan every spec section the scenario cites for absolute-language statements (`Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no X`). For each match, check the line co-located with the bullet:
    - `Intent (Ratified YYYY-MM-DD): ...` or `Intent (Deferred until {trigger}; review by {horizon}): ...` → terminal state. Pass.
    - `Intent: ...` (no parenthetical tag) or no `Intent` line at all → **unratified. Gate A fails.**
-   - If Gate A fails, the scenario stays in backlog. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `pipeline-ratify-absolute` for the PM to walk. After ratification, re-run Gate A; on pass, the scenario is eligible for approval.
+   - If Gate A fails, the scenario stays in backlog. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `weigh` for the PM to walk. After ratification, re-run Gate A; on pass, the scenario is eligible for approval.
    - Scope of the scan: only spec sections the scenario *cites or encodes* — not entire foundation docs. A scenario that touches `groups.md § Joining` triggers the gate on that section, not on every absolute in `groups.md`.
 10. **PM reviews.** PM moves to `planning/scenarios/` when ready.
 
@@ -100,7 +100,7 @@ Every non-obvious Given/When/Then clause in a scenario carries its **why** along
 > *With:*
 > Then a primary CTA labeled "Host something here" is visible below the venue header. _Why: verb-first composer commitment in `community-platform.md` — the entry point is the venue, not `/new` with a kind picker. Eval should verify the CTA originates on the venue page, not just that the label text appears._
 
-**Verification.** Before handing the scenario to the PM, walk every Then-clause (and any non-obvious Given/When clause). For each one that encodes a design choice, confirm it carries a `Why:` line. If a clause is non-obvious and you can't write the Why in one sentence, the scenario is under-specified — escalate to `pipeline-product` for the missing rationale rather than guessing.
+**Verification.** Before handing the scenario to the PM, walk every Then-clause (and any non-obvious Given/When clause). For each one that encodes a design choice, confirm it carries a `Why:` line. If a clause is non-obvious and you can't write the Why in one sentence, the scenario is under-specified — escalate to `explore` for the missing rationale rather than guessing.
 
 ## Hand off
 
@@ -110,4 +110,4 @@ Every non-obvious Given/When/Then clause in a scenario carries its **why** along
 
 **You hand to:** the PM, who reviews and either approves (moves to `planning/scenarios/`) or rejects (annotates and leaves in backlog or archives).
 
-**Once approved, the next skill is `pipeline-ticket`**, which breaks the scenario into implementable tickets. In parallel, `pipeline-eval` (write mode) writes Playwright tests from the scenario before `pipeline-build` starts.
+**Once approved, the next skill is `ticket`**, which breaks the scenario into implementable tickets. In parallel, `test` (write mode) writes Playwright tests from the scenario before `build` starts.

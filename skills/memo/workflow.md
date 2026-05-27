@@ -1,4 +1,4 @@
-# pipeline-adr — workflow
+# memo — workflow
 
 ## Cheat sheet
 
@@ -8,7 +8,7 @@
 | **Writes** | `planning/adrs/ADR-{NNNN}-{slug}.md` (new) · `planning/DECISIONS.md` pointer line (update) · spec/foundation home-doc cross-reference (when applicable) · superseded ADR's `Superseded by:` header (when applicable) |
 | **Templates** | `templates/adr.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios/`, `planning/scenarios-backlog/` |
-| **Hands to** | PM for ratification; `pipeline-intent-check` runs automatically during the draft phase |
+| **Hands to** | PM for ratification; `weigh` runs automatically during the draft phase |
 
 ## Workflow
 
@@ -20,7 +20,7 @@ Ask the PM three questions before drafting:
 - **What does it touch?** One or more of: a system spec, a foundation/UI/ops doc, no single home (cross-cutting). This determines whether the ADR is spec-resident, foundation-resident, or fully cross-cutting.
 - **Does it supersede an existing ADR?** If yes, which one — and what specifically changes?
 
-If any answer is unclear, stop. Escalate to `pipeline-product` (if the decision needs more product thinking) or `pipeline-review` (if it needs an architecture pass first).
+If any answer is unclear, stop. Escalate to `explore` (if the decision needs more product thinking) or `review` (if it needs an architecture pass first).
 
 ### 2. Allocate the next number
 
@@ -53,14 +53,14 @@ Fill in:
 
 For spec/foundation-resident ADRs: keep the file lean. The Decision section can be one paragraph; the load-bearing prose lives in the home doc, not duplicated here.
 
-### 5. Run `pipeline-intent-check` on the draft
+### 5. Run `weigh` on the draft
 
 Per rebuild-phase rule #9, every new ADR is intent-checked before merging. The check scans for Category-1–8 statements (refusals, absolutes, irreversible forecloses, etc.) that lack `Intent:` annotations.
 
 - Verdict **CLEAN** → proceed to step 6.
 - Verdict **PROPOSE** → PM lands the proposed Intent lines in the draft, then re-run intent-check.
 - Verdict **BLOCK** → load-bearing decision shipped without rationale. Pause; PM clarifies; re-run.
-- Verdict **ESCALATE** → invoke `pipeline-ratify-absolute` for interactive ratification (Category-2 candidates).
+- Verdict **ESCALATE** → invoke `weigh` for interactive ratification (Category-2 candidates).
 
 Do not flip Status to Accepted until the verdict is CLEAN.
 
@@ -108,13 +108,13 @@ PM reviews. On accept, PM flips Status from Proposed → Accepted and commits. T
 
 - File is immutable. Any change is a new (superseding) ADR.
 - Update `JOURNAL.md` with a one-line entry: "Ratified ADR-{NNNN}: {title}."
-- If the ADR introduces schema, events, components, or absolutes that scenarios will encode, `pipeline-plan` / `pipeline-ticket` will read it as part of their normal flow — no manual hand-off required.
+- If the ADR introduces schema, events, components, or absolutes that scenarios will encode, `scope` / `ticket` will read it as part of their normal flow — no manual hand-off required.
 
 ## Special cases
 
 ### Drafting an ADR for a decision the user is still working out
 
-If the PM is brainstorming, escalate to `pipeline-product` (for product/system shape) or `pipeline-review` (for architectural fit) first. Don't allocate a number to a decision that hasn't crystallized. ADR numbers are scarce *only* in the sense that they shouldn't be wasted on rejected drafts — but the spirit is: write the ADR when the decision is ready, not before.
+If the PM is brainstorming, escalate to `explore` (for product/system shape) or `review` (for architectural fit) first. Don't allocate a number to a decision that hasn't crystallized. ADR numbers are scarce *only* in the sense that they shouldn't be wasted on rejected drafts — but the spirit is: write the ADR when the decision is ready, not before.
 
 ### Promoting a notes/ doc to an ADR
 

@@ -105,7 +105,7 @@ Produce exactly this, filled in. No preamble.
 
 ## Hand off
 
-**Produced:** a single Loop Spec markdown document. Hand to a build agent (or to `pipeline-ticket` if the project uses a ticket pipeline) for implementation.
+**Produced:** a single Loop Spec markdown document. Hand to a build agent (or to `ticket` if the project uses a ticket pipeline) for implementation.
 
 **The build agent expects:** all four gates checked, the scoring function referenced as existing code (not as a TODO), the editable surface specified as a real path.
 

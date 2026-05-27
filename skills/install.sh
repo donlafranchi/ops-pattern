@@ -29,7 +29,12 @@ SKILLS_DEST="$HOME/.claude/skills"
 mkdir -p "$SKILLS_DEST"
 
 echo "Linking project pipeline + meta skills → $SKILLS_DEST"
-for skill in "$SKILLS_SRC"/pipeline-*/ "$SKILLS_SRC"/doc-*/ "$SKILLS_SRC"/skills-housekeeping/ "$SKILLS_SRC"/loop-designer/; do
+for skill in "$SKILLS_SRC"/orient/ "$SKILLS_SRC"/explore/ \
+             "$SKILLS_SRC"/scope/ "$SKILLS_SRC"/weigh/ \
+             "$SKILLS_SRC"/review/ "$SKILLS_SRC"/memo/ \
+             "$SKILLS_SRC"/ticket/ "$SKILLS_SRC"/test/ \
+             "$SKILLS_SRC"/build/ "$SKILLS_SRC"/tidy/ \
+             "$SKILLS_SRC"/scaffold/ "$SKILLS_SRC"/loop-designer/; do
   [[ -d "$skill" ]] || continue
   name="$(basename "$skill")"
   target="$SKILLS_DEST/$name"
@@ -95,7 +100,7 @@ fi
 
 echo
 echo "Project skills:  $SKILLS_DEST"
-echo "Verify:          ls -la $SKILLS_DEST | grep pipeline-"
+echo "Verify:          ls -la $SKILLS_DEST | grep -E '^l.*(orient|explore|scope|weigh|review|memo|ticket|test|build|tidy|scaffold|loop-designer)$'"
 if [[ "$WITH_PLUGINS" -eq 1 ]]; then
   echo "Plugin skills:   claude plugin list"
 fi

@@ -8,7 +8,7 @@ status: active
 
 **Status:** Drafted 2026-05-18 — pending PM review. Companion to [`bundle-themes.md`](bundle-themes.md) (the sub-bundle sequencer) and [`b1-primitives.md`](b1-primitives.md) (the bundle's scope definition).
 
-**What this is.** A map of the work that makes up bundle 1, broken down to the **menu grain** — one level above the F### scenario and two levels above the T### ticket. Each 🟢 / 🟡 / ⚪ line is roughly one *intent unit* that the planner converts to a scenario (F###), which the ticket-writer then fans into 2–5 implementation tickets (T###). Use this to decide what's actually in your MVP. Full ticket specs (APIs, events, abuse vectors, acceptance criteria) get written by the `pipeline-ticket` skill once a scenario is approved; this doc is the menu the planner picks from.
+**What this is.** A map of the work that makes up bundle 1, broken down to the **menu grain** — one level above the F### scenario and two levels above the T### ticket. Each 🟢 / 🟡 / ⚪ line is roughly one *intent unit* that the planner converts to a scenario (F###), which the ticket-writer then fans into 2–5 implementation tickets (T###). Use this to decide what's actually in your MVP. Full ticket specs (APIs, events, abuse vectors, acceptance criteria) get written by the `ticket` skill once a scenario is approved; this doc is the menu the planner picks from.
 
 **How to read it.** Each sub-bundle has:
 - **What the user sees** — a plain-English description of what becomes possible
@@ -212,14 +212,14 @@ That would bring you to roughly **28–32 intent units** for an even tighter fir
 Each line above is one *intent unit* that flows through the pipeline:
 
 1. PM picks which 🟢 / 🟡 items make the next sub-bundle's MVP cut (this doc is the menu)
-2. `pipeline-product` ensures a system spec or feature note covers it
-3. `pipeline-plan` writes a scenario (F###) with acceptance criteria, tagged to the active sub-bundle (`b1.N`)
-4. `pipeline-review` checks the scenario against principles and ADRs (mandatory during the rebuild)
-5. `pipeline-eval` writes Playwright tests from the scenario
-6. `pipeline-ticket` breaks the scenario into 2–5 implementable tickets (T###)
-7. `pipeline-build` implements each ticket via TDD
-8. `pipeline-eval` verifies the scenario passes
-9. At sub-bundle close (or after material drift), `pipeline-bundle-resync` re-tags / re-sequences this map against shipped reality
+2. `explore` ensures a system spec or feature note covers it
+3. `scope` writes a scenario (F###) with acceptance criteria, tagged to the active sub-bundle (`b1.N`)
+4. `review` checks the scenario against principles and ADRs (mandatory during the rebuild)
+5. `test` writes Playwright tests from the scenario
+6. `ticket` breaks the scenario into 2–5 implementable tickets (T###)
+7. `build` implements each ticket via TDD
+8. `test` verifies the scenario passes
+9. At sub-bundle close (or after material drift), `orient` re-tags / re-sequences this map against shipped reality
 
 So one line in this doc — say, "Product composer" — becomes one scenario (F###) that the ticket-writer splits into 3–4 tickets (UI form, validation, save action, render-on-feed). The total ticket count when the pipeline finishes will be higher than the 38–40 above; what's listed here is the *intent grain*, not the final implementation grain.
 

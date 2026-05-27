@@ -109,12 +109,12 @@ In all three patterns, **DECISIONS.md is the single index** and **planning/adrs/
 1. Check [`../DECISIONS.md`](../DECISIONS.md) for the next free number.
 2. Copy [`_template.md`](_template.md) → `ADR-{NNNN}-{slug}.md`.
 3. Fill in the header (Status: Proposed, today's date, etc.) and body.
-4. If the decision introduces schema, events, components, or absolutes, invoke `pipeline-intent-check` per rebuild-phase rule #9.
+4. If the decision introduces schema, events, components, or absolutes, invoke `weigh` per rebuild-phase rule #9.
 5. PM reviews; flip Status to Accepted; commit.
 6. Add a pointer line to DECISIONS.md's pointer-index table.
 7. If the decision is spec-resident or foundation-resident, also update the home doc (status banner, "Decisions encoded here" footer, or section text).
 
-The `pipeline-adr` skill walks through this — invoke it when writing or ratifying.
+The `memo` skill walks through this — invoke it when writing or ratifying.
 
 ## Cross-references
 
@@ -133,7 +133,7 @@ The `../archive/` directory holds *legacy artifacts* — pre-format ADR text, ar
 
 ## Quarterly retro
 
-Run `pipeline-adr-retro` (or extend `pipeline-prune`) once per quarter:
+Run `memo-retro` (or extend `orient`) once per quarter:
 
 - Walk every Accepted ADR. Still load-bearing?
 - Any spec drift — does the spec still encode the decision the ADR ratified?

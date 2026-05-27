@@ -1,4 +1,4 @@
-# pipeline-review — workflow
+# review — workflow
 
 ## Cheat sheet
 
@@ -8,7 +8,7 @@
 | **Writes** | `planning/history/F{NNN}-review.md` |
 | **Templates** | `templates/review.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios-backlog/` |
-| **Hands to** | `pipeline-ticket` on PROCEED, `pipeline-plan` on REVISE, `pipeline-product` on EXTEND |
+| **Hands to** | `ticket` on PROCEED, `scope` on REVISE, `explore` on EXTEND |
 
 ## When to invoke
 
@@ -21,7 +21,7 @@ Optional but recommended for scenarios that introduce any of the following:
 - A **cross-system interaction** that touches more than one `product/systems/{name}.md` doc.
 - A **new pattern** the design language doesn't yet describe (modal, sheet, picker, drawer, etc.).
 
-If none of the above apply, skip review and go straight to `pipeline-ticket`.
+If none of the above apply, skip review and go straight to `ticket`.
 
 ## Two checks, one document
 
@@ -31,13 +31,13 @@ The review covers two checks. Both run; one document captures both verdicts plus
 
 For each system the scenario touches:
 
-1. **Schema fit.** Does the scenario require columns / tables / event types not in the system's "Data model implications" section? List them. If yes → flag for `pipeline-product` to extend the system.
+1. **Schema fit.** Does the scenario require columns / tables / event types not in the system's "Data model implications" section? List them. If yes → flag for `explore` to extend the system.
 2. **Existing capability fit.** Does the scenario align with how this system is used by other capabilities? If it introduces a new mode of use, flag it.
 3. **Cross-system consistency.** If the scenario crosses two systems (e.g., Item + Location + Community), check that each system's spec already accounts for the interaction. Flag any system that doesn't.
-4. **Forward-looking concerns.** Will this scenario make a future tier (T2, T3) of the system harder? E.g., "this T1 design makes the T3 federated handoff impossible" — flag for `pipeline-product`.
+4. **Forward-looking concerns.** Will this scenario make a future tier (T2, T3) of the system harder? E.g., "this T1 design makes the T3 federated handoff impossible" — flag for `explore`.
 5. **Loop fidelity.** Quote the relevant loop's stated pain point from `product/needs/member-journey.md` and write one sentence explaining how this scenario advances it. If the loop named in the scenario does not match the scenario's actual mechanic (e.g. tagged Loop 4 but actually serves engagement-driven retention), flag REVISE.
 6. **Shell-entity check.** Does any column, relationship, or user-facing label introduce an entity that owns Items without being a Person or a Community? Vocabulary to flag: "vendor," "business," "merchant," "establishment," "operator." If any column reads as `*_id` pointing to a non-Person/Community entity holding Items, flag EXTEND. People-first compliance is structural, not aspirational.
-7. **Policy posture present.** If the scenario touches data sharing, monetary flow, agent permissions, or visibility (Member→Member, Member→third-party, Member→platform), the relevant `product/systems/{name}.md` MUST have a "Policy posture" section with the three-filter analysis written out per ADR-9. If absent, verdict is EXTEND — back to `pipeline-product` to write it before tickets open. Default-on data sharing or unanalyzed opt-ins are auto-EXTEND.
+7. **Policy posture present.** If the scenario touches data sharing, monetary flow, agent permissions, or visibility (Member→Member, Member→third-party, Member→platform), the relevant `product/systems/{name}.md` MUST have a "Policy posture" section with the three-filter analysis written out per ADR-9. If absent, verdict is EXTEND — back to `explore` to write it before tickets open. Default-on data sharing or unanalyzed opt-ins are auto-EXTEND.
 
 Reference: `product/systems/`, `product/foundation/primitives.md`, `product/foundation/principles.md`, `product/needs/member-journey.md`, `product/foundation/policy.md`, `planning/DECISIONS.md`.
 
@@ -94,8 +94,8 @@ A scenario can have a partial verdict (PROCEED on architecture, REVISE on design
 
 ## Hand off
 
-- **PROCEED** → tell `pipeline-ticket` to start. The ticket writer reads both the scenario AND your review.
-- **REVISE** → escalate to `pipeline-plan`. Plan revises; cycle returns here.
-- **EXTEND** → escalate to `pipeline-product`. Product extends; plan re-confirms; cycle returns here.
+- **PROCEED** → tell `ticket` to start. The ticket writer reads both the scenario AND your review.
+- **REVISE** → escalate to `scope`. Plan revises; cycle returns here.
+- **EXTEND** → escalate to `explore`. Product extends; plan re-confirms; cycle returns here.
 
 Never block silently. Always produce the review document with a clear verdict, even if the verdict is PROCEED with no findings.

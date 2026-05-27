@@ -4,7 +4,7 @@ The four-agent pipeline. Each agent has explicit can-read / cannot-read sets and
 
 ## 1. Product (dreamer)
 
-**Skill:** `pipeline-product`
+**Skill:** `explore`
 **Can read:** `product/**`, `planning/bundles/`, `JOURNAL.md`
 **Cannot read:** tickets, scenarios (it shouldn't be implementing)
 **Responsibilities:** capabilities, systems, products, exploration, foundation
@@ -12,7 +12,7 @@ The four-agent pipeline. Each agent has explicit can-read / cannot-read sets and
 
 ## 2. Planning (filter)
 
-**Skill:** `pipeline-plan`
+**Skill:** `scope`
 **Can read:** all of `product/**`, `planning/**`, `JOURNAL.md`
 **Cannot read:** the app's `src/` (no implementation peeking)
 **Responsibilities:** scope bundles, write/approve scenarios, apply 5 Deadly Sins filter
@@ -20,7 +20,7 @@ The four-agent pipeline. Each agent has explicit can-read / cannot-read sets and
 
 ## 3. Development (builder)
 
-**Skill:** `pipeline-build`
+**Skill:** `build`
 **Can read:** `planning/scenarios/` (approved only), `development/tickets/`, the app code
 **Cannot read:** `planning/scenarios-backlog/` — prevents teaching to test
 **Responsibilities:** TDD implementation, ticket completion, BUILD-LOG updates
@@ -28,7 +28,7 @@ The four-agent pipeline. Each agent has explicit can-read / cannot-read sets and
 
 ## 4. Evaluation (verifier)
 
-**Skill:** `pipeline-eval`
+**Skill:** `test`
 **Can read:** `planning/scenarios/`, the app's eval directory, ticket completion sections
 **Cannot read:** `planning/scenarios-backlog/`
 **Responsibilities:** translate Given/When/Then into automated tests, run them, report results

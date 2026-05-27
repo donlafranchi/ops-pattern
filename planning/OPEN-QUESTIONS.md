@@ -54,7 +54,7 @@ status: active
 
 **What.** `git worktree list` shows three worktrees:
 - `clever-chaplygin-e82474` (active — this session)
-- `jolly-hermann-31c513` (stale — older skill set, lacks `pipeline-bundle-resync` and `pipeline-ratify-absolute`)
+- `jolly-hermann-31c513` (stale — older skill set, lacks `orient` and `weigh`)
 - `laughing-shirley-5b1cc9` (stale — needs verification)
 
 **Why agent couldn't.** `git worktree remove` is destructive and outside the active worktree's scope. PM call.
@@ -72,7 +72,7 @@ Verify each is on a branch you don't need first. `.claude` is already in `.gitig
 
 ## 5 · Global skill-symlink cleanup (audit H6 follow-on)
 
-**What.** The 2026-05-23 coverage pass moved retired skills `pipeline-clarify-absolutes` and `pipeline-review-absolute` to `_attic/2026-05-19/retired-skills/`. The global symlinks in `~/.claude/skills/` likely still point at the old paths (now non-existent).
+**What.** The 2026-05-23 coverage pass moved retired skills `weigh` and `weigh` to `_attic/2026-05-19/retired-skills/`. The global symlinks in `~/.claude/skills/` likely still point at the old paths (now non-existent).
 
 **Why agent couldn't.** Edits outside the project. Cleanup runs in the user's home directory.
 
@@ -123,4 +123,4 @@ rm -f ~/.claude/skills/pipeline-review-absolute
 
 - Entries added by the audit pass + any agent that hits a "PM-only" decision.
 - PM resolves entries inline (annotate with the decision + date) or removes when done.
-- `pipeline-router` reads this file at session start and surfaces unresolved entries older than 14 days.
+- `orient` reads this file at session start and surfaces unresolved entries older than 14 days.

@@ -266,7 +266,7 @@ This spec is the live home for the locality-verification-ladder decision (ratifi
 
 This spec also *encodes* (but does not own) ADR-9 (the policy-posture section above is the three-filter analysis), ADR-21 (this spec is the *first signal* the locally-owned derivation reads; community-corroboration is the second signal at b2+), and the people-first refusal of address-as-locality.
 
-When a kind='business' Group's locality-claim surface formally ratifies (likely scenario F02X-locally-owned-claim under `pipeline-plan`), the b1 ticket sequence will land:
+When a kind='business' Group's locality-claim surface formally ratifies (likely scenario F02X-locally-owned-claim under `scope`), the b1 ticket sequence will land:
 - A schema ticket creating `member_business_jurisdictions` + `zip_metro_crosswalk` + the `public.zip_is_proximal_to_location()` function.
 - A surface ticket landing the Tier 0 self-attestation flow in the Maker walkthrough + Group settings.
 - A surface ticket landing the public "Claimed local owner" badge on Group pages.

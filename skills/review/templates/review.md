@@ -1,7 +1,7 @@
 # F{NNN} review — {Persona} {does the thing}
 
 **Scenario:** [`planning/scenarios/F{NNN}-{slug}.md`](../scenarios/F{NNN}-{slug}.md)
-**Reviewer:** pipeline-review
+**Reviewer:** review
 **Date:** {YYYY-MM-DD}
 **Bundle:** b1 / b2 / b3
 **Verdict:** PROCEED | REVISE | EXTEND
@@ -10,7 +10,7 @@
 
 {One sentence. If PROCEED, "fits existing systems and design language with the noted minor recommendations." If REVISE, name what the scenario needs to change. If EXTEND, name what doc needs to grow first.}
 
-**Next skill:** `pipeline-ticket` (on PROCEED) | `pipeline-plan` (on REVISE) | `pipeline-product` (on EXTEND).
+**Next skill:** `ticket` (on PROCEED) | `scope` (on REVISE) | `explore` (on EXTEND).
 
 ## Architecture check
 
@@ -23,7 +23,7 @@
 
 | Concern | Status | Notes |
 |---|---|---|
-| New tables required? | none / list them | {if any: name them and recommend `pipeline-product` extend the relevant system spec} |
+| New tables required? | none / list them | {if any: name them and recommend `explore` extend the relevant system spec} |
 | New columns required? | none / list them | … |
 | New event types required? | none / list them | … |
 | Forward-tier impact | clear / flagged | {will any T2/T3 capability be harder after this T1 ships?} |

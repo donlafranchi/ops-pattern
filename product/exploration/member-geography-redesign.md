@@ -47,7 +47,7 @@ The current model says: *a Member has affinities to Locations, kind-tagged six w
   - `made_at_place_id` exists, AND
   - the viewer's home Place is proximal to `made_at_place_id` (same proximity test as jurisdiction, but Place-to-Place instead of ZIP-to-Place — the substrate is already there in `places.parent_id` containment).
 
-**Spec patch — new `item.md` section "Provenance claims":** introduces `made_at_place_id`, the verification-source enum, the Member action handler `item.set_made_at`, the event log entries (`item.made_at_set`, `item.made_at_removed`, `item.made_at_verified`). Reserved at b1 schema; surface ratification deferred — *the "Locally Made" badge is product-policy ground that needs PM design (verification ladder shape, edge cases like "assembled in California from imported components") before pipeline-plan can scenarioize it.* Open question at the bottom of this exploration.
+**Spec patch — new `item.md` section "Provenance claims":** introduces `made_at_place_id`, the verification-source enum, the Member action handler `item.set_made_at`, the event log entries (`item.made_at_set`, `item.made_at_removed`, `item.made_at_verified`). Reserved at b1 schema; surface ratification deferred — *the "Locally Made" badge is product-policy ground that needs PM design (verification ladder shape, edge cases like "assembled in California from imported components") before scope can scenarioize it.* Open question at the bottom of this exploration.
 
 **Net for Thread A:** seller locality is fully out of `member_location_affinities`. The substrate is jurisdiction (owner side, existing) + Item provenance (product side, new). Both are *public claims with public evidence tiers* — different from the private affinity model the old enum tried to be. The privacy story is cleaner: the Member declares jurisdictions and provenance because they want the badge; the platform stores ZIPs and Places, never addresses.
 
@@ -150,7 +150,7 @@ A saved search is the *generalized* follow primitive. It can be Place-scoped (`p
 
 ## Spec-patch summary
 
-For pipeline-plan to scenarioize this redesign, the following spec edits land first (this exploration is the source-of-record until ratified):
+For scope to scenarioize this redesign, the following spec edits land first (this exploration is the source-of-record until ratified):
 
 | Spec | Patch shape |
 |---|---|
@@ -170,7 +170,7 @@ For pipeline-plan to scenarioize this redesign, the following spec edits land fi
 
 - **New table:** `member_place_interests` (above). Cheap to land at b1; consumers (Discovery community-awareness feed at T1) are immediate.
 - **New table:** `member_saved_searches` (above). Reserved at b1; the surface ships at b2 alongside DM and follow-stream. The b1 commitment is the schema, the RLS posture, and the action handlers — no surface, no fan-out job.
-- **New columns on `items`** (kind='product' rows only — enforced by partial check or by application-layer guard): `made_at_place_id` (nullable FK to `places`), `made_at_verification_source` (enum). Reserved at b1; surface (the "Locally Made" badge) ratifies through `pipeline-product` design pass before pipeline-plan scenarioizes.
+- **New columns on `items`** (kind='product' rows only — enforced by partial check or by application-layer guard): `made_at_place_id` (nullable FK to `places`), `made_at_verification_source` (enum). Reserved at b1; surface (the "Locally Made" badge) ratifies through `explore` design pass before scope scenarioizes.
 - **Drop:** `member_location_affinities` table, its three indexes, the three SECURITY DEFINER functions. Affinity-write action handlers (`member.location_affinity.add`, `.remove`) and their event-log entries retire. Because this redesign predates any b1 ticket that creates `member_location_affinities`, the *drop* is really a *don't-create*: the migration ticket sequence in `planning/rebuild-plan.md` removes the affinity-table creation steps before they run.
 - **ADR-16 scope change:** the privacy posture (owner-only RLS, named privileged paths for cross-Member computation, service-role bypass for backend pipelines) survives and applies to `member_place_interests`. The named functions disappear because no consumer survives (`member_is_local_to_location` is replaced by `zip_is_proximal_to_location` in `business-jurisdiction.md`; the count rollups are dropped). ADR-16's table-specific text is **superseded in scope by ADR-0021;** the posture carries over.
 - **Event log entries (new at b1):**
@@ -199,7 +199,7 @@ The three-filter test:
 
 ## Open questions
 
-1. **"Locally Made" verification ladder shape.** Tier 0 self-attested is straightforward; Tier 2 document-supported (facility lease, manufacturing-source attestation) needs design — different evidence than the SOS / EIN-letter ladder for jurisdiction. Routed back to `pipeline-product` once a real seller case forces the question.
+1. **"Locally Made" verification ladder shape.** Tier 0 self-attested is straightforward; Tier 2 document-supported (facility lease, manufacturing-source attestation) needs design — different evidence than the SOS / EIN-letter ladder for jurisdiction. Routed back to `explore` once a real seller case forces the question.
 
 2. **Edge case — "designed in Sacramento, assembled in Vietnam."** Common pattern; does the "Locally Made" badge require both? Working answer: the badge reads on `made_at_place_id` (where final assembly happens). A "designed in" surface is a separate, lower-trust signal — possibly an Item-level free-text field, not a badge. Defer to seller-case scrutiny.
 
@@ -219,7 +219,7 @@ The three-filter test:
 
 ---
 
-## Canonical example anchor (for pipeline-plan)
+## Canonical example anchor (for scope)
 
 The redesign should land scenarios anchored to these `product/needs/use-cases.md` cases:
 
@@ -228,7 +228,7 @@ The redesign should land scenarios anchored to these `product/needs/use-cases.md
 - **A Member who follows Drake's** (saved-search created via the "Follow this venue" UI affordance on Drake's Location page; receives notifications for new gathering Items at Drake's; no Group required).
 - **Brian declares the Run Club at Drake's** (the event_anchored Group at Drake's; following the Group is the recommended path; saved-search-on-Drake's-Location is the fallback for venues without a Group).
 
-If a use-case isn't yet in `use-cases.md` in the shape pipeline-plan needs (specifically the "Locally Made" Item-provenance case), add a canonical anchor before handoff.
+If a use-case isn't yet in `use-cases.md` in the shape scope needs (specifically the "Locally Made" Item-provenance case), add a canonical anchor before handoff.
 
 ---
 
@@ -241,7 +241,7 @@ If a use-case isn't yet in `use-cases.md` in the shape pipeline-plan needs (spec
   - Community awareness → `member_place_interests` (new) + `member_interests` (existing).
   - Follow / saved-search → `member_saved_searches` (new) + `member_follows` / `group_memberships` (existing).
 - **Supersedes (in scope, not in spirit):** ADR-16. The per-row-privacy posture survives; the named functions and the table they protected dissolve.
-- **Status:** Proposed (this exploration). Awaiting `pipeline-plan` ratification and `pipeline-intent-check` on the redesign's absolute statements (e.g., "the Member never declares `lives`/`works` for any platform purpose" needs a State-tagged Intent line).
+- **Status:** Proposed (this exploration). Awaiting `scope` ratification and `weigh` on the redesign's absolute statements (e.g., "the Member never declares `lives`/`works` for any platform purpose" needs a State-tagged Intent line).
 - **ADR file:** `planning/adrs/ADR-0021-member-geography-substrate-split.md` (TBD).
 
 Once ADR-0021 lands and the spec patches above are made, the redesign is fully ratified. The build agent can then sequence: (a) retire-or-don't-create `member_location_affinities` in the migration plan, (b) create `member_place_interests` + `member_saved_searches` + the Item provenance columns, (c) update `groups.md` locality-derivation to read jurisdiction exclusively.

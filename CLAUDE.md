@@ -74,7 +74,7 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 
 ### File and directory naming
 
-A separate set of rules from entity naming — these govern *where docs live* and *what they're called*. Anti-sprawl. Enforced by `doc-housekeeping` and the `pipeline-router` drift check.
+A separate set of rules from entity naming — these govern *where docs live* and *what they're called*. Anti-sprawl. Enforced by `tidy` and the `orient` drift check.
 
 | Kind | Pattern | Example | Lives in |
 |---|---|---|---|
@@ -93,10 +93,10 @@ A separate set of rules from entity naming — these govern *where docs live* an
 ### Anti-sprawl rules
 
 1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
-2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `doc-housekeeping` enforces.
+2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `tidy` enforces.
 3. **One doc, one home.** If a new doc would overlap 70%+ with an existing one, fold it in rather than stand it up. `doc-home-finder` recommends.
 4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally.
-5. **Renames break cites.** Do not rename a live doc casually — `doc-housekeeping` proposes, PM ratifies, the same skill updates back-references.
+5. **Renames break cites.** Do not rename a live doc casually — `tidy` proposes, PM ratifies, the same skill updates back-references.
 
 ---
 
@@ -193,7 +193,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/DECISIONS.md`](planning/DECISIONS.md) | The ADR pointer index — every architectural decision, current status, file path. Read first when looking up any "is there a decision about X?" |
 | [`planning/adrs/`](planning/adrs/) | The canonical home for every ADR. Format and lifecycle in [`adrs/README.md`](planning/adrs/README.md). |
 | [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) | The pipeline stage tracker — one row per F-number + substrate group; stamped by each pipeline skill as the work moves through. Read at session start (router does this). Fulfills `pipeline-process-audit-2026-05-22.md` R4. |
-| [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md) | The Build → Product return queue. Build agent appends when it flags a spec; `pipeline-product` drains as a gate before each phase opens. Fulfills audit R5. |
+| [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md) | The Build → Product return queue. Build agent appends when it flags a spec; `explore` drains as a gate before each phase opens. Fulfills audit R5. |
 | [`planning/JUDGMENT.md`](planning/JUDGMENT.md) | The three-layer judgment doc (Intent / Bounds / Casebook) + agent-response discipline. Read when deciding whether to escalate to PM or decide alone. |
 | [`planning/OPEN-QUESTIONS.md`](planning/OPEN-QUESTIONS.md) | PM-decision queue surfaced by the latest pipeline audit + the auto-coverage pass. Items requiring PM judgment that no agent can resolve. |
 | [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |

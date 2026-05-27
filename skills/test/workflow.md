@@ -1,4 +1,4 @@
-# pipeline-eval — workflow
+# test — workflow
 
 ## Cheat sheet
 
@@ -10,10 +10,10 @@
 | **Writes (run mode)** | `{app}/evals/results/F{NNN}-{YYYY-MM-DD}.md` |
 | **Templates** | `templates/playwright-spec.md`, `templates/results.md` |
 | **Does NOT read (write mode)** | `web/` source code, tickets, scenarios-backlog — the firewall that makes evals trustworthy |
-| **Does NOT do** | fix failing tests — that's `pipeline-build`'s job |
-| **Hands to (write mode)** | `pipeline-build` — implements without seeing the eval file |
+| **Does NOT do** | fix failing tests — that's `build`'s job |
+| **Hands to (write mode)** | `build` — implements without seeing the eval file |
 | **Hands to (run mode, pass)** | PM — loop closes |
-| **Hands to (run mode, fail)** | `pipeline-build` (impl wrong) or `pipeline-plan` (scenario wrong) |
+| **Hands to (run mode, fail)** | `build` (impl wrong) or `scope` (scenario wrong) |
 
 ## When called to write evals
 
@@ -42,11 +42,11 @@ Every test you write carries its **why** alongside its **what**. The test's `nam
 >
 > *With:*
 > ```ts
-> // Why: timezone is the venue's, not the viewer's — verifies F018 Then-clause #3 against the design intent in primitives.md, not just the literal text. If the rendered date drifts to the viewer's tz, this test must fail (and a future agent must NOT silently update the expected string to match — escalate to pipeline-plan).
+> // Why: timezone is the venue's, not the viewer's — verifies F018 Then-clause #3 against the design intent in primitives.md, not just the literal text. If the rendered date drifts to the viewer's tz, this test must fail (and a future agent must NOT silently update the expected string to match — escalate to scope).
 > await expect(page.getByText('Thursday, May 14, 6:00 PM')).toBeVisible();
 > ```
 
-**Inheriting from the scenario.** If the scenario clause carries a `Why:` annotation (per `pipeline-plan`'s discipline), copy or paraphrase it into the test's Why comment — don't restate from scratch. The scenario's Why is the authority; the test's Why is the propagation.
+**Inheriting from the scenario.** If the scenario clause carries a `Why:` annotation (per `scope`'s discipline), copy or paraphrase it into the test's Why comment — don't restate from scratch. The scenario's Why is the authority; the test's Why is the propagation.
 
 **Verification.** Before declaring the spec done: walk every assertion. For each one that verifies a design choice, confirm a `// Why:` comment exists immediately above it. If the scenario clause that the assertion traces to has a `Why:` annotation, confirm the test's Why preserves the same intent. Missing Why on a non-obvious assertion → not done.
 
@@ -60,7 +60,7 @@ Every test you write carries its **why** alongside its **what**. The test's `nam
    - File and scenario it traces to.
    - Pass/fail per Given/When/Then block.
    - For failures: the exact assertion that failed and the observed state.
-3. If a test fails: do NOT fix it. Report and let `pipeline-build` fix forward.
+3. If a test fails: do NOT fix it. Report and let `build` fix forward.
 
 ## When called after a ticket completes
 
@@ -72,16 +72,16 @@ Every test you write carries its **why** alongside its **what**. The test's `nam
 
 - **No evals exist for this scenario yet.** Write them first, then run them. Note this in the report.
 - **Scenario has changed since evals were written.** Flag the drift, do not silently update tests — escalate to planning.
-- **Test passes but scenario behavior is wrong.** Escalate to `pipeline-plan`. The scenario or the ticket is out of sync with intent.
+- **Test passes but scenario behavior is wrong.** Escalate to `scope`. The scenario or the ticket is out of sync with intent.
 
 ## Hand off
 
 **STAGE-LEDGER stamp.** Write mode: stamp the F-number's Eval-spec column with today's date. Run mode pass: flip stage to `done` with date. Run mode fail: leave stage at `eval` and append the fail date.
 
-**Write mode → `pipeline-build`.** Tests land in `{app}/evals/features/F{NNN}.spec.ts`. Build agent implements without reading them.
+**Write mode → `build`.** Tests land in `{app}/evals/features/F{NNN}.spec.ts`. Build agent implements without reading them.
 
-**Run mode, pass → PM.** The loop closes. PM picks the next scenario or asks `pipeline-ticket` for the next ticket.
+**Run mode, pass → PM.** The loop closes. PM picks the next scenario or asks `ticket` for the next ticket.
 
-**Run mode, fail → `pipeline-build`.** Build fixes forward. Never roll back. Never silently update tests.
+**Run mode, fail → `build`.** Build fixes forward. Never roll back. Never silently update tests.
 
-**Run mode, scenario-is-wrong → `pipeline-plan`.** Annotate the divergence; plan revises the scenario; cycle restarts.
+**Run mode, scenario-is-wrong → `scope`.** Annotate the divergence; plan revises the scenario; cycle restarts.

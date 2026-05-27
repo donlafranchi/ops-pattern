@@ -11,7 +11,7 @@ status: active
 > **The problem this solves.** Solo founder. Every decision the agent surfaces is a 30-minute read. The pipeline already filters work downstream well; this file is the **escalation filter** — what should reach the founder, in what shape, and what shouldn't reach them at all.
 >
 > **Relationship to existing machinery.**
-> - **L1 Intent** is already partly here: `product/foundation/principles.md` (P1–P8 + Decision Test + categorical failures) is L1 at the platform-philosophy level. **Ratified absolutes** (the `Intent (Ratified YYYY-MM-DD): ...` lines landed by `pipeline-ratify-absolute`) are L1 at the per-statement level.
+> - **L1 Intent** is already partly here: `product/foundation/principles.md` (P1–P8 + Decision Test + categorical failures) is L1 at the platform-philosophy level. **Ratified absolutes** (the `Intent (Ratified YYYY-MM-DD): ...` lines landed by `weigh`) are L1 at the per-statement level.
 > - **L2 Bounds** is what this file adds. ADRs are decisions; bounds are the negative-space envelope around them. A bound says: *within this radius, agents decide alone; outside it, escalate.*
 > - **L3 Casebook** is `JOURNAL.md` + `DEVIATIONS.md` + `planning/history/F{NNN}-review.md`. They already record cases; they just aren't indexed by topic or scanned for promotion.
 
@@ -87,7 +87,7 @@ Each topic anchors L1, L2 (here), and L3 (case files). Topics added when a recur
 |---|---|---|---|
 | Schema additions during build | `product/foundation/principles.md` § People-First; ADR-7 | This file § *Schema additions* | `DEVIATIONS.md`, `SPEC-PATCHES.md` |
 | Scope creep inside a ticket | `principles.md` § Decision Test; b1 bundle | This file § *Scope* | `DEVIATIONS.md` |
-| Absolute language in specs | `principles.md`; `pending-ratifications.md` | `skills/pipeline-ratify-absolute/` | `planning/history/` ratification logs |
+| Absolute language in specs | `principles.md`; `pending-ratifications.md` | `skills/weigh/` | `planning/history/` ratification logs |
 | Vendor / cost decisions | (none yet — TBD) | This file § *Vendor & cost* | `JOURNAL.md` |
 | Naming (UI label vs schema vs URL) | `CLAUDE.md` § Naming conventions | This file § *Naming* | `JOURNAL.md` |
 | Commit + branch hygiene | `CLAUDE.md` § Commit Rules | This file § *Commit hygiene* | `DEVIATIONS.md` |
@@ -107,8 +107,8 @@ Source casebook: `DEVIATIONS.md`, `SPEC-PATCHES.md`
 - Reconcile two conflicting state vocabularies inside a single spec section to the one the schema/tests already use — log in DEVIATIONS + open SPEC-PATCH.
 
 **Out of bounds:**
-- Add a new column or table not present in the spec's Data model implications. Escalate to `pipeline-product`.
-- Change an enum's set of valid values (vs. reconciling a typo). Escalate to `pipeline-plan` for scenario review.
+- Add a new column or table not present in the spec's Data model implications. Escalate to `explore`.
+- Change an enum's set of valid values (vs. reconciling a typo). Escalate to `scope` for scenario review.
 - Introduce a new event type. Escalate.
 
 Last reviewed: 2026-05-23
@@ -134,7 +134,7 @@ Source casebook: `JOURNAL.md`
 - Apply the four-column table (schema / URL / UI label / UI verb) to a new entity already covered by an existing kind.
 
 **Out of bounds:**
-- Introduce a new entity kind that needs its own row in the table. Escalate to `pipeline-product` to propose the row.
+- Introduce a new entity kind that needs its own row in the table. Escalate to `explore` to propose the row.
 - Rename a schema column for clarity. Escalate (durable names per rule 1).
 
 Last reviewed: 2026-05-23
@@ -166,7 +166,7 @@ Four moves agents apply when shaping any response that includes a decision for t
 3. **Standing defaults.** Check this file (L2 bounds for the relevant topic) before asking. If a default exists, apply it and cite it. If a default should exist but doesn't, recommend the default with the escalation.
 4. **Compression contract.** Hard word budget on any response containing a recommendation. BLUF / Minto. Analogy-first on technical content. The PM can ask for expansion; agents shouldn't pre-emptively over-explain.
 
-**Where this lives in the pipeline.** Each pipeline skill's `Hand off` section assumes these. `pipeline-build` applies #1–#3 inside DEVIATIONS authoring (every disposition is either *in-bounds decision*, *constraint asked*, or *escalated*). `pipeline-router` applies #4 when reporting drift-check results.
+**Where this lives in the pipeline.** Each pipeline skill's `Hand off` section assumes these. `build` applies #1–#3 inside DEVIATIONS authoring (every disposition is either *in-bounds decision*, *constraint asked*, or *escalated*). `orient` applies #4 when reporting drift-check results.
 
 ---
 

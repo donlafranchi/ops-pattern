@@ -1,4 +1,4 @@
-# pipeline-scaffold — workflow
+# scaffold — workflow
 
 ## Cheat sheet
 
@@ -7,7 +7,7 @@
 | **Reads** | user-supplied inputs (project name, app subdir, repo structure, tech stack, north stars) |
 | **Writes** | full project skeleton (see Output below) — does not overwrite existing files |
 | **Templates** | embedded in this workflow file |
-| **Hands to** | `pipeline-router` — first session in the new project |
+| **Hands to** | `orient` — first session in the new project |
 
 
 ## Directory layout to produce
@@ -60,7 +60,7 @@
 7. **Touch empty files** — `planning/DECISIONS.md`, `development/DEVIATIONS.md`.
 8. **(Two-repo only)** — `cd {app} && git init`. Write `{app}/CLAUDE.md` (tech stack + commands only). Symlink root `BUILD-LOG.md` → `{app}/BUILD-LOG.md`.
 9. **Run the verification checklist** in SKILL.md. Report any missing items.
-10. **Tell the user** which skills to invoke next: `pipeline-product` to draft initial systems, then `pipeline-plan` to write b1 scenarios.
+10. **Tell the user** which skills to invoke next: `explore` to draft initial systems, then `scope` to write b1 scenarios.
 
 ## Thin root CLAUDE.md template
 
@@ -80,11 +80,11 @@
 ## Pipeline
 
 This project uses the four-agent pipeline. See:
-- `pipeline-router` — orientation at session start
-- `pipeline-product` — exploration, systems, capabilities
-- `pipeline-plan` — scenarios, scope, approval
-- `pipeline-build` — TDD ticket implementation
-- `pipeline-eval` — acceptance test authoring + execution
+- `orient` — orientation at session start
+- `explore` — exploration, systems, capabilities
+- `scope` — scenarios, scope, approval
+- `build` — TDD ticket implementation
+- `test` — acceptance test authoring + execution
 
 ## Project-specific patterns
 
@@ -104,7 +104,7 @@ Keep this file under 60 lines. Anything longer is process leakage — move it to
 
 **Tell the user:**
 1. Run `./skills/install.sh` once if the pipeline skills aren't yet symlinked into `~/.claude/skills/`.
-2. Open a new session and ask `pipeline-router` for orientation.
-3. From there, start the PM cycle with `pipeline-product` — write the first system spec, including a canonical example in `product/needs/use-cases.md`.
+2. Open a new session and ask `orient` for orientation.
+3. From there, start the PM cycle with `explore` — write the first system spec, including a canonical example in `product/needs/use-cases.md`.
 
-**Next skill:** `pipeline-router` — first session in the new project.
+**Next skill:** `orient` — first session in the new project.

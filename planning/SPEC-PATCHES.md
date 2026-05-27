@@ -8,9 +8,9 @@ status: active
 
 > Fulfills `pipeline-process-audit-2026-05-22.md` **R5** — closes the Build → Product loop that the audit found leaking.
 >
-> **The leak:** the build agent cannot write to `product/`. When it discovers a system spec is wrong (schema doesn't match, predicate is off, enum vocabulary diverged), it logs "flagged for `pipeline-product`" in DEVIATIONS and moves on. Nothing was the queue. Nothing was the gate. Patches accumulated; one (T056's `items.state` enum) ended up parked behind an indefinitely-deferred scenario, so `item.md` is *knowingly wrong* and every downstream reader inherits the error.
+> **The leak:** the build agent cannot write to `product/`. When it discovers a system spec is wrong (schema doesn't match, predicate is off, enum vocabulary diverged), it logs "flagged for `explore`" in DEVIATIONS and moves on. Nothing was the queue. Nothing was the gate. Patches accumulated; one (T056's `items.state` enum) ended up parked behind an indefinitely-deferred scenario, so `item.md` is *knowingly wrong* and every downstream reader inherits the error.
 >
-> **What this file is:** the queue. Drained as a **gate** by `pipeline-product` before each bundle phase opens (per audit R5). If you're starting Phase 2, this file must be empty (or every open entry must have a written disposition: drained, deferred-with-owner, or rescinded-with-reason).
+> **What this file is:** the queue. Drained as a **gate** by `explore` before each bundle phase opens (per audit R5). If you're starting Phase 2, this file must be empty (or every open entry must have a written disposition: drained, deferred-with-owner, or rescinded-with-reason).
 >
 > **What it is not:** a deviations log. DEVIATIONS records what happened during a single ticket. This file records what `product/` still owes — and is read end-to-end at phase boundaries.
 
@@ -20,7 +20,7 @@ status: active
 
 **Build agent writes an entry** when DEVIATIONS for a ticket includes a `Disposition: flag-for-spec-revision`. The entry is a one-line pointer; the full context lives in DEVIATIONS.
 
-**`pipeline-product` drains an entry** by landing the spec patch and marking the row `landed YYYY-MM-DD` with the commit hash. If product judges the build agent was wrong (the spec is right, the code should change), mark `rescinded YYYY-MM-DD` with a one-line reason and open a follow-up ticket.
+**`explore` drains an entry** by landing the spec patch and marking the row `landed YYYY-MM-DD` with the commit hash. If product judges the build agent was wrong (the spec is right, the code should change), mark `rescinded YYYY-MM-DD` with a one-line reason and open a follow-up ticket.
 
 **Router surfaces non-empty entries** at session start when any open entry is older than the active bundle's open date — that signals the queue is not draining at phase cadence.
 
@@ -42,7 +42,7 @@ Check the box and append `· landed YYYY-MM-DD ({commit hash})` when product pat
 
 ## Landed
 
-*(none yet — entries move here as `pipeline-product` patches them)*
+*(none yet — entries move here as `explore` patches them)*
 
 ## Rescinded
 
@@ -52,6 +52,6 @@ Check the box and append `· landed YYYY-MM-DD ({commit hash})` when product pat
 
 ## Gate
 
-**`pipeline-product`** drains this queue as the first action when invoked for any phase-boundary work (`b{N}.x` sub-bundle transitions, new bundle entry, new ADR ratification touching a spec on this queue). The Open list must be empty (or every entry must have an explicit `deferred-until {trigger}` annotation with PM approval) before phase work proceeds.
+**`explore`** drains this queue as the first action when invoked for any phase-boundary work (`b{N}.x` sub-bundle transitions, new bundle entry, new ADR ratification touching a spec on this queue). The Open list must be empty (or every entry must have an explicit `deferred-until {trigger}` annotation with PM approval) before phase work proceeds.
 
-**`pipeline-router`** flags any Open entry older than the active bundle's open date — if a patch has been sitting in queue across a phase boundary, the gate failed.
+**`orient`** flags any Open entry older than the active bundle's open date — if a patch has been sitting in queue across a phase boundary, the gate failed.

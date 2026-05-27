@@ -1,9 +1,9 @@
 ---
-name: pipeline-scaffold
+name: scaffold
 description: Scaffold a brand-new project that uses the four-agent pipeline (Product → Planning → Development → Evaluation). Use when the user says "start a new project", "scaffold a new project with the pipeline", "set up the agent pipeline here", "bootstrap project structure". Produces the directory tree, initial files (CLAUDE.md, JOURNAL.md, AGENTS.md, b1 bundle, DECISIONS.md, DEVIATIONS.md), and confirms the layout. Asks for project name, app subdirectory name, single-vs-two-repo, and tech stack before scaffolding. Never overwrites existing files without confirmation.
 ---
 
-# pipeline-scaffold
+# scaffold
 
 Project-agnostic skill that bootstraps a project for the four-agent pipeline.
 
@@ -48,10 +48,10 @@ After scaffolding, confirm:
 
 **You produced:** the project skeleton — directories, `CLAUDE.md`, `JOURNAL.md`, `AGENTS.md`, `bundles/b1-*.md`, `DECISIONS.md`, `DEVIATIONS.md`, optional `BUILD-LOG.md` symlink.
 
-**Next skill:** `pipeline-router` — orient a session in the new project. From there, the PM cycle starts with `pipeline-product` writing the first system spec.
+**Next skill:** `orient` — orient a session in the new project. From there, the PM cycle starts with `explore` writing the first system spec.
 
 **You do NOT:** install the pipeline skills globally on the user's machine — that's a one-time `./skills/install.sh` from the user. Surface the install command if the user hasn't run it yet.
 
 ## Related skills
-- `pipeline-router` — invoked first in any new session in the scaffolded project.
-- `pipeline-product` — writes the first system specs.
+- `orient` — invoked first in any new session in the scaffolded project.
+- `explore` — writes the first system specs.

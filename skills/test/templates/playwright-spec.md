@@ -53,12 +53,12 @@ test.describe("F{NNN} — {persona} {does the thing}", () => {
 
 - Test selectors: prefer `getByRole`, `getByLabel`, `getByText`. Fall back to `data-testid` if the project uses one.
 - Auth helpers: the project's eval harness should expose `loginAs(role)` or similar — check `{app}/evals/utils/`. If none exists, escalate (do not stub authentication in the test file).
-- Seed/fixture: check for `{app}/evals/fixtures/` or a per-test seed function. If none exists, escalate to `pipeline-plan` to clarify the scenario's "Assumptions" section.
+- Seed/fixture: check for `{app}/evals/fixtures/` or a per-test seed function. If none exists, escalate to `scope` to clarify the scenario's "Assumptions" section.
 
 ## What you do NOT do
 
 - Do not import from `{app}/src/` or any code under the app's source tree. Eval tests are an external oracle.
-- Do not write helpers that paper over scenario ambiguity. If a Then-clause is unclear, escalate to `pipeline-plan`.
+- Do not write helpers that paper over scenario ambiguity. If a Then-clause is unclear, escalate to `scope`.
 - Do not skip Then-clauses. Every assertion in the scenario must have a corresponding `expect()` in the spec.
 
 ## When to add data-testid attributes to the app

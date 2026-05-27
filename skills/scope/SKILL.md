@@ -1,9 +1,9 @@
 ---
-name: pipeline-plan
-description: Act as the planning/filter agent in a project using the agent pipeline. Use when the user wants to write or approve scenarios, scope a release bundle, filter the backlog, decide what ships next, or convert a product system into testable acceptance criteria. Triggers on "write a scenario for", "scope b1/b2/b3", "approve scenarios", "filter the backlog", "what should ship next", "acceptance criteria for", "user story for". Anchors every scenario to a real person doing a real thing in product/needs/use-cases.md. Applies the 5 Deadly Sins of PM (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Refuses to write tickets — that is pipeline-ticket's job. Refuses to explore or write systems — that is pipeline-product's job.
+name: scope
+description: Act as the planning/filter agent in a project using the agent pipeline. Use when the user wants to write or approve scenarios, scope a release bundle, filter the backlog, decide what ships next, or convert a product system into testable acceptance criteria. Triggers on "write a scenario for", "scope b1/b2/b3", "approve scenarios", "filter the backlog", "what should ship next", "acceptance criteria for", "user story for". Anchors every scenario to a real person doing a real thing in product/needs/use-cases.md. Applies the 5 Deadly Sins of PM (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Refuses to write tickets — that is ticket's job. Refuses to explore or write systems — that is explore's job.
 ---
 
-# pipeline-plan
+# scope
 
 Project-agnostic planning-agent skill. Filter between vision and execution. Owner of `planning/scenarios-backlog/`.
 
@@ -16,9 +16,9 @@ Project-agnostic planning-agent skill. Filter between vision and execution. Owne
 
 ## Constraints
 - Do NOT explore. You decide.
-- Do NOT write implementation tickets — that is `pipeline-ticket`'s job.
-- Do NOT write or extend product systems — that is `pipeline-product`'s job.
-- Every scenario must anchor to a real person in `product/needs/use-cases.md`. If no canonical example fits, ask `pipeline-product` to add one — do not invent a hypothetical persona.
+- Do NOT write implementation tickets — that is `ticket`'s job.
+- Do NOT write or extend product systems — that is `explore`'s job.
+- Every scenario must anchor to a real person in `product/needs/use-cases.md`. If no canonical example fits, ask `explore` to add one — do not invent a hypothetical persona.
 - Every scenario must have unambiguous, testable acceptance criteria.
 - Always write to `planning/scenarios-backlog/`. Never write directly to `planning/scenarios/`.
 
@@ -37,12 +37,12 @@ See `workflow.md`.
 
 **Produced:** scenarios in `planning/scenarios-backlog/`. After PM approval, the PM (or this skill on PM instruction) moves files to `planning/scenarios/`.
 
-**Next skill:** `pipeline-ticket` — breaks an approved scenario into ordered, implementable tickets. Then `pipeline-eval` (write mode) writes Playwright tests from the scenario *before* `pipeline-build` runs the TDD loop.
+**Next skill:** `ticket` — breaks an approved scenario into ordered, implementable tickets. Then `test` (write mode) writes Playwright tests from the scenario *before* `build` runs the TDD loop.
 
 **Pipeline-ticket expects:** an approved scenario at `planning/scenarios/{F-slug}.md` with the user-story shape (persona, surfaces, data captured, BDD criteria, edge cases, out of scope).
 
 ## Related skills
-- `pipeline-product` — upstream; produces systems and capabilities for you to scenarioize.
-- `pipeline-ticket` — downstream; breaks approved scenarios into tickets.
-- `pipeline-eval` — downstream; writes acceptance tests from your approved scenarios.
-- `pipeline-router` — call this if you're unsure which skill should be running.
+- `explore` — upstream; produces systems and capabilities for you to scenarioize.
+- `ticket` — downstream; breaks approved scenarios into tickets.
+- `test` — downstream; writes acceptance tests from your approved scenarios.
+- `orient` — call this if you're unsure which skill should be running.

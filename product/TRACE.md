@@ -62,7 +62,7 @@ Rows where the trace runs into a `—`. These are the candidates for the next sc
 ## How TRACE stays current
 
 - **PM adds a row** when a new scenario lands in `planning/scenarios-backlog/` or graduates to `planning/scenarios/`. Source columns (Need / Loop / System / Capability) inherit from the scenario's anchor; right-hand columns (Feature / Scenario / Ticket / Status) update as the ticket sequence ships.
-- **`pipeline-bundle-resync` invokes this doc** when a sub-bundle closes — the work map's 🟢 items have all landed, the TRACE rows tied to them flip to *active*, and the open-gaps list gets refreshed.
-- **`pipeline-router` mentions TRACE at session start** if the PM asks "what's next" — TRACE's open-gaps list is one good answer.
+- **`orient` invokes this doc** when a sub-bundle closes — the work map's 🟢 items have all landed, the TRACE rows tied to them flip to *active*, and the open-gaps list gets refreshed.
+- **`orient` mentions TRACE at session start** if the PM asks "what's next" — TRACE's open-gaps list is one good answer.
 
 When a TRACE row would say "engineering-only" or land below the main table without a need-trace, that's a flag — pause and ask: *what need does this serve?* If the answer is "none," the work isn't necessarily wrong, but it's the kind of work that, unwatched, becomes the platform serving itself.

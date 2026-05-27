@@ -6,7 +6,7 @@ status: draft
 
 # Exploration: Market Intelligence
 
-> **Status: exploration, not b1.** Captures PM direction (2026-05-23). A new system, distinct from [`../systems/producer-tools.md`](../systems/producer-tools.md) — see "Why it is distinct" below. Not yet a system spec; `pipeline-product` writes that when the system is scoped to a bundle. Draws on a prior raw brainstorm, now archived at `_attic/2026-05-19/product-exploration/business-intelligence-platform.md`.
+> **Status: exploration, not b1.** Captures PM direction (2026-05-23). A new system, distinct from [`../systems/producer-tools.md`](../systems/producer-tools.md) — see "Why it is distinct" below. Not yet a system spec; `explore` writes that when the system is scoped to a bundle. Draws on a prior raw brainstorm, now archived at `_attic/2026-05-19/product-exploration/business-intelligence-platform.md`.
 
 ## What it is
 
@@ -48,4 +48,4 @@ The raw capture is partly specced: [`producer-tools.md`](../systems/producer-too
 - **Surface.** Its own surface, or a panel in the producer dashboard? It is sourced differently from Producer Tools, but a producer may want both in one place.
 - **"Similar community" model.** What makes two communities similar enough to transfer demand between them — and what is off-limits (no individual profiling).
 - **Monetization.** The archived brainstorm proposed paid BI tiers; `producer-tools.md` leans free. Open — weigh against the wealth-circulation rubric.
-- **Bundle.** Later than b1; sequence when `pipeline-product` picks it up.
+- **Bundle.** Later than b1; sequence when `explore` picks it up.

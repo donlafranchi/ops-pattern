@@ -1,4 +1,4 @@
-# pipeline-build — workflow
+# build — workflow
 
 ## Cheat sheet
 
@@ -7,11 +7,11 @@
 | **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/scenarios/{F-slug}.md` (the scenario the ticket references), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
 | **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Produces a **commit summary** for the PM — does NOT run git itself (per CLAUDE.md Commit Rules). |
 | **Branch** | One per ticket: `t{nnn}`. Agent creates at session start (`git switch -c t{nnn}`); PM merges to `main` at close. |
-| **Templates** | none — ticket template lives in `pipeline-ticket/`; build implements, doesn't author specs |
+| **Templates** | none — ticket template lives in `ticket/`; build implements, doesn't author specs |
 | **Does NOT read** | `planning/scenarios-backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
 | **Does NOT run** | `git add`, `git commit`, `git push`. Branch creation (`git switch -c`) is fine — that doesn't touch `.git/index`. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
-| **Hands to** | `pipeline-eval` (run mode) — verifies F### evals pass against the scenario |
+| **Hands to** | `test` (run mode) — verifies F### evals pass against the scenario |
 | **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the commit-summary handoff per CLAUDE.md rebuild-phase rule #3. The reviewed state is what gets handed to PM for commit; fixes happen in the same loop, not as follow-up commits. |
 
 ## TDD loop (every ticket)
@@ -28,7 +28,7 @@
 9. Write minimal code to pass.
 10. Run tests — confirm PASS (green).
 11. Refactor if needed.
-12. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (`git diff` + `git diff --cached` for this ticket's files). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `pipeline-plan`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward. Per CLAUDE.md rebuild-phase rule #3.
+12. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (`git diff` + `git diff --cached` for this ticket's files). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `scope`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward. Per CLAUDE.md rebuild-phase rule #3.
 13. Update the ticket's Completion section (Date filled in; Commit hash left blank — PM backfills after committing).
 14. Move the ticket file to `development/tickets/done/`.
 15. Update `BUILD-LOG.md`.
@@ -48,9 +48,9 @@
     PM commits, pastes back the resulting hash. You backfill the hash into the ticket's Completion section in a follow-up edit (which is a file write, not a git call — safe).
 
 ## What you do NOT do
-- Write tickets. (`pipeline-ticket` does.)
-- Write scenarios. (`pipeline-plan` does.)
-- Write evals. (`pipeline-eval` does, *before* you start.)
+- Write tickets. (`ticket` does.)
+- Write scenarios. (`scope` does.)
+- Write evals. (`test` does, *before* you start.)
 - Read `planning/scenarios-backlog/`. Ever.
 - Roll back a commit. Fix forward.
 
@@ -77,12 +77,12 @@ Read that skill's SKILL.md first. Do not hand-write these formats.
 
 | Situation | Action |
 |---|---|
-| Cannot implement as specced | Annotate in `development/DEVIATIONS.md` with the spec divergence, hand back to `pipeline-plan`. Do not improvise. |
-| Scenario logic is wrong | Stop. Annotate in `DEVIATIONS.md`, escalate to `pipeline-plan`. |
-| Need a new ticket (current ticket grew) | Hand to `pipeline-ticket`. Do not write the ticket yourself. |
-| Need to reprioritize | Escalate to `pipeline-plan`. |
-| Feature needs redesign | Escalate to `pipeline-plan` → `pipeline-product`. |
-| Eval failure that requires the scenario to change | Stop. Escalate to `pipeline-plan`. Do not silently update tests. |
+| Cannot implement as specced | Annotate in `development/DEVIATIONS.md` with the spec divergence, hand back to `scope`. Do not improvise. |
+| Scenario logic is wrong | Stop. Annotate in `DEVIATIONS.md`, escalate to `scope`. |
+| Need a new ticket (current ticket grew) | Hand to `ticket`. Do not write the ticket yourself. |
+| Need to reprioritize | Escalate to `scope`. |
+| Feature needs redesign | Escalate to `scope` → `explore`. |
+| Eval failure that requires the scenario to change | Stop. Escalate to `scope`. Do not silently update tests. |
 
 ## Commit conventions
 
@@ -134,7 +134,7 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 **STAGE-LEDGER stamp.** When the first commit lands for a scenario's tickets, flip the F-number's row to `building` with today's date. When the last ticket for the scenario closes and evals are green, flip to `done`. For substrate tickets, stamp the corresponding row in the Substrate table.
 
-**SPEC-PATCHES queue.** If you flagged a `product/` spec for `pipeline-product` patching in DEVIATIONS, also append an entry to `planning/SPEC-PATCHES.md` with the spec path, section, what's wrong, and the ticket that caught it. The DEVIATIONS entry is the audit trail; SPEC-PATCHES is the queue that ensures the patch lands.
+**SPEC-PATCHES queue.** If you flagged a `product/` spec for `explore` patching in DEVIATIONS, also append an entry to `planning/SPEC-PATCHES.md` with the spec path, section, what's wrong, and the ticket that caught it. The DEVIATIONS entry is the audit trail; SPEC-PATCHES is the queue that ensures the patch lands.
 
 **Commit-hash backfill is non-optional.** Per audit H4, T055/T056/T057 still carry `{pending}` placeholders. After PM commits, immediately edit the ticket Completion section to fill in the hash — do not defer.
 
@@ -142,8 +142,8 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 **Commit-hash backfill.** After PM commits and confirms the hash, you (in the same session, or the next) edit the ticket's Completion section to fill in the hash. That edit is a file write, not a git call — safe to do from the sandbox.
 
-**You hand to:** `pipeline-eval` (run mode) — confirms F### evals pass against the scenario this ticket served.
+**You hand to:** `test` (run mode) — confirms F### evals pass against the scenario this ticket served.
 
 **On eval failure:** evaluator hands back to you. Run the TDD loop again — fix forward, never roll back. New iteration stays on the same `t{nnn}` branch; PM commits each pass.
 
-**On eval pass:** the loop closes. PM merges `t{nnn}` to `main` (`git switch main && git merge --no-ff t{nnn} && git branch -d t{nnn}`) and picks the next scenario or asks `pipeline-ticket` for the next ticket.
+**On eval pass:** the loop closes. PM merges `t{nnn}` to `main` (`git switch main && git merge --no-ff t{nnn} && git branch -d t{nnn}`) and picks the next scenario or asks `ticket` for the next ticket.

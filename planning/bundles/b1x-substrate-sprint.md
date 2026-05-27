@@ -10,7 +10,7 @@ status: active
 
 ## What this is
 
-The work-breakdown grain — one level above `T###`. Each work item below is converted by `pipeline-ticket` into 2–5 `T###` tickets. This doc fixes the *what*, *the dependency order*, and the *acceptance shape*; the tickets fix the *how*.
+The work-breakdown grain — one level above `T###`. Each work item below is converted by `ticket` into 2–5 `T###` tickets. This doc fixes the *what*, *the dependency order*, and the *acceptance shape*; the tickets fix the *how*.
 
 - **Substrate lane** (per `CLAUDE.md` rule 14). Every item carries `Scenario: substrate`, binds to a system-spec section + ADR(s), no F-number, no Given/When/Then. **Skips the scenario-approval gate.**
 - **Gate B still applies.** Schema + RLS are the canonical Category-2 absolute surface. See Preconditions.
@@ -24,10 +24,10 @@ Dependency, not choice. b1.0 ("Show up & be seen") surfaces sit on substrate tha
 
 | # | Precondition | Owner | Gates | State |
 |---|---|---|---|---|
-| P1 | **`product/systems/places.md` must exist.** ADR-20 Action Item #1 (write `places.md`) is unchecked. The substrate lane binds tickets to a *spec section* — Lane A has no spec to bind to without it. `pipeline-ticket` escalation rule: "schema change, no system spec → stop, ask `pipeline-product`." ADR-20 § *Action Items* #1 + § *Consequences* enumerate exactly what the spec must contain — this is an extraction, not a design pass. | `pipeline-product` | **Lane A only** | **Closed 2026-05-25** — `places.md` already exists (208 lines, T1/T2/T3 + Data model implications + ADR-20 encoding). ADR-20 Action Item #1 checked. |
-| P2 | **Confirm ADR-20 intent-check status.** ADR-20 Action Item #7 (`pipeline-intent-check`) is unchecked. ADR-20 carries 3 Category-2 absolutes (places are platform-curated; URLs are locality-scoped; Members keep one global handle). Gate B blocks the `places` ticket if those lack a Ratified Intent tag. ADR-21's absolutes were ratified 2026-05-23 — Lane B is clear. | `pipeline-intent-check` | **A1 (`places`)** | **Closed 2026-05-25** — verdict **CLEAN** ([`planning/history/intent-ADR-20-2026-05-25.md`](../history/intent-ADR-20-2026-05-25.md)). All three Category-2 absolutes carry substantive Intent; ADR-20 Accepted 2026-05-23 supplies the State tag. ADR-20 Action Item #7 checked. |
+| P1 | **`product/systems/places.md` must exist.** ADR-20 Action Item #1 (write `places.md`) is unchecked. The substrate lane binds tickets to a *spec section* — Lane A has no spec to bind to without it. `ticket` escalation rule: "schema change, no system spec → stop, ask `explore`." ADR-20 § *Action Items* #1 + § *Consequences* enumerate exactly what the spec must contain — this is an extraction, not a design pass. | `explore` | **Lane A only** | **Closed 2026-05-25** — `places.md` already exists (208 lines, T1/T2/T3 + Data model implications + ADR-20 encoding). ADR-20 Action Item #1 checked. |
+| P2 | **Confirm ADR-20 intent-check status.** ADR-20 Action Item #7 (`weigh`) is unchecked. ADR-20 carries 3 Category-2 absolutes (places are platform-curated; URLs are locality-scoped; Members keep one global handle). Gate B blocks the `places` ticket if those lack a Ratified Intent tag. ADR-21's absolutes were ratified 2026-05-23 — Lane B is clear. | `weigh` | **A1 (`places`)** | **Closed 2026-05-25** — verdict **CLEAN** ([`planning/history/intent-ADR-20-2026-05-25.md`](../history/intent-ADR-20-2026-05-25.md)). All three Category-2 absolutes carry substantive Intent; ADR-20 Accepted 2026-05-23 supplies the State tag. ADR-20 Action Item #7 checked. |
 
-Lane B ticket-writing can begin immediately — its spec sections (`member.md` § Place-interest scope / § Saved searches, `item.md` § Provenance) landed with the 2026-05-23 spec patches. **Both preconditions closed 2026-05-25; all 7 items are ready for `pipeline-ticket` fan-out.** Embedded decisions 1, 2, 3 ratified by PM 2026-05-25.
+Lane B ticket-writing can begin immediately — its spec sections (`member.md` § Place-interest scope / § Saved searches, `item.md` § Provenance) landed with the 2026-05-23 spec patches. **Both preconditions closed 2026-05-25; all 7 items are ready for `ticket` fan-out.** Embedded decisions 1, 2, 3 ratified by PM 2026-05-25.
 
 ## Work breakdown — 7 items, 2 lanes
 
@@ -85,7 +85,7 @@ Wave 0  (start at t0, parallel)        Wave 1  (unblocked when A1 lands, paralle
                                        └──────────────────────────────────────┘
 ```
 
-`places` (A1) is the single dependency barrier — `place_id` FKs in B2/B3/B4 and the path resolution in A2/A3 all need it. **B1 is fully independent** of everything (clean parallel-test seed). Migration *file numbers* serialize the FK-bearing items after `017_places.sql`; B1's DROP migration can take any free number. `pipeline-ticket` finalizes numbering.
+`places` (A1) is the single dependency barrier — `place_id` FKs in B2/B3/B4 and the path resolution in A2/A3 all need it. **B1 is fully independent** of everything (clean parallel-test seed). Migration *file numbers* serialize the FK-bearing items after `017_places.sql`; B1's DROP migration can take any free number. `ticket` finalizes numbering.
 
 **Suggested migrations:** `017_places` · `018_member_place_interests` · `019_member_saved_searches` · `020_items_made_at` · `021_retire_member_location_affinities`. A2 + A3 are app-layer (no migration number).
 
@@ -100,16 +100,16 @@ Wave 0  (start at t0, parallel)        Wave 1  (unblocked when A1 lands, paralle
 Research against the live repo changed the shape. Three picks are baked in; flip any with one line.
 
 1. **Added B1 (retire `member_location_affinities`).** The roadmap's 6-item list omitted it. The table already shipped as migration `011`; ADR-21 + `rebuild-plan.md` rule 7 retire it. It belongs in this sprint — STAGE-LEDGER already groups it here. *Assumption: in scope.*
-2. **`places.md` written first (P1), not bypassed.** ADR-20 is detailed enough to bind tickets directly, but the substrate-lane contract wants a spec section and ADR-20's own Action Item #1 calls for the spec. Recommended pick: `pipeline-product` extracts `places.md` from ADR-20 as Step 0 — fast, and it unblocks Gate-B-clean ticketing. *Assumption: write the spec.*
+2. **`places.md` written first (P1), not bypassed.** ADR-20 is detailed enough to bind tickets directly, but the substrate-lane contract wants a spec section and ADR-20's own Action Item #1 calls for the spec. Recommended pick: `explore` extracts `places.md` from ADR-20 as Step 0 — fast, and it unblocks Gate-B-clean ticketing. *Assumption: write the spec.*
 3. **`member_business_jurisdictions` deferred to b1.2/F026 — NOT in this sprint.** The roadmap (and STAGE-LEDGER) describe a `sos_lookup → community_attested` *enum rename* on this table. The table **does not exist** in the migrations — there is no enum to rename. The honest reframe: when the jurisdiction table is created it is created *with* the correct `verification_source` enum (`self_attested`/`community_attested`/`document_upload`) — a create-it-right, not a rename. Its natural home is b1.2 alongside F026 ("Maya claims Locally Owned"). *Assumption: defer; correct the stale "rename" wording in STAGE-LEDGER + ADR-21 via a doc-patch.* **Counter-option:** pull jurisdiction-table creation into this sprint to keep all ADR-21 substrate together and leave F026 a pure surface.
 
 ## Workflow handoff
 
 1. PM confirms this sprint definition (and embedded decisions 1–3).
-2. `pipeline-product` writes `places.md` (P1); `pipeline-intent-check` confirms ADR-20 (P2).
-3. `pipeline-ticket` fans the 7 items into `T###` tickets — `Scenario: substrate`, binding to the spec contracts above.
-4. `pipeline-build` (parallel CC agents) implements: A1 + B1 first, then A2/A3/B2/B3/B4.
-5. `pipeline-eval` verifies; STAGE-LEDGER Substrate row stamped at each transition.
+2. `explore` writes `places.md` (P1); `weigh` confirms ADR-20 (P2).
+3. `ticket` fans the 7 items into `T###` tickets — `Scenario: substrate`, binding to the spec contracts above.
+4. `build` (parallel CC agents) implements: A1 + B1 first, then A2/A3/B2/B3/B4.
+5. `test` verifies; STAGE-LEDGER Substrate row stamped at each transition.
 
 ## Sprint exit criterion
 

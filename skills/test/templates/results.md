@@ -7,7 +7,7 @@ Place at: `{app}/evals/results/F{NNN}-{YYYY-MM-DD}.md`
 
 **Scenario:** [`planning/scenarios/F{NNN}-{slug}.md`](../../planning/scenarios/F{NNN}-{slug}.md)
 **Spec:** [`{app}/evals/features/F{NNN}-{slug}.spec.ts`](../features/F{NNN}-{slug}.spec.ts)
-**Run by:** pipeline-eval (run mode)
+**Run by:** test (run mode)
 **Build commit:** {git hash from latest BUILD-LOG.md entry}
 
 ## Summary
@@ -37,11 +37,11 @@ For each failure:
 - **Test:** {test name}
 - **Expected:** {what the scenario said should happen}
 - **Observed:** {what the run produced}
-- **Suggested next step:** hand to `pipeline-build` to fix forward, OR escalate to `pipeline-plan` if the scenario itself is wrong.
+- **Suggested next step:** hand to `build` to fix forward, OR escalate to `scope` if the scenario itself is wrong.
 
 ## Hand off
 
 - **On PASS:** PM picks the next scenario or ticket. Loop closes.
-- **On FAIL where the implementation diverges from the scenario:** `pipeline-build` fixes forward.
-- **On FAIL where the scenario is wrong:** `pipeline-plan` revises the scenario; cycle restarts at eval-write.
+- **On FAIL where the implementation diverges from the scenario:** `build` fixes forward.
+- **On FAIL where the scenario is wrong:** `scope` revises the scenario; cycle restarts at eval-write.
 ```

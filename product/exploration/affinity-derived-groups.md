@@ -6,7 +6,7 @@ status: exploration
 
 # Exploration: Affinity-derived Group suggestions
 
-> **Status:** Exploration, **not b1**. Substrate dependencies (Saves populated at meaningful density, `member_interests` tags in use, the discovery overlap index mature enough to compute Member-Member similarity cheaply) push the earliest plausible ship to **b2+**. Drafted 2026-05-23 under the `pipeline-product` skill at PM request; lives here until the data conditions exist to test it on real Members. Pipeline-plan should not scenarioize this until those conditions are met.
+> **Status:** Exploration, **not b1**. Substrate dependencies (Saves populated at meaningful density, `member_interests` tags in use, the discovery overlap index mature enough to compute Member-Member similarity cheaply) push the earliest plausible ship to **b2+**. Drafted 2026-05-23 under the `explore` skill at PM request; lives here until the data conditions exist to test it on real Members. Pipeline-plan should not scenarioize this until those conditions are met.
 
 > **The constraint this doc is written against.** [`principles.md`](../foundation/principles.md) names auto-assigned Groups as a categorical failure: *"Groups cannot be auto-assigned by geography. … They cannot be created and populated by the platform on behalf of users it suspects share an interest. They are started, joined, stewarded, and dissolved by Members, and by Members alone."* [`groups.md`](../systems/groups.md) line 361 codifies the schema posture: *"the platform may suggest a Group based on follows or attendance (`source='soft_via_follow'`, `'soft_via_attendance'`) but those are surface-level only and do not grant addressability."* This exploration adds a third soft source — `source='soft_via_taste_overlap'` — and argues the boundary.
 
@@ -50,7 +50,7 @@ The overlap calculation lives in [`discovery.md`](../systems/discovery.md) (the 
 
 ## The boundary — "suggested" vs "auto-assigned"
 
-This is the section that earns the doc its place. The PM and `pipeline-plan` should refuse this exploration if the boundary doesn't hold.
+This is the section that earns the doc its place. The PM and `scope` should refuse this exploration if the boundary doesn't hold.
 
 | | Auto-assigned (refused, categorical) | Suggested (this proposal) |
 |---|---|---|
@@ -104,7 +104,7 @@ To enable this feature without backfill pain when b2 arrives, the b1 substrate n
 
 ---
 
-## Open questions for `pipeline-plan` (when this graduates)
+## Open questions for `scope` (when this graduates)
 
 1. **What's the right N / M / T threshold?** The defaults (8 / 5 / 90) are guesses. Pre-launch this is unanswerable; b2 should ship with conservative thresholds and an explicit calibration loop.
 2. **Does the suggestion show the cluster's Item names, the authors' names, both, or neither?** Trade-off: showing Items grounds the suggestion ("you've all saved these"); showing authors risks looking like the platform is matchmaking around specific producers. Lean toward Items, not authors.
