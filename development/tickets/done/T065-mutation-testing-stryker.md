@@ -90,8 +90,8 @@ A sanity check that the runner is wired correctly. After the first run:
 ## Completion
 
 Date: 2026-05-25
-Commit (web): `{pending — PM commits from terminal}`
-Commit (parent): `{pending — PM commits from terminal}`
+Commit (web): `1c2270c` — `T065: Stryker mutation testing on src/lib/` (branch `t65`, awaiting merge to main)
+Commit (parent): `9ad8b59` — `docs(pipeline): T065 mutation-testing ticket + safety standard`
 
 **What landed:**
 
