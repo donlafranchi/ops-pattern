@@ -18,7 +18,7 @@ status: active
 - **Active bundle:** [`planning/bundles/b1-primitives.md`](planning/bundles/b1-primitives.md) (Primitives MVP).
 - **Active rebuild:** [`planning/rebuild-plan.md`](planning/rebuild-plan.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
 - **Pipeline audit history:** the 2026-05-09 audit was the load-bearing one; its findings live in this file and `AGENTS.md`. The original is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) for trace; the 2026-05-22 follow-up audit lives at [`housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md`](housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md) — its R1–R10 findings were absorbed into the pipeline on 2026-05-23 (STAGE-LEDGER, SPEC-PATCHES, JUDGMENT, OPEN-QUESTIONS, the router drift check, the substrate lane, the sibling-scenario check, and the DEVIATIONS rotation policy). Read either only when revisiting process history.
-- **ADR home:** [`planning/adrs/`](planning/adrs/) — one file per ADR, indexed from [`planning/DECISIONS.md`](planning/DECISIONS.md). Format and lifecycle in [`planning/adrs/README.md`](planning/adrs/README.md). Use the `pipeline-adr` skill to write a new one.
+- **Memo home:** [`planning/adrs/`](planning/adrs/) — one file per decision memo (formerly ADR), indexed from [`planning/DECISIONS.md`](planning/DECISIONS.md). Existing ADR-1 through ADR-23 retain numbering for citation stability; new entries use the `memo` skill and continue from memo-0024 onward. Format and lifecycle in [`planning/adrs/README.md`](planning/adrs/README.md).
 
 ## North Star — The Loops
 
@@ -102,93 +102,81 @@ A separate set of rules from entity naming — these govern *where docs live* an
 
 ## Agent routing — use which skill when
 
-Pipeline-skills triggers (project-resident, in [`skills/`](skills/)). Match the user's intent to the trigger; invoke the matching skill.
+Ten skills cover the full lifecycle. Each runs in **one tool only** — the hard firewall. Match intent to trigger; invoke the matching skill.
 
-**Tool legend (read [`skills/README.md`](skills/README.md) § "Where to run these" for the longer version):**
-- **CC** — Claude Code. Auto-discovers project-local skills; has shell + git without lock-file friction. The only sane home for `pipeline-build` and `pipeline-eval` (run mode).
-- **CW** — Cowork. Does NOT auto-load project-local skills, so invoke its bundled `anthropic-skills:*` equivalents or paste the workflow inline. Best for markdown-heavy spec work where MCP connectors, doc/sheet/deck generation, web research, and scheduled tasks pull their weight.
-- **Both** — markdown-only; pick by surrounding tooling preference.
+| User says / intent | Skill | Tool |
+|---|---|---|
+| "what's the state", "where are we", session start, "prune the journal", "resync the work map", "what drifted" | `orient` | Cowork |
+| "explore X", "write a system for Y", "what would Z look like" | `explore` | Cowork |
+| "scenarios for F###", "approve scenarios", "user story for…" | `scope` | Cowork |
+| "weigh this", "is this a close call", "ratify the absolutes in {file}", "audit Intent annotations", "what's the Member view", "what's the platform view", "run the dialectic", "decide or defer on X" | `weigh` | Cowork |
+| "review F###", "architecture check", "design review", "security review on F###" | `review` | Cowork |
+| "memo this decision", "record this", "supersede {memo}", "what's the next memo number" | `memo` | Cowork |
+| "tickets for F###", "break F### into tickets" | `ticket` | Claude Code |
+| "tests for F###", "Playwright spec for F###", "run F### tests" | `test` | Claude Code |
+| "implement T###", "TDD this", "build T###" | `build` | Claude Code |
+| "tidy", "sweep the docs", "anything rotting", "triage the inbox", "audit the skills", "anything to archive" | `tidy` | Cowork |
+| "scaffold a new project" | `scaffold` (utility) | Claude Code |
+| "I want this to improve itself", "design a self-improvement loop", "Karpathy loop" | `loop-designer` (utility) | Cowork |
 
-| User says / intent | Skill | Stage | Tool |
-|---|---|---|---|
-| "what's the state of this project", "where are we", session start | `pipeline-router` | 0 | Both |
-| "explore X", "write a system for Y", "what would Z look like" | `pipeline-product` | 1 | CW |
-| "write scenarios for F###", "approve scenarios", "user story for…" | `pipeline-plan` | 2 | CW |
-| "review F###", "architecture check", "design review F###" | `pipeline-review` | 2.5 | Both |
-| "write evals for F###", "Playwright spec for F###" | `pipeline-eval` (write) | 3 | **CC** |
-| "write tickets for F###", "break F### into tickets" | `pipeline-ticket` | 4 | Both |
-| "implement T###", "TDD this", "build T###" | `pipeline-build` | 5 | **CC** |
-| "run evals for F###", "verify F### passes" | `pipeline-eval` (run) | 6 | **CC** |
-| "scaffold a new project" | `pipeline-scaffold` | — | CC |
-| "prune the journal", "DECISIONS.md is heavy", "what should we memorialize", "rotate the journal" | `pipeline-prune` | meta | CW |
-| "resync the work map", "what's drifted since last sub-bundle", "is `b1-work-map.md` still right", "what changed after T###", "scope sync", "did the menu shift" | `pipeline-bundle-resync` | meta | CW |
-| "intent check on F###/system X/ADR-N", "audit Intent annotations", "scan DECISIONS for intent gaps" | `pipeline-intent-check` | meta | CW |
-| "write an ADR for X", "record this decision", "ratify ADR-N", "supersede ADR-M", "what's the next ADR number" | `pipeline-adr` | meta | Both |
-| "ratify the absolutes in {file}", "review every never-statement", "audit our absolutes", "is this earned", "decide or defer on X", "every absolute needs Intent", "review F### intents" | `pipeline-ratify-absolute` | meta / gate-time | Both |
-| "what's the Member view on this", "advocate for the Member", "what does the Member lose here" | `pipeline-member-advocate` | meta | CW |
-| "what's the platform view on this", "advocate for the platform", "what does the platform need here", "run the dialectic" | `pipeline-platform-advocate` | meta | CW |
-| "I want this to improve itself", "design a self-improvement loop", "Karpathy loop / meta-agent harness", "this should keep getting better on its own" | `loop-designer` | meta | CW |
-| "triage the inbox", "where should this doc go", "find a home for this", "drain `_inbox/`", "is this a new doc or does it fold into X", "name this properly" | `doc-home-finder` | meta | Both |
-| "doc housekeeping", "sweep the docs", "is anything rotting", "any docs need attention", "propagation check", "what changed and what needs to follow", "anything to archive" | `doc-housekeeping` | meta / quiet-only | Both |
-| "audit the skills", "are the skills up to date", "skills housekeeping", "did the skills miss the new audit", "do any skills reference dead files" | `skills-housekeeping` | meta / quiet-only | Both |
-
-Full per-skill firewalls and read/write permissions: [`AGENTS.md`](AGENTS.md).
+Full per-skill firewalls and read/write permissions: [`AGENTS.md`](AGENTS.md). Working pattern + commit choreography: [`_inbox/cowork-pipeline/DEV-PATTERN.md`](_inbox/cowork-pipeline/DEV-PATTERN.md). Close-call rule + the one absolute: [`_inbox/cowork-pipeline/DECISION-PATTERNS.md`](_inbox/cowork-pipeline/DECISION-PATTERNS.md).
 
 ### Solo-team multipliers (Cowork plugin skills) — when to call them in
 
 A solo founder doesn't have a teammate to catch what TDD misses. These skills are mandatory gates at specific points in the pipeline. They live as installed Cowork plugins; setup at [`skills/EXTERNAL-SKILLS.md`](skills/EXTERNAL-SKILLS.md).
 
-| Trigger | Skill | Stage gate |
-|---|---|---|
-| Writing a system spec that introduces new schema/event/component | `engineering:architecture` (writes ADR) + `engineering:system-design` | **M1 — before plan** |
-| Turning a problem statement into a system spec | `product-management:write-spec` | inside Stage 1 |
-| Brainstorming a problem space without a target solution | `product-management:product-brainstorming` | inside Stage 1 |
-| Filtering a sprawling backlog | `anthropic-skills:planning-filter` | inside Stage 2 |
-| Reviewing UI of any new surface in a scenario | `design:design-critique` + `design:design-system` | inside Stage 2.5 |
-| Reviewing a11y of any new surface | `design:accessibility-review` | **M3 — inside Stage 2.5, mandatory on every new surface** |
-| Writing UX microcopy / CTAs / empty states | `design:ux-copy` | inside Stage 2.5 or 5 |
-| Designing the test surface for non-obvious areas (auth, RLS, realtime, migrations) | `engineering:testing-strategy` | inside Stage 3 |
-| Reviewing a shipped ticket before commit | `engineering:code-review` | **M2 — after build, before commit, on every ticket** |
-| Pre-deploy verification (any push to main touching the migration) | `engineering:deploy-checklist` | **M4 — before merge to main** |
-| Reproducing a bug or stack trace | `engineering:debug` | inside Stage 5 |
-| Triaging an incident | `engineering:incident-response` | out-of-band |
-| Writing a runbook, README, or API docs | `engineering:documentation` | inside Stage 5 or out-of-band |
-| Categorizing tech debt | `engineering:tech-debt` | quarterly, out-of-band |
-| Non-code deliverable (deck, doc, sheet, PDF) | `anthropic-skills:pptx` / `docx` / `xlsx` / `pdf` | inside Stage 5 |
+| Trigger | Plugin skill | Fires inside | Gate |
+|---|---|---|---|
+| New schema/event/component in a system spec | `engineering:architecture` + `engineering:system-design` | `review` | **M1** |
+| Turning a problem statement into a system spec | `product-management:write-spec` | `explore` | — |
+| Brainstorming a problem space | `product-management:product-brainstorming` | `explore` | — |
+| Filtering a sprawling backlog | `anthropic-skills:planning-filter` | `scope` | — |
+| Reviewing UI of any new surface | `design:design-critique` + `design:design-system` | `review` | — |
+| Accessibility on any new surface | `design:accessibility-review` | `review` | **M3** (mandatory) |
+| UX microcopy / CTAs / empty states | `design:ux-copy` | `review` or `build` | — |
+| Test surface for non-obvious areas (auth, RLS, realtime, migrations) | `engineering:testing-strategy` | `test` (write) | — |
+| Code-review a shipped ticket | `engineering:code-review` | `build`, **before** commit | **M2** (mandatory) |
+| Pre-deploy verification | `engineering:deploy-checklist` | before merge to main | **M4** (mandatory) |
+| Reproducing a bug or stack trace | `engineering:debug` | `build` | — |
+| Triaging an incident | `engineering:incident-response` | out-of-band | — |
+| Runbook, README, or API docs | `engineering:documentation` | `build` or out-of-band | — |
+| Categorizing tech debt | `engineering:tech-debt` | quarterly, out-of-band | — |
+| Non-code deliverable (deck, doc, sheet, PDF) | `anthropic-skills:pptx` / `docx` / `xlsx` / `pdf` | `build` | — |
 
 Memory hygiene: invoke `anthropic-skills:consolidate-memory` once a month or after a vocabulary pivot.
 
 ### Routing rules of thumb
 
-- "I want to design something new" → `pipeline-product`. Never start at plan or ticket.
-- "I want to ship something" → start at `pipeline-router`. Don't skip to build.
-- "I have a bug / production thing / ambiguity in a ticket" → escalate per `AGENTS.md` § Escalation Contacts. Build agent does not redesign.
-- "Two skills could fit" → prefer the **earlier** stage. Cheaper to catch at plan than at build.
+- "I want to design something new" → `explore`. Don't start at `scope` or `ticket`.
+- "I want to ship something" → start at `orient`. Don't skip to `build`.
+- "I have a bug / production thing / ambiguity in a ticket" → escalate per `AGENTS.md` § Escalation contacts. `build` does not redesign.
+- "Two skills could fit" → prefer the **earlier** stage. Cheaper to catch at `scope` than at `build`.
+- "Close call between options" → `weigh`. Applies the lexicographic rule from DECISION-PATTERNS (member safety → platform health → data protection → mutual benefit reversible).
 
 ---
 
 ## Rebuild phase — special rules
 
-Active until Phase 4 of [`planning/rebuild-plan.md`](planning/rebuild-plan.md) (the rebuild plan) completes.
+Active until Phase 4 of [`planning/rebuild-plan.md`](planning/rebuild-plan.md) completes.
 
-1. **`pipeline-review` is MANDATORY** on every approved scenario. Verdicts: PROCEED / REVISE / EXTEND. Skip only for trivial copy/CTA changes on existing surfaces.
-2. **ADR or system-spec banner required** before `pipeline-plan` ratifies any scenario that introduces a new schema, event, table, column, or system. Cross-cutting decisions go to [`planning/DECISIONS.md`](planning/DECISIONS.md); single-system decisions go to the spec's status banner per the new DECISIONS.md format. The action-layer and event-log invariants live in ADR-10.
-3. **`engineering:code-review` MANDATORY** on every shipped ticket **before the build commits to the app repo** — not after. The verdict + any required fixes land first; the commit captures the reviewed state. This pulls M2 left of commit so issues surface as fix-now (clean first commit), not fix-forward (amend / extra commit churn). Eval (run mode) still happens after commit, but code review no longer waits for it.
+1. **`review` is MANDATORY** on every approved scope. Verdicts: PROCEED / REVISE / EXTEND. Skip only for trivial copy/CTA changes on existing surfaces.
+2. **Memo (or system-spec banner) required** before `scope` ratifies any scenario that introduces a new schema, event, table, column, or system. Cross-cutting decisions go to [`planning/DECISIONS.md`](planning/DECISIONS.md); single-system decisions go to the spec's status banner. The action-layer and event-log invariants live in ADR-10 (historical numbering retained for the existing memo set; new decisions continue from memo-0024 onward).
+3. **`engineering:code-review` MANDATORY** on every shipped ticket **before `build` commits** — not after. The verdict + any required fixes land first; the commit captures the reviewed state. This pulls M2 left of commit so issues surface as fix-now (clean first commit), not fix-forward (amend / extra commit churn). `test` (run mode) still happens after commit, but code review no longer waits for it.
 4. **`engineering:deploy-checklist` MANDATORY** before any merge to main that includes a Phase 1+ ticket (any ticket that touches the new schema).
-5. **`design:accessibility-review` MANDATORY** on any scenario that introduces a new page or component.
+5. **`design:accessibility-review` MANDATORY** on any scope that introduces a new page or component.
 6. **`DEVIATIONS.md` entry MANDATORY** at the close of every ticket — even a one-line "no deviations." Empty is no longer the default.
-7. **No backlog reads.** `pipeline-build` cannot read `planning/scenarios-backlog/`. If a ticket references a scenario that is still in backlog, **stop and move the file first**. The firewall is load-bearing.
+7. **No backlog reads.** `build` cannot read `planning/scenarios-backlog/`. If a ticket references a scenario that is still in backlog, **stop and move the file first**. The firewall is load-bearing.
 8. **English-only b1.** i18n deferred to b2 entry criterion.
-9. **`pipeline-intent-check` MANDATORY** before any new ADR lands in `planning/DECISIONS.md` and before `pipeline-plan` ratifies a scenario whose system-spec changes introduced new statements matching Categories 1–8 from [`intent-audit.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; live discipline lives in the skills). Verdict CLEAN proceeds; PROPOSE proceeds with PM landing the lines; BLOCK pauses the pipeline until the load-bearing rationale lands; ESCALATE routes Category-2 candidates to `pipeline-ratify-absolute` for interactive ratification. The audit's eight categories are the bounded surface — the check does not hunt rationale outside them.
-10. **Every absolute carries a State tag.** There is no purely-categorical refusal in this project — every "Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no" carries a State-tagged `Intent` line co-located with the bullet. The tag is one of `(Ratified YYYY-MM-DD)` or `(Deferred until {trigger}; review by {horizon})`. Absence of the tag means **unratified de-facto** and blocks downstream pipeline. `pipeline-ratify-absolute` is the single skill that walks the PM through unratified absolutes, invokes the member + platform advocates on Member-shaped tension, applies the lexicographic decision rule (Gate 1: platform survival → maximize net member benefit), and lands the State-tagged Intent line.
+9. **`weigh` MANDATORY** before any new memo lands in `planning/DECISIONS.md` and before `scope` ratifies a scenario whose system-spec changes introduced new statements matching Categories 1–8 from [`intent-audit.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; live discipline lives in the `weigh` skill). Verdict CLEAN proceeds; PROPOSE proceeds with PM landing the lines; BLOCK pauses the pipeline until the load-bearing rationale lands; ESCALATE routes Category-2 candidates to `weigh`'s ratify sub-routine for interactive adjudication.
+10. **Every absolute carries a State tag.** There is no purely-categorical refusal in this project except the one named in DECISION-PATTERNS (wealth circulation over wealth extraction). Every other "Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no" carries a State-tagged `Intent` line co-located with the bullet. The tag is one of `(Ratified YYYY-MM-DD)` or `(Deferred until {trigger}; review by {horizon})`. Absence of the tag means **unratified de-facto** and blocks downstream pipeline. `weigh` is the single skill that walks the PM through unratified absolutes, runs the member + platform advocate sub-routines on Member-shaped tension, applies the lexicographic close-call rule (**member safety → platform health → member data protection → mutual benefit with reversibility**, per [`_inbox/cowork-pipeline/DECISION-PATTERNS.md`](_inbox/cowork-pipeline/DECISION-PATTERNS.md)), and lands the State-tagged Intent line.
 11. **Two gates enforce rule 10, both before code.**
-    - **Gate A — `pipeline-plan`.** A scenario cannot move from `scenarios-backlog/` to `scenarios/` if the spec sections it cites contain unratified absolutes the scenario would encode. PM runs `pipeline-ratify-absolute` on those absolutes first; then plan approves.
-    - **Gate B — `pipeline-ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes. `pipeline-ticket` stops, surfaces the unratified statements, and routes to `pipeline-ratify-absolute`. After ratification, ticketing resumes.
-    - By the time tickets reach the build agent, every absolute the code will encode already carries a Ratified or Deferred State tag with PM-approved Intent. The cheapest place to catch an unearned absolute is before code encodes it.
-12. **STAGE-LEDGER stamp MANDATORY at every pipeline-skill handoff.** Each skill (`pipeline-plan`, `pipeline-review`, `pipeline-ticket`, `pipeline-build`, `pipeline-eval`) appends or updates the relevant row in [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) as the final step of its workflow. Regressions append new dated entries rather than overwriting — round-trips (F018-shaped two-cycle reviews) must remain visible. Fulfills audit R4.
-13. **SPEC-PATCHES queue MANDATORY when build flags a spec.** Whenever `pipeline-build` writes a DEVIATIONS entry with `Disposition: flag-for-spec-revision`, it also appends an entry to [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md). `pipeline-product` drains the queue as a gate before each phase opens. Fulfills audit R5 — closes the Build → Product return loop.
-14. **Substrate-ticket lane LEGALIZED.** Tickets with no user-facing surface (schema, RLS, action-handler scaffolding, eval helpers) carry `Scenario: substrate` and bind to a system spec section + ADR(s) instead of a Given/When/Then. Full contract in `skills/pipeline-ticket/workflow.md` § Substrate lane. Fulfills audit R3 — codifies what T041–T057 did de-facto.
-15. **Drift check at every session start.** `pipeline-router` runs the audit-derived drift checklist (see its workflow step 7) — empty `scenarios/` with live ticket refs, stale BUILD-LOG bundle links, worktree shadows, oversize DEVIATIONS, `{pending}` commit hashes, retired skill dirs, stalled SPEC-PATCHES, superseded-ADR citations, stalled STAGE-LEDGER rows. Flags only — does not gate. Fulfills audit R1 (the keystone return-path mechanism).
+    - **Gate A — `scope`.** A scenario cannot move from `scenarios-backlog/` to `scenarios/` if the spec sections it cites contain unratified absolutes the scenario would encode. PM runs `weigh` on those absolutes first; then `scope` approves.
+    - **Gate B — `ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes. `ticket` stops, surfaces the unratified statements, and routes to `weigh`. After ratification, ticketing resumes.
+    - By the time tickets reach `build`, every absolute the code will encode already carries a Ratified or Deferred State tag with PM-approved Intent. The cheapest place to catch an unearned absolute is before code encodes it.
+12. **STAGE-LEDGER stamp MANDATORY at every pipeline-skill handoff.** Each skill (`scope`, `review`, `ticket`, `build`, `test`) appends or updates the relevant row in [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) as the final step of its workflow. Regressions append new dated entries rather than overwriting — round-trips (two-cycle reviews) must remain visible.
+13. **SPEC-PATCHES queue MANDATORY when build flags a spec.** Whenever `build` writes a DEVIATIONS entry with `Disposition: flag-for-spec-revision`, it also appends an entry to [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md). `explore` drains the queue as a gate before each phase opens. Closes the Build → Product return loop.
+14. **Substrate-ticket lane LEGALIZED.** Tickets with no user-facing surface (schema, RLS, action-handler scaffolding, test helpers) carry `Scenario: substrate` and bind to a system spec section + memo(s) instead of a Given/When/Then. Full contract in the `ticket` workflow § Substrate lane.
+15. **Drift check at every session start.** `orient` runs the drift checklist — empty `scenarios/` with live ticket refs, stale BUILD-LOG bundle links, worktree shadows, oversize DEVIATIONS, `{pending}` commit hashes, retired skill dirs, stalled SPEC-PATCHES, superseded-memo citations, stalled STAGE-LEDGER rows. Flags only — does not gate.
 
 ---
 
@@ -250,11 +238,23 @@ Read before working in the named area. The pipeline skills already know to read 
 
 **Branch per ticket.** Every ticket starts on its own branch — `cd web && git switch -c t{nnn}` (or in parent for parent-repo work). PM merges to `main` at ticket close. Branch name `t{nnn}` is the convention; matches the ticket number, no zero-padding.
 
-**Commits live with the PM, not the agent.** The build agent does NOT run `git add` or `git commit`. The Cowork sandbox can't reliably clean up `.git/index.lock` after git operations (see [`_attic/2026-05-19/notes/cowork-sandbox-git-bug.md`](_attic/2026-05-19/notes/cowork-sandbox-git-bug.md)), which wedges subsequent agent calls and forces the PM to intervene. Instead, the build agent ends the ticket by producing a **commit summary** — repo, branch, file list, and suggested message — and the PM runs the commit from the Mac terminal. PM then pastes back the commit hash for the agent to backfill into the ticket's Completion section.
+**Claude Code commits code — always with PM permission.** `build` ends a ticket by asking: "Ready to commit T### on branch t### with message `T###: title`? (y/n)." On `y`, `build` runs the commit. On `n`, PM amends or defers. Past pattern (PM commits everything from the Mac terminal) was a workaround for Cowork's sandbox git-lock bug; Claude Code's shell does not have that bug and should own its commits.
 
-**Lock pre-flight.** Before any read-or-write work, the build agent runs `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` before proceeding. Do not attempt to remove the lock — the sandbox lacks the permission.
+**Cowork does not commit code.** When a Cowork-side skill (`weigh`, `memo`, `explore`, `scope`, `review`, `tidy`) edits a doc in the parent repo, the skill ends by handing the PM a commit message and a `clearlock` line to run from the Mac terminal. Format:
 
-**Format.** `T{NNN}: {title}` — one-line, no body, no co-author tag. When PM commits a single file, prefer the single-call form `git commit -m "T{NNN}: {title}" path/to/file` over `git add` + `git commit` to halve the lock-acquisition window.
+```
+docs(pipeline): short description
+
+# Run from Mac terminal:
+clearlock && cd /Users/don/Projects/community && \
+  git add path/to/file && git commit -m "docs(pipeline): short description"
+```
+
+The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` files that wedge subsequent agent calls (see [`_attic/2026-05-19/notes/cowork-sandbox-git-bug.md`](_attic/2026-05-19/notes/cowork-sandbox-git-bug.md)). The skill provides the line; the PM runs it.
+
+**Lock pre-flight (Claude Code).** Before any read-or-write work, `build` runs `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` first. Do not attempt to remove the lock — the sandbox lacks the permission.
+
+**Format.** `T{NNN}: {title}` — one-line, no body, no co-author tag.
 
 **Where to commit.**
 - Working in `web/` → web repo.

@@ -6,410 +6,351 @@ status: active
 
 # AGENTS.md — Development Pipeline
 
-> Project-wide pipeline definition. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents that work across `product/`, `planning/`, `development/`, and `web/` — it is not a planning-stage concern. The 2026-05-09 pipeline audit that originally drove this definition is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md); its findings live in this file. The 2026-05-22 follow-up audit is at [`housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md`](housekeeping/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md) — findings absorbed into the pipeline on 2026-05-23.
+> Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is mirrored in [`_inbox/cowork-pipeline/`](_inbox/cowork-pipeline/) — DEV-PATTERN.md, DECISION-PATTERNS.md, README.md — which will be lifted to a separate `cowork-pipeline` GitHub repo so the same skills can run on any workstation. Historical audits (2026-05-09 and 2026-05-22) are archived under `_attic/` and `housekeeping/`; their findings are absorbed below.
 
-Seven specialized roles handle the full development lifecycle. Each is implemented as a skill in [`skills/`](skills/) and routed by `pipeline-router`. Process lives in skills, not in nested CLAUDE.md files.
+Ten skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
 
-## Pipeline Overview
+## The team in ten
+
+| Skill | Role | Tool | The one question it forces |
+|---|---|---|---|
+| `orient` | PM at session start | Cowork | What drifted since last session |
+| `explore` | Product researcher | Cowork | Whose need is this, who else is solving it |
+| `scope` | Planning / scoping | Cowork | Smallest version that proves the bet |
+| `weigh` | Tech-lead judgment call | Cowork | Which option stays reversible, who bears the cost |
+| `review` | Architecture + design + security gate | Cowork | Will it scale, is it accessible, is it safe |
+| `memo` | Decision recorder (formerly ADR) | Cowork | What rationale will future-us need |
+| `ticket` | Sequencer | Claude Code | Smallest unit with a clear done condition |
+| `test` | QA — write + run | Claude Code | Would a stranger know if this broke |
+| `build` | Engineer — TDD | Claude Code | Simplest code that passes, fastest |
+| `tidy` | Anti-sprawl sweeper | Cowork | What's stale, what folds into what |
+
+**Hard tool firewall.** Each stage runs in one tool only. No "Both." A stage that wants the other tool is a stage whose workflow has drifted — fix the workflow.
+
+**Two folded sub-routines** — not standalone skills:
+- **Security** lives inside `review` (auth, RLS, payment flow, PII surface).
+- **User-voice** lives inside `explore` (pulls from `product/needs/use-cases.md` before any new system spec).
+
+## Pipeline flow
 
 ```
-Product (dream) → Planning (filter) → Review (pre-flight, optional) ──┐
-                                                                       ├→ Build (execute) → Eval-run (verify)
-                                            Eval-write (oracle) ───────┤
-                                            Ticket (sequence) ─────────┘
+                     COWORK                                CLAUDE CODE
+                     ──────                                ───────────
+session start  →  orient
+                  explore  ←─── user-voice (sub-routine)
+                  scope
+                  weigh ──────────────────╮
+                  memo                    │  (hand-off prompt)
+                  review  ← security ─────┤
+                                          ↓
+                                                          ticket
+                                                          test  ←── parallel with ticket
+                                                          build
+                                                          (commit, with PM permission)
+                  tidy  ←────── end-of-session sweep
 ```
 
-The PM cycle is strict. Each role has one input, one output, and explicit firewalls. **Review** is optional but strongly recommended for any scenario that introduces a new surface, component, event type, or schema. **Eval-write** and **Ticket** run in parallel from the approved scenario; both feed Build.
-
-For a worked example tracing F018 through every role with real artifacts at each stage, see [`planning/history/F018-pipeline-trace.md`](planning/history/F018-pipeline-trace.md).
+`ticket` and `test` run in parallel from the same approved scope, eyes-closed to each other. That separation is what keeps the test honest. `weigh`, `memo`, `review` fire as needed between `scope` and the hand-off.
 
 ## What every gate is guarding against
 
-Every gate in this pipeline exists because under-annotated specs put downstream agents in one of two failure modes — and any gate's runner can fall into the same trap when reading the artifact in front of it.
+Two failure modes show up under-annotated specs, and any gate's runner can fall into either:
 
-1. **Over-fit on literal wording.** The spec says "no X." The agent treats the refusal as categorical when the project's stance is shape-specific ("no *impersonal* X"). Acceptance criteria over-fit to surface text rather than design intent. Tests pass for the wrong reason. Bullets in foundation docs become more rigid than the project's actual position.
-2. **Reconstruct intent and drift.** The spec says *what*. The agent guesses *why*, gets it plausibly wrong, and acts on the reconstructed intent — which then propagates downstream as if it were the spec. Over many turns, the project's actual intent and the operating intent diverge silently.
+1. **Over-fit on literal wording.** Spec says "no X." Agent treats it as categorical when the project's stance is shape-specific ("no *impersonal* X"). Tests pass for the wrong reason.
+2. **Reconstruct intent and drift.** Spec says *what*. Agent guesses *why*, gets it plausibly wrong, propagates the reconstructed intent downstream as if it were the spec.
 
-Both failure modes look like the agent doing its job. Both are caught by the same discipline: every load-bearing decision should carry its **why** alongside its **what**, and every gate's runner should read the *why* before judging the *what*. See [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F13 for the full framing and the on-2026-05-12 incident that surfaced it.
-
-## 0. Router
-
-**Skill:** `pipeline-router`
-**Model:** Claude Sonnet (orientation, no production work)
-
-**Reads:**
-- Root `CLAUDE.md`
-- `JOURNAL.md`
-- `planning/bundles/{active}.md`
-
-**Task:** Session-start orientation. Identify what the user wants and route to the right downstream skill.
+Both failure modes look like the agent doing its job. Both are caught by the same discipline: every load-bearing decision carries its **why** alongside its **what**, and every gate's runner reads the *why* before judging the *what*. See `DECISION-PATTERNS.md` § "How to spot an unearned absolute" for the State-tagged Intent line discipline.
 
 ---
 
-## 1. Product Agent
+## 0. orient
 
-**Skill:** `pipeline-product`
-**Model:** Claude Opus (creative, comprehensive)
+**Tool:** Cowork. **Model:** Sonnet.
 
-**Reads:**
-- `product/foundation/` (loops, primitives, people-first, canonical-examples)
-- `product/exploration/`
-- `product/specs/`
+**Reads:** root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/{active}.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/OPEN-QUESTIONS.md`, `web/BUILD-LOG.md`.
 
-**Writes:**
-- `product/capabilities/`
-- `product/systems/` (with mandatory "Data model implications" section)
-- `product/ui/` (consumer-facing surface descriptions)
-- `product/exploration/`
-- `product/templates/`
-- `product/needs/use-cases.md` (extends with new real situations)
+**Task:** Session-start orientation. Read state. Run the drift checklist (stale citations, empty `scenarios/` with live ticket refs, oversize DEVIATIONS, `{pending}` commit hashes, stalled SPEC-PATCHES, superseded-memo citations, stalled STAGE-LEDGER rows). Prune JOURNAL if it's heavy. Re-tag the work map if a sub-bundle closed since last session. Name the next decision. Does not act on it.
 
-**Does NOT Read:**
-- `planning/`
-- `development/`
-- `web/`
-
-**Task:** Explore unconstrained. Write tiered systems (T1/T2/T3), capabilities, product files. Refuses to prioritize, write tickets, or write scenarios — those are downstream.
+Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resync` work.
 
 ---
 
-## 2. Scenario Writer (Planning)
+## 1. explore
 
-**Skill:** `pipeline-plan`
-**Model:** Claude Opus (filter, comprehensive)
+**Tool:** Cowork. **Model:** Opus.
 
-**Reads:**
-- `product/needs/use-cases.md` (mandatory anchor)
-- `product/needs/member-journey.md`
-- `product/foundation/primitives.md`
-- `product/systems/`
-- `product/capabilities/`
-- `planning/bundles/`
+**Reads:** `product/foundation/`, `product/needs/use-cases.md` (mandatory anchor before any new spec), `product/exploration/`, `product/specs/`, `product/systems/`.
 
-**Writes:**
-- `planning/scenarios-backlog/` (PM moves approved → `planning/scenarios/`)
-- `planning/bundles/`
+**Writes:** `product/capabilities/`, `product/systems/` (with mandatory "Data model implications" section), `product/ui/`, `product/exploration/`, `product/needs/use-cases.md` (extends with new real situations).
 
-**Does NOT Read:**
-- `development/tickets/`
-- `web/`
-- `planning/scenarios/` (only for reference; never modifies)
+**Does NOT read:** `planning/`, `development/`, `web/`.
 
-**Task:** Convert systems into user-story-shaped scenarios anchored to canonical examples. Apply the 5 Deadly Sins filter (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Refuses to write tickets or explore.
-
-**Calls in:** Anthropic-provided `planning-filter` skill when ranking a sprawling backlog.
+**Task:** Explore unconstrained. Write tiered systems (T1/T2/T3), capabilities, product files. Sub-routine: user-voice — surfaces the relevant use-cases before drafting, so the spec is anchored to a real situation. Refuses to prioritize, write tickets, or write scenarios.
 
 ---
 
-## 2.5. Reviewer (Architecture + Design pre-flight)
+## 2. scope
 
-> **MANDATORY during the primitives rebuild.** Until Phase 4 of [`planning/rebuild-plan.md`](planning/rebuild-plan.md) (the rebuild plan) completes, every approved scenario goes through review. Optional only for trivial copy/CTA changes on existing surfaces. Rationale: [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F3.
+**Tool:** Cowork. **Model:** Opus.
 
-**Skill:** `pipeline-review`
-**Model:** Claude Opus (cross-system check, comprehensive)
-**Calls in:** `design:design-critique`, `design:design-system`, `design:accessibility-review` (mandatory on every new surface), `engineering:architecture` (re-evaluates ADR fit when one exists).
+**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`.
 
-**Reads:**
-- `planning/scenarios/` (the approved scenario)
-- `product/systems/`
-- `product/ui/`
-- `product/foundation/`
-- `planning/DECISIONS.md`
-- `planning/bundles/{active}.md`
+**Writes:** `planning/scenarios-backlog/` (PM moves approved → `planning/scenarios/`), `planning/bundles/`.
 
-**Writes:**
-- `planning/history/F{NNN}-review.md`
+**Does NOT read:** `development/tickets/`, `web/`, `planning/scenarios/` (read-only for reference).
 
-**Does NOT Read:**
-- `web/` (code)
-- `development/tickets/`
-- `planning/scenarios-backlog/`
+**Task:** Convert systems into user-story-shaped scenarios anchored to canonical examples. Apply the 5 Deadly Sins filter (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Surfaces the smallest version that proves the bet. Refuses to write tickets.
 
-**Task:** Architecture check (does this scenario fit existing systems? new schema/events/columns required?) + Design check (does the surface fit the design language? new components needed? CTA placement consistent?). Output: a review document with verdict **PROCEED** (continue), **REVISE** (back to plan), or **EXTEND** (back to product to extend a system or design doc).
-
-**When to invoke:** any scenario that introduces a new surface, component, event type, table, column, or design pattern. Skip for trivial additions to existing forms/pages.
+**Calls in:** `anthropic-skills:planning-filter` when ranking a sprawling backlog.
 
 ---
 
-## 3. Eval Writer (Pre-build oracle)
+## 3. weigh
 
-**Skill:** `pipeline-eval` (write mode)
-**Model:** Claude Opus (comprehensive, thorough)
+**Tool:** Cowork. **Model:** Opus.
 
-**Reads:**
-- `planning/scenarios/` (approved only)
+> Replaces and folds in the prior `pipeline-intent-check`, `pipeline-ratify-absolute`, `pipeline-member-advocate`, `pipeline-platform-advocate`. One skill, four sub-routines preserved as workflow steps: **scan** (find unannotated absolutes), **dialectic** (member vs. platform advocate bullets when tension is Member-shaped), **ratify** (apply the close-call rule from DECISION-PATTERNS), **stamp** (land the State-tagged Intent line).
 
-**Writes:**
-- `web/evals/features/F{NNN}.spec.ts` (or framework equivalent)
+**Reads:** the target file, `product/foundation/principles.md`, `product/foundation/policy.md`, related system specs, recent `JOURNAL.md` entries.
 
-**Does NOT Read:**
-- `web/` source code (no peeking at implementation)
-- `planning/scenarios-backlog/`
-- `development/tickets/`
+**Writes:** the target file directly — bullet revisions and `Intent (State YYYY-MM-DD): {why}` annotations; one `JOURNAL.md` entry per session summarizing what was ratified, deferred, or rejected.
 
-**Task:** Translate every Given/When/Then in the approved scenario into an automated test. Tests must trace line-by-line back to scenario clauses.
+**Does NOT read or write:** `web/` code, `development/tickets/`, `planning/scenarios/`.
 
-**Critical firewall:** runs *before* the build agent starts. This is what prevents teaching to test.
+**Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic rule from `_inbox/cowork-pipeline/DECISION-PATTERNS.md`:
 
----
+1. Member safety
+2. Platform health
+3. Member data protection
+4. Mutual benefit with reversibility (the default)
 
-## 4. Ticket Writer
+The single absolute — wealth circulation over wealth extraction — is invoked only when a choice would route value out of the local economy to a party not earning it. Defaults with named exceptions are preferred to absolutes everywhere else.
 
-**Skill:** `pipeline-ticket`
-**Model:** Claude Opus (systematic, clear)
-
-**Reads:**
-- `planning/scenarios/` (approved only)
-- `planning/history/F{NNN}-review.md` if it exists (the architecture + design pre-flight from `pipeline-review`)
-- `development/tickets/` and `development/tickets/done/` (for the next T-number and to learn what exists)
-- `product/systems/{relevant-system}.md` (only the "Data model implications" section)
-
-**Writes:**
-- `development/tickets/`
-
-**Does NOT Read:**
-- `planning/scenarios-backlog/`
-- `web/` (code)
-- Eval test code
-
-**Task:** Break each approved scenario into ordered, session-sized tickets (~1–3 hours, one cohesive commit each). Each ticket references exactly one scenario via `Scenario:`. If a scenario produces 5+ tickets, escalate to `pipeline-plan` to split.
-
-**Substrate lane.** Schema, RLS, action-handler scaffolding, eval helpers, and similar floor-level work have no user-facing behavior and therefore no scenario. These tickets carry `Scenario: substrate` and bind to a system-spec section + ADR(s) instead. Full contract in `skills/pipeline-ticket/workflow.md` § Substrate lane. Substrate work appears in `planning/TRACE.md` under the substrate table, parallel to F-numbered feature work. **Substrate is not a backdoor around the planner** — if a user-facing surface exists, write a scenario.
-
----
-
-## 5. Build Agent
-
-**Skill:** `pipeline-build`
-**Model:** Claude Sonnet (fast, execution-focused)
-
-**Reads:**
-- `development/tickets/`
-- `planning/scenarios/` (the scenario the ticket references)
-- `product/systems/{name}.md` (Data model implications only)
-- `product/ui/design-language.md` (for any UI work)
-- `web/` (code, tests)
-
-**Writes:**
-- `web/` (code and tests)
-- `development/tickets/` (Completion section, then move to `done/`)
-- `BUILD-LOG.md`
-
-**Does NOT Read:**
-- `planning/scenarios-backlog/` (not approved — prevents teaching to test)
-- `product/` outside the system spec referenced by the ticket
-- Eval test code (write mode evals are an external oracle; build writes its own unit tests)
-
-**Task:** Implement one ticket at a time via TDD (red → green → refactor). Never roll back; fix forward. Escalate ambiguity to `pipeline-plan`. Does NOT write tickets — `pipeline-ticket` does.
-
-**Mandatory at ticket close** (see [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) F8/F9):
-- Append a single-line entry to `development/DEVIATIONS.md` — even "no deviations." Empty is no longer the default.
-- Update `web/BUILD-LOG.md` with current ticket status.
-- Run `engineering:code-review` on the diff before invoking `pipeline-eval` (run mode). This is the M2 solo-team multiplier.
-
-**Calls in:** Anthropic-provided `docx`, `pptx`, `xlsx`, `pdf` skills when the deliverable is a non-code file. `engineering:debug` during reproduction. `engineering:code-review` mandatory before eval-run.
-
----
-
-## 6. Eval Runner
-
-**Skill:** `pipeline-eval` (run mode)
-**Model:** Claude Opus (comprehensive, thorough)
-
-**Reads:**
-- `web/evals/`
-- `web/evals/results/`
-- `planning/scenarios/` (for traceability)
-
-**Writes:**
-- `web/evals/results/`
-
-**Task:** Run F### evals after build, report pass/fail per Given/When/Then clause. On fail, hand back to `pipeline-build` to fix forward. On scenario-is-wrong, hand back to `pipeline-plan`. Does NOT fix failing tests.
-
----
-
-## Meta. Member / Platform Dialectic (Adversarial reasoning for tension-shaped decisions)
-
-> Paired skills invoked by `pipeline-ratify-absolute` when an absolute touches member-vs-platform tension surfaces (data collection / privacy, visibility defaults, monetization shape, agent permissions, moderation severity, signal availability). The PM adjudicates.
-
-**Skills:** `pipeline-member-advocate` + `pipeline-platform-advocate`
-**Model:** Claude Opus (cross-spec read, adversarial framing)
-**Output:** one bullet (1–2 sentences) per advocate by default; expansion to 150–250 word position paper on PM request.
-
-**`pipeline-member-advocate` lens:** P1 (well-being), P3 (no externalities), P6 (default-private), P7 (built so bad actors fail). Argues for the Member's interest — minimum data collection, maximum opt-out, refusal of attention-exploitation or social-comparison surfaces, protection from bad members.
-
-**`pipeline-platform-advocate` lens:** P5 (federated), P8 (agent-native), platform utility AND financial durability. Carries the no-VC commitment and the multi-source-revenue-early-on imperative as equal weights with utility. Not "platform first, members second" — argues for what the platform needs in order to keep serving Members.
-
-**Reads:**
-- The target statement + surrounding context
-- `product/foundation/` (especially `principles.md`, `policy.md`, `principles.md`)
-- For platform-advocate also: `product/systems/payments.md`, `producer-tools.md`, `business-jurisdiction.md`
-- For member-advocate also: relevant scenario(s) or canonical examples that involve the surface at stake
-
-**Writes:** nothing by default. Output is consumed inline by `pipeline-ratify-absolute` (or directly by the PM).
-
-**When to invoke:**
-- `pipeline-ratify-absolute` detects Member-shaped tension on a statement and calls both advocates as sub-skills.
-- PM says "run the dialectic on this statement" / "what's the Member view" / "what's the platform view."
-
-**The contract.** Always invoked together — never one without the other. The PM reads both bullets, adjudicates, optionally requests expansion on one or both sides before deciding.
-
----
-
-## Meta. Ratify Absolute (Single adjudicator for unratified absolutes)
-
-> **MANDATORY during the primitives rebuild** at two gates and out-of-band on every absolute-language statement ("Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no") in any foundation doc, system spec, or ADR. There is no purely-categorical refusal in this project — every absolute carries a State-tagged `Intent` line co-located with the bullet, or it blocks downstream pipeline. This skill is the single adjudicator that lands the State tag.
-
-**Skill:** `pipeline-ratify-absolute` (folds in and replaces both `pipeline-clarify-absolutes` and `pipeline-review-absolute`, retired 2026-05-19)
-**Model:** Claude Opus (cross-spec read, rule application, careful PM ratification)
-**Calls in:** `pipeline-member-advocate` and `pipeline-platform-advocate` (always both — never short-circuits one) on every statement with Member-shaped tension.
-
-**The State marker.** Co-located with every absolute, exactly one line encodes its state:
+**The State marker.** Co-located with every absolute:
 
 | Line in spec | State |
 |---|---|
-| No `Intent:` line | **Unratified de-facto** — blocks Gates A and B |
-| `Intent: {why}` (no parenthetical tag) | **Drafted, not yet adjudicated** — blocks Gates A and B |
-| `Intent (Ratified YYYY-MM-DD): {why}` | **Terminal-ratified** — downstream relies on the Intent |
-| `Intent (Deferred until {trigger}; review by {horizon}): {interim posture}` | **Terminal-deferred** — current default until trigger fires |
+| No `Intent:` line | Unratified de-facto — blocks Gate A and Gate B |
+| `Intent: {why}` (no parenthetical) | Drafted, not adjudicated — blocks Gate A and Gate B |
+| `Intent (Ratified YYYY-MM-DD): {why}` | Terminal-ratified |
+| `Intent (Deferred until {trigger}; review by {horizon}): {posture}` | Terminal-deferred |
 
-Rejected absolutes are deleted from the spec; the JOURNAL entry records the removal.
+Rejected absolutes are deleted; the JOURNAL records the removal.
 
-**Reads:**
-- The target file (foundation doc / system spec / ADR / planning doc)
-- `product/foundation/*.md` (especially `principles.md`, `policy.md`, `principles.md`)
-- Related foundation/system docs for cross-spec context
-- Recent `JOURNAL.md` entries (≤30 days) for related ratifications
-- [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; Category 2 in particular — the live framing lives in this skill)
-- `planning/DECISIONS.md` when an ADR is the absolute's source of truth
+**Two gates `weigh` backstops:**
+- **Gate A — `scope`.** A scenario cannot move from `scenarios-backlog/` to `scenarios/` if the spec sections it cites contain unratified absolutes the scenario would encode.
+- **Gate B — `ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes.
 
-**Writes:**
-- The target file directly: bullet text revisions (only when original wording is misleading or fails Gate 1) + `Intent (State YYYY-MM-DD): {why}` annotations (always, on every ratified statement)
-- For Rejected outcomes: removes the bullet entirely
-- One `JOURNAL.md` entry per session summarizing what was ratified / deferred / rejected, with `file:line` pointers
-
-**Does NOT Read or Write:**
-- `web/` (code) — the absolute is being judged before code, not against it
-- `development/tickets/` — ticketing is paused while this skill runs
-- `planning/scenarios/` or `planning/scenarios-backlog/` — cannot reshape scenarios
-
-**Task:** Walk the PM through each unratified absolute, one statement at a time. Detect tension shape (Member-vs-platform | One-Member-vs-many-Members | None). On Member-shaped tension, invoke both advocates and surface their bullets. Apply the lexicographic decision rule — **Gate 1** (platform survival — hard fail blocks Ratify and blocks Defer) then **Maximization** (net member benefit with neither lens taking significant unrecoverable harm). Recommend one outcome (Ratify | Revise | Defer | Reject). Deferral requires observable + specific + bounded trigger and review horizon. Ratify via AskUserQuestion per statement; land the State-tagged Intent directly to the source file.
-
-**The two gates this skill backstops:**
-- **Gate A — `pipeline-plan`.** A scenario cannot move from `scenarios-backlog/` to `scenarios/` if the spec sections it cites contain unratified absolutes the scenario would encode. PM runs this skill on those absolutes first; then plan approves.
-- **Gate B — `pipeline-ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes. `pipeline-ticket` stops, surfaces the unratified statements, and routes to this skill.
-
-**When to invoke:**
-- Gate A or Gate B fails — invoked by the gate caller
-- PM says "ratify the absolutes in {file}" / "review every never-statement" / "audit our absolutes" / "is this earned" / "decide or defer on X" / "every absolute needs Intent"
-- `pipeline-intent-check`'s ESCALATE verdict flagged Category-2 candidates
-- A new ADR or system spec contains absolute-language refusals and is about to be merged — ratify before merging
-
-**Hard constraints:**
-- **Skip-if-ratified.** Statements already carrying `Intent (Ratified ...)` or `Intent (Deferred ...)` are skipped; surface count to PM at start
-- **No batch landing.** Per-statement walk only; PM ratifies each before moving to the next
-- **No scalar scores.** Surface tension texture, not numbers
-- **No deferral without observable trigger + bounded review horizon.** "Decide later" is a punt
-- **No Gate-1 deferral.** Survival-failing absolutes must be Revised or Rejected, never Deferred
-- **Never short-circuit an advocate.** Both bullets must exist before the rule applies, on every Member-shaped tension
-- **PM adjudicates.** Skill recommends; PM ratifies. Override permitted with cause logged.
+**Hard constraints:** skip-if-ratified; no batch landing (per-statement walk); no scalar scores; no deferral without observable trigger + bounded review horizon; no Gate-1 deferral (safety-failing absolutes are revised or rejected, never deferred); both advocates run on Member-shaped tension or neither does; PM adjudicates (override permitted with cause logged).
 
 ---
 
-## Meta. Intent Check (Out-of-band quality gate)
+## 4. review
 
-> **MANDATORY during the primitives rebuild** before a new ADR lands in `planning/DECISIONS.md` and before `pipeline-plan` ratifies any scenario whose system-spec changes added Category-1–8 statements per the [archived intent audit](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (live discipline encoded in this skill).
+**Tool:** Cowork. **Model:** Opus.
 
-**Skill:** `pipeline-intent-check`
-**Model:** Claude Opus (cross-spec read, conservative flagging)
+> Mandatory during the primitives rebuild on any scope that introduces a new surface, component, event type, table, column, or design pattern. Optional only for trivial copy/CTA changes.
 
-**Reads:**
-- The target file(s): `product/foundation/*.md`, `product/systems/*.md`, or `planning/DECISIONS.md` ADR text
-- [`_attic/2026-05-19/planning/intent-audit-2026-05-12.md`](_attic/2026-05-19/planning/intent-audit-2026-05-12.md) (archived; the eight categories — encoded directly in this skill's workflow)
+**Reads:** `planning/scenarios/` (the approved scope), `product/systems/`, `product/ui/`, `product/foundation/`, `planning/DECISIONS.md`, `planning/bundles/{active}.md`.
 
-**Writes:**
-- `planning/history/intent-{target}-{YYYY-MM-DD}.md`
+**Writes:** `planning/history/F{NNN}-review.md`.
 
-**Does NOT Read or Write:**
-- `web/` (code)
-- `development/tickets/`
-- `planning/scenarios/` or `planning/scenarios-backlog/` (scenarios carry acceptance criteria, not Intent annotations)
-- The target file itself is not edited; this skill flags + proposes shapes only.
+**Does NOT read:** `web/` code, `development/tickets/`, `planning/scenarios-backlog/`.
 
-**Task:** Verify that statements matching the eight Category shapes (per the [archived intent audit](_attic/2026-05-19/planning/intent-audit-2026-05-12.md), encoded in this skill's workflow §2) carry substantive `Intent:` annotations. Verdicts: **CLEAN** (zero misses), **PROPOSE** (PM lands the proposed lines, pipeline proceeds), **BLOCK** (load-bearing rationale missing on a refusal / schema-level commitment / cross-doc commitment whose local scope is unclear; pipeline pauses).
+**Task:** Three sub-routines in one skill:
+- **Architecture** — does this fit existing systems? Does it need new schema, events, or columns? Calls in `engineering:architecture`.
+- **Design** — does the surface fit the design language? Calls in `design:design-critique`, `design:design-system`, `design:accessibility-review` (mandatory on every new surface — M3 gate).
+- **Security** — auth, RLS, payment flow, PII surface. Catches issues that turn into incidents post-launch.
 
-**When to invoke:** any new ADR, any new system spec, any foundation-doc change that introduces a refusal / numeric threshold / naming split / tier deferral / cross-doc commitment. Out-of-band; does not run during an open pipeline phase.
+Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), **EXTEND** (back to explore).
 
 ---
 
-## Meta. Bundle Resync (Closed loop between build reality and the roadmap)
+## 5. memo
 
-> **Recommended at every sub-bundle close** and **mandatory** after any DEVIATIONS.md entry that names a work-map item. The map is allowed to be wrong; pretending it isn't is the failure mode.
+**Tool:** Cowork. **Model:** Sonnet.
 
-**Skill:** `pipeline-bundle-resync`
-**Model:** Claude Sonnet (audit + propose; conservative on structural edits)
+**Reads:** `planning/DECISIONS.md`, `planning/memos/`, related system specs.
 
-**Reads:**
-- `web/BUILD-LOG.md`
-- `development/tickets/done/` (the just-closed sub-bundle's tickets)
-- `development/DEVIATIONS.md`
-- `JOURNAL.md` (last 4 weeks)
-- `planning/scenarios/F*.md` (active sub-bundle only)
-- `planning/bundles/{active}.md`, `planning/bundles/bundle-themes.md`, `planning/bundles/b{N}-work-map.md`
-- `planning/DECISIONS.md` (header status only — does not edit)
+**Writes:** `planning/memos/{NNNN}-{slug}.md`, indexed from `planning/DECISIONS.md`.
 
-**Writes:**
-- `planning/bundles/bundle-themes.md` (re-tag / re-sequence)
-- `planning/bundles/b{N}-work-map.md` (re-tag / add proposed entries)
-- One `JOURNAL.md` entry per run
+**Task:** Write a one-pager decision memo when the scope encodes a cross-cutting commitment: schema, event contract, money flow, naming convention, removal of a Member-visible affordance. Each memo carries a **Reversibility** section explicitly stating what it would take to undo and what would have to be true for that to be worth doing. If the answer is "rebuild from scratch," the memo is sent back for more scrutiny before landing.
 
-**Does NOT Read or Write:**
-- `product/` — the resync never invents scope.
-- `web/` (code) beyond `BUILD-LOG.md`.
-- Scenarios or tickets — those flow back through `pipeline-plan` / `pipeline-ticket` if the resync produces an EXPAND.
+**Format and lifecycle:** see `planning/memos/README.md`. Memo numbering continues the prior ADR sequence — ADR-1 through ADR-23 remain canonical references; memo-0024 onward uses the new shape.
 
-**Task:** Compare the work the just-closed sub-bundle was predicted to ship (per `b{N}-work-map.md`) to what actually shipped (per BUILD-LOG, done-tickets, DEVIATIONS). Diagnose drift as RE-TAG, RE-SEQUENCE, EXPAND, or ESCALATE. Apply non-structural edits directly; route structural drift to `pipeline-adr` / `pipeline-product` / `pipeline-plan`. CLEAN is a common and correct verdict.
+---
 
-**Verdicts:** CLEAN | RE-TAG | RE-SEQUENCE | EXPAND | ESCALATE.
+## 6. ticket
 
-**When to invoke:**
-- At every sub-bundle close (PM-initiated).
-- Mandatory after any DEVIATIONS.md entry referencing a work-map item.
-- PM says "resync the work map" / "what's drifted" / "did anything shift after T###" / "scope sync" / "did the menu change."
+**Tool:** Claude Code. **Model:** Opus.
+
+> Was previously Both; now Claude Code only. Reasoning: tickets are immediately handed to `build`, and Claude Code owns the repo and git operations. No round-trip back to Cowork.
+
+**Reads:** `planning/scenarios/` (approved only), `planning/history/F{NNN}-review.md` if it exists, `development/tickets/` and `done/` (for next T-number), `product/systems/{relevant}.md` ("Data model implications" only).
+
+**Writes:** `development/tickets/`.
+
+**Does NOT read:** `planning/scenarios-backlog/`, `web/` code, eval test code.
+
+**Task:** Break each approved scope into ordered, session-sized tickets (~1–3 hours, one cohesive commit each). Each ticket references exactly one scenario via `Scenario:`. If a scope produces 5+ tickets, escalate back to `scope` to split.
+
+**Substrate lane.** Schema, RLS, action-handler scaffolding, eval helpers — floor-level work with no user-facing behavior — carries `Scenario: substrate` and binds to a system-spec section + memo(s) instead. Substrate is not a backdoor around the planner; if a user-facing surface exists, write a scenario.
+
+---
+
+## 7. test
+
+**Tool:** Claude Code. **Model:** Opus.
+
+**Reads (write mode):** `planning/scenarios/` only. **Reads (run mode):** `web/evals/`, `web/evals/results/`, `planning/scenarios/` for traceability.
+
+**Writes:** `web/evals/features/F{NNN}.spec.ts` (write mode); `web/evals/results/` (run mode).
+
+**Does NOT read:** `web/` source code (write mode — no peeking at implementation), `planning/scenarios-backlog/`, `development/tickets/`.
+
+**Task:** Two modes.
+- **Write:** translate every Given/When/Then in the approved scope into an automated test. Tests trace line-by-line back to scope clauses. Runs *before* `build` starts — this is what prevents teaching to test.
+- **Run:** execute the F### evals after build. Report pass/fail per Given/When/Then clause. On fail, hand back to `build` (fix forward). On scenario-is-wrong, hand back to `scope`. Does not fix failing tests.
+
+---
+
+## 8. build
+
+**Tool:** Claude Code. **Model:** Sonnet.
+
+**Reads:** `development/tickets/`, `planning/scenarios/` (the referenced scope), `product/systems/{name}.md` ("Data model implications" only), `product/ui/design-language.md` (for any UI work), `web/` code and tests.
+
+**Writes:** `web/` code and tests, `development/tickets/` (Completion section, then move to `done/`), `web/BUILD-LOG.md`.
+
+**Does NOT read:** `planning/scenarios-backlog/`, `product/` outside the system spec referenced by the ticket, eval test code (write-mode evals are an external oracle).
+
+**Task:** Implement one ticket at a time via TDD (red → green → refactor). Never roll back; fix forward. Escalate ambiguity to `scope`.
+
+**Mandatory at ticket close:**
+- Run `engineering:code-review` on the diff. This is the **M2 gate, and it fires *before* the commit** — past mistake was committing first and reviewing after, which produced amend churn or a second fix-forward commit per ticket.
+- Append a single-line entry to `development/DEVIATIONS.md` — even "no deviations." Empty is no longer the default.
+- Update `web/BUILD-LOG.md`.
+- **Ask PM permission to commit.** Format: `T###: short title` — one line, no body, no co-author. On y, `build` runs the commit. On n, PM amends or defers. Paste hash back into the ticket's Completion section.
+
+**Calls in:** `engineering:code-review` (mandatory pre-commit), `engineering:debug` during reproduction, `anthropic-skills:docx/pptx/xlsx/pdf` when the deliverable is a non-code file.
+
+---
+
+## 9. tidy
+
+**Tool:** Cowork. **Model:** Sonnet.
+
+> Replaces and folds in the prior `doc-home-finder`, `doc-housekeeping`, `skills-housekeeping`. Three modes inside one skill.
+
+**Reads:** `_inbox/`, `_attic/`, root-level `.md` files, `skills/` (or `~/.claude/skills/`), `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`.
+
+**Writes:** moves files between `_inbox/` → proper home, into `_attic/YYYY-MM-DD/` on retirement, JOURNAL entries summarizing the sweep.
+
+**Task:** Three modes.
+- **Triage-inbox** — drain `_inbox/`, give each file a home, name it per the file-and-directory conventions in `CLAUDE.md`.
+- **Sweep-docs** — propagation check, find stale references (e.g., F018 still cited as flagship despite deferral), rotate oversize DEVIATIONS at phase boundaries, archive retired specs.
+- **Sweep-skills** — check the `skills/` directory: are all listed skills still active? Has any skill not fired in three bundles (candidate for demotion to sub-routine)? Has any sub-routine earned standalone status?
 
 ---
 
 ## PM Workflow
 
 ```
-1. "Write/extend system for X"               → pipeline-product
-2. "Write scenarios for F###"                → pipeline-plan
-3. PM reviews, moves to planning/scenarios/  (manual; or pipeline-plan on instruction)
-4. "Review F###"                             → pipeline-review (optional)
-   On EXTEND: → pipeline-product, then re-review.
-   On REVISE: → pipeline-plan, then re-review.
-   On PROCEED: continue.
-5. "Write evals for F###"                    → pipeline-eval (write mode)
-6. "Write tickets for F###"                  → pipeline-ticket
-   (steps 5 and 6 run in parallel from the approved scenario)
-7. "Implement T###"                          → pipeline-build
-8. "Run evals for F###"                      → pipeline-eval (run mode)
-9. On pass: PM picks next.
-   On fail: pipeline-build fixes forward.
-   On scenario-is-wrong: pipeline-plan revises; cycle restarts at step 4.
+1. "what's the state"                  → orient
+2. "explore X" / "write a system for"  → explore
+3. "scenarios for X"                   → scope
+4. PM reviews; moves approved → planning/scenarios/ (or scope does on instruction)
+5. "weigh: is this close?" / "ratify"  → weigh  (Gate A — backstops scope)
+6. "review F###"                       → review
+   EXTEND → back to explore, re-review.
+   REVISE → back to scope, re-review.
+   PROCEED → continue.
+7. "memo this decision"                → memo  (when scope encodes a cross-cutting commitment)
+8. (handoff to Claude Code)
+9. "tickets for F###"                  → ticket  (Gate B — backstops ticket)
+10. "tests for F###"                   → test (write)   ┐
+11. "implement T###"                   → build          │ steps 10 + 11 parallel
+12. "commit T###"                      → build asks PM  │
+13. "run F### tests"                   → test (run)
+14. On pass: PM picks next.
+    On fail: build fixes forward.
+    On scenario-is-wrong: scope revises; cycle restarts at step 5.
+15. "tidy / sweep / housekeeping"      → tidy   (end of session, end of bundle)
 ```
 
-**Key invariant:** evals are *written* before build (step 5) and *run* after build (step 8). The split is what makes the pipeline trustworthy. The review stage (step 4) prevents architectural and design drift from sneaking into the build stage.
+**Key invariants:**
+- Tests are **written** before build (step 10) and **run** after build (step 13). Eyes-closed in between.
+- `review` fires before any new surface reaches `ticket`.
+- Code review (M2) fires before the commit, not after.
+- Cowork never commits code. Claude Code commits code, always with PM permission.
 
 ---
 
-## Escalation Contacts
+## Commit choreography
 
-- **Product questions** → escalate to `pipeline-product` (via PM).
-- **Spec ambiguity** → flag in `development/DEVIATIONS.md` and escalate to `pipeline-plan`.
-- **Architecture / design drift suspected** → `pipeline-review`.
-- **Reprioritization** → escalate to `pipeline-plan`.
-- **Feature redesign** → escalate to `pipeline-plan` → `pipeline-product`.
-- **Eval failure that requires scenario change** → `pipeline-plan` revises; cycle restarts at review.
-- **Migration / auth / RLS change** → consider invoking Anthropic's `security-review` skill before commit (build agent).
-- **Non-code deliverables** (report, deck, spreadsheet, PDF) → build agent invokes the matching Anthropic skill (`docx`, `pptx`, `xlsx`, `pdf`).
+**Claude Code commits code.** Always asks first.
+
+Format: `T###: short title` — one line, no body, no co-author tag.
+
+Where:
+- Web/app changes → `web/` repo.
+- Pipeline/spec/docs in this project → parent repo.
+- Pipeline-doc changes (CLAUDE.md, AGENTS.md, MAP, TRACE, REGISTRY, skill workflows) → parent repo with `docs(pipeline): …` — no T-number.
+
+Never cross-commit (no staging files from both repos in one commit).
+
+**Cowork does not commit code.** When `weigh`, `memo`, `explore`, `scope`, `review`, or `tidy` edits a doc in the parent repo, Cowork produces a commit message and a `clearlock` line for the PM to run from the Mac terminal. Format:
+
+```
+docs(pipeline): short description
+
+# Run from Mac terminal:
+clearlock && cd /Users/don/Projects/community && \
+  git add path/to/file && git commit -m "docs(pipeline): short description"
+```
+
+The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` files that wedge subsequent git operations. The skill ends with the message; the PM runs it.
+
+**Lock pre-flight (Claude Code only).** Before any read-or-write work, `build` runs `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` from the Mac terminal before proceeding. Do not attempt to remove the lock — the sandbox lacks the permission.
+
+---
+
+## Solo-team multiplier gates (M1–M4)
+
+| Gate | What | When | Mandatory? |
+|---|---|---|---|
+| **M1** | Architecture / system-design check | Inside `review` | Any scope introducing new schema, event, or component |
+| **M2** | Code review | Inside `build`, **before** the commit | Every shipped ticket |
+| **M3** | Accessibility | Inside `review` | Every new page or component |
+| **M4** | Deploy checklist | Before any merge to main | Every release touching the migration path |
+
+Plugin skills invoked at each: `engineering:architecture` + `engineering:system-design` (M1), `engineering:code-review` (M2), `design:accessibility-review` (M3), `engineering:deploy-checklist` (M4). See [`skills/EXTERNAL-SKILLS.md`](skills/EXTERNAL-SKILLS.md).
+
+---
+
+## Escalation contacts
+
+- **Product questions** → `explore` (via PM).
+- **Spec ambiguity** → flag in `development/DEVIATIONS.md`, escalate to `scope`.
+- **Architecture / design drift suspected** → `review`.
+- **Reprioritization** → `scope`.
+- **Feature redesign** → `scope` → `explore`.
+- **Test failure that requires scope change** → `scope` revises; cycle restarts at step 6.
+- **Migration / auth / RLS change** → `review` runs security sub-routine before `ticket`; Anthropic's `security-review` skill optional before commit (build).
+- **Non-code deliverables** (report, deck, spreadsheet, PDF) → build invokes `anthropic-skills:docx/pptx/xlsx/pdf`.
+- **Close-call decision** → `weigh` (applies the lexicographic rule; see DECISION-PATTERNS).
+
+---
+
+## Bundle wrap-up
+
+After each bundle ships, run a one-session wrap-up. Produces `planning/bundles/b{N}-wrapup.md`, ~3–5 pages:
+
+- **Decisions kept** — one paragraph per ratified memo, with a pointer.
+- **Decisions deferred** — what got punted to the next bundle and why.
+- **Open questions for b{N+1}** — what the next bundle has to answer.
+- **What didn't work** — anti-patterns surfaced this bundle, folded into DEV-PATTERN.md § Anti-patterns.
+
+After the wrap-up lands, the next bundle reads only the wrap-up plus active specs. Old memos remain in `planning/memos/` as historical record; nothing references them by default. STAGE-LEDGER and SPEC-PATCHES archives per bundle, not carried forward.
+
+This is the doc-fatigue fix: instead of carrying 18+ ADRs and a 200-line STAGE-LEDGER forward into every subsequent bundle, b2 inherits a synthesized brief.
