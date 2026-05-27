@@ -83,9 +83,11 @@ A separate set of rules from entity naming — these govern *where docs live* an
 | Scenario | `F###-{slug}.md` | `F018-brian-declares-run-club.md` | `planning/scenarios-backlog/` (draft) → `planning/scenarios/` (approved) |
 | Review | `F###-review.md` (or `intent-{slug}-{date}.md` for intent-checks) | `F018-review.md` | `planning/reviews/` (active dir; older reviews archived to `_attic/`) |
 | Ticket | `T###-{slug}.md` (no zero-padding) | `T056-items-state-enum.md` | `development/tickets/` (open) → `development/tickets/done/` |
-| Bundle | `b{N}-{slug}.md` or `b{N}.{x}-{slug}.md` | `b1-primitives.md` | `planning/bundles/` (active) → `planning/bundles/done/` (complete) |
-| Dated work product | `housekeeping/YYYY-MM-DD-{slug}/` (in-flight) → `_attic/{date}/{slug}/` (archived on close) | `housekeeping/2026-MM-DD-{slug}/` | `housekeeping/` |
-| Retired spec | `_attic/YYYY-MM-DD/{original-path}` | `_attic/2026-05-19/product-systems/community.md` | `_attic/` |
+| Bundle plan | `b{N}-{slug}-plan.md` | `b1-primitives-plan.md` | `planning/bundles/` (`status: active`) → `_attic/YYYY-MM-DD-{slug}/` (or `_attic/YYYY-MM-DD-vN-{slug}/` if shipped a user-visible version) |
+| Bundle phase / artifact | `b{N}[.{x}]-{slug}-{kind}.md` — kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`} | `b1.0-foundation-sprint.md`, `b1-primitives-work-map.md`, `b1-primitives-wrapup.md` | `planning/bundles/` (archives with parent bundle) |
+| Dated work product | `housekeeping/YYYY-MM-DD-{slug}/` (in-flight) → `_attic/YYYY-MM-DD-{slug}/` (archived on close) | `housekeeping/2026-MM-DD-{slug}/` | `housekeeping/` |
+| Retired spec | `_attic/YYYY-MM-DD-{slug}/` with `retired_from:` in frontmatter for provenance (legacy entries under `_attic/YYYY-MM-DD/{original-path}` grandfathered) | `_attic/2026-05-27-community-spec/community.md` | `_attic/` |
+| Shipped-version release doc | `RELEASE.md` at root of `_attic/YYYY-MM-DD-vN-{slug}/` + one line per version in `planning/RELEASES.md` | `_attic/2026-MM-DD-v1-primitives/RELEASE.md` | `_attic/` + `planning/` |
 | Untriaged | `_inbox/{name}.{ext}` | `_inbox/some-draft.md` | `_inbox/` |
 | Audit | `pipeline-process-audit-YYYY-MM-DD.md` (named at root during the audit; **moved to `housekeeping/YYYY-MM-DD-{slug}/` on absorption, then to `_attic/{date}/` on close**) | `pipeline-process-audit-2026-05-22.md` | (transient at root) |
 | Pipeline meta (process docs about how to build) | `meta/{slug}/` | `meta/cowork-pipeline/` | `meta/` |
@@ -94,10 +96,11 @@ A separate set of rules from entity naming — these govern *where docs live* an
 ### Anti-sprawl rules
 
 1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
-2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `tidy` enforces.
+2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `tidy` enforces. Bundle files additionally carry the kind suffix in the filename — together with `status`, they replace dir-based state tracking. Pattern + lifecycle in [`meta/cowork-pipeline/DEV-PATTERN.md`](meta/cowork-pipeline/DEV-PATTERN.md) § The bundle lifecycle.
 3. **One doc, one home.** If a new doc would overlap 70%+ with an existing one, fold it in rather than stand it up. `doc-home-finder` recommends.
-4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally.
+4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally. Shipped-version archives prefix the slug with `vN-`: `_attic/YYYY-MM-DD-v1-primitives/`.
 5. **Renames break cites.** Do not rename a live doc casually — `tidy` proposes, PM ratifies, the same skill updates back-references.
+6. **Archive shape is unified.** Everything that retires moves to `_attic/YYYY-MM-DD-{slug}/`. Shipped bundles use `_attic/YYYY-MM-DD-vN-{slug}/`. Provenance lives in frontmatter (`retired_from:` for retired specs; bundle artifacts inherit context from their parent plan). Legacy `_attic/YYYY-MM-DD/{original-path}` entries are grandfathered — do not retroactively reshape. `planning/bundles/done/` is retired in favor of `status: done` + archival to `_attic/`.
 
 ---
 

@@ -108,16 +108,73 @@ M2 runs **before** the commit. Past mistake: committing first, then running M2, 
 
 ---
 
+## The bundle lifecycle — how a package of work moves through
+
+A bundle is a package of work in flight: scope, sequencing, execution, ship. Lives in `planning/bundles/` until shipped, then archives to `_attic/`. Every bundle file carries a kind suffix in its filename and a status in its frontmatter — together they replace dir-based state tracking. `planning/bundles/done/` retires.
+
+**Filename kind suffixes.** Borrowed from agile/PM vocabulary that already has loaded meaning — the suffix tells Claude Code (and you, grepping) what kind of work the file holds without opening it.
+
+| Suffix | Meaning |
+|---|---|
+| `-plan` | Forward-looking scope, what we're going to do |
+| `-sprint` | Time-bounded execution chunk, tickets attached |
+| `-work-map` | Scope inventory, what's in vs out (the menu) |
+| `-audit` | Retrospective or process review |
+| `-rebuild` | Phased reconstruction (special-case plan) |
+| `-wrapup` | End-of-bundle synthesis (see next section) |
+
+**Frontmatter state.** The `status` field tells you where the file is in its lifecycle.
+
+- `status: planned` — exists, no tickets yet
+- `status: active` — tickets being drafted or built
+- `status: done` — all tickets shipped, PM ratified
+
+**File shape.** A bundle has one plan + zero-or-more phase docs sharing the bundle ID.
+
+- Parent: `bN-{slug}-plan.md`
+- Phases: `bN.x-{slug}-{kind}.md` (e.g., `b1.0-foundation-sprint.md`, `b1-primitives-work-map.md`)
+
+Phases move through `planned → active → done` independently. You don't have to finish phase 1 before drafting phase 2. Some bundles keep all phases inline in the plan (e.g., `rebuild-plan.md`) — per-doc judgment, both shapes are legal.
+
+**Lifecycle stages.**
+
+1. Cowork drafts `bN-{slug}-plan.md` with `status: planned`.
+2. PM ratifies → `status: active`. Phase docs created as needed.
+3. Each phase doc moves `planned → active → done` independently.
+4. When all phases are `status: done`, run the bundle wrap-up (next section).
+5. `tidy` archives the whole bundle to `_attic/YYYY-MM-DD-{slug}/` — or `_attic/YYYY-MM-DD-vN-{slug}/` if the bundle shipped a user-visible version.
+6. `orient` surfaces active bundles + active phase docs at session start.
+
+**Lookup — the trackability lever.**
+
+- "What bundles are active?" → `grep -l 'status: active' planning/bundles/*-plan.md`
+- "What sprints are open?" → `grep -l 'status: active' planning/bundles/*-sprint.md`
+- "What's pending?" → `orient` lists `status: planned` and `status: active` at session start, by age.
+
+**Bundle vs version — the rename on ship.** "Bundle" is the provisional name for a package of work in flight. "Version" is the durable name for a shipped release. The rename happens once, at ship, encoded by the archive directory name.
+
+- In flight: `planning/bundles/b1-primitives-plan.md`
+- On ship to production: archives to `_attic/YYYY-MM-DD-v1-primitives/` (the directory name carries the version identifier; all bundle files preserved inside).
+- Non-shipping bundles (substrate sprints, audits, internal-only work) archive without the `v` prefix: `_attic/YYYY-MM-DD-{slug}/`.
+
+The `v` prefix is reserved for bundles that ship a user-visible release. Distinguishes "we did work" from "we shipped a version." Reference summaries and any doc citing the shipped bundle use the `vN` name from that point on.
+
+**Release indexing.** Each shipped version writes a `RELEASE.md` at the root of its archive directory — the inline doc, narrative of what shipped, what didn't, what changed mid-flight. `planning/RELEASES.md` carries the indexed list: one line per shipped version + link to the inline release doc. `tidy` drafts both at archival time using the plan + ticket history + DEVIATIONS; PM ratifies before close.
+
+**Commit-time clarity.** When `build` commits a ticket tied to a phase doc, the commit message can cite the phase by its slug (`T067: foo (b1.x-substrate-sprint)`). The kind suffix tells the git log what scope this ticket is in.
+
+---
+
 ## The bundle wrap-up — replacing doc fatigue
 
-After each bundle ships, run a one-session wrap-up. Produces `planning/bundles/b{N}-wrapup.md`, ~3–5 pages:
+After each bundle ships, run a one-session wrap-up. Produces `planning/bundles/b{N}-{slug}-wrapup.md`, ~3–5 pages:
 
 - **Decisions kept** — one paragraph per ratified memo, with a pointer to the source.
 - **Decisions deferred** — what got punted to the next bundle and why.
 - **Open questions for b{N+1}** — the things the next bundle has to answer.
 - **What didn't work** — anti-patterns surfaced this bundle, folded into this doc's Anti-patterns section.
 
-After the wrap-up lands, the next bundle reads only the wrap-up plus active specs. Old memos remain in `planning/memos/` as historical record; nothing references them by default. Stage-ledger and spec-patches archives per-bundle, not carried forward.
+After the wrap-up lands, the next bundle reads only the wrap-up plus active specs. Old memos remain in `planning/memos/` as historical record; nothing references them by default. Stage-ledger and spec-patches archives per-bundle, not carried forward. The wrap-up doc archives with the rest of the bundle to `_attic/YYYY-MM-DD-{slug}/` (or `_attic/YYYY-MM-DD-vN-{slug}/` if the bundle shipped a version).
 
 ---
 
@@ -137,4 +194,5 @@ Add to this list whenever a new friction surfaces. Date it. Name it. Write the f
 
 ## Update log
 
+- *2026-05-27* — Added bundle lifecycle section: filename kind suffixes (`-plan` / `-sprint` / `-work-map` / `-audit` / `-rebuild` / `-wrapup`), `status` frontmatter (`planned` / `active` / `done`), phase decomposition rule, `vN-{slug}` rename on ship, unified `_attic/` archival, `RELEASES.md` indexing. Retired `bundles/done/`.
 - *2026-05-26* — Initial draft after audit. Ten skills, new commit rule, M2 left of commit, bundle wrap-up convention.
