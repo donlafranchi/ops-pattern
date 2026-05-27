@@ -14,7 +14,7 @@ status: active
 
 ## 1 · Resolve F018 (audit R2)
 
-**What.** F018 is the project's advertised flagship walkthrough (`AGENTS.md` line 18 → `planning/history/F018-pipeline-trace.md`). The scenario is deferred. Its tickets (T036–T040) are in `tickets/archive/`. The trace doc claims "reproducible" — it is not. URLs in the trace (`/i/[slug]`) predate the 2026-05-11 naming pass (`/e/`).
+**What.** F018 is the project's advertised flagship walkthrough (`AGENTS.md` line 18 → `_attic/2026-05-27/planning-history/F018-pipeline-trace.md`). The scenario is deferred. Its tickets (T036–T040) are in `tickets/archive/`. The trace doc claims "reproducible" — it is not. URLs in the trace (`/i/[slug]`) predate the 2026-05-11 naming pass (`/e/`).
 
 **Why agent couldn't.** Either path (re-promote F018 with REVISE punch list done, or formally retire it as flagship and replace) is a PM decision about what the canonical example *should be*. Agent cannot pick a substitute concept.
 

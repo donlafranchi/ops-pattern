@@ -6,7 +6,7 @@ status: active
 
 # AGENTS.md — Development Pipeline
 
-> Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is mirrored in [`_inbox/cowork-pipeline/`](_inbox/cowork-pipeline/) — DEV-PATTERN.md, DECISION-PATTERNS.md, README.md — which will be lifted to a separate `cowork-pipeline` GitHub repo so the same skills can run on any workstation. Historical audits (2026-05-09 and 2026-05-22) are archived under `_attic/` and `housekeeping/`; their findings are absorbed below.
+> Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is mirrored in [`meta/cowork-pipeline/`](meta/cowork-pipeline/) — DEV-PATTERN.md, DECISION-PATTERNS.md, README.md — which will be lifted to a separate `cowork-pipeline` GitHub repo so the same skills can run on any workstation. Historical audits (2026-05-09 and 2026-05-22) are archived under `_attic/`; their findings are absorbed below.
 
 Ten skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
 
@@ -117,7 +117,7 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Does NOT read or write:** `web/` code, `development/tickets/`, `planning/scenarios/`.
 
-**Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic rule from `_inbox/cowork-pipeline/DECISION-PATTERNS.md`:
+**Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic rule from `meta/cowork-pipeline/DECISION-PATTERNS.md`:
 
 1. Member safety
 2. Platform health
@@ -153,7 +153,7 @@ Rejected absolutes are deleted; the JOURNAL records the removal.
 
 **Reads:** `planning/scenarios/` (the approved scope), `product/systems/`, `product/ui/`, `product/foundation/`, `planning/DECISIONS.md`, `planning/bundles/{active}.md`.
 
-**Writes:** `planning/history/F{NNN}-review.md`.
+**Writes:** `planning/reviews/F{NNN}-review.md`.
 
 **Does NOT read:** `web/` code, `development/tickets/`, `planning/scenarios-backlog/`.
 
@@ -186,7 +186,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 > Was previously Both; now Claude Code only. Reasoning: tickets are immediately handed to `build`, and Claude Code owns the repo and git operations. No round-trip back to Cowork.
 
-**Reads:** `planning/scenarios/` (approved only), `planning/history/F{NNN}-review.md` if it exists, `development/tickets/` and `done/` (for next T-number), `product/systems/{relevant}.md` ("Data model implications" only).
+**Reads:** `planning/scenarios/` (approved only), `planning/reviews/F{NNN}-review.md` if it exists, `development/tickets/` and `done/` (for next T-number), `product/systems/{relevant}.md` ("Data model implications" only).
 
 **Writes:** `development/tickets/`.
 

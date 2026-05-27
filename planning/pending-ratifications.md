@@ -6,6 +6,8 @@ status: active
 
 # Pending Ratifications
 
+> **How this file is now drained.** Each `PENDING` row is walked through the [`weigh`](../skills/weigh/SKILL.md) skill — `weigh ratify {row}` runs the dialectic + close-call rule and lands the outcome (Ratify / Defer / Revise / Reject) as a State-tagged `Intent` line on the source bullet. After ratification, the row's `Status` flips here and the source spec carries the tag. This file is the register; `weigh` is the process.
+>
 > **Source:** `agent-commerce-and-project-amendments.md` §0, §7, §10 — the "almost no Never" posture. The single "Never" of the project is extraction-over-circulation. All other absolute language is flagged here for user ratification.
 >
 > **Posture:** When the build agent encounters any of these while making other changes, flag — do not silently change. The user reviews and decides in a future deep dive.

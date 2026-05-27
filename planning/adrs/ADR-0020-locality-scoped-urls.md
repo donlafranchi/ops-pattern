@@ -162,7 +162,7 @@ This relationship is separate from the place-anchor hierarchy. A Group anchored 
 4. [ ] Annotate `product/systems/groups.md` with the place-anchor inheritance rules (default neighborhood-when-available, smallest-common-ancestor for federation) and the Group-of-Group relationship.
 5. [ ] Annotate `product/systems/location.md` with the place FK and the locality-scoped URL.
 6. [ ] Revise F025 as the **Group producer page** (not the Member page), anchored under `/p/[…place path]/g/[slug]`.
-7. [x] `pipeline-intent-check` on this ADR before ratification (per rebuild-phase rule #9 — ADRs land with Intent annotations on any Category-2 absolutes). *(Verdict: CLEAN, 2026-05-25 — see [`planning/history/intent-ADR-20-2026-05-25.md`](../history/intent-ADR-20-2026-05-25.md). All three Category-2 absolutes carry substantive Intent.)*
+7. [x] `pipeline-intent-check` on this ADR before ratification (per rebuild-phase rule #9 — ADRs land with Intent annotations on any Category-2 absolutes). *(Verdict: CLEAN, 2026-05-25 — see [`planning/reviews/intent-ADR-20-2026-05-25.md`](../reviews/intent-ADR-20-2026-05-25.md). All three Category-2 absolutes carry substantive Intent.)*
 
 ## Intent annotations
 

@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | `planning/scenarios/F{NNN}-{slug}.md` (approved), `product/systems/`, `product/ui/`, `product/foundation/`, `planning/DECISIONS.md`, `planning/bundles/{active}.md` |
-| **Writes** | `planning/history/F{NNN}-review.md` |
+| **Writes** | `planning/reviews/F{NNN}-review.md` |
 | **Templates** | `templates/review.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios-backlog/` |
 | **Hands to** | `ticket` on PROCEED, `scope` on REVISE, `explore` on EXTEND |
@@ -59,7 +59,7 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R9** — closes the H5 gap (cr
 
 **Trigger.** Run this check whenever the scenario under review is **the 2nd-or-later sibling** in the same loop family (per `product/needs/member-journey.md`) approved within the current bundle phase, OR introduces a composer / list row / detail surface that has a structurally analogous counterpart in another approved scenario.
 
-**Reads.** Every other scenario in `planning/scenarios/` plus any other `planning/history/F{NNN}-review.md` from this phase.
+**Reads.** Every other scenario in `planning/scenarios/` plus any other `planning/reviews/F{NNN}-review.md` from this phase.
 
 **What to check.**
 
@@ -80,7 +80,7 @@ If no sibling exists yet, write one line: "First in family — no sibling check 
 4. Run the architecture check; capture findings in the review template.
 5. Run the design check; capture findings in the review template.
 6. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
-7. Save to `planning/history/F{NNN}-review.md`.
+7. Save to `planning/reviews/F{NNN}-review.md`.
 8. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
 9. **STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Reviewed column: `{VERDICT} YYYY-MM-DD`. A second review appends, does not overwrite, so two-cycle reviews like F018 are visible.
 

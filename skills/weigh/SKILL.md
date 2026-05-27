@@ -9,7 +9,7 @@ The single skill for judgment calls — close calls, unratified absolutes, missi
 
 **The one question.** *Which option stays reversible, and who bears the cost?* Architected for revisability over being right the first time.
 
-**The close-call rule (lexicographic).** Per [`DECISION-PATTERNS.md`](../../_inbox/cowork-pipeline/DECISION-PATTERNS.md):
+**The close-call rule (lexicographic).** Per [`DECISION-PATTERNS.md`](../../meta/cowork-pipeline/DECISION-PATTERNS.md):
 
 1. **Member safety** — physical, financial, reputational, psychological.
 2. **Platform health** — the platform's continued ability to keep serving Members.

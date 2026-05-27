@@ -36,7 +36,10 @@ status: active
 | `product/capabilities/member-profile.md` | Member public page — bio, Items, follows, shareable URL. | active |
 | `product/capabilities/qr-onboarding.md` | Member-requestable printable QR card for any Item. | active |
 | `product/exploration/accountability.md` | Two framings of accountability: court records and four-pillar community signals. | reference |
-| `product/exploration/business-intelligence-platform.md` | BI candidate for producer / maker operations — under PM review. | reference |
+| `product/exploration/affinity-derived-groups.md` | b2+ exploration — Groups suggested from interest + Saved-search overlap. | exploration |
+| `product/exploration/local-stays.md` | Short-term rentals as a platform surface — anti-Airbnb thesis. | exploration |
+| `product/exploration/market-intelligence.md` | Platform-wide market-intelligence direction (separate from producer-tools). | exploration |
+| `product/exploration/member-geography-redesign.md` | Source-of-record for the member↔geography substrate split (drove ADR-21). | exploration |
 | `product/exploration/reciprocity-and-goodwill.md` | Open design question on Offer/Ask reciprocity and goodwill. | reference |
 | `product/needs/member-journey.md` | The 13 loops Members move through, in five families. | active |
 | `product/needs/needs.md` | Ranked human needs traced to systems, capabilities, and personas. | draft |
@@ -103,7 +106,6 @@ status: active
 | `development/tickets/done/T051-action-layer-ci-enforcement.md` | Ticket T051 — action layer ci enforcement. | reference |
 | `development/tickets/done/T052-phase-0-eval-helpers.md` | Ticket T052 — phase 0 eval helpers. | reference |
 | `development/tickets/done/T053-phase-1-eval-helpers.md` | Ticket T053 — phase 1 eval helpers. | reference |
-| `pipeline-process-audit-2026-05-22.md` | Second audit of the agent pipeline (2026-05-22). | historical |
 | `planning/DECISIONS.md` | Pointer index mapping every ADR to status and home. | active |
 | `planning/adrs/ADR-0001-tech-stack.md` | ADR-1 — Next.js + Supabase + Mapbox + Vercel stack. | active |
 | `planning/adrs/ADR-0002-bottom-anchored-ui.md` | ADR-2 — bottom-anchored UI for mobile thumb reachability. | active |
@@ -120,18 +122,20 @@ status: active
 | `planning/adrs/ADR-0018-eval-helpers.md` | ADR-18 — eval-helpers package and bootstrap pattern. | active |
 | `planning/adrs/ADR-0019-clean-slate-rebuild.md` | ADR-19 — clean-slate rebuild on primitives (no dual-write migration). | active |
 | `planning/adrs/ADR-0020-locality-scoped-urls.md` | ADR-20 — locality-scoped URL namespacing for Groups. | active |
+| `planning/adrs/ADR-0021-member-geography-substrate-split.md` | ADR-21 — three purpose-owned substrates replacing member_location_affinities. | active |
+| `planning/adrs/ADR-0022-url-slug-naming-refinements.md` | ADR-22 — county replaces MSA; entity slugs gain a random suffix. | active |
+| `planning/adrs/ADR-0023-url-path-compaction.md` | ADR-23 — 2-letter state codes; URL-transparent county tier. | active |
 | `planning/adrs/README.md` | Defines ADR format, lifecycle, and naming convention. | reference |
 | `planning/adrs/_template.md` | Blank ADR scaffold for new architectural decisions. | reference |
 | `planning/bundles/b1-primitives.md` | Defines b1 MVP scope in primitive terms. | active |
 | `planning/bundles/b1-work-map.md` | Menu of b1 work tagged core / recommended / defer. | active |
 | `planning/bundles/bundle-themes.md` | Sequences each bundle into 1–2 week sub-themes. | active |
-| `planning/history/F018-pipeline-trace.md` | Traces F018 through every pipeline stage as teaching artifact. | reference |
-| `planning/history/F018-review.md` | Architecture and design pre-flight verdict on F018. | reference |
-| `planning/history/agent-assistance-2026-05-09.md` | Parks agent-assistance as non-b1; digests the four 2026-05-09 reviews. | historical |
-| `planning/history/agent-assistance-architecture-review-2026-05-09.md` | 2026-05-09 architecture critique of the agent-assistance specs. | historical |
-| `planning/history/agent-assistance-people-first-review-2026-05-09.md` | 2026-05-09 principles critique of the agent-assistance specs. | historical |
-| `planning/history/agent-assistance-planning-filter-review-2026-05-09.md` | 2026-05-09 scope critique of the agent-assistance specs. | historical |
-| `planning/history/agent-assistance-security-privacy-review-2026-05-09.md` | 2026-05-09 security critique of the agent-assistance specs. | historical |
+| `planning/bundles/done/b1x-substrate-sprint.md` | Completed b1.x geography substrate sprint (closed 2026-05-25). | complete |
+| `planning/reviews/intent-ADR-20-2026-05-25.md` | Intent-check verdict for ADR-20 (CLEAN). | reference |
+| `planning/reviews/intent-ADR-21-and-spec-patches-2026-05-23.md` | Intent-check verdict covering ADR-21 + same-day spec patches. | reference |
+| `planning/reviews/intent-ADR-21-and-spec-patches-2026-05-23-recheck.md` | Re-check after ratifications landed. | reference |
+| `planning/reviews/intent-ADR-0022-2026-05-25.md` | Intent-check verdict for ADR-22. | reference |
+| `planning/reviews/intent-ADR-0023-2026-05-25.md` | Intent-check verdict for ADR-23. | reference |
 | `planning/outreach/outreach-list.md` | Founder-recruitment list for Sacramento. | active |
 | `planning/pending-ratifications.md` | Register of unratified absolutes awaiting PM decision. | active |
 | `planning/rebuild-plan.md` | The approved clean-slate rebuild plan on primitives. | active |
@@ -164,4 +168,4 @@ status: active
 | `skills/` | The agent-pipeline skill bundle — process tooling, not catalogued per-file. | active |
 | `web/` | The deployable app (separate git repo) — not catalogued. | active |
 | `_attic/2026-05-19/` | Historical archive from the 2026-05 doc consolidation — not catalogued. | historical |
-| `housekeeping/doc-consolidation-2026-05/` | The R01–R10 effort folder — not catalogued. | reference |
+| `_attic/2026-05-27/doc-consolidation-2026-05/` | The R01–R10 effort folder — not catalogued. | reference |

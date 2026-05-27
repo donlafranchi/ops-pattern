@@ -130,7 +130,7 @@ The pipeline runs in a strict order per feature. Each step has one input and one
 
 3. review    →  architecture + design + security + a11y pre-flight on
                 the approved scenario. Verdict: PROCEED / REVISE /
-                EXTEND. Output: planning/history/F{NNN}-review.md.
+                EXTEND. Output: planning/reviews/F{NNN}-review.md.
 
 4. test      →  writes Playwright tests from the approved scenario
    (write)      BEFORE build — firewall against teaching to test.

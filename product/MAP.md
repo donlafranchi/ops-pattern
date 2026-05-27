@@ -91,7 +91,7 @@ Cross-cutting qualities the build must satisfy. Stubs scaffolded 2026-05-19; con
 - **`loops.md`** → relocated as [`needs/member-journey.md`](needs/member-journey.md) per R08 (2026-05-22).
 - **`notes/migration-to-primitives.md`** → relocated as [`../planning/rebuild-plan.md`](../planning/rebuild-plan.md) per R04 (2026-05-22).
 - **`planning/PIPELINE-AUDIT.md`** → [`../_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](../_attic/2026-05-19/planning/PIPELINE-AUDIT.md). Findings memorialized in `AGENTS.md` / `CLAUDE.md`.
-- **`planning/reviews/`, `handoffs/`, `walkthroughs/`** → consolidated into [`../planning/history/`](../planning/history/) per R03 (2026-05-22).
+- **`planning/reviews/`, `handoffs/`, `walkthroughs/`** → consolidated into [`../planning/reviews/`](../planning/reviews/) per R03 (2026-05-22).
 
 ## Forward-looking (not gated on b1)
 

@@ -6,14 +6,14 @@ status: active
 
 # JUDGMENT — statute & precedent for one human
 
-> Source concepts: [`housekeeping/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html`](../housekeeping/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html) (the three layers + refinement loop) and [`housekeeping/2026-05-23-pipeline-coverage/agent_response_techniques.html`](../housekeeping/2026-05-23-pipeline-coverage/agent_response_techniques.html) (the four moves: triage upstream, constraint-first elicitation, standing defaults, compression contract). Archived once absorbed into this file.
+> Source concepts: [`_attic/2026-05-27/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html`](../_attic/2026-05-27/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html) (the three layers + refinement loop) and [`_attic/2026-05-27/2026-05-23-pipeline-coverage/agent_response_techniques.html`](../_attic/2026-05-27/2026-05-23-pipeline-coverage/agent_response_techniques.html) (the four moves: triage upstream, constraint-first elicitation, standing defaults, compression contract). Archived once absorbed into this file.
 >
 > **The problem this solves.** Solo founder. Every decision the agent surfaces is a 30-minute read. The pipeline already filters work downstream well; this file is the **escalation filter** — what should reach the founder, in what shape, and what shouldn't reach them at all.
 >
 > **Relationship to existing machinery.**
 > - **L1 Intent** is already partly here: `product/foundation/principles.md` (P1–P8 + Decision Test + categorical failures) is L1 at the platform-philosophy level. **Ratified absolutes** (the `Intent (Ratified YYYY-MM-DD): ...` lines landed by `weigh`) are L1 at the per-statement level.
 > - **L2 Bounds** is what this file adds. ADRs are decisions; bounds are the negative-space envelope around them. A bound says: *within this radius, agents decide alone; outside it, escalate.*
-> - **L3 Casebook** is `JOURNAL.md` + `DEVIATIONS.md` + `planning/history/F{NNN}-review.md`. They already record cases; they just aren't indexed by topic or scanned for promotion.
+> - **L3 Casebook** is `JOURNAL.md` + `DEVIATIONS.md` + `planning/reviews/F{NNN}-review.md`. They already record cases; they just aren't indexed by topic or scanned for promotion.
 
 ---
 
@@ -58,7 +58,7 @@ Cases accrue automatically in:
 
 - `JOURNAL.md` — PM-level decisions, dated.
 - `DEVIATIONS.md` — build-time drift, per ticket.
-- `planning/history/F{NNN}-review.md` — review verdicts + rationale.
+- `planning/reviews/F{NNN}-review.md` — review verdicts + rationale.
 - `planning/SPEC-PATCHES.md` — spec corrections in flight.
 - `planning/STAGE-LEDGER.md` — stage transitions with regressions visible.
 
@@ -87,7 +87,7 @@ Each topic anchors L1, L2 (here), and L3 (case files). Topics added when a recur
 |---|---|---|---|
 | Schema additions during build | `product/foundation/principles.md` § People-First; ADR-7 | This file § *Schema additions* | `DEVIATIONS.md`, `SPEC-PATCHES.md` |
 | Scope creep inside a ticket | `principles.md` § Decision Test; b1 bundle | This file § *Scope* | `DEVIATIONS.md` |
-| Absolute language in specs | `principles.md`; `pending-ratifications.md` | `skills/weigh/` | `planning/history/` ratification logs |
+| Absolute language in specs | `principles.md`; `pending-ratifications.md` | `skills/weigh/` | `planning/reviews/` ratification logs |
 | Vendor / cost decisions | (none yet — TBD) | This file § *Vendor & cost* | `JOURNAL.md` |
 | Naming (UI label vs schema vs URL) | `CLAUDE.md` § Naming conventions | This file § *Naming* | `JOURNAL.md` |
 | Commit + branch hygiene | `CLAUDE.md` § Commit Rules | This file § *Commit hygiene* | `DEVIATIONS.md` |

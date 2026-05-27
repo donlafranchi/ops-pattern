@@ -10,5 +10,10 @@ node_modules/
 .idea/
 *.swp
 
-# Scratch
-notes/scratch/
+# Supabase CLI local state (migrations/ stays tracked)
+supabase/.branches/
+supabase/.temp/
+supabase/snippets/
+
+# Playwright run output
+test-results/

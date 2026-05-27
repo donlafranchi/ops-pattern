@@ -27,7 +27,7 @@ status: active
 | `product` | `pipeline-product` | System spec exists, no scenario yet |
 | `plan-backlog` | `pipeline-plan` (draft) | Scenario drafted in `planning/scenarios-backlog/` |
 | `plan-approved` | `pipeline-plan` (approve, PM moves file) | Scenario in `planning/scenarios/` |
-| `reviewed` | `pipeline-review` | `planning/history/F{NNN}-review.md` exists with verdict PROCEED/REVISE/EXTEND |
+| `reviewed` | `pipeline-review` | `planning/reviews/F{NNN}-review.md` exists with verdict PROCEED/REVISE/EXTEND |
 | `ticketed` | `pipeline-ticket` | ≥1 ticket exists referencing this scenario |
 | `building` | `pipeline-build` | First ticket moved past initial commit |
 | `eval` | `pipeline-eval` (run mode) | Build complete; running evals |

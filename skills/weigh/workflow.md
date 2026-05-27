@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | The target file (foundation doc, system spec, ADR, planning doc) or a named statement. Plus: `product/foundation/principles.md`, `product/foundation/policy.md`, related foundation/system docs for cross-spec context, `_inbox/cowork-pipeline/DECISION-PATTERNS.md` (the rule), `_attic/2026-05-19/planning/intent-audit-2026-05-12.md` (the eight categories), recent JOURNAL entries (≤30 days). |
+| **Reads** | The target file (foundation doc, system spec, ADR, planning doc) or a named statement. Plus: `product/foundation/principles.md`, `product/foundation/policy.md`, related foundation/system docs for cross-spec context, `meta/cowork-pipeline/DECISION-PATTERNS.md` (the rule), `_attic/2026-05-19/planning/intent-audit-2026-05-12.md` (the eight categories), recent JOURNAL entries (≤30 days). |
 | **Writes** | Directly to the target file: bullet revisions (only when wording is misleading), `Intent (State YYYY-MM-DD): {why}` lines on every ratified statement. Plus one JOURNAL entry per session. For Intent-scan mode (no ratification): one review file at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`. For Rejected outcomes: removes the bullet entirely. |
 | **Sub-routines** | scan → dialectic → ratify → stamp. Chain depends on mode. |
 | **Hands to** | nothing. PM owns what comes next. |

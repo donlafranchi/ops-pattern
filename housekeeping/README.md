@@ -1,21 +1,29 @@
+---
+purpose: Home for project-shaping efforts — reorgs, consolidations, audits, pivots. In-flight only; archived to `_attic/` on close.
+layer: how
+status: active
+---
+
 # Housekeeping
 
 This folder holds **project-shaping work** — reorganizations, consolidations, audits, pivots. The work that reshapes *how the project is organized*, as distinct from the platform work itself.
 
-It exists so that meta-work has a home and stays out of the way of `product/`, `planning/`, and `development/`. When a cleanup is in flight, its planning docs and tickets live here. When it's done, the record stays here as history.
+When a cleanup is in flight, its planning docs and tickets live here. **When it closes, the whole folder moves to `_attic/{close-date}/{slug}/`.** `housekeeping/` itself only contains in-flight efforts.
 
-## Why this folder exists
+## Pattern for a new effort
 
-Reorganizations keep happening — this is at least the fourth. Each one used to scatter its working docs through `notes/`, `planning/`, and the repo root, then go stale in place. From now on every cleanup effort gets one dated folder here: its plan, its tickets, its record. One place to look; nothing leaking into the platform tree.
+1. Create `housekeeping/YYYY-MM-DD-{slug}/` (ISO date prefix is load-bearing for sort order).
+2. Inside: a `README.md` with `purpose / layer / status` frontmatter (status starts `in-flight`), a plan, and any `tickets/` it produces.
+3. When done, flip status to `complete`, then archive: `git mv housekeeping/YYYY-MM-DD-{slug} _attic/{close-date}/{slug}` — leaves a clean tree.
 
-## Efforts
+Closed efforts that lived here previously are now under `_attic/2026-05-27/` (the 2026-05-23 pipeline-coverage absorption and the 2026-05 doc consolidation). The pattern is fixed; future cleanups follow the same shape.
 
-| Effort | Folder | Date | Status |
-|---|---|---|---|
-| Doc Consolidation | [`doc-consolidation-2026-05/`](doc-consolidation-2026-05/) | 2026-05 | **Closed 2026-05-22** — all 10 phases shipped (R01–R10). See `JOURNAL.md` top entry and each R-ticket's Completion notes. |
+## In-flight
 
-*Earlier efforts (the food pivot, the pre-mission-clarity cleanup, the primitives rebuild) predate this folder; their records live in `_attic/` and the `planning/` archives. The PM can back-fill rows here if a consolidated history is wanted.*
+*(none)*
 
-## Convention for the next one
+## What does NOT belong here
 
-A new cleanup → a new folder `housekeeping/{slug}-{YYYY-MM}/` containing its plan and (if it runs as tickets) a `tickets/` subfolder. Add a row to the table above. That's the whole ceremony.
+- Process docs about how to build any project (those go under [`meta/`](../meta/)).
+- Architectural decisions (those are ADRs in [`planning/adrs/`](../planning/adrs/)).
+- Active spec edits (those go in `product/` / `planning/` directly).
