@@ -139,10 +139,9 @@ status: active
 | `planning/reviews/intent-ADR-0023-2026-05-25.md` | Intent-check verdict for ADR-23. | reference |
 | `planning/outreach/outreach-list.md` | Founder-recruitment list for Sacramento. | active |
 | `planning/pending-ratifications.md` | Register of unratified absolutes awaiting PM decision. | active |
-| `planning/phase-2-scenario-strategy.md` | Phase 2 scenario ordering and structure — read by `scope` before writing Phase 2 scenarios. | draft |
-| `planning/rebuild-plan.md` | The approved clean-slate rebuild plan on primitives. | active |
-| `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's. | draft |
-| `planning/scenarios-backlog/F025-adaeze-member-public-page.md` | Backlog scenario — Adaeze creates her Member public page. | draft |
+| `planning/phase-2-scenario-strategy.md` | Phase 2 scenario ordering and structure — F030–F043 with member-journey progression + dependency chain. Active spec; read by `scope` for every Phase 2 scenario. | active |
+| `planning/phase-2-pipeline-audit.md` | Audit of pipeline updates needed after Phase 2 patterns. All items resolved in commit dd2df49. | done |
+| `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's (deferred 2026-05-18; rewrite candidate as F034). | draft |
 | `planning/scenarios-backlog/USER-STORY-TEMPLATE.md` | Redirect stub to the real scenario template in skills/. | reference |
 | `product/templates/idea-intake.md` | Paste-in template producing pipeline artifacts from raw ideas. | active |
 | `standards/README.md` | Standards layer — cross-cutting qualities the build must satisfy. | reference |

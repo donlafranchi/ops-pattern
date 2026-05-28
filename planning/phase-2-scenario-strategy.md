@@ -1,13 +1,15 @@
 ---
-purpose: Strategy for structuring Phase 2 scenarios before writing begins.
+purpose: Strategy for structuring Phase 2 scenarios — the 14 scenarios F030–F043, ordered by member-journey progression and dependency.
 layer: how
-status: draft
+status: active
 ---
 
 # Phase 2 Scenario Strategy
 
-**Date:** 2026-05-27
-**Status:** PM review — approve before any scenario writing starts.
+**Date:** 2026-05-27 (drafted) · 2026-05-28 (PM-ratified; promoted to active)
+**Status:** Active. F030–F043 are the canonical Phase 2 scenario set. `scope` writes each in order per [§ Dependency chain](#dependency-chain). Phase 3 scenarios (`/explore` anonymous, Wonder, `/why` thesis page, Group browse/create, stewardships) await a separate strategy pass (see [§ Open decisions for PM](#open-decisions-for-pm) #2).
+
+> **Supersedes:** the Phase 2 + Phase 3 sections of `rebuild-plan.md` (archived 2026-05-28). The "<90 second" exit metric below was flagged by [`housekeeping/2026-05-28-repo-reorg/reorg-plan.md`](../housekeeping/2026-05-28-repo-reorg/reorg-plan.md) §5 as arbitrary — treat as a working target, not a contract. See `pending-ratifications.md` for the ratification slot.
 
 ---
 
