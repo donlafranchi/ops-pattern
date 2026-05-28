@@ -117,22 +117,36 @@ Walk in order. Report per category.
 - Every file carries `status:` in frontmatter ∈ {`active`, `done`, `deferred`}.
 - `planning/bundles/done/` must not exist. State lives in `status:`, not in directory placement. If present → propose `rmdir` (after confirming empty; if non-empty, move contents up + set their `status: done` first).
 - Every file with `status: done` either lives at `planning/bundles/{file}.md` (still cited by active work) OR has been archived to `_attic/YYYY-MM-DD-vN-{slug}/` with a row in `planning/RELEASES.md`. Surface drift in either direction.
-- Every shipped user-visible version has a one-line row in `planning/RELEASES.md` pointing at its `_attic/YYYY-MM-DD-vN-{slug}/RELEASE.md`. Surface missing rows.
+- Every shipped user-visible version has a one-line row in `planning/RELEASES.md` pointing at its `{owning-dir}/archive/vN-{slug}/RELEASE.md` per ADR-25 (pre-2026-05-28 versions cite `_attic/YYYY-MM-DD-vN-{slug}/RELEASE.md` and are grandfathered). Surface missing rows.
 
-**5. Completed housekeeping efforts.** Walk `housekeeping/*/README.md`. Status `complete` AND no modification in >30 days → propose archive to `_attic/{date}/housekeeping-{slug}/`. Don't auto-move.
+**5. Completed housekeeping efforts.** Walk `housekeeping/*/README.md`. Status `complete` AND no modification in >30 days → propose archive to `housekeeping/archive/YYYY-MM-DD-{slug}/` (per ADR-25). Don't auto-move.
 
 **6. Propagation check.** For every doc under `product/` and `planning/`: get last-modified date; grep for cites; if any cite source is older than the cited file's last mod → surface as possible propagation gap. Reverse check: every cite in CLAUDE.md / AGENTS.md / MAP.md / TRACE.md / REGISTRY.md points at an existing file.
 
+**7. Plan docs that should atomize (any execution state).** Walk `planning/`, `housekeeping/`, and root for `.md` files that contain roughly 4+ distinct items where each could be picked up independently. Execution state does not gate the finding — a freshly-landed 4-item plan and a half-completed 4-item plan are both candidates per [`meta/cowork-pipeline/DEV-PATTERN.md`](../../meta/cowork-pipeline/DEV-PATTERN.md) § Atomize big plans with mixed-state items § When to atomize.
+
+Detection heuristics (any 2 of):
+- Heading or list-item pattern signaling multiple items (`### 1. …`, `### 2. …` or numbered tables of items).
+- Status markers inline (`☑ DONE`, `☐ TODO`, `**Status:** N/A`, `**Status:** ☐ TODO`) — present OR absent. Absent on a 4+ item plan still trips.
+- File length over ~150 lines with an explicit item count in the header (e.g., "12 items," "8 items").
+- A `## Summary` or `## Checklist` table summarizing per-item state.
+
+For each candidate, propose:
+- Atomize → one stub per item in `{plan-area}/items/`, original archived to `{plan-area}/archive/YYYY-MM-DD-{slug}/` (per ADR-25 — directory-local archives). Use the stub shape in DEV-PATTERN § Atomize big plans § The mechanics.
+- Or: skip (the plan is a coherent reference, items are tightly sequenced, or meta-content is load-bearing without a durable home yet).
+
+Do not auto-atomize. The mechanics are PM-ratified per-doc — atomization changes how the work is tracked and may need to land a meta-content home first.
+
 ### Report shape
 
-Single document, seven sections (1, 2, 3, 4, 4a, 5, 6). Each finding: file(s), one-line description, proposed action. PM ratifies (or skips) each.
+Single document, eight sections (1, 2, 3, 4, 4a, 5, 6, 7). Each finding: file(s), one-line description, proposed action. PM ratifies (or skips) each.
 
 ### Execution
 
 For each ratified finding:
 - Frontmatter fixes → edit in place.
 - File moves → `git mv` + update REGISTRY + grep-and-update back-references.
-- Archive moves → `git mv` to `_attic/` + leave one-line stub if anything cites the original.
+- Archive moves → `git mv` to `{owning-dir}/archive/YYYY-MM-DD-{slug}/` per ADR-25 + leave one-line stub if anything cites the original. (Pre-2026-05-28 archives at `_attic/` are grandfathered — do not retroactively move.)
 - Propagation acks → no file change; optional JOURNAL entry.
 
 Commit at end: `docs(housekeeping): {YYYY-MM-DD} doc sweep — {N} findings landed`.

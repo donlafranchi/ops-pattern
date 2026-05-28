@@ -34,7 +34,9 @@ Session-start check (project-agnostic):
    | `planning/bundles/done/` exists on disk — directory-as-state retired in favor of `status:` field | 2026-05-27 |
    | Any file in `planning/bundles/` missing `status:` in frontmatter, or carrying a value outside {`active`, `done`, `deferred`} | 2026-05-27 |
    | Any file in `planning/bundles/` whose name does not match `b{N}-{slug}-plan.md` or `b{N}[.{x}]-{slug}-{kind}.md` (kind ∈ {sprint, work-map, audit, rebuild, wrapup}), excluding cross-bundle sequencers like `bundle-themes.md` | 2026-05-27 |
-   | `planning/RELEASES.md` row count does not match the number of `_attic/YYYY-MM-DD-vN-{slug}/` archives (drift in the shipped-version index) | 2026-05-27 |
+   | `planning/RELEASES.md` row count does not match the number of `{owning-dir}/archive/vN-{slug}/` archives (post-ADR-25) plus the number of `_attic/YYYY-MM-DD-vN-{slug}/` archives (pre-2026-05-28 grandfather) (drift in the shipped-version index) | 2026-05-27 · ADR-25 |
+   | Any `.md` in `planning/` or `housekeeping/` containing roughly 4+ distinct items each pickable independently, regardless of execution state — atomization candidate per `meta/cowork-pipeline/DEV-PATTERN.md` § Atomize big plans with mixed-state items § When to atomize. Surface; route to `tidy` § sweep-docs finding #7 | DEV-PATTERN 2026-05-28 (b) |
+   | At v0.1 ship (after `planning/RELEASES.md` marks v0.1 shipped): any `{owning-dir}/archive/` not yet wrapped into `{owning-dir}/archive/v0.1/` — version rollup pending | ADR-25 |
 
    Report each failure with: check name, offending file(s), one-line fix. Do not attempt the fix.
 
@@ -56,8 +58,8 @@ Session-start check (project-agnostic):
     - **Inventory.** List every dated JOURNAL entry below the top one; tag each with dominant theme; mark safe-archive candidates (entries that say RESOLVED / DONE / shipped / merged / approved). For DECISIONS: list every active ADR; note its home (this file vs system spec vs foundation doc); note status.
     - **Identify silently-load-bearing decisions.** A decision is silently load-bearing when **all four** hold: (1) forgetting it produces no test/type/runtime error; (2) no active spec carries it; (3) violating it creates contradiction with another live decision; (4) a fresh reader of code alone wouldn't infer it.
     - **Memorialize before archiving.** Pick the *first* home that fits: MAP.md alignment-check line · foundation doc · system spec "Decisions encoded here" footer · new short foundation doc · new cross-cutting ADR. Never memorialize into JOURNAL itself; never into auto-memory.
-    - **Rotate the journal.** Keep top entry + pinned "Next session pickup." Archive everything older into `_attic/journal/JOURNAL-YYYY-MM.md`. Refresh "Next session pickup" — verify still live; drop done items; carry forward open ones.
-    - **Trim DECISIONS.** Keep full text for cross-cutting ADRs with no other home. Collapse to pointer rows for ADRs whose decision is already stated in a spec. Archive SUPERSEDED ADRs in full to `_attic/decisions/DECISIONS-superseded-YYYY-MM-DD.md` with anchored cross-links.
+    - **Rotate the journal.** Keep top entry + pinned "Next session pickup." Archive everything older into `archive/journal/JOURNAL-YYYY-MM.md` at repo root (per ADR-25 — directory-local; root is JOURNAL's home). Refresh "Next session pickup" — verify still live; drop done items; carry forward open ones.
+    - **Trim DECISIONS.** Keep full text for cross-cutting ADRs with no other home. Collapse to pointer rows for ADRs whose decision is already stated in a spec. Archive SUPERSEDED ADRs in full to `planning/archive/decisions/DECISIONS-superseded-YYYY-MM-DD.md` with anchored cross-links (per ADR-25).
     - **Update MAP.md** if memorialization added an alignment check; confirm no contradiction with existing checks.
     - **Verify.** All links resolve; live files pass 30-second scan; every memorialized invariant has a home doc.
     - **Surface diff; do not auto-commit.** Commit message: `docs(pipeline): prune {what} — archive {dated file(s)}, memorialize {N} invariants`.
