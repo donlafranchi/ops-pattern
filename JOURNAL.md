@@ -14,6 +14,13 @@ status: active
 
 ---
 
+## 2026-05-28 (final) — Ratified ADR-25: local lifecycle ownership
+
+ADR-25 flipped Proposed → Accepted. Directory-local archives + `planning/initiatives/` are now in force across the pipeline. Pre-2026-05-28 `_attic/` entries grandfathered indefinitely. Next free ADR number: 26.
+
+---
+
+
 ## 2026-05-28 (later) — ADR-25 proposed: local lifecycle ownership (directory-local archives + planning/initiatives/)
 
 Outgrowth of the same atomization session: when a fresh agent was asked where atomized work packages and version archives should live, the answer surfaced the global `_attic/` model as the friction point. ADR-25 [`planning/adrs/ADR-0025-local-lifecycle-ownership.md`](planning/adrs/ADR-0025-local-lifecycle-ownership.md) proposes two coordinated changes:

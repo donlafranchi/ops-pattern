@@ -1,6 +1,6 @@
 # ADR-0025: Local lifecycle ownership — directory-resident archives and initiatives
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-05-28
 **Deciders:** PM
 **Scope:** Where retired docs and non-bundle work packages live in the repo.
