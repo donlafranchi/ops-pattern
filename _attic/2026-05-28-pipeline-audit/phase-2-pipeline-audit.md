@@ -1,13 +1,15 @@
 ---
-purpose: Checklist of pipeline updates needed after Phase 2 scenario strategy changes (2026-05-27).
+purpose: Checklist of pipeline updates needed after Phase 2 scenario strategy changes (2026-05-27). All items resolved by 2026-05-28.
 layer: how
-status: active
+status: done
 ---
 
 # Phase 2 Pipeline Audit — What Needs Updating
 
 **Date:** 2026-05-27
 **Trigger:** Three new patterns introduced: "Capabilities unlocked" sections in scenarios, build-status column in `use-cases.md`, and `producer-capability-taxonomy.md`.
+
+**Completion:** Items 1–5 landed in commit `dd2df49` (2026-05-27 evening). Re-verified 2026-05-28 — every action below is in place. Items 6–8 were declared no-action at audit time.
 
 ---
 
@@ -19,7 +21,7 @@ status: active
 **What:** The template ends at `## Out of Scope`. Add a `## Capabilities unlocked` section after it. Each bullet: one capability a member gains when this scenario ships. This is what makes capabilities grep-able across scenarios.
 **Who:** PM manual edit.
 **Priority:** High — every scenario written from this template will lack the section until fixed.
-**Status:** ☐ TODO
+**Status:** ☑ DONE — template line 68 carries `## Capabilities unlocked` with required marker + taxonomy-tracing instructions.
 
 ### 2. AGENTS.md § scope — add read entry for producer taxonomy
 
@@ -27,7 +29,7 @@ status: active
 **What:** Add `product/needs/producer-capability-taxonomy.md` to the `scope` reads list. The scope skill needs to know what producer capabilities exist (Now/Later/Won't) when writing producer-facing scenarios to avoid scope creep into "Won't" territory.
 **Who:** PM manual edit.
 **Priority:** Medium — prevents scope from accidentally writing scenarios for capabilities the taxonomy marks as "Won't."
-**Status:** ☐ TODO
+**Status:** ☑ DONE — AGENTS.md line 96 names the taxonomy as mandatory `scope` reading with "Won't"-refusal note.
 
 ### 3. CLAUDE.md — add producer taxonomy to authoritative docs table
 
@@ -35,7 +37,7 @@ status: active
 **What:** Add row: `product/needs/producer-capability-taxonomy.md` | "Anything producer-capability-shaped — the Now/Later/Won't taxonomy by business function. Read when scoping or reviewing producer-facing scenarios."
 **Who:** PM manual edit.
 **Priority:** Medium — without this, agents don't know the doc exists.
-**Status:** ☐ TODO
+**Status:** ☑ DONE — CLAUDE.md line 208 carries the row.
 
 ### 4. REGISTRY.md — add entries for new files
 
@@ -45,7 +47,7 @@ status: active
 - `planning/phase-2-scenario-strategy.md` — layer: how, status: draft, purpose: "Strategy for structuring Phase 2 scenarios before writing begins."
 **Who:** `tidy` (REGISTRY maintenance is its job).
 **Priority:** Medium.
-**Status:** ☐ TODO
+**Status:** ☑ DONE — REGISTRY.md lines 47 + 142 carry both entries. Strategy doc's `status` field needs re-flipping to `active` when promoted (handled outside this audit).
 
 ### 5. MAP.md — add producer taxonomy to Needs section
 
@@ -53,7 +55,7 @@ status: active
 **What:** Add `producer-capability-taxonomy.md` alongside `use-cases.md`, `member-journey.md`, `people.md`, `needs.md` in the Needs section. One sentence: "Producer capabilities by business function — what the platform offers now, later, and won't."
 **Who:** `tidy` or PM manual edit.
 **Priority:** Low.
-**Status:** ☐ TODO
+**Status:** ☑ DONE — MAP.md line 35 carries the entry.
 
 ### 6. Use-cases.md build-status — wire into pipeline
 
