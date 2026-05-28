@@ -14,6 +14,88 @@ status: active
 
 ---
 
+## 2026-05-28 (later) — ADR-25 proposed: local lifecycle ownership (directory-local archives + planning/initiatives/)
+
+Outgrowth of the same atomization session: when a fresh agent was asked where atomized work packages and version archives should live, the answer surfaced the global `_attic/` model as the friction point. ADR-25 [`planning/adrs/ADR-0025-local-lifecycle-ownership.md`](planning/adrs/ADR-0025-local-lifecycle-ownership.md) proposes two coordinated changes:
+
+1. **Directory-local archives.** Each working dir grows `archive/` on first need; retirements go to `{owning-dir}/archive/YYYY-MM-DD-{slug}/` instead of global `_attic/`. On version cut (v0.1, v0.2…), each `archive/` wraps to `archive/vN-{slug}/`. `_attic/` frozen as historical-grandfather.
+2. **`planning/initiatives/`** formalized as home for non-bundle work packages. `phase-3-items/` renames to `planning/initiatives/phase-3/`. Bundles stay release-only.
+
+**Concomitant edits (made; pending ratification):**
+- Heuristic broadened in DEV-PATTERN.md § Atomize big plans + companion edits to `skills/tidy/workflow.md` finding #7 and `skills/orient/workflow.md` drift row: trigger now fires on 4+ items regardless of execution state. Closes the "all-untouched plans don't trip the alarm" gap noted in the cold-start discovery.
+- `CLAUDE.md` file-naming table + anti-sprawl rules 4 and 6 rewritten to describe the directory-local archive model. `_attic/` references grandfathered, not edited retroactively.
+- `planning/initiatives/README.md` written as the convention doc.
+- `DECISIONS.md` pointer index gains ADR-25 row. Also added ADR-24 (metro-polygon-discovery-layer) which existed as a Proposed file but wasn't yet indexed.
+
+**Deferred to v0.1 ship:** wrap each `{owning-dir}/archive/` into `{owning-dir}/archive/v0.1/`, add per-dir rows to `RELEASES.md`. `orient` drift check gains the v0.1-ship watch row (already added).
+
+**Pending PM action:** flip ADR-25 Status: Proposed → Accepted; run `git mv planning/phase-3-items planning/initiatives/phase-3`; commit.
+
+---
+
+## 2026-05-28 (late) — atomization pass: pipeline-audit archived, Phase 3 items stubbed, reorg-plan atomized
+
+Three half-completed plans atomized per the new pattern (landed in [`meta/cowork-pipeline/DEV-PATTERN.md`](meta/cowork-pipeline/DEV-PATTERN.md) § Atomize big plans with mixed-state items):
+
+1. **`planning/phase-2-pipeline-audit.md` — archived in full.** All 8 items resolved (5 done in commit `dd2df49`, 3 declared no-action at audit time). Provenance at [`_attic/2026-05-28-pipeline-audit/`](_attic/2026-05-28-pipeline-audit/) with per-item resolution table.
+
+2. **Phase 3 items — 9 stubs in `planning/phase-3-items/`.** Extracted from the archived `rebuild-plan.md` Phase 3 + the strategy doc's Out-of-Scope (Phase 3) list. Stubs: `explore-no-login-index.md`, `group-browse-index.md`, `group-create-flow.md`, `thesis-page.md`, `wonder-composer.md`, `wonder-conversion.md`, `onboarding-group-suggestion.md`, `saved-search-composer.md`, `stewardships.md`. Plus a [`README.md`](planning/phase-3-items/README.md) index.
+
+3. **`housekeeping/2026-05-28-repo-reorg/reorg-plan.md` — atomized into 12 stubs** at `housekeeping/2026-05-28-repo-reorg/items/NN-{slug}.md`. Original archived to [`_attic/2026-05-28-reorg-plan/`](_attic/2026-05-28-reorg-plan/) with item → stub map. Companion `directory-conventions.md` (target-state reference) untouched.
+
+**Pattern landed in:**
+
+- [`meta/cowork-pipeline/DEV-PATTERN.md`](meta/cowork-pipeline/DEV-PATTERN.md) § Atomize big plans with mixed-state items + anti-pattern entry "Half-completed big plans" + update log row 2026-05-28.
+- [`skills/tidy/workflow.md`](skills/tidy/workflow.md) § sweep-docs finding #7 (mixed-state plan docs).
+- [`skills/orient/workflow.md`](skills/orient/workflow.md) drift checklist (new row).
+
+---
+
+## 2026-05-28 — rebuild-plan archived; Phase 2 strategy promoted + F030–F043 stood up
+
+PM session (Cowork) re-oriented the Phase 2 plan and stood up the 14 scenarios for the b1 user-surface set. Net result: the prior `rebuild-plan.md` is archived (Phases 0/1/4 done; Phases 2/3 superseded), `phase-2-scenario-strategy.md` is the active Phase 2 plan, and F030–F043 sit in `scenarios-backlog/` ready for PM ratification.
+
+**Archived 2026-05-28:**
+- [`_attic/2026-05-28-rebuild-plan/`](_attic/2026-05-28-rebuild-plan/) — `planning/rebuild-plan.md` with RETIRED.md provenance. Phase 0/1/4 noted as complete; Phase 2/3 noted as superseded. Three structural truths (grammar; business serves people; Groups are emergent) preserved in the strategy doc. ADR-19 stays Accepted.
+- [`_attic/2026-05-28-pre-rescope-scenarios/`](_attic/2026-05-28-pre-rescope-scenarios/) — F025–F029 with RETIRED.md + fold-into mapping (F025 → F032; F026 → F036+F037; F027 → F038+F039; F028 → F030; F029 → F031).
+- [`_attic/2026-05-28-superseded-sequence-draft/`](_attic/2026-05-28-superseded-sequence-draft/) — an 8-scenario sequence doc drafted earlier in the session before the agent noticed `phase-2-scenario-strategy.md` was a more detailed 14-scenario plan already awaiting approval. PM directed: implement the existing strategy, not the new draft.
+
+**Pipeline audit absorbed:** [`planning/phase-2-pipeline-audit.md`](planning/phase-2-pipeline-audit.md) flipped to `status: done`. All 5 actionable items (scenario template `## Capabilities unlocked`, AGENTS.md taxonomy read, CLAUDE.md authoritative-docs row, REGISTRY entries, MAP.md row) verified in place (landed earlier in commit `dd2df49`); items 6–8 were declared no-action at audit time.
+
+**Phase 2 strategy promoted:** [`planning/phase-2-scenario-strategy.md`](planning/phase-2-scenario-strategy.md) flipped from `draft` → `active`. REGISTRY entry updated. Header note added: the "<90 second" exit metric is the working target per the reorg-plan §5 flag (arbitrary number, qualitative test "no getting stuck" is load-bearing).
+
+**14 scenarios stood up in `scenarios-backlog/`:**
+- **Layer 1 — Arrive & Orient:** F030 (newcomer signs up + feed), F031 (place-interest scope mgmt).
+- **Layer 2 — Browse & Follow:** F032 (Member page + follow), F033 (venue page), F034 (recurring gathering — replaces F018).
+- **Layer 3 — Browse Groups:** F035 (Group public page — split from F025 per ADR-20 reframe).
+- **Layer 4 — Produce:** F036 (Sell walkthrough → business Group), F037 (Locally Owned claim), F038 (product composer), F039 (Locally Made claim), F040 (service composer).
+- **Layer 5 — Cross-cutting:** F041 (QR card), F042 (Group + Venue follow + `/you/following`), F043 (90-second integration test).
+
+Total: 14 scenario files, ~1,540 lines. Each anchored to a `use-cases.md` MVP-tagged row; each has a `## Capabilities unlocked` section tracing to producer-capability-taxonomy.md categories.
+
+**STAGE-LEDGER stamped:** F025–F029 flipped to `deferred` with fold-into reasons. F018 carries a new note pointing at F034 as the reframe. 14 new rows for F030–F043 at `plan-backlog` stage with 2026-05-28 date. Three substrate group rows added: **S-metro** (per ADR-24 — gates F031), **S-saved-search** (per ADR-21 — gates F033 + F042), **S-jurisdictions** (per ADR-21 — gates F037 + F039).
+
+**CLAUDE.md project facts updated:** "Active rebuild" line removed; "Active Phase 2 plan" line added pointing at the strategy doc; "Phase 3 plan: not yet drafted" line added (the strategy doc covers Phase 2 only — Phase 3 awaits a separate strategy pass). "Rebuild phase — special rules" trigger reworded to b1 surface set ship instead of Phase 4 close. Authoritative-docs row for rebuild-plan.md swapped for strategy doc.
+
+**Open / pending:**
+
+1. **ADR-24 ratification** — Proposed; PM "good to go" 2026-05-28 but the formal ratification (flip to Accepted, DECISIONS.md row, ADR-22 "Foreclosed" refinement, `discovery.md` spec patch) runs on its own track. Gates S-metro substrate.
+2. **Phase 3 plan** not yet drafted. F030–F043 cover Phase 2 only. Phase 3 surfaces (`/explore` anonymous, Wonder if reconsidered, `/why` thesis page, broader Group browse/create, stewardships) need their own strategy pass.
+3. **P2 use-cases.md row** — flagged inconsistency (Status: MVP b1 vs. Build: ⬜ Not built b2). PM to confirm re-tag to "MVP substrate; surface deferred."
+4. **Reorg plan** ([`housekeeping/2026-05-28-repo-reorg/reorg-plan.md`](housekeeping/2026-05-28-repo-reorg/reorg-plan.md)) and its directory-conventions companion remain Proposed. Not executed in this session; flagged for separate ratification.
+5. **`region`-kind drop in `places`** — ADR-24 follow-up; revisit if no URL-browsable region surfaces in b1 (F037 close).
+6. **F018 flagship-trace question** (OPEN-QUESTIONS #1) — independent of this re-scope; AGENTS.md still cites F018 as flagship walkthrough. F034 is the natural replacement candidate; PM call.
+
+**Next session pickup:**
+
+1. PM reviews F030–F043 in `scenarios-backlog/`; ratifies first batch (likely F030 + F031 + F032, the consumer-entry triad) → move to `scenarios/`.
+2. `review` mandatory per rebuild-phase rule 1 on each approved scenario before tickets.
+3. ADR-24 ratification track in parallel (independent of scenario flow).
+4. Substrate tickets S-jurisdictions / S-saved-search / S-metro open in parallel as their ADR gates clear.
+5. `scope` opens each F### one at a time; ratified scenarios advance to `review` → `ticket` → `test` (write) → `build` → `test` (run).
+
+---
+
 ## 2026-05-27 — rebuild-plan.md re-reviewed; bundle lifecycle pattern codified
 
 PM session (Cowork) handled two pipeline-doc passes back-to-back. **[Bundle lifecycle pattern](meta/cowork-pipeline/DEV-PATTERN.md#the-bundle-lifecycle--how-a-package-of-work-moves-through)** codified in DEV-PATTERN.md + CLAUDE.md naming table — filename kind suffixes (`-plan` / `-sprint` / `-work-map` / `-audit` / `-rebuild` / `-wrapup`), `status: planned | active | done` frontmatter, `vN-{slug}` rename on ship, unified `_attic/YYYY-MM-DD-{slug}/` archival, `RELEASES.md` indexing. Retires `planning/bundles/`. Commit `351bc1f`.

@@ -15,8 +15,10 @@ status: active
 - **Stack:** Next.js (App Router), TypeScript, Tailwind v4 (`@theme inline` tokens), Supabase (Postgres + Auth + Realtime), Mapbox GL JS, Playwright (evals), Vitest (unit), Vercel.
 - **Repo structure:** Two-repo. Parent `movers-makers-shakers/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
 - **App path:** `./web`
-- **Active bundle:** [`planning/bundles/b1-primitives-plan.md`](planning/bundles/b1-primitives-plan.md) (Primitives MVP).
-- **Active rebuild:** [`planning/rebuild-plan.md`](planning/rebuild-plan.md) — clean-slate rebuild on Person / Item / Location / Group primitives. Filename retained for git history; the doc is now the rebuild plan, not a migration plan (no live data; no dual-write).
+- **Active bundle:** [`planning/bundles/b1-primitives-plan.md`](planning/bundles/b1-primitives-plan.md) (Primitives MVP — b1 scoping in primitive / cluster / loop terms; still load-bearing).
+- **Active Phase 2 plan:** [`planning/phase-2-scenario-strategy.md`](planning/phase-2-scenario-strategy.md) — 14 scenarios (F030–F043) ordered by member-journey progression + dependency. Ratified 2026-05-28; supersedes the Phase 2 + Phase 3 sections of the now-archived `rebuild-plan.md`. The 14 scenario files live in [`planning/scenarios-backlog/`](planning/scenarios-backlog/).
+- **Phase 3 plan:** not yet drafted. Strategy doc covers Phase 2 only; Phase 3 scenarios (`/explore` anonymous, Wonder if it returns to b1, `/why` thesis page, Group browse/create, stewardships) await a separate strategy pass.
+- **Rebuild plan archived 2026-05-28.** Phases 0/1/4 done; Phases 2/3 superseded by the strategy doc above. Historical at [`_attic/2026-05-28-rebuild-plan/`](_attic/2026-05-28-rebuild-plan/). ADR-19 (clean-slate rebuild) stays Accepted.
 - **Pipeline audit history:** the 2026-05-09 audit was the load-bearing one; its findings live in this file and `AGENTS.md`. The original is archived at [`_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](_attic/2026-05-19/planning/PIPELINE-AUDIT.md) for trace; the 2026-05-22 follow-up audit lives at [`_attic/2026-05-27/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md`](_attic/2026-05-27/2026-05-23-pipeline-coverage/pipeline-process-audit-2026-05-22.md) — its R1–R10 findings were absorbed into the pipeline on 2026-05-23 (STAGE-LEDGER, SPEC-PATCHES, JUDGMENT, OPEN-QUESTIONS, the router drift check, the substrate lane, the sibling-scenario check, and the DEVIATIONS rotation policy). Read either only when revisiting process history.
 - **Memo home:** [`planning/adrs/`](planning/adrs/) — one file per decision memo (formerly ADR), indexed from [`planning/DECISIONS.md`](planning/DECISIONS.md). Existing ADR-1 through ADR-23 retain numbering for citation stability; new entries use the `memo` skill and continue from memo-0024 onward. Format and lifecycle in [`planning/adrs/README.md`](planning/adrs/README.md).
 
@@ -81,15 +83,16 @@ A separate set of rules from entity naming — these govern *where docs live* an
 | Active spec / system | `kebab-case.md`, no date | `groups.md` | `product/systems/`, `product/foundation/`, `product/ui/`, etc. |
 | ADR | `ADR-NNNN-{slug}.md` (4-digit, zero-padded) | `ADR-0019-clean-slate-rebuild.md` | `planning/adrs/` |
 | Scenario | `F###-{slug}.md` | `F018-brian-declares-run-club.md` | `planning/scenarios-backlog/` (draft) → `planning/scenarios/` (approved) |
-| Review | `F###-review.md` (or `intent-{slug}-{date}.md` for intent-checks) | `F018-review.md` | `planning/reviews/` (active dir; older reviews archived to `_attic/`) |
-| Ticket | `T###-{slug}.md` (no zero-padding) | `T056-items-state-enum.md` | `development/tickets/` (open) → `development/tickets/done/` |
-| Bundle plan | `b{N}-{slug}-plan.md` | `b1-primitives-plan.md` | `planning/bundles/` (`status: active`) → `_attic/YYYY-MM-DD-{slug}/` (or `_attic/YYYY-MM-DD-vN-{slug}/` if shipped a user-visible version) |
-| Bundle phase / artifact | `b{N}[.{x}]-{slug}-{kind}.md` — kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`} | `b1.0-foundation-sprint.md`, `b1-primitives-work-map.md`, `b1-primitives-wrapup.md` | `planning/bundles/` (archives with parent bundle) |
-| Dated work product | `housekeeping/YYYY-MM-DD-{slug}/` (in-flight) → `_attic/YYYY-MM-DD-{slug}/` (archived on close) | `housekeeping/2026-MM-DD-{slug}/` | `housekeeping/` |
-| Retired spec | `_attic/YYYY-MM-DD-{slug}/` with `retired_from:` in frontmatter for provenance (legacy entries under `_attic/YYYY-MM-DD/{original-path}` grandfathered) | `_attic/2026-05-27-community-spec/community.md` | `_attic/` |
-| Shipped-version release doc | `RELEASE.md` at root of `_attic/YYYY-MM-DD-vN-{slug}/` + one line per version in `planning/RELEASES.md` | `_attic/2026-MM-DD-v1-primitives/RELEASE.md` | `_attic/` + `planning/` |
+| Review | `F###-review.md` (or `intent-{slug}-{date}.md` for intent-checks) | `F018-review.md` | `planning/reviews/` (active dir) → `planning/archive/YYYY-MM-DD-{slug}/` (per ADR-25; pre-2026-05-28 reviews at `_attic/` grandfathered) |
+| Ticket | `T###-{slug}.md` (no zero-padding) | `T056-items-state-enum.md` | `development/tickets/` (open) → `development/tickets/done/` (wraps to `development/tickets/done/vN/` on shipped-version cut per ADR-25) |
+| Bundle plan | `b{N}-{slug}-plan.md` | `b1-primitives-plan.md` | `planning/bundles/` (`status: active`) → `planning/archive/YYYY-MM-DD-{slug}/` (or `planning/archive/vN-{slug}/` if shipped a user-visible version) per ADR-25 |
+| Bundle phase / artifact | `b{N}[.{x}]-{slug}-{kind}.md` — kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`} | `b1.0-foundation-sprint.md`, `b1-primitives-work-map.md`, `b1-primitives-wrapup.md` | `planning/bundles/` (archives with parent bundle to `planning/archive/`) |
+| Initiative (non-bundle work package) | `{slug}/` with `README.md` + optional `strategy.md` + `items/` per [ADR-25](planning/adrs/ADR-0025-local-lifecycle-ownership.md) | `phase-3/` | `planning/initiatives/` (active) → `planning/archive/YYYY-MM-DD-{slug}/` when done |
+| Dated work product | `housekeeping/YYYY-MM-DD-{slug}/` (in-flight) → `housekeeping/archive/YYYY-MM-DD-{slug}/` (archived on close, per ADR-25) | `housekeeping/2026-MM-DD-{slug}/` | `housekeeping/` |
+| Retired spec | `{owning-dir}/archive/YYYY-MM-DD-{slug}/` with `retired_from:` in frontmatter for provenance (per ADR-25; pre-2026-05-28 entries under `_attic/YYYY-MM-DD-{slug}/` or `_attic/YYYY-MM-DD/{original-path}` grandfathered) | `product/archive/2026-MM-DD-some-spec/some-spec.md` | `{owning-dir}/archive/` |
+| Shipped-version release doc | `RELEASE.md` at root of `{owning-dir}/archive/vN-{slug}/` + one line per version in `planning/RELEASES.md` (per ADR-25; pre-2026-05-28 release docs at `_attic/YYYY-MM-DD-vN-{slug}/` grandfathered) | `planning/archive/v1-primitives/RELEASE.md` | `{owning-dir}/archive/` + `planning/` |
 | Untriaged | `_inbox/{name}.{ext}` | `_inbox/some-draft.md` | `_inbox/` |
-| Audit | `pipeline-process-audit-YYYY-MM-DD.md` (named at root during the audit; **moved to `housekeeping/YYYY-MM-DD-{slug}/` on absorption, then to `_attic/{date}/` on close**) | `pipeline-process-audit-2026-05-22.md` | (transient at root) |
+| Audit | `pipeline-process-audit-YYYY-MM-DD.md` (named at root during the audit; **moved to `housekeeping/YYYY-MM-DD-{slug}/` on absorption, then to `housekeeping/archive/YYYY-MM-DD-{slug}/` on close per ADR-25**) | `pipeline-process-audit-2026-05-22.md` | (transient at root) |
 | Pipeline meta (process docs about how to build) | `meta/{slug}/` | `meta/cowork-pipeline/` | `meta/` |
 | Skill | `skills/{kebab-name}/SKILL.md` + `workflow.md` | `skills/build/` | `skills/` |
 
@@ -98,9 +101,9 @@ A separate set of rules from entity naming — these govern *where docs live* an
 1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
 2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `tidy` enforces. Bundle files additionally carry the kind suffix in the filename — together with `status`, they replace dir-based state tracking. Pattern + lifecycle in [`meta/cowork-pipeline/DEV-PATTERN.md`](meta/cowork-pipeline/DEV-PATTERN.md) § The bundle lifecycle.
 3. **One doc, one home.** If a new doc would overlap 70%+ with an existing one, fold it in rather than stand it up. `doc-home-finder` recommends.
-4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally. Shipped-version archives prefix the slug with `vN-`: `_attic/YYYY-MM-DD-v1-primitives/`.
+4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally. Shipped-version archives prefix the slug with `vN-`: `planning/archive/v1-primitives/`. (Pre-2026-05-28 entries at `_attic/YYYY-MM-DD-v1-primitives/` are grandfathered.)
 5. **Renames break cites.** Do not rename a live doc casually — `tidy` proposes, PM ratifies, the same skill updates back-references.
-6. **Archive shape is unified.** Everything that retires moves to `_attic/YYYY-MM-DD-{slug}/`. Shipped bundles use `_attic/YYYY-MM-DD-vN-{slug}/`. Provenance lives in frontmatter (`retired_from:` for retired specs; bundle artifacts inherit context from their parent plan). Legacy `_attic/YYYY-MM-DD/{original-path}` entries are grandfathered — do not retroactively reshape. `planning/bundles/` is retired in favor of `status: done` + archival to `_attic/`.
+6. **Archives are directory-local** ([ADR-25](planning/adrs/ADR-0025-local-lifecycle-ownership.md)). Each working directory owns its own retirement. New retirements go to `{owning-dir}/archive/YYYY-MM-DD-{slug}/`; shipped-version cuts wrap each `{owning-dir}/archive/` into `{owning-dir}/archive/vN-{slug}/`, then reset for the next version. Provenance lives in frontmatter (`retired_from:` for retired specs; bundle artifacts inherit context from their parent plan). `planning/bundles/` retains `status: done` + archival to `planning/archive/`. **Legacy `_attic/` is frozen — pre-2026-05-28 retirements stay there and are grandfathered; do not retroactively migrate.** Root `planning/RELEASES.md` cross-indexes shipped versions across directories.
 
 ---
 
@@ -161,7 +164,7 @@ Memory hygiene: invoke `anthropic-skills:consolidate-memory` once a month or aft
 
 ## Rebuild phase — special rules
 
-Active until Phase 4 of [`planning/rebuild-plan.md`](planning/rebuild-plan.md) completes.
+Active until the b1 user-surface set (F030–F043 per [`planning/phase-2-scenario-strategy.md`](planning/phase-2-scenario-strategy.md)) is shipped and the b1 bundle archives. Pre-rebuild the archived [`_attic/2026-05-28-rebuild-plan/rebuild-plan.md`](_attic/2026-05-28-rebuild-plan/rebuild-plan.md) Phase 4 was the prior trigger; that doc retired with Phases 0/1/4 complete and Phases 2/3 superseded.
 
 1. **`review` is MANDATORY** on every approved scope. Verdicts: PROCEED / REVISE / EXTEND. Skip only for trivial copy/CTA changes on existing surfaces.
 2. **Memo (or system-spec banner) required** before `scope` ratifies any scenario that introduces a new schema, event, table, column, or system. Cross-cutting decisions go to [`planning/DECISIONS.md`](planning/DECISIONS.md); single-system decisions go to the spec's status banner. The action-layer and event-log invariants live in ADR-10 (historical numbering retained for the existing memo set; new decisions continue from memo-0024 onward).
@@ -218,7 +221,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/bundles/b1-primitives-plan.md`](planning/bundles/b1-primitives-plan.md) | What ships in the rebuild MVP and what defers |
 | [`planning/bundles/bundle-themes.md`](planning/bundles/bundle-themes.md) | Sub-bundle sequencer — slices each bundle into 1–2-week sub-themes (`b1.0`–`b1.6`, `b2.0`–`b2.6`, `b3.0`–`b3.5`). Read whenever choosing what ships next. Spans b1/b2/b3. |
 | [`planning/bundles/b1-primitives-work-map.md`](planning/bundles/b1-primitives-work-map.md) | The menu of work per b1 sub-bundle, tagged 🟢 / 🟡 / ⚪ for scope decisions. The planner picks the next F### scenario from this map. |
-| [`planning/rebuild-plan.md`](planning/rebuild-plan.md) | The rebuild plan — four phases, clean-slate, ticket sequencing. Filename retained for git history; the plan supersedes the prior 7-phase migration. |
+| [`planning/phase-2-scenario-strategy.md`](planning/phase-2-scenario-strategy.md) | The active Phase 2 plan — 14 scenarios (F030–F043) ordered by member-journey progression + dependency chain. Read by `scope` for every Phase 2 scenario. Supersedes the archived rebuild-plan.md Phase 2/3 sections. |
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
 | [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
 | [`product/foundation/design-philosophy.md`](product/foundation/design-philosophy.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
