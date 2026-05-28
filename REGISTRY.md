@@ -140,7 +140,6 @@ status: active
 | `planning/outreach/outreach-list.md` | Founder-recruitment list for Sacramento. | active |
 | `planning/pending-ratifications.md` | Register of unratified absolutes awaiting PM decision. | active |
 | `planning/phase-2-scenario-strategy.md` | Phase 2 scenario ordering and structure — F030–F043 with member-journey progression + dependency chain. Active spec; read by `scope` for every Phase 2 scenario. | active |
-| `planning/phase-2-pipeline-audit.md` | Audit of pipeline updates needed after Phase 2 patterns. All items resolved in commit dd2df49. | done |
 | `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's (deferred 2026-05-18; rewrite candidate as F034). | draft |
 | `planning/scenarios-backlog/USER-STORY-TEMPLATE.md` | Redirect stub to the real scenario template in skills/. | reference |
 | `product/templates/idea-intake.md` | Paste-in template producing pipeline artifacts from raw ideas. | active |
