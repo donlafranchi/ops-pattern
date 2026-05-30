@@ -35,7 +35,7 @@
    - **Single-feature draft** — body sketches one new capability or surface that needs a spec or scenarios written. (Rarer — usually these go to `tidy:triage-inbox` for routing to `product/capabilities/` or `product/systems/`.)
    - **Wrong shape — reject.** Body is a system spec draft, a raw brainstorm, or a pasted reference. Stop. Tell the PM this is a `tidy:triage-inbox` case, not an atomize case. Do not produce stubs.
 4. **For each atom, draft the stub.** Use the template in `SKILL.md` § Stub template. For each atom:
-   - **Title** — verb + object. "Merge meta + housekeeping," not "Meta and housekeeping."
+   - **Title** — verb + object. "Rotate DEVIATIONS for Phase 2," not "DEVIATIONS rotation."
    - **What this is** — one paragraph. The reader should know what gets ratified-and-executed without re-reading the parent plan.
    - **Actions** — concrete verb-led steps.
    - **Side effects** — what cites update, what JOURNAL/REGISTRY edits are needed, what downstream work it unblocks.

@@ -12,7 +12,7 @@ status: active
 
 **Meta / navigational docs** are catalogued in a dedicated Meta section at the bottom — they're the navigation, not the content.
 
-**Total catalogued:** 119 narrative docs by layer + 6 meta / navigational docs = 125 docs. **Excluded:** everything under `_attic/`, `web/`, `skills/`. (`meta/` and `housekeeping/` retired 2026-05-30.)
+**Total catalogued:** 119 narrative docs by layer + 6 meta / navigational docs = 125 docs. **Excluded:** everything under `_attic/`, `web/`, `skills/`.
 
 ## WHY — product/foundation/
 

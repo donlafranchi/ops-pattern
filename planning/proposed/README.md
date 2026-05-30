@@ -10,7 +10,7 @@ status: active
 
 ## Why this exists
 
-`_inbox/` is for *untriaged* drops. `planning/next/` is for *PM-ratified queued work*. Without a lane in between, triaged-but-unratified items hid in `_inbox/` (noise mixed with raw drafts) or sprawled into parallel top-level dirs (the now-retired `housekeeping/`). This lane makes the PM-decision queue visible — the bottleneck deserves its own surface.
+`_inbox/` is for *untriaged* drops. `planning/next/` is for *PM-ratified queued work*. This lane sits between them so triaged-but-unratified items don't hide in `_inbox/` mixed with raw drafts. The PM-decision queue deserves its own visible surface.
 
 ## Lifecycle
 

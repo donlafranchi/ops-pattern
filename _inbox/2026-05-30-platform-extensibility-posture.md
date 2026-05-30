@@ -30,7 +30,7 @@ Extending "Skill" to "application that runs on a Member's behalf with a scoped c
 
 ## The wealth-circulation check
 
-Does opening the platform increase Member power or invite extraction? Lexicographic check from `meta/cowork-pipeline/DECISION-PATTERNS.md`: member safety → platform health → data protection → mutual benefit reversible.
+Does opening the platform increase Member power or invite extraction? Lexicographic check from `playbooks/DECISION-PATTERNS.md`: member safety → platform health → data protection → mutual benefit reversible.
 
 **Power-increase shape:**
 - Producers using power-user apps to operate at scale without rebuilding on commodity SaaS.
@@ -69,7 +69,7 @@ Does opening the platform increase Member power or invite extraction? Lexicograp
 - `product/systems/producer-tools.md` — what the b2 producer app extends from
 - `product/foundation/principles.md` — where the posture statement lands
 - `product/foundation/policy.md` — guardrail invariants that bind external apps
-- `meta/cowork-pipeline/DECISION-PATTERNS.md` — lexicographic check
+- `playbooks/DECISION-PATTERNS.md` — lexicographic check
 - `planning/bundles/bundle-themes.md` — sub-bundle sequencer for b2 / b3 / b3+
 
 ## Provenance

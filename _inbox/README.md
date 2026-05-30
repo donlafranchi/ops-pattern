@@ -22,9 +22,9 @@ status: active
 - Active specs → `product/systems/` or `product/foundation/`.
 - Scenarios → `planning/scenarios-backlog/`.
 - Tickets → `development/tickets/`.
-- Pattern decisions → `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md`. (ADRs are no longer being captured; `planning/adrs/` is retired.)
-- Dated work-products on close → `_attic/YYYY-MM-DD-{slug}/` (per the 2026-05-30 retirement of `housekeeping/`).
-- Retired specs → `{owning-dir}/archive/YYYY-MM-DD-{slug}/` (per ADR-25).
+- Pattern decisions → `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md`.
+- Dated work-products on close → `_attic/YYYY-MM-DD-{slug}/`.
+- Retired specs → `{owning-dir}/archive/YYYY-MM-DD-{slug}/`.
 
 ## Frontmatter
 

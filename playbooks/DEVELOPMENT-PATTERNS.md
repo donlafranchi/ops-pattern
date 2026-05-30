@@ -14,8 +14,6 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 
 ---
 
-<!-- Pipeline patterns (from meta/cowork-pipeline/DEV-PATTERN.md) land as a section at the bottom in Phase 6. -->
-
 ### Ship on Next.js + Supabase + Mapbox + Vercel
 
 **Decision.** The web app ships on Next.js App Router + TypeScript + Tailwind v4 (`@theme inline` tokens) + Supabase (Postgres + Auth + Realtime) + Mapbox GL JS, deployed on Vercel, with Playwright for evals and Vitest for unit tests.
@@ -150,13 +148,13 @@ How the solo-founder pipeline runs. Where each stage lives, when each gate fires
 
 ---
 
-### Route work through `_inbox/` → `planning/` kanban → `playbooks/` — no parallel `meta/` or `housekeeping/` lanes
+### Route work through `_inbox/` → `planning/` kanban → `playbooks/`
 
-**Decision.** Every work item has exactly one path from raw idea to long-term pattern: a doc lands in `_inbox/` if untriaged → `atomize` (or `tidy:triage-inbox`) routes it to `planning/proposed/` → PM ratifies and promotes to `planning/next/` → execution moves it to `planning/now/` → close moves it to `planning/done/` → ratified patterns land in `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md` as the long-term home. Dated work-products that need provenance go to `_attic/YYYY-MM-DD-{slug}/` directly (per ADR-25). The repo does not maintain parallel `meta/` or `housekeeping/` top-level dirs for in-flight process work or dated reorg artifacts.
+**Decision.** Every work item has exactly one path from raw idea to long-term pattern: a doc lands in `_inbox/` if untriaged → `atomize` (or `tidy:triage-inbox`) routes it to `planning/proposed/` → PM ratifies and promotes to `planning/next/` → execution moves it to `planning/now/` → close moves it to `planning/done/` → ratified patterns land in `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md` as the long-term home. Dated work-products that need provenance go to `_attic/YYYY-MM-DD-{slug}/` directly. The repo does not maintain parallel top-level dirs for in-flight process work or dated reorg artifacts.
 
-**Intent.** Parallel lanes for "process docs" (`meta/`) and "in-flight project-shaping work" (`housekeeping/`) split the work-state surface across three places (the kanban, `meta/`, `housekeeping/`) and made "where does this go?" a three-option question instead of a one-option question. They also let work hide — a half-completed reorg in `housekeeping/` looked like archived past work rather than active queue, and process-pattern drafts in `meta/` competed with the playbooks endpoint for canonical-source status. Killing both lanes makes the kanban the single source of truth for in-flight work and the playbooks the single source of truth for ratified patterns. Ratified 2026-05-30 by PM during reorg-04 execution; the `meta/` and `housekeeping/` dirs were deleted in the same commit that landed this entry.
+**Intent.** Parallel lanes for process docs and in-flight project-shaping work split the work-state surface across multiple places and made "where does this go?" a multi-option question. They also let work hide — a half-completed reorg in a parallel dir looks like archived past work rather than active queue, and process-pattern drafts elsewhere compete with the playbooks endpoint for canonical-source status. One path keeps the kanban as the single source of truth for in-flight work and the playbooks as the single source of truth for ratified patterns.
 
-**Touches.** `planning/done/reorg-04-retire-meta-and-housekeeping.md`
+**Touches.** `CLAUDE.md` § file-and-directory naming table + this doc.
 
 ---
 

@@ -59,4 +59,4 @@ Individual items follow the per-item stub lifecycle in DEV-PATTERN.md (`status: 
 - Reviews → `reviews/`.
 - Tickets → `development/tickets/`.
 - Ongoing trackers (`STAGE-LEDGER.md`, `SPEC-PATCHES.md`, `DECISIONS.md`, `RELEASES.md`) → `planning/` root. (PM-decision queue retired 2026-05-30; decision-bearing items live in `planning/proposed/`.)
-- One-off audits with no atomization candidates → `_attic/{date}-{slug}/` directly (per the 2026-05-30 retirement of `housekeeping/`).
+- One-off audits with no atomization candidates → `_attic/{date}-{slug}/` directly.

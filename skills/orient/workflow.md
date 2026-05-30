@@ -45,7 +45,7 @@ Session-start check (project-agnostic):
 8. **Surface unsynced sub-bundle.** Glance at `planning/bundles/b{N}-{slug}-work-map.md` and the last few `development/tickets/done/T*.md`. If a sub-bundle has closed but `bundle-themes.md` / `b{N}-{slug}-work-map.md` hasn't been touched since, suggest running step 11 (folded bundle-resync) before any new scenario writing.
 
 9. **Registry conformance check (lightweight).** If `REGISTRY.md` exists at project root, verify three things:
-   - Every `.md` under `product/`, `planning/`, `development/`, `standards/` (excluding `_attic/`, `housekeeping/`, `web/`, `skills/`, and the load-bearing root set) carries YAML front-matter with `purpose` + `layer` + `status`.
+   - Every `.md` under `product/`, `planning/`, `development/`, `standards/` (excluding `_attic/`, `web/`, `skills/`, and the load-bearing root set) carries YAML front-matter with `purpose` + `layer` + `status`.
    - Every such doc has a corresponding row in `REGISTRY.md`.
    - No `REGISTRY.md` row points at a missing file.
    Lightweight = name the gaps, don't gate. Skip silently if `REGISTRY.md` does not exist.

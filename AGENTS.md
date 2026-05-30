@@ -265,7 +265,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 **Tool:** Cowork. **Model:** Sonnet.
 
-> Replaces and folds in the prior `doc-home-finder`, `doc-housekeeping`, `skills-housekeeping`. Three modes inside one skill.
+> Three modes inside one skill: triage-inbox, sweep-docs, sweep-skills.
 
 **Reads:** `_inbox/`, `_attic/`, root-level `.md` files, `skills/` (or `~/.claude/skills/`), `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`.
 
@@ -302,7 +302,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 14. On pass: PM picks next.
     On fail: build fixes forward.
     On scenario-is-wrong: scope revises; cycle restarts at step 5.
-15. "tidy / sweep / housekeeping"      → tidy   (end of session, end of bundle)
+15. "tidy / sweep"                     → tidy   (end of session, end of bundle)
 ```
 
 **Key invariants:**

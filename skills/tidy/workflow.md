@@ -50,7 +50,7 @@ One doc per invocation. Batching tempts shallow analysis. Five docs in `_inbox/`
    | Bundle / sub-bundle | `planning/bundles/` |
    | Ticket | `development/tickets/` |
    | Standard / cross-cutting quality | `standards/` |
-   | Dated work-product | `_attic/YYYY-MM-DD-{slug}/` directly (per the 2026-05-30 retirement of `housekeeping/`) |
+   | Dated work-product | `_attic/YYYY-MM-DD-{slug}/` directly |
    | Retired spec | `_attic/YYYY-MM-DD/{original-path}/` |
    | Process doc that lives elsewhere | flag — do not move without PM call |
 
