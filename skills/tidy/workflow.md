@@ -50,13 +50,13 @@ One doc per invocation. Batching tempts shallow analysis. Five docs in `_inbox/`
    | Bundle / sub-bundle | `planning/bundles/` |
    | Ticket | `development/tickets/` |
    | Standard / cross-cutting quality | `standards/` |
-   | Meta-work product | `housekeeping/YYYY-MM-DD-{slug}/` |
+   | Dated work-product | `_attic/YYYY-MM-DD-{slug}/` directly (per the 2026-05-30 retirement of `housekeeping/`) |
    | Retired spec | `_attic/YYYY-MM-DD/{original-path}/` |
    | Process doc that lives elsewhere | flag — do not move without PM call |
 
 3. **Check for fold-in candidate.** Before standing the doc up: is there an existing doc this should be a section of? Walk MAP.md + REGISTRY.md. If the doc is short (<200 lines) and 70%+ topic overlap exists, recommend **fold** over **new file**.
 
-4. **Propose filename per CLAUDE.md § Naming.** `kebab-case.md` for active; `ADR-NNNN-{slug}.md` for ADRs; `housekeeping/YYYY-MM-DD-{slug}/` for dated work products. Refuse to invent a filename outside the convention.
+4. **Propose filename per CLAUDE.md § Naming.** `kebab-case.md` for active; `_attic/YYYY-MM-DD-{slug}/` for dated work products. Refuse to invent a filename outside the convention.
 
 5. **Identify references.** Grep for the doc's current path. List every file that points at it.
 
@@ -78,7 +78,7 @@ One doc per invocation. Batching tempts shallow analysis. Five docs in `_inbox/`
    - `git mv` to proposed path.
    - Edit references.
    - Update `REGISTRY.md`.
-   - For fold-in: merge content into parent, archive source to `housekeeping/YYYY-MM-DD-folded-{slug}/` (preserve trace).
+   - For fold-in: merge content into parent, archive source to `_attic/YYYY-MM-DD-folded-{slug}/` (preserve trace).
 
 9. **Confirm clean.** Report what landed.
 
@@ -97,7 +97,7 @@ In between: surface both options, PM picks.
 Periodic sweep of the documentation tree. Finds doc rot. **Requires quiescence guard.**
 
 ### Reads
-- Every `.md` and `.html` under `product/`, `planning/`, `development/`, `standards/`, `housekeeping/`, and root.
+- Every `.md` and `.html` under `product/`, `planning/`, `development/`, `standards/`, and root.
 - `REGISTRY.md`, `product/MAP.md`, `product/TRACE.md`, `CLAUDE.md`, `git log`.
 
 ### Seven findings categories
@@ -106,11 +106,11 @@ Walk in order. Report per category.
 
 **1. Untracked root docs.** `ls *.md *.html` at root. Allowed: `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md` (if at root), `TRACE.md` (same), `REGISTRY.md`, `BUILD-LOG.md` (symlink). Anything else → propose move to `_inbox/` or directly to a home if obvious.
 
-**2. Frontmatter validity.** For every `.md` under `product/`, `planning/`, `development/`, `standards/`, `housekeeping/`: has YAML frontmatter? `purpose:`, `layer:` (∈ {why, what, how}), `status:` (∈ {draft, active, deferred, complete, historical, triage}). Surface per-file violations.
+**2. Frontmatter validity.** For every `.md` under `product/`, `planning/`, `development/`, `standards/`: has YAML frontmatter? `purpose:`, `layer:` (∈ {why, what, how}), `status:` (∈ {draft, active, deferred, complete, historical, triage, proposed, ratified, parked, retired}). Surface per-file violations.
 
 **3. REGISTRY drift.** Every doc that should be in REGISTRY has a row; every row points at an existing file; every row's `purpose` matches frontmatter.
 
-**4. Naming consistency.** Check active specs `kebab-case.md`; dated work products `housekeeping/YYYY-MM-DD-{slug}/`; ADRs `ADR-NNNN-{slug}.md`; tickets `T###-{slug}.md`; reviews `F###-review.md`. Propose renames — don't auto-rename.
+**4. Naming consistency.** Check active specs `kebab-case.md`; dated work products `_attic/YYYY-MM-DD-{slug}/`; tickets `T###-{slug}.md`; reviews `F###-review.md`. Propose renames — don't auto-rename.
 
 **4a. Bundle filename + status convention.** Walk `planning/bundles/`:
 - Every file matches `b{N}-{slug}-plan.md` (bundle plan), `b{N}[.{x}]-{slug}-{kind}.md` with kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`}, or is a cross-bundle sequencer (no `b{N}` prefix — currently only `bundle-themes.md`).
@@ -119,11 +119,11 @@ Walk in order. Report per category.
 - Every file with `status: done` either lives at `planning/bundles/{file}.md` (still cited by active work) OR has been archived to `_attic/YYYY-MM-DD-vN-{slug}/` with a row in `planning/RELEASES.md`. Surface drift in either direction.
 - Every shipped user-visible version has a one-line row in `planning/RELEASES.md` pointing at its `{owning-dir}/archive/vN-{slug}/RELEASE.md` per ADR-25 (pre-2026-05-28 versions cite `_attic/YYYY-MM-DD-vN-{slug}/RELEASE.md` and are grandfathered). Surface missing rows.
 
-**5. Completed housekeeping efforts.** Walk `housekeeping/*/README.md`. Status `complete` AND no modification in >30 days → propose archive to `housekeeping/archive/YYYY-MM-DD-{slug}/` (per ADR-25). Don't auto-move.
+**5. Closed kanban items.** Walk `planning/done/`. Items older than ~60 days with no follow-up references → propose archive to `_attic/YYYY-MM-DD-kanban-done/` (preserves the trail without growing `done/` indefinitely). Don't auto-move.
 
 **6. Propagation check.** For every doc under `product/` and `planning/`: get last-modified date; grep for cites; if any cite source is older than the cited file's last mod → surface as possible propagation gap. Reverse check: every cite in CLAUDE.md / AGENTS.md / MAP.md / TRACE.md / REGISTRY.md points at an existing file.
 
-**7. Plan docs that should atomize (any execution state).** Walk `planning/`, `housekeeping/`, and root for `.md` files that contain roughly 4+ distinct items where each could be picked up independently. Execution state does not gate the finding — a freshly-landed 4-item plan and a half-completed 4-item plan are both candidates per [`meta/cowork-pipeline/DEV-PATTERN.md`](../../meta/cowork-pipeline/DEV-PATTERN.md) § Atomize big plans with mixed-state items § When to atomize.
+**7. Plan docs that should atomize (any execution state).** Walk `planning/` and root for `.md` files that contain roughly 4+ distinct items where each could be picked up independently. Execution state does not gate the finding — a freshly-landed 4-item plan and a half-completed 4-item plan are both candidates per [`playbooks/DEVELOPMENT-PATTERNS.md`](../../playbooks/DEVELOPMENT-PATTERNS.md) § Atomize big plans with mixed-state items.
 
 Detection heuristics (any 2 of):
 - Heading or list-item pattern signaling multiple items (`### 1. …`, `### 2. …` or numbered tables of items).
@@ -149,7 +149,7 @@ For each ratified finding:
 - Archive moves → `git mv` to `{owning-dir}/archive/YYYY-MM-DD-{slug}/` per ADR-25 + leave one-line stub if anything cites the original. (Pre-2026-05-28 archives at `_attic/` are grandfathered — do not retroactively move.)
 - Propagation acks → no file change; optional JOURNAL entry.
 
-Commit at end: `docs(housekeeping): {YYYY-MM-DD} doc sweep — {N} findings landed`.
+Commit at end: `docs(tidy): {YYYY-MM-DD} doc sweep — {N} findings landed`.
 
 ---
 

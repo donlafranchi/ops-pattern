@@ -35,7 +35,7 @@ Session-start check (project-agnostic):
    | Any file in `planning/bundles/` missing `status:` in frontmatter, or carrying a value outside {`active`, `done`, `deferred`} | 2026-05-27 |
    | Any file in `planning/bundles/` whose name does not match `b{N}-{slug}-plan.md` or `b{N}[.{x}]-{slug}-{kind}.md` (kind ∈ {sprint, work-map, audit, rebuild, wrapup}), excluding cross-bundle sequencers like `bundle-themes.md` | 2026-05-27 |
    | `planning/RELEASES.md` row count does not match the number of `{owning-dir}/archive/vN-{slug}/` archives (post-ADR-25) plus the number of `_attic/YYYY-MM-DD-vN-{slug}/` archives (pre-2026-05-28 grandfather) (drift in the shipped-version index) | 2026-05-27 · ADR-25 |
-   | Any `.md` in `planning/` or `housekeeping/` containing roughly 4+ distinct items each pickable independently, regardless of execution state — atomization candidate per `meta/cowork-pipeline/DEV-PATTERN.md` § Atomize big plans with mixed-state items § When to atomize. Surface; route to `tidy` § sweep-docs finding #7 | DEV-PATTERN 2026-05-28 (b) |
+   | Any `.md` in `planning/` containing roughly 4+ distinct items each pickable independently, regardless of execution state — atomization candidate per [`playbooks/DEVELOPMENT-PATTERNS.md`](../../playbooks/DEVELOPMENT-PATTERNS.md) § Atomize big plans with mixed-state items. Surface; route to `tidy` § sweep-docs finding #7 | DEVELOPMENT-PATTERNS |
    | At v0.1 ship (after `planning/RELEASES.md` marks v0.1 shipped): any `{owning-dir}/archive/` not yet wrapped into `{owning-dir}/archive/v0.1/` — version rollup pending | ADR-25 |
 
    Report each failure with: check name, offending file(s), one-line fix. Do not attempt the fix.

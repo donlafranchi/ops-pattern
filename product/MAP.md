@@ -118,6 +118,6 @@ When this map is up to date, the following should all be true. If any of them is
 8. Every spec touching primitives is reviewed via `pipeline-review` until the rebuild's Phase 4 closes.
 9. The locality-first index is one query against one materialized view across Items / Members / Locations.
 10. Federation is the lens, not a separate stack — agents are federation peers; cooperative-services platforms (b3+) are federation peers.
-11. Every narrative `.md` outside `_attic/`, `housekeeping/`, `web/`, `skills/`, and the reserved root docs (`CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md`, `TRACE.md`) carries front-matter with `purpose` + `layer` + `status` and a row in `REGISTRY.md`.
+11. Every narrative `.md` outside `_attic/`, `web/`, `skills/`, and the reserved root docs (`CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md`, `TRACE.md`) carries front-matter with `purpose` + `layer` + `status` and a row in `REGISTRY.md`. (`meta/` and `housekeeping/` retired 2026-05-30.)
 
 If you can read this file end to end without contradiction surfacing, the architecture is internally consistent at this snapshot.

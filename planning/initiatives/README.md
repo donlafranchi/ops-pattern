@@ -32,7 +32,7 @@ planning/initiatives/
         └── ...
 ```
 
-The atomization mechanics live in [`meta/cowork-pipeline/DEV-PATTERN.md`](../../meta/cowork-pipeline/DEV-PATTERN.md) § Atomize big plans with mixed-state items. An initiative with 4+ items that are pickable independently should be atomized from the start — that is the whole point of filing here.
+The atomization mechanics live in [`playbooks/DEVELOPMENT-PATTERNS.md`](../../playbooks/DEVELOPMENT-PATTERNS.md) § Atomize big plans with mixed-state items. An initiative with 4+ items that are pickable independently should be atomized from the start — that is the whole point of filing here.
 
 `strategy.md` is optional. Use it when the meta-narrative (rationale, sequencing logic, dependency reasoning) is itself load-bearing. Otherwise the `items/` directory listing is the index.
 
@@ -59,4 +59,4 @@ Individual items follow the per-item stub lifecycle in DEV-PATTERN.md (`status: 
 - Reviews → `reviews/`.
 - Tickets → `development/tickets/`.
 - Ongoing trackers (`STAGE-LEDGER.md`, `SPEC-PATCHES.md`, `DECISIONS.md`, `RELEASES.md`) → `planning/` root. (PM-decision queue retired 2026-05-30; decision-bearing items live in `planning/proposed/`.)
-- One-off audits with no atomization candidates → `housekeeping/{date}-{slug}/`.
+- One-off audits with no atomization candidates → `_attic/{date}-{slug}/` directly (per the 2026-05-30 retirement of `housekeeping/`).

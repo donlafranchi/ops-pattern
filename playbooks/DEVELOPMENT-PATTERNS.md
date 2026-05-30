@@ -150,6 +150,16 @@ How the solo-founder pipeline runs. Where each stage lives, when each gate fires
 
 ---
 
+### Route work through `_inbox/` → `planning/` kanban → `playbooks/` — no parallel `meta/` or `housekeeping/` lanes
+
+**Decision.** Every work item has exactly one path from raw idea to long-term pattern: a doc lands in `_inbox/` if untriaged → `atomize` (or `tidy:triage-inbox`) routes it to `planning/proposed/` → PM ratifies and promotes to `planning/next/` → execution moves it to `planning/now/` → close moves it to `planning/done/` → ratified patterns land in `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md` as the long-term home. Dated work-products that need provenance go to `_attic/YYYY-MM-DD-{slug}/` directly (per ADR-25). The repo does not maintain parallel `meta/` or `housekeeping/` top-level dirs for in-flight process work or dated reorg artifacts.
+
+**Intent.** Parallel lanes for "process docs" (`meta/`) and "in-flight project-shaping work" (`housekeeping/`) split the work-state surface across three places (the kanban, `meta/`, `housekeeping/`) and made "where does this go?" a three-option question instead of a one-option question. They also let work hide — a half-completed reorg in `housekeeping/` looked like archived past work rather than active queue, and process-pattern drafts in `meta/` competed with the playbooks endpoint for canonical-source status. Killing both lanes makes the kanban the single source of truth for in-flight work and the playbooks the single source of truth for ratified patterns. Ratified 2026-05-30 by PM during reorg-04 execution; the `meta/` and `housekeeping/` dirs were deleted in the same commit that landed this entry.
+
+**Touches.** `planning/done/reorg-04-retire-meta-and-housekeeping.md`
+
+---
+
 ## Pipeline anti-patterns
 
 Things we learned by getting them wrong. Each is a default-to-avoid, named.
