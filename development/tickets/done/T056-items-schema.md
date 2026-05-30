@@ -168,8 +168,8 @@ New file `web/evals/phase-1/items.spec.ts`. Test set covers:
 ## Completion
 
 Date: 2026-05-19
-Commit (web): {pending}
-Commit (parent): {pending}
+Commit (web): f5e7e5a
+Commit (parent): 9fdec35
 
 **Build outcome:**
 

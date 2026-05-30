@@ -80,7 +80,7 @@ status: active
 - Tier 1 community-attested badges — other members vouch for Locally Owned / Locally Made claims (b2+, paired with C5 attestation surface)
 - Tier 2 document-supported badges — producer uploads SOS filing or similar evidence (b2+/b3)
 - Badge rendering comparison table on the discover page — side-by-side Locally Owned vs. Locally Made (b2)
-- "Designed in" as a separate signal from "Made at" (open question per `member-geography-redesign.md`)
+- "Designed in" as a separate signal from "Made at" (open question — historical context: `_attic/2026-05-28-reorg/product-exploration/member-geography-redesign.md`, exploration concluded; ADR-21 accepted)
 
 **Won't:**
 - Ratings or star scores of any kind. Per `principles.md` — the platform does not rank people. Trust signals are factual claims (ownership, provenance) with tiered evidence, not aggregated opinion.

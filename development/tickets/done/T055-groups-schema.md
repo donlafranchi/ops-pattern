@@ -290,8 +290,8 @@ Documenting this in both T055's migration header and T056's ticket prevents drif
 ## Completion
 
 Date: 2026-05-19
-Commit (web): {pending}
-Commit (parent): {pending — DEVIATIONS + ticket close}
+Commit (web): 7f427b8
+Commit (parent): 1cf6a2b
 
 **Build outcome:**
 

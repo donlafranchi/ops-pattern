@@ -177,8 +177,8 @@ New file `web/evals/phase-1/discoverable-items.spec.ts`:
 ## Completion
 
 Date: 2026-05-19
-Commit (web): {pending}
-Commit (parent): {pending}
+Commit (web): 6090f71
+Commit (parent): 47d03fe
 
 **Build outcome:**
 

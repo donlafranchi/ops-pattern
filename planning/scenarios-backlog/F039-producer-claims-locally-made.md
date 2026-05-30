@@ -102,7 +102,7 @@ Implicit: only kind='product' Items get this step. Events: `item.made_at_set` (a
 
 - Tier 1 community-attested provenance (other members confirm a product was made at the claimed Place) — b2+, paired with C5.
 - Tier 2 document-supported provenance — b2+/b3.
-- "Designed in" as a separate signal from "Made at" — open question per `member-geography-redesign.md`; out of scope at b1.
+- "Designed in" as a separate signal from "Made at" — open question (historical context: `_attic/2026-05-28-reorg/product-exploration/member-geography-redesign.md`); out of scope at b1.
 - Cross-claim aggregation surfaces ("show me all Locally Made products in Oak Park") — b2.
 - Service-provider trust signals — F040 covers service composer, but services don't get Locally Made.
 

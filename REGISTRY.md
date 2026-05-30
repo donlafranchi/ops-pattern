@@ -39,7 +39,6 @@ status: active
 | `product/exploration/affinity-derived-groups.md` | b2+ exploration — Groups suggested from interest + Saved-search overlap. | exploration |
 | `product/exploration/local-stays.md` | Short-term rentals as a platform surface — anti-Airbnb thesis. | exploration |
 | `product/exploration/market-intelligence.md` | Platform-wide market-intelligence direction (separate from producer-tools). | exploration |
-| `product/exploration/member-geography-redesign.md` | Source-of-record for the member↔geography substrate split (drove ADR-21). | exploration |
 | `product/exploration/reciprocity-and-goodwill.md` | Open design question on Offer/Ask reciprocity and goodwill. | reference |
 | `product/needs/member-journey.md` | The 13 loops Members move through, in five families. | active |
 | `planning/producer-roadmap.md` | Producer capabilities by business function — Now / Later / Won't per category. (Moved 2026-05-30 from `product/needs/`; roadmap lens, not a human need.) | active |

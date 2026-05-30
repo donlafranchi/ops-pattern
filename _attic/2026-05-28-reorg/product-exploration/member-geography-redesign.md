@@ -1,7 +1,10 @@
 ---
 purpose: Redesign the member↔geography awareness model; separate seller-locality, community-awareness, and follow.
 layer: what
-status: draft — pending plan ratification and ADR-0021
+status: retired
+retired_on: 2026-05-30
+retired_from: product/exploration/member-geography-redesign.md
+retired_reason: Drove ADR-21 (accepted); exploration concluded.
 ---
 
 # Exploration: Member ↔ Geography Awareness Redesign

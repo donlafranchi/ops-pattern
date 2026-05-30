@@ -1,7 +1,9 @@
 ---
 purpose: M4 deploy-checklist for the b1.x substrate sprint merge to main.
 layer: how
-status: active
+status: retired
+retired_on: 2026-05-30
+retired_from: operations/deploy-checklist-b1x.md
 ---
 
 # Deploy checklist — b1.x substrate sprint
