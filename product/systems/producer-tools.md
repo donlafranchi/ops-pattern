@@ -397,5 +397,5 @@ This spec does not own any ADR. It *consumes*:
 - **ADR-6** ([`agent-assistance.md`](agent-assistance.md)) — producer-capacity gating uses `member_has_standing_presence` (standing-derived); T3 revenue context lives in the standing-tier Assistant Context.
 - **ADR-7** ([`action-layer.md`](action-layer.md)) — every publish/schedule/mute/reply is a named handler with same-transaction row+event commit; Growth is a read over the event log.
 - **ADR-9** ([`../foundation/policy.md`](../foundation/policy.md)) — protective defaults, anti-Nextdoor messaging-scope commitment, three-filter test on segmentation opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
-- **ADR-12** ([`member.md`](member.md) status banner) — **SUPERSEDED 2026-05-12** per `agent-commerce-and-project-amendments.md` §6. There is no Maker mode; both Bulletin authorship and the Growth surface gate on kind='business' Group membership (per ADR-13) directly.
+- There is no Maker mode; both Bulletin authorship and the Growth surface gate on kind='business' Group membership (per ADR-13) directly.
 - **ADR-13** ([`groups.md`](groups.md)) — branding attribution via kind='business' Group memberships; Groups are decoration on bulletins, not authors; multi-Location producers use kind='business' Group structure.

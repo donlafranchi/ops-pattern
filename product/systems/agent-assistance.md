@@ -12,7 +12,7 @@ status: active
 
 **North stars served:** All five, indirectly. Agent assistance is not itself a loop; it is the substrate that lets the assistant accelerate every loop without reducing the Member to a category. Family 3 (Trade) most directly via Skills — Make-and-be-found, Find-a-pro, and Follow-what-you-love sustain real working businesses, not casual hobbies. Family 4 (Pooling) second — stewards benefit heavily from administrative Skills. Loop 13 federation is what Delegation portability and Assistant Context portability serve at T3.
 
-**Folded together 2026-05-22** from four prior specs (all now retired): the foundation-layer agent-assistance umbrella (commitments), the delegation system spec (the permission primitive), the assistant-context system spec (the Member-curated document), and the skills system spec (the capability bundles). This doc is their canonical home.
+This doc is the canonical home for agent-assistance — commitments, the Delegation permission primitive, the Assistant Context document, and Skills capability bundles.
 
 ---
 
@@ -82,7 +82,7 @@ The three primitives share three pieces of substrate. Defined once here; referen
 
 A read-only view (per [`groups.md`](groups.md)) returning Members with `member_has_standing_presence = true` (≥1 active membership in a kind='business' Group OR steward-role membership in any non-business Group). Replaces the earlier `member_standing_signal` derivation (retired alongside ADR-3's `maker_signal` per ADR-8 + ADR-12 + ADR-13). Outputs a single boolean per Member: standing tier (Group declared) or scratch tier (no qualifying Group). The simplicity is deliberate — every previous draft of a behavioral signal drifted, was gameable, or required policing. Declared Groups are clean.
 
-Per ADR-12 **SUPERSEDED 2026-05-12** (`agent-commerce-and-project-amendments.md` §6), the standing-tier path is now the explicit "Sell" CTA, which creates a kind='business' Group with the Member as sole owner-role membership. No `maker_mode_enabled` column exists; the Group membership itself is the signal. Ending the owner-role membership starts a 90-day dormancy window per `groups.md`; persistence across all three primitives follows the same Group-lifecycle gate (no separate toggle to pause).
+The standing-tier path is the explicit "Sell" CTA, which creates a kind='business' Group with the Member as sole owner-role membership. No `maker_mode_enabled` column exists; the Group membership itself is the signal. Ending the owner-role membership starts a 90-day dormancy window per `groups.md`; persistence across all three primitives follows the same Group-lifecycle gate (no separate toggle to pause).
 
 ### The Delegation scope vocabulary
 
@@ -96,7 +96,7 @@ Published as code constants (TypeScript enum + Postgres enum) and stable from b1
 
 **Monetary-flow scopes (T2, opt-in).**
 - `recurring_payment` — carries per-Delegation caps for max-per-transaction, max-per-month, recipient allowlist, expiry.
-- `bounded_purchase` — per `agent-commerce-and-project-amendments.md` §8b (ratified 2026-05-12). Authorizes one-time purchases within Member-stated caps and scopes; carries `max_per_transaction_cents`, `max_per_period_cents`, `period_window`, `recipient_scope`, `category_scope`, `expires_at`, `reversibility_window_hours`, `first_recipient_confirmation`, `prefer_local`. Full shape in § Delegation Policy posture below.
+- `bounded_purchase` — authorizes one-time purchases within Member-stated caps and scopes; carries `max_per_transaction_cents`, `max_per_period_cents`, `period_window`, `recipient_scope`, `category_scope`, `expires_at`, `reversibility_window_hours`, `first_recipient_confirmation`, `prefer_local`. Full shape in § Delegation Policy posture below.
 
 **Federation scopes** (T3, reserved at MVP). `federation_read_initiatives`, `federation_read_pledges`, `federation_read_locations`, `federation_handoff_identity`.
 
@@ -212,7 +212,7 @@ Per [`../foundation/policy.md`](../foundation/policy.md): default is the protect
 - Per-transaction observability: every execution writes a `delegation.recurring_payment_executed` event the Member can audit at `/you/agents`.
 - Revoke takes effect immediately for future executions; in-flight transactions complete or are reversed per the payment processor's rules.
 
-**Available opt-in (T2): `bounded_purchase` Delegation.** Per `agent-commerce-and-project-amendments.md` §8b (ratified 2026-05-12) and `payments.md`. Authorizes the Member's assistant to find and complete one-time purchases on the Member's behalf within stated bounds. Canonical use: *"find me organic eggs from a producer in my community, under $20, and buy them when you find a match"* — or *"contribute up to $200 across the next year to verified local nonprofits I've allowlisted."*
+**Available opt-in (T2): `bounded_purchase` Delegation.** Per `payments.md`. Authorizes the Member's assistant to find and complete one-time purchases on the Member's behalf within stated bounds. Canonical use: *"find me organic eggs from a producer in my community, under $20, and buy them when you find a match"* — or *"contribute up to $200 across the next year to verified local nonprofits I've allowlisted."*
 
 - Three-filter analysis: *helpful* — converts intent into action for routine purchases, gives Members the asymmetric tooling advantage aggregators monopolize but routes the agentic-commerce vector to community recipients (Members, Groups of Members, identified external recipients) instead of extractive intermediaries; expands the addressable buyer pool for producers and identified recipients; makes Buy Close operational at agent scale. *Harms others* — risks (producers flooded beyond fulfillment capacity, money routed to misrepresented external recipients, agent-vs-agent bidding) are mitigated by producer-side rate limits on Item availability per `item.md`, Member-managed allowlists for `external_recipients`, and transparent caps. *Abusable* — significant attack surface, mitigated structurally (see below).
 - **Required schema-enforced fields** (no nullable; same-transaction with grant):
@@ -601,10 +601,10 @@ This spec is the live home for the architectural decisions below. See [`../../pl
 | ADR | Status | What lives here |
 |---|---|---|
 | ADR-6 | Accepted, refined by ADR-9 | Agent assistance is first-class. Three primitives (Delegation, Assistant Context, Skills). Five umbrella commitments: loop-shaped not role-shaped · persistence is standing-derived · read can be automated, write requires human confirmation · Member-owned, never platform-owned · federation-portable. b1 ships substrate only; surfaces ship b2; federation-grade ships b3. |
-| ADR-9 (Delegation portion) | Accepted (refined 2026-05-12 per `agent-commerce-and-project-amendments.md` §8) | Opt-in monetary-flow scopes with schema-enforced mitigations: `recurring_payment` and `bounded_purchase`. Outside an active monetary-flow Delegation, one-time monetary actions remain Member-direct. Pledges are not delegable at this writing; revisit if a pledge-shaped scope passes its own three-filter test. |
+| ADR-9 (Delegation portion) | Accepted | Opt-in monetary-flow scopes with schema-enforced mitigations: `recurring_payment` and `bounded_purchase`. Outside an active monetary-flow Delegation, one-time monetary actions remain Member-direct. Pledges are not delegable at this writing; revisit if a pledge-shaped scope passes its own three-filter test. |
 | ADR-9 (Assistant Context portion) | Accepted | Opt-in anonymized aggregate analysis (k-anonymity floor N≥10). Opt-in cross-Member sharing (granular, time-bounded). Categorical refusal of feed input *for other Members* is permanent. |
 | ADR-9 (Skills portion) | Accepted | Platform-curated Skills remain free permanently. Group/peer/federation Skills default to off-platform payment with no platform cut. Opt-in available T2-late / T3: platform-mediated payment with a published, capped cut (target 5–10%) for authors who choose it. The cut funds maintenance, not catalog ranking. No paid promotion ever. |
-| ADR-(next available) | **Pending formal write-up — this status banner records the ratification** | Per `agent-commerce-and-project-amendments.md` §11 step 15: the `bounded_purchase` Delegation scope is ratified, introduced 2026-05-12. The introducing authority is the amendment; the scope shape, mitigations, and three-filter analysis live in this spec under § Delegation Policy posture. |
+| `bounded_purchase` Delegation scope | Ratified | Scope shape, mitigations, and three-filter analysis live in this spec under § Delegation Policy posture. |
 
 This spec *consumes* ADR-7 (the action-layer contract — Delegation grants flow through the named handlers `delegation.grant` / `delegation.revoke`; every issuance writes an event row in the same transaction as the row insert; runtime enforcement of scope, capability vending, and the confirmation gate is the action layer's job, not this spec's). ADR-7's full ratification lives in [`action-layer.md`](action-layer.md).
 

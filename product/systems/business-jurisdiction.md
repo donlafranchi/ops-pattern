@@ -47,7 +47,7 @@ The b1 surface is the smallest version that lets a kind='business' Group make a 
 **Multiple owner-role Members.** Each owner can have their own jurisdiction record. The Group qualifies as locally owned if **any** owner's jurisdiction ZIP passes the proximity test. Multi-owner is additive, not constraining — Maya bakes and her partner works the booth; either's jurisdiction qualifies the Group.
 
 **Surfaces.**
-- **Composer.** The kind='business' Group walkthrough (per `groups.md`; ADR-12 superseded 2026-05-12 per `agent-commerce-and-project-amendments.md` §6) adds an optional "where is this business based?" step. Self-attested ZIP only; no document upload at b1.
+- **Composer.** The kind='business' Group walkthrough (per `groups.md`) adds an optional "where is this business based?" step. Self-attested ZIP only; no document upload at b1.
 - **Group settings.** Owners can edit/add/remove their jurisdiction record from the kind='business' Group's settings surface.
 - **Group public surface.** The badge "Claimed local owner" surfaces alongside the locally-owned indicator. No street address is ever shown.
 

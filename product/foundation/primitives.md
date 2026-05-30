@@ -63,7 +63,7 @@ A Group has a name, an optional Location anchor (geographic gravity, not a bound
 
 A Group without Members ceases to exist (enters dormancy after the inactivity window, then archives). Members can dissolve a Group; a Group cannot dissolve a Member.
 
-**Deliberately no separate Cooperative entity.** Cooperative-shape coordination — multiple owners, shared assets, distributed authority — is served at b1 by kind='business' Groups with multiple owner-role memberships. The platform does not model voting, distributions, or off-platform legal entity verbs. Those concerns are deferred until real-world cooperative operations create a clear need + the user explicitly prioritizes building them (per `agent-commerce-and-project-amendments.md` §2; ADR-11 superseded — see DECISIONS.md).
+**Deliberately no separate Cooperative entity.** Cooperative-shape coordination — multiple owners, shared assets, distributed authority — is served at b1 by kind='business' Groups with multiple owner-role memberships. The platform does not model voting, distributions, or off-platform legal entity verbs. Those concerns are deferred until real-world cooperative operations create a clear need + the user explicitly prioritizes building them.
 
 See [`groups.md`](../systems/groups.md) for the full system spec. Public-facing copy may use "community," "circle," "team," or "shop" interchangeably depending on Group kind.
 

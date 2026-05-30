@@ -6,17 +6,17 @@ status: active
 
 # System: Payments
 
-**Status:** Drafted 2026-05-12 — companion to `agent-commerce-and-project-amendments.md` (ratified 2026-05-12 by user; Groups A, B, and C integrated). Pending user ratification on the rail selection (§5), the custody partner posture (§6), the fee commitment (§9), and the crypto/stablecoin path (§7). The spec ships as the live home for the forthcoming ADR on the closed-loop-plus-CDFI rail decision (number pending).
+**Status:** Drafted. Pending user ratification on the rail selection (§5), the custody partner posture (§6), the fee commitment (§9), and the crypto/stablecoin path (§7). The spec is the live home for the forthcoming ADR on the closed-loop-plus-CDFI rail decision.
 
 **Purpose:** Establish Payments as the platform's primitive for *money movement among Members, Groups, and identified external recipients*. The system carries the wealth-circulation commitment from rhetoric into rail: every architectural choice — which custody partner, which rails, which fee model, which custody for future stablecoins — is scored against whether it circulates wealth among community members or extracts it. The platform itself never custodies funds for its own balance sheet; chartered partners hold money on Members' behalf. The platform is the technology layer.
 
 **Bundles:** b1 (T1 — substrate only; tables reserved; no money moves), b2 (T2 — closed-loop ledger live, ACH via chartered partner, card-network access for newcomers with friction), b3 (T3 — multi-rail, federation-portable payment identity, platform-custodied stablecoin path gated on consumer-readiness and rubric alignment).
 
-**Companion specs:** [`agent-assistance.md`](agent-assistance.md) · [`../systems/agent-assistance.md`](../systems/agent-assistance.md) · [`action-layer.md`](action-layer.md) · [`../foundation/policy.md`](../foundation/policy.md) · [`../foundation/principles.md`](../foundation/principles.md) · [`groups.md`](groups.md) · [`member.md`](member.md) · [`item.md`](item.md) · `agent-commerce-and-project-amendments.md` (the introducing amendment).
+**Companion specs:** [`agent-assistance.md`](agent-assistance.md) · [`action-layer.md`](action-layer.md) · [`../foundation/policy.md`](../foundation/policy.md) · [`../foundation/principles.md`](../foundation/principles.md) · [`groups.md`](groups.md) · [`member.md`](member.md) · [`item.md`](item.md).
 
 **North stars served:** All five families. Payments are the substrate of the economic loops (7, 8, 9 — Make, Follow, Find a pro) and the pooling loops (10, 11 — Start something, Pool resources). Without this rail, agent commerce defaults to the extractive industry standard (Visa/Mastercard/Stripe), and the wealth-circulation thesis dies at checkout.
 
-**Decisions encoded:** This spec is the live home for the forthcoming ADR on the closed-loop-plus-CDFI rail decision (number pending). It also consumes ADR-7 (action layer is the single write surface), ADR-9 (policy framework, three-filter test), ADR-6 (Delegation), ADR-17 (`bounded_purchase` Delegation scope), the corrections in `agent-commerce-and-project-amendments.md`, and the central premise of equal community priority.
+**Decisions encoded:** This spec is the live home for the forthcoming ADR on the closed-loop-plus-CDFI rail decision. It also consumes ADR-7 (action layer is the single write surface), ADR-9 (policy framework, three-filter test), ADR-6 (Delegation), ADR-17 (`bounded_purchase` Delegation scope), and the central premise of equal community priority.
 
 ---
 
@@ -46,7 +46,7 @@ Every choice in this spec is downstream of that commitment. Custody, rails, fees
 
 - Member-to-Member commerce: a buyer pays a seller for an Item directly, both parties visible to each other, fees transparent.
 - Member-to-Group commerce: a buyer pays a cooperative bakery (a `kind='business'` Group with multiple owner-role memberships), with the receiving Group surfacing the payment to its owner-role Members per their distribution arrangement.
-- Member-to-external-identified-recipient: a Member contributes to a Girl Scouts troop, a local nonprofit, an emergency relief drive — recipients identified by name and verifiable nature per `agent-commerce-and-project-amendments.md` §5.
+- Member-to-external-identified-recipient: a Member contributes to a Girl Scouts troop, a local nonprofit, an emergency relief drive — recipients identified by name and verifiable nature.
 - Recurring payments: monthly CSA subscriptions, standing service appointments, community-fund contributions — using the `recurring_payment` Delegation scope per `agent-assistance.md`.
 - Agent-mediated bounded purchases: an agent finds a match within the Member's stated bounds and executes — using the `bounded_purchase` scope per ADR-17 and `agent-assistance.md`.
 - Closed-loop credit: a Member funds a platform balance from their bank account, then spends it within the platform at zero per-transaction cost.
@@ -250,7 +250,7 @@ Every transaction carries a `reversibility_window_hours` field set per the rail 
 
 After the window expires, the transaction is final. Disputes after the window go through the partner's dispute process (which is itself recorded in the platform's audit trail).
 
-For `bounded_purchase` Delegation-driven transactions, the default reversibility window is **24–72 hours configurable by the Member at Delegation grant time** (per ADR-17 / `agent-commerce-and-project-amendments.md` §8b). This gives the Member buyer's-remorse protection without leaving recipients in indefinite uncertainty.
+For `bounded_purchase` Delegation-driven transactions, the default reversibility window is **24–72 hours configurable by the Member at Delegation grant time** (per ADR-17). This gives the Member buyer's-remorse protection without leaving recipients in indefinite uncertainty.
 
 ---
 
@@ -436,7 +436,7 @@ Per `policy.md`: default is the protective stance; opt-ins unlock specific capab
 **Connects to:**
 
 - **Member** — every payment is initiated by a Member; payment methods belong to Members; closed-loop balances are per-Member.
-- **Group** — Groups can be transaction recipients per §2 and the corrections in `agent-commerce-and-project-amendments.md`.
+- **Group** — Groups can be transaction recipients per §2.
 - **Item** — purchase transactions reference the Item; the Item's price and seller drive the transaction.
 - **Delegation** — agent-mediated transactions (per `bounded_purchase` and `recurring_payment`) carry `via_delegation_id`; the action layer validates scope before executing.
 - **Action Layer** — every payment write is a named handler in the catalog; capability vending, transactional commit, and audit attribution flow through the action layer per ADR-7.
@@ -482,7 +482,6 @@ This spec also *consumes* and enforces decisions from other ADRs without owning 
 - **ADR-7** ([`action-layer.md`](action-layer.md)) — all payment writes flow through named handlers with capability vending.
 - **ADR-9** ([`../foundation/policy.md`](../foundation/policy.md)) — three-filter test, opt-out default.
 - **ADR-17** (cross-cutting in [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md)) — `bounded_purchase` Delegation scope; this spec is the rail that honors it.
-- **`agent-commerce-and-project-amendments.md`** — the corrected stance on money flow (visible-and-accountable, not strict Member-to-Member), the central premise of equal community priority, the single "Never" on extraction vs. circulation.
 
 ---
 

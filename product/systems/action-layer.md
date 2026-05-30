@@ -47,7 +47,7 @@ The closed-world property is load-bearing: anti-Nextdoor commitments (per `polic
 - `delegation.recurring_payment` → handler invariants: cap enforcement (`max_per_transaction_cents`, `max_per_month_cents`), recipient validation against the Delegation's allowlist, expiry check, per-execution event write (`delegation.recurring_payment_executed`).
 - `delegation.bounded_purchase` → handler invariants: cap enforcement (`max_per_transaction_cents` + `max_per_period_cents` against the `period_window`), recipient validation against the Delegation's `recipient_scope` (and `recipient_kind` derivation: member / group / external_recipient), category validation against `category_scope` (where applicable), first-recipient confirmation gate when `first_recipient_confirmation = true` and the recipient is new to the Member, reversibility-window state seeding on success (`reversibility_window_ends_at` computed at execution), per-execution event write (`delegation.bounded_purchase_executed`), and the parallel `delegation.bounded_purchase_reversed` event when the Member exercises one-tap reversal within the window. Per `agent-assistance.md` Policy posture and `payments.md`.
 
-A handler that fails to enforce any one of these invariants — caps, scope, category, confirmation, audit — is rejected by code review and CI per `agent-commerce-and-project-amendments.md` §8b ratification (2026-05-12). The invariants are schema-enforced, not policy-enforced.
+A handler that fails to enforce any one of these invariants — caps, scope, category, confirmation, audit — is rejected by code review and CI. The invariants are schema-enforced, not policy-enforced.
 
 ### 3. Approval gates — confirmation-required scopes
 
