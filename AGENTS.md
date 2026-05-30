@@ -72,7 +72,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 **Tool:** Cowork. **Model:** Sonnet.
 
-**Reads:** root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/{active}.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/OPEN-QUESTIONS.md`, `web/BUILD-LOG.md`.
+**Reads:** root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/{active}.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/proposed/`, `planning/next/`, `planning/now/`, `planning/later/`, `web/BUILD-LOG.md`.
 
 **Task:** Session-start orientation. Read state. Run the drift checklist (stale citations, empty `scenarios/` with live ticket refs, oversize DEVIATIONS, `{pending}` commit hashes, stalled SPEC-PATCHES, superseded-memo citations, stalled STAGE-LEDGER rows). Prune JOURNAL if it's heavy. Re-tag the work map if a sub-bundle closed since last session. Name the next decision. Does not act on it.
 

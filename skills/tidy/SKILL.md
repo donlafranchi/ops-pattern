@@ -25,7 +25,7 @@ Hard precondition for sweep-docs and sweep-skills. Refuses to proceed unless all
 
 1. **`main` is up to date** — no unmerged worktree branches with shippable commits ahead of `main`.
 2. **No in-flight features** — `planning/scenarios/` has no scenario whose review is pending; `development/tickets/` has no open (non-`done/`) ticket.
-3. **`planning/OPEN-QUESTIONS.md` is drained** — every entry annotated with a PM decision, or no entry older than 14 days.
+3. **Kanban lanes are coherent** — `planning/proposed/` doesn't hold items PM has already ratified; `planning/now/` doesn't hold stalled work. Lane membership is the state; PM moves files when ready.
 
 If any fail, name the blocker, stop, do not proceed. triage-inbox runs without this guard.
 

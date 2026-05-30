@@ -65,7 +65,7 @@ status: active
 
 | F# | Concept | Stage | Notes |
 |---|---|---|---|
-| F018 | Brian declares Run Club | `deferred` 2026-05-18 → archived-as-source 2026-05-28 | Reframed and replaced by **F034** (recurring gathering at venue, drops persona, fixes 3 review blockers). AGENTS.md flagship-trace question remains in OPEN-QUESTIONS #1. |
+| F018 | Brian declares Run Club | `deferred` 2026-05-18 → archived-as-source 2026-05-28 | Reframed and replaced by **F034** (recurring gathering at venue, drops persona, fixes 3 review blockers). AGENTS.md flagship-trace question now in `planning/proposed/F018-flagship-decision.md` (per reorg-11, 2026-05-30). |
 | F025 | Adaeze member public page | `deferred` 2026-05-28 | Folded into **F032** (Member page + follow). |
 | F026 | Maya claims Locally Owned (Tier 0) | `deferred` 2026-05-28 | Split between **F036** (Sell walkthrough → business Group) + **F037** (Locally Owned claim lifecycle). |
 | F027 | Maya claims Locally Made (Tier 0) | `deferred` 2026-05-28 | Folded into **F039** (Locally Made claim); product composer extracted to **F038**. |

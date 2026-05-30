@@ -211,7 +211,6 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) | The pipeline stage tracker — one row per F-number + substrate group; stamped by each pipeline skill as the work moves through. Read at session start (router does this). Fulfills `pipeline-process-audit-2026-05-22.md` R4. |
 | [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md) | The Build → Product return queue. Build agent appends when it flags a spec; `explore` drains as a gate before each phase opens. Fulfills audit R5. |
 | [`planning/AGENT-BOUNDS.md`](planning/AGENT-BOUNDS.md) | The three-layer agent-bounds doc (Intent / Bounds / Casebook) + agent-response discipline. Read when deciding whether to escalate to PM or decide alone. (Renamed from `JUDGMENT.md` 2026-05-30 per reorg item 10.) |
-| [`planning/OPEN-QUESTIONS.md`](planning/OPEN-QUESTIONS.md) | PM-decision queue surfaced by the latest pipeline audit + the auto-coverage pass. Items requiring PM judgment that no agent can resolve. |
 | [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |
 | [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |
 | [`product/foundation/principles.md`](product/foundation/principles.md) | Anything that risks treating a business as more important than the people doing the work |

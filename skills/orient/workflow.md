@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/b{N}-{slug}-plan.md` (the file with `status: active`), optionally `AGENTS.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/OPEN-QUESTIONS.md`, `planning/DECISIONS.md`, `planning/RELEASES.md`, `planning/bundles/b{N}-{slug}-work-map.md`, `web/BUILD-LOG.md`, `development/tickets/done/T*.md` (last sub-bundle), `_inbox/` |
+| **Reads** | root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/b{N}-{slug}-plan.md` (the file with `status: active`), optionally `AGENTS.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/proposed/`, `planning/next/`, `planning/now/`, `planning/later/`, `planning/DECISIONS.md`, `planning/RELEASES.md`, `planning/bundles/b{N}-{slug}-work-map.md`, `web/BUILD-LOG.md`, `development/tickets/done/T*.md` (last sub-bundle), `_inbox/` |
 | **Writes** | nothing by default. May suggest a JOURNAL entry. In folded prune mode (step 10), writes JOURNAL.md / DECISIONS.md / archive files only on PM ratification. In folded bundle-resync mode (step 11), writes `bundle-themes.md` / `b{N}-{slug}-work-map.md` only on PM ratification. |
 | **Hands to** | whichever pipeline skill the request matches (see routing table) |
 
@@ -40,7 +40,7 @@ Session-start check (project-agnostic):
 
    Report each failure with: check name, offending file(s), one-line fix. Do not attempt the fix.
 
-   **Also surface any `planning/OPEN-QUESTIONS.md` entry older than 14 days.**
+   **Also scan the kanban lanes (`planning/proposed/`, `next/`, `later/`) for stale items per PM convention — lane membership is the state; PM moves files when ready.**
 
 8. **Surface unsynced sub-bundle.** Glance at `planning/bundles/b{N}-{slug}-work-map.md` and the last few `development/tickets/done/T*.md`. If a sub-bundle has closed but `bundle-themes.md` / `b{N}-{slug}-work-map.md` hasn't been touched since, suggest running step 11 (folded bundle-resync) before any new scenario writing.
 
