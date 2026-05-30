@@ -1,10 +1,11 @@
 ---
 purpose: Inject stable YAML `id:` fields into doc front-matter so REGISTRY.md becomes a reliable resolution table.
 layer: how
-status: parked
-parked_on: 2026-05-30
-parked_reason: Parked until reorg-04-retire-meta-and-housekeeping.md ships. The meta + housekeeping retire IS the structural churn; once that lands, YAML doc-id injection runs on a stable tree. Auto-flip to next/ when reorg-04 closes.
-source: housekeeping/2026-05-28-repo-reorg/items/12-yaml-doc-ids.md (original)
+status: ratified
+auto_flipped_on: 2026-05-30
+auto_flipped_from: planning/later/reorg-12-yaml-doc-ids.md
+auto_flipped_reason: reorg-04-retire-meta-and-housekeeping.md closed 2026-05-30 (commit 749817d). Per this stub's own trigger, auto-flipped from later/ to next/. Structural churn is settled; YAML doc-id injection now runs on a stable tree.
+source: _attic/2026-05-30-reorg-item-rewrites/12-yaml-doc-ids-original.md
 risk: medium
 ---
 
