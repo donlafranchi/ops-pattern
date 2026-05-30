@@ -101,6 +101,8 @@ Groups are the atomic unit of community. They should be easy to join, easy to cr
 
 Groups should have natural size limits. A "group" of 500 is a broadcast channel, not a group. Encourage splitting at natural thresholds (~50 active members) rather than unlimited growth.
 
+> **Soft target — 2026-05-30.** The ~50 number cites Dunbar's "good relationships" layer as a working order of magnitude, not a contract. No platform enforcement, no flag if a Group grows past it. The principle is "encourage splitting at natural thresholds"; the specific number is illustrative.
+
 **Checklist:**
 
 | # | Item | Score |
