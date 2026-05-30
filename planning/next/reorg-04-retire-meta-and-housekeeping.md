@@ -18,7 +18,14 @@ Both `meta/` and `housekeeping/` go away entirely. The new flow is:
 
 ## Actions
 
-1. **Audit `meta/` contents** — `meta/cowork-pipeline/` currently holds `DECISION-PATTERNS.md` (already migrated 2026-05-30 to `playbooks/DECISION-PATTERNS.md`), `DEV-PATTERN.md` (absorbed into `playbooks/DEVELOPMENT-PATTERNS.md`), `HANDOFF-TO-CLAUDE-CODE.md`, `README.md`, plus a 2026-05-30-dev-pattern archive subdir. For each remaining live file: fold into the appropriate `playbooks/` doc, then archive the original.
+1. **Audit `meta/` contents** — `meta/cowork-pipeline/` currently holds four files plus an archive subdir. Per-file dispositions are pre-decided; the executor should follow them, not re-evaluate:
+   - `DECISION-PATTERNS.md` — already migrated 2026-05-30 to `playbooks/DECISION-PATTERNS.md`. **Archive original, no fold required.**
+   - `DEV-PATTERN.md` — already absorbed into `playbooks/DEVELOPMENT-PATTERNS.md`. **Archive original, no fold required.**
+   - `HANDOFF-TO-CLAUDE-CODE.md` — historical scaffolding (one-shot prompt that drove the 2026-05-26 skill consolidation; work is done, skills exist). **Archive on sight, no fold required.**
+   - `README.md` — indexes the other three; auto-stale once they're gone. **Archive on sight, no fold required.**
+   - `archive/2026-05-30-dev-pattern/` — already archived; relocate to `_attic/2026-05-30-meta-retirement/cowork-pipeline-archive/` to preserve the local-archive trail.
+
+   Land all four originals + the existing archive subdir under `_attic/2026-05-30-meta-retirement/cowork-pipeline/` with a `RETIRED.md` that lists each file's disposition (above) and the playbooks/ doc that replaced it where applicable.
 2. **Audit `housekeeping/` contents** — `housekeeping/2026-05-28-repo-reorg/` is the only live work-product (this very item lives there originally). Its 12 items either ship via `planning/next/` (items 1, 2, 4, 5, 7, 8) or get retired (items 3, 6, 9, 10, 11, 12 depending on disposition). When `housekeeping/2026-05-28-repo-reorg/items/` is empty, archive the parent reorg dir to `_attic/2026-05-28-repo-reorg/` with a `RETIRED.md` pointing at where each item landed.
 3. **Delete both dirs once empty** — `rmdir meta/` and `rmdir housekeeping/`. CLAUDE.md's file-naming table loses both rows; the dated-work-product pattern shifts to "park in `_inbox/` if untriaged, kanban-promote if ratified, archive to `_attic/YYYY-MM-DD-{slug}/` if dated and done."
 4. **Land the new flow as a pattern entry** in `playbooks/DEVELOPMENT-PATTERNS.md`. One Decision/Intent/Touches block titled something like "Route work through `_inbox/` → `planning/` kanban → `playbooks/` — no parallel `meta/` or `housekeeping/` lanes." Decision: kill the parallel lanes. Intent: every work item has exactly one path from raw idea to long-term pattern; no shadow dirs hold mid-state work. Touches: this file's execution.
