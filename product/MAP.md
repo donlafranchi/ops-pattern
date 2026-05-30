@@ -18,8 +18,8 @@ Connecting people, joining forces, improving our lives socially and economically
 
 The constitution and the policy filter — what the platform refuses, what it commits to, the data spine.
 
-- **[`principles.md`](foundation/principles.md)** — the constitution; the single "Never," the central premise, P1–P8 first principles, the People-First Principle (folded in from the prior `people-first.md`), the binary Decision Test, categorical failures, monetization hypothesis, metrics baseline, privacy/security baseline.
-- **[`community-health-rubric.md`](foundation/community-health-rubric.md)** — the structured measuring stick; 5 sections of platform-decision rubric (Healthy Community Attributes / Member Journey / Peer Pressure / Ownership Arc / Platform as Enabler) grounded in Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon. Score every decision against the checklists. (Renamed 2026-05-30 from `design-philosophy.md` — it's a measuring stick, not a philosophy.)
+- **[`principles.md`](foundation/principles.md)** — the constitution; the single "Never," the central premise, P1–P8 first principles, the People-First Principle, the binary Decision Test, categorical failures, monetization hypothesis, metrics baseline, privacy/security baseline.
+- **[`community-health-rubric.md`](foundation/community-health-rubric.md)** — the structured measuring stick; 5 sections of platform-decision rubric (Healthy Community Attributes / Member Journey / Peer Pressure / Ownership Arc / Platform as Enabler) grounded in Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon. Score every decision against the checklists.
 - **[`policy.md`](foundation/policy.md)** — owns ADR-9: the three-filter test (helpful? harmless? abuse-resistant?), opt-out default, and anti-Nextdoor commitments.
 - **[`platform-promise.md`](foundation/platform-promise.md)** — what the platform commits to and refuses to do, in plain language for the thesis page.
 - **[`primitives.md`](foundation/primitives.md)** — the data spine: Person · Item · Location · Group; everything the platform does is one of these acting on another.
@@ -28,9 +28,9 @@ The constitution and the policy filter — what the platform refuses, what it co
 
 Who the platform serves, what they want, how they move through it.
 
-- **[`use-cases.md`](needs/use-cases.md)** — the 12 real situations the platform exists to make better; the working test-case set for every feature. Includes the **Member roles** section (folded from former `people.md` 2026-05-30) — three roles (Member / Producer / Convener) with types-to-design-for coverage lists.
+- **[`use-cases.md`](needs/use-cases.md)** — the 12 real situations the platform exists to make better; the working test-case set for every feature. Includes the **Member roles** section — three roles (Member / Producer / Convener) with types-to-design-for coverage lists.
 - **[`member-journey.md`](needs/member-journey.md)** — north star; 13 loops in 5 families (Gathering → Sharing → Trade → Pooling → Federation); activation energy ascends, belief ascends, stake accumulates.
-- **[`../planning/producer-roadmap.md`](../planning/producer-roadmap.md)** — producer/seller capabilities organized by business function (Presence · Listing · Locality · Marketing · Relationships · Analytics · Operations · Payments · Reputation · Collaboration); each category lists Now (Phase 2) / Later / Won't. Read by `scope` before writing producer-facing scenarios; Won't bullets are PM-ratified boundaries; every scenario's `## Capabilities unlocked` section traces here. (Moved 2026-05-30 from `product/needs/` — roadmap lens, not a human need.)
+- **[`../planning/producer-roadmap.md`](../planning/producer-roadmap.md)** — producer/seller capabilities organized by business function (Presence · Listing · Locality · Marketing · Relationships · Analytics · Operations · Payments · Reputation · Collaboration); each category lists Now (Phase 2) / Later / Won't. Read by `scope` before writing producer-facing scenarios; Won't bullets are PM-ratified boundaries; every scenario's `## Capabilities unlocked` section traces here.
 
 ## Primitives — the data spine (T1 floor)
 
@@ -52,7 +52,7 @@ Who the platform serves, what they want, how they move through it.
 
 ## Surfaces — the consumer product
 
-- **[`community-platform.md`](ui/community-platform.md)** — Home / Explore / You three-page consumer architecture; the surfaces a Member sees. Folds in the prior `consumer-feed.md` (Home — locality feed) and `locality-browse.md` (Explore — anonymous proximity catalog) per the 2026-05-22 consolidation.
+- **[`community-platform.md`](ui/community-platform.md)** — Home / Explore / You three-page consumer architecture; the surfaces a Member sees.
 
 ## UI + operations + process
 
@@ -60,13 +60,13 @@ Who the platform serves, what they want, how they move through it.
 - **[`../planning/bundles/b1-primitives-plan.md`](../planning/bundles/b1-primitives-plan.md)** — the MVP scope; what ships at b1, what defers to b2/b3, what's reserved at the schema layer.
 - **[`../planning/bundles/bundle-themes.md`](../planning/bundles/bundle-themes.md)** + **[`../planning/bundles/b1-primitives-work-map.md`](../planning/bundles/b1-primitives-work-map.md)** — sub-bundle sequencer and per-sub-bundle work menu.
 - **[`../planning/rebuild-plan.md`](../planning/rebuild-plan.md)** — clean-slate rebuild plan; four phases (0=floor, 1=schema, 2=core surfaces, 3=index+thesis).
-- **[`../planning/DECISIONS.md`](../planning/DECISIONS.md)** — active ADRs (cross-cutting + pointer index for spec-resident decisions); superseded entries in [`../_attic/2026-05-19/planning/`](../_attic/2026-05-19/planning/).
+- **[`../planning/DECISIONS.md`](../planning/DECISIONS.md)** — active ADRs (cross-cutting + pointer index for spec-resident decisions).
 - **[`../AGENTS.md`](../AGENTS.md)** — agent pipeline (product → plan → review → eval → ticket → build → eval); firewalls, gates, escalation contacts.
 - **[`../CLAUDE.md`](../CLAUDE.md)** — root router; skill routing table; solo-team multiplier gates (M1 ADR, M2 code-review, M3 a11y, M4 deploy-checklist).
 
 ## Standards — HOW the build keeps quality (6 stubs)
 
-Cross-cutting qualities the build must satisfy. Stubs scaffolded 2026-05-19; content forthcoming.
+Cross-cutting qualities the build must satisfy. Stubs scaffolded; content forthcoming.
 
 - **[`../standards/safety.md`](../standards/safety.md)** · **[`../standards/security.md`](../standards/security.md)** · **[`../standards/accessibility.md`](../standards/accessibility.md)** · **[`../standards/performance.md`](../standards/performance.md)** · **[`../standards/responsiveness.md`](../standards/responsiveness.md)** · **[`../standards/README.md`](../standards/README.md)**
 
@@ -74,23 +74,6 @@ Cross-cutting qualities the build must satisfy. Stubs scaffolded 2026-05-19; con
 
 - **[`TRACE.md`](TRACE.md)** — feature lineage; one row per capability tracing back to need and forward to ticket. Companion to this MAP.
 - **[`../REGISTRY.md`](../REGISTRY.md)** — every narrative doc's purpose + status, grouped by layer.
-
-## Retired (archived in `_attic/2026-05-19/`)
-
-- **`community.md`** → [`../_attic/2026-05-19/product-systems/community.md`](../_attic/2026-05-19/product-systems/community.md). Absorbed by Groups.
-- **`member-operations.md`** → [`../_attic/2026-05-19/product-systems/member-operations.md`](../_attic/2026-05-19/product-systems/member-operations.md). Absorbed by kind='business' Group memberships.
-- **`cooperative.md`** → [`../_attic/2026-05-19/product-systems/cooperative.md`](../_attic/2026-05-19/product-systems/cooperative.md). Deferred indefinitely; cooperative-shape served at b1 by kind='business' Groups with multiple owner-role memberships.
-- **`vendor-bulletin.md`** / **`vendor-intelligence.md`** / **`vendor-self-service.md`** → rewritten as `producer-tools.md`; originals in [`../_attic/2026-05-19/product-systems/`](../_attic/2026-05-19/product-systems/).
-- **`foundational-principles.md`**, **`people-first.md`**, **`community-design-philosophy.md`**, **`policy-framework.md`** → merged into `principles.md` / `design-philosophy.md` / `policy.md` per R05 (2026-05-22).
-- **`delegation.md`**, **`assistant-context.md`**, **`skills.md`**, **`foundation/agent-assistance.md`** → merged into `systems/agent-assistance.md` per R06 (2026-05-22).
-- **`producer-bulletin.md`**, **`producer-growth.md`** → merged into `systems/producer-tools.md` per R06 (2026-05-22).
-- **`consumer-feed.md`**, **`locality-browse.md`** → folded into `ui/community-platform.md` per R07 (2026-05-22).
-- **`shareable-listing.md`** → folded into `capabilities/item-view.md` + `capabilities/member-profile.md` per R07 (2026-05-22).
-- **`canonical-examples.md`** → relocated as [`needs/use-cases.md`](needs/use-cases.md) per R08 (2026-05-22).
-- **`loops.md`** → relocated as [`needs/member-journey.md`](needs/member-journey.md) per R08 (2026-05-22).
-- **`notes/migration-to-primitives.md`** → relocated as [`../planning/rebuild-plan.md`](../planning/rebuild-plan.md) per R04 (2026-05-22).
-- **`planning/PIPELINE-AUDIT.md`** → [`../_attic/2026-05-19/planning/PIPELINE-AUDIT.md`](../_attic/2026-05-19/planning/PIPELINE-AUDIT.md). Findings memorialized in `AGENTS.md` / `CLAUDE.md`.
-- **`planning/reviews/`, `handoffs/`, `walkthroughs/`** → consolidated into [`../planning/reviews/`](../planning/reviews/) per R03 (2026-05-22).
 
 ## Forward-looking (not gated on b1)
 

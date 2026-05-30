@@ -41,7 +41,7 @@ status: active
 | `product/exploration/market-intelligence.md` | Platform-wide market-intelligence direction (separate from producer-tools). | exploration |
 | `product/exploration/reciprocity-and-goodwill.md` | Open design question on Offer/Ask reciprocity and goodwill. | reference |
 | `product/needs/member-journey.md` | The 13 loops Members move through, in five families. | active |
-| `planning/producer-roadmap.md` | Producer capabilities by business function — Now / Later / Won't per category. (Moved 2026-05-30 from `product/needs/`; roadmap lens, not a human need.) | active |
+| `planning/producer-roadmap.md` | Producer capabilities by business function — Now / Later / Won't per category. | active |
 | `product/needs/use-cases.md` | Twelve real situations the platform exists to dissolve. | active |
 | `product/systems/action-layer.md` | One transactional write path; vends agent capabilities per turn. | active |
 | `product/systems/agent-assistance.md` | Delegation + Assistant Context + Skills with five umbrella commitments. | active |
@@ -128,16 +128,16 @@ status: active
 | `planning/bundles/b1-primitives-plan.md` | Defines b1 MVP scope in primitive terms. | active |
 | `planning/bundles/b1-primitives-work-map.md` | Menu of b1 work tagged core / recommended / defer. | active |
 | `planning/bundles/bundle-themes.md` | Sequences each bundle into 1–2 week sub-themes. | active |
-| `planning/bundles/b1.x-substrate-sprint.md` | Completed b1.x geography substrate sprint (closed 2026-05-25). | complete |
+| `planning/bundles/b1.x-substrate-sprint.md` | Completed b1.x geography substrate sprint. | complete |
 | `planning/reviews/intent-ADR-20-2026-05-25.md` | Intent-check verdict for ADR-20 (CLEAN). | reference |
 | `planning/reviews/intent-ADR-21-and-spec-patches-2026-05-23.md` | Intent-check verdict covering ADR-21 + same-day spec patches. | reference |
 | `planning/reviews/intent-ADR-21-and-spec-patches-2026-05-23-recheck.md` | Re-check after ratifications landed. | reference |
 | `planning/reviews/intent-ADR-0022-2026-05-25.md` | Intent-check verdict for ADR-22. | reference |
 | `planning/reviews/intent-ADR-0023-2026-05-25.md` | Intent-check verdict for ADR-23. | reference |
-| `operations/outreach-list.md` | Founder-recruitment list for Sacramento. (Moved from `planning/outreach/` 2026-05-30 per reorg item 9.) | active |
+| `operations/outreach-list.md` | Founder-recruitment list for Sacramento. | active |
 | `planning/pending-ratifications.md` | Register of unratified absolutes awaiting PM decision. | active |
 | `planning/phase-2-scenario-strategy.md` | Phase 2 scenario ordering and structure — F030–F043 with member-journey progression + dependency chain. Active spec; read by `scope` for every Phase 2 scenario. | active |
-| `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's (deferred 2026-05-18; rewrite candidate as F034). | draft |
+| `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's. | draft |
 | `planning/scenarios-backlog/USER-STORY-TEMPLATE.md` | Redirect stub to the real scenario template in skills/. | reference |
 | `product/templates/idea-intake.md` | Paste-in template producing pipeline artifacts from raw ideas. | active |
 | `standards/README.md` | Standards layer — cross-cutting qualities the build must satisfy. | reference |
@@ -164,5 +164,4 @@ status: active
 |---|---|---|
 | `skills/` | The agent-pipeline skill bundle — process tooling, not catalogued per-file. | active |
 | `web/` | The deployable app (separate git repo) — not catalogued. | active |
-| `_attic/2026-05-19/` | Historical archive from the 2026-05 doc consolidation — not catalogued. | historical |
-| `_attic/2026-05-27/doc-consolidation-2026-05/` | The R01–R10 effort folder — not catalogued. | reference |
+| `_attic/` | Historical archive — not catalogued. | historical |

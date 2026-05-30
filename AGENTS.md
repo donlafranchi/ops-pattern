@@ -6,7 +6,7 @@ status: active
 
 # AGENTS.md — Development Pipeline
 
-> Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is documented in [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) (close-call rule) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns (the working pattern). Historical audits (2026-05-09 and 2026-05-22) are archived under `_attic/`; their findings are absorbed below.
+> Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is documented in [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) (close-call rule) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns (the working pattern).
 
 Eleven skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
 
