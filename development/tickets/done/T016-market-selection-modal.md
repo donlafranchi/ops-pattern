@@ -1,4 +1,5 @@
 ---
+id: how-t016-market-selection-modal
 purpose: Ticket T016 — market selection modal.
 layer: how
 status: reference

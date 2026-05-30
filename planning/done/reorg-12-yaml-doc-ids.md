@@ -1,4 +1,5 @@
 ---
+id: how-reorg-12-yaml-doc-ids
 purpose: Inject stable YAML `id:` fields into doc front-matter so REGISTRY.md becomes a reliable resolution table.
 layer: how
 status: ratified

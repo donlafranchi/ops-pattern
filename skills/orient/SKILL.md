@@ -1,4 +1,5 @@
 ---
+id: how-orient-skill
 name: orient
 description: Orient at the start of a session in any project using the cowork pipeline. Reads JOURNAL, the active bundle, the stage ledger, the spec-patches queue, and runs the audit-derived drift checklist. Folds in two former skills as sub-routines — JOURNAL/DECISIONS pruning (when heavy) and bundle/work-map resync (when a sub-bundle has closed). Use when the user says "where are we", "what's the state of this project", "what's next", "what needs attention", "what drifted since last session", "prune the journal", "resync the work map", or at the start of any pipeline work to determine which downstream skill applies. Reads root CLAUDE.md, JOURNAL.md, active bundle, AGENTS.md, STAGE-LEDGER, SPEC-PATCHES, planning kanban (`proposed/`, `next/`, `now/`, `later/`), DECISIONS, work-map, BUILD-LOG, recent done tickets, `_inbox/`. Writes nothing by default; on PM ratification, the folded sub-routines may write JOURNAL / DECISIONS / archive files (prune) or `bundle-themes.md` / `b{N}-work-map.md` (resync).
 ---

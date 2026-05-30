@@ -1,4 +1,5 @@
 ---
+id: how-initiatives-readme
 purpose: Home for non-bundle work packages — refactors, reorgs, strategy passes, phase-spanning plans.
 layer: how
 status: active

@@ -1,4 +1,5 @@
 ---
+id: how-scaffold-skill
 name: scaffold
 description: Scaffold a brand-new project that uses the four-agent pipeline (Product → Planning → Development → Evaluation). Use when the user says "start a new project", "scaffold a new project with the pipeline", "set up the agent pipeline here", "bootstrap project structure". Produces the directory tree, initial files (CLAUDE.md, JOURNAL.md, AGENTS.md, b1 bundle, DECISIONS.md, DEVIATIONS.md), and confirms the layout. Asks for project name, app subdirectory name, single-vs-two-repo, and tech stack before scaffolding. Never overwrites existing files without confirmation.
 ---

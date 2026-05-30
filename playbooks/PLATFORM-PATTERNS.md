@@ -1,4 +1,5 @@
 ---
+id: how-platform-patterns
 purpose: Platform decisions in force, with their intent.
 layer: how
 status: active

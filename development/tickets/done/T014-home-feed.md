@@ -1,4 +1,5 @@
 ---
+id: how-t014-home-feed
 purpose: Ticket T014 — home feed.
 layer: how
 status: reference

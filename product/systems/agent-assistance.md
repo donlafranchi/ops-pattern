@@ -1,4 +1,5 @@
 ---
+id: what-agent-assistance
 purpose: Delegation + Assistant Context + Skills with five umbrella commitments.
 layer: what
 status: active

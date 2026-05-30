@@ -1,4 +1,5 @@
 ---
+id: how-t005-pin-clustering
 purpose: Ticket T005 — pin clustering.
 layer: how
 status: reference

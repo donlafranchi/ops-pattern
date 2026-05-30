@@ -1,4 +1,5 @@
 ---
+id: what-member
 purpose: Anchor primitive — one row per real human.
 layer: what
 status: active

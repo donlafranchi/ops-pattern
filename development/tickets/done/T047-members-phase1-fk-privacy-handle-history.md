@@ -1,4 +1,5 @@
 ---
+id: how-t047-members-phase1-fk-privacy-handle-history
 purpose: Ticket T047 — members phase1 fk privacy handle history.
 layer: how
 status: reference

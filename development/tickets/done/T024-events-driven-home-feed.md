@@ -1,4 +1,5 @@
 ---
+id: how-t024-events-driven-home-feed
 purpose: Ticket T024 — events driven home feed.
 layer: how
 status: reference

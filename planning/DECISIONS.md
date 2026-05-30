@@ -1,4 +1,5 @@
 ---
+id: how-decisions
 purpose: Redirect — the decisions home is now playbooks/.
 layer: how
 status: active

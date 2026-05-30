@@ -1,4 +1,5 @@
 ---
+id: how-safety
 purpose: Safety standard — placeholder for safety-floor requirements.
 layer: how
 status: draft

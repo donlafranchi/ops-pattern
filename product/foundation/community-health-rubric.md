@@ -1,4 +1,5 @@
 ---
+id: why-community-health-rubric
 purpose: Scored 0–3 rubric grading platform decisions against community-health theory.
 layer: why
 status: active

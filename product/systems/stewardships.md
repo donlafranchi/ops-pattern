@@ -1,4 +1,5 @@
 ---
+id: what-stewardships
 purpose: Care-floor surface — Groups looking after shared things together.
 layer: what
 status: draft

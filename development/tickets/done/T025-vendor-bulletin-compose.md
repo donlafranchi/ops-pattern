@@ -1,4 +1,5 @@
 ---
+id: how-t025-vendor-bulletin-compose
 purpose: Ticket T025 — vendor bulletin compose.
 layer: how
 status: reference

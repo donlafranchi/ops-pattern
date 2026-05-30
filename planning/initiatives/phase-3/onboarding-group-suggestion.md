@@ -1,4 +1,5 @@
 ---
+id: how-onboarding-group-suggestion
 purpose: Phase 3 item stub — the onboarding Group-suggestion step.
 layer: how
 status: stub

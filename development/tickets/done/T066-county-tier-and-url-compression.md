@@ -1,4 +1,5 @@
 ---
+id: how-t066-county-tier-and-url-compression
 purpose: Substrate ticket — apply ADR-0022 (county tier) + ADR-0023 (URL compaction) to the geography substrate pre-commit.
 layer: how
 status: active

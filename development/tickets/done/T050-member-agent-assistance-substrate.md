@@ -1,4 +1,5 @@
 ---
+id: how-t050-member-agent-assistance-substrate
 purpose: Ticket T050 — member agent assistance substrate.
 layer: how
 status: reference

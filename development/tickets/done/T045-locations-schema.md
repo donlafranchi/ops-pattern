@@ -1,4 +1,5 @@
 ---
+id: how-t045-locations-schema
 purpose: Ticket T045 — locations schema.
 layer: how
 status: reference

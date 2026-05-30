@@ -1,4 +1,5 @@
 ---
+id: how-t002-database-schema
 purpose: Ticket T002 — database schema.
 layer: how
 status: reference

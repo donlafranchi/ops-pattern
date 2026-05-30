@@ -1,4 +1,5 @@
 ---
+id: how-f038-producer-lists-product
 purpose: Backlog scenario — a producer lists a product Item via the product composer.
 layer: how
 status: draft

@@ -1,4 +1,5 @@
 ---
+id: how-spec-patches
 purpose: Queue of product/ spec patches flagged by the build agent. Closes the Build → Product return path.
 layer: how
 status: active

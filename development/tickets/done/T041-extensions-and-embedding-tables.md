@@ -1,4 +1,5 @@
 ---
+id: how-t041-extensions-and-embedding-tables
 purpose: Ticket T041 — extensions and embedding tables.
 layer: how
 status: reference

@@ -1,4 +1,5 @@
 ---
+id: what-item-view
 purpose: Public Item page — owner, location, kind-appropriate response action.
 layer: what
 status: active

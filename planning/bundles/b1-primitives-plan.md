@@ -1,4 +1,5 @@
 ---
+id: how-b1-primitives-plan
 purpose: Defines b1 MVP scope in primitive terms.
 layer: how
 status: active

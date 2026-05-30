@@ -1,4 +1,5 @@
 ---
+id: how-writing-docs
 purpose: How any agent producing written output for this project should write.
 layer: how
 status: active

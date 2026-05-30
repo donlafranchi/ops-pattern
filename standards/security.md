@@ -1,4 +1,5 @@
 ---
+id: how-security
 purpose: Security standard — placeholder for threat-model and audit.
 layer: how
 status: draft

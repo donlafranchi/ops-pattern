@@ -1,4 +1,5 @@
 ---
+id: how-t003-auth
 purpose: Ticket T003 — auth.
 layer: how
 status: reference

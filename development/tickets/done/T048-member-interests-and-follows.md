@@ -1,4 +1,5 @@
 ---
+id: how-t048-member-interests-and-follows
 purpose: Ticket T048 — member interests and follows.
 layer: how
 status: reference

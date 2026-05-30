@@ -1,4 +1,5 @@
 ---
+id: how-f031-member-manages-place-interest-scope
 purpose: Backlog scenario — a member tunes their awareness scope by adding/removing/promoting secondary Place-interests.
 layer: how
 status: draft

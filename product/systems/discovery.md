@@ -1,4 +1,5 @@
 ---
+id: what-discovery
 purpose: One scoring core for feed, search, and notifications.
 layer: what
 status: active

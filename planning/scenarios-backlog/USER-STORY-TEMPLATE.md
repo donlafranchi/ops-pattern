@@ -1,4 +1,5 @@
 ---
+id: how-user-story-template
 purpose: Redirect stub to the real scenario template in skills/.
 layer: how
 status: reference

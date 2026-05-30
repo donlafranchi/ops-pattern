@@ -1,4 +1,5 @@
 ---
+id: how-f033-viewer-finds-venue-page
 purpose: Backlog scenario — a viewer lands on a venue (Location) page and sees what's happening there.
 layer: how
 status: draft

@@ -1,4 +1,5 @@
 ---
+id: how-ticket-skill
 name: ticket
 description: Act as the ticket-writer agent in a project using the agent pipeline. Use when the user wants to break an approved scenario into implementation tickets, write a ticket from scenario F###, sequence dependent tickets, or prepare work for the build agent. Triggers on "write tickets for F###", "break F### into tickets", "ticket the next scenario", "what tickets does this scenario need", "sequence the tickets". Reads only approved scenarios in planning/scenarios/ and existing tickets in development/tickets/ — never code, never the backlog. Does not implement; produces tickets that build will execute via TDD.
 ---

@@ -1,4 +1,5 @@
 ---
+id: how-t009-shareable-listing
 purpose: Ticket T009 — shareable listing.
 layer: how
 status: reference

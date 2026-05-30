@@ -1,4 +1,5 @@
 ---
+id: how-f032-viewer-finds-member-page-and-follows
 purpose: Backlog scenario — a viewer lands on a Member public page and taps follow.
 layer: how
 status: draft

@@ -1,4 +1,5 @@
 ---
+id: how-t010-support-button
 purpose: Ticket T010 — support button.
 layer: how
 status: reference

@@ -1,4 +1,5 @@
 ---
+id: what-landing-page
 purpose: First-visit surface — sign up, log in, browse as guest.
 layer: what
 status: active

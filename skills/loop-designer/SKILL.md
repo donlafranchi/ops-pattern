@@ -1,4 +1,5 @@
 ---
+id: how-loop-designer-skill
 name: loop-designer
 description: Translate a vague "I want this to improve itself" idea into a runnable self-improvement loop spec, project-agnostic. Use when the user describes a system that could optimize itself (pricing, ranking, matching, classification, routing, fraud detection, prompt or harness tuning), mentions iteration cycles being too slow for humans, references the Karpathy Loop / auto-agent / meta-agent / local hard takeoff ideas, or says "this should keep getting better on its own." Forces concrete answers to the four components — Loop, Harness, Bounded Domain, Observability — and refuses to ship the spec until four hard gates pass. Produces a Loop Spec document; does not write the agent.
 ---

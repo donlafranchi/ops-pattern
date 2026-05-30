@@ -1,4 +1,5 @@
 ---
+id: how-t021-tide-accent-and-cta-patterns
 purpose: Ticket T021 — tide accent and cta patterns.
 layer: how
 status: reference

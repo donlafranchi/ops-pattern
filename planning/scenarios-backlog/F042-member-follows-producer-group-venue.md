@@ -1,4 +1,5 @@
 ---
+id: how-f042-member-follows-producer-group-venue
 purpose: Backlog scenario — cross-cutting follow CTA tested for Group and Venue (Member follow tested in F032).
 layer: how
 status: draft

@@ -1,4 +1,5 @@
 ---
+id: how-test-skill
 name: test
 description: Act as the evaluator agent in a project using the agent pipeline. Use when the user wants to write acceptance tests from approved scenarios, run evals against a feature, verify a ticket meets its scenario, or close the loop after build. Triggers on "write evals for F###", "run evals", "verify acceptance criteria", "test the F###", "did this pass". Reads only planning/scenarios/ (approved) — never the backlog. Translates Given/When/Then into automated tests. Reports pass/fail with traceability back to the scenario.
 ---

@@ -1,4 +1,5 @@
 ---
+id: how-t057-discoverable-items
 purpose: Ticket T057 — discoverable items.
 layer: how
 status: active

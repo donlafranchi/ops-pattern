@@ -1,4 +1,5 @@
 ---
+id: how-agent-bounds
 purpose: Three-layer agent-bounds doc — Intent / Bounds / Casebook — that reduces the founder bottleneck by letting agents decide more on their own and escalate sharper.
 layer: how
 status: active

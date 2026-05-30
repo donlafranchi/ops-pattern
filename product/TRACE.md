@@ -1,4 +1,5 @@
 ---
+id: how-trace
 purpose: Feature lineage — every capability traced from human need to ticket.
 layer: how
 status: active

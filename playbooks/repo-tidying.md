@@ -1,4 +1,5 @@
 ---
+id: how-repo-tidying
 purpose: What tidy's sweep-docs mode looks for. Ten findings, each with a trigger and a disposition.
 layer: how
 status: active

@@ -1,4 +1,5 @@
 ---
+id: how-scenarios-readme
 purpose: Marker file. Approved scenarios live here.
 layer: how
 status: active

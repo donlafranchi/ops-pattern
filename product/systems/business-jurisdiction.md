@@ -1,4 +1,5 @@
 ---
+id: what-business-jurisdiction
 purpose: Three-tier locally-owned verification without exposing addresses.
 layer: what
 status: active

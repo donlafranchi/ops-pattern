@@ -1,4 +1,5 @@
 ---
+id: what-action-layer
 purpose: One transactional write path; vends agent capabilities per turn.
 layer: what
 status: active

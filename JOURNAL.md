@@ -12,6 +12,10 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-05-30 — Reorg-12 Phase A: stable doc IDs injected; REGISTRY rebuilt; b1 surface sequence pulled to `now/`
+
+Injected `id:` front-matter into 148 narrative docs across `product/`, `planning/`, `development/`, `standards/`, `playbooks/`, `skills/` via `scripts/inject-doc-ids.py` (idempotent; `why-` / `what-` / `how-` prefixes by layer; generic README.md / SKILL.md disambiguated by parent dir). Rebuilt `REGISTRY.md` via `scripts/rebuild-registry.py` — 150 docs (5 why, 30 what, 115 how). Archived 9 closed kanban items from `planning/done/` to `_attic/2026-05-30-kanban-done-batch/` with RETIRED.md index. Moved `reorg-12-yaml-doc-ids` to `done/`; pulled `plan-b1-surface-sequence` into `now/`. Phase B (convert refs in top-15 cited docs) and Phase C (full ref conversion + `tidy` check) remain deferred per the reorg-12 spec. Next: route F036 to `scope` to open the b1 surface build. Commit: {pending}.
+
 ## 2026-05-30 — Ratified lane-routing rule + default-private Member discoverability (PM override; weigh skipped)
 
 PM exercised override under AGENTS.md §3 to ratify two decisions without `weigh` dialectic. New entries in `playbooks/DEVELOPMENT-PATTERNS.md` ("Route work items by ratification need") and `playbooks/PLATFORM-PATTERNS.md` ("Default Member discoverability to private"). Stubs moved from `planning/next/` to `planning/done/`. Implementation follow-ups for the Member discoverability decision park in `product/systems/member.md` spec work.

@@ -1,4 +1,5 @@
 ---
+id: how-t053-phase-1-eval-helpers
 purpose: Ticket T053 — phase 1 eval helpers.
 layer: how
 status: reference

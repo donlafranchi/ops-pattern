@@ -1,4 +1,5 @@
 ---
+id: how-map
 purpose: 100k-foot architecture index — one sentence per system, with alignment checks.
 layer: how
 status: active

@@ -1,4 +1,5 @@
 ---
+id: how-t018-follow-vendor
 purpose: Ticket T018 — follow vendor.
 layer: how
 status: reference

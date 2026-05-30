@@ -1,4 +1,5 @@
 ---
+id: how-group-browse-index
 purpose: Phase 3 item stub — the `/g` Group browse index.
 layer: how
 status: stub

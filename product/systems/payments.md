@@ -1,4 +1,5 @@
 ---
+id: what-payments
 purpose: Money movement scored by a wealth-circulation rubric.
 layer: what
 status: active

@@ -1,4 +1,5 @@
 ---
+id: how-wonder-conversion
 purpose: Phase 3 item stub — Wonder → Gathering / Wonder → Initiative conversion flow.
 layer: how
 status: stub

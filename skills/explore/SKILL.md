@@ -1,4 +1,5 @@
 ---
+id: how-explore-skill
 name: explore
 description: Act as the product/dreamer agent in a project using the agent pipeline. Use when the user wants to explore product ideas, write a new system spec (tiered T1/T2/T3), define a capability, draft a product file, or extend the vision. Triggers on "explore", "dream up", "write a system for X", "define capability", "what could this product do", "draft a product file". Refuses to write tickets, prioritize, or make release decisions — that is planning's job.
 ---

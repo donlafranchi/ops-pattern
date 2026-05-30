@@ -1,4 +1,5 @@
 ---
+id: how-accessibility
 purpose: Accessibility standard — placeholder for WCAG-shaped requirements.
 layer: how
 status: draft

@@ -1,4 +1,5 @@
 ---
+id: what-design-language
 purpose: Design tokens, component recipes, CTA patterns.
 layer: what
 status: active

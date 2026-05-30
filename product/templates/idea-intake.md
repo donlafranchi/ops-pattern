@@ -1,4 +1,5 @@
 ---
+id: how-idea-intake
 purpose: Paste-in template producing pipeline artifacts from raw ideas.
 layer: how
 status: active

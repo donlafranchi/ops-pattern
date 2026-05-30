@@ -1,4 +1,5 @@
 ---
+id: how-f018-flagship-decision
 purpose: Decide whether F018 stays the flagship walkthrough or gets replaced.
 layer: how
 status: proposed

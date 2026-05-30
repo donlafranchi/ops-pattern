@@ -1,4 +1,5 @@
 ---
+id: what-accountability
 purpose: Two framings of accountability: court records and four-pillar community signals.
 layer: what
 status: reference

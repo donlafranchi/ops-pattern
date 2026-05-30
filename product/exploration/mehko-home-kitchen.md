@@ -1,4 +1,5 @@
 ---
+id: what-mehko-home-kitchen
 purpose: Exploration of MEHKOs (Microenterprise Home Kitchen Operations) as an early-adopter producer segment, with Sacramento outreach playbook.
 layer: what
 status: exploration

@@ -1,4 +1,5 @@
 ---
+id: what-item-respond
 purpose: Follow / Save / RSVP responses stored uniformly per Item kind.
 layer: what
 status: active

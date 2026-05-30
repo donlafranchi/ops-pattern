@@ -1,4 +1,5 @@
 ---
+id: how-build-skill
 name: build
 description: Act as the build/TDD agent in a project using the agent pipeline. Use when the user wants to implement an existing ticket, do TDD on a feature, work through development/tickets/, or fix a failing eval. Triggers on "implement T###", "work on ticket", "TDD this", "build the next ticket", "fix the failing eval". Reads only approved scenarios in planning/scenarios/ and tickets in development/tickets/ — never the backlog. Tests before code. Never rolls back commits — fixes forward. Escalates spec divergence rather than improvising. Does not write tickets — that is ticket's job.
 ---

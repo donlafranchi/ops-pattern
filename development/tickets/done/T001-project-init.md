@@ -1,4 +1,5 @@
 ---
+id: how-t001-project-init
 purpose: Ticket T001 — project init.
 layer: how
 status: reference

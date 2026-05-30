@@ -1,4 +1,5 @@
 ---
+id: why-primitives
 purpose: Defines the Person, Item, Location, and Group data spine.
 layer: why
 status: active

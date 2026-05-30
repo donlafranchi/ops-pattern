@@ -1,4 +1,5 @@
 ---
+id: what-member-profile
 purpose: Member public page — bio, Items, follows, shareable URL.
 layer: what
 status: active

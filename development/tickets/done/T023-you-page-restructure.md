@@ -1,4 +1,5 @@
 ---
+id: how-t023-you-page-restructure
 purpose: Ticket T023 — you page restructure.
 layer: how
 status: reference

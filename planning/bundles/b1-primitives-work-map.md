@@ -1,4 +1,5 @@
 ---
+id: how-b1-primitives-work-map
 purpose: Menu of b1 work tagged core / recommended / defer.
 layer: how
 status: active

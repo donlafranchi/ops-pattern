@@ -1,4 +1,5 @@
 ---
+id: what-groups
 purpose: Self-selected sets of People organized to do things together.
 layer: what
 status: active

@@ -1,4 +1,5 @@
 ---
+id: how-explore-no-login-index
 purpose: Phase 3 item stub — the no-login `/explore` locality-first index.
 layer: how
 status: stub

@@ -1,4 +1,5 @@
 ---
+id: how-phase-3-readme
 purpose: Index for Phase 3 item stubs — each is a standalone small plan extracted from the archived rebuild-plan and the Phase 2 strategy doc's Out-of-Scope list.
 layer: how
 status: active

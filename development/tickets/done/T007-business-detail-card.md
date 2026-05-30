@@ -1,4 +1,5 @@
 ---
+id: how-t007-business-detail-card
 purpose: Ticket T007 — business detail card.
 layer: how
 status: reference

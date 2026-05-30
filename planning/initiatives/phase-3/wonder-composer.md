@@ -1,4 +1,5 @@
 ---
+id: how-wonder-composer
 purpose: Phase 3 item stub — the Wonder kind composer.
 layer: how
 status: stub

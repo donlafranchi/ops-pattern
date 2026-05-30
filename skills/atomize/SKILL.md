@@ -1,4 +1,5 @@
 ---
+id: how-atomize-skill
 name: atomize
 description: Bridge between Cowork strategy and Claude Code execution. Reads a plan or parked-decision doc in `_inbox/`, decomposes it into ratify-and-execute stubs in `planning/proposed/`, archives the parent. Triggers on "atomize the inbox", "atomize `_inbox/{name}.md`", "decompose this plan", "break this plan into proposed items", "materialize the inbox", "intake the plan". Reads only `_inbox/`, `REGISTRY.md`, `CLAUDE.md`, the file-naming table, and the file the user pointed at. Writes only into `planning/proposed/` and archives the parent to `_attic/YYYY-MM-DD-{slug}/`. Does not ratify decisions, does not write scenarios, does not write tickets — produces the proposed stubs that PM ratifies and downstream skills (`weigh`, `scope`, `tidy`, `ticket`) pick up.
 ---

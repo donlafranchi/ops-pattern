@@ -1,4 +1,5 @@
 ---
+id: how-stage-ledger
 purpose: One-row-per-concept ledger tracking the pipeline stage of every F-number + substrate group. Closes the return path.
 layer: how
 status: active

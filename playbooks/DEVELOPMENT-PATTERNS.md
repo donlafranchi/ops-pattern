@@ -1,4 +1,5 @@
 ---
+id: how-development-patterns
 purpose: Development decisions in force, with their intent. Includes pipeline patterns.
 layer: how
 status: active

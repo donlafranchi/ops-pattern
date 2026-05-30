@@ -1,4 +1,5 @@
 ---
+id: how-t012-market-schema
 purpose: Ticket T012 — market schema.
 layer: how
 status: reference

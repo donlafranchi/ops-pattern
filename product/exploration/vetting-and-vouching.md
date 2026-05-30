@@ -1,4 +1,5 @@
 ---
+id: what-vetting-and-vouching
 purpose: Early-stage thinking on a community-powered vetting and vouching system for producers and products.
 layer: what
 status: exploration

@@ -1,4 +1,5 @@
 ---
+id: what-local-stays
 purpose: Exploration of short-term rentals as a platform surface — the anti-Airbnb thesis.
 layer: what
 status: exploration

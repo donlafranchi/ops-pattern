@@ -1,4 +1,5 @@
 ---
+id: how-t046-locations-rls-fixes
 purpose: Ticket T046 — locations rls fixes.
 layer: how
 status: reference

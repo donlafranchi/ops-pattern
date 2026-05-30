@@ -1,4 +1,5 @@
 ---
+id: how-group-create-flow
 purpose: Phase 3 item stub — the `/g/new` Group create flow for non-business kinds.
 layer: how
 status: stub

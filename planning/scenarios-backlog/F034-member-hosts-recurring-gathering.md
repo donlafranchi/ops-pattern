@@ -1,4 +1,5 @@
 ---
+id: how-f034-member-hosts-recurring-gathering
 purpose: Backlog scenario — a member hosts a recurring gathering at an existing venue via the "Host something here" CTA.
 layer: how
 status: draft

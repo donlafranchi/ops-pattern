@@ -1,4 +1,5 @@
 ---
+id: how-t044-auth-signup-hook
 purpose: Ticket T044 — auth signup hook.
 layer: how
 status: reference

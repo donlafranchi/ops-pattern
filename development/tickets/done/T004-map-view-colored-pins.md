@@ -1,4 +1,5 @@
 ---
+id: how-t004-map-view-colored-pins
 purpose: Ticket T004 — map view colored pins.
 layer: how
 status: reference

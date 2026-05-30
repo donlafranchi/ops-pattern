@@ -1,4 +1,5 @@
 ---
+id: how-stewardships
 purpose: Phase 3 item stub — the stewardships surface (group_stewardships schema delta + steward tooling).
 layer: how
 status: stub

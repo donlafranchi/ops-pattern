@@ -1,4 +1,5 @@
 ---
+id: what-use-cases
 purpose: Real situations the platform exists to dissolve, organized by category and progressive type.
 layer: what
 status: active

@@ -1,4 +1,5 @@
 ---
+id: how-t065-mutation-testing-stryker
 purpose: Ticket T065 — Stryker mutation testing for pure-logic surface.
 layer: how
 status: draft

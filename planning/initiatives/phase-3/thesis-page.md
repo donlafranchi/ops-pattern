@@ -1,4 +1,5 @@
 ---
+id: how-thesis-page
 purpose: Phase 3 item stub — the `/why` thesis page.
 layer: how
 status: stub

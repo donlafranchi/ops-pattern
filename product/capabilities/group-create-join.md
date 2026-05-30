@@ -1,4 +1,5 @@
 ---
+id: what-group-create-join
 purpose: Create, browse, join, leave Groups manually.
 layer: what
 status: active

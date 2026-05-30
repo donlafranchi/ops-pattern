@@ -1,4 +1,5 @@
 ---
+id: how-f036-member-creates-business-group-via-sell-walkthrough
 purpose: Backlog scenario — a member taps Sell and creates a kind='business' Group via the Sell walkthrough.
 layer: how
 status: draft

@@ -1,4 +1,5 @@
 ---
+id: what-affinity-derived-groups
 purpose: Explore surfacing emergent Group suggestions from Member taste-overlap on Items, without crossing the auto-assignment refusal.
 layer: what
 status: exploration

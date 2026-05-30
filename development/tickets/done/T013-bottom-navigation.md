@@ -1,4 +1,5 @@
 ---
+id: how-t013-bottom-navigation
 purpose: Ticket T013 — bottom navigation.
 layer: how
 status: reference

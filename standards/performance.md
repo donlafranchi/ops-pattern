@@ -1,4 +1,5 @@
 ---
+id: how-performance
 purpose: Performance standard — placeholder for budget and verification.
 layer: how
 status: draft

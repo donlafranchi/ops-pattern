@@ -1,4 +1,5 @@
 ---
+id: how-f037-producer-claims-locally-owned
 purpose: Backlog scenario — a producer claims the Tier 0 self-attested Locally Owned badge on their business Group.
 layer: how
 status: draft

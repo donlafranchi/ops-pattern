@@ -1,4 +1,5 @@
 ---
+id: how-f039-producer-claims-locally-made
 purpose: Backlog scenario — a producer claims the Tier 0 self-attested Locally Made provenance badge on a product Item.
 layer: how
 status: draft

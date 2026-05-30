@@ -1,4 +1,5 @@
 ---
+id: how-t052-phase-0-eval-helpers
 purpose: Ticket T052 — phase 0 eval helpers.
 layer: how
 status: reference

@@ -1,4 +1,5 @@
 ---
+id: what-reciprocity-and-goodwill
 purpose: Open design question on Offer/Ask reciprocity and goodwill.
 layer: what
 status: reference

@@ -1,4 +1,5 @@
 ---
+id: how-standards-readme
 purpose: Standards layer — cross-cutting qualities the build must satisfy.
 layer: how
 status: reference

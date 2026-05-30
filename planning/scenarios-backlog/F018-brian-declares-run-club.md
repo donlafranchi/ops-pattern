@@ -1,4 +1,5 @@
 ---
+id: how-f018-brian-declares-run-club
 purpose: Backlog scenario — Brian declares the Run Club gathering at Drake's.
 layer: how
 status: draft

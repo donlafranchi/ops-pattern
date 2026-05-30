@@ -1,4 +1,5 @@
 ---
+id: how-t056-items-schema
 purpose: Ticket T056 — items schema.
 layer: how
 status: active

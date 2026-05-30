@@ -1,4 +1,5 @@
 ---
+id: how-bundle-themes
 purpose: Sequences each bundle into 1–2 week sub-themes.
 layer: how
 status: active

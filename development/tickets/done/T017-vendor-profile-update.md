@@ -1,4 +1,5 @@
 ---
+id: how-t017-vendor-profile-update
 purpose: Ticket T017 — vendor profile update.
 layer: how
 status: reference

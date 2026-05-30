@@ -1,4 +1,5 @@
 ---
+id: how-t015-explore-search-map
 purpose: Ticket T015 — explore search map.
 layer: how
 status: reference

@@ -1,4 +1,5 @@
 ---
+id: how-proposed-readme
 purpose: Triaged work waiting on PM ratify — the lane between `_inbox/` and `planning/next/`.
 layer: how
 status: active

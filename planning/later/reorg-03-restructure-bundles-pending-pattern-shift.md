@@ -1,4 +1,5 @@
 ---
+id: how-reorg-03-restructure-bundles-pending-pattern-shift
 purpose: Reorg item — restructure planning/bundles/ to support per-bundle and per-sub-bundle atomization.
 layer: how
 status: parked

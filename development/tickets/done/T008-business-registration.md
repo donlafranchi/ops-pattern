@@ -1,4 +1,5 @@
 ---
+id: how-t008-business-registration
 purpose: Ticket T008 — business registration.
 layer: how
 status: reference

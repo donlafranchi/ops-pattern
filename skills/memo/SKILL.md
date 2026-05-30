@@ -1,4 +1,5 @@
 ---
+id: how-memo-skill
 name: memo
 description: Walks the PM through writing, ratifying, or superseding an ADR following the project's `planning/adrs/` conventions. Use when the user says "write an ADR for X", "record this decision", "ratify ADR-N", "supersede ADR-M", "what's the next ADR number", or after a `explore` / `scope` / `review` session surfaces a load-bearing decision that needs canonical documentation. Allocates the next ADR number, drafts from the template, runs `weigh` on the draft, lands the pointer line in `DECISIONS.md`, and updates spec/foundation cross-references where applicable. Reads `planning/adrs/`, `planning/adrs/README.md`, `planning/DECISIONS.md`, and the spec/foundation files the ADR will touch. Writes one new file under `planning/adrs/` and one updated line in `DECISIONS.md`. Refuses to write code or implementation tickets — that's `ticket` / `build`.
 ---

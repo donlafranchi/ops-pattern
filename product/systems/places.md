@@ -1,4 +1,5 @@
 ---
+id: what-places
 purpose: Places primitive — recognized geographic scope for locality URLs.
 layer: what
 status: active

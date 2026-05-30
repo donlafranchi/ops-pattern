@@ -1,4 +1,5 @@
 ---
+id: how-t026-vendor-founder-dashboard
 purpose: Ticket T026 — vendor founder dashboard.
 layer: how
 status: reference

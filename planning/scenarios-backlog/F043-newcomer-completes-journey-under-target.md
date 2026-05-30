@@ -1,4 +1,5 @@
 ---
+id: how-f043-newcomer-completes-journey-under-target
 purpose: Backlog scenario — integration test of the Phase 2 exit criterion. A newcomer completes the full journey in under the working target (~90 seconds) across two paths.
 layer: how
 status: draft

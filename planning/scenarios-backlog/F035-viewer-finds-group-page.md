@@ -1,4 +1,5 @@
 ---
+id: how-f035-viewer-finds-group-page
 purpose: Backlog scenario — a viewer finds a Group's public page; covers both community-kind and business-kind Group rendering.
 layer: how
 status: draft

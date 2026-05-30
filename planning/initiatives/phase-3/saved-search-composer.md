@@ -1,4 +1,5 @@
 ---
+id: how-saved-search-composer
 purpose: Phase 3 item stub — the saved-search composer surface + fan-out worker.
 layer: how
 status: stub

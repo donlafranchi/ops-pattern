@@ -1,4 +1,5 @@
 ---
+id: how-decision-patterns
 purpose: How to make calls — the default, the tiebreaker order, the one absolute.
 layer: how
 status: active

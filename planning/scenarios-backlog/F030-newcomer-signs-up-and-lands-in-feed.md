@@ -1,4 +1,5 @@
 ---
+id: how-f030-newcomer-signs-up-and-lands-in-feed
 purpose: Backlog scenario — a newcomer signs up, picks a locality + interest tags, and lands in the awareness feed.
 layer: how
 status: draft

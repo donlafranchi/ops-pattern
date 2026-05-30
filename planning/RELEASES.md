@@ -1,4 +1,5 @@
 ---
+id: how-releases
 purpose: One-line index of every shipped user-visible version.
 layer: how
 status: active

@@ -1,4 +1,5 @@
 ---
+id: how-t049-member-location-affinities
 purpose: Ticket T049 — member location affinities.
 layer: how
 status: reference

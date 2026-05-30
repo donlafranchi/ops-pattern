@@ -1,4 +1,5 @@
 ---
+id: how-t006-map-search
 purpose: Ticket T006 — map search.
 layer: how
 status: reference

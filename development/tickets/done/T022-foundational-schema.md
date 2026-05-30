@@ -1,4 +1,5 @@
 ---
+id: how-t022-foundational-schema
 purpose: Ticket T022 — foundational schema.
 layer: how
 status: reference

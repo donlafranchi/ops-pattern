@@ -1,4 +1,5 @@
 ---
+id: how-scope-skill
 name: scope
 description: Act as the planning/filter agent in a project using the agent pipeline. Use when the user wants to write or approve scenarios, scope a release bundle, filter the backlog, decide what ships next, or convert a product system into testable acceptance criteria. Triggers on "write a scenario for", "scope b1/b2/b3", "approve scenarios", "filter the backlog", "what should ship next", "acceptance criteria for", "user story for". Anchors every scenario to a real person doing a real thing in product/needs/use-cases.md. Applies the 5 Deadly Sins of PM (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Refuses to write tickets — that is ticket's job. Refuses to explore or write systems — that is explore's job.
 ---

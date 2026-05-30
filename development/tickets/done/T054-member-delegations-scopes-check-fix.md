@@ -1,4 +1,5 @@
 ---
+id: how-t054-member-delegations-scopes-check-fix
 purpose: Ticket T054 — member delegations scopes check fix.
 layer: how
 status: active

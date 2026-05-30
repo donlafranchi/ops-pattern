@@ -1,4 +1,5 @@
 ---
+id: how-f041-producer-generates-qr-card
 purpose: Backlog scenario — a producer generates a print-quality QR card for any of their Items.
 layer: how
 status: draft

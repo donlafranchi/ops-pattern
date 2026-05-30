@@ -1,4 +1,5 @@
 ---
+id: what-community-platform
 purpose: Home / Explore / You three-page consumer architecture.
 layer: what
 status: active

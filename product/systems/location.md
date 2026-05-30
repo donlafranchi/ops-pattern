@@ -1,4 +1,5 @@
 ---
+id: what-location
 purpose: Permanent / recurring-temporary / area places; anti-Nextdoor encoded.
 layer: what
 status: active

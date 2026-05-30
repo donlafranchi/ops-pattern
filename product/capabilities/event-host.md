@@ -1,4 +1,5 @@
 ---
+id: what-event-host
 purpose: Members host events from a venue-page CTA.
 layer: what
 status: active

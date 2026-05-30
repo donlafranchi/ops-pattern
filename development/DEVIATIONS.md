@@ -1,4 +1,5 @@
 ---
+id: how-deviations
 purpose: Per-ticket log of implementation-vs-spec drift across the build.
 layer: how
 status: active

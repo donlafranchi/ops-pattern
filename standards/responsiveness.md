@@ -1,4 +1,5 @@
 ---
+id: how-responsiveness
 purpose: Responsiveness standard — placeholder for layout breakpoint rules.
 layer: how
 status: draft

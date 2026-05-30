@@ -1,4 +1,5 @@
 ---
+id: how-t067-report-shape
 purpose: Substrate ticket — install the Report Shape rule across pipeline-doc surfaces so every multi-step skill report opens with status + ask, withholds detail until the PM says "expand," and names items in plain English instead of by ID.
 layer: how
 status: active

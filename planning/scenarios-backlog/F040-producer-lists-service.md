@@ -1,4 +1,5 @@
 ---
+id: how-f040-producer-lists-service
 purpose: Backlog scenario — a producer lists a service Item via the service composer.
 layer: how
 status: draft

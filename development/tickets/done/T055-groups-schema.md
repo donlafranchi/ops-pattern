@@ -1,4 +1,5 @@
 ---
+id: how-t055-groups-schema
 purpose: Ticket T055 — groups schema.
 layer: how
 status: active

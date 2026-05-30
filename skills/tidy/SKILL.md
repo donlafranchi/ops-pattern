@@ -1,4 +1,5 @@
 ---
+id: how-tidy-skill
 name: tidy
 description: Anti-sprawl sweeper. Three modes — triage-inbox (drain `_inbox/` one doc at a time), sweep-docs (periodic doc-tree audit for rot / drift / propagation gaps), sweep-skills (periodic skills/ audit for retired dirs / broken cites / mandatory-step coverage). Use when the user says "tidy", "sweep the docs", "audit the skills", "triage the inbox", "drain inbox", "anything rotting", "anything to archive", "where should this doc go", "is anything stale", or at the end of any quiet period. Refuses to run sweep-docs / sweep-skills during active pipeline work (quiescence guard). One doc / one finding at a time — never batch. Reads the doc tree, skills/, REGISTRY.md, MAP.md, TRACE.md, CLAUDE.md, AGENTS.md, git log. Writes nothing without PM ratification.
 ---

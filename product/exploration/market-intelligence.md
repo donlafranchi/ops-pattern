@@ -1,4 +1,5 @@
 ---
+id: what-market-intelligence
 purpose: Platform-wide demand-intelligence — aggregate market signal surfaced to producers.
 layer: what
 status: draft

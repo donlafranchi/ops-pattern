@@ -1,4 +1,5 @@
 ---
+id: why-principles
 purpose: Constitution: P1–P8, People-First Principle, Decision Test, categorical failures.
 layer: why
 status: active
