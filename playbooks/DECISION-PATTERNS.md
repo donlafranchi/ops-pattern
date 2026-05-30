@@ -1,8 +1,14 @@
-# DECISION-PATTERNS
+---
+purpose: How to make calls — the default, the tiebreaker order, the one absolute.
+layer: how
+status: active
+---
+
+# Decision patterns
 
 How to make calls — for the PM, and for any agent acting on the PM's behalf. One default, one tiebreaker order, one absolute. Architect for reversibility, not for being right the first time.
 
-> Sister docs: [README](README.md), [DEV-PATTERN](DEV-PATTERN.md). The `weigh` skill is the runtime expression of this document.
+> Sister docs: [PLATFORM-PATTERNS](PLATFORM-PATTERNS.md), [DEVELOPMENT-PATTERNS](DEVELOPMENT-PATTERNS.md), [writing-docs](writing-docs.md). The `weigh` skill is the runtime expression of this document.
 
 ---
 
@@ -53,13 +59,13 @@ The decision rule has a corresponding architectural commitment. Build so that to
 - **Sub-routines over standalone skills until the sub-routine has earned standalone status.** A sub-routine can be promoted; a skill is expensive to retire.
 - **Defaults with named exceptions over absolutes.** A default can be revised in one place; an absolute requires re-deriving the casework everywhere it was applied.
 
-When you write a memo (the `memo` skill, formerly ADR), include a Reversibility section — explicitly state what it would take to undo this decision and what would have to be true for that to be worth doing. If the answer is "we'd have to rebuild from scratch," the decision needs more scrutiny before it lands.
+When a decision lands in `PLATFORM-PATTERNS.md` or `DEVELOPMENT-PATTERNS.md`, the Intent paragraph implicitly carries reversibility — what would have to change for this to come back out of the doc. If the answer is "we'd have to rebuild from scratch," the decision needs more scrutiny before it lands.
 
 ---
 
 ## How to spot an unearned absolute
 
-Default-with-exception is the prose stance. An absolute is earned only when there's a rationale you'd defend out loud. Watch for these words in specs, memos, and agent output:
+Default-with-exception is the prose stance. An absolute is earned only when there's a rationale you'd defend out loud. Watch for these words in specs, pattern docs, and agent output:
 
 > never · always · must · cannot · refuses · no X · only · purely · entirely · categorically · deliberately no
 
@@ -104,9 +110,3 @@ Absolutes without a State tag are unratified de-facto and block the pipeline. Th
 *Tiebreaker 2 (platform health):* Friction at 30 days might reduce adoption to the point the feature can't sustain itself.
 *Tiebreaker 3 (data protection):* 30 days minimizes the window of compromise.
 *Resolution:* Two tiebreakers favor 30 days; one favors 90. PM picks 30 with the reversibility hook of "configurable later if adoption signal demands."
-
----
-
-## Update log
-
-- *2026-05-26* — Initial. Default = mutual benefit + reversibility. Tiebreakers: member safety → platform health → data protection. Single absolute = wealth circulation over extraction. Architectural corollary: reversibility section in every memo.

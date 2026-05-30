@@ -107,16 +107,6 @@ rm -f ~/.claude/skills/pipeline-review-absolute
 
 **Audit ref:** R6, E2.
 
-## 8 · F025 re-anchoring (audit H1 follow-on)
-
-**What.** F025 ("Adaeze member public page") is in `planning/scenarios-backlog/` with no review or tickets. STAGE-LEDGER lists it `plan-backlog`. The empty `planning/scenarios/` folder means **zero approved scenarios in flight** — the entire feature pipeline is idle.
-
-**Why agent couldn't.** Promoting F025 requires PM scenario approval; alternatively a Phase 2 entry decision is needed.
-
-**Proposed disposition.** PM either: (a) reviews F025 and approves (move to `scenarios/`); (b) signals that Phase 2 starts with a different concept and writes that scenario.
-
-**Audit ref:** H1.
-
 ---
 
 ## How this file works

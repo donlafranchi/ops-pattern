@@ -6,7 +6,7 @@ status: active
 
 # AGENTS.md — Development Pipeline
 
-> Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is mirrored in [`meta/cowork-pipeline/`](meta/cowork-pipeline/) — DEV-PATTERN.md, DECISION-PATTERNS.md, README.md — which will be lifted to a separate `cowork-pipeline` GitHub repo so the same skills can run on any workstation. Historical audits (2026-05-09 and 2026-05-22) are archived under `_attic/`; their findings are absorbed below.
+> Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is documented in [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) (close-call rule) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns (the working pattern). Historical audits (2026-05-09 and 2026-05-22) are archived under `_attic/`; their findings are absorbed below.
 
 Ten skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
 
@@ -19,7 +19,7 @@ Ten skills run the full lifecycle. Each is a role on a tight five-person dev tea
 | `scope` | Planning / scoping | Cowork | Smallest version that proves the bet |
 | `weigh` | Tech-lead judgment call | Cowork | Which option stays reversible, who bears the cost |
 | `review` | Architecture + design + security gate | Cowork | Will it scale, is it accessible, is it safe |
-| `memo` | Decision recorder (formerly ADR) | Cowork | What rationale will future-us need |
+| `memo` | Decision-reversal recorder | Cowork | What user feedback contradicted the prior pattern entry |
 | `ticket` | Sequencer | Claude Code | Smallest unit with a clear done condition |
 | `test` | QA — write + run | Claude Code | Would a stranger know if this broke |
 | `build` | Engineer — TDD | Claude Code | Simplest code that passes, fastest |
@@ -59,7 +59,7 @@ Two failure modes show up under-annotated specs, and any gate's runner can fall 
 1. **Over-fit on literal wording.** Spec says "no X." Agent treats it as categorical when the project's stance is shape-specific ("no *impersonal* X"). Tests pass for the wrong reason.
 2. **Reconstruct intent and drift.** Spec says *what*. Agent guesses *why*, gets it plausibly wrong, propagates the reconstructed intent downstream as if it were the spec.
 
-Both failure modes look like the agent doing its job. Both are caught by the same discipline: every load-bearing decision carries its **why** alongside its **what**, and every gate's runner reads the *why* before judging the *what*. See `DECISION-PATTERNS.md` § "How to spot an unearned absolute" for the State-tagged Intent line discipline.
+Both failure modes look like the agent doing its job. Both are caught by the same discipline: every load-bearing decision carries its **why** alongside its **what**, and every gate's runner reads the *why* before judging the *what*. See [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) § How to spot an unearned absolute for the State-tagged Intent line discipline.
 
 ---
 
@@ -93,7 +93,7 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Tool:** Cowork. **Model:** Opus.
 
-**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `product/needs/producer-capability-taxonomy.md` (mandatory — refuses to write scenarios for "Won't" capabilities; every scenario's `## Capabilities unlocked` section traces to taxonomy categories), `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`, `planning/phase-2-scenario-strategy.md` (active phase only).
+**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `product/needs/producer-capability-taxonomy.md` (mandatory — refuses to write scenarios for "Won't" capabilities; every scenario's `## Capabilities unlocked` section traces to taxonomy categories), `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`, `planning/bundles/b1-primitives-sequence.md` (active sequence).
 
 **Writes:** `planning/scenarios-backlog/` (PM moves approved → `planning/scenarios/`), `planning/bundles/`.
 
@@ -117,7 +117,7 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Does NOT read or write:** `web/` code, `development/tickets/`, `planning/scenarios/`.
 
-**Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic rule from `meta/cowork-pipeline/DECISION-PATTERNS.md`:
+**Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic rule from [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md):
 
 1. Member safety
 2. Platform health
@@ -151,7 +151,7 @@ Rejected absolutes are deleted; the JOURNAL records the removal.
 
 > Mandatory during the primitives rebuild on any scope that introduces a new surface, component, event type, table, column, or design pattern. Optional only for trivial copy/CTA changes.
 
-**Reads:** `planning/scenarios/` (the approved scope), `product/systems/`, `product/ui/`, `product/foundation/`, `planning/DECISIONS.md`, `planning/bundles/{active}.md`.
+**Reads:** `planning/scenarios/` (the approved scope), `product/systems/`, `product/ui/`, `product/foundation/`, `playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`, `planning/bundles/{active}.md`.
 
 **Writes:** `planning/reviews/F{NNN}-review.md`.
 
@@ -170,13 +170,13 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 **Tool:** Cowork. **Model:** Sonnet.
 
-**Reads:** `planning/DECISIONS.md`, `planning/memos/`, related system specs.
+**Reads:** `playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`, `playbooks/memos/`, related system specs.
 
-**Writes:** `planning/memos/{NNNN}-{slug}.md`, indexed from `planning/DECISIONS.md`.
+**Writes:** `playbooks/memos/{NNNN}-{slug}.md`. Edits the pattern-doc entry being reversed (or removes it if the reversal is total).
 
-**Task:** Write a one-pager decision memo when the scope encodes a cross-cutting commitment: schema, event contract, money flow, naming convention, removal of a Member-visible affordance. Each memo carries a **Reversibility** section explicitly stating what it would take to undo and what would have to be true for that to be worth doing. If the answer is "rebuild from scratch," the memo is sent back for more scrutiny before landing.
+**Task:** Write a memo **only when user feedback contradicts a prior pattern-doc entry** that is now in force. New decisions land directly as pattern-doc entries in `playbooks/{PLATFORM,DEVELOPMENT}-PATTERNS.md` — they do not need a memo. The memo's job is to record *why we changed direction*: what feedback came in, why the original Intent no longer holds, what the new pattern entry replaces.
 
-**Format and lifecycle:** see `planning/memos/README.md`. Memo numbering continues the prior ADR sequence — ADR-1 through ADR-23 remain canonical references; memo-0024 onward uses the new shape.
+**Format and lifecycle:** numbering continues from 0024 (ADR-1 through 0025 retain their numbers in the original ADR files for git-history citation stability; new reversal memos start at memo-0024 onward).
 
 ---
 
@@ -265,7 +265,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
    EXTEND → back to explore, re-review.
    REVISE → back to scope, re-review.
    PROCEED → continue.
-7. "memo this decision"                → memo  (when scope encodes a cross-cutting commitment)
+7. "reverse this decision"             → memo  (only when user feedback contradicts a pattern entry; new decisions land directly in playbooks/)
 8. (handoff to Claude Code)
 9. "tickets for F###"                  → ticket  (Gate B — backstops ticket)
 10. "tests for F###"                   → test (write)   ┐
@@ -338,7 +338,7 @@ Plugin skills invoked at each: `engineering:architecture` + `engineering:system-
 - **Test failure that requires scope change** → `scope` revises; cycle restarts at step 6.
 - **Migration / auth / RLS change** → `review` runs security sub-routine before `ticket`; Anthropic's `security-review` skill optional before commit (build).
 - **Non-code deliverables** (report, deck, spreadsheet, PDF) → build invokes `anthropic-skills:docx/pptx/xlsx/pdf`.
-- **Close-call decision** → `weigh` (applies the lexicographic rule; see DECISION-PATTERNS).
+- **Close-call decision** → `weigh` (applies the lexicographic rule; see [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md)).
 
 ---
 
@@ -346,11 +346,9 @@ Plugin skills invoked at each: `engineering:architecture` + `engineering:system-
 
 After each bundle ships, run a one-session wrap-up. Produces `planning/bundles/b{N}-wrapup.md`, ~3–5 pages:
 
-- **Decisions kept** — one paragraph per ratified memo, with a pointer.
+- **Decisions kept** — one paragraph per pattern-doc entry that landed this bundle, with a pointer into `playbooks/`.
 - **Decisions deferred** — what got punted to the next bundle and why.
 - **Open questions for b{N+1}** — what the next bundle has to answer.
-- **What didn't work** — anti-patterns surfaced this bundle, folded into DEV-PATTERN.md § Anti-patterns.
+- **What didn't work** — anti-patterns surfaced this bundle, folded into [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline anti-patterns.
 
-After the wrap-up lands, the next bundle reads only the wrap-up plus active specs. Old memos remain in `planning/memos/` as historical record; nothing references them by default. STAGE-LEDGER and SPEC-PATCHES archives per bundle, not carried forward.
-
-This is the doc-fatigue fix: instead of carrying 18+ ADRs and a 200-line STAGE-LEDGER forward into every subsequent bundle, b2 inherits a synthesized brief.
+After the wrap-up lands, the next bundle reads only the wrap-up plus active specs and the playbooks. STAGE-LEDGER and SPEC-PATCHES archive per bundle, not carried forward. The playbooks carry the durable decisions; the wrap-up carries the synthesized brief.
