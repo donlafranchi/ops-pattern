@@ -6,7 +6,32 @@ status: active
 
 # Repo Reorg Items
 
-> 12 per-item stubs extracted from [`../reorg-plan.md`](../reorg-plan.md) (now archived). Each item is its own ratify-and-execute artifact. Pick one up, ratify it, execute it, archive it. Independent lifecycles.
+> **All 12 items dispositioned 2026-05-30.** This dir holds only this README now; items have all moved to `planning/next/`, `planning/later/`, or `_attic/`. The dir wraps up entirely when [`planning/next/reorg-04-retire-meta-and-housekeeping.md`](../../../planning/next/reorg-04-retire-meta-and-housekeeping.md) executes.
+
+## Dispositions (2026-05-30)
+
+| # | Item | Disposition |
+|---|---|---|
+| 1 | Simplify `product/needs/` | → [`planning/next/reorg-01-simplify-product-needs.md`](../../../planning/next/reorg-01-simplify-product-needs.md) |
+| 2 | Rename `design-philosophy.md` → `community-health-rubric.md` | → [`planning/next/reorg-02-rename-design-philosophy.md`](../../../planning/next/reorg-02-rename-design-philosophy.md) |
+| 3 | Restructure `planning/bundles/` | **Parked** → [`planning/later/reorg-03-restructure-bundles-pending-pattern-shift.md`](../../../planning/later/reorg-03-restructure-bundles-pending-pattern-shift.md) (bundle → kanban transition pending) |
+| 4 | Retire `meta/` + `housekeeping/` (PM-expanded scope) | → [`planning/next/reorg-04-retire-meta-and-housekeeping.md`](../../../planning/next/reorg-04-retire-meta-and-housekeeping.md) |
+| 5 | Soft-target arbitrary metrics (PM-softened scope) | → [`planning/next/reorg-05-soft-target-arbitrary-metrics.md`](../../../planning/next/reorg-05-soft-target-arbitrary-metrics.md) |
+| 6 | Move `planning/reviews/` → `planning/adrs/reviews/` | **Stale** → [`_attic/2026-05-30-reorg-item-disposition/`](../../../_attic/2026-05-30-reorg-item-disposition/) (no longer capturing ADRs) |
+| 7 | Archive completed items | → [`planning/next/reorg-07-archive-completed.md`](../../../planning/next/reorg-07-archive-completed.md) |
+| 8 | Atomicity — DEVIATIONS rotation (8c only; 8a/8b no-op) | → [`planning/next/reorg-08-deviations-rotation.md`](../../../planning/next/reorg-08-deviations-rotation.md) |
+| 9 | Move `planning/outreach/` → `operations/` | **Done 2026-05-30** → archived |
+| 10 | Rename `JUDGMENT.md` → `AGENT-BOUNDS.md` | **Done 2026-05-30** → archived |
+| 11 | Drain `OPEN-QUESTIONS.md` and retire (PM-reframed scope) | → [`planning/next/reorg-11-drain-open-questions.md`](../../../planning/next/reorg-11-drain-open-questions.md) |
+| 12 | YAML `id:` field — stable doc IDs | **Parked** → [`planning/later/reorg-12-yaml-doc-ids.md`](../../../planning/later/reorg-12-yaml-doc-ids.md) (parked pending structural churn settling) |
+
+Originals of items 4 + 5 (pre-rewrite) preserved at [`_attic/2026-05-30-reorg-item-rewrites/`](../../../_attic/2026-05-30-reorg-item-rewrites/).
+
+---
+
+## Original framing (preserved for context)
+
+12 per-item stubs extracted from [`../reorg-plan.md`](../reorg-plan.md) (now archived). Each item is its own ratify-and-execute artifact. Pick one up, ratify it, execute it, archive it. Independent lifecycles.
 
 ## What's here
 

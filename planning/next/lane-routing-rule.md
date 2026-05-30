@@ -1,13 +1,17 @@
 ---
 purpose: Ratify the rule that decides whether atomize/Code output lands in planning/proposed/ or planning/next/.
 layer: how
-status: proposed
+status: ratified
 route: weigh
 source: Cowork session 2026-05-30 — atomize-shipping thread, surfaced during the doc-stitching audit response.
 risk: medium
 ---
 
 # Lane routing — proposed vs. next
+
+## PM ratification — 2026-05-30
+
+PM approved the routing rule, the standing-approval scope, and the 6 actions. **Rejected:** any stale-time-limit on the kanban lanes — drop the existing ~2-week staleness flag from `planning/proposed/README.md` and do not introduce a max-dwell-time on `planning/next/`. Lane membership is the state; PM moves files when ready, no auto-flag for dwell time. Open question #2 (next/ max-dwell) answered no; #1 (standing-approval boundary) and #3 (which playbook) defer to the executing `weigh` invocation.
 
 ## What this is
 

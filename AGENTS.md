@@ -8,9 +8,9 @@ status: active
 
 > Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is documented in [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) (close-call rule) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns (the working pattern). Historical audits (2026-05-09 and 2026-05-22) are archived under `_attic/`; their findings are absorbed below.
 
-Ten skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
+Eleven skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
 
-## The team in ten
+## The team in eleven
 
 | Skill | Role | Tool | The one question it forces |
 |---|---|---|---|
@@ -20,6 +20,7 @@ Ten skills run the full lifecycle. Each is a role on a tight five-person dev tea
 | `weigh` | Tech-lead judgment call | Cowork | Which option stays reversible, who bears the cost |
 | `review` | Architecture + design + security gate | Cowork | Will it scale, is it accessible, is it safe |
 | `memo` | Decision-reversal recorder | Cowork | What user feedback contradicted the prior pattern entry |
+| `atomize` | Plan-to-proposed bridge | Claude Code | What are the smallest independent items this becomes, and which skill picks each up |
 | `ticket` | Sequencer | Claude Code | Smallest unit with a clear done condition |
 | `test` | QA — write + run | Claude Code | Would a stranger know if this broke |
 | `build` | Engineer — TDD | Claude Code | Simplest code that passes, fastest |
@@ -38,6 +39,10 @@ Ten skills run the full lifecycle. Each is a role on a tight five-person dev tea
                      ──────                                ───────────
 session start  →  orient
                   explore  ←─── user-voice (sub-routine)
+                  (PM drops a plan in _inbox/)  ─────────→ atomize
+                                                          (stubs land in planning/proposed/)
+                  ↑ PM ratifies each stub, moves it to next/ or now/
+                  (then invokes the route: skill named in the stub)
                   scope
                   weigh ──────────────────╮
                   memo                    │  (hand-off prompt)
@@ -50,7 +55,7 @@ session start  →  orient
                   tidy  ←────── end-of-session sweep
 ```
 
-`ticket` and `test` run in parallel from the same approved scope, eyes-closed to each other. That separation is what keeps the test honest. `weigh`, `memo`, `review` fire as needed between `scope` and the hand-off.
+`ticket` and `test` run in parallel from the same approved scope, eyes-closed to each other. That separation is what keeps the test honest. `weigh`, `memo`, `review` fire as needed between `scope` and the hand-off. `atomize` sits at the front: it bridges Cowork plan-drops in `_inbox/` to the PM-decision queue in `planning/proposed/`, so multi-item plans don't stall in untriaged drafts.
 
 ## What every gate is guarding against
 
@@ -180,7 +185,27 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 ---
 
-## 6. ticket
+## 6. atomize
+
+**Tool:** Claude Code. **Model:** Sonnet.
+
+> Bridge between Cowork strategy and Claude Code execution. Translates `_inbox/` plans and parked decisions into ratify-and-execute stubs in `planning/proposed/`. Closes the gap that left multi-item plans stalling in `_inbox/` because no skill knew how to decompose them.
+
+**Reads:** `_inbox/{name}.md` (the target file), `_inbox/README.md`, `REGISTRY.md`, root `CLAUDE.md` (file-naming table), `planning/proposed/` (for slug collisions + sequence).
+
+**Writes:** `planning/proposed/{slug}.md` (flat) or `planning/proposed/{plan-slug}/*.md` (grouped) + index `README.md`; archives parent plan to `_attic/YYYY-MM-DD-{parent-slug}/`; one `JOURNAL.md` paragraph.
+
+**Does NOT read:** `web/` code, `development/tickets/`, `planning/scenarios/`, `planning/scenarios-backlog/`, system specs, `playbooks/`.
+
+**Task:** Classify the inbox doc's shape (multi-item plan, single parked decision, single-feature draft, or wrong-shape reject). For each atom: produce a stub with frontmatter (`status: proposed`, `route: weigh|scope|tidy|ticket|explore`, `risk: low|medium|high`, `source:` pointer), Actions, Side effects, Risk. Group under `{plan-slug}/` for multi-item plans with an index README; flat for single atoms. Archive the parent on first pass. Hand PM a list of stubs + routes; PM ratifies and moves each to `planning/next/` or `planning/now/` then invokes the named `route:` skill.
+
+**Routing rules (upstream-biased).** 1) Unratified absolute or close-call → `weigh`. 2) Net-new system/capability needing spec → `explore`. 3) User-facing surface needing scenarios → `scope`. 4) Mechanical doc move/rename/reorg → `tidy`. 5) Substrate-only code change with spec already in place → `ticket`. If two rules fire, take the lower number.
+
+**Hard constraints:** never produces scenarios, tickets, specs, or decisions — only routes. Never invokes downstream skills. Never re-atomizes an already-decomposed plan (collision check on `planning/proposed/{parent-slug}/`). Every stub carries a single `route:` field; if no route fits, the atom surfaces in the index README's "Open" section instead of getting an invented route.
+
+---
+
+## 7. ticket
 
 **Tool:** Claude Code. **Model:** Opus.
 
@@ -198,7 +223,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 ---
 
-## 7. test
+## 8. test
 
 **Tool:** Claude Code. **Model:** Opus.
 
@@ -214,7 +239,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 ---
 
-## 8. build
+## 9. build
 
 **Tool:** Claude Code. **Model:** Sonnet.
 
@@ -236,7 +261,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 ---
 
-## 9. tidy
+## 10. tidy
 
 **Tool:** Cowork. **Model:** Sonnet.
 
@@ -267,6 +292,8 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
    PROCEED → continue.
 7. "reverse this decision"             → memo  (only when user feedback contradicts a pattern entry; new decisions land directly in playbooks/)
 8. (handoff to Claude Code)
+   "atomize _inbox/{plan}.md"          → atomize  (plan or parked decision → planning/proposed/ stubs)
+   PM ratifies each stub, moves to planning/next/ or planning/now/, invokes the named route: skill
 9. "tickets for F###"                  → ticket  (Gate B — backstops ticket)
 10. "tests for F###"                   → test (write)   ┐
 11. "implement T###"                   → build          │ steps 10 + 11 parallel

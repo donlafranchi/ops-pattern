@@ -1,10 +1,14 @@
 ---
 purpose: Reorg item — restructure planning/bundles/ to support per-bundle and per-sub-bundle atomization.
 layer: how
-status: stub
+status: parked
+parked_on: 2026-05-30
+parked_reason: PM signaled directional shift away from bundles toward proposed/next/later/done kanban. The 3a/3c/3d/3e splits assumed bundles stay load-bearing; if the kanban supersedes bundles, this whole item needs re-scoping rather than executing as-drafted.
 ---
 
 # Reorg Item 3 — Restructure `planning/bundles/`
+
+> **PARKED 2026-05-30.** Re-scope or retire after the bundle → kanban transition lands. Do not execute the splits as-drafted.
 
 ## What this is
 

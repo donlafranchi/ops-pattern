@@ -90,6 +90,7 @@ A separate set of rules from entity naming — these govern *where docs live* an
 | Bundle plan | `b{N}-{slug}-plan.md` | `b1-primitives-plan.md` | `planning/bundles/` (`status: active`) → `planning/archive/YYYY-MM-DD-{slug}/` (or `planning/archive/vN-{slug}/` if shipped a user-visible version) per ADR-25 |
 | Bundle phase / artifact | `b{N}[.{x}]-{slug}-{kind}.md` — kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`} | `b1.0-foundation-sprint.md`, `b1-primitives-work-map.md`, `b1-primitives-wrapup.md` | `planning/bundles/` (archives with parent bundle to `planning/archive/`) |
 | Initiative (non-bundle work package) | `{slug}/` with `README.md` + optional `strategy.md` + `items/` per [ADR-25](planning/adrs/ADR-0025-local-lifecycle-ownership.md) | `phase-3/` | `planning/initiatives/` (active) → `planning/archive/YYYY-MM-DD-{slug}/` when done |
+| Proposed work item (atomize output) | `{slug}.md` (flat) or `{plan-slug}/NN-{slug}.md` (grouped under parent plan) — frontmatter carries `route: weigh \| scope \| tidy \| ticket \| explore` | `merge-meta-housekeeping.md`, `b1-primitives-sequence/01-…` | `planning/proposed/` (PM ratifies → moves to one of the four Kanban lanes) |
 | Kanban-staged work item | `{kind}-{slug}.md` (e.g. `audit-orphans.md`, `decision-payment-rail.md`) | `audit-orphans.md` | `planning/now/` (in flight) → `planning/next/` (queued) → `planning/later/` (parked) → `planning/done/` (closed). PM moves files across the four lanes; nothing in a lane carries dated frontmatter — lane membership is the state. |
 | Dated work product | `housekeeping/YYYY-MM-DD-{slug}/` (in-flight) → `housekeeping/archive/YYYY-MM-DD-{slug}/` (archived on close, per ADR-25) | `housekeeping/2026-MM-DD-{slug}/` | `housekeeping/` |
 | Retired spec | `{owning-dir}/archive/YYYY-MM-DD-{slug}/` with `retired_from:` in frontmatter for provenance (per ADR-25; pre-2026-05-28 entries under `_attic/YYYY-MM-DD-{slug}/` or `_attic/YYYY-MM-DD/{original-path}` grandfathered) | `product/archive/2026-MM-DD-some-spec/some-spec.md` | `{owning-dir}/archive/` |
@@ -113,7 +114,7 @@ A separate set of rules from entity naming — these govern *where docs live* an
 
 ## Agent routing — use which skill when
 
-Ten skills cover the full lifecycle. Each runs in **one tool only** — the hard firewall. Match intent to trigger; invoke the matching skill.
+Eleven skills cover the full lifecycle. Each runs in **one tool only** — the hard firewall. Match intent to trigger; invoke the matching skill.
 
 | User says / intent | Skill | Tool |
 |---|---|---|
@@ -123,6 +124,7 @@ Ten skills cover the full lifecycle. Each runs in **one tool only** — the hard
 | "weigh this", "is this a close call", "ratify the absolutes in {file}", "audit Intent annotations", "what's the Member view", "what's the platform view", "run the dialectic", "decide or defer on X" | `weigh` | Cowork |
 | "review F###", "architecture check", "design review", "security review on F###" | `review` | Cowork |
 | "reverse this decision", "user feedback contradicts {pattern entry}", "supersede {memo}", "what's the next memo number" | `memo` | Cowork |
+| "atomize the inbox", "atomize `_inbox/{name}.md`", "decompose this plan", "break this plan into proposed items", "materialize the inbox", "intake the plan" | `atomize` | Claude Code |
 | "tickets for F###", "break F### into tickets" | `ticket` | Claude Code |
 | "tests for F###", "Playwright spec for F###", "run F### tests" | `test` | Claude Code |
 | "implement T###", "TDD this", "build T###" | `build` | Claude Code |

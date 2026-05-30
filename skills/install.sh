@@ -32,6 +32,7 @@ echo "Linking project pipeline + meta skills → $SKILLS_DEST"
 for skill in "$SKILLS_SRC"/orient/ "$SKILLS_SRC"/explore/ \
              "$SKILLS_SRC"/scope/ "$SKILLS_SRC"/weigh/ \
              "$SKILLS_SRC"/review/ "$SKILLS_SRC"/memo/ \
+             "$SKILLS_SRC"/atomize/ \
              "$SKILLS_SRC"/ticket/ "$SKILLS_SRC"/test/ \
              "$SKILLS_SRC"/build/ "$SKILLS_SRC"/tidy/ \
              "$SKILLS_SRC"/scaffold/ "$SKILLS_SRC"/loop-designer/; do
