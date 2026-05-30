@@ -8,6 +8,16 @@ status: active
 
 > **Restructured 2026-05-26 (second pass).** Cases are organized by category (Consumer / Producer / Organizer) and ordered within each category by increasing functional requirements — each type builds on the prior type's functionality and adds something new. Find your case in the [Index](#index) and jump straight there.
 
+## Member roles (folded from former `people.md`, 2026-05-30)
+
+Three roles. Every person on the platform is a **Member**; **Producer** and **Convener** are roles a Member takes on (role-as-verb, per [`../foundation/primitives.md`](../foundation/primitives.md)). A role earns its own section only by needing a distinct set of tools and functionality.
+
+- **Member** — anyone on the platform. Search, browse, discover; join Groups, attend gatherings, buy goods and services; like, follow, share, pledge; ask for help and offer it. *Types to design for:* newcomer · long-settled neighbor · follower · supporter/backer · affinity-seeker · idea-floater · help-seeker · giver · service-seeker · event-goer · browser/lurker · homebound/limited-mobility · caregiver · anonymous guest · young Member.
+- **Producer** — a Member who offers goods or services. Spectrum: full professional → casual maker / informal teacher → unpaid steward. UI labels (Seller, Producer, Maker) vary per [`../../CLAUDE.md`](../../CLAUDE.md); the role is one role. *Types to design for:* farmer/grower/rancher · fisher · baker/cook/food-maker · food-truck operator · craftsperson/artisan · trades pro · professional-service provider · care provider · repair/fix-it · informal maker · informal teacher · steward (unpaid; see [`../systems/stewardships.md`](../systems/stewardships.md)) · intermittent/seasonal · home-based · multi-location · partnership/co-owned.
+- **Convener** — a Member who creates and runs a Group around a shared interest. Coordination tools, not selling tools (a Convener who sells is also wearing the Producer role). *Types to design for:* sports/fitness organizer · faith or practice leader · hobby/interest organizer · recurring social host · life-stage / support group organizer · civic/cause organizer · event-series runner · one-off event host · Convener-who-also-sells.
+
+The type lists are living — add a type the moment a real use case surfaces one. The point is coverage, not taxonomy. *Who the platform does not serve* (corporate-shell franchise, rollup-acquirer, engagement-optimizer) is in [`../foundation/principles.md`](../foundation/principles.md) Part 2.
+
 **Status:** Foundational reference. The working set of real-world situations the platform exists to serve. Read alongside [`member-journey.md`](member-journey.md), [`../foundation/primitives.md`](../foundation/primitives.md), and [`../foundation/principles.md`](../foundation/principles.md).
 
 ## What this is

@@ -98,7 +98,7 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Tool:** Cowork. **Model:** Opus.
 
-**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `product/needs/producer-capability-taxonomy.md` (mandatory — refuses to write scenarios for "Won't" capabilities; every scenario's `## Capabilities unlocked` section traces to taxonomy categories), `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`, `planning/bundles/b1-primitives-sequence.md` (active sequence).
+**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `planning/producer-roadmap.md` (mandatory — refuses to write scenarios for "Won't" capabilities; every scenario's `## Capabilities unlocked` section traces to taxonomy categories), `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`, `planning/bundles/b1-primitives-sequence.md` (active sequence).
 
 **Writes:** `planning/scenarios-backlog/` (PM moves approved → `planning/scenarios/`), `planning/bundles/`.
 

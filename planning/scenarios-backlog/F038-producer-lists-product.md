@@ -108,7 +108,7 @@ Implicit: `items.kind='product'`, `items.member_id=<seller>`, `items.state='publ
 
 - The Locally Made claim lifecycle — F039.
 - Photo upload UI — schema reserves the column at b1; full upload UX may be deferred to b2 depending on complexity.
-- Inventory tracking, sold-out states — b2 per producer-capability-taxonomy.md § 2 Later.
+- Inventory tracking, sold-out states — b2 per `planning/producer-roadmap.md` § 2 Later.
 - Bundle / package Items (multiple products grouped) — b2+.
 - Variants / SKUs — explicitly out per taxonomy § 2 Won't.
 - Cart / checkout — explicitly out per taxonomy § 8 Won't.

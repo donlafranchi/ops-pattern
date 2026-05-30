@@ -111,7 +111,7 @@ MEHKO operators handle orders informally — DMs on Instagram, text messages, so
 **What the platform could do (later, not now):**
 
 - **Pickup-window declaration.** The operator sets "Pickup today 5–7pm at [approximate location]." Members who order see the window.
-- **Simple order intent.** Not a cart-and-checkout system (that's Shopify territory and violates the Won't in producer-capability-taxonomy §2). Instead: "I want 2 dozen tamales" → the operator confirms or adjusts → the Member picks up and pays in person (cash, Venmo, whatever the operator prefers). The platform coordinates intent; it doesn't process payment at b1.
+- **Simple order intent.** Not a cart-and-checkout system (that's Shopify territory and violates the Won't in `planning/producer-roadmap.md` §2). Instead: "I want 2 dozen tamales" → the operator confirms or adjusts → the Member picks up and pays in person (cash, Venmo, whatever the operator prefers). The platform coordinates intent; it doesn't process payment at b1.
 - **Delivery radius.** The operator declares "I deliver within 3 miles." Members within the radius see a delivery option; others see pickup only.
 
 ### Community among MEHKO operators
@@ -215,7 +215,7 @@ This suggests an amendment to the badge/trust-signal architecture: a "Permit" ti
 
 ### Won't do
 
-- **Payment processing.** The platform coordinates; the operator handles payment (cash, Venmo, Zelle, whatever they prefer). Per producer-capability-taxonomy §8 — platform payment rails are b2+, and even then MEHKOs may prefer their existing payment methods.
+- **Payment processing.** The platform coordinates; the operator handles payment (cash, Venmo, Zelle, whatever they prefer). Per `planning/producer-roadmap.md` §8 — platform payment rails are b2+, and even then MEHKOs may prefer their existing payment methods.
 - **Order management / POS system.** That's Square or Toast territory. The platform is a coordination layer.
 - **Delivery logistics.** No route optimization, no driver dispatch, no delivery-app integration. The operator delivers themselves or the customer picks up.
 - **Menu compliance checking.** The platform does not verify whether a MEHKO operator's menu complies with food safety regulations. That's the county's job.

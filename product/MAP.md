@@ -28,11 +28,9 @@ The constitution and the policy filter — what the platform refuses, what it co
 
 Who the platform serves, what they want, how they move through it.
 
-- **[`use-cases.md`](needs/use-cases.md)** — the 12 real situations the platform exists to make better; the working test-case set for every feature.
+- **[`use-cases.md`](needs/use-cases.md)** — the 12 real situations the platform exists to make better; the working test-case set for every feature. Includes the **Member roles** section (folded from former `people.md` 2026-05-30) — three roles (Member / Producer / Convener) with types-to-design-for coverage lists.
 - **[`member-journey.md`](needs/member-journey.md)** — north star; 13 loops in 5 families (Gathering → Sharing → Trade → Pooling → Federation); activation energy ascends, belief ascends, stake accumulates.
-- **[`people.md`](needs/people.md)** — DRAFT; the personas the platform serves (Producer, Convener, Newcomer, Steward, Backer, Affinity-Seeker, Follower, Everyday Neighbor) traced to use cases.
-- **[`needs.md`](needs/needs.md)** — DRAFT; 13 human needs in plain voice, each traced to loop / system / capability / persona.
-- **[`producer-capability-taxonomy.md`](needs/producer-capability-taxonomy.md)** — producer/seller capabilities organized by business function (Presence · Listing · Locality · Marketing · Relationships · Analytics · Operations · Payments · Reputation · Collaboration); each category lists Now (Phase 2) / Later / Won't. Read by `scope` before writing producer-facing scenarios; Won't bullets are PM-ratified boundaries; every scenario's `## Capabilities unlocked` section traces here.
+- **[`../planning/producer-roadmap.md`](../planning/producer-roadmap.md)** — producer/seller capabilities organized by business function (Presence · Listing · Locality · Marketing · Relationships · Analytics · Operations · Payments · Reputation · Collaboration); each category lists Now (Phase 2) / Later / Won't. Read by `scope` before writing producer-facing scenarios; Won't bullets are PM-ratified boundaries; every scenario's `## Capabilities unlocked` section traces here. (Moved 2026-05-30 from `product/needs/` — roadmap lens, not a human need.)
 
 ## Primitives — the data spine (T1 floor)
 

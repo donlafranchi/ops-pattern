@@ -55,7 +55,7 @@ Rows where the trace runs into a `—`. These are the candidates for the next sc
 2. **Gather regularly → Event-host UI** — F018 (Brian declares Run Club) is deferred; rewrite punch list lives in [the F018 review](../_attic/2026-05-27/planning-history/F018-review.md). Picking this up means revising F018 against the post-2026-05-11 naming pass.
 3. **Follow what I love → Member-page surface** — F025 (Adaeze) is in the backlog; first scenario for the `/m/[handle]` page surface.
 4. **Make and be found → Producer surfaces** — `producer-tools.md` Bulletin and Growth specs exist; no b2 ticketing yet.
-5. **Use-cases gaps** — Four `[TODO]` slots in [`needs/use-cases.md`](needs/use-cases.md) (#8 Float an idea, #9 Share/Ask, #10 Find a local pro, #11 Steward what we built). When these get real-instance fills, they unlock new scenarios + persona refinements in [`needs/people.md`](needs/people.md).
+5. **Use-cases gaps** — Four `[TODO]` slots in [`needs/use-cases.md`](needs/use-cases.md) (#8 Float an idea, #9 Share/Ask, #10 Find a local pro, #11 Steward what we built). When these get real-instance fills, they unlock new scenarios + role-coverage refinements in [`needs/use-cases.md`](needs/use-cases.md) § Member roles.
 
 ---
 

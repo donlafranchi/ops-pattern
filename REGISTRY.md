@@ -42,9 +42,7 @@ status: active
 | `product/exploration/member-geography-redesign.md` | Source-of-record for the member↔geography substrate split (drove ADR-21). | exploration |
 | `product/exploration/reciprocity-and-goodwill.md` | Open design question on Offer/Ask reciprocity and goodwill. | reference |
 | `product/needs/member-journey.md` | The 13 loops Members move through, in five families. | active |
-| `product/needs/needs.md` | Ranked human needs traced to systems, capabilities, and personas. | draft |
-| `product/needs/people.md` | Personas the platform serves — one role per section. | draft |
-| `product/needs/producer-capability-taxonomy.md` | Producer capabilities by business function — Now / Later / Won't per category. | active |
+| `planning/producer-roadmap.md` | Producer capabilities by business function — Now / Later / Won't per category. (Moved 2026-05-30 from `product/needs/`; roadmap lens, not a human need.) | active |
 | `product/needs/use-cases.md` | Twelve real situations the platform exists to dissolve. | active |
 | `product/systems/action-layer.md` | One transactional write path; vends agent capabilities per turn. | active |
 | `product/systems/agent-assistance.md` | Delegation + Assistant Context + Skills with five umbrella commitments. | active |
