@@ -221,3 +221,13 @@ Commit at end: `docs(skills): {YYYY-MM-DD} skills sweep — {N} findings landed`
 **You produced:** see SKILL.md § Hand off — mode-dependent.
 
 **Next skill:** none. PM continues, or chains tidy modes.
+
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."

@@ -28,7 +28,11 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 findin
 
 ## Phase 2 entries
 
-*(none yet — first Phase 2 ticket lands its entry here)*
+## 2026-05-30 — T067 — No deviations
+
+**Deviation:** None against spec. All 12 listed workflow.md files updated with identical Final Report block; CLAUDE.md § Report shape, playbook entry, and AGENTS.md cross-ref landed exactly as scoped.
+
+**Why:** No skill needed a custom report shape — the template applies uniformly. The build/workflow.md "You produced" replacement preserved the surrounding Hand off context. No drift surfaced during execution.
 
 ---
 

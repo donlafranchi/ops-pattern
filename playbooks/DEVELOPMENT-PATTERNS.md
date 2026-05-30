@@ -158,6 +158,16 @@ How the solo-founder pipeline runs. Where each stage lives, when each gate fires
 
 ---
 
+### Default to BLUF reports: status + ask, withhold detail until asked
+
+**Decision.** Every multi-step pipeline-skill close-out — and every Cowork or Claude Code response over ~50 words that reports completed work — opens with the three-line BLUF template: `Status: Done|Blocked|Question — <one-sentence summary>` / `Next: <ask, or "none">` / `Want detail? Say "expand."` Commit hashes, file lists, lane counts, per-step trace are withheld until the PM says "expand." Items are named in plain English; the ID can follow in parens. Running narration ("Now updating X. Committing Y.") is dropped from the report.
+
+**Intent.** Play-by-play reports bury the headline (status arrives mid-message after the trace), and ID-heavy reports demand the PM remember slugs the agent invented this session. Both fail the same way: the PM has to read the whole thing to learn what's pending. The BLUF template inverts that — status and ask land in the first two lines, the rest is opt-in. If a fact wouldn't change the PM's next move, it doesn't belong in the headline. Withholding-by-default also keeps the cache window clean for the work that follows.
+
+**Touches.** `CLAUDE.md` § Report shape + every `skills/*/workflow.md`.
+
+---
+
 ## Pipeline anti-patterns
 
 Things we learned by getting them wrong. Each is a default-to-avoid, named.

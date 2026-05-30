@@ -138,6 +138,18 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 **Commit-hash backfill is non-optional.** Per audit H4, T055/T056/T057 still carry `{pending}` placeholders. After PM commits, immediately edit the ticket Completion section to fill in the hash — do not defer.
 
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."
+
+The TDD loop body keeps its narration discipline; this governs the *final* close-out report only.
+
 **You produced:** code + tests on branch `t{nnn}`, updated ticket, a `DEVIATIONS.md` entry with `Why:` and `Disposition:` lines, updated `BUILD-LOG.md`, and a **commit summary** for the PM. You did NOT commit — PM commits from Mac terminal and pastes back the hash.
 
 **Commit-hash backfill.** After PM commits and confirms the hash, you (in the same session, or the next) edit the ticket's Completion section to fill in the hash. That edit is a file write, not a git call — safe to do from the sandbox.

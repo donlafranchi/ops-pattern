@@ -125,3 +125,13 @@ Every acceptance-criteria item that encodes a design choice carries its **why** 
 2. `build` — picks up the ticket, reads the scenario for context, runs the TDD loop (red → green → refactor), commits, updates `BUILD-LOG.md`.
 
 3. `test` (run mode) — runs the F### evals after build completes, reports pass/fail traceably. On fail, hands back to `build` to fix forward.
+
+## Final report
+
+Default report shape (ticket-writer's close-out report — not the ticket file itself):
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."

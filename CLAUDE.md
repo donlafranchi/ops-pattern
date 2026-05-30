@@ -271,6 +271,26 @@ The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` file
 
 **Pipeline-doc changes** (this file, AGENTS.md, MAP.md, TRACE.md, REGISTRY.md, skill workflows) commit with `docs(pipeline): {what}` — no T-number.
 
+## Report shape
+
+Every multi-step pipeline-skill close-out, and every Cowork or Claude Code response over ~50 words that reports completed work, opens with the BLUF template:
+
+```
+Status: Done | Blocked | Question — <plain-English one-sentence summary>
+Next: <the ask, or "none" if nothing's pending>
+Want detail? Say "expand."
+```
+
+**Withhold detail until asked.** Commit hashes, file lists, lane counts, per-step trace, item-by-item recaps stay withheld until the PM says "expand." On expand, return detail in priority order — ask → high-level outcomes → references → notes — and stop at each section for "more."
+
+**Name items in plain English.** "the lane-routing rule" beats `reorg-04`; "the doc that retired meta/ and housekeeping/" beats `lane-routing-rule.md`. The ID can follow in parens if it matters. PMs do not remember IDs the agent invented this session.
+
+**Drop running narration.** No "Now updating refs. Committing reorg-02. Moving stub to done/." Those are tool-call logs, not reports. The report is the result.
+
+**Rule of thumb.** If a fact wouldn't change the PM's next move, withhold it. Hashes don't change the next move. Lane counts don't change the next move. The status and the ask do.
+
+**Scope.** Applies to multi-step reports from any pipeline skill (`atomize`, `build`, `explore`, `memo`, `orient`, `review`, `scope`, `scaffold`, `test`, `ticket`, `tidy`, `weigh`) and to any Cowork or Claude Code response over ~50 words reporting completed work. Single-step actions and TDD loop bodies keep their existing narration discipline; this rule governs the *final* report.
+
 ## Language & Framing
 
 Pro-competition, pro-free-market language. For all Americans.

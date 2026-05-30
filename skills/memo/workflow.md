@@ -132,3 +132,13 @@ Precedent: ADR-19 (clean-slate rebuild) promoted `planning/rebuild-plan.md` whil
 Sometimes two decisions are tightly coupled and benefit from being ratified together. Pattern: one ADR file with two `## Decision` sections, each with its own Options / Trade-offs / Consequences. Precedent: ADR-18 (eval helpers — folder boundary + failure-injection strategy).
 
 Use sparingly. If the decisions can stand alone, prefer two ADRs.
+
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."

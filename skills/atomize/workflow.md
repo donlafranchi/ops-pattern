@@ -118,3 +118,13 @@ If a stub would need 3+ downstream invocations of different skills, it's still a
 On y, run the commit (parent repo only; never cross-commit). On n, PM amends or defers.
 
 **Lock pre-flight.** Before any read-or-write work, run `ls .git/index.lock .git/worktrees/*/index.lock 2>/dev/null`. If anything prints, stop and ask the PM to run `clearlock` first.
+
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."

@@ -108,3 +108,13 @@ Keep this file under 60 lines. Anything longer is process leakage — move it to
 3. From there, start the PM cycle with `explore` — write the first system spec, including a canonical example in `product/needs/use-cases.md`.
 
 **Next skill:** `orient` — first session in the new project.
+
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."

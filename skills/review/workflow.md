@@ -99,3 +99,13 @@ A scenario can have a partial verdict (PROCEED on architecture, REVISE on design
 - **EXTEND** → escalate to `explore`. Product extends; plan re-confirms; cycle returns here.
 
 Never block silently. Always produce the review document with a clear verdict, even if the verdict is PROCEED with no findings.
+
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."

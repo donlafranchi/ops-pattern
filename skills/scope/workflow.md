@@ -111,3 +111,13 @@ Every non-obvious Given/When/Then clause in a scenario carries its **why** along
 **You hand to:** the PM, who reviews and either approves (moves to `planning/scenarios/`) or rejects (annotates and leaves in backlog or archives).
 
 **Once approved, the next skill is `ticket`**, which breaks the scenario into implementable tickets. In parallel, `test` (write mode) writes Playwright tests from the scenario before `build` starts.
+
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more."

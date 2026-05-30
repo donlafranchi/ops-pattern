@@ -192,3 +192,13 @@ If any of these are missing, suggest `scaffold`.
 **You produced:** orientation. Possibly an updated `JOURNAL.md` entry if you observed drift. In folded prune mode (step 10): trimmed JOURNAL.md / DECISIONS.md + archive files. In folded resync mode (step 11): updated `bundle-themes.md` + `b{N}-{slug}-work-map.md` + a JOURNAL entry.
 
 **Next skill:** whichever entry in the routing table fits. You do not implement; you route once and step back. If the request is ambiguous, ask one clarifying question rather than guessing — routing the wrong skill costs more than a clarifying question.
+
+## Final report
+
+Default report shape is three lines:
+
+    Status: Done | Blocked | Question — <plain-English one-sentence summary>
+    Next: <ask, or "none">
+    Want detail? Say "expand."
+
+Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name items in plain English; put the ID in parens if it matters. Withhold commit hashes, file lists, lane counts, per-step trace until the PM says "expand." On "expand," return detail in priority order — ask → high-level outcomes → references → notes — stopping at each section for "more." The drift-check output is a prime candidate for this discipline: lead with whether anything drifted, withhold the per-item list until PM asks.

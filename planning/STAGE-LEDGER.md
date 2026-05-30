@@ -88,6 +88,7 @@ status: active
 
 | Group | Stage | Notes |
 |---|---|---|
+| T067 — Report Shape rule | `done` | Installed report-shape template across CLAUDE.md, DEVELOPMENT-PATTERNS playbook, AGENTS.md, and 12 skill workflows. 2026-05-30. |
 | Phase 0 — extensions + embedding floor | `done` | T041 shipped 2026-05-?. |
 | Phase 1 — Members + Locations + Action layer + Groups substrate | `done` | T042–T053 shipped 2026-05-19. T050 partial-index drift drained 2026-05-27. |
 | Phase 1 — Items substrate (states, materialized view) | `done` | T054–T057 shipped 2026-05-19. T056 enum reconciled; spec text drained 2026-05-27. |
