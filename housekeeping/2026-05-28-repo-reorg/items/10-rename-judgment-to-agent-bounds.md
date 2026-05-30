@@ -1,8 +1,11 @@
 ---
 purpose: Reorg item — rename JUDGMENT.md to AGENT-BOUNDS.md to clarify its purpose vs. DECISIONS.md.
 layer: how
-status: stub
+status: done
+done_at: 2026-05-30
 ---
+
+> **DONE 2026-05-30** — `git mv planning/JUDGMENT.md planning/AGENT-BOUNDS.md` complete; CLAUDE.md refs updated (authoritative docs table + pipeline-audit history line); reorg items README ticked.
 
 # Reorg Item 10 — Rename `JUDGMENT.md` → `AGENT-BOUNDS.md`
 

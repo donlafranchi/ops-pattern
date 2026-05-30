@@ -1,8 +1,11 @@
 ---
 purpose: Reorg item — move planning/outreach/ → operations/ (it's operational, not planning).
 layer: how
-status: stub
+status: done
+done_at: 2026-05-30
 ---
+
+> **DONE 2026-05-30** — `git mv planning/outreach/outreach-list.md operations/outreach-list.md`; `planning/outreach/` removed (empty); REGISTRY.md row updated; reorg items README ticked.
 
 # Reorg Item 9 — Move `planning/outreach/` → `operations/`
 

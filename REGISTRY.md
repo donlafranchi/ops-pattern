@@ -137,7 +137,7 @@ status: active
 | `planning/reviews/intent-ADR-21-and-spec-patches-2026-05-23-recheck.md` | Re-check after ratifications landed. | reference |
 | `planning/reviews/intent-ADR-0022-2026-05-25.md` | Intent-check verdict for ADR-22. | reference |
 | `planning/reviews/intent-ADR-0023-2026-05-25.md` | Intent-check verdict for ADR-23. | reference |
-| `planning/outreach/outreach-list.md` | Founder-recruitment list for Sacramento. | active |
+| `operations/outreach-list.md` | Founder-recruitment list for Sacramento. (Moved from `planning/outreach/` 2026-05-30 per reorg item 9.) | active |
 | `planning/pending-ratifications.md` | Register of unratified absolutes awaiting PM decision. | active |
 | `planning/phase-2-scenario-strategy.md` | Phase 2 scenario ordering and structure — F030–F043 with member-journey progression + dependency chain. Active spec; read by `scope` for every Phase 2 scenario. | active |
 | `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's (deferred 2026-05-18; rewrite candidate as F034). | draft |

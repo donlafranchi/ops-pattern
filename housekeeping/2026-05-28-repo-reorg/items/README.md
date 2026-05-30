@@ -20,8 +20,8 @@ status: active
 | 6 | Move `planning/reviews/` → `planning/adrs/reviews/` | [`06-move-reviews-under-adrs.md`](06-move-reviews-under-adrs.md) | 1 | low |
 | 7 | Archive completed items | [`07-archive-completed.md`](07-archive-completed.md) | 1 | low |
 | 8 | Atomicity — make everything finishable | [`08-atomicity-finishable-docs.md`](08-atomicity-finishable-docs.md) | 2 | medium |
-| 9 | Move `planning/outreach/` → `operations/` | [`09-move-outreach-to-operations.md`](09-move-outreach-to-operations.md) | 1 | low |
-| 10 | Rename `JUDGMENT.md` → `AGENT-BOUNDS.md` | [`10-rename-judgment-to-agent-bounds.md`](10-rename-judgment-to-agent-bounds.md) | 1 | low |
+| 9 | Move `planning/outreach/` → `operations/` ✅ done 2026-05-30 | [`09-move-outreach-to-operations.md`](09-move-outreach-to-operations.md) | 1 | low |
+| 10 | Rename `JUDGMENT.md` → `AGENT-BOUNDS.md` ✅ done 2026-05-30 | [`10-rename-judgment-to-agent-bounds.md`](10-rename-judgment-to-agent-bounds.md) | 1 | low |
 | 11 | Clean up resolved open questions | [`11-clean-resolved-open-questions.md`](11-clean-resolved-open-questions.md) | 3 | low |
 | 12 | YAML `id:` field — stable doc IDs | [`12-yaml-doc-ids.md`](12-yaml-doc-ids.md) | 4 | medium |
 

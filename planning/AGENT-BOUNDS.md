@@ -1,10 +1,12 @@
 ---
-purpose: Three-layer judgment doc — Intent / Bounds / Casebook — that reduces the founder bottleneck by letting agents decide more on their own and escalate sharper.
+purpose: Three-layer agent-bounds doc — Intent / Bounds / Casebook — that reduces the founder bottleneck by letting agents decide more on their own and escalate sharper.
 layer: how
 status: active
 ---
 
-# JUDGMENT — statute & precedent for one human
+# AGENT BOUNDS — statute & precedent for one human
+
+> Renamed from `JUDGMENT.md` on 2026-05-30 (reorg item 10) — name clarifies this file's purpose vs. `DECISIONS.md`: this defines *the boundaries of agent autonomy*, while `DECISIONS.md` is the ADR pointer index.
 
 > Source concepts: [`_attic/2026-05-27/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html`](../_attic/2026-05-27/2026-05-23-pipeline-coverage/human_judgment_document_architecture.html) (the three layers + refinement loop) and [`_attic/2026-05-27/2026-05-23-pipeline-coverage/agent_response_techniques.html`](../_attic/2026-05-27/2026-05-23-pipeline-coverage/agent_response_techniques.html) (the four moves: triage upstream, constraint-first elicitation, standing defaults, compression contract). Archived once absorbed into this file.
 >

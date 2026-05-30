@@ -156,6 +156,17 @@ community/                              # Parent repo — LOCAL ONLY, never push
 │   └── outreach-list.md                # User recruitment targets (was planning/outreach/)
 │  ╚════════════════════════════════════════════════════════════╝
 │
+│  ╔══ PLAYBOOKS — decisions in force + how-to-write ══╗
+├── playbooks/                          # The "what we've decided + how we work" canon
+│   ├── PLATFORM-PATTERNS.md            # What the platform IS or refuses to be (decisions in force)
+│   ├── DEVELOPMENT-PATTERNS.md         # How we build (action layer, pipeline patterns, M-gates)
+│   ├── DECISION-PATTERNS.md            # Close-call rule + the one absolute (wealth circulation)
+│   ├── writing-docs.md                 # Style rules + templates (capability / pattern entry / JOURNAL)
+│   ├── repo-tidying.md                 # What `tidy` looks for — ten findings + dispositions
+│   └── memos/                          # Reversal memos — only when prior decisions are reversed
+│       └── memo-NNNN-{slug}.md
+│  ╚════════════════════════════════════════════════════════════╝
+│
 │  ╔══ STANDARDS — cross-cutting build qualities ══╗
 ├── standards/
 │   ├── README.md
@@ -259,11 +270,14 @@ community/                              # Parent repo — LOCAL ONLY, never push
 | `outreach-list.md` | Recruitment targets. | Campaign complete or obsolete | `_attic/` |
 | `deploy-checklist-*.md` | Per-deploy checklist. | Deploy done | `_attic/` |
 
-#### standards/
+#### playbooks/
 
 | File | Goes in | Trigger to move | Moves to |
 |---|---|---|---|
-| `*.md` | Cross-cutting quality requirements. One file per concern. | Never moves — updated in place | — |
+| `PLATFORM-PATTERNS.md` / `DEVELOPMENT-PATTERNS.md` | Decision-in-force entries (Decision / Intent / Touches). Append as new patterns land. | Pattern superseded by a reversal memo | Entry stays + carries a "superseded by `memo-NNNN`" line; never delete |
+| `DECISION-PATTERNS.md` | Close-call rule + the one absolute. | Never moves — updated in place | — |
+| `writing-docs.md` / `repo-tidying.md` | How-to-write style + tidy rules. | Never moves — updated in place | — |
+| `memos/memo-NNNN-{slug}.md` | One memo per reversal — appended only when a prior pattern entry needs to be reversed by user feedback. | Memo superseded by a later memo | File stays; status flips to "Superseded by memo-NNNN" |
 
 #### skills/
 
@@ -310,7 +324,7 @@ supabase/snippets/
 test-results/           # Playwright run output
 ```
 
-**Everything else is tracked.** Including `meta/`, `skills/`, `_attic/`, `_inbox/`, `operations/`. Process docs are load-bearing for agent workflows — gitignoring them breaks the pipeline.
+**Everything else is tracked.** Including `meta/`, `playbooks/`, `skills/`, `_attic/`, `_inbox/`, `operations/`. Process docs are load-bearing for agent workflows — gitignoring them breaks the pipeline.
 
 ---
 
