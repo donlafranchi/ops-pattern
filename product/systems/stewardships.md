@@ -13,7 +13,7 @@ status: draft
 
 **Status:** Drafted 2026-05-18 — pending PM review. Slots into b1 as a discrete ship-theme between Wonder (S6) and the b2 themes. Depends on Groups, Locations, Items (gathering), and the existing `steward` role on affiliate Group kinds. No new primitive; one small child table on Groups.
 
-**Depends on:** `b1-primitives-plan.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `member-journey.md` (Loops 11–12), `design-philosophy.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `use-cases.md`.
+**Depends on:** `b1-primitives-plan.md`, `groups.md` (T1, `steward` role on affiliate kinds), `location.md` (T1, permanent + recurring-temporary), `item.md` (T1, kind=gathering), `member-journey.md` (Loops 11–12), `community-health-rubric.md` (§4 Community Ownership Arc), `platform-promise.md` (shared infrastructure commitment), `use-cases.md`.
 
 **North stars served:** Loop 11 (Pool resources) — partial, the lightest version. Loop 12 (Steward what we built) — full, the canonical surface. Family 1 (gathering rhythm) — reused as the upkeep cadence.
 
@@ -249,7 +249,7 @@ These two are paired because they share a structure — a small group of househo
 - Group kind: `place` (for a block-based pod) or `interest` (for a buying-shape coordination), role: `steward` required
 - Suggested Gathering: pods — quarterly in-person check-in plus an always-on group chat; clubs — monthly or quarterly order assembly + pickup
 - Suggested steward count: 1–2 coordinators per pod, 1–3 per buying club (one ordering + one logistics + one bookkeeping when group is larger)
-- Suggested size cap: 20 households for a pod, 10 for a buying club — both split when they outgrow the cap (mirrors the natural-size advice in `design-philosophy.md` §2b)
+- Suggested size cap: 20 households for a pod, 10 for a buying club — both split when they outgrow the cap (mirrors the natural-size advice in `community-health-rubric.md` §2b)
 
 **Canonical external sources:**
 

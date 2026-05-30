@@ -27,7 +27,7 @@ The non-negotiables. Lives in:
 
 - `product/foundation/principles.md` — P1–P8, People-First, Decision Test, categorical failures.
 - `product/foundation/policy.md` — the three filters (data sharing, monetary flow, visibility).
-- `product/foundation/design-philosophy.md` — the structured measuring stick.
+- `product/foundation/community-health-rubric.md` — the structured measuring stick.
 - Every spec section carrying an `Intent (Ratified YYYY-MM-DD): ...` line.
 
 Don't restate intent here — point at it.

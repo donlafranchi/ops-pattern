@@ -6,7 +6,7 @@ status: active
 
 # Movers, Makers & Shakers — Foundational Principles
 
-> **Status:** The constitution. The single "Never" + the central premise + P1–P8 first principles + the People-First Principle (folded in from the prior `people-first.md` on 2026-05-22) + the Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline. Every proposal grades against this document. The structured 0–3 scoring rubric — the *measuring stick* used to evaluate platform decisions and grade community health periodically — lives in [`design-philosophy.md`](design-philosophy.md), alongside the theory grounding (Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon). Applied policy filter (helpful / harmless / abuse-resistant + opt-out default + anti-Nextdoor commitments) lives in [`policy.md`](policy.md). Read alongside [`platform-promise.md`](platform-promise.md), [`member-journey.md`](../needs/member-journey.md), and [`primitives.md`](primitives.md). When this document and a system spec conflict on a structural mechanism, the system spec wins on the mechanism but the failure must still survive this document's tests.
+> **Status:** The constitution. The single "Never" + the central premise + P1–P8 first principles + the People-First Principle (folded in from the prior `people-first.md` on 2026-05-22) + the Decision Test + categorical failures + monetization hypothesis + metrics baseline + privacy/security baseline. Every proposal grades against this document. The structured 0–3 scoring rubric — the *measuring stick* used to evaluate platform decisions and grade community health periodically — lives in [`community-health-rubric.md`](community-health-rubric.md), alongside the theory grounding (Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon). Applied policy filter (helpful / harmless / abuse-resistant + opt-out default + anti-Nextdoor commitments) lives in [`policy.md`](policy.md). Read alongside [`platform-promise.md`](platform-promise.md), [`member-journey.md`](../needs/member-journey.md), and [`primitives.md`](primitives.md). When this document and a system spec conflict on a structural mechanism, the system spec wins on the mechanism but the failure must still survive this document's tests.
 
 **A grading rubric for every decision on this project.**
 
@@ -16,7 +16,7 @@ status: active
 
 This document is the constitution. Designers, planners, architects, build agents, reviewers, and security personnel all grade their work against it. If a proposal cannot pass the Decision Test in Part 3, it does not ship — regardless of how well-crafted it is. Other system specs, scenarios, tickets, and code are subordinate to these principles. When they conflict, this wins.
 
-The principles are written to be quotable. Each is short enough to drop into an agent prompt. The Decision Test in Part 3 returns binary answers. The structured 0–3 scoring rubric (periodic community-health audit) lives in [`design-philosophy.md`](design-philosophy.md). Each anti-pattern in Part 4 is a categorical fail.
+The principles are written to be quotable. Each is short enough to drop into an agent prompt. The Decision Test in Part 3 returns binary answers. The structured 0–3 scoring rubric (periodic community-health audit) lives in [`community-health-rubric.md`](community-health-rubric.md). Each anti-pattern in Part 4 is a categorical fail.
 
 ---
 
@@ -182,7 +182,7 @@ These are not judgment calls. Any proposal exhibiting one of these fails by defi
 ## Part 5: How to Use This Document by Role
 
 ### Designer
-Before drafting an interface, read Parts 1–4. Every screen, flow, and interaction is a small bet about which principle wins. Bring the Decision Test (Part 3) to design review. Use the structured 0–3 rubric in [`design-philosophy.md`](design-philosophy.md) quarterly for community-health audit.
+Before drafting an interface, read Parts 1–4. Every screen, flow, and interaction is a small bet about which principle wins. Bring the Decision Test (Part 3) to design review. Use the structured 0–3 rubric in [`community-health-rubric.md`](community-health-rubric.md) quarterly for community-health audit.
 
 ### Planner / Scenario Writer
 Scenarios must name which principles they advance and which they're at risk of violating. A scenario that doesn't engage with at least one principle is not yet a scenario worth approving.

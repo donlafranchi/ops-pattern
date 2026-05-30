@@ -83,7 +83,7 @@ The system distinguishes contribution quality. Not all knowledge is equal, and t
 
 - **Structured form, not freeform review.** The contributor selects: tier (first-hand / second-hand / researched), category (quality, ethics, claims accuracy, business practices, alternatives), and writes a brief factual description. Optional: attach evidence (photos, links, documents).
 - **No star ratings.** Consistent with `principles.md` Part 2 and the categorical failure on gatekeeping ratings.
-- **Not anonymous, but contributor-visible only to the platform by default.** The contributor is a known Member (persistent identity per `design-philosophy.md` §3a). Their contribution is attributed in aggregate ("3 Members shared concerns") but their identity is not public on the producer's profile unless they opt in. The platform knows who said what (for abuse prevention); the public sees patterns, not names.
+- **Not anonymous, but contributor-visible only to the platform by default.** The contributor is a known Member (persistent identity per `community-health-rubric.md` §3a). Their contribution is attributed in aggregate ("3 Members shared concerns") but their identity is not public on the producer's profile unless they opt in. The platform knows who said what (for abuse prevention); the public sees patterns, not names.
 - **Contributors can withdraw.** A contribution can be retracted at any time. If the contributor learns they were wrong, the knowledge base self-corrects.
 
 ### What contributors CANNOT do

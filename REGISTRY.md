@@ -18,7 +18,7 @@ status: active
 
 | Doc | Purpose | Status |
 |---|---|---|
-| `product/foundation/design-philosophy.md` | Scored 0–3 rubric grading platform decisions against community-health theory. | active |
+| `product/foundation/community-health-rubric.md` | Scored 0–3 rubric grading platform decisions against community-health theory. | active |
 | `product/foundation/platform-promise.md` | Public-voice commitments derived from the principles, for the thesis page. | active |
 | `product/foundation/policy.md` | Three-filter test for privacy, revenue, monetary, data-sharing decisions. | active |
 | `product/foundation/primitives.md` | Defines the Person, Item, Location, and Group data spine. | active |
