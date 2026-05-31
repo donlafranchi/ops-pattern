@@ -14,6 +14,12 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-05-31 — Shipped the inline "add a thing without leaving the composer" sub-flow
+
+Third of the four Sell-walkthrough tickets. Generic single-form drawer that stacks above the multi-step composer so a Member can create a referenced entity (a Location, an Item, etc.) without losing the parent flow's state. **Nesting refusal** — a second drawer mounted inside the first throws at render with a load-bearing error message, encoding the DLS spec's "never nest deeper" rule as a runtime guard. Submit error is an `aria-live=assertive` alert region; ESC + X + Cancel all dismiss. Full focus-trap and the parent's "paused" visual (-8px / 60% opacity) deferred to a shared a11y follow-up with T071. 10/10 vitest GREEN.
+
+→ `development/tickets/done/T072-add-entity-drawer-sub-flow.md`; M2 + M3 trail at `development/DEVIATIONS.md` § 2026-05-31 — T072; STAGE-LEDGER F036 row updated; web commit `3276666` merged as `08d7667`.
+
 ## 2026-05-31 — Shipped the generic multi-step composer that the Sell walkthrough and three sibling composers will share
 
 Second of the four Sell-walkthrough tickets. Generic, presentational + control-flow component — consumers supply step definitions + persistence callbacks; the composer handles indicator / navigation / partial-state / submit-error UI. Two a11y gaps closed pre-commit (ESC dismissal + focus restore on unmount); full focus-trap and shared `<Drawer>` / `<Modal>` primitives flagged for a follow-up a11y cleanup. 13/13 vitest GREEN. Dev verify route at `/composer-demo`.

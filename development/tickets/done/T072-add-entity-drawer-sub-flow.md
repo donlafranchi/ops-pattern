@@ -2,7 +2,7 @@
 id: how-t072-add-entity-drawer-sub-flow
 purpose: Shared `<AddEntityDrawer>` secondary-drawer sub-flow for picker steps inside composers.
 layer: how
-status: open
+status: complete
 ---
 
 # T072: `<AddEntityDrawer>` secondary-drawer sub-flow
@@ -55,5 +55,30 @@ status: open
 
 ## Completion
 
-Date: {YYYY-MM-DD}
-Commit: {git hash}
+Date: 2026-05-31
+Commit: 3276666 (merged to main as 08d7667)
+Branch: t072 (worktree removed at close)
+
+**Files landed:**
+- `web/src/components/composer/AddEntityDrawer.tsx` (new — secondary-drawer sub-flow per the DLS pattern)
+- `web/src/components/composer/AddEntityDrawer.test.tsx` (new — 10 vitest specs)
+- `web/src/app/(dev)/add-entity-demo/page.tsx` (new — dev-route verification at `/add-entity-demo`, auto-gated by T071a's `(dev)/layout.tsx`)
+- `web/BUILD-LOG.md` (entry added in a follow-up commit `75ca692`)
+
+**Verification:**
+- `npm test -- src/components/composer/AddEntityDrawer.test.tsx` → 10/10 GREEN.
+- `npx tsc --noEmit` → no new errors in T072 files.
+- `npx eslint` on touched files → clean.
+- `npm run check:action-layer` → OK (161 files scanned; no violations).
+
+**M2 — `engineering:code-review`:** self-review pre-commit; verdict PROCEED after one a11y addition: `role="alert"` + `aria-live="assertive"` on the submit-error region (was missing).
+
+**M3 — `design:accessibility-review`:** scoped to the secondary-drawer surface. Implemented: `role="dialog"` + `aria-modal` + `aria-labelledby` title; ESC dismisses; tap-outside-to-dismiss OFF; X-button labeled "Close"; submit error is an alert-live region; focus restored to opener on unmount. Full focus-trap and the DLS-specified parent-pause styling (-8px offset + 60% opacity) deferred — see DEVIATIONS.
+
+**M4 — `engineering:deploy-checklist`:** Pure additive web bundle. No DB, no env vars, no breaking changes. `/add-entity-demo` is auto-gated by T071a's `(dev)/layout.tsx`. Standard staging-verify-then-prod path.
+
+**DEVIATIONS:** 2 entries logged (parent-pause -8px/60% styling deferred — requires a parent↔drawer coupling decision; full focus-trap deferred per the shared a11y follow-up flagged in T071).
+
+**Not in scope (handled elsewhere):**
+- Parent composer's "paused" visual appearance (-8px offset + 60% opacity) per the DLS spec — defer pending a decision on whether the parent reads a context flag or the drawer reaches up.
+- Full focus-trap (Tab/Shift+Tab cycling within the drawer) — covered in the same future a11y ticket that T071 flagged.
