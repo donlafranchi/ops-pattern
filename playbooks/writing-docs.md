@@ -127,15 +127,21 @@ No status field. The decision is live by virtue of being in the doc. If a decisi
 
 ### JOURNAL entry
 
-**Contract.** JOURNAL is a pointer log. Never the load-bearing copy of any decision or fact. If a session produced a fact that needs to be true next quarter, the fact lives in its capability, pattern, or system spec; the JOURNAL line just notes that the file changed. Older entries rotate without loss because nothing here is load-bearing in the first place.
+**Contract.** JOURNAL is a session log that doubles as the PM's re-entry artifact after time away. Never the load-bearing copy of any decision or fact — if a session produced a fact that needs to be true next quarter, the fact lives in its capability, pattern, or system spec; the JOURNAL block points to it. Older entries rotate without loss because nothing here is load-bearing.
 
-One block per session, newest at top:
+**Form (hybrid).** Each block has three parts: plain-English headline, optional context, pointer line.
 
 ```
-## YYYY-MM-DD — {one-line title}
+## YYYY-MM-DD — {one-sentence plain-English headline naming what changed}
 
-Two to three sentences naming the durable docs that changed. Commit hash.
+{0–3 sentences of context if helpful — what the change unblocks, what changed downstream, why a returning reader would care. Skip if the headline self-explains.}
+
+→ `{durable doc}` § {section}; commit {hash}.
 ```
+
+**Headline rules.** No F-numbers, T-numbers, schema column names, or `file:line` references in the headline. A reader returning after three weeks should know from the headline alone whether to open the pointer or skip past. If the headline only makes sense to someone with full project context loaded, rewrite it.
+
+**What goes in context vs. pointer.** Context = the human meaning of the change (what / why / what it unblocks). Pointer = where the durable copy lives + the commit. Identifiers (F###, T###, schema column names, action-handler names) belong in context or pointer, not in the headline.
 
 No "next session pickup" block. The active work queue lives in `planning/now/`.
 
