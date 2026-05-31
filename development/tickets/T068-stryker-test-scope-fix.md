@@ -124,7 +124,7 @@ Narrowing the exclude to `tests/migrations-*.test.ts` keeps the DB-bound suites 
 
 Date: 2026-05-31
 Commit (web): cfbbc91 (branch `t68`)
-Commit (parent): {pending}
+Commit (parent): 8876e08
 
 **What landed:**
 - `web/vitest.stryker.config.ts` — widened `include` to pick up `tests/**/*.test.ts(x)`; narrowed `exclude` to `tests/migrations-*.test.ts` (permanent, DB-bound) + 5 named pre-existing stale files (deferred to T069). Header comment updated.
