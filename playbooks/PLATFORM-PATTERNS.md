@@ -152,3 +152,23 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 **Intent.** People are discovered through their outputs, not by searching them — that is already how the platform's loops work, and defaulting Person-search on imports the doxxing risk Nextdoor normalized without providing any of the loop value that justifies the risk. Default-private aligns with the People-First principle and the anti-Nextdoor commitment in `location.md` and `policy.md`: the absence of frictionless surfacing of strangers is the safety feature. Per-surface granularity at T2 acknowledges that the doxxing risk is concentrated in algorithmic surfacing (directory listing + autocomplete) — handle-direct lookup is closer to "I told you who I am" and earns its own switch. The kind='business' split honors that commerce wants the Group findable while the Member-as-owner stays separately gated, so a seller can run a stall publicly without their personal handle being publicly searchable. Ratified 2026-05-30 by PM override; `weigh` dialectic skipped at PM's discretion under AGENTS.md §3 ("PM adjudicates — override permitted with cause logged"). Cause logged: PM judgment that the default aligns clearly with existing platform commitments (People-First, anti-Nextdoor) and does not require dialectic adjudication. Open implementation questions (kind='business' owner display, follow-request UX when not discoverable, public-tier friction shape, existing-Member grandfather vs. force-reset) defer to `product/systems/member.md` spec work.
 
 **Touches.** `product/systems/member.md`
+
+---
+
+### Membership is the only access-granting verb for kind='business' Groups
+
+**Decision.** The platform models no business-ownership concepts beyond membership — no ownership transfer, no operating-owner field, no succession, no role-assignment machinery outside the membership row. Owners are co-equal on member-management and dissolution. Staff have producer-tool access (post on behalf, edit own Items) but cannot manage roster or dissolve. Adding a Member to the Group with the appropriate role IS the access grant; removing the membership IS the revoke. The Locally-Owned badge aggregates OR-across-owners.
+
+**Intent.** The platform's job for kind='business' Groups is to provide producer tools and to record who did what (every event row carries `acting_member_id`). It is not to model business ownership transfers, succession, or governance — those are off-platform concerns the platform isn't equipped to adjudicate (no escrow, no legal weight, no fraud recourse). Modeling them invites Members to expect platform enforcement that won't arrive. Owner co-equality matches how small operations actually run; staff-as-poster matches the bakery-with-helpers / shop-with-employees shape. Disagreements between co-owners resolve as conversations between people, not as platform machinery. Any future Group-touching spec that proposes ownership-shaped state (operator handoff, transfer-of-control, succession claim, designated authority) must justify against this pattern first.
+
+**Touches.** `product/systems/groups.md`
+
+---
+
+### Lifecycle does not track business activity — discovery does
+
+**Decision.** kind='business' Groups have no auto-dormancy and no auto-dissolution. They persist as long as ≥1 active owner-role membership exists. Inactivity affects *surfacing only* — the discovery algorithm demotes inactive business Groups in promoted surfaces and search defaults. The only dissolution path is explicit `group.dissolve` called by an owner. Activity for surfacing purposes is defined by platform action — posting Items, fulfilling orders, member events — not by an offline-business signal. Community kinds (place, interest, practice, event_anchored, family) keep their existing dormancy + revival lifecycle; this pattern applies to kind='business' only.
+
+**Intent.** Adjudicating whether an off-platform business is "really" dormant requires signals the platform doesn't have (sales records, legal filings, owner intent) and creates surface area for the platform to mis-handle. The simpler shape: business Groups exist as long as an owner is on the membership; surfacing is discovery's job, not lifecycle machinery's; explicit dissolve is the only end-state. This separates *the question of whether the Group continues to exist* (membership) from *the question of whether anyone sees it* (discovery) — two distinct concerns that lifecycle machinery had been conflating. Any future proposal to auto-demote, auto-archive, or auto-dissolve a business Group based on activity heuristics belongs in discovery's ranking, not in the Group's lifecycle.
+
+**Touches.** `product/systems/discovery.md`
