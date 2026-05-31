@@ -29,6 +29,34 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 findin
 
 ## Phase 2 entries
 
+## 2026-05-31 — T071 — `<MultiStepComposer>` base — M2 + M3 trail
+
+**Verdict:** M2 self-review returned PROCEED after two a11y gaps closed in the same loop (ESC dismisses + focus restoration on unmount). M3 design-accessibility scope satisfied at the basic level; full focus-trap deferred. 13/13 vitest GREEN; zero new TS errors; lint + action-layer conformance clean.
+
+### Applied — A11y critical: ESC + focus restoration
+
+**What:** Added an `Escape` keydown listener that fires `onAbandon`, plus a mount-time `activeElement` snapshot whose ref restores focus when the composer unmounts.
+
+**Why:** Standard modal a11y baseline. The ticket Notes named focus management as a requirement; ESC dismissal is a standing user expectation for dialogs. Surfaced by self-review before commit.
+
+**Disposition:** accepted-as-is.
+
+### Deferred — Full focus-trap (Tab cycling within the dialog)
+
+**What:** The composer establishes initial focus on the dialog and restores it on unmount, but does NOT prevent the user from Tab-bing out of the dialog into the underlying page DOM.
+
+**Why:** A full focus-trap requires tracking the set of tabbable descendants + intercepting Tab/Shift+Tab at the dialog boundary — non-trivial, and the underlying page is currently inert behind the overlay (`fixed inset-0 z-50 bg-black/40`), so the practical risk is "Tab eventually escapes into invisible elements" rather than "user touches a sibling control." The b1 acceptance bar from F036 (Maya completes the walkthrough on touch) is met without it.
+
+**Disposition:** flag-for-ticket-rewrite — a future a11y-cleanup ticket should add (a) full focus-trap to `<MultiStepComposer>` and (b) extract a shared `<Drawer>` / `<Modal>` primitive under `web/src/components/ui/` that both this composer and `AuthGateModal` consume.
+
+### Deferred — No `web/src/components/ui/` Drawer/Modal primitives extracted
+
+**What:** The ticket's acceptance text said "Uses existing `Drawer` / `Modal` primitives if present in `web/components/ui/`; create them if absent (cite as deviation)." No `ui/` directory exists; rather than create one-consumer primitives, the composer was built inline matching the pattern in `web/src/components/AuthGateModal.tsx` (bottom-anchored-on-mobile overlay with stop-propagation on the inner card).
+
+**Why:** Creating shared primitives for a single consumer is premature abstraction. The composer + AuthGateModal are now the two consumers of the pattern; a third surface (e.g., the F072 `<AddEntityDrawer>` sub-flow) is the natural trigger for extracting a shared base.
+
+**Disposition:** flag-for-ticket-rewrite — pair with the focus-trap follow-up above. T072 will likely be the third consumer; if its review surfaces the duplication, the extract lands there. Otherwise a dedicated UI-primitives cleanup ticket post-b1.
+
 ## 2026-05-31 — T070 — Groups lifecycle_state + draft handlers — M2 trail
 
 **Verdict:** M2 `engineering:code-review` returned **REQUEST CHANGES** with 2 criticals + 7 suggestions. PM disposition stamped in [`planning/reviews/F036-review.md` § "T070 M2 code-review (2026-05-31)" § "PM disposition (2026-05-31)"](../planning/reviews/F036-review.md). All criticals applied pre-commit (fix-now per Rebuild Phase rule 3); three suggestions folded in the same loop; four deferred. Final state: 40/40 vitest GREEN, action-layer conformance OK, zero new tsc errors in T070 files.

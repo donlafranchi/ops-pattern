@@ -14,6 +14,12 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-05-31 — Shipped the generic multi-step composer that the Sell walkthrough and three sibling composers will share
+
+Second of the four Sell-walkthrough tickets. Generic, presentational + control-flow component — consumers supply step definitions + persistence callbacks; the composer handles indicator / navigation / partial-state / submit-error UI. Two a11y gaps closed pre-commit (ESC dismissal + focus restore on unmount); full focus-trap and shared `<Drawer>` / `<Modal>` primitives flagged for a follow-up a11y cleanup. 13/13 vitest GREEN. Dev verify route at `/composer-demo`.
+
+→ `development/tickets/done/T071-multistep-composer-base.md`; M2 + M3 trail at `development/DEVIATIONS.md` § 2026-05-31 — T071; STAGE-LEDGER F036 row stamped `building` with T070 + T071 done; web commit `d31f3ff` merged to main as `3c64571`.
+
 ## 2026-05-31 — Shipped the schema + handlers behind the Sell walkthrough's save-as-you-go composer
 
 First of the four Sell-walkthrough tickets. Two critical issues caught by pre-commit code review landed in the same loop (concurrent-activate race in update-draft; slug collision on simultaneous draft creates); three smaller suggestions folded in via a new shared-constants file; four deferred with rationale in DEVIATIONS. 40/40 vitest GREEN.

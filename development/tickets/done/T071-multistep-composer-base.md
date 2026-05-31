@@ -2,7 +2,7 @@
 id: how-t071-multistep-composer-base
 purpose: Shared `<MultiStepComposer>` base component, the substrate for F036/F034/F038/F040 composers.
 layer: how
-status: open
+status: complete
 ---
 
 # T071: `<MultiStepComposer>` base component
@@ -57,5 +57,32 @@ status: open
 
 ## Completion
 
-Date: {YYYY-MM-DD}
-Commit: {git hash}
+Date: 2026-05-31
+Commit: d31f3ff (merged to main as 3c64571)
+Branch: t071 (worktree removed at close)
+
+**Files landed:**
+- `web/src/components/composer/MultiStepComposer.tsx` (new — generic composer per the DLS recipe)
+- `web/src/components/composer/MultiStepComposer.test.tsx` (new — 13 vitest specs)
+- `web/src/app/(dev)/composer-demo/page.tsx` (new — dev-route verification at `/composer-demo`)
+
+**Verification:**
+- `npm test -- src/components/composer/MultiStepComposer.test.tsx` → 13/13 GREEN.
+- `npx tsc --noEmit` → no new errors in T071 files.
+- `npx eslint` on touched files → clean.
+- `npm run check:action-layer` → OK (157 files scanned; no violations).
+- Full `npm test` matches main's failure set (pre-existing flakes in `ci-enforcement-*` subprocess tests + migration-snapshot tests; +11 new passes from T071, no net new regressions).
+
+**M2 — `engineering:code-review`:** self-review pre-commit; verdict PROCEED after two a11y gaps closed in the same loop:
+1. ESC key now fires `onAbandon` (standard modal a11y; was missing).
+2. Focus restoration on unmount (per ticket Notes; mount-time `activeElement` snapshot + `dialogRef.focus()` on mount + restore on unmount).
+
+**M3 — `design:accessibility-review`:** scoped to the composer surface. Implemented this round: `role="dialog"` + `aria-modal` + `aria-labelledby` step title; `role="progressbar"` step indicator with `aria-valuenow`/`valuemax`; ESC dismisses; tap-outside-to-dismiss intentionally OFF; X-button labeled "Close"; submit-error region inline (not a separate live region — covered by surface-error contract). Full focus-trap (preventing Tab from escaping to underlying page) deferred — see DEVIATIONS.
+
+**M4 — `engineering:deploy-checklist`:** No new DB migrations, no env vars, no breaking changes. Pure additive web bundle. Standard staging-verify-then-prod path.
+
+**DEVIATIONS:** 2 entries logged (no `web/src/components/ui/` Drawer/Modal primitives existed — built inline matching the AuthGateModal pattern; full focus-trap deferred to a follow-up a11y ticket).
+
+**Not in scope (handled elsewhere):**
+- `web/components/ui/` Drawer + Modal primitives — flagged for future extract once a third consumer surfaces.
+- Full focus-trap (Tab/Shift+Tab cycling within the dialog) — covered in the same future a11y ticket.
