@@ -99,6 +99,26 @@ w_social = 0.5, w_recency = 0.3, w_seen = 0.4, w_dismiss = 1.5
 
 **Diversity rule.** No more than 3 consecutive Items from the same creator or same Location. Reshuffle after scoring.
 
+### Surfacing demotion for inactive kind='business' Groups
+
+Per [`playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) § "Lifecycle does not track business activity — discovery does," kind='business' Groups have no auto-dormancy and no auto-dissolution at the lifecycle layer (see [`groups.md`](groups.md) § Lifecycle per kind). The job of distinguishing actively-operating from quiescent business Groups belongs here, to discovery — as a surfacing-weight adjustment, not a state machine.
+
+**Signal.** Activity for surfacing purposes is computed from *platform action only* — never from off-platform inference about whether a business is "really" operating. Qualifying actions for a kind='business' Group `g` over a rolling window:
+
+- Items posted by `g` (any kind — `product`, `service`, `gathering`, etc., per `items.group_id = g.id`).
+- Order-fulfillment events on `g`'s commercial Items (a `kind='product'` or `'service'` Item moving `active → fulfilled`).
+- Member-facing events the Group is the subject of (a kind='business' Group's recurring gathering occurring; per-attendance events when those surfaces land).
+
+A Group with zero qualifying actions over the window is *surfacing-inactive*; the score for `g`'s Items in promoted surfaces and search-default ranking is multiplied by a demotion factor (working answer: 0.25). The Group remains fully visible — direct URL, the Group's own page, queries that explicitly filter to it, the owner's `/you` surface — none of those are affected. Only the promoted positions are.
+
+**What demotion never does.** Demotion never hides the Group from search results when a Member is actively searching for it, never archives the Group, never alters membership rows, never fires a state-change event on the Group, and never surfaces a public "inactive" label. The Group's owners see no platform message inviting them to "reactivate" — the platform makes no claim about whether their business is really inactive. The signal is internal to the ranker.
+
+**Window.** Open question for Phase 2 — the rolling window length (30 / 60 / 90 days) and the demotion factor are both tuning knobs that need behavioral data to set honestly. Working defaults at first ship: **90-day rolling window, 0.25 demotion factor.** Both move to the T2 A/B harness once it lands; the demotion factor never goes below a floor that would amount to hiding the Group from a normal-locality search (working floor: 0.1).
+
+**Scope.** kind='business' Groups only. Community kinds (`place`, `interest`, `practice`, `event_anchored`, `family`) keep their existing dormancy + revival lifecycle per `groups.md`, and their dormant state is the visibility signal there — discovery does not double-demote dormant community Groups.
+
+> **Intent (Ratified 2026-05-31):** Adjudicating whether an off-platform business is "really" dormant requires signals the platform doesn't have (sales records, legal filings, owner intent) and creates surface area for the platform to mis-handle. Putting the activity question in *discovery* — as a surfacing weight, never a Group-state change — separates *whether the Group continues to exist* (answered by membership, per [`playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) § "Membership is the only access-granting verb for kind='business' Groups") from *whether anyone sees it in promoted surfaces* (answered here, by observable platform action). The two questions had been conflated by lifecycle machinery; this section is the home of the second one. **Test for future proposals:** does the proposal want to auto-archive, auto-dormant, or auto-dissolve a kind='business' Group based on activity? Refuse — extend this section's signal set or tune the demotion factor instead. Does it want to surface a public "inactive" label or notify owners that they're being demoted? Refuse — the signal is internal; the platform makes no public claim about a business's operating status. Does it want to add a new qualifying-action class (a new event type that counts as activity)? Welcome — extend the signal list.
+
 **Cold start.**
 
 - New Member, no follows: rank by `w_loc + w_time + w_recency + trending_in_radius`. Surface a "Follow people whose work you love" prompt above the feed.

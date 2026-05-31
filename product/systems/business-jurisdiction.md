@@ -45,7 +45,9 @@ The b1 surface is the smallest version that lets a kind='business' Group make a 
 
 **Behavior.** Any owner-role Member of a kind='business' Group can set a self-attested ZIP for that Group. The ZIP is stored on a new `member_business_jurisdictions` row scoped to (`member_id`, `group_id`). The `verification_source` is `'self_attested'`. The Group's public surface displays "Claimed local owner" alongside the locally-owned badge when the ZIP passes the proximity test against the anchor Location.
 
-**Multiple owner-role Members.** Each owner can have their own jurisdiction record. The Group qualifies as locally owned if **any** owner's jurisdiction ZIP passes the proximity test. Multi-owner is additive, not constraining — Maya bakes and her partner works the booth; either's jurisdiction qualifies the Group.
+**Multiple owner-role Members — OR aggregation across all active owners.** Each owner can have their own jurisdiction record. The Group qualifies as locally owned if **any** active `role='owner'` Member's jurisdiction ZIP passes the proximity test against the Group's anchor Location. There is no founder-privileged source, no per-Group designated owner-of-record for locality, no requirement that every owner be local — the badge sources from the union across all current owners. Multi-owner is additive, not constraining — Maya bakes and her partner works the booth; either's jurisdiction qualifies the Group. The rule survives owner additions, removals, and transitions: as long as at least one active owner's jurisdiction proximizes, the badge applies; the day no remaining active owner's jurisdiction proximizes, it drops.
+
+> **Intent (Ratified 2026-05-31):** The Locally-Owned promise answers a single Member question — *does this entity have local-community ownership stake*. One local owner is sufficient evidence: a partnership with one local + two non-local owners is still locally-owned in the way that matters for community-support decisions. Requiring unanimity loses the partnership case; privileging the founder loses the post-founder-transition case (and conflicts with the platform's commitment that membership is the only access-granting verb for kind='business' Groups — see [`playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) § "Membership is the only access-granting verb for kind='business' Groups"). The OR-across-owners rule is the simplest honest answer.
 
 **Surfaces.**
 - **Composer.** The kind='business' Group walkthrough (per `groups.md`) adds an optional "where is this business based?" step. Self-attested ZIP only; no document upload at b1.
@@ -55,9 +57,10 @@ The b1 surface is the smallest version that lets a kind='business' Group make a 
 **Locality derivation (the upgrade to `groups.md`).** The rule in `groups.md` (Locality and promotion) reads:
 
 ```sql
--- Pseudocode: a kind='business' Group is locally owned at b1 when
--- at least one owner Member has a jurisdiction record whose ZIP
--- falls within proximity of the Group's anchor_location_id.
+-- A kind='business' Group is locally owned when ANY active owner Member
+-- holds a jurisdiction record whose ZIP proximizes the Group's anchor
+-- Location. OR aggregation across all role='owner' memberships — no
+-- founder-privileged source, no per-Group designated owner-of-record.
 select exists (
   select 1
   from group_memberships gm
@@ -71,6 +74,8 @@ select exists (
     and public.zip_is_proximal_to_location(mbj.zip, $anchor_location_id)
 );
 ```
+
+The query reads every active owner's jurisdiction row in parallel; `exists` short-circuits on the first proximal owner. There is no ordering, no priority, no "primary" jurisdiction — the badge surfaces when any active owner satisfies the predicate.
 
 The `public.zip_is_proximal_to_location(zip text, location_id uuid) returns boolean` function is a public-callable SECURITY DEFINER that compares the ZIP's metro/MSA against the anchor Location's metro/MSA, returning true within the proximity threshold (same threshold spec'd in `groups.md`).
 
