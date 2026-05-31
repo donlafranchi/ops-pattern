@@ -1,89 +1,92 @@
 ---
-purpose: Thin session pointer log. Never the load-bearing copy of any decision or fact.
+purpose: Session log — one plain-English headline + pointer per entry. Never the load-bearing copy of any decision or fact.
 layer: how
 status: active
 ---
 
 # JOURNAL.md
 
-One block per session, newest at top. Two to three sentences naming the durable docs that changed, plus the commit hash. No decisions, no "next session pickup" blocks, no current-state inventories — if a session produced a fact that needs to be true next quarter, the fact lives in its capability, pattern, or system spec; the JOURNAL line just notes that the file changed.
+One block per session, newest at top. Each entry leads with a **one-sentence plain-English headline** naming what changed — readable cold, no F-numbers / T-numbers / schema identifiers in the headline. Optional 1–3 sentences of context follow. Each entry ends with a **pointer line** citing the durable doc(s) by name and section + the commit hash. The fact lives in the spec; the journal points to it.
+
+Headline test: a reader returning after three weeks should know from the headline alone whether to open the pointer or skip past. If the headline only makes sense to someone with full project context loaded, rewrite it.
 
 Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30 entries archived at [`planning/archive/2026-05-30-journal-pre-cleanup/`](planning/archive/2026-05-30-journal-pre-cleanup/).
 
 ---
 
-## 2026-05-31 — Cascaded `groups.md` ratifications into `business-jurisdiction.md` + `discovery.md`
+## 2026-05-31 — Shipped the schema + handlers behind the Sell walkthrough's save-as-you-go composer
 
-Two spec edits propagating the 2026-05-31 `groups.md` weigh outcomes (owners-co-equal + lifecycle-does-not-track-business-activity) into the systems that consume those rules.
+First of the four Sell-walkthrough tickets. Two critical issues caught by pre-commit code review landed in the same loop (concurrent-activate race in update-draft; slug collision on simultaneous draft creates); three smaller suggestions folded in via a new shared-constants file; four deferred with rationale in DEVIATIONS. 40/40 vitest GREEN.
 
-- **`product/systems/business-jurisdiction.md`** — Locality query made explicit as OR-aggregation across all active `role='owner'` jurisdiction rows (no founder-privileged source). Prose + SQL pseudocode + an `Intent (Ratified 2026-05-31)` block citing `playbooks/PLATFORM-PATTERNS.md` § "Membership is the only access-granting verb for kind='business' Groups."
-- **`product/systems/discovery.md`** — Added § "Surfacing demotion for inactive kind='business' Groups" under T1. Activity signal = platform action only (Items posted, orders fulfilled, member-facing events) over a rolling window (working: 90 days, 0.25 demotion factor; exact tuning is an open Phase 2 question). Demotion affects promoted surfaces + search defaults only; never hides, archives, labels, or notifies. `Intent (Ratified 2026-05-31)` block citing `playbooks/PLATFORM-PATTERNS.md` § "Lifecycle does not track business activity — discovery does."
+→ `development/tickets/done/T070-groups-lifecycle-state-and-draft-handlers.md`; M2 trail at `planning/reviews/F036-review.md` § T070 M2 code-review; DEVIATIONS at `development/DEVIATIONS.md` § 2026-05-31 — T070; STAGE-LEDGER F036 row stamped `building` with T070 done; web commit `d8204c7` on branch `t070` (merge to main pending M4).
 
-No schema or code touched. Closes the cascading-work bullets surfaced by the earlier `Weighed groups.md` entry.
+## 2026-05-31 — Propagated yesterday's business-Group ownership rules into locality and discovery
 
-## 2026-05-31 — F036 eval spec written (Playwright, before build)
+Locality query for kind='business' Groups now OR-aggregates across all active owners' jurisdiction rows (no founder-privileged source). Discovery defines "surfacing demotion" for inactive business Groups — they slide down promoted feeds and search defaults but are never hidden, archived, labeled, or notified. Closes the cascading work surfaced by yesterday's `groups.md` weigh.
 
-Authored `web/evals/features/F036-member-creates-business-group-via-sell-walkthrough.spec.ts` from the F036 scenario alone (no code reads). 8 tests covering all 5 acceptance criteria + 3 edge cases (anchor-Location inline-add, walkthrough abandonment with resume, existing-business-Group routing). Each non-mechanical assertion carries a `// Why:` comment anchored to the scenario clause or to the design-language recipe / ADR-12 supersession it protects. Fixture surface assumed: seeded `MAYA` (no business Group, one saved Location) + `BAKER_RUTH` (existing business Group); fixture file `web/evals/fixtures/F036-maya.ts` does not yet exist — build agent (or a small substrate ticket) lands it before run-mode eval.
+→ `product/systems/business-jurisdiction.md` § Locality query; `product/systems/discovery.md` § Surfacing demotion for inactive kind='business' Groups; commit pending.
 
-## 2026-05-31 — F036 ticketed: T070 (substrate) + T071–T073 (surface)
+## 2026-05-31 — Wrote the Playwright test spec for the Sell walkthrough before any build code
 
-Broke F036 into four implementable tickets (within the 2–5 fan-out range).
-- **T070 — substrate** — `groups.lifecycle_state` migration, RLS policy `groups_select_active_or_own_draft`, action handlers `group.create` / `group.update_draft` / `group.activate`, event `group.activated`. `Scenario: substrate`; cites `groups.md § Schema`.
-- **T071 — `<MultiStepComposer>` base** — generic composer per the new DLS recipe; consumed by F036/F034/F038/F040. Presentational + control-flow; persistence by consumer callbacks.
-- **T072 — `<AddEntityDrawer>` sub-flow** — secondary-drawer pattern; first user is F036's anchor-Location step; refuses to nest deeper (dev-time error).
-- **T073 — `<SellWalkthrough>` + /you Sell CTA** — composes the above; five steps (brand · anchor · about · optional locality · review); resume-detection wired to the draft Group; routing logic for first-time vs returning-with-active-business-Group. Defaults user-facing copy to "Shop" per naming-conventions table.
+8 tests covering all 5 acceptance criteria + 3 edge cases (anchor-Location inline-add, walkthrough abandonment with resume, existing-business-Group routing). Each non-mechanical assertion carries a `// Why:` comment anchored to the scenario clause it protects. Fixture file `web/evals/fixtures/F036-maya.ts` does not yet exist — build agent lands it before run-mode.
 
-Sequence: T070 → T071 → T072 → T073. STAGE-LEDGER stamped `ticketed 2026-05-31`. Next per pipeline: `test` writes Playwright evals from the F036 scenario (in parallel with `build`); then `build` works through T070→T073 in TDD order.
+→ `web/evals/features/F036-member-creates-business-group-via-sell-walkthrough.spec.ts`; commit pending.
 
-## 2026-05-31 — `groups.md` schema patch: `lifecycle_state` column + draft/active discovery rule
+## 2026-05-31 — Broke the Sell walkthrough into four tickets: schema first, then three UI pieces
 
-Added `groups.lifecycle_state` column (`'draft' | 'active' | 'dissolved'`, default `'active'`) backing the Multi-step composer recipe's partial-state preservation contract. Public discovery surfaces filter `lifecycle_state = 'active'`; RLS policy `groups_select_active_or_own_draft` carves out owner visibility for in-flight drafts. New event `group.activated` fires on draft → active promotion (final-step composer submit). New handlers `group.activate` + `group.update_draft` added to the action catalog; `group.create` now writes `lifecycle_state='draft'` by default. Index `idx_groups_lifecycle` added. Unblocks F036 ticket-writing.
+T070 lands the `groups.lifecycle_state` migration, RLS policy, action handlers, and `group.activated` event. T071 extracts a generic multi-step composer base consumed by F036 + the three other b1 composers (F034 / F038 / F040). T072 adds the secondary-drawer sub-flow pattern for inline "+ Add new" affordances. T073 composes the above into the Sell walkthrough surface itself. Sequence: T070 → T071 → T072 → T073.
 
-## 2026-05-31 — Extended `design-language.md`: Multi-step composer recipe + Add-new-entity-inside-composer sub-flow pattern
+→ `development/tickets/T070`–`T073`; STAGE-LEDGER stamped `ticketed 2026-05-31`.
 
-Landed two additions to `product/ui/design-language.md`:
-- **§ Component recipes → Multi-step composer** — canonical shape for guided multi-step flows (Sell walkthrough F036, gathering composer F034, product composer F038, service composer F040). Covers step indicator, navigation (back/continue/skip-optional), progressive validation (field-on-blur, step-on-Continue), partial-state preservation via substrate writes on each Continue (with `lifecycle_state='draft'` → `'active'` promotion on final submit), completion redirect, loading/error/offline states, no-fork rule.
-- **§ Surface patterns → Add new entity inside a composer** — secondary-drawer sub-flow for the picker step's "+ Add new" affordance (first user: anchor-Location step in F036). Single-form drawer stacks over parent composer; on save returns to parent step with new entity pre-selected; never nest a tertiary drawer.
+## 2026-05-31 — Added a draft/active lifecycle field to Groups so partial composer state can persist before publishing
 
-Cleared the EXTEND verdict on F036's pre-flight review. Ticket-writing on F036 is unblocked (modulo the still-pending Shop vs Group copy call).
+New `groups.lifecycle_state` column (`'draft' | 'active' | 'dissolved'`, default `'active'`). Public discovery surfaces filter to active only; RLS policy `groups_select_active_or_own_draft` carves out owner visibility for in-flight drafts. New `group.activated` event fires on draft → active promotion (final-step composer submit). Unblocks F036 ticket-writing.
 
-**Downstream spec patches surfaced — flag for `explore` follow-on:**
-- **`groups.md`** needs a `groups.lifecycle_state` column (`'draft' | 'active' | 'dissolved'`) to support the composer partial-state contract. Public discovery surfaces must filter `lifecycle_state = 'active'`. Substrate addition; not in current schema.
-- **`product/systems/business-jurisdiction.md`** — locality query needs to read ANY active owner's `member_business_jurisdictions` row (OR aggregation) per the 2026-05-31 groups.md amendment. Blocks F037 + F042; not F036.
-- **`product/systems/discovery.md`** — must define surfacing demotion for inactive kind='business' Groups (since they no longer enter dormancy). Blocks no scenario directly but shapes the discovery algorithm at b1.
-- **Shop vs business Group copy convention** — root CLAUDE.md naming-conventions table says "Shop" for kind='business' UI label; F036 scenario body uses "business Group" throughout. PM call pending. Route: `weigh` or direct PM decision.
+→ `product/systems/groups.md` § Schema; commit pending.
 
-## 2026-05-31 — F036 approved (Gate A cleared); moved to `planning/scenarios/`
+## 2026-05-31 — Added a multi-step composer recipe to the design language — the Sell walkthrough is the first of four to use it
 
-F036 cleared Gate A after the weigh session ratified all 4 cited `groups.md` absolutes. One drift fix in F036's body (Capabilities-unlocked footer rewritten to match the new owners-co-equal model, dropping the "Founder = operating owner immutable at creation" framing). Scenario moved from `scenarios-backlog/` to `scenarios/`; STAGE-LEDGER stamped `plan-approved 2026-05-31`. Ticket-writing remains blocked on the design-language EXTEND verdict (Multi-step composer recipe) from the 2026-05-31 pre-flight review.
+Canonical shape for guided multi-step flows (Sell walkthrough F036, gathering composer F034, product composer F038, service composer F040): step indicator, progressive validation, partial-state preservation via substrate writes on each Continue, draft → active promotion on final submit. Companion **secondary-drawer sub-flow** pattern: the picker step's "+ Add new" opens a stacked single-form drawer over the parent composer; never nest deeper. Cleared the EXTEND verdict on F036's pre-flight review.
 
-### Weighed groups.md — 2026-05-31
+→ `product/ui/design-language.md` § Component recipes → Multi-step composer; § Surface patterns → Add new entity inside a composer.
 
-4 statements walked: 2 ratified-with-revision, 2 ratified-as-drafted.
+**Downstream patches surfaced for `explore` to drain:** `groups.md` lifecycle_state (landed in same session above); `business-jurisdiction.md` locality OR-aggregation (landed above); `discovery.md` surfacing demotion (landed above); "Shop" vs "business Group" copy convention (PM call still pending).
 
-- **Revised + Ratified:** `product/systems/groups.md:88-93` — retired the "founder is immutable operating owner" rule and the assignable-operating-owner middle ground. New shape: owners co-equal on member-management and dissolution; staff have producer-tool access (post on behalf, edit own Items) but cannot manage roster or dissolve; `founder_member_id` is a historical label only. Locally-Owned badge sources from "any current owner is local → badge applies" (OR across owners). PM direction: the platform is not a CRM for business ownership; adding a Member is the only access-granting verb.
-- **Ratified:** `product/systems/groups.md:114` — self-declaration over observation as the casual↔commercial trigger. Stamped `Intent (Ratified 2026-05-31)`; observation-path remains an open question without a Deferral trigger (the "critical mass" condition isn't observable enough to be a real Deferred trigger).
-- **Revised + Ratified:** `product/systems/groups.md:124-131` — retired auto-dormancy and founder-only revival for kind='business'. New shape: business Groups have no auto-dormancy, no auto-dissolution; discovery algorithm (per `discovery.md`) handles surfacing of inactive Groups; only explicit `group.dissolve` by an owner ends a Group. Off-platform legal-entity persistence simplified; revival concept retained for community kinds only.
-- **Ratified:** `product/systems/groups.md:365` — no auto-Group assignment; explicit-vs-soft_via_* source distinction. Stamped `Intent (Ratified 2026-05-31)`; no wording change.
+## 2026-05-31 — Approved the Sell walkthrough scenario — and decided how Groups handle business ownership
 
-**Cascading downstream work surfaced:**
-- `product/systems/business-jurisdiction.md` — locality query needs to read ANY active owner's `member_business_jurisdictions` row (OR aggregation), not just the founder's.
-- `product/systems/discovery.md` — must define "surfacing demotion for inactive business Groups" since the lifecycle no longer handles it.
-- Action handlers: dropped `group.transfer_operating_ownership`, `group.set_locality_source`, `group.operating_owner_transferred` event, `group.locality_source_changed` event from groups.md catalog. Added `group.member_remove` and made several handlers owner-only.
-- F036 cleared Gate A — all four cited absolutes now carry State tags. Scope can re-run the gate and move F036 from backlog to approved.
+F036 cleared Gate A after the `groups.md` weigh session ratified the four cited absolutes. Scenario moved from `scenarios-backlog/` to `scenarios/`; one drift fix to the capabilities footer to match the new co-equal owner model. Ticket-writing remained blocked on the design-language EXTEND verdict (cleared in the entry above this one).
 
-## 2026-05-31 — Pre-Gate-A review on F036 (Sell walkthrough) — verdict EXTEND
+**Weigh outcome — `groups.md`.** Four absolutes walked: 2 revised + ratified, 2 ratified as drafted.
 
-Reviewed F036 ahead of the Gate A walk. Architecture clean — full Phase 1 substrate already supports it (no new tables / columns / events). Design verdict EXTEND: `product/ui/design-language.md` lacks a multi-step composer recipe and an inline "add new entity inside a composer" pattern; F036 is first of four b1 composers (F034 / F038 / F040 to follow) and the shared `<MultiStepComposer>` base should be extracted in F036's tickets. Sibling check also flagged a "Shop" vs "business Group" copy mismatch (root CLAUDE.md naming table says "Shop" for kind='business' UI label; scenario body uses "business Group" throughout). Review at `planning/reviews/F036-review.md`; STAGE-LEDGER stamped EXTEND 2026-05-31. F036 remains blocked from approval pending (a) Gate A weigh on 4 unratified `groups.md` absolutes, and (b) the design-language extend.
+- **Revised + Ratified:** `product/systems/groups.md:88-93` — owners are now co-equal on member-management and dissolution; staff get producer-tool access (post on behalf, edit own Items) but can't manage roster or dissolve; `founder_member_id` is a historical label only. Locally-Owned badge sources from "any current owner is local → badge applies" (OR across owners). PM direction: the platform is not a CRM for business ownership; adding a Member is the only access-granting verb.
+- **Ratified:** `product/systems/groups.md:114` — self-declaration over observation as the casual↔commercial trigger. Observation-path remains an open question without a Deferral trigger.
+- **Revised + Ratified:** `product/systems/groups.md:124-131` — retired auto-dormancy and founder-only revival for kind='business'. Business Groups have no auto-dormancy or auto-dissolution; discovery (per `discovery.md`) handles surfacing of inactive Groups; only explicit `group.dissolve` by an owner ends a Group. Revival concept retained for community kinds only.
+- **Ratified:** `product/systems/groups.md:365` — no auto-Group assignment; explicit-vs-soft_via_* source distinction holds.
 
-## 2026-05-30 — Reorg-12 Phase A: stable doc IDs injected; REGISTRY rebuilt; b1 surface sequence pulled to `now/`
+Cascading work landed in the same day's entries above (business-jurisdiction locality query, discovery surfacing demotion). Action-handler catalog edits: dropped `group.transfer_operating_ownership`, `group.set_locality_source`, plus their two events; added `group.member_remove`; made several handlers owner-only.
 
-Injected `id:` front-matter into 148 narrative docs across `product/`, `planning/`, `development/`, `standards/`, `playbooks/`, `skills/` via `scripts/inject-doc-ids.py` (idempotent; `why-` / `what-` / `how-` prefixes by layer; generic README.md / SKILL.md disambiguated by parent dir). Rebuilt `REGISTRY.md` via `scripts/rebuild-registry.py` — 150 docs (5 why, 30 what, 115 how). Archived 9 closed kanban items from `planning/done/` to `_attic/2026-05-30-kanban-done-batch/` with RETIRED.md index. Moved `reorg-12-yaml-doc-ids` to `done/`; pulled `plan-b1-surface-sequence` into `now/`. Phase B (convert refs in top-15 cited docs) and Phase C (full ref conversion + `tidy` check) remain deferred per the reorg-12 spec. Next: route F036 to `scope` to open the b1 surface build. Commit: c43101c.
+→ `planning/scenarios/F036-…md`; `product/systems/groups.md` § Ownership, § Lifecycle; STAGE-LEDGER `plan-approved 2026-05-31`.
 
-## 2026-05-30 — Ratified lane-routing rule + default-private Member discoverability (PM override; weigh skipped)
+## 2026-05-31 — Reviewed the Sell walkthrough scenario ahead of approval — verdict EXTEND on design-language gaps
 
-PM exercised override under AGENTS.md §3 to ratify two decisions without `weigh` dialectic. New entries in `playbooks/DEVELOPMENT-PATTERNS.md` ("Route work items by ratification need") and `playbooks/PLATFORM-PATTERNS.md` ("Default Member discoverability to private"). Stubs moved from `planning/next/` to `planning/done/`. Implementation follow-ups for the Member discoverability decision park in `product/systems/member.md` spec work.
+Architecture clean — full Phase 1 substrate supports F036 with no new tables / columns / events. Design verdict EXTEND because `design-language.md` lacked a multi-step composer recipe and an inline "add new entity" pattern. F036 is the first of four b1 composers (F034 / F038 / F040 follow); the shared `<MultiStepComposer>` base should be extracted in F036's tickets. Sibling check flagged a "Shop" vs "business Group" copy mismatch between root `CLAUDE.md` naming table and the scenario body.
 
-## 2026-05-30 — Scaffolded `playbooks/`; migrated 19 ADRs; demoted JOURNAL to pointer-log
+→ `planning/reviews/F036-review.md`; STAGE-LEDGER stamped `EXTEND 2026-05-31`.
 
-Stood up `playbooks/` with `DECISION-PATTERNS.md`, `PLATFORM-PATTERNS.md`, `DEVELOPMENT-PATTERNS.md`, `writing-docs.md`, `repo-tidying.md`. Migrated ADR-0001 → ADR-0025 (ratified) as pattern-doc entries: 12 platform, 6 development; ADR-0016 left alone for PM review-pass; ADR-0024 ratified inline. Absorbed `meta/cowork-pipeline/DEV-PATTERN.md` into DEVELOPMENT-PATTERNS § Pipeline patterns + § Pipeline anti-patterns; original at `meta/cowork-pipeline/archive/2026-05-30-dev-pattern/`. Archived 6 review files (`planning/archive/2026-05-30-intent-reviews/`), 2 done sprints (`planning/bundles/archive/`), `pending-ratifications.md` (`planning/archive/2026-05-30-pending-ratifications/`), `phase-2-scenario-strategy.md` (`planning/archive/2026-05-30-phase-2-historical/`). Trimmed RELEASES, SPEC-PATCHES, OPEN-QUESTIONS, STAGE-LEDGER, b1-primitives-plan. Rewrote CLAUDE.md + AGENTS.md doc-map. Commit: {pending}.
+## 2026-05-30 — Injected stable IDs into every narrative doc and rebuilt the registry
+
+148 docs across `product/`, `planning/`, `development/`, `standards/`, `playbooks/`, `skills/` picked up `id:` frontmatter via `scripts/inject-doc-ids.py` (idempotent; `why-` / `what-` / `how-` prefixes by layer). REGISTRY rebuilt via `scripts/rebuild-registry.py` — 150 docs (5 why, 30 what, 115 how). 9 closed kanban items archived from `planning/done/` to `_attic/2026-05-30-kanban-done-batch/`. Reorg-12 Phases B + C (ref conversion + tidy check) remain deferred per spec. Pulled the b1 surface sequence to `now/`.
+
+→ `REGISTRY.md`; `planning/now/`; commit c43101c.
+
+## 2026-05-30 — Ratified two decisions by PM override: how to route work items, and Members default to private
+
+PM exercised the AGENTS.md §3 override to ratify both decisions without running the `weigh` dialectic. Lane-routing rule lands in `playbooks/DEVELOPMENT-PATTERNS.md`; default-private Member discoverability lands in `playbooks/PLATFORM-PATTERNS.md`. Implementation follow-ups for the Member decision park in `member.md` spec work.
+
+→ `playbooks/DEVELOPMENT-PATTERNS.md` § Route work items by ratification need; `playbooks/PLATFORM-PATTERNS.md` § Default Member discoverability to private.
+
+## 2026-05-30 — Stood up `playbooks/` and migrated 19 ratified ADRs into pattern entries
+
+New playbook docs: `DECISION-PATTERNS.md`, `PLATFORM-PATTERNS.md`, `DEVELOPMENT-PATTERNS.md`, `writing-docs.md`, `repo-tidying.md`. ADR-0001 → ADR-0025 absorbed: 12 into PLATFORM, 6 into DEVELOPMENT; ADR-0016 left alone for PM review-pass; ADR-0024 ratified inline. Absorbed `meta/cowork-pipeline/DEV-PATTERN.md` into DEVELOPMENT-PATTERNS § Pipeline patterns + § Pipeline anti-patterns. Multiple archives created (intent reviews, done sprints, pending ratifications, historical phase-2 strategy). Rewrote `CLAUDE.md` + `AGENTS.md` doc-maps. Demoted JOURNAL itself to pointer-log form (which today's session — 2026-05-31 — further refined to hybrid headline + pointer form).
+
+→ `playbooks/`; root `CLAUDE.md`; root `AGENTS.md`; commit pending.
