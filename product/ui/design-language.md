@@ -129,6 +129,48 @@ A friendly UI for the Member to express a repeating schedule. The picker emits a
 **Reuse:**
 - This component is the canonical recurrence input across all composers that need scheduling (gathering today, future class series, future recurring offers). Do not invent a second one. If a new composer needs scheduling fields the current picker doesn't cover (e.g., monthly-on-the-second-Tuesday), extend this picker — don't fork it.
 
+### Multi-step composer
+
+The canonical shape for any flow that gathers several pieces of information from a Member in a guided sequence before committing — the Sell walkthrough (F036), the gathering composer (F034), the product composer (F038), the service composer (F040). One recipe, four (and growing) consumers; do not fork.
+
+**When to use a multi-step composer over a single-form composer:**
+- ≥3 distinct decisions, OR
+- The flow includes an optional branch the Member can skip (e.g., the Tier 0 locality step in Sell), OR
+- One step requires a nested sub-flow (see § Surface patterns / Add new entity inside a composer).
+
+If none of those hold, use a single-form composer (one screen, one submit, validated on submit). Multi-step machinery costs the Member attention; only spend it when the sequence buys clarity.
+
+**Structure.**
+- **Container.** Bottom-anchored drawer on mobile (per Principle #6 + ADR-2 — primary controls reach the thumb); modal on desktop. The drawer/modal occupies up to 90% of viewport height and slides up over the originating surface (the `/you` page for Sell, the venue page for gather). Background dims with `--color-overlay` at 40% opacity. Tap-outside-to-dismiss is **off** for in-flight composers — see partial-state preservation below.
+- **Step indicator.** Top of the drawer/modal. Horizontal row of `N` dots (`--color-fg` filled for completed + current, `--color-border` hollow for upcoming). Counter text to the right reads *"Step k of N"* in 14px / 500 / muted. Tappable dots jump to any previously-completed step (back-edit allowed); upcoming dots are inert. Skipped optional steps render as completed (filled) with a small *"(skipped)"* affordance on the dot's tooltip.
+- **Step body.** One step per scroll-region. Step title in the 22px / 600 slot at the top of the body; one-sentence helper in 14px / 400 / muted directly below. Inputs use the existing `Input` recipe; pickers use existing recipes (Recurrence picker, search bar). Each step holds **one decision class** — don't pack two unrelated fields into one step.
+- **Navigation row (bottom of drawer/modal).** Three-zone layout: `[← Back]` (text link, left) · `[Skip this step]` (text link, center, **only on optional steps**) · `[Continue]` (Button — primary, right). The primary advances when the step's required fields validate; otherwise it's disabled with inline error rendering at the field. The final step's primary CTA reads the destination verb — *"Create my shop"* / *"Host the gathering"* / *"List the product"* — never *"Submit"* or *"Done"*.
+- **Step 1 special-case.** Step 1 has no Back; the left zone is empty. The primary CTA on step 1 reads *"Get started"* or the verb-specific equivalent.
+- **Progress write-on-advance.** Each step commits its partial state to the substrate when the Member taps Continue, so the parent entity (Group, gathering, product) exists from step 1 onward and subsequent steps update fields. The composer is in *edit mode against a half-built thing*, not *buffered input waiting for a final submit*. This is what makes the partial-state preservation contract honest.
+
+**Partial-state preservation (the contract).**
+- The Member can close the drawer (X button, top-right) or navigate away at any point. Their work is not lost. Re-entering the composer (via the same originating CTA) resumes at the last step they were on, with all prior fields populated from the substrate.
+- Tap-outside-to-dismiss is intentionally disabled inside the composer; abandonment requires an explicit X tap, and the X surfaces a confirmation toast ("Saved as draft — pick up where you left off"). No "Are you sure you want to lose your changes?" modals; there's nothing to lose.
+- Resume detection: on entry, the composer checks the substrate for an in-flight half-built entity owned by this Member and, if found, jumps to `last_completed_step + 1`. The originating CTA's label flips to *"Continue setting up your shop"* (or the kind-specific equivalent) when a draft exists.
+- Implementation note: the half-built entity carries a `draft` state in the substrate (`groups.lifecycle_state='draft'` for the Sell case; analogous for other composers). Promotion to `active` happens on final-step submit. The discovery layer must filter out `draft`-state rows from all public surfaces.
+
+**Progressive validation.**
+- Validate field-level on blur. Validate step-level on Continue tap (don't block typing).
+- Don't pre-validate later steps from a current step (the Member hasn't seen them).
+- Surface validation errors inline at the field, not in a top-of-form summary.
+
+**Completion redirect.**
+- Final-step primary CTA fires the promote-to-active write, then redirects to the canonical destination URL for the created entity. The drawer/modal collapses on completion; no interstitial success page. A toast at the destination URL reads *"Your shop is live"* / *"Your gathering is scheduled"* — kind-specific.
+- If the destination has its own primary CTA the Member would naturally tap next (e.g., "Add a product" on the new Group page), surface that CTA prominently above the fold.
+
+**Empty / loading / error states.**
+- **Loading on submit:** Continue button disables, shows a 16px spinner inside the button, button text stays visible. Other navigation disables for the duration of the network call.
+- **Submit error:** inline error below the navigation row in 14px / `--color-danger`; navigation re-enables; partial state still preserved on the substrate. Never destroy the Member's input on error.
+- **Network offline:** the composer's Continue still writes locally to the substrate (per the action layer's retry semantics); offline indicator surfaces in the helper area at top.
+
+**Reuse.**
+- All multi-step composers in the platform use this recipe. If a composer needs a step type not yet covered (e.g., a payment-collection step at b2), extend the recipe here rather than forking. A new top-level composer that doesn't match this shape needs a `weigh` call before it ships — the cost of two composer recipes is high and goes up with every new one.
+
 ## CTA placement patterns
 
 Modeled on Airbnb's two-audience pattern (guest + host). Main Street has two member types — **shoppers** (consumers) and **producers** (vendors/businesses) — and signup is the #1 product goal.
@@ -200,6 +242,27 @@ The page anyone lands on for a Location — Drake's, the brewery, the community 
 - Two competing primary CTAs. The "Host something here" button is the one primary on the page.
 - Producer-recruitment copy. This surface is for hosts and visitors, not for venue-owner onboarding (that's a separate flow).
 - Reviews or ratings (per `principles.md`'s no-reviews stance).
+
+### Add new entity inside a composer (inline sub-flow)
+
+The shape for "I need to pick a Location from a list, but the Location I need doesn't exist yet" — and any analogous case where a composer step references an entity the Member hasn't created. First user: the anchor-Location step in F036's Sell walkthrough. Reusable wherever a composer step references an entity the Member may need to create on the spot.
+
+**Shape.**
+- The picker step in the parent composer (e.g., "Where is your shop anchored?") renders a search/select component listing the Member's existing relevant entities (Locations they've authored, Items they own, etc.), plus a quiet *"+ Add a new Location"* row at the bottom of the result list. Always at the bottom, never at the top; the default-path behavior is "pick existing."
+- Tapping the *+ Add* row slides a **secondary drawer** in over the parent composer (stacked surfaces; the parent stays mounted underneath at -8 vertical offset and 60% opacity to signal it's paused, not gone). The secondary drawer is a single-form composer (use the standard Input recipe; do not nest a multi-step composer inside another — that's a smell).
+- The secondary drawer header reads *"Add a Location"* (or kind-specific equivalent). Bottom navigation row: `[Cancel]` (text link, left) · `[Add and select]` (Button — primary, right). No Continue / no skip; this is a single decision: create-and-pick or back-out.
+- On save: the secondary drawer's submit writes the new entity to the substrate, dismisses the secondary drawer, and **returns to the parent composer's picker step with the new entity pre-selected**. The parent composer's step indicator does not advance — the Member still needs to tap Continue to commit the picker choice and move forward.
+- On cancel: the secondary drawer dismisses, the parent composer returns to its picker step with whatever selection (if any) was already there, no side effects. The Member can search/pick existing or tap *+ Add* again.
+
+**Never nest deeper.** The parent composer can open a secondary drawer; the secondary drawer cannot open a tertiary. If a referenced entity creation itself needs a sub-reference (e.g., adding a Location requires picking a Place), that's a sign the entity model needs simplification or the sub-entity should be defaulted at creation — escalate to `weigh`, do not stack drawers.
+
+**State preservation.**
+- The parent composer's partial-state contract (per Multi-step composer recipe) holds across the secondary-drawer detour. Cancelling the secondary drawer never affects the parent's saved state.
+- The secondary drawer does NOT itself have a draft-resume contract — its decision is atomic (add or cancel); abandonment loses the in-progress entity input. If a referenced entity needs its own multi-step setup, route the Member to the standalone composer for that entity (with return-to-parent on completion) rather than embedding it.
+
+**Out of scope for this pattern.**
+- Picking from someone else's entities (e.g., picking another Member's Group). That's a search-and-link interaction, not an add-inline. Different pattern; not in scope here.
+- Editing an existing entity from inside a composer. The picker shows existing entities for selection only; "edit this Location" lives on the Location's own surface, not inside another composer's flow.
 
 ### Other surfaces (cross-reference)
 
