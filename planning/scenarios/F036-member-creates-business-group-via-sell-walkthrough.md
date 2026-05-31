@@ -1,8 +1,9 @@
 ---
 id: how-f036-member-creates-business-group-via-sell-walkthrough
-purpose: Backlog scenario — a member taps Sell and creates a kind='business' Group via the Sell walkthrough.
+purpose: Approved scenario — a member taps Sell and creates a kind='business' Group via the Sell walkthrough.
 layer: how
-status: draft
+status: approved
+approved_on: 2026-05-31
 ---
 
 # F036: A member creates a business Group through the Sell walkthrough
@@ -11,7 +12,7 @@ status: draft
 **Loops:** 7 (Buy close), 9 (Make a living locally)
 **Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) — the baseline producer surface.
 **Primitive shape:** Person → Group(kind='business', anchor Location, founder = creator with owner role).
-**Status:** backlog
+**Status:** approved 2026-05-31
 **Replaces:** F026 partially — the Group-creation half. Jurisdiction-claim half splits to F037.
 
 ## The Person
@@ -112,4 +113,4 @@ Implicit: `groups` spine row with `kind='business'`, `founder_member_id=<member>
 
 - **1. Presence & Findability** — Business Group public page at a clean, place-scoped URL (`/p/.../g/[slug]`).
 - **2. Product & Service Listing** — Items filed under a business Group resolve-up with the Group's brand name.
-- **10. Collaboration & Staffing** — Founder = operating owner on the business Group (immutable at creation); sole-prop shape (one owner, one Group).
+- **10. Collaboration & Staffing** — Creator joins as `role='owner'` (founder = historical label per `groups.md` 2026-05-31 amendment); additional owners or staff can be added later via `group.member_join` / `group.role_change`. Sole-prop shape at creation = one owner; multi-owner partnerships and staff are b1-supported additions, not blocked.
