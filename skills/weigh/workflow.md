@@ -158,10 +158,13 @@ Move to the next statement. Do not batch. Surface progress: "Statement N of M do
 
 ### Close the session
 
-Append a JOURNAL entry at the top of the active `JOURNAL.md`:
+Append a JOURNAL entry at the top of the active `JOURNAL.md` in hybrid form — **plain-English headline + context + structured detail**. Headline names the decision in human terms; no F-numbers, schema column names, or `file:line` references in the headline itself.
 
 ```
-### Weighed {target} — YYYY-MM-DD
+## YYYY-MM-DD — Decided {plain-English headline naming what changed about {target}}
+
+{1–2 sentences of context: what was the call, what changes downstream, why a returning reader would care.}
+
 N statements walked: X ratified, Y deferred, Z revised, W rejected.
 
 - **Ratified:** `{file}:{line}` — {one-line summary} (Intent landed)
@@ -169,7 +172,11 @@ N statements walked: X ratified, Y deferred, Z revised, W rejected.
 - **Revised:** `{file}:{line}` — {one-line summary of what changed}
 - **Rejected:** `{file}:{line}` (removed) — reason: {one-line}
 - **No change (unratified):** `{file}:{line}` — re-queues on next scan
+
+→ `{target file}` § {section}; commit {hash}.
 ```
+
+Headline-test it before landing: if the sentence only makes sense to someone with full project context loaded, rewrite it.
 
 Flag any PM override (ratified despite a Level-1 or Level-2 conflict surfaced in 3c): "PM override — ratified despite {level} conflict: {reason supplied}."
 

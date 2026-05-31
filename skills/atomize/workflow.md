@@ -47,7 +47,17 @@
 6. **Write the stubs.** One file per atom. Frontmatter complete. No placeholder text.
 7. **Write the index README (grouped only).** At `planning/proposed/{plan-slug}/README.md`. Carry: source-plan pointer, table of atoms with `route:` column and risk column, batching/sequence hints if the parent plan had them, an "Open" section for any atoms whose route was ambiguous.
 8. **Archive the parent plan.** Move `_inbox/{name}.md` to `_attic/YYYY-MM-DD-{parent-slug}/{original-filename}`. Add a one-line `RETIRED.md` in that archive dir with a pointer to `planning/proposed/{plan-slug}/` (or to the flat stub).
-9. **JOURNAL entry.** One paragraph in `JOURNAL.md` at the top (reverse-chron). Format: *"Atomized `{parent-plan-path}` → N stubs in `planning/proposed/{plan-slug}/`. Route distribution: weigh×W, scope×S, tidy×T, ticket×K, explore×E. Source archived to `_attic/YYYY-MM-DD-{parent-slug}/`."*
+9. **JOURNAL entry.** One block at the top of `JOURNAL.md` (reverse-chron) in hybrid form — **plain-English headline + context + pointer**. Template:
+
+   ```
+   ## YYYY-MM-DD — Atomized {parent-plan plain-English name} into N work items
+
+   Route distribution: weigh×W, scope×S, tidy×T, ticket×K, explore×E. {One sentence on what this unblocks downstream, if non-obvious.}
+
+   → `planning/proposed/{plan-slug}/` (stubs); `_attic/YYYY-MM-DD-{parent-slug}/` (source).
+   ```
+
+   Headline-test it: a returning reader should know from the headline what was decomposed, without project jargon.
 10. **Hand off.** Print the list of stubs created and their routes. Tell PM the next move: ratify each stub (in whatever order), move from `proposed/` to `next/` or `now/`, then invoke the `route:` skill.
 
 ## Shape-detection heuristics

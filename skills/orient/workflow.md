@@ -79,10 +79,10 @@ Session-start check (project-agnostic):
       - *Phantom work* (map predicted, sub-bundle didn't ship and didn't drop) → flag PM; retire if legit-dropped; escalate to `scope` if forgotten.
       - *Structural drift* (ticket produced ADR-shape) → **ESCALATE** to `memo` / `explore`.
     - **Propose edits before writing.** RE-TAG: flip emoji + `(re-tagged 2026-MM-DD: {reason})`. RE-SEQUENCE: move bullet between sub-bundle sections in both `bundle-themes.md` and `b{N}-{slug}-work-map.md`; update dependency graph if arrow changed. EXPAND: new 🟢/🟡/⚪ line with one-line rationale.
-    - **PM ratifies; apply.** Then write the JOURNAL entry:
+    - **PM ratifies; apply.** Then write the JOURNAL entry in hybrid form — **plain-English headline + context + structured detail**:
 
       ```
-      ## YYYY-MM-DD — orient (bundle-resync): b{N}.{M} close
+      ## YYYY-MM-DD — Closed sub-bundle b{N}.{M} after {plain-English one-line summary of the verdict, e.g. "resequencing two work-map items" or "no drift"}
 
       **Mode:** close-of-sub-bundle.
       **Verdict:** CLEAN | RE-TAG | RE-SEQUENCE | EXPAND | ESCALATE.
@@ -96,6 +96,8 @@ Session-start check (project-agnostic):
 
       **Hand-off:** none | scope (F### needed for new EXPAND line) | memo (ADR-shaped drift) | explore (new system / capability)
       ```
+
+      Headline-test: a returning reader should know from the headline what closed and whether anything notable shifted, without having to read the verdict line.
     - **Confirm next sub-bundle's readiness.** Dependencies satisfied? Did this resync invalidate any assumptions? Canonical-example claim still honest? Note in JOURNAL if anything looks off.
 
     Does NOT write: `product/`, `web/`, `development/tickets/`, `planning/scenarios/`, `planning/DECISIONS.md`.
