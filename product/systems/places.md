@@ -7,14 +7,14 @@ status: active
 
 # System: Places
 
-**Purpose:** Establish Places as the platform's primitive for *recognized geographic scope* — region, state, county, city, neighborhood. Places are the platform's curated hierarchy of geographies that everything else anchors to: Locations sit *inside* a place; Groups carry a place anchor; Items inherit one from their Group; URLs nest under the place tree (per [ADR-0020](../../planning/adrs/ADR-0020-locality-scoped-urls.md)). Places are deliberately distinct from Locations — a Location is a specific point a Member declared (Drake's Bar at 38.58° N); a place is an infrastructural scope nobody declares (the neighborhood Oak Park, the city Sacramento, the county Sacramento County).
+**Purpose:** Establish Places as the platform's primitive for *recognized geographic scope* — region, state, county, city, neighborhood. Places are the platform's curated hierarchy of geographies that everything else anchors to: Locations sit *inside* a place; Groups carry a place anchor; Items inherit one from their Group; URLs nest under the place tree (per [ADR-0020](../../playbooks/PLATFORM-PATTERNS.md)). Places are deliberately distinct from Locations — a Location is a specific point a Member declared (Drake's Bar at 38.58° N); a place is an infrastructural scope nobody declares (the neighborhood Oak Park, the city Sacramento, the county Sacramento County).
 
 **Bundles:** b1 (T1 — primitive + URL plumbing + reverse-geocode anchor), b2 (T2 — admin curation surface, neighborhood polygon library), b3 (T3 — federation-aware place identity, cross-region browse).
 
 **North stars served:** All five families through *locality-first* — places are the substrate that makes the platform's locality commitment durable. Without them, slug-uniqueness forces URLs like `/p/tamarind-chutney-12` and the discovery surfaces have no native hierarchy to walk.
 
 **Source decisions:**
-- [`ADR-0020`](../../planning/adrs/ADR-0020-locality-scoped-urls.md) — locality-scoped URLs; the parent decision this spec implements.
+- [`ADR-0020`](../../playbooks/PLATFORM-PATTERNS.md) — locality-scoped URLs; the parent decision this spec implements.
 - [`principles.md`](../foundation/principles.md) P1 — locality-first.
 - [`policy.md`](../foundation/policy.md) — the anti-Nextdoor commitment (places are scope-for-discovery, never scope-for-messaging).
 
@@ -177,7 +177,7 @@ Append-only, audit-field-bearing per ADR-6 / ADR-10. Partitioned monthly per the
 ## Open questions
 
 - **Neighborhood granularity policy.** How small is too small for a `neighborhood` row? A single block? A school district? A historic district? The b1 working answer: a neighborhood ships when it has *a recognized civic boundary* (city-published polygon, postal code-aligned, or community-board-recognized) and *active platform demand* (≥3 Locations or ≥1 kind='business' Group present). Below either threshold, the parent city is the anchor. Revisit when the b1 launch markets are fully seeded.
-- **County tier — RESOLVED 2026-05-25 ([ADR-0022](../../planning/adrs/ADR-0022-url-slug-naming-refinements.md)).** The tier between `state` and `city` is `county`, not `msa`. Counties and county-equivalents (Louisiana parishes, Alaska boroughs, independent cities) tile the entire U.S. via FIPS codes with no coverage gaps; MSAs left ~1,200 rural counties with no anchor. Colloquial metro groupings ("the Bay Area," "Greater Sacramento") are `kind='region'` rows that group multiple counties. The exact b1 seed list is still a launch-curation call.
+- **County tier — RESOLVED 2026-05-25 ([ADR-0022](../../playbooks/PLATFORM-PATTERNS.md)).** The tier between `state` and `city` is `county`, not `msa`. Counties and county-equivalents (Louisiana parishes, Alaska boroughs, independent cities) tile the entire U.S. via FIPS codes with no coverage gaps; MSAs left ~1,200 rural counties with no anchor. Colloquial metro groupings ("the Bay Area," "Greater Sacramento") are `kind='region'` rows that group multiple counties. The exact b1 seed list is still a launch-curation call.
 - **Reverse-geocoder boundary handling.** What happens when a Member declares a Location whose coordinates fall on a neighborhood polygon boundary (within ~50m of two neighborhoods)? Working answer: pick the neighborhood whose centroid is closer; surface the call in the Location's `metadata.geocode_diagnostic` for admin review.
 - **User-perceived place vs computed place.** A Member says "I'm in Oak Park" but their geocoded home Location resolves to "Curtis Park" (adjacent neighborhood, boundary ambiguity). Should the platform let the Member override? Working answer: at b1 no — the geocoded place is authoritative. At T2, an "I disagree" affordance can route to admin review without letting the Member self-assign. The locality-precision privacy enum (`city` / `neighborhood` / `none`) is the b1 escape hatch — a Member who feels mis-bucketed can drop precision to city.
 - **Place-name aliases.** "SF" → San Francisco; "Sac" → Sacramento; "the Bay" → Bay Area. Should these resolve at the URL layer or only at the search layer? Working answer: only at search. URLs are canonical; aliases are search affordances. Deferred to T3 search work.
@@ -204,7 +204,7 @@ This spec is the live home for:
 
 | ADR | Status | What lives here |
 |---|---|---|
-| ADR-20 | Accepted 2026-05-23 — see [`ADR-0020`](../../planning/adrs/ADR-0020-locality-scoped-urls.md) | Places as a hierarchical, platform-curated primitive; kind enum; parent-scoped slug uniqueness; URL hierarchy walks the place tree; reverse-geocode anchoring; smallest-common-ancestor for federation Groups; default neighborhood-when-available for business Groups. The ADR has the *decision*; this spec has the *substrate*. |
-| ADR-22 | Accepted 2026-05-25 — see [`ADR-0022`](../../planning/adrs/ADR-0022-url-slug-naming-refinements.md) | The `kind` tier between `state` and `city` is `county` (`msa` retired); colloquial metro groupings are `region` rows. Amends ADR-20's kind enum. |
+| ADR-20 | Accepted 2026-05-23 — see [`ADR-0020`](../../playbooks/PLATFORM-PATTERNS.md) | Places as a hierarchical, platform-curated primitive; kind enum; parent-scoped slug uniqueness; URL hierarchy walks the place tree; reverse-geocode anchoring; smallest-common-ancestor for federation Groups; default neighborhood-when-available for business Groups. The ADR has the *decision*; this spec has the *substrate*. |
+| ADR-22 | Accepted 2026-05-25 — see [`ADR-0022`](../../playbooks/PLATFORM-PATTERNS.md) | The `kind` tier between `state` and `city` is `county` (`msa` retired); colloquial metro groupings are `region` rows. Amends ADR-20's kind enum. |
 
 This spec also *encodes* (but does not own) ADR-6 (audit fields on every `place_events` row), ADR-7 (action-layer-only writes to `places` — admin handler, not public), ADR-9 (the curation policy reflects the opt-out / three-filter posture by being platform-curated rather than user-claimable). Those live cross-cutting in `DECISIONS.md`.

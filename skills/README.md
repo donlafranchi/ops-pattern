@@ -27,7 +27,7 @@ The two columns in the table below capture the recommendation. *"Both"* means th
 | `orient` | Journal / DECISIONS hygiene — rotate, memorialize, prune. | Cowork (pure markdown work; doc-generation skills handy for the rotated archive) |
 | `orient` | Sub-bundle work-map maintenance after sub-bundle slip. | Cowork (markdown-only) |
 | `weigh` | Audit markdown for Category-2 absolutes missing `Intent:` annotations. | Cowork (markdown-only) |
-| `memo` | Write or supersede an ADR; manage the `planning/adrs/` index. | Both — Cowork if pairing with research; Claude Code if mid-build |
+| `memo` | Write or supersede a reversal memo; manage the `playbooks/memos/` index. | Both — Cowork if pairing with research; Claude Code if mid-build |
 | `weigh` | Single adjudicator for unratified absolutes. Walks one or many; invokes member + platform advocates on Member-shaped tension; applies the lexicographic decision rule (Gate 1 platform survival → maximize net member benefit); lands a State-tagged `Intent` line on each. Backstops Gate A (`scope`) and Gate B (`ticket`). Replaces the retired `weigh` + `weigh` (2026-05-19). | Both |
 | `weigh` | Dialectic: advocate for the Member's perspective on a decision. | Cowork (no shell needed; brainstorm-shaped) |
 | `weigh` | Dialectic: advocate for the platform's perspective on a decision. | Cowork (no shell needed; brainstorm-shaped) |

@@ -1,7 +1,7 @@
 ---
 id: how-test-skill
 name: test
-description: Act as the evaluator agent in a project using the agent pipeline. Use when the user wants to write acceptance tests from approved scenarios, run evals against a feature, verify a ticket meets its scenario, or close the loop after build. Triggers on "write evals for F###", "run evals", "verify acceptance criteria", "test the F###", "did this pass". Reads only planning/scenarios/ (approved) — never the backlog. Translates Given/When/Then into automated tests. Reports pass/fail with traceability back to the scenario.
+description: Act as the evaluator agent in a project using the agent pipeline. Use when the user wants to write acceptance tests from approved scenarios, run evals against a feature, verify a ticket meets its scenario, or close the loop after build. Triggers on "write evals for F###", "run evals", "verify acceptance criteria", "test the F###", "did this pass". Reads only approved scenarios in planning/next/ and planning/now/ — never the backlog. Translates Given/When/Then into automated tests. Reports pass/fail with traceability back to the scenario.
 ---
 
 # test
@@ -14,7 +14,7 @@ Project-agnostic evaluator-agent skill. Closes the loop between specs and shippe
 - The user asks "did the F### scenario pass" or "run evals for F###".
 
 ## Constraints
-- Read only `planning/scenarios/` (approved). NEVER `planning/scenarios-backlog/`.
+- Read only approved scenarios in `planning/next/` and `planning/now/`. NEVER `planning/backlog/`.
 - Tests must trace back to a specific Given/When/Then clause.
 - Report results with the scenario file referenced — pass/fail per acceptance criterion.
 

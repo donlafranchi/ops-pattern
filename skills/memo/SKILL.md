@@ -1,43 +1,38 @@
 ---
 id: how-memo-skill
 name: memo
-description: Walks the PM through writing, ratifying, or superseding an ADR following the project's `planning/adrs/` conventions. Use when the user says "write an ADR for X", "record this decision", "ratify ADR-N", "supersede ADR-M", "what's the next ADR number", or after a `explore` / `scope` / `review` session surfaces a load-bearing decision that needs canonical documentation. Allocates the next ADR number, drafts from the template, runs `weigh` on the draft, lands the pointer line in `DECISIONS.md`, and updates spec/foundation cross-references where applicable. Reads `planning/adrs/`, `planning/adrs/README.md`, `planning/DECISIONS.md`, and the spec/foundation files the ADR will touch. Writes one new file under `planning/adrs/` and one updated line in `DECISIONS.md`. Refuses to write code or implementation tickets — that's `ticket` / `build`.
+description: Walks the PM through writing or superseding a reversal memo following the project's `playbooks/memos/` conventions. Use when the user says "reverse this decision", "user feedback contradicts {pattern entry}", "supersede {memo}", "what's the next memo number", or after a `explore` / `scope` / `review` session surfaces that a decision in force needs to be reversed. Allocates the next memo number, drafts from the template, runs `weigh` on the draft, and updates the affected pattern-doc entry's status. Reads `playbooks/memos/`, `playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`, and the spec/foundation files the memo will touch. Writes one new file under `playbooks/memos/` and updates the reversed pattern-doc entry. Refuses to write code or implementation tickets — that's `ticket` / `build`.
 ---
 
 # memo
 
-Project-resident skill for writing, ratifying, and superseding Architectural Decision Records. The single canonical workflow for landing an ADR in the project's `planning/adrs/` directory.
+Project-resident skill for writing and superseding **reversal memos** — the only document the project writes when a prior decision in force needs to be reversed by user feedback. New decisions land directly as pattern-doc entries in `playbooks/PLATFORM-PATTERNS.md` (what the platform IS or refuses to be) or `playbooks/DEVELOPMENT-PATTERNS.md` (how we build); this skill is **not** for those. It fires only when an existing pattern entry must be overturned.
 
-The point of this skill: ADR creation is currently informal — read DECISIONS.md, infer the format, decide which of three homes the decision belongs in, pick a number, hope you got it right. This skill collapses those steps into one path with zero per-ADR judgment calls. Consistency stops being a discipline problem and becomes a structural property.
+> **Background.** The project's decisions used to live as ADRs in a dedicated `adrs/` directory under `planning/`. On 2026-05-30 that content migrated into the playbook pattern docs, and that directory was retired. Bare `ADR-N` labels survive in specs as historical shorthand (retained for git citation stability). Reversal memos continue the old numbering sequence — ADR-1 through 0025 retain their numbers; new memos start at `memo-0024` and climb.
 
 ## When to use
 
-- User says "write an ADR for X" / "record this decision as an ADR" / "I need an ADR for Y."
-- User says "ratify ADR-N" — flip an existing ADR from Proposed → Accepted.
-- User says "supersede ADR-M with a new decision."
-- User says "what's the next ADR number" — read `planning/DECISIONS.md` pointer index and return.
-- After `explore` writes or extends a system spec that introduces a load-bearing architectural decision (especially when the decision touches multiple specs or creates a forbearance).
-- After `review` flags a scenario whose verdict introduces a new schema, event type, capability, or absolute that should be ratified before the scenario enters ticket writing (rebuild-phase rule #2).
-- Before any merge to main that introduces a Category-1–8 statement requiring `Intent:` annotation (rebuild-phase rule #9).
-- After `orient` surfaces an invariant that has matured beyond an inline note and deserves a formal ADR.
+- User says "reverse this decision" / "user feedback contradicts {pattern entry}" / "we need to overturn X."
+- User says "supersede memo-NNNN with a new decision."
+- User says "what's the next memo number" — read `playbooks/memos/` and return the next free number.
+- After `explore` / `scope` / `review` surfaces that a decision currently in force can no longer stand and must be formally reversed.
 
 ## When NOT to use
 
+- For **new** decisions that don't reverse anything — those land directly as a pattern-doc entry in `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md` (per the routing rule in `CLAUDE.md`). No memo needed.
 - For *implementation* decisions inside a single ticket — those live in the ticket itself or in `development/DEVIATIONS.md`.
 - For scenario acceptance criteria — those are `scope`'s output.
 - For UI microcopy or design-language extensions — those go directly into `product/ui/design-language.md` per `design-system` (Cowork plugin skill).
-- To *retroactively* write ADRs for decisions that are already encoded in spec banners and need no further surface area (the spec banner is sufficient until the decision is referenced cross-cuttingly).
 
 ## Constraints (hard)
 
-- Allocate the next free ADR number from `planning/DECISIONS.md` pointer index. **Never reuse a number** — even for rejected drafts.
-- Write exactly one new file: `planning/adrs/ADR-{NNNN}-{slug}.md`. Use the format in [`templates/adr.md`](templates/adr.md), which mirrors `planning/adrs/_template.md`.
-- Update `planning/DECISIONS.md` pointer index with one new row.
-- When the ADR is spec-resident or foundation-resident, also update the home doc's status banner / "Decisions encoded here" footer to cross-reference.
-- When the ADR supersedes another ADR, update both the new ADR's `Supersedes:` header and the old ADR's `Superseded by:` header. Both arrows or none.
-- Run `weigh` on the draft before flipping Status to Accepted. The audit's Category-1–8 statements need `Intent:` annotations.
+- Allocate the next free memo number by scanning `playbooks/memos/`. Numbering continues from **memo-0024**. **Never reuse a number.**
+- Write exactly one new file: `playbooks/memos/memo-{NNNN}-{slug}.md`. Use the format in [`templates/adr.md`](templates/adr.md).
+- Update the reversed pattern-doc entry in `playbooks/PLATFORM-PATTERNS.md` / `playbooks/DEVELOPMENT-PATTERNS.md`: mark the entry superseded and cross-reference the memo.
+- When the memo supersedes an earlier memo, update both the new memo's `Supersedes:` header and the old memo's `Superseded by:` header. Both arrows or none.
+- Run `weigh` on the draft before flipping Status to Accepted. Category-1–8 statements need `Intent:` annotations.
 - Do NOT write code, implementation tickets, or scenarios. That's `ticket` / `build` / `scope`.
-- Do NOT edit accepted ADRs. Supersede with a new ADR if the decision changes.
+- Do NOT edit accepted memos. Supersede with a new memo if the decision changes again.
 
 ## Workflow
 
@@ -45,28 +40,22 @@ See [`workflow.md`](workflow.md).
 
 ## Templates
 
-- [`templates/adr.md`](templates/adr.md) — the canonical ADR shape, mirrors `planning/adrs/_template.md`. Status / Date / Deciders / Scope / Touches / Supersedes? / Decision / Options / Trade-offs / Consequences / Action Items.
+- [`templates/adr.md`](templates/adr.md) — the canonical memo shape. Status / Date / Deciders / Scope / Touches / Supersedes? / Decision / Options / Trade-offs / Consequences / Action Items.
 
 ## Hand off
 
-**You produced:** a new file at `planning/adrs/ADR-{NNNN}-{slug}.md` with `Status: Proposed`, plus a one-line addition to `planning/DECISIONS.md` pointer index, plus (when applicable) a cross-reference update in the spec/foundation home doc.
+**You produced:** a new file at `playbooks/memos/memo-{NNNN}-{slug}.md` with `Status: Proposed`, plus a superseded-marker + cross-reference on the reversed pattern-doc entry.
 
 **Next step (PM ratifies):** PM reviews; if accepted, flip Status from Proposed → Accepted; commit. After ratification the file is immutable.
 
 **Next skill (intent gap detected):** `weigh` — already wired into this skill's workflow; if it surfaces missing Intent annotations, PM lands them before the Accepted flip.
 
-**Next skill (architectural concern surfaced during drafting):** `weigh` if the ADR is encoding a Category-2 absolute (a "never / always / no X / must" claim); `explore` if the ADR requires extending a system spec first.
+**Next skill (architectural concern surfaced during drafting):** `weigh` if the memo is encoding a Category-2 absolute (a "never / always / no X / must" claim); `explore` if the reversal requires extending a system spec first.
 
-**On supersession:** the old ADR stays in `planning/adrs/` with Status: Superseded and a `Superseded by: ADR-M` header line. The file does not move to archive — the Status banner is the indicator.
+**On supersession:** the old memo stays in `playbooks/memos/` with Status: Superseded and a `Superseded by: memo-M` header line. The file does not move to archive — the Status banner is the indicator.
 
 ## Related skills
 
-- `weigh` — gates ADR ratification; runs automatically per workflow.
-- `weigh` — invoked when the ADR encodes a Category-2 absolute or its bullets include unratified absolute statements; walks each interactively, applies the lexicographic decision rule, lands the State-tagged Intent.
-- `explore` — invoked when the ADR can't be ratified without extending a system spec first.
-- `orient` — quarterly retro of every ADR; flags ones that need supersession or promotion.
-- `orient` — orient before invoking; ensure no open phase is in flight that would conflict with an ADR landing.
-
-## Quarterly retro
-
-`memo` itself does not run the quarterly retro — that's a sibling skill (`memo-retro`) or an extension of `orient`. Per `planning/adrs/README.md`, the retro walks every Accepted ADR, asks "still load-bearing? spec drift? pending banners that need to be promoted?" and emits a one-line journal entry per ADR plus any required supersession ADRs.
+- `weigh` — gates memo ratification; runs automatically per workflow.
+- `explore` — invoked when the reversal can't be ratified without extending a system spec first.
+- `orient` — periodic retro of pattern entries + memos; flags ones that need supersession or promotion.

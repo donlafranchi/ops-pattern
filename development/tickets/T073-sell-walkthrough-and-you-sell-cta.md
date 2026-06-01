@@ -7,7 +7,7 @@ status: open
 
 # T073: `<SellWalkthrough>` + /you Sell CTA + resume detection
 
-**Scenario:** `planning/scenarios/F036-member-creates-business-group-via-sell-walkthrough.md`
+**Scenario:** `planning/now/scenario-F036-member-creates-business-group-via-sell-walkthrough.md`
 **Status:** Open
 **Bundle:** b1
 **Depends on:** T070 (lifecycle_state + handlers), T071 (MultiStepComposer base), T072 (AddEntityDrawer)

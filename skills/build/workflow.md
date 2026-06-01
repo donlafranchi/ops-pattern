@@ -4,11 +4,11 @@
 
 | | |
 |---|---|
-| **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/scenarios/{F-slug}.md` (the scenario the ticket references), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
+| **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario the ticket references), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
 | **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Produces a **commit summary** for the PM — does NOT run git itself (per CLAUDE.md Commit Rules). |
 | **Branch** | One per ticket: `t{nnn}`, **in its own worktree** at `../web-t{nnn}/` (or `../community-t{nnn}/` for parent-repo work). Agent creates at session start via `git worktree add`; PM merges to `main` at close. Worktrees isolate concurrent agents so uncommitted edits in one ticket can't be overwritten by another agent committing in the shared `web/` tree. |
 | **Templates** | none — ticket template lives in `ticket/`; build implements, doesn't author specs |
-| **Does NOT read** | `planning/scenarios-backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
+| **Does NOT read** | `planning/backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
 | **Does NOT run** | `git add`, `git commit`, `git push`. Worktree creation (`git worktree add ../web-t{nnn} -b t{nnn}`) is fine — that doesn't touch `.git/index`. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
 | **Hands to** | `test` (run mode) — verifies F### evals pass against the scenario |
@@ -20,7 +20,7 @@
 1. **Start the ticket worktree.** From the main `web/` working tree run `git worktree add ../web-t{nnn} -b t{nnn}` (or `git worktree add ../community-t{nnn} -b t{nnn}` from the parent repo for parent-repo work). Then `cd ../web-t{nnn}` and do all subsequent work there. Worktrees share the underlying `.git/` but have independent working trees and indices — uncommitted edits in `../web-t{nnn}/` cannot be overwritten by an agent committing in `web/` or in a sibling worktree. PM merges back at close and removes the worktree (`git worktree remove ../web-t{nnn}`).
 2. Read `BUILD-LOG.md` for current state.
 3. Read the ticket in `development/tickets/T{NNN}-{slug}.md`.
-4. Read the approved scenario at `planning/scenarios/{F-slug}.md` referenced by the ticket.
+4. Read the approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md` for the in-build scenario) referenced by the ticket.
 5. Read the relevant `product/systems/{name}.md` "Data model implications" section *only* — for forward-looking schema columns to include at MVP.
 6. Read the project's design language doc (if it has one) for any UI work.
 7. Write failing tests (red). Tests must trace back to a Then-clause in the scenario or an item in the ticket's checklist.
@@ -51,7 +51,7 @@
 - Write tickets. (`ticket` does.)
 - Write scenarios. (`scope` does.)
 - Write evals. (`test` does, *before* you start.)
-- Read `planning/scenarios-backlog/`. Ever.
+- Read `planning/backlog/`. Ever.
 - Roll back a commit. Fix forward.
 
 ## Reference-only reads (consult, do not change)

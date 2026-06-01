@@ -14,7 +14,7 @@ status: active
 
 **How to read it.** Each category is one business function. Inside each: **Now** (ships with Phase 2), **Later** (planned for b2+), **Won't** (out of scope by design, with the reason).
 
-**Companion docs:** [`use-cases.md`](use-cases.md) (situations these capabilities serve), [`phase-2-scenario-strategy.md`](../../planning/phase-2-scenario-strategy.md) (Phase 2 scenario ordering), [`../systems/producer-tools.md`](../systems/producer-tools.md) (Bulletin + Growth spec).
+**Companion docs:** [`use-cases.md`](use-cases.md) (situations these capabilities serve), [`phase-2-scenario-strategy.md`](../../planning/done/2026-05-30-phase-2-historical/phase-2-scenario-strategy.md) (Phase 2 scenario ordering), [`../systems/producer-tools.md`](../systems/producer-tools.md) (Bulletin + Growth spec).
 
 ---
 

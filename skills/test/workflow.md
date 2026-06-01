@@ -4,12 +4,12 @@
 
 | | |
 |---|---|
-| **Reads (write mode)** | `planning/scenarios/F{NNN}-{slug}.md` only — the approved scenario |
+| **Reads (write mode)** | `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` only — the approved scenario |
 | **Writes (write mode)** | `{app}/evals/features/F{NNN}-{slug}.spec.ts` (one spec per scenario) |
 | **Reads (run mode)** | `{app}/evals/features/`, `{app}/evals/results/`, the referenced scenario for traceability |
 | **Writes (run mode)** | `{app}/evals/results/F{NNN}-{YYYY-MM-DD}.md` |
 | **Templates** | `templates/playwright-spec.md`, `templates/results.md` |
-| **Does NOT read (write mode)** | `web/` source code, tickets, scenarios-backlog — the firewall that makes evals trustworthy |
+| **Does NOT read (write mode)** | `web/` source code, tickets, `planning/backlog/` — the firewall that makes evals trustworthy |
 | **Does NOT do** | fix failing tests — that's `build`'s job |
 | **Hands to (write mode)** | `build` — implements without seeing the eval file |
 | **Hands to (run mode, pass)** | PM — loop closes |
@@ -17,7 +17,7 @@
 
 ## When called to write evals
 
-1. Read the scenario at `planning/scenarios/F{NNN}-{slug}.md`.
+1. Read the scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`).
 2. For each Given/When/Then block, translate into a test:
    - **Given** → setup / fixtures / seeded state.
    - **When** → user action or API call under test.

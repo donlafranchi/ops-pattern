@@ -268,10 +268,10 @@ The Location follow surface is the affirmative side of the same posture. A Membe
 
 ## Decisions encoded here
 
-This spec is the live home for the following architectural decision. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register.
+This spec is the live home for the following architectural decision. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register.
 
 | ADR | Status | What lives here |
 |---|---|---|
-| ADR-14 | Accepted — see [`ADR-0014`](../../planning/adrs/ADR-0014-location-spine-child.md); this spec is the home doc | Location spine + child architecture. `location_permanent`, `location_recurring_temporary`, `location_areas`. PostGIS geography on spine (Point for all kinds; centroid for area). Three kinds locked at create. |
+| ADR-14 | Accepted — see [`ADR-0014`](../../playbooks/PLATFORM-PATTERNS.md); this spec is the home doc | Location spine + child architecture. `location_permanent`, `location_recurring_temporary`, `location_areas`. PostGIS geography on spine (Point for all kinds; centroid for area). Three kinds locked at create. |
 
 This spec also *encodes* (but does not own) ADR-2 (bottom-anchored UI surfaces), ADR-4 (locality default via `members.home_location_id`), ADR-5 (markets are Gathering Items, not Locations of a special kind), ADR-6 (action handlers + audit fields), ADR-7 (action layer), ADR-9 (anti-Nextdoor: messaging-scope item-or-group-only), and ADR-20 (locality-scoped URLs — Locations anchor to Places via `place_id`, with place-scoped slugs and URLs; the Places substrate itself lives in [`places.md`](places.md)). Those live cross-cutting in `DECISIONS.md`.

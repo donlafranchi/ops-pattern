@@ -70,62 +70,59 @@ _115 docs._
 | `how-accessibility` | `standards/accessibility.md` | Accessibility standard — placeholder for WCAG-shaped requirements. | draft |
 | `how-agent-bounds` | `planning/AGENT-BOUNDS.md` | Three-layer agent-bounds doc — Intent / Bounds / Casebook — that reduces the founder bottleneck by letting agents decide more on their own and escalate sharper. | active |
 | `how-atomize-skill` | `skills/atomize/SKILL.md` |  |  |
-| `how-b1-primitives-plan` | `planning/bundles/b1-primitives-plan.md` | Defines b1 MVP scope in primitive terms. | active |
-| `how-b1-primitives-work-map` | `planning/bundles/b1-primitives-work-map.md` | Menu of b1 work tagged core / recommended / defer. | active |
+| `how-b1-primitives-plan` | `planning/done/2026-06-01-bundles-atomized/b1-primitives-plan.md` | Defines b1 MVP scope in primitive terms. | active |
+| `how-b1-primitives-work-map` | `planning/done/2026-06-01-bundles-atomized/b1-primitives-work-map.md` | Menu of b1 work tagged core / recommended / defer. | active |
 | `how-build-skill` | `skills/build/SKILL.md` |  |  |
-| `how-bundle-themes` | `planning/bundles/bundle-themes.md` | Sequences each bundle into 1–2 week sub-themes. | active |
+| `how-bundle-1` | `planning/now/bundle-1.md` | Slim scoping overview for the b1 Primitives MVP — hypothesis, what's in, what defers, success metrics. | active |
+| `how-bundle-1-checklist` | `planning/now/bundle-1-checklist.md` | One-page progress scoreboard for the b1 MVP, in human terms. | active |
+| `how-bundle-themes` | `planning/now/bundle-1-themes.md` | Sequences each bundle into 1–2 week sub-themes. | active |
 | `how-decision-patterns` | `playbooks/DECISION-PATTERNS.md` | How to make calls — the default, the tiebreaker order, the one absolute. | active |
-| `how-decisions` | `planning/DECISIONS.md` | Redirect — the decisions home is now playbooks/. | active |
 | `how-development-patterns` | `playbooks/DEVELOPMENT-PATTERNS.md` | Development decisions in force, with their intent. Includes pipeline patterns. | active |
 | `how-deviations` | `development/DEVIATIONS.md` | Per-ticket log of implementation-vs-spec drift across the build. | active |
-| `how-explore-no-login-index` | `planning/initiatives/phase-3/explore-no-login-index.md` | Phase 3 item stub — the no-login `/explore` locality-first index. | stub |
+| `how-explore-no-login-index` | `planning/backlog/initiative-phase-3-explore-no-login-index.md` | Phase 3 item stub — the no-login `/explore` locality-first index. | stub |
 | `how-explore-skill` | `skills/explore/SKILL.md` |  |  |
-| `how-f018-brian-declares-run-club` | `planning/scenarios-backlog/F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's. | draft |
-| `how-f018-flagship-decision` | `planning/proposed/F018-flagship-decision.md` | Decide whether F018 stays the flagship walkthrough or gets replaced. | proposed |
-| `how-f030-newcomer-signs-up-and-lands-in-feed` | `planning/scenarios-backlog/F030-newcomer-signs-up-and-lands-in-feed.md` | Backlog scenario — a newcomer signs up, picks a locality + interest tags, and lands in the awareness feed. | draft |
-| `how-f031-member-manages-place-interest-scope` | `planning/scenarios-backlog/F031-member-manages-place-interest-scope.md` | Backlog scenario — a member tunes their awareness scope by adding/removing/promoting secondary Place-interests. | draft |
-| `how-f032-viewer-finds-member-page-and-follows` | `planning/scenarios-backlog/F032-viewer-finds-member-page-and-follows.md` | Backlog scenario — a viewer lands on a Member public page and taps follow. | draft |
-| `how-f033-viewer-finds-venue-page` | `planning/scenarios-backlog/F033-viewer-finds-venue-page.md` | Backlog scenario — a viewer lands on a venue (Location) page and sees what's happening there. | draft |
-| `how-f034-member-hosts-recurring-gathering` | `planning/scenarios-backlog/F034-member-hosts-recurring-gathering.md` | Backlog scenario — a member hosts a recurring gathering at an existing venue via the "Host something here" CTA. | draft |
-| `how-f035-viewer-finds-group-page` | `planning/scenarios-backlog/F035-viewer-finds-group-page.md` | Backlog scenario — a viewer finds a Group's public page; covers both community-kind and business-kind Group rendering. | draft |
-| `how-f036-member-creates-business-group-via-sell-walkthrough` | `planning/scenarios-backlog/F036-member-creates-business-group-via-sell-walkthrough.md` | Backlog scenario — a member taps Sell and creates a kind='business' Group via the Sell walkthrough. | draft |
-| `how-f037-producer-claims-locally-owned` | `planning/scenarios-backlog/F037-producer-claims-locally-owned.md` | Backlog scenario — a producer claims the Tier 0 self-attested Locally Owned badge on their business Group. | draft |
-| `how-f038-producer-lists-product` | `planning/scenarios-backlog/F038-producer-lists-product.md` | Backlog scenario — a producer lists a product Item via the product composer. | draft |
-| `how-f039-producer-claims-locally-made` | `planning/scenarios-backlog/F039-producer-claims-locally-made.md` | Backlog scenario — a producer claims the Tier 0 self-attested Locally Made provenance badge on a product Item. | draft |
-| `how-f040-producer-lists-service` | `planning/scenarios-backlog/F040-producer-lists-service.md` | Backlog scenario — a producer lists a service Item via the service composer. | draft |
-| `how-f041-producer-generates-qr-card` | `planning/scenarios-backlog/F041-producer-generates-qr-card.md` | Backlog scenario — a producer generates a print-quality QR card for any of their Items. | draft |
-| `how-f042-member-follows-producer-group-venue` | `planning/scenarios-backlog/F042-member-follows-producer-group-venue.md` | Backlog scenario — cross-cutting follow CTA tested for Group and Venue (Member follow tested in F032). | draft |
-| `how-f043-newcomer-completes-journey-under-target` | `planning/scenarios-backlog/F043-newcomer-completes-journey-under-target.md` | Backlog scenario — integration test of the Phase 2 exit criterion. A newcomer completes the full journey in under the working target (~90 seconds) across two paths. | draft |
-| `how-group-browse-index` | `planning/initiatives/phase-3/group-browse-index.md` | Phase 3 item stub — the `/g` Group browse index. | stub |
-| `how-group-create-flow` | `planning/initiatives/phase-3/group-create-flow.md` | Phase 3 item stub — the `/g/new` Group create flow for non-business kinds. | stub |
+| `how-f018-brian-declares-run-club` | `planning/backlog/scenario-F018-brian-declares-run-club.md` | Backlog scenario — Brian declares the Run Club gathering at Drake's. | draft |
+| `how-f018-flagship-decision` | `planning/backlog/decision-F018-flagship.md` | Decide whether F018 stays the flagship walkthrough or gets replaced. | proposed |
+| `how-f030-newcomer-signs-up-and-lands-in-feed` | `planning/backlog/scenario-F030-newcomer-signs-up-and-lands-in-feed.md` | Backlog scenario — a newcomer signs up, picks a locality + interest tags, and lands in the awareness feed. | draft |
+| `how-f031-member-manages-place-interest-scope` | `planning/backlog/scenario-F031-member-manages-place-interest-scope.md` | Backlog scenario — a member tunes their awareness scope by adding/removing/promoting secondary Place-interests. | draft |
+| `how-f032-viewer-finds-member-page-and-follows` | `planning/backlog/scenario-F032-viewer-finds-member-page-and-follows.md` | Backlog scenario — a viewer lands on a Member public page and taps follow. | draft |
+| `how-f033-viewer-finds-venue-page` | `planning/backlog/scenario-F033-viewer-finds-venue-page.md` | Backlog scenario — a viewer lands on a venue (Location) page and sees what's happening there. | draft |
+| `how-f034-member-hosts-recurring-gathering` | `planning/backlog/scenario-F034-member-hosts-recurring-gathering.md` | Backlog scenario — a member hosts a recurring gathering at an existing venue via the "Host something here" CTA. | draft |
+| `how-f035-viewer-finds-group-page` | `planning/backlog/scenario-F035-viewer-finds-group-page.md` | Backlog scenario — a viewer finds a Group's public page; covers both community-kind and business-kind Group rendering. | draft |
+| `how-f036-member-creates-business-group-via-sell-walkthrough` | `planning/now/scenario-F036-member-creates-business-group-via-sell-walkthrough.md` | Backlog scenario — a member taps Sell and creates a kind='business' Group via the Sell walkthrough. | draft |
+| `how-f037-producer-claims-locally-owned` | `planning/backlog/scenario-F037-producer-claims-locally-owned.md` | Backlog scenario — a producer claims the Tier 0 self-attested Locally Owned badge on their business Group. | draft |
+| `how-f038-producer-lists-product` | `planning/backlog/scenario-F038-producer-lists-product.md` | Backlog scenario — a producer lists a product Item via the product composer. | draft |
+| `how-f039-producer-claims-locally-made` | `planning/backlog/scenario-F039-producer-claims-locally-made.md` | Backlog scenario — a producer claims the Tier 0 self-attested Locally Made provenance badge on a product Item. | draft |
+| `how-f040-producer-lists-service` | `planning/backlog/scenario-F040-producer-lists-service.md` | Backlog scenario — a producer lists a service Item via the service composer. | draft |
+| `how-f041-producer-generates-qr-card` | `planning/backlog/scenario-F041-producer-generates-qr-card.md` | Backlog scenario — a producer generates a print-quality QR card for any of their Items. | draft |
+| `how-f042-member-follows-producer-group-venue` | `planning/backlog/scenario-F042-member-follows-producer-group-venue.md` | Backlog scenario — cross-cutting follow CTA tested for Group and Venue (Member follow tested in F032). | draft |
+| `how-f043-newcomer-completes-journey-under-target` | `planning/backlog/scenario-F043-newcomer-completes-journey-under-target.md` | Backlog scenario — integration test of the Phase 2 exit criterion. A newcomer completes the full journey in under the working target (~90 seconds) across two paths. | draft |
+| `how-group-browse-index` | `planning/backlog/initiative-phase-3-group-browse-index.md` | Phase 3 item stub — the `/g` Group browse index. | stub |
+| `how-group-create-flow` | `planning/backlog/initiative-phase-3-group-create-flow.md` | Phase 3 item stub — the `/g/new` Group create flow for non-business kinds. | stub |
 | `how-idea-intake` | `product/templates/idea-intake.md` | Paste-in template producing pipeline artifacts from raw ideas. | active |
-| `how-initiatives-readme` | `planning/initiatives/README.md` | Home for non-bundle work packages — refactors, reorgs, strategy passes, phase-spanning plans. | active |
+| `how-initiative-phase-3` | `planning/now/initiative-phase-3.md` | Overview for the Phase 3 surface set — nine candidate items, each a standalone backlog stub. | active |
 | `how-loop-designer-skill` | `skills/loop-designer/SKILL.md` |  |  |
 | `how-map` | `product/MAP.md` | 100k-foot architecture index — one sentence per system, with alignment checks. | active |
 | `how-memo-skill` | `skills/memo/SKILL.md` |  |  |
-| `how-onboarding-group-suggestion` | `planning/initiatives/phase-3/onboarding-group-suggestion.md` | Phase 3 item stub — the onboarding Group-suggestion step. | stub |
+| `how-onboarding-group-suggestion` | `planning/backlog/initiative-phase-3-onboarding-group-suggestion.md` | Phase 3 item stub — the onboarding Group-suggestion step. | stub |
 | `how-orient-skill` | `skills/orient/SKILL.md` |  |  |
 | `how-performance` | `standards/performance.md` | Performance standard — placeholder for budget and verification. | draft |
-| `how-phase-3-readme` | `planning/initiatives/phase-3/README.md` | Index for Phase 3 item stubs — each is a standalone small plan extracted from the archived rebuild-plan and the Phase 2 strategy doc's Out-of-Scope list. | active |
 | `how-platform-patterns` | `playbooks/PLATFORM-PATTERNS.md` | Platform decisions in force, with their intent. | active |
-| `how-producer-roadmap` | `planning/producer-roadmap.md` | Producer/seller/business capabilities organized by business function — the producer roadmap lens. | active |
-| `how-proposed-readme` | `planning/proposed/README.md` | Triaged work waiting on PM ratify — the lane between `_inbox/` and `planning/next/`. | active |
+| `how-producer-roadmap` | `product/needs/producer-roadmap.md` | Producer/seller/business capabilities organized by business function — the producer roadmap lens. | active |
 | `how-releases` | `planning/RELEASES.md` | One-line index of every shipped user-visible version. | active |
-| `how-reorg-03-restructure-bundles-pending-pattern-shift` | `planning/later/reorg-03-restructure-bundles-pending-pattern-shift.md` | Reorg item — restructure planning/bundles/ to support per-bundle and per-sub-bundle atomization. | parked |
 | `how-reorg-12-yaml-doc-ids` | `planning/next/reorg-12-yaml-doc-ids.md` | Inject stable YAML `id:` fields into doc front-matter so REGISTRY.md becomes a reliable resolution table. | ratified |
 | `how-repo-tidying` | `playbooks/repo-tidying.md` | What tidy's sweep-docs mode looks for. Ten findings, each with a trigger and a disposition. | active |
 | `how-responsiveness` | `standards/responsiveness.md` | Responsiveness standard — placeholder for layout breakpoint rules. | draft |
 | `how-review-skill` | `skills/review/SKILL.md` |  |  |
 | `how-safety` | `standards/safety.md` | Safety standard — placeholder for safety-floor requirements. | draft |
-| `how-saved-search-composer` | `planning/initiatives/phase-3/saved-search-composer.md` | Phase 3 item stub — the saved-search composer surface + fan-out worker. | stub |
+| `how-saved-search-composer` | `planning/backlog/initiative-phase-3-saved-search-composer.md` | Phase 3 item stub — the saved-search composer surface + fan-out worker. | stub |
 | `how-scaffold-skill` | `skills/scaffold/SKILL.md` |  |  |
-| `how-scenarios-readme` | `planning/scenarios/README.md` | Marker file. Approved scenarios live here. | active |
 | `how-scope-skill` | `skills/scope/SKILL.md` |  |  |
 | `how-security` | `standards/security.md` | Security standard — placeholder for threat-model and audit. | draft |
 | `how-spec-patches` | `planning/SPEC-PATCHES.md` | Queue of product/ spec patches flagged by the build agent. Closes the Build → Product return path. | active |
 | `how-stage-ledger` | `planning/STAGE-LEDGER.md` | One-row-per-concept ledger tracking the pipeline stage of every F-number + substrate group. Closes the return path. | active |
 | `how-standards-readme` | `standards/README.md` | Standards layer — cross-cutting qualities the build must satisfy. | reference |
-| `how-stewardships` | `planning/initiatives/phase-3/stewardships.md` | Phase 3 item stub — the stewardships surface (group_stewardships schema delta + steward tooling). | stub |
+| `how-stewardships` | `planning/backlog/initiative-phase-3-stewardships.md` | Phase 3 item stub — the stewardships surface (group_stewardships schema delta + steward tooling). | stub |
 | `how-t001-project-init` | `development/tickets/done/T001-project-init.md` | Ticket T001 — project init. | reference |
 | `how-t002-database-schema` | `development/tickets/done/T002-database-schema.md` | Ticket T002 — database schema. | reference |
 | `how-t003-auth` | `development/tickets/done/T003-auth.md` | Ticket T003 — auth. | reference |
@@ -171,13 +168,13 @@ _115 docs._
 | `how-t066-county-tier-and-url-compression` | `development/tickets/done/T066-county-tier-and-url-compression.md` | Substrate ticket — apply ADR-0022 (county tier) + ADR-0023 (URL compaction) to the geography substrate pre-commit. | active |
 | `how-t067-report-shape` | `development/tickets/T067-report-shape.md` | Substrate ticket — install the Report Shape rule across pipeline-doc surfaces so every multi-step skill report opens with status + ask, withholds detail until the PM says "expand," and names items in plain English instead of by ID. | active |
 | `how-test-skill` | `skills/test/SKILL.md` |  |  |
-| `how-thesis-page` | `planning/initiatives/phase-3/thesis-page.md` | Phase 3 item stub — the `/why` thesis page. | stub |
+| `how-thesis-page` | `planning/backlog/initiative-phase-3-thesis-page.md` | Phase 3 item stub — the `/why` thesis page. | stub |
 | `how-ticket-skill` | `skills/ticket/SKILL.md` |  |  |
 | `how-tidy-skill` | `skills/tidy/SKILL.md` |  |  |
 | `how-trace` | `product/TRACE.md` | Feature lineage — every capability traced from human need to ticket. | active |
-| `how-user-story-template` | `planning/scenarios-backlog/USER-STORY-TEMPLATE.md` | Redirect stub to the real scenario template in skills/. | reference |
+| `how-user-story-template` | `planning/backlog/USER-STORY-TEMPLATE.md` | Redirect stub to the real scenario template in skills/. | reference |
 | `how-weigh-skill` | `skills/weigh/SKILL.md` |  |  |
-| `how-wonder-composer` | `planning/initiatives/phase-3/wonder-composer.md` | Phase 3 item stub — the Wonder kind composer. | stub |
-| `how-wonder-conversion` | `planning/initiatives/phase-3/wonder-conversion.md` | Phase 3 item stub — Wonder → Gathering / Wonder → Initiative conversion flow. | stub |
+| `how-wonder-composer` | `planning/backlog/initiative-phase-3-wonder-composer.md` | Phase 3 item stub — the Wonder kind composer. | stub |
+| `how-wonder-conversion` | `planning/backlog/initiative-phase-3-wonder-conversion.md` | Phase 3 item stub — Wonder → Gathering / Wonder → Initiative conversion flow. | stub |
 | `how-writing-docs` | `playbooks/writing-docs.md` | How any agent producing written output for this project should write. | active |
 | `plan-b1-surface-sequence` | `planning/next/plan-b1-surface-sequence.md` | Active sequence for the remaining b1 user-surface work. Replaces the archived b1-primitives-sequence.md. | queued |

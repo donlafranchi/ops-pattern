@@ -686,7 +686,7 @@ The deliberate refusal of a `role` column is the relational realization of `prin
 
 ## Decisions encoded here
 
-This spec is the live home for the following architectural decisions. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register; the entries below are the single-system decisions whose status banner in this file *is* the load-bearing ratification.
+This spec is the live home for the following architectural decisions. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register; the entries below are the single-system decisions whose status banner in this file *is* the load-bearing ratification.
 
 | ADR | Status | What lives here |
 |---|---|---|

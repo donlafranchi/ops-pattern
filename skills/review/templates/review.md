@@ -1,6 +1,6 @@
 # F{NNN} review — {Persona} {does the thing}
 
-**Scenario:** [`planning/scenarios/F{NNN}-{slug}.md`](../scenarios/F{NNN}-{slug}.md)
+**Scenario:** [`scenario-F{NNN}-{slug}.md`](./scenario-F{NNN}-{slug}.md)
 **Reviewer:** review
 **Date:** {YYYY-MM-DD}
 **Bundle:** b1 / b2 / b3
@@ -82,4 +82,4 @@ If verdict is REVISE or EXTEND:
 
 ## Decisions captured
 
-- {Any architectural or design decision this review surfaced that should be added to `planning/DECISIONS.md`. Pre-formatted ADR snippet if helpful.}
+- {Any architectural or design decision this review surfaced that should land as a pattern-doc entry in `playbooks/PLATFORM-PATTERNS.md` (what the platform IS) or `playbooks/DEVELOPMENT-PATTERNS.md` (how we build). Pre-formatted Decision / Intent / Touches snippet if helpful.}

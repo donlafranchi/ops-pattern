@@ -9,7 +9,7 @@ status: stub
 
 ## What this is
 
-The flow that turns a successful Wonder (enough "I'd be in" responses) into either a recurring Gathering or an Initiative. The Wonder doesn't lose its history; the converted Item links back via `items.parent_item_id`. Pairs with [`wonder-composer.md`](wonder-composer.md) — together they complete the Loop 2 ("Float an idea") cycle.
+The flow that turns a successful Wonder (enough "I'd be in" responses) into either a recurring Gathering or an Initiative. The Wonder doesn't lose its history; the converted Item links back via `items.parent_item_id`. Pairs with [`wonder-composer.md`](initiative-phase-3-wonder-composer.md) — together they complete the Loop 2 ("Float an idea") cycle.
 
 ## Where it came from
 
@@ -27,7 +27,7 @@ The flow that turns a successful Wonder (enough "I'd be in" responses) into eith
 
 ## Depends on
 
-- Wonder composer ([`wonder-composer.md`](wonder-composer.md)) — Wonders must exist before they can be converted.
+- Wonder composer ([`wonder-composer.md`](initiative-phase-3-wonder-composer.md)) — Wonders must exist before they can be converted.
 - O4 design pass — same open questions (signaling, threshold, tipping-point).
 - Initiative kind composer — not yet stubbed. Initiative is far-horizon per O6; this conversion's Initiative path may stay reserved-but-not-shipped until then.
 - `items.parent_item_id` reservation (already in schema).
@@ -38,7 +38,7 @@ The flow that turns a successful Wonder (enough "I'd be in" responses) into eith
 2. Decide: is the conversion trigger threshold-based, author-discretion, or both?
 3. Design the post-conversion view of the original Wonder — does it show "converted to: [new Item]" prominently, or quietly?
 4. Decide whether responders are automatically followers of the new Item (privacy + UX call).
-5. Promote to scenario after [`wonder-composer.md`](wonder-composer.md) is scoped.
+5. Promote to scenario after [`wonder-composer.md`](initiative-phase-3-wonder-composer.md) is scoped.
 
 ## Out of scope for this stub
 

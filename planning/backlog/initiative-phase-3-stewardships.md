@@ -15,7 +15,7 @@ The set of tools a community steward needs to keep an ongoing operation alive �
 
 - Archived [`_attic/2026-05-28-rebuild-plan/rebuild-plan.md`](../../_attic/2026-05-28-rebuild-plan/rebuild-plan.md) — referenced as "stewardship rotation, capital-flow surfaces" deferred to b2/b3.
 - [`use-cases.md` O5](../../product/needs/use-cases.md#o5-a-community-steward-keeps-an-ongoing-operation-alive) — Status: **Deferred (b2+)**. Open question: minimum-viable steward toolkit.
-- [`phase-2-scenario-strategy.md`](../phase-2-scenario-strategy.md) line 262 — names stewardships as a Phase 3 surface needing its own strategy pass.
+- [`phase-2-scenario-strategy.md`](../done/2026-05-30-phase-2-historical/phase-2-scenario-strategy.md) line 262 — names stewardships as a Phase 3 surface needing its own strategy pass.
 - `product/systems/stewardships.md` — system spec exists (referenced from `use-cases.md` O5).
 
 ## Rough shape
@@ -42,7 +42,7 @@ A large item — likely multiple scenarios when atomized. Candidate sub-pieces:
 2. Decide the substrate vs. surface split — is `group_stewardships` shipped at b1 substrate-only (like saved-search), or only when the surface lands?
 3. Likely atomize this stub further once the design pass starts — each of the 6 candidate sub-pieces above probably becomes its own stub or scenario.
 4. Decide ordering relative to other Phase 3 items — stewardships likely lands after `/g/new` (community-kind Group create) since you need a Group to steward.
-5. Promote individual sub-pieces to `planning/scenarios-backlog/F###-*.md` via `scope` once the toolkit is named.
+5. Promote individual sub-pieces to `planning/backlog/scenario-F###-*.md` via `scope` once the toolkit is named.
 
 ## Out of scope for this stub
 

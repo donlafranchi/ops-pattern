@@ -44,7 +44,7 @@ A guided flow at `/g/new` for creating Groups of any kind. F036 ships the kind='
 2. Confirm role-per-kind validation in `groups.md` is current and matches what the walkthrough should enforce.
 3. Decide the secondary entries — is `/g/new` reachable from `/g` browse, from `/you`, from both?
 4. Affinity-first Group discovery (C6) is adjacent — does `/g/new` get a "suggested Groups you might be starting" affordance? Likely no at b1, but design call.
-5. Promote to `planning/scenarios-backlog/F###-group-create-non-business.md` via `scope`.
+5. Promote to `planning/backlog/scenario-F###-group-create-non-business.md` via `scope`.
 
 ## Out of scope for this stub
 

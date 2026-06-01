@@ -35,7 +35,7 @@ A step in the onboarding flow (or right after) where a new Member who has just s
 2. Design the suggestion algorithm — straight membership count, or weighted by listed-vs-private, founder activity, recent gatherings, etc.? Watch for "popular gets more popular" anti-pattern.
 3. Decide: tap-to-join writes `source='explicit'` (the Member did tap) — confirm this still honors the "never auto-assigned" boundary in `groups.md`.
 4. Decide UI shape: dedicated onboarding step (extends F030), post-onboarding modal, or `/you` widget surfaced for the first N visits.
-5. Promote to `planning/scenarios-backlog/F###-onboarding-group-suggestion.md` via `scope`.
+5. Promote to `planning/backlog/scenario-F###-onboarding-group-suggestion.md` via `scope`.
 
 ## Out of scope for this stub
 

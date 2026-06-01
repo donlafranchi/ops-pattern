@@ -7,7 +7,7 @@ status: active
 
 # F036 review — Maya creates a business Group through the Sell walkthrough
 
-**Scenario:** [`planning/scenarios-backlog/F036-member-creates-business-group-via-sell-walkthrough.md`](../scenarios-backlog/F036-member-creates-business-group-via-sell-walkthrough.md) *(still in backlog — Gate A blocked on 4 unratified absolutes in `groups.md`; PM requested pre-flight regardless)*
+**Scenario:** [`planning/now/scenario-F036-member-creates-business-group-via-sell-walkthrough.md`](scenario-F036-member-creates-business-group-via-sell-walkthrough.md) *(Gate A was blocked at review time on 4 unratified absolutes in `groups.md`; PM requested pre-flight regardless)*
 **Reviewer:** review
 **Date:** 2026-05-31
 **Bundle:** b1 (sub-bundle b1.2 per `b1-primitives-work-map.md` § "Become a Seller")
@@ -110,7 +110,7 @@ These extensions should land before F036 tickets so F034 / F038 / F040 can refer
 
 **First-in-family** for the **Sell-walkthrough composer family**, but NOT first in the larger **composer family** for b1. The b1 surface sequence has four composers: F036 (Sell walkthrough → business Group), F034 (gathering composer), F038 (product composer), F040 (service composer). F036 opens first per the dependency chain (Sell walkthrough must exist before product/service/gathering composers can attach Items to a Group).
 
-Scenarios checked: none yet approved in `planning/scenarios/`; all four are in `planning/scenarios-backlog/`.
+Scenarios checked: none yet approved in `planning/next/`; all four are in `planning/backlog/`.
 
 **Recommendations:**
 
@@ -139,7 +139,7 @@ These should land as pattern-doc entries (per [`playbooks/writing-docs.md`](../.
 
 ## Pre-Gate-A note
 
-This review is a pre-flight on a backlog scenario, requested by the PM ahead of the Gate A walk. The four unratified absolutes in `groups.md` flagged by `scope` (lines 88-89 founder-immutable, 113 self-declaration-over-observation, 124-130 founder-only revival, 364-366 no auto-Group-assignment) still block the scenario from moving to `planning/scenarios/`. The findings above are independent of Gate A: they describe gaps in design-language coverage and ticket-writing extraction notes, none of which depend on the absolutes' ratification state. After `weigh` walks Gate A and `scope` approves, this review remains valid and the EXTEND verdict still stands.
+This review is a pre-flight on a backlog scenario, requested by the PM ahead of the Gate A walk. The four unratified absolutes in `groups.md` flagged by `scope` (lines 88-89 founder-immutable, 113 self-declaration-over-observation, 124-130 founder-only revival, 364-366 no auto-Group-assignment) still block the scenario from moving to `planning/next/`. The findings above are independent of Gate A: they describe gaps in design-language coverage and ticket-writing extraction notes, none of which depend on the absolutes' ratification state. After `weigh` walks Gate A and `scope` approves, this review remains valid and the EXTEND verdict still stands.
 
 ---
 

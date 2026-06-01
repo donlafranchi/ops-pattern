@@ -272,7 +272,7 @@ The shape for "I need to pick a Location from a list, but the Location I need do
 
 ## Decisions encoded here
 
-This file is the live home for the following architectural decision. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register; this spec's Principles section *is* the load-bearing ratification.
+This file is the live home for the following architectural decision. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register; this spec's Principles section *is* the load-bearing ratification.
 
 | ADR | Status | What lives here |
 |---|---|---|

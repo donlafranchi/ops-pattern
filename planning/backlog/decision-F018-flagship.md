@@ -19,7 +19,7 @@ PM picks one of two paths.
 ## Options
 
 **Option (a) — Re-promote F018.**
-- Move F018 from backlog to `planning/scenarios/`.
+- Move F018 from backlog to `planning/next/`.
 - Run `review` on the revised scenario; address the original REVISE punch list.
 - Regenerate the pipeline-trace doc against live artifacts under the post-2026-05-11 naming.
 - Update `AGENTS.md` line 18 to reference the new trace location.

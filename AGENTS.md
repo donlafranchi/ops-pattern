@@ -40,7 +40,7 @@ Eleven skills run the full lifecycle. Each is a role on a tight five-person dev 
 session start  →  orient
                   explore  ←─── user-voice (sub-routine)
                   (PM drops a plan in _inbox/)  ─────────→ atomize
-                                                          (stubs land in planning/proposed/)
+                                                          (stubs land in planning/backlog/)
                   ↑ PM ratifies each stub, moves it to next/ or now/
                   (then invokes the route: skill named in the stub)
                   scope
@@ -55,7 +55,7 @@ session start  →  orient
                   tidy  ←────── end-of-session sweep
 ```
 
-`ticket` and `test` run in parallel from the same approved scope, eyes-closed to each other. That separation is what keeps the test honest. `weigh`, `memo`, `review` fire as needed between `scope` and the hand-off. `atomize` sits at the front: it bridges Cowork plan-drops in `_inbox/` to the PM-decision queue in `planning/proposed/`, so multi-item plans don't stall in untriaged drafts.
+`ticket` and `test` run in parallel from the same approved scope, eyes-closed to each other. That separation is what keeps the test honest. `weigh`, `memo`, `review` fire as needed between `scope` and the hand-off. `atomize` sits at the front: it bridges Cowork plan-drops in `_inbox/` to the backlog lane in `planning/backlog/`, so multi-item plans don't stall in untriaged drafts.
 
 ## What every gate is guarding against
 
@@ -72,7 +72,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 **Tool:** Cowork. **Model:** Sonnet.
 
-**Reads:** root `CLAUDE.md`, `JOURNAL.md`, `planning/bundles/{active}.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/proposed/`, `planning/next/`, `planning/now/`, `planning/later/`, `web/BUILD-LOG.md`.
+**Reads:** root `CLAUDE.md`, `JOURNAL.md`, `planning/now/bundle-1.md`, `planning/STAGE-LEDGER.md`, `planning/SPEC-PATCHES.md`, `planning/backlog/`, `planning/next/`, `planning/now/`, `planning/done/`, `web/BUILD-LOG.md`.
 
 **Task:** Session-start orientation. Read state. Run the drift checklist (stale citations, empty `scenarios/` with live ticket refs, oversize DEVIATIONS, `{pending}` commit hashes, stalled SPEC-PATCHES, superseded-memo citations, stalled STAGE-LEDGER rows). Prune JOURNAL if it's heavy. Re-tag the work map if a sub-bundle closed since last session. Name the next decision. Does not act on it.
 
@@ -98,11 +98,11 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Tool:** Cowork. **Model:** Opus.
 
-**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `planning/producer-roadmap.md` (mandatory — refuses to write scenarios for "Won't" capabilities; every scenario's `## Capabilities unlocked` section traces to taxonomy categories), `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/bundles/`, `planning/bundles/b1-primitives-sequence.md` (active sequence).
+**Reads:** `product/needs/use-cases.md`, `product/needs/member-journey.md`, `product/needs/producer-roadmap.md` (mandatory — refuses to write scenarios for "Won't" capabilities; every scenario's `## Capabilities unlocked` section traces to taxonomy categories), `product/foundation/primitives.md`, `product/systems/`, `product/capabilities/`, `planning/now/` (active bundle + surface sequence — `bundle-1.md`, `plan-b1-surface-sequence.md`).
 
-**Writes:** `planning/scenarios-backlog/` (PM moves approved → `planning/scenarios/`), `planning/bundles/`.
+**Writes:** `planning/backlog/` (drafts, as `scenario-F###-{slug}.md`; PM moves approved → `planning/next/`), `planning/now/` (bundle docs).
 
-**Does NOT read:** `development/tickets/`, `web/`, `planning/scenarios/` (read-only for reference).
+**Does NOT read:** `development/tickets/`, `web/`, `planning/next/` (the approved lane is read-only for reference).
 
 **Task:** Convert systems into user-story-shaped scenarios anchored to canonical examples. Apply the 5 Deadly Sins filter (scope creep, gold plating, missing requirements, unrealistic schedules, poor communication). Surfaces the smallest version that proves the bet. Refuses to write tickets. Every scenario must include a `## Capabilities unlocked` section mapping to the producer capability taxonomy.
 
@@ -120,7 +120,7 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Writes:** the target file directly — bullet revisions and `Intent (State YYYY-MM-DD): {why}` annotations; one `JOURNAL.md` entry per session summarizing what was ratified, deferred, or rejected.
 
-**Does NOT read or write:** `web/` code, `development/tickets/`, `planning/scenarios/`.
+**Does NOT read or write:** `web/` code, `development/tickets/`, `planning/next/`.
 
 **Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic rule from [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md):
 
@@ -156,11 +156,11 @@ Rejected absolutes are deleted; the JOURNAL records the removal.
 
 > Mandatory during the primitives rebuild on any scope that introduces a new surface, component, event type, table, column, or design pattern. Optional only for trivial copy/CTA changes.
 
-**Reads:** `planning/scenarios/` (the approved scope), `product/systems/`, `product/ui/`, `product/foundation/`, `playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`, `planning/bundles/{active}.md`.
+**Reads:** `planning/next/` + `planning/now/` (the approved scope), `product/systems/`, `product/ui/`, `product/foundation/`, `playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`, `planning/now/bundle-1.md`.
 
-**Writes:** `planning/reviews/F{NNN}-review.md`.
+**Writes:** `review-F{NNN}.md` alongside its scenario, in the scenario's lane (`planning/next/` or `planning/now/`).
 
-**Does NOT read:** `web/` code, `development/tickets/`, `planning/scenarios-backlog/`.
+**Does NOT read:** `web/` code, `development/tickets/`, `planning/backlog/`.
 
 **Task:** Three sub-routines in one skill:
 - **Architecture** — does this fit existing systems? Does it need new schema, events, or columns? Calls in `engineering:architecture`.
@@ -189,19 +189,19 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 **Tool:** Claude Code. **Model:** Sonnet.
 
-> Bridge between Cowork strategy and Claude Code execution. Translates `_inbox/` plans and parked decisions into ratify-and-execute stubs in `planning/proposed/`. Closes the gap that left multi-item plans stalling in `_inbox/` because no skill knew how to decompose them.
+> Bridge between Cowork strategy and Claude Code execution. Translates `_inbox/` plans and parked decisions into ratify-and-execute stubs in `planning/backlog/`. Closes the gap that left multi-item plans stalling in `_inbox/` because no skill knew how to decompose them.
 
-**Reads:** `_inbox/{name}.md` (the target file), `_inbox/README.md`, `REGISTRY.md`, root `CLAUDE.md` (file-naming table), `planning/proposed/` (for slug collisions + sequence).
+**Reads:** `_inbox/{name}.md` (the target file), `_inbox/README.md`, `REGISTRY.md`, root `CLAUDE.md` (file-naming table), `planning/backlog/` (for slug collisions + sequence).
 
-**Writes:** `planning/proposed/{slug}.md` (flat) or `planning/proposed/{plan-slug}/*.md` (grouped) + index `README.md`; archives parent plan to `_attic/YYYY-MM-DD-{parent-slug}/`; one `JOURNAL.md` paragraph.
+**Writes:** `planning/backlog/{slug}.md` (flat) or `planning/backlog/{plan-slug}/*.md` (grouped) + index `README.md`; archives parent plan to `_attic/YYYY-MM-DD-{parent-slug}/`; one `JOURNAL.md` paragraph.
 
-**Does NOT read:** `web/` code, `development/tickets/`, `planning/scenarios/`, `planning/scenarios-backlog/`, system specs, `playbooks/`.
+**Does NOT read:** `web/` code, `development/tickets/`, `planning/next/`, `planning/now/`, system specs, `playbooks/`.
 
 **Task:** Classify the inbox doc's shape (multi-item plan, single parked decision, single-feature draft, or wrong-shape reject). For each atom: produce a stub with frontmatter (`status: proposed`, `route: weigh|scope|tidy|ticket|explore`, `risk: low|medium|high`, `source:` pointer), Actions, Side effects, Risk. Group under `{plan-slug}/` for multi-item plans with an index README; flat for single atoms. Archive the parent on first pass. Hand PM a list of stubs + routes; PM ratifies and moves each to `planning/next/` or `planning/now/` then invokes the named `route:` skill.
 
 **Routing rules (upstream-biased).** 1) Unratified absolute or close-call → `weigh`. 2) Net-new system/capability needing spec → `explore`. 3) User-facing surface needing scenarios → `scope`. 4) Mechanical doc move/rename/reorg → `tidy`. 5) Substrate-only code change with spec already in place → `ticket`. If two rules fire, take the lower number.
 
-**Hard constraints:** never produces scenarios, tickets, specs, or decisions — only routes. Never invokes downstream skills. Never re-atomizes an already-decomposed plan (collision check on `planning/proposed/{parent-slug}/`). Every stub carries a single `route:` field; if no route fits, the atom surfaces in the index README's "Open" section instead of getting an invented route.
+**Hard constraints:** never produces scenarios, tickets, specs, or decisions — only routes. Never invokes downstream skills. Never re-atomizes an already-decomposed plan (collision check on `planning/backlog/{parent-slug}/`). Every stub carries a single `route:` field; if no route fits, the atom surfaces in the index README's "Open" section instead of getting an invented route.
 
 ---
 
@@ -211,11 +211,11 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 > Was previously Both; now Claude Code only. Reasoning: tickets are immediately handed to `build`, and Claude Code owns the repo and git operations. No round-trip back to Cowork.
 
-**Reads:** `planning/scenarios/` (approved only), `planning/reviews/F{NNN}-review.md` if it exists, `development/tickets/` and `done/` (for next T-number), `product/systems/{relevant}.md` ("Data model implications" only).
+**Reads:** `planning/next/` + `planning/now/` (approved scenarios only), `review-F{NNN}.md` in the scenario's lane if it exists, `development/tickets/` and `done/` (for next T-number), `product/systems/{relevant}.md` ("Data model implications" only).
 
 **Writes:** `development/tickets/`.
 
-**Does NOT read:** `planning/scenarios-backlog/`, `web/` code, eval test code.
+**Does NOT read:** `planning/backlog/`, `web/` code, eval test code.
 
 **Task:** Break each approved scope into ordered, session-sized tickets (~1–3 hours, one cohesive commit each). Each ticket references exactly one scenario via `Scenario:`. If a scope produces 5+ tickets, escalate back to `scope` to split.
 
@@ -227,11 +227,11 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 **Tool:** Claude Code. **Model:** Opus.
 
-**Reads (write mode):** `planning/scenarios/` only. **Reads (run mode):** `web/evals/`, `web/evals/results/`, `planning/scenarios/` for traceability.
+**Reads (write mode):** `planning/next/` + `planning/now/` (approved scenarios) only. **Reads (run mode):** `web/evals/`, `web/evals/results/`, `planning/next/` + `planning/now/` for traceability.
 
 **Writes:** `web/evals/features/F{NNN}.spec.ts` (write mode); `web/evals/results/` (run mode).
 
-**Does NOT read:** `web/` source code (write mode — no peeking at implementation), `planning/scenarios-backlog/`, `development/tickets/`.
+**Does NOT read:** `web/` source code (write mode — no peeking at implementation), `planning/backlog/`, `development/tickets/`.
 
 **Task:** Two modes.
 - **Write:** translate every Given/When/Then in the approved scope into an automated test. Tests trace line-by-line back to scope clauses. Runs *before* `build` starts — this is what prevents teaching to test.
@@ -243,11 +243,11 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 **Tool:** Claude Code. **Model:** Sonnet.
 
-**Reads:** `development/tickets/`, `planning/scenarios/` (the referenced scope), `product/systems/{name}.md` ("Data model implications" only), `product/ui/design-language.md` (for any UI work), `web/` code and tests.
+**Reads:** `development/tickets/`, `planning/next/` + `planning/now/` (the referenced scope), `product/systems/{name}.md` ("Data model implications" only), `product/ui/design-language.md` (for any UI work), `web/` code and tests.
 
 **Writes:** `web/` code and tests, `development/tickets/` (Completion section, then move to `done/`), `web/BUILD-LOG.md`.
 
-**Does NOT read:** `planning/scenarios-backlog/`, `product/` outside the system spec referenced by the ticket, eval test code (write-mode evals are an external oracle).
+**Does NOT read:** `planning/backlog/`, `product/` outside the system spec referenced by the ticket, eval test code (write-mode evals are an external oracle).
 
 **Task:** Implement one ticket at a time via TDD (red → green → refactor). Never roll back; fix forward. Escalate ambiguity to `scope`.
 
@@ -284,7 +284,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 1. "what's the state"                  → orient
 2. "explore X" / "write a system for"  → explore
 3. "scenarios for X"                   → scope
-4. PM reviews; moves approved → planning/scenarios/ (or scope does on instruction)
+4. PM reviews; moves approved → planning/next/ (or scope does on instruction)
 5. "weigh: is this close?" / "ratify"  → weigh  (Gate A — backstops scope)
 6. "review F###"                       → review
    EXTEND → back to explore, re-review.
@@ -292,7 +292,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
    PROCEED → continue.
 7. "reverse this decision"             → memo  (only when user feedback contradicts a pattern entry; new decisions land directly in playbooks/)
 8. (handoff to Claude Code)
-   "atomize _inbox/{plan}.md"          → atomize  (plan or parked decision → planning/proposed/ stubs)
+   "atomize _inbox/{plan}.md"          → atomize  (plan or parked decision → planning/backlog/ stubs)
    PM ratifies each stub, moves to planning/next/ or planning/now/, invokes the named route: skill
 9. "tickets for F###"                  → ticket  (Gate B — backstops ticket)
 10. "tests for F###"                   → test (write)   ┐
@@ -371,7 +371,7 @@ Plugin skills invoked at each: `engineering:architecture` + `engineering:system-
 
 ## Bundle wrap-up
 
-After each bundle ships, run a one-session wrap-up. Produces `planning/bundles/b{N}-wrapup.md`, ~3–5 pages:
+After each bundle ships, run a one-session wrap-up. Produces `planning/now/bundle-{N}-wrapup.md` (archives to `planning/done/` with the bundle), ~3–5 pages:
 
 - **Decisions kept** — one paragraph per pattern-doc entry that landed this bundle, with a pointer into `playbooks/`.
 - **Decisions deferred** — what got punted to the next bundle and why.

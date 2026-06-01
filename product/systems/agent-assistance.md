@@ -597,7 +597,7 @@ Federation-grade Delegations. Group-/peer-/federation-authored Skills. Assistant
 
 ## Decisions encoded here
 
-This spec is the live home for the architectural decisions below. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register.
+This spec is the live home for the architectural decisions below. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register.
 
 | ADR | Status | What lives here |
 |---|---|---|

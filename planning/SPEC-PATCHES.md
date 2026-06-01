@@ -25,4 +25,4 @@ Check the box and append `· landed YYYY-MM-DD ({commit hash})` when product pat
 
 ---
 
-**Historical Landed + Rescinded** — `planning/bundles/archive/b1.x-spec-drain-sprint/spec-patches-landed.md`.
+**Historical Landed + Rescinded** — `planning/done/b1.x-spec-drain-sprint/spec-patches-landed.md`.

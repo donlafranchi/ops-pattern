@@ -26,9 +26,9 @@ status: active
 | Stage | Set by | Meaning |
 |---|---|---|
 | `product` | `pipeline-product` | System spec exists, no scenario yet |
-| `plan-backlog` | `pipeline-plan` (draft) | Scenario drafted in `planning/scenarios-backlog/` |
-| `plan-approved` | `pipeline-plan` (approve, PM moves file) | Scenario in `planning/scenarios/` |
-| `reviewed` | `pipeline-review` | `planning/reviews/F{NNN}-review.md` exists with verdict PROCEED/REVISE/EXTEND |
+| `plan-backlog` | `pipeline-plan` (draft) | Scenario drafted in `planning/backlog/` |
+| `plan-approved` | `pipeline-plan` (approve, PM moves file) | Scenario in `planning/next/` |
+| `reviewed` | `pipeline-review` | `review-F{NNN}.md` (alongside the scenario in its lane — `planning/next/` or `planning/now/`) exists with verdict PROCEED/REVISE/EXTEND |
 | `ticketed` | `pipeline-ticket` | ≥1 ticket exists referencing this scenario |
 | `building` | `pipeline-build` | First ticket moved past initial commit |
 | `eval` | `pipeline-eval` (run mode) | Build complete; running evals |
@@ -66,7 +66,7 @@ status: active
 
 | F# | Concept | Stage | Notes |
 |---|---|---|---|
-| F018 | Brian declares Run Club | `deferred` 2026-05-18 → archived-as-source 2026-05-28 | Reframed and replaced by **F034** (recurring gathering at venue, drops persona, fixes 3 review blockers). AGENTS.md flagship-trace question now in `planning/proposed/F018-flagship-decision.md` (per reorg-11, 2026-05-30). |
+| F018 | Brian declares Run Club | `deferred` 2026-05-18 → archived-as-source 2026-05-28 | Reframed and replaced by **F034** (recurring gathering at venue, drops persona, fixes 3 review blockers). AGENTS.md flagship-trace question now in `planning/backlog/decision-F018-flagship.md` (per reorg-11, 2026-05-30). |
 | F025 | Adaeze member public page | `deferred` 2026-05-28 | Folded into **F032** (Member page + follow). |
 | F026 | Maya claims Locally Owned (Tier 0) | `deferred` 2026-05-28 | Split between **F036** (Sell walkthrough → business Group) + **F037** (Locally Owned claim lifecycle). |
 | F027 | Maya claims Locally Made (Tier 0) | `deferred` 2026-05-28 | Folded into **F039** (Locally Made claim); product composer extracted to **F038**. |

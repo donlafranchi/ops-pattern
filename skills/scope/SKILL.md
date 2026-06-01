@@ -6,12 +6,12 @@ description: Act as the planning/filter agent in a project using the agent pipel
 
 # scope
 
-Project-agnostic planning-agent skill. Filter between vision and execution. Owner of `planning/scenarios-backlog/`.
+Project-agnostic planning-agent skill. Filter between vision and execution. Owner of scenario drafts in `planning/backlog/`.
 
 ## When to use
 - Convert an approved product system into user-story-shaped scenarios with pass/fail criteria.
 - Decide what ships in a bundle.
-- Approve a backlog scenario (move from `scenarios-backlog/` → `scenarios/`).
+- Approve a backlog scenario (move from `planning/backlog/` → `planning/next/`).
 - Reject an underspecified scenario back to product or back to the backlog with an annotation.
 - Prune / re-prioritize the backlog using the Anthropic-provided `planning-filter` skill.
 
@@ -21,7 +21,7 @@ Project-agnostic planning-agent skill. Filter between vision and execution. Owne
 - Do NOT write or extend product systems — that is `explore`'s job.
 - Every scenario must anchor to a real person in `product/needs/use-cases.md`. If no canonical example fits, ask `explore` to add one — do not invent a hypothetical persona.
 - Every scenario must have unambiguous, testable acceptance criteria.
-- Always write to `planning/scenarios-backlog/`. Never write directly to `planning/scenarios/`.
+- Always write scenario drafts to `planning/backlog/` as `scenario-F{NNN}-{slug}.md`. Never write directly to `planning/next/` — promotion is a PM-ratified move from `backlog/` → `next/`.
 
 ## Workflow
 See `workflow.md`.
@@ -36,11 +36,11 @@ See `workflow.md`.
 
 ## Hand off
 
-**Produced:** scenarios in `planning/scenarios-backlog/`. After PM approval, the PM (or this skill on PM instruction) moves files to `planning/scenarios/`.
+**Produced:** scenario drafts in `planning/backlog/`. After PM approval, the PM (or this skill on PM instruction) moves files to `planning/next/`.
 
 **Next skill:** `ticket` — breaks an approved scenario into ordered, implementable tickets. Then `test` (write mode) writes Playwright tests from the scenario *before* `build` runs the TDD loop.
 
-**Pipeline-ticket expects:** an approved scenario at `planning/scenarios/{F-slug}.md` with the user-story shape (persona, surfaces, data captured, BDD criteria, edge cases, out of scope).
+**Pipeline-ticket expects:** an approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`) with the user-story shape (persona, surfaces, data captured, BDD criteria, edge cases, out of scope).
 
 ## Related skills
 - `explore` — upstream; produces systems and capabilities for you to scenarioize.

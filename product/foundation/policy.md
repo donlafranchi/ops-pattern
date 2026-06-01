@@ -79,7 +79,7 @@ New policies, and revisions to existing policies, follow the same path:
 
 1. The proposal lands in the relevant system spec under "Policy posture."
 2. The three-filter analysis is written in the spec.
-3. An ADR in [planning/DECISIONS.md](../../planning/DECISIONS.md) captures any cross-spec implications.
+3. An ADR in [playbooks/PLATFORM-PATTERNS.md](../../playbooks/PLATFORM-PATTERNS.md) captures any cross-spec implications.
 4. The PM reviews; the planning-filter can pressure-test scope; security/privacy review can pressure-test mitigations.
 
 Policy changes that affect existing Members' opt-in state require explicit re-confirmation from each affected Member; policy changes that only affect future opt-ins do not. The platform never silently expands what it does with existing opt-ins.
@@ -130,10 +130,10 @@ The b1 substrate respects all three commitments by the absence of any contrary s
 
 ## Decisions encoded here
 
-This file is the live home for the following architectural decision. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register; this entire document *is* the long-form ratification of ADR-9.
+This file is the live home for the following architectural decision. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register; this entire document *is* the long-form ratification of ADR-9.
 
 | ADR | Status | What lives here |
 |---|---|---|
 | ADR-9 | Accepted | The three-filter test (helpful? harmless? abuse-resistant?). The opt-out default (protective stance is default; Member opts in to relax). The "Policy posture" requirement on every system spec touching privacy, revenue, monetary flow, or data sharing. The anti-Nextdoor design intent (messaging item-or-group at b1; Location-scoped surfaces designed carefully when they appear; push-back-on-complaint-only behavior; fix-it path offered not forced). The ADR-21 owner-only-RLS commitment on `member_place_interests` and `member_saved_searches` stays as a hard architectural floor inside ADR-9's scope. Concrete opt-in shapes: `agent-assistance.md` (k-anonymity floor N≥10; cross-Member sharing); `agent-assistance.md` (platform-mediated payment with capped cut); `agent-assistance.md` (`recurring_payment` scope with required caps + allowlist + expiry; `bounded_purchase` scope with required caps + recipient_scope + category_scope + reversibility window per `payments.md`). |
 
-This file also *encodes* (but does not own) ADR-21 (Member↔Geography substrate split): the anti-Nextdoor commitment §1 above is upgraded by ADR-21 from a policy commitment to a structural RLS enforcement on `member_place_interests` and `member_saved_searches`. ADR-21 lives cross-cutting in [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md); its data-model home is [`member.md`](../systems/member.md); its locality-derivation surface is [`business-jurisdiction.md`](../systems/business-jurisdiction.md) (read by `groups.md`). ADR-16 was superseded by ADR-21 on 2026-05-23; cite ADR-21 only.
+This file also *encodes* (but does not own) ADR-21 (Member↔Geography substrate split): the anti-Nextdoor commitment §1 above is upgraded by ADR-21 from a policy commitment to a structural RLS enforcement on `member_place_interests` and `member_saved_searches`. ADR-21 lives cross-cutting in [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md); its data-model home is [`member.md`](../systems/member.md); its locality-derivation surface is [`business-jurisdiction.md`](../systems/business-jurisdiction.md) (read by `groups.md`). ADR-16 was superseded by ADR-21 on 2026-05-23; cite ADR-21 only.

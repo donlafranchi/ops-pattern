@@ -268,7 +268,7 @@ The deliberate separation of locality from address is the structural commitment 
 
 ## Decisions encoded here
 
-This spec is the live home for the locality-verification-ladder decision (ratified 2026-05-11; formerly captured in `_attic/2026-05-19/product-exploration/locally-owned-verification.md`). See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register.
+This spec is the live home for the locality-verification-ladder decision (ratified 2026-05-11; formerly captured in `_attic/2026-05-19/product-exploration/locally-owned-verification.md`). See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register.
 
 This spec also *encodes* (but does not own) ADR-9 (the policy-posture section above is the three-filter analysis), ADR-21 (this spec is the *first signal* the locally-owned derivation reads; community-corroboration is the second signal at b2+), and the people-first refusal of address-as-locality.
 

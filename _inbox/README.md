@@ -20,7 +20,7 @@ status: active
 ## What does NOT go here
 
 - Active specs → `product/systems/` or `product/foundation/`.
-- Scenarios → `planning/scenarios-backlog/`.
+- Scenarios → `planning/backlog/`.
 - Tickets → `development/tickets/`.
 - Pattern decisions → `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md`.
 - Dated work-products on close → `_attic/YYYY-MM-DD-{slug}/`.

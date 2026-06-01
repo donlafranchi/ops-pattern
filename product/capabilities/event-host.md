@@ -53,7 +53,7 @@ Brian (a regular at the Run Club) opens Drake's venue page on his phone, taps "H
 
 ## Related scenarios
 
-- [`F018-brian-declares-run-club.md`](../../planning/scenarios/F018-brian-declares-run-club.md) — the canonical example, fully specced.
+- [`scenario-F018-brian-declares-run-club.md`](../../planning/backlog/scenario-F018-brian-declares-run-club.md) — the canonical example, fully specced.
 - (future) Movie-Night-at-Drake's variant — same capability, different Event shape (one-time vs recurring).
 
 ## Changelog

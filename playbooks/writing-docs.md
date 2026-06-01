@@ -28,8 +28,7 @@ The repo has a small set of stable homes. Use the existing one before creating a
 - `playbooks/writing-docs.md` — this file.
 - `playbooks/repo-tidying.md` — what `tidy` looks for.
 - `JOURNAL.md` — recent session pointer log. Never load-bearing. See JOURNAL contract below.
-- `planning/now/` `next/` `later/` `done/` — active work queue.
-- `planning/initiatives/` — non-bundle work packages.
+- `planning/backlog/` `next/` `now/` `done/` — active work queue (four Kanban lanes; non-bundle work packages live here too).
 - `development/tickets/` — ticket-grain work.
 
 If a doc doesn't fit one of these, the doc is wrong before its content is.

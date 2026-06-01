@@ -16,7 +16,7 @@ status: active
 > **Relationship to existing machinery.**
 > - **L1 Intent** is already partly here: `product/foundation/principles.md` (P1–P8 + Decision Test + categorical failures) is L1 at the platform-philosophy level. **Ratified absolutes** (the `Intent (Ratified YYYY-MM-DD): ...` lines landed by `weigh`) are L1 at the per-statement level.
 > - **L2 Bounds** is what this file adds. ADRs are decisions; bounds are the negative-space envelope around them. A bound says: *within this radius, agents decide alone; outside it, escalate.*
-> - **L3 Casebook** is `JOURNAL.md` + `DEVIATIONS.md` + `planning/reviews/F{NNN}-review.md`. They already record cases; they just aren't indexed by topic or scanned for promotion.
+> - **L3 Casebook** is `JOURNAL.md` + `DEVIATIONS.md` + `review-F{NNN}.md` (lives alongside its scenario in the scenario's lane — `planning/next/` or `planning/now/`). They already record cases; they just aren't indexed by topic or scanned for promotion.
 
 ---
 
@@ -61,7 +61,7 @@ Cases accrue automatically in:
 
 - `JOURNAL.md` — PM-level decisions, dated.
 - `DEVIATIONS.md` — build-time drift, per ticket.
-- `planning/reviews/F{NNN}-review.md` — review verdicts + rationale.
+- `review-F{NNN}.md` (in the scenario's lane — `planning/next/` or `planning/now/`) — review verdicts + rationale.
 - `planning/SPEC-PATCHES.md` — spec corrections in flight.
 - `planning/STAGE-LEDGER.md` — stage transitions with regressions visible.
 
@@ -90,7 +90,7 @@ Each topic anchors L1, L2 (here), and L3 (case files). Topics added when a recur
 |---|---|---|---|
 | Schema additions during build | `product/foundation/principles.md` § People-First; ADR-7 | This file § *Schema additions* | `DEVIATIONS.md`, `SPEC-PATCHES.md` |
 | Scope creep inside a ticket | `principles.md` § Decision Test; b1 bundle | This file § *Scope* | `DEVIATIONS.md` |
-| Absolute language in specs | `principles.md`; `pending-ratifications.md` | `skills/weigh/` | `planning/reviews/` ratification logs |
+| Absolute language in specs | `principles.md` | `skills/weigh/` | `review-*.md` ratification logs (in the scenario's lane) |
 | Vendor / cost decisions | (none yet — TBD) | This file § *Vendor & cost* | `JOURNAL.md` |
 | Naming (UI label vs schema vs URL) | `CLAUDE.md` § Naming conventions | This file § *Naming* | `JOURNAL.md` |
 | Commit + branch hygiene | `CLAUDE.md` § Commit Rules | This file § *Commit hygiene* | `DEVIATIONS.md` |
@@ -102,7 +102,7 @@ Each topic anchors L1, L2 (here), and L3 (case files). Topics added when a recur
 > Each topic below has the same shape: *In bounds* (agent decides alone), *Out of bounds* (escalate). Empty topics are intentional placeholders — populate them when the first case forces clarity. Premature population is speculation; the audit's whole diagnosis is that hygiene rots when imposed top-down.
 
 ### Schema additions
-Source intent: `product/foundation/principles.md` § People-First; `planning/adrs/ADR-0007-*.md`
+Source intent: `product/foundation/principles.md` § People-First; ADR-0007 (action-layer write surface — migrated to `playbooks/DEVELOPMENT-PATTERNS.md`)
 Source casebook: `DEVIATIONS.md`, `SPEC-PATCHES.md`
 
 **In bounds:**

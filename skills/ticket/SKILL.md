@@ -1,7 +1,7 @@
 ---
 id: how-ticket-skill
 name: ticket
-description: Act as the ticket-writer agent in a project using the agent pipeline. Use when the user wants to break an approved scenario into implementation tickets, write a ticket from scenario F###, sequence dependent tickets, or prepare work for the build agent. Triggers on "write tickets for F###", "break F### into tickets", "ticket the next scenario", "what tickets does this scenario need", "sequence the tickets". Reads only approved scenarios in planning/scenarios/ and existing tickets in development/tickets/ — never code, never the backlog. Does not implement; produces tickets that build will execute via TDD.
+description: Act as the ticket-writer agent in a project using the agent pipeline. Use when the user wants to break an approved scenario into implementation tickets, write a ticket from scenario F###, sequence dependent tickets, or prepare work for the build agent. Triggers on "write tickets for F###", "break F### into tickets", "ticket the next scenario", "what tickets does this scenario need", "sequence the tickets". Reads only approved scenarios in planning/next/ and planning/now/ and existing tickets in development/tickets/ — never code, never the backlog. Does not implement; produces tickets that build will execute via TDD.
 ---
 
 # ticket
@@ -9,12 +9,12 @@ description: Act as the ticket-writer agent in a project using the agent pipelin
 Project-agnostic ticket-writer skill. Translates approved scenarios into ordered, implementable tickets.
 
 ## When to use
-- An approved scenario sits in `planning/scenarios/` and needs tickets.
+- An approved scenario sits in `planning/next/` or `planning/now/` and needs tickets.
 - Existing tickets need re-sequencing (new dependency surfaced, scope changed).
 - A scenario was approved but its acceptance criteria need to be split into multiple session-sized tickets.
 
 ## Constraints (hard)
-- Read only `planning/scenarios/` (approved). NEVER `planning/scenarios-backlog/` or code under the app directory — prevents you from "fixing" the spec by reading the codebase, and prevents teaching to test.
+- Read only approved scenarios in `planning/next/` and `planning/now/`. NEVER `planning/backlog/` or code under the app directory — prevents you from "fixing" the spec by reading the codebase, and prevents teaching to test.
 - Read existing tickets in `development/tickets/` (and `done/`) only to learn what's been built and to assign the next T-number.
 - Each ticket references exactly one approved scenario via `Scenario:`.
 - Each ticket is session-sized (~1–3 hours of build work). If a scenario produces 5+ tickets, the scenario is too big — escalate to `scope` to split it.
@@ -33,7 +33,7 @@ See `workflow.md`.
 
 **Next skill:** `test` (write mode) — translates the scenario's Given/When/Then into Playwright tests *before* the build agent starts. Then `build` to implement the ticket via TDD.
 
-**Pipeline-eval expects:** an approved scenario at `planning/scenarios/{F-slug}.md` with testable Then-clauses. Tickets are reference-only for the eval writer — the source of truth is the scenario.
+**Pipeline-eval expects:** an approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`) with testable Then-clauses. Tickets are reference-only for the eval writer — the source of truth is the scenario.
 
 **Pipeline-build expects:** a ticket at `development/tickets/T{NNN}-{slug}.md` with Status `Open`, a `Scenario:` reference, and a complete acceptance-criteria checklist.
 

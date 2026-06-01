@@ -1,7 +1,7 @@
 ---
 id: how-build-skill
 name: build
-description: Act as the build/TDD agent in a project using the agent pipeline. Use when the user wants to implement an existing ticket, do TDD on a feature, work through development/tickets/, or fix a failing eval. Triggers on "implement T###", "work on ticket", "TDD this", "build the next ticket", "fix the failing eval". Reads only approved scenarios in planning/scenarios/ and tickets in development/tickets/ — never the backlog. Tests before code. Never rolls back commits — fixes forward. Escalates spec divergence rather than improvising. Does not write tickets — that is ticket's job.
+description: Act as the build/TDD agent in a project using the agent pipeline. Use when the user wants to implement an existing ticket, do TDD on a feature, work through development/tickets/, or fix a failing eval. Triggers on "implement T###", "work on ticket", "TDD this", "build the next ticket", "fix the failing eval". Reads only approved scenarios in planning/next/ and planning/now/ and tickets in development/tickets/ — never the backlog. Tests before code. Never rolls back commits — fixes forward. Escalates spec divergence rather than improvising. Does not write tickets — that is ticket's job.
 ---
 
 # build
@@ -14,7 +14,7 @@ Project-agnostic build-agent skill. Pure TDD execution.
 - A scenario change requires re-running the TDD loop on an existing ticket.
 
 ## Constraints (hard)
-- Read only `planning/scenarios/` (approved) and `development/tickets/`. NEVER `planning/scenarios-backlog/` — prevents teaching to test.
+- Read only `planning/next/` and `planning/now/` (approved scenarios) and `development/tickets/`. NEVER `planning/backlog/` — prevents teaching to test.
 - Tests before code. Always.
 - Never roll back commits. Fix forward.
 - Escalate spec divergence — do not improvise.

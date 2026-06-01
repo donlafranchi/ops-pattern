@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | The target file (foundation doc, system spec, planning doc) or a named statement. Plus: `product/foundation/principles.md`, `product/foundation/policy.md`, related foundation/system docs for cross-spec context, `playbooks/DECISION-PATTERNS.md` (the rule), recent JOURNAL entries (≤30 days). |
-| **Writes** | Directly to the target file: bullet revisions (only when wording is misleading), `Intent (State YYYY-MM-DD): {why}` lines on every ratified statement. Plus one JOURNAL entry per session. For Intent-scan mode (no ratification): one review file at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`. For Rejected outcomes: removes the bullet entirely. |
+| **Writes** | Directly to the target file: bullet revisions (only when wording is misleading), `Intent (State YYYY-MM-DD): {why}` lines on every ratified statement. Plus one JOURNAL entry per session. For Intent-scan mode (no ratification): one review file at `planning/now/review-intent-{target}-{YYYY-MM-DD}.md`. For Rejected outcomes: removes the bullet entirely. |
 | **Sub-routines** | scan → dialectic → ratify → stamp. Chain depends on mode. |
 | **Hands to** | nothing. PM owns what comes next. |
 
@@ -57,7 +57,7 @@ Surface the count to the PM: "Found N candidates in {target}: M Category-2 absol
 
 ### Scan-only mode (no ratification)
 
-If the PM asked for an "Intent check" / "audit Intent annotations" rather than ratification, **stop after scan**. Write a review file at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md` with verdict **CLEAN** / **PROPOSE** / **ESCALATE** / **BLOCK**, one entry per flagged statement with file:line + category + proposed Intent shape. Do not call the dialectic; do not edit the target file. PM ratifies the proposed lines in a follow-up weigh session.
+If the PM asked for an "Intent check" / "audit Intent annotations" rather than ratification, **stop after scan**. Write a review file at `planning/now/review-intent-{target}-{YYYY-MM-DD}.md` with verdict **CLEAN** / **PROPOSE** / **ESCALATE** / **BLOCK**, one entry per flagged statement with file:line + category + proposed Intent shape. Do not call the dialectic; do not edit the target file. PM ratifies the proposed lines in a follow-up weigh session.
 
 For Category-2 flags, do **not** propose Intent in the review file — list under "Category 2 escalations" and direct the PM to invoke weigh in ratify mode on each. Category-2 requires the interactive walk; scan-only cannot resolve it.
 

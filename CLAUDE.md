@@ -15,8 +15,8 @@ status: active
 - **Stack:** Next.js (App Router), TypeScript, Tailwind v4 (`@theme inline` tokens), Supabase (Postgres + Auth + Realtime), Mapbox GL JS, Playwright (evals), Vitest (unit), Vercel.
 - **Repo structure:** Two-repo. Parent `movers-makers-shakers/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
 - **App path:** `./web`
-- **Active bundle:** [`planning/bundles/b1-primitives-plan.md`](planning/bundles/b1-primitives-plan.md) — Primitives MVP.
-- **Active Phase 2 plan:** none ratified; draft in `_inbox/b1-primitives-sequence.md`. Scenarios live in [`planning/scenarios-backlog/`](planning/scenarios-backlog/).
+- **Active bundle:** [`planning/now/bundle-1.md`](planning/now/bundle-1.md) — Primitives MVP. One-page scoreboard: [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md).
+- **Active Phase 2 plan:** none ratified; surface sequence in [`planning/now/plan-b1-surface-sequence.md`](planning/now/plan-b1-surface-sequence.md). Draft scenarios live in [`planning/backlog/`](planning/backlog/).
 - **Phase 3 plan:** not yet drafted.
 - **Decisions home:** [`playbooks/PLATFORM-PATTERNS.md`](playbooks/PLATFORM-PATTERNS.md) (what the platform IS or refuses to be) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) (how we build). Each entry: Decision (one sentence), Intent (short paragraph), Touches (one file). New decisions land directly as pattern-doc entries. The `memo` skill writes a memo only when a prior decision needs to be reversed. Format conventions in [`playbooks/writing-docs.md`](playbooks/writing-docs.md) § Pattern-doc entry.
 
@@ -79,31 +79,44 @@ A separate set of rules from entity naming — these govern *where docs live* an
 | Kind | Pattern | Example | Lives in |
 |---|---|---|---|
 | Active spec / system | `kebab-case.md`, no date | `groups.md` | `product/systems/`, `product/foundation/`, `product/ui/`, etc. |
-| ADR | `ADR-NNNN-{slug}.md` (4-digit, zero-padded) | `ADR-0019-clean-slate-rebuild.md` | `planning/adrs/` |
-| Scenario | `F###-{slug}.md` | `F018-brian-declares-run-club.md` | `planning/scenarios-backlog/` (draft) → `planning/scenarios/` (approved) |
+| Scenario | `scenario-F###-{slug}.md` | `scenario-F018-brian-declares-run-club.md` | `planning/backlog/` (draft) → `planning/next/` (approved, gated for build) → `planning/now/` (in build) → `planning/done/` (closed) |
 | Pattern entry | A section in `playbooks/{PLATFORM,DEVELOPMENT}-PATTERNS.md` (Decision / Intent / Touches) | "Anchor all primary controls to the bottom of the viewport" | `playbooks/` |
 | Reversal memo | `memo-NNNN-{slug}.md` (numbering continues from 0024 — ADR-1 through 0025 retain numbering for git citation stability) | `memo-0024-{slug}.md` | `playbooks/memos/` — only when a prior decision needs to be reversed by user feedback |
-| Review | `F###-review.md` (or `intent-{slug}-{date}.md` for intent-checks) | `F018-review.md` | `planning/reviews/` (active dir) → `planning/archive/YYYY-MM-DD-{slug}/` |
+| Review | `review-F###.md` | `review-F036.md` | alongside its scenario, in the **same lane** (`planning/next/` or `planning/now/`); archives to `planning/done/` with the scenario |
 | Ticket | `T###-{slug}.md` (no zero-padding) | `T056-items-state-enum.md` | `development/tickets/` (open) → `development/tickets/done/` (wraps to `development/tickets/done/vN/` on shipped-version cut per ADR-25) |
-| Bundle plan | `b{N}-{slug}-plan.md` | `b1-primitives-plan.md` | `planning/bundles/` (`status: active`) → `planning/archive/YYYY-MM-DD-{slug}/` (or `planning/archive/vN-{slug}/` if shipped a user-visible version) per ADR-25 |
-| Bundle phase / artifact | `b{N}[.{x}]-{slug}-{kind}.md` — kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`} | `b1.0-foundation-sprint.md`, `b1-primitives-work-map.md`, `b1-primitives-wrapup.md` | `planning/bundles/` (archives with parent bundle to `planning/archive/`) |
-| Initiative (non-bundle work package) | `{slug}/` with `README.md` + optional `strategy.md` + `items/` per [ADR-25](planning/adrs/ADR-0025-local-lifecycle-ownership.md) | `phase-3/` | `planning/initiatives/` (active) → `planning/archive/YYYY-MM-DD-{slug}/` when done |
-| Proposed work item (atomize output) | `{slug}.md` (flat) or `{plan-slug}/NN-{slug}.md` (grouped under parent plan) — frontmatter carries `route: weigh \| scope \| tidy \| ticket \| explore` | `discoverability-default.md`, `b1-primitives-sequence/01-…` | `planning/proposed/` (PM ratifies → moves to one of the four Kanban lanes) |
-| Kanban-staged work item | `{kind}-{slug}.md` (e.g. `audit-orphans.md`, `decision-payment-rail.md`) | `audit-orphans.md` | `planning/now/` (in flight) → `planning/next/` (queued) → `planning/later/` (parked) → `planning/done/` (closed). PM moves files across the four lanes; nothing in a lane carries dated frontmatter — lane membership is the state. |
+| Bundle overview | `bundle-N.md` (one slim overview per bundle) | `bundle-1.md` | `planning/now/` (active) → `planning/done/YYYY-MM-DD-{slug}/` when atomized or shipped |
+| Bundle artifact | `bundle-N-{kind}.md` — kind ∈ {`checklist`, `themes`, `sequence`, `sprint`, `work-map`, `audit`, `wrapup`} | `bundle-1-checklist.md`, `bundle-1-themes.md` | `planning/now/` (archives with parent bundle to `planning/done/`) |
+| Initiative (non-bundle work package) | overview `initiative-{name}.md`; child items `initiative-{name}-{slug}.md` per ADR-25 (local lifecycle ownership) | `initiative-phase-3.md` (overview) + `initiative-phase-3-thesis-page.md` (item) | overview in `planning/now/`; items in `planning/backlog/` → `planning/done/` when done |
+| Kanban-staged work item | `{kind}-{slug}.md` (e.g. `audit-orphans.md`, `decision-payment-rail.md`) | `decision-F018-flagship.md` | `planning/backlog/` (drafts + parked + awaiting approval) → `planning/next/` (approved, gated for build) → `planning/now/` (in flight) → `planning/done/` (closed; dated subdirs `YYYY-MM-DD-{slug}/`). PM moves files across the four lanes; lane membership is the state. `atomize` outputs new stubs into `planning/backlog/`. |
 | Dated work product | `_attic/YYYY-MM-DD-{slug}/` directly | `_attic/2026-MM-DD-some-effort/` | `_attic/` |
 | Retired spec | `{owning-dir}/archive/YYYY-MM-DD-{slug}/` with `retired_from:` in frontmatter for provenance | `product/archive/2026-MM-DD-some-spec/some-spec.md` | `{owning-dir}/archive/` |
-| Shipped-version release doc | `RELEASE.md` at root of `{owning-dir}/archive/vN-{slug}/` + one line per version in `planning/RELEASES.md` | `planning/archive/v1-primitives/RELEASE.md` | `{owning-dir}/archive/` + `planning/` |
+| Shipped-version release doc | `RELEASE.md` at root of `{owning-dir}/archive/vN-{slug}/` (planning's archive is `planning/done/`) + one line per version in `planning/RELEASES.md` | `planning/done/v1-primitives/RELEASE.md` | `{owning-dir}/archive/` (or `planning/done/`) + `planning/` |
 | Untriaged | `_inbox/{name}.{ext}` | `_inbox/some-draft.md` | `_inbox/` |
-| Audit | `pipeline-process-audit-YYYY-MM-DD.md` (named at root during the audit; **on absorption, atomize the findings into `planning/proposed/` and archive the audit to `_attic/YYYY-MM-DD-{slug}/`**) | `pipeline-process-audit-2026-05-22.md` | (transient at root) |
+| Audit | `pipeline-process-audit-YYYY-MM-DD.md` (named at root during the audit; **on absorption, atomize the findings into `planning/backlog/` and archive the audit to `_attic/YYYY-MM-DD-{slug}/`**) | `pipeline-process-audit-2026-05-22.md` | (transient at root) |
 | Playbook (decisions in force + how-to-write canon) | `SCREAMING-KEBAB.md` for pattern docs, `kebab-case.md` for how-to-write | `PLATFORM-PATTERNS.md`, `writing-docs.md` | `playbooks/` (reversal memos live under `playbooks/memos/` — see "Reversal memo" row above) |
 | Skill | `skills/{kebab-name}/SKILL.md` + `workflow.md` | `skills/build/` | `skills/` |
+
+> **Decisions used to be ADRs.** The `ADR-NNNN-{slug}.md` files (formerly in a dedicated `adrs/` directory under `planning/`) were retired on 2026-05-30 — their content migrated into the playbook pattern docs (`playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`). Bare `ADR-N` labels survive in specs as historical shorthand (retained for git citation stability). New decisions land as pattern-doc entries; reversals are reversal memos (see rows above).
+
+### Filename prefix carries kind
+
+Inside the four Kanban lanes (`backlog/` `next/` `now/` `done/`) the **filename prefix** records what a file is — there are no entity-named subdirectories anymore. Lane membership is the *state*; the prefix is the *kind*:
+
+- `scenario-F###-{slug}.md` — a scenario
+- `review-F###.md` — its review (same lane as the scenario)
+- `bundle-N.md` / `bundle-N-{checklist,themes,sequence,…}.md` — bundle overview + artifacts
+- `initiative-{name}.md` / `initiative-{name}-{slug}.md` — initiative overview + child items
+- `decision-{slug}.md` — a decision awaiting `weigh`
+- otherwise a free-form descriptive name (e.g. `mvp-goal.md`)
+
+The one preserved firewall: `build` reads `next/` + `now/` and **cannot** read `backlog/`.
 
 ### Anti-sprawl rules
 
 1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
 2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `tidy` enforces. Bundle files additionally carry the kind suffix in the filename — together with `status`, they replace dir-based state tracking. Pattern + lifecycle in [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Track bundles by filename kind suffix + status frontmatter.
 3. **One doc, one home.** If a new doc would overlap 70%+ with an existing one, fold it in rather than stand it up. `doc-home-finder` recommends.
-4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally. Shipped-version archives prefix the slug with `vN-`: `planning/archive/v1-primitives/`.
+4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally. Shipped-version archives prefix the slug with `vN-`: `planning/done/v1-primitives/`.
 5. **Renames break cites.** Do not rename a live doc casually — `tidy` proposes, PM ratifies, the same skill updates back-references.
 6. **Archives split by kind.** *Retired specs* and *shipped-version release docs* go to directory-local archives — `{owning-dir}/archive/YYYY-MM-DD-{slug}/`; shipped-version cuts wrap each `{owning-dir}/archive/` into `{owning-dir}/archive/vN-{slug}/`, then reset for the next version. *Dated work-products* (atomized inboxes, one-off audits) go to `_attic/YYYY-MM-DD-{slug}/` directly. Provenance lives in frontmatter (`retired_from:` for retired specs; `RETIRED.md` for dated archives). Root `planning/RELEASES.md` cross-indexes shipped versions across directories.
 
@@ -175,7 +188,7 @@ Active until the b1 user-surface set (F030–F037 — sequence draft in `_inbox/
 4. **`engineering:deploy-checklist` MANDATORY** before any merge to main that includes a Phase 1+ ticket (any ticket that touches the new schema).
 5. **`design:accessibility-review` MANDATORY** on any scope that introduces a new page or component.
 6. **`DEVIATIONS.md` entry MANDATORY** at the close of every ticket — even a one-line "no deviations." Empty is no longer the default.
-7. **No backlog reads.** `build` cannot read `planning/scenarios-backlog/`. If a ticket references a scenario that is still in backlog, **stop and move the file first**. The firewall is load-bearing.
+7. **No backlog reads.** `build` cannot read `planning/backlog/`. It reads approved scenarios from `planning/next/` and `planning/now/` only. If a ticket references a scenario that is still in `backlog/`, **stop and move the file (`backlog/` → `next/`) first**. The firewall is load-bearing.
 8. **English-only b1.** i18n deferred to b2 entry criterion.
 9. **`weigh` MANDATORY** before any new entry lands in `playbooks/PLATFORM-PATTERNS.md` or `playbooks/DEVELOPMENT-PATTERNS.md`, and before `scope` ratifies a scenario whose system-spec changes introduced new absolutist statements. Verdict CLEAN proceeds; PROPOSE proceeds with PM landing the lines; BLOCK pauses the pipeline until the load-bearing rationale lands; ESCALATE routes hardest cases to `weigh`'s ratify sub-routine for interactive adjudication.
 10. **Every absolute carries a State tag.** There is no purely-categorical refusal in this project except the one named in `playbooks/DECISION-PATTERNS.md` (wealth circulation over wealth extraction). Every other "Never / won't / doesn't / cannot / refuses / always / must / no X / deliberately no" carries a State-tagged `Intent` line co-located with the bullet. The tag is one of `(Ratified YYYY-MM-DD)` or `(Deferred until {trigger}; review by {horizon})`. Absence of the tag means **unratified de-facto** and blocks downstream pipeline. `weigh` is the single skill that walks the PM through unratified absolutes, runs the member + platform advocate sub-routines on Member-shaped tension, applies the lexicographic close-call rule (**member safety → platform health → member data protection → mutual benefit with reversibility**, per [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md)), and lands the State-tagged Intent line.
@@ -213,7 +226,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/foundation/principles.md`](product/foundation/principles.md) | Anything that risks treating a business as more important than the people doing the work |
 | [`product/systems/agent-assistance.md`](product/systems/agent-assistance.md) | Anything agent-shaped — the umbrella for Delegation / Assistant Context / Skills |
 | [`product/needs/use-cases.md`](product/needs/use-cases.md) | Real situations the platform exists to serve. The working test-case set for any feature. |
-| [`planning/producer-roadmap.md`](planning/producer-roadmap.md) | Producer/seller capabilities organized by business function — Now (Phase 2) / Later / Won't per category. Read by `scope` before writing any producer-facing scenario; the Won't bullets are PM-ratified scope boundaries. Every scenario's `## Capabilities unlocked` section traces here. |
+| [`product/needs/producer-roadmap.md`](product/needs/producer-roadmap.md) | Producer/seller capabilities organized by business function — Now (Phase 2) / Later / Won't per category. Read by `scope` before writing any producer-facing scenario; the Won't bullets are PM-ratified scope boundaries. Every scenario's `## Capabilities unlocked` section traces here. |
 | [`product/foundation/policy.md`](product/foundation/policy.md) | Any surface touching data sharing, monetary flow, or visibility |
 | [`product/systems/item.md`](product/systems/item.md) | Any feature that creates or surfaces a thing-being-declared |
 | [`product/systems/groups.md`](product/systems/groups.md) | Anything Group-shaped — Groups, joining, role-per-kind, member lists, addressable scopes, business-Group operating, partnership/co-owner shape. Any feature that risks auto-assigning Members to a Group. |
@@ -223,9 +236,9 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/systems/producer-tools.md`](product/systems/producer-tools.md) | Two surfaces in one spec — **Bulletin** (Member-authored broadcast to followers; optional kind='business' Group branding; in-app + email delivery; T2/T3 rich composition + scheduling + segmentation) and **Growth** (founder dashboard — followers/activity/profile-health, peer benchmarks, weekly digest, T3 competitive intelligence). Backs the producer recruitment pitch and the platform-promise commitment. |
 | [`product/systems/business-jurisdiction.md`](product/systems/business-jurisdiction.md) | Anything locality-claim-shaped for kind='business' Groups — the three-tier verification ladder (Tier 0 self-attested ZIP → Tier 1 SOS-verified → Tier 2 document-uploaded), `member_business_jurisdictions` substrate, the `public.zip_is_proximal_to_location()` derivation path, the public "Claimed / Verified / Documented local owner" badge. The doxxing-prevention design choice (locality ≠ address) lives here. |
 | [`product/systems/payments.md`](product/systems/payments.md) | Anything money-movement-shaped — Member→Member, Member→Group, Member→external-identified-recipient commerce; closed-loop ledger + ACH via chartered partner at b2; card on-ramp with friction; stablecoin path gated at T3; the wealth-circulation rubric (fees / float / rail-ownership / lock-in) as the selection process; zero platform transaction fees on Member commerce; platform never custodies for itself. The rail that honors the `bounded_purchase` Delegation scope. |
-| [`planning/bundles/b1-primitives-plan.md`](planning/bundles/b1-primitives-plan.md) | What ships in the rebuild MVP and what defers |
-| [`planning/bundles/bundle-themes.md`](planning/bundles/bundle-themes.md) | Sub-bundle sequencer — slices each bundle into 1–2-week sub-themes (`b1.0`–`b1.6`, `b2.0`–`b2.6`, `b3.0`–`b3.5`). Read whenever choosing what ships next. Spans b1/b2/b3. |
-| [`planning/bundles/b1-primitives-work-map.md`](planning/bundles/b1-primitives-work-map.md) | The menu of work per b1 sub-bundle, tagged 🟢 / 🟡 / ⚪ for scope decisions. The planner picks the next F### scenario from this map. |
+| [`planning/now/bundle-1.md`](planning/now/bundle-1.md) | What ships in the rebuild MVP and what defers |
+| [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md) | The MVP scoreboard — glance at this on Monday morning to know what's left. Human terms, one page. |
+| [`planning/now/bundle-1-themes.md`](planning/now/bundle-1-themes.md) | Sub-bundle sequencer — slices each bundle into 1–2-week sub-themes (`b1.0`–`b1.6`, `b2.0`–`b2.6`, `b3.0`–`b3.5`). Read whenever choosing what ships next. Spans b1/b2/b3. |
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
 | [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
 | [`product/foundation/community-health-rubric.md`](product/foundation/community-health-rubric.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |

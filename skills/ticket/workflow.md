@@ -4,21 +4,21 @@
 
 | | |
 |---|---|
-| **Reads** | `planning/scenarios/F{NNN}-{slug}.md` (the approved scenario), `development/tickets/` and `done/` (for next T-number), `product/systems/{name}.md` (Data model implications section only), root `CLAUDE.md` |
+| **Reads** | `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario), `development/tickets/` and `done/` (for next T-number), `product/systems/{name}.md` (Data model implications section only), root `CLAUDE.md` |
 | **Writes** | `development/tickets/T{NNN}-{slug}.md` |
 | **Templates** | `templates/ticket.md` |
-| **Does NOT read** | `planning/scenarios-backlog/`, `web/` (code), eval test files, `product/foundation/` |
+| **Does NOT read** | `planning/backlog/`, `web/` (code), eval test files, `product/foundation/` |
 | **Hands to** | `build` (to implement) — `test` (write mode) runs in parallel from the scenario |
 
 ## Inputs you read
-- `planning/scenarios/F{NNN}-{slug}.md` (the approved scenario you're ticketing)
-- `planning/reviews/F{NNN}-review.md` if it exists — the architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured for `DECISIONS.md`.
+- `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario you're ticketing)
+- `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) if it exists — the architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured as pattern-doc entries in `playbooks/`.
 - `development/tickets/` and `development/tickets/done/` (to assign the next T-number and learn what already exists)
 - The project's root `CLAUDE.md` (for stack/path facts)
 - The relevant `product/systems/{name}.md` — **only** the "Data model implications" section, for forward-looking schema columns to include even if their feature ships later
 
 ## Inputs you do NOT read
-- `planning/scenarios-backlog/` — not approved.
+- `planning/backlog/` — not approved.
 - App code under `web/` (or `{app}/`) — would let you "fix" the spec.
 - `product/foundation/` — the planning agent already filtered against the foundation.
 

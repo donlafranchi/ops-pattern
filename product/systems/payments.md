@@ -471,7 +471,7 @@ Per `policy.md`: default is the protective stance; opt-ins unlock specific capab
 
 ## 17. Decisions encoded here
 
-This spec is the live home for the following architectural decision. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register.
+This spec is the live home for the following architectural decision. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register.
 
 | ADR | Status | What lives here |
 |---|---|---|
@@ -482,7 +482,7 @@ This spec also *consumes* and enforces decisions from other ADRs without owning 
 - **ADR-6** ([`../systems/agent-assistance.md`](../systems/agent-assistance.md)) — Delegations from `agent-assistance.md` are honored at execution.
 - **ADR-7** ([`action-layer.md`](action-layer.md)) — all payment writes flow through named handlers with capability vending.
 - **ADR-9** ([`../foundation/policy.md`](../foundation/policy.md)) — three-filter test, opt-out default.
-- **ADR-17** (cross-cutting in [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md)) — `bounded_purchase` Delegation scope; this spec is the rail that honors it.
+- **ADR-17** (cross-cutting in [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md)) — `bounded_purchase` Delegation scope; this spec is the rail that honors it.
 
 ---
 

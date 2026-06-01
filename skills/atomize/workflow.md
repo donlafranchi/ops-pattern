@@ -4,9 +4,9 @@
 
 | | |
 |---|---|
-| **Reads** | `_inbox/{name}.md` (the plan or parked decision), `_inbox/README.md`, `REGISTRY.md`, root `CLAUDE.md` (file-naming table), `planning/proposed/` (for grouping + slug collision checks) |
-| **Writes** | `planning/proposed/{slug}.md` or `planning/proposed/{plan-slug}/*.md`, `_attic/YYYY-MM-DD-{parent-slug}/`, one `JOURNAL.md` paragraph |
-| **Does NOT read** | `web/`, `development/tickets/`, `planning/scenarios/`, `planning/scenarios-backlog/`, system specs, `playbooks/` |
+| **Reads** | `_inbox/{name}.md` (the plan or parked decision), `_inbox/README.md`, `REGISTRY.md`, root `CLAUDE.md` (file-naming table), `planning/backlog/` (for grouping + slug collision checks) |
+| **Writes** | `planning/backlog/{slug}.md` or `planning/backlog/{plan-slug}/*.md`, `_attic/YYYY-MM-DD-{parent-slug}/`, one `JOURNAL.md` paragraph |
+| **Does NOT read** | `web/`, `development/tickets/`, `planning/next/`, `planning/now/`, system specs, `playbooks/` |
 | **Hands to** | None directly. PM ratifies each stub, moves it to `planning/next/` or `planning/now/`, then invokes the `route:` skill. |
 
 ## Inputs you read
@@ -15,13 +15,13 @@
 - `_inbox/README.md` — for the lifecycle rules and the boundary between "atomize me" docs (plans, parked decisions, work items) and "tidy me" docs (specs, ideas, references).
 - `REGISTRY.md` — to check whether any atom overlaps an existing doc that should be extended rather than newly proposed.
 - Root `CLAUDE.md` — for the file-and-directory naming table. Stubs follow `kebab-case.md` for single atoms and `NN-kebab-case.md` (zero-padded if 10+) for grouped atoms.
-- `planning/proposed/` — to check for slug collisions and to assign the next sequence number if grouping.
+- `planning/backlog/` — to check for slug collisions and to assign the next sequence number if grouping.
 
 ## Inputs you do NOT read
 
 - `web/` code — atomize is upstream of any code.
 - `development/tickets/` — tickets are downstream of `scope` → `ticket`; atomize never produces tickets directly.
-- `planning/scenarios/` and `planning/scenarios-backlog/` — scenarios are `scope`'s output, not atomize's.
+- `planning/next/` and `planning/now/` scenarios and `planning/backlog/` scenario drafts — scenarios are `scope`'s output, not atomize's.
 - System specs (`product/systems/`, `product/foundation/`, `product/needs/`) — atomize is shape-detection, not content; reading specs tempts the skill to start writing content for the downstream skill.
 - `playbooks/` — atomize doesn't ratify decisions, so the patterns and memos aren't its input.
 
@@ -42,11 +42,11 @@
    - **Risk** — low / medium / high + one line of why. Mechanical moves are low; multi-spec migrations are medium; absolute-encoding decisions are high.
    - **`route:` field** — pick from the routing table in `SKILL.md`. Upstream-bias when in doubt (decisions before execution).
 5. **Decide flat vs. grouped.**
-   - **Flat** (`planning/proposed/{slug}.md`) — one atom from a single parked decision or single-feature draft.
-   - **Grouped** (`planning/proposed/{plan-slug}/`) — 2+ atoms from a multi-item plan. The dir takes the parent plan's slug.
+   - **Flat** (`planning/backlog/{slug}.md`) — one atom from a single parked decision or single-feature draft.
+   - **Grouped** (`planning/backlog/{plan-slug}/`) — 2+ atoms from a multi-item plan. The dir takes the parent plan's slug.
 6. **Write the stubs.** One file per atom. Frontmatter complete. No placeholder text.
-7. **Write the index README (grouped only).** At `planning/proposed/{plan-slug}/README.md`. Carry: source-plan pointer, table of atoms with `route:` column and risk column, batching/sequence hints if the parent plan had them, an "Open" section for any atoms whose route was ambiguous.
-8. **Archive the parent plan.** Move `_inbox/{name}.md` to `_attic/YYYY-MM-DD-{parent-slug}/{original-filename}`. Add a one-line `RETIRED.md` in that archive dir with a pointer to `planning/proposed/{plan-slug}/` (or to the flat stub).
+7. **Write the index README (grouped only).** At `planning/backlog/{plan-slug}/README.md`. Carry: source-plan pointer, table of atoms with `route:` column and risk column, batching/sequence hints if the parent plan had them, an "Open" section for any atoms whose route was ambiguous.
+8. **Archive the parent plan.** Move `_inbox/{name}.md` to `_attic/YYYY-MM-DD-{parent-slug}/{original-filename}`. Add a one-line `RETIRED.md` in that archive dir with a pointer to `planning/backlog/{plan-slug}/` (or to the flat stub).
 9. **JOURNAL entry.** One block at the top of `JOURNAL.md` (reverse-chron) in hybrid form — **plain-English headline + context + pointer**. Template:
 
    ```
@@ -54,11 +54,11 @@
 
    Route distribution: weigh×W, scope×S, tidy×T, ticket×K, explore×E. {One sentence on what this unblocks downstream, if non-obvious.}
 
-   → `planning/proposed/{plan-slug}/` (stubs); `_attic/YYYY-MM-DD-{parent-slug}/` (source).
+   → `planning/backlog/{plan-slug}/` (stubs); `_attic/YYYY-MM-DD-{parent-slug}/` (source).
    ```
 
    Headline-test it: a returning reader should know from the headline what was decomposed, without project jargon.
-10. **Hand off.** Print the list of stubs created and their routes. Tell PM the next move: ratify each stub (in whatever order), move from `proposed/` to `next/` or `now/`, then invoke the `route:` skill.
+10. **Hand off.** Print the list of stubs created and their routes. Tell PM the next move: ratify each stub (in whatever order), move from `backlog/` to `next/` or `now/`, then invoke the `route:` skill.
 
 ## Shape-detection heuristics
 
@@ -80,7 +80,7 @@ Re-stated from `SKILL.md` § Routing rules. Order tightens to "what does this at
 4. Is it a mechanical doc move, rename, or directory reorg with the destination already decided? → `tidy`.
 5. Is it a substrate-only code change (schema, RLS, action-handler) with a system spec already in place? → `ticket`.
 
-If two rules fire, take the lower number. Decisions before execution. PM can re-route in `proposed/` if the call was wrong.
+If two rules fire, take the lower number. Decisions before execution. PM can re-route in `backlog/` if the call was wrong.
 
 ## Sizing — when to split an atom
 
@@ -96,8 +96,8 @@ If a stub would need 3+ downstream invocations of different skills, it's still a
 - **Writing content for the downstream skill.** Atomize names the route and writes a stub. It does not write the scenario, the memo, the ticket, or the spec. The downstream skill does that work with its own discipline.
 - **Inferring routes the parent plan didn't justify.** If the parent plan didn't argue for a specific decision, the stub doesn't either. The stub captures the *question* for `weigh`; `weigh` produces the *answer*.
 - **Skipping the archive.** If the parent plan stays in `_inbox/`, the next session will re-atomize the same doc. Archive on first pass.
-- **Producing stubs without a route.** Every stub needs a `route:` field. If you can't pick one, the atom doesn't belong in `proposed/` — it belongs in the parent plan's "Open" section.
-- **Atomizing a plan that's already been atomized.** Check `planning/proposed/` for an existing dir matching the parent plan slug. If found, stop and tell PM.
+- **Producing stubs without a route.** Every stub needs a `route:` field. If you can't pick one, the atom doesn't belong in `backlog/` — it belongs in the parent plan's "Open" section.
+- **Atomizing a plan that's already been atomized.** Check `planning/backlog/` for an existing dir matching the parent plan slug. If found, stop and tell PM.
 
 ## Escalation
 
@@ -105,14 +105,14 @@ If a stub would need 3+ downstream invocations of different skills, it's still a
 |---|---|
 | File in `_inbox/` is a system spec or raw brainstorm | Stop. Tell PM this is `tidy:triage-inbox`, not atomize. |
 | Multi-item plan has items that don't fit any `route:` | Produce stubs for the routable items; surface the rest in the index README's "Open" section. |
-| Parent plan slug collides with an existing dir in `planning/proposed/` | Stop. PM decides: merge or rename. |
+| Parent plan slug collides with an existing dir in `planning/backlog/` | Stop. PM decides: merge or rename. |
 | Atom looks like both a scenario and a substrate ticket | Take the upstream route (`scope`). Substrate is for floor under surfaces, not a backdoor around scoping. |
 | Two stubs would be near-duplicates | Fold into one before writing. One doc, one home. |
 
 ## Hand off
 
 **You produced:**
-- One or more stubs in `planning/proposed/` (flat or grouped).
+- One or more stubs in `planning/backlog/` (flat or grouped).
 - An index README (grouped only).
 - The parent plan archived to `_attic/YYYY-MM-DD-{parent-slug}/`.
 - A JOURNAL.md paragraph.
@@ -122,7 +122,7 @@ If a stub would need 3+ downstream invocations of different skills, it's still a
 **Commit choreography (Claude Code).** Atomize runs in Claude Code; it commits its own work. After writing the stubs, archiving the parent, and updating JOURNAL, ask the PM:
 
 > *Ready to commit atomization of `{parent-plan}` on branch `main`?*
-> *Message: `docs(pipeline): atomize {parent-plan-slug} into N proposed stubs`*
+> *Message: `docs(pipeline): atomize {parent-plan-slug} into N backlog stubs`*
 > *(y/n)*
 
 On y, run the commit (parent repo only; never cross-commit). On n, PM amends or defers.

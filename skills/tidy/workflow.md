@@ -45,9 +45,9 @@ One doc per invocation. Batching tempts shallow analysis. Five docs in `_inbox/`
    | UI / surface reference | `product/ui/` |
    | Need / persona / use case | `product/needs/` |
    | Exploration / sketch | `product/exploration/` |
-   | Scenario draft | `planning/scenarios-backlog/` |
+   | Scenario draft | `planning/backlog/` |
    | ADR proposal | route to `memo`, not this skill |
-   | Bundle / sub-bundle | `planning/bundles/` |
+   | Bundle / sub-bundle | `planning/now/` (active) — closed bundles move to `planning/done/` |
    | Ticket | `development/tickets/` |
    | Standard / cross-cutting quality | `standards/` |
    | Dated work-product | `_attic/YYYY-MM-DD-{slug}/` directly |
@@ -110,13 +110,12 @@ Walk in order. Report per category.
 
 **3. REGISTRY drift.** Every doc that should be in REGISTRY has a row; every row points at an existing file; every row's `purpose` matches frontmatter.
 
-**4. Naming consistency.** Check active specs `kebab-case.md`; dated work products `_attic/YYYY-MM-DD-{slug}/`; tickets `T###-{slug}.md`; reviews `F###-review.md`. Propose renames — don't auto-rename.
+**4. Naming consistency.** Check active specs `kebab-case.md`; dated work products `_attic/YYYY-MM-DD-{slug}/`; tickets `T###-{slug}.md`; scenarios `scenario-F###-{slug}.md`; reviews `review-F###.md` (filed in the same lane as their scenario). Propose renames — don't auto-rename.
 
-**4a. Bundle filename + status convention.** Walk `planning/bundles/`:
-- Every file matches `b{N}-{slug}-plan.md` (bundle plan), `b{N}[.{x}]-{slug}-{kind}.md` with kind ∈ {`sprint`, `work-map`, `audit`, `rebuild`, `wrapup`}, or is a cross-bundle sequencer (no `b{N}` prefix — currently only `bundle-themes.md`).
-- Every file carries `status:` in frontmatter ∈ {`active`, `done`, `deferred`}.
-- `planning/bundles/done/` must not exist. State lives in `status:`, not in directory placement. If present → propose `rmdir` (after confirming empty; if non-empty, move contents up + set their `status: done` first).
-- Every file with `status: done` either lives at `planning/bundles/{file}.md` (still cited by active work) OR has been archived to `_attic/YYYY-MM-DD-vN-{slug}/` with a row in `planning/RELEASES.md`. Surface drift in either direction.
+**4a. Bundle filename + lane convention.** Walk the kanban lanes for bundle files:
+- The active bundle plan lives in `planning/now/` as `bundle-{N}.md`, with artifacts `bundle-{N}-themes.md` and `bundle-{N}-checklist.md` alongside it.
+- Only one active bundle plan belongs in `planning/now/`. A closed bundle and its artifacts move to `planning/done/`. Surface drift in either direction.
+- Every shipped user-visible version still has a one-line row in `planning/RELEASES.md`.
 - Every shipped user-visible version has a one-line row in `planning/RELEASES.md` pointing at its `{owning-dir}/archive/vN-{slug}/RELEASE.md` per ADR-25 (pre-2026-05-28 versions cite `_attic/YYYY-MM-DD-vN-{slug}/RELEASE.md` and are grandfathered). Surface missing rows.
 
 **5. Closed kanban items.** Walk `planning/done/`. Items older than ~60 days with no follow-up references → propose archive to `_attic/YYYY-MM-DD-kanban-done/` (preserves the trail without growing `done/` indefinitely). Don't auto-move.

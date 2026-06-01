@@ -1,6 +1,6 @@
 # T{NNN}: {Ticket Title}
 
-**Scenario:** `planning/scenarios/{F-slug}.md`
+**Scenario:** `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`)
 **Status:** Open / In Progress / Complete
 **Bundle:** b1 / b2 / b3
 **Depends on:** T{NNN} (omit if none)
@@ -30,7 +30,7 @@ If any of the three Serves lines cannot be filled in, escalate to `scope` before
 
 ## Notes
 
-{Implementation guidance: where code lives, what to reuse, what patterns to follow, relevant ADRs from `planning/DECISIONS.md`. Practical, not tutorial.}
+{Implementation guidance: where code lives, what to reuse, what patterns to follow, relevant decisions from `playbooks/PLATFORM-PATTERNS.md` / `playbooks/DEVELOPMENT-PATTERNS.md`. Practical, not tutorial.}
 
 ## Completion
 

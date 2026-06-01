@@ -4,10 +4,10 @@
 
 | | |
 |---|---|
-| **Reads** | `planning/scenarios/F{NNN}-{slug}.md` (approved), `product/systems/`, `product/ui/`, `product/foundation/`, `planning/DECISIONS.md`, `planning/bundles/{active}.md` |
-| **Writes** | `planning/reviews/F{NNN}-review.md` |
+| **Reads** | `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (approved), `product/systems/`, `product/ui/`, `product/foundation/`, `playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`, `planning/now/bundle-{N}.md` (active bundle) |
+| **Writes** | `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) |
 | **Templates** | `templates/review.md` |
-| **Does NOT read** | `web/` (code), `development/tickets/`, `planning/scenarios-backlog/` |
+| **Does NOT read** | `web/` (code), `development/tickets/`, `planning/backlog/` |
 | **Hands to** | `ticket` on PROCEED, `scope` on REVISE, `explore` on EXTEND |
 
 ## When to invoke
@@ -39,7 +39,7 @@ For each system the scenario touches:
 6. **Shell-entity check.** Does any column, relationship, or user-facing label introduce an entity that owns Items without being a Person or a Community? Vocabulary to flag: "vendor," "business," "merchant," "establishment," "operator." If any column reads as `*_id` pointing to a non-Person/Community entity holding Items, flag EXTEND. People-first compliance is structural, not aspirational.
 7. **Policy posture present.** If the scenario touches data sharing, monetary flow, agent permissions, or visibility (Member→Member, Member→third-party, Member→platform), the relevant `product/systems/{name}.md` MUST have a "Policy posture" section with the three-filter analysis written out per ADR-9. If absent, verdict is EXTEND — back to `explore` to write it before tickets open. Default-on data sharing or unanalyzed opt-ins are auto-EXTEND.
 
-Reference: `product/systems/`, `product/foundation/primitives.md`, `product/foundation/principles.md`, `product/needs/member-journey.md`, `product/foundation/policy.md`, `planning/DECISIONS.md`.
+Reference: `product/systems/`, `product/foundation/primitives.md`, `product/foundation/principles.md`, `product/needs/member-journey.md`, `product/foundation/policy.md`, `playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`.
 
 ### Design check
 
@@ -59,7 +59,7 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R9** — closes the H5 gap (cr
 
 **Trigger.** Run this check whenever the scenario under review is **the 2nd-or-later sibling** in the same loop family (per `product/needs/member-journey.md`) approved within the current bundle phase, OR introduces a composer / list row / detail surface that has a structurally analogous counterpart in another approved scenario.
 
-**Reads.** Every other scenario in `planning/scenarios/` plus any other `planning/reviews/F{NNN}-review.md` from this phase.
+**Reads.** Every other approved scenario in `planning/next/` and `planning/now/` plus any other `review-F{NNN}.md` in those lanes from this phase.
 
 **What to check.**
 
@@ -74,13 +74,13 @@ If no sibling exists yet, write one line: "First in family — no sibling check 
 
 ## Workflow
 
-1. Read the approved scenario at `planning/scenarios/F{NNN}-{slug}.md`.
+1. Read the approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`).
 2. Read every system the scenario references.
 3. Read `product/ui/design-language.md`.
 4. Run the architecture check; capture findings in the review template.
 5. Run the design check; capture findings in the review template.
 6. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
-7. Save to `planning/reviews/F{NNN}-review.md`.
+7. Save to `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`).
 8. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
 9. **STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Reviewed column: `{VERDICT} YYYY-MM-DD`. A second review appends, does not overwrite, so two-cycle reviews like F018 are visible.
 

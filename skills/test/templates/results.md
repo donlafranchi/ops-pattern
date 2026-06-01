@@ -5,7 +5,7 @@ Place at: `{app}/evals/results/F{NNN}-{YYYY-MM-DD}.md`
 ```markdown
 # F{NNN} eval results — {YYYY-MM-DD}
 
-**Scenario:** [`planning/scenarios/F{NNN}-{slug}.md`](../../planning/scenarios/F{NNN}-{slug}.md)
+**Scenario:** `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario in its lane — `next/` or `now/`)
 **Spec:** [`{app}/evals/features/F{NNN}-{slug}.spec.ts`](../features/F{NNN}-{slug}.spec.ts)
 **Run by:** test (run mode)
 **Build commit:** {git hash from latest BUILD-LOG.md entry}

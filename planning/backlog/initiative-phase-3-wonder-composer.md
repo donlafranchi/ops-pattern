@@ -31,7 +31,7 @@ The archived rebuild-plan committed to shipping Wonder at b1. The current `use-c
 
 - O4 design pass (deferred): signaling mechanic (how is "I'd be in" surfaced beyond a count?), threshold logic (what number tips a Wonder into action?), tipping-point conversion (Wonder → Gathering / Initiative).
 - `item_wonders` child table (substrate exists per Phase 1: `interest_count`, `expires_at`, `conversion_target_kind`, `converted_to_item_id`).
-- Conversion stub (separate stub — see [`wonder-conversion.md`](wonder-conversion.md)).
+- Conversion stub (separate stub — see [`wonder-conversion.md`](initiative-phase-3-wonder-conversion.md)).
 
 ## Advance this by
 
@@ -39,7 +39,7 @@ The archived rebuild-plan committed to shipping Wonder at b1. The current `use-c
 2. If Phase 3: walk the O4 deferral statement and answer the three open questions (signaling, threshold, tipping-point).
 3. Decide: does Wonder need a "Wonder period" (e.g., visible for 30 days then auto-archives if no traction)?
 4. Design the response affordance — "I'd be in" is the minimum; do we need richer signals ("I'd host this," "I could help organize," "Maybe / depends")?
-5. Promote to `planning/scenarios-backlog/F###-wonder-composer.md` once design questions resolve.
+5. Promote to `planning/backlog/scenario-F###-wonder-composer.md` once design questions resolve.
 
 ## Out of scope for this stub
 

@@ -230,7 +230,7 @@ Finally: no Business entity. A Person's Items belong to that Person. A cooperati
 
 ## Decisions encoded here
 
-This spec is the live home for the following architectural decision. See [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) for the cross-cutting register.
+This spec is the live home for the following architectural decision. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register.
 
 | ADR | Status | What lives here |
 |---|---|---|

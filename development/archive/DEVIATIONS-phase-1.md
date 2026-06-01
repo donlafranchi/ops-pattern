@@ -308,7 +308,7 @@ The conformance script accepts the annotation on the call's source line OR on an
 
 **Impact:** `/admin`, `/admin/markets`, `/admin/markets/new`, `/admin/markets/[id]`, `/admin/vendors`, `/admin/vendors/[slug]` all 404 going forward. No surviving code references the deleted modules. The pre-rebuild admin panel is gone; the rebuild's admin surfaces (whenever scoped) will be greenfield.
 
-**Escalation:** None — fix-forward extends the ticket's "delete orphans too" directive consistently. The rebuild-phase rule that build agent cannot read `planning/scenarios-backlog/` is still honored — the admin/ surface deletion is plain rebuild-plan execution, not new design.
+**Escalation:** None — fix-forward extends the ticket's "delete orphans too" directive consistently. The rebuild-phase rule that build agent cannot read `planning/backlog/` is still honored — the admin/ surface deletion is plain rebuild-plan execution, not new design.
 
 **Resolution:** `src/app/admin/` deleted (8 files); `src/lib/admin.ts` deleted (1 file). Total zombie sweep: 9 API routes + 1 lib + 8 admin pages = 18 files removed. Documented in the Zombies-deleted section of this T051 report.
 

@@ -104,7 +104,7 @@ Implicit (not user-facing fields, but the schema sets them): `items.kind = 'gath
 - Drake's exists in `locations` (geocoded, slugged).
 - Brian is an authenticated Member.
 - Hashtag autocomplete pulls from existing `item_hashtags` rows.
-- The locality-first index (`discoverable_items` materialized view) is in place — see [`b1-primitives-plan.md`](../bundles/b1-primitives-plan.md).
+- The locality-first index (`discoverable_items` materialized view) is in place — see [`bundle-1.md`](../now/bundle-1.md).
 - "Host something here" CTA on venue pages is a separate ticket; this scenario depends on it.
 
 ## Out of Scope

@@ -7,7 +7,7 @@ status: draft
 
 # Cooperative Engine Explorations
 
-> Five high-level sketches of what the platform's cooperative-formation engine could look like. Each one is practical-to-begin and ambitious-for-the-goal — near-term shipping in months, far-term outcome in years. Drafts only. PM ratifies into `planning/initiatives/` or `planning/proposed/` as the work matures.
+> Five high-level sketches of what the platform's cooperative-formation engine could look like. Each one is practical-to-begin and ambitious-for-the-goal — near-term shipping in months, far-term outcome in years. Drafts only. PM ratifies into `planning/backlog/` as the work matures.
 
 ---
 

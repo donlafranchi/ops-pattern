@@ -7,7 +7,7 @@ status: active
 
 # MVP Goal — b1 Primitives
 
-> North-star doc. The scoping detail lives in [`../bundles/b1-primitives-plan.md`](../bundles/b1-primitives-plan.md); the build order lives in [`plan-b1-surface-sequence.md`](plan-b1-surface-sequence.md). This file is the one-page answer to "what are we shipping and how do we know we're done."
+> North-star doc. The scoping detail lives in [`bundle-1.md`](bundle-1.md); the build order lives in [`plan-b1-surface-sequence.md`](plan-b1-surface-sequence.md). This file is the one-page answer to "what are we shipping and how do we know we're done."
 
 ## What the MVP is
 

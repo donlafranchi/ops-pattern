@@ -16,5 +16,5 @@ _No user-visible versions shipped yet. First row lands when b1 (Primitives MVP) 
 <!--
 Template for the first entry:
 
-- **v1 — primitives** (shipped 2026-MM-DD) — Person / Item / Location / Group primitives, place-scoped routing, Member↔Geography substrate. [archive](../planning/archive/v1-primitives/RELEASE.md)
+- **v1 — primitives** (shipped 2026-MM-DD) — Person / Item / Location / Group primitives, place-scoped routing, Member↔Geography substrate. [archive](done/v1-primitives/RELEASE.md)
 -->

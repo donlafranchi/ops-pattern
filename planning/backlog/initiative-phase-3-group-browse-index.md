@@ -14,7 +14,7 @@ A public index at `/g` listing Groups, filterable by anchor Location, kind, foll
 ## Where it came from
 
 - Archived [`_attic/2026-05-28-rebuild-plan/rebuild-plan.md`](../../_attic/2026-05-28-rebuild-plan/rebuild-plan.md) Phase 3 — *"`/g` — Group browse index. Filterable by anchor Location, kind, follow-graph, size."*
-- [`phase-2-scenario-strategy.md`](../phase-2-scenario-strategy.md) line 36 — *"Out of scope (Phase 3): `/g` browse index + `/g/new` Group create flow (non-business)"*.
+- [`phase-2-scenario-strategy.md`](../done/2026-05-30-phase-2-historical/phase-2-scenario-strategy.md) line 36 — *"Out of scope (Phase 3): `/g` browse index + `/g/new` Group create flow (non-business)"*.
 
 ## Rough shape
 
@@ -36,7 +36,7 @@ A public index at `/g` listing Groups, filterable by anchor Location, kind, foll
 2. Decide whether anonymous viewers see all Groups or only listed kind='business' (a stricter anti-Nextdoor stance) — design call.
 3. Decide the default sort: alphabetical, newest, most-active, or locality-distance.
 4. Folds together with Phase 3 `/g/new` group-create-flow? — possibly; they're the two halves of "Group lifecycle" but can ship independently.
-5. Promote to `planning/scenarios-backlog/F###-group-browse-index.md` via `scope`.
+5. Promote to `planning/backlog/scenario-F###-group-browse-index.md` via `scope`.
 
 ## Out of scope for this stub
 

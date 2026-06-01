@@ -21,7 +21,7 @@ The argument for elevating this from "good architecture" to "first-class archite
 
 The action layer is also the substrate that makes agent assistance safe. Member-facing primitives like Delegation describe what the Member has authorized; the action layer is what *honors* that authorization at runtime. The Member sees: "I allowed my assistant to draft Wonders." The action layer turns that into: vend a per-turn capability bound to `draft_wonder`, inject it at the egress edge, evaluate the scope at handler entry, gate `confirm_publish_item` behind a Member tap, write the row + event in one transaction with the Delegation id stamped on the event. The Member never sees this machinery; that's the point.
 
-This document supersedes the prior inline ADR-7 treatment in `planning/DECISIONS.md`. ADR-7's full ratification lives here.
+This document supersedes the prior inline ADR-7 treatment in `playbooks/DEVELOPMENT-PATTERNS.md`. ADR-7's full ratification lives here.
 
 ## The runtime trust substrate
 
@@ -169,7 +169,7 @@ The three-filter test (per `policy.md` / ADR-9) applies to every new scope added
 
 ## Decisions encoded here
 
-This spec is the live home for **ADR-7 (Action layer is a first-class architectural commitment)**. The full ratification text — previously inline in `planning/DECISIONS.md` — moved here on graduation. The cross-cutting pointer in `planning/DECISIONS.md` references this spec.
+This spec is the live home for **ADR-7 (Action layer is a first-class architectural commitment)**. The full ratification text — previously inline in `playbooks/DEVELOPMENT-PATTERNS.md` — moved here on graduation. The cross-cutting pointer in `playbooks/DEVELOPMENT-PATTERNS.md` references this spec.
 
 | ADR | Status | What lives here |
 |---|---|---|

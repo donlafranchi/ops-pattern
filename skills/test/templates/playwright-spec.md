@@ -8,7 +8,7 @@ The structure mirrors the scenario's BDD beats one-to-one — every `### Story b
 import { test, expect } from "@playwright/test";
 
 // F{NNN}: {Persona} {does the thing}
-// Source: planning/scenarios/F{NNN}-{slug}.md
+// Source: planning/now/scenario-F{NNN}-{slug}.md (approved scenario in its lane — next/ or now/)
 //
 // One test per Given/When/Then beat. The eval writer never reads code
 // under {app}/ — these tests are written from the scenario alone.

@@ -1,8 +1,8 @@
 # F{NNN}: {Persona} {does the thing}
 
 **Bundle:** b1 / b2 / b3
-**Sub-bundle:** b{N}.{M} (e.g. `b1.3`) — must match a sub-bundle in `planning/bundles/bundle-themes.md`. Scenarios outside the active sub-bundle stay in `scenarios-backlog/`.
-**Work-map item:** {The 🟢 / 🟡 line from `b{N}-work-map.md` this scenario realizes — e.g. "b1.3 → 🟢 Gathering composer"}
+**Sub-bundle:** b{N}.{M} (e.g. `b1.3`) — must match a sub-bundle in `planning/now/bundle-{N}-themes.md`. Scenarios outside the active sub-bundle stay in `planning/backlog/`.
+**Work-map item:** {The 🟢 / 🟡 line from `planning/now/bundle-{N}-checklist.md` this scenario realizes — e.g. "b1.3 → 🟢 Gathering composer"}
 **Loops:** {Loop number(s) from product/needs/member-journey.md}
 **Canonical example:** {name + link to product/needs/use-cases.md#section}
 **Primitive shape:** {Person → Item(kind=…) → Location(…), per product/foundation/primitives.md}
@@ -67,7 +67,7 @@ Implicit (set by the surface, not asked of the user): {`items.kind = …`, `item
 
 ## Capabilities unlocked
 
-> Required. List the producer (or member) capabilities this scenario realizes, by category from [`planning/producer-roadmap.md`](../../../planning/producer-roadmap.md). Each line names the taxonomy category and the specific "Now (Phase 2)" bullet(s) it satisfies. If the scenario realizes a capability that does not yet appear in the taxonomy, add it there first — don't invent a category here.
+> Required. List the producer (or member) capabilities this scenario realizes, by category from `product/needs/producer-roadmap.md`. Each line names the taxonomy category and the specific "Now (Phase 2)" bullet(s) it satisfies. If the scenario realizes a capability that does not yet appear in the taxonomy, add it there first — don't invent a category here.
 >
 > If the scenario would realize a "Won't" capability, stop. The scenario is mis-scoped; route back to `explore` or `scope`. The taxonomy's "Won't" bullets are PM-ratified boundaries.
 

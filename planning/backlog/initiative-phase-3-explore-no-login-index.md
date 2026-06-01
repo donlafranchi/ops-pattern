@@ -37,7 +37,7 @@ A public, browseable surface at `/explore` that does not require authentication.
 2. Confirm `discoverable_items` RLS allows anon reads with the expected predicates.
 3. Design pass on the filter affordances + scope picker placement (mobile-first, anti-Nextdoor).
 4. Decide whether the anonymous path nudges or blocks at any point (default: never blocks).
-5. Promote to `planning/scenarios-backlog/F###-explore-no-login.md` via `scope` when the design call is made.
+5. Promote to `planning/backlog/scenario-F###-explore-no-login.md` via `scope` when the design call is made.
 
 ## Out of scope for this stub
 

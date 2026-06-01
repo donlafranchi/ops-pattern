@@ -1,7 +1,7 @@
 ---
 id: how-weigh-skill
 name: weigh
-description: Tech-lead judgment-call skill. Forces one question — "which option stays reversible, and who bears the cost" — on every close call, every unratified absolute, and every Intent-shaped gap. Folds four prior skills (intent-check, ratify-absolute, member-advocate, platform-advocate) into one walk. Use when the user says "weigh this", "is this a close call", "ratify the absolutes in {file}", "audit Intent annotations", "what's the Member view", "what's the platform view", "run the dialectic on F###", "decide or defer on X", or when scope/ticket gates surface unratified absolutes. Applies the lexicographic close-call rule from DECISION-PATTERNS.md (member safety → platform health → data protection → mutual benefit with reversibility). Refuses to batch-process; refuses to land an absolute without per-statement PM ratification; refuses Defer without an observable trigger. Reads the target file, principles.md, policy.md, related foundation/system docs. Writes State-tagged `Intent` lines directly to the source file on PM ratification, plus a JOURNAL entry per session; for Intent-scan mode, writes a one-shot review file under `planning/reviews/`.
+description: Tech-lead judgment-call skill. Forces one question — "which option stays reversible, and who bears the cost" — on every close call, every unratified absolute, and every Intent-shaped gap. Folds four prior skills (intent-check, ratify-absolute, member-advocate, platform-advocate) into one walk. Use when the user says "weigh this", "is this a close call", "ratify the absolutes in {file}", "audit Intent annotations", "what's the Member view", "what's the platform view", "run the dialectic on F###", "decide or defer on X", or when scope/ticket gates surface unratified absolutes. Applies the lexicographic close-call rule from DECISION-PATTERNS.md (member safety → platform health → data protection → mutual benefit with reversibility). Refuses to batch-process; refuses to land an absolute without per-statement PM ratification; refuses Defer without an observable trigger. Reads the target file, principles.md, policy.md, related foundation/system docs. Writes State-tagged `Intent` lines directly to the source file on PM ratification, plus a JOURNAL entry per session; for Intent-scan mode, writes a one-shot review file under `planning/now/`.
 ---
 
 # weigh
@@ -60,6 +60,6 @@ See [`workflow.md`](workflow.md) for the sub-routine sequencing.
 
 ## Hand off
 
-**You produced:** State-tagged `Intent` line(s) landed in the source file(s) on each ratified statement; absolutes removed for Rejected; JOURNAL entry summarizing what was ratified / deferred / revised / rejected with `file:line` pointers. For Intent-scan mode without ratification: a review file at `planning/reviews/intent-{target}-{YYYY-MM-DD}.md`.
+**You produced:** State-tagged `Intent` line(s) landed in the source file(s) on each ratified statement; absolutes removed for Rejected; JOURNAL entry summarizing what was ratified / deferred / revised / rejected with `file:line` pointers. For Intent-scan mode without ratification: a review file at `planning/now/review-intent-{target}-{YYYY-MM-DD}.md`.
 
 **Next skill:** none. PM owns what comes next. Common follow-ups: re-run weigh on the same file to confirm; `scope` or `ticket` re-runs the gate it previously failed.

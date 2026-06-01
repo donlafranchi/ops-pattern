@@ -16,7 +16,7 @@ The b2 surface on top of the `member_saved_searches` substrate. F033 + F042 writ
 - ADR-21 ratified the `member_saved_searches` substrate at b1; *"saved-search UI composer + fan-out worker — b2 surface, deferred."*
 - [`use-cases.md` C2](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — MVP substrate; surface deferred to b2.
 - [`use-cases.md` O3](../../product/needs/use-cases.md#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed) — Concerts-in-the-Park surface; *"a member who wants a narrower filter ('anything at Drake's') creates a `member_saved_searches` row via a 'Follow this venue' CTA (b2 surface)."* The CTA writes default-labeled at b1; the composer is the b2 surface.
-- [`phase-2-scenario-strategy.md`](../phase-2-scenario-strategy.md) line 41 — *"Saved-search composer + fan-out worker (substrate only at b1)."*
+- [`phase-2-scenario-strategy.md`](../done/2026-05-30-phase-2-historical/phase-2-scenario-strategy.md) line 41 — *"Saved-search composer + fan-out worker (substrate only at b1)."*
 
 ## Rough shape
 
@@ -39,7 +39,7 @@ The b2 surface on top of the `member_saved_searches` substrate. F033 + F042 writ
 2. Decide whether saved-search digest is a separate surface or folds into the awareness feed.
 3. Specify the fan-out worker — sync vs. async, batching, retry semantics.
 4. Decide whether anonymous saved-search (a saved-filter URL that any Member can subscribe to) is in scope — likely no (saved searches are private per ADR-21).
-5. Promote to `planning/scenarios-backlog/F###-saved-search-composer.md` via `scope`.
+5. Promote to `planning/backlog/scenario-F###-saved-search-composer.md` via `scope`.
 
 ## Out of scope for this stub
 

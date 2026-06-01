@@ -12,7 +12,7 @@ Paste this into any Claude conversation that's exploring an idea for **movers-ma
 ## How the pipeline consumes this
 
 ```
-Idea conversation → exploration / capabilities / systems → scenarios-backlog → scenarios → tickets → code
+Idea conversation → exploration / capabilities / systems → backlog → next → tickets → code
                     (this template fills these)            (PM-driven)         (Ticket Writer agent)
 ```
 
@@ -156,9 +156,9 @@ The most important artifact. Captures T1/T2/T3 evolution and forward-looking dat
 
 ## Template 4 — Scenario (Given/When/Then)
 
-File: `planning/scenarios-backlog/F{NNN}-{slug}.md`
+File: `planning/backlog/scenario-F{NNN}-{slug}.md`
 
-Only write scenarios once the relevant system + capability exist. Scenarios live in `scenarios-backlog/` until the PM approves them into `scenarios/`.
+Only write scenarios once the relevant system + capability exist. Scenarios live in `planning/backlog/` until the PM approves them into `planning/next/`.
 
 ```markdown
 # Scenario: {Feature} — {Specific behavior}
@@ -217,6 +217,6 @@ When the upstream chat is done, the user should be able to copy each generated a
 | Exploration | `product/exploration/` |
 | Capability | `product/capabilities/` |
 | System | `product/systems/` |
-| Scenario (draft) | `planning/scenarios-backlog/` |
+| Scenario (draft) | `planning/backlog/` |
 
 Then add a `JOURNAL.md` entry at the project root noting what came in and from where.

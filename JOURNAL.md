@@ -10,7 +10,7 @@ One block per session, newest at top. Each entry leads with a **one-sentence pla
 
 Headline test: a reader returning after three weeks should know from the headline alone whether to open the pointer or skip past. If the headline only makes sense to someone with full project context loaded, rewrite it.
 
-Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30 entries archived at [`planning/archive/2026-05-30-journal-pre-cleanup/`](planning/archive/2026-05-30-journal-pre-cleanup/).
+Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30 entries archived at [`planning/done/2026-05-30-journal-pre-cleanup/`](planning/done/2026-05-30-journal-pre-cleanup/).
 
 ---
 
@@ -30,7 +30,7 @@ Second of the four Sell-walkthrough tickets. Generic, presentational + control-f
 
 First of the four Sell-walkthrough tickets. Two critical issues caught by pre-commit code review landed in the same loop (concurrent-activate race in update-draft; slug collision on simultaneous draft creates); three smaller suggestions folded in via a new shared-constants file; four deferred with rationale in DEVIATIONS. 40/40 vitest GREEN.
 
-→ `development/tickets/done/T070-groups-lifecycle-state-and-draft-handlers.md`; M2 trail at `planning/reviews/F036-review.md` § T070 M2 code-review; DEVIATIONS at `development/DEVIATIONS.md` § 2026-05-31 — T070; STAGE-LEDGER F036 row stamped `building` with T070 done; web commit `d8204c7` on branch `t070` (merge to main pending M4).
+→ `development/tickets/done/T070-groups-lifecycle-state-and-draft-handlers.md`; M2 trail at `planning/now/review-F036.md` § T070 M2 code-review; DEVIATIONS at `development/DEVIATIONS.md` § 2026-05-31 — T070; STAGE-LEDGER F036 row stamped `building` with T070 done; web commit `d8204c7` on branch `t070` (merge to main pending M4).
 
 ## 2026-05-31 — Propagated yesterday's business-Group ownership rules into locality and discovery
 
@@ -77,13 +77,13 @@ F036 cleared Gate A after the `groups.md` weigh session ratified the four cited 
 
 Cascading work landed in the same day's entries above (business-jurisdiction locality query, discovery surfacing demotion). Action-handler catalog edits: dropped `group.transfer_operating_ownership`, `group.set_locality_source`, plus their two events; added `group.member_remove`; made several handlers owner-only.
 
-→ `planning/scenarios/F036-…md`; `product/systems/groups.md` § Ownership, § Lifecycle; STAGE-LEDGER `plan-approved 2026-05-31`.
+→ `planning/now/scenario-F036-…md`; `product/systems/groups.md` § Ownership, § Lifecycle; STAGE-LEDGER `plan-approved 2026-05-31`.
 
 ## 2026-05-31 — Reviewed the Sell walkthrough scenario ahead of approval — verdict EXTEND on design-language gaps
 
 Architecture clean — full Phase 1 substrate supports F036 with no new tables / columns / events. Design verdict EXTEND because `design-language.md` lacked a multi-step composer recipe and an inline "add new entity" pattern. F036 is the first of four b1 composers (F034 / F038 / F040 follow); the shared `<MultiStepComposer>` base should be extracted in F036's tickets. Sibling check flagged a "Shop" vs "business Group" copy mismatch between root `CLAUDE.md` naming table and the scenario body.
 
-→ `planning/reviews/F036-review.md`; STAGE-LEDGER stamped `EXTEND 2026-05-31`.
+→ `planning/now/review-F036.md`; STAGE-LEDGER stamped `EXTEND 2026-05-31`.
 
 ## 2026-05-30 — Injected stable IDs into every narrative doc and rebuilt the registry
 

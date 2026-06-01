@@ -70,7 +70,7 @@ Does opening the platform increase Member power or invite extraction? Lexicograp
 - `product/foundation/principles.md` — where the posture statement lands
 - `product/foundation/policy.md` — guardrail invariants that bind external apps
 - `playbooks/DECISION-PATTERNS.md` — lexicographic check
-- `planning/bundles/bundle-themes.md` — sub-bundle sequencer for b2 / b3 / b3+
+- `planning/now/bundle-1-themes.md` — sub-bundle sequencer for b2 / b3 / b3+
 
 ## Provenance
 
