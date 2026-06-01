@@ -67,7 +67,7 @@ status: open
 ## Completion
 
 Date: 2026-06-01
-Commit: {pending PM commit}
+Commit: `bf1ed11` (web, branch `t073`) + `eeb681a` (parent, main)
 
 **Summary.** SellWalkthrough (5-step), getDraftGroup resume detector, server-action wrappers for `group.create`/`group.update_draft`/`group.activate`, `<SellCta>` with 3-branch routing, `/you/sell` index stub, /you page mounts the CTA. 73/73 src/ vitest GREEN. Action-layer conformance OK. TSC clean on new files. 5 DEVIATIONS entries (3 applied criticals + 2 flag-for-spec-revision substrate gaps). 2 SPEC-PATCHES entries queued (locality substrate gap, missing `location.create` handler).
 
