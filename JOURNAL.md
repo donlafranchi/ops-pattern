@@ -14,6 +14,14 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-06-01 — Picked "Shop" as the user-facing label for business Groups
+
+The CLAUDE.md naming table already had it ratified — schema stays `groups.kind='business'`, URL stays `/g/[slug]`, CTA stays "Sell," only the noun in UI strings changes. T073 lands the Sell walkthrough with "Shop" everywhere ("Set up your Shop," "Your Shop is live," empty-state "You don't have a Shop yet"). F036 scenario body still reads "business Group" — schema-flavored drift, fix in a `tidy` pass after the bundle ships.
+
+→ `planning/now/review-F036.md` § Decisions captured #2.
+
+---
+
 ## 2026-05-31 — Shipped the inline "add a thing without leaving the composer" sub-flow
 
 Third of the four Sell-walkthrough tickets. Generic single-form drawer that stacks above the multi-step composer so a Member can create a referenced entity (a Location, an Item, etc.) without losing the parent flow's state. **Nesting refusal** — a second drawer mounted inside the first throws at render with a load-bearing error message, encoding the DLS spec's "never nest deeper" rule as a runtime guard. Submit error is an `aria-live=assertive` alert region; ESC + X + Cancel all dismiss. Full focus-trap and the parent's "paused" visual (-8px / 60% opacity) deferred to a shared a11y follow-up with T071. 10/10 vitest GREEN.
