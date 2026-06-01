@@ -29,6 +29,19 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 findin
 
 ## Phase 2 entries
 
+## 2026-06-01 — T073a — Sell-side `locations` column-name fix-forward
+
+**Verdict:** No deviations beyond the schema-alignment itself.
+
+### What
+Two files referenced `locations.display_name` (a column that does not exist) and `sellCreateLocationAction` omitted three NOT NULL columns (`member_id`, `slug`, `geography`). Fix-forward landed those references against the actual 007_locations.sql schema. Added one regression unit test that captures `.select()` args so the wrong column name would fail.
+
+### Why
+The bugs shipped clean in T073 because the unit tests mocked the supabase chain — `.from().select()` returned `{data: [], error: null}` no matter what columns were named. The first writer to exercise the real schema was the F036 fixture seed (landed by `test` skill), which immediately surfaced the column mismatch. Lesson for future PRs: when mocking a query chain, capture the call args and assert on the table + column names, not just the resolved data.
+
+### Disposition
+accepted-as-is. The regression test added to `SellCta.test.tsx` is the structural guard going forward.
+
 ## 2026-06-01 — T073 — `<SellWalkthrough>` + `/you` Sell CTA — M2 trail
 
 **Verdict:** M2 self-review PROCEED after three fix-now landings (one logic bug, one URL-builder guard, one toast-lifecycle leak). Three deferrals + two flag-for-spec-revision entries cover substrate gaps the surface had to work around.
