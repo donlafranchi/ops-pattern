@@ -21,7 +21,8 @@ Check the box and append `· landed YYYY-MM-DD ({commit hash})` when product pat
 
 ## Open
 
-*(none — queue clear as of 2026-05-27, b1.x-spec-drain-sprint)*
+- [ ] 2026-06-01 · `development/tickets/T073-*.md` § Acceptance line 36 (Locality step writes `member_business_jurisdictions` row) — contradicts `review-F036.md` § cross-system consistency ("F036 does NOT need that substrate"). Two sources of truth diverged; pick one. Implementation chose UI-only at b1 (substrate ships with F037). Caught by T073. DEVIATIONS: 2026-06-01 — T073.
+- [ ] 2026-06-01 · `product/systems/action-layer.md` § handler catalog — `location.create` handler is referenced by T073 acceptance but not in the registry. Add to the catalog with input/output shape, or remove the reference from the spec. Caught by T073. DEVIATIONS: 2026-06-01 — T073.
 
 ---
 

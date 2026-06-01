@@ -29,6 +29,74 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 findin
 
 ## Phase 2 entries
 
+## 2026-06-01 — T073 — `<SellWalkthrough>` + `/you` Sell CTA — M2 trail
+
+**Verdict:** M2 self-review PROCEED after three fix-now landings (one logic bug, one URL-builder guard, one toast-lifecycle leak). Three deferrals + two flag-for-spec-revision entries cover substrate gaps the surface had to work around.
+
+### Applied — Critical: back-edit-brand double-create guard in `SellWalkthrough.onAdvance`
+
+**What:** The brand-step `onAdvance` originally checked `state.draftGroupId` only; that field is never populated because the composer is uncontrolled and `createDraft`'s response can't reach the composer's `setState` from `onAdvance`. A user who tapped Back to step 1 and re-submitted brand would re-fire `group.create` and orphan a second draft Group.
+
+**Why:** Self-review caught it before commit. Fixed by also consulting `shadowDraftId` — the component-scoped state we already kept for steps 2–4. Test `back-edit brand does not double-create the draft` locks it in. The composer's API doesn't expose a clean way to push state back from `onAdvance`; this shadow is the smallest viable workaround. Anchor: `src/components/sell/SellWalkthrough.tsx:onAdvance step='brand'`.
+
+**Disposition:** accepted-as-is.
+
+### Applied — Critical: `sellActivateAction` refuses to return a guessed URL
+
+**What:** Initial URL builder fell back to `/p/place/g/shop` when the place join returned nothing. F035 would 404; the user's Shop would appear lost.
+
+**Why:** The handler's success is the moment the Shop becomes findable; a broken URL there is worse than an error toast. Now throws `shop_url_unresolved` with copy that points the user back to `/you`. The Shop row still exists; the user can refresh and we'll re-resolve once the place data lands. Anchor: `src/app/you/sell/actions.ts:sellActivateAction`.
+
+**Disposition:** accepted-as-is.
+
+### Applied — Suggestion: toast auto-clear on `SellCta`
+
+**What:** Success toast had no timeout — it pinned to the screen indefinitely (until next navigation).
+
+**Why:** Polite-region screen-reader announcement is the load-bearing accessibility behavior; visual persistence is just noise. 4s timeout matches the OS-native toast lifecycle. Anchor: `src/components/sell/SellCta.tsx:useEffect on toast`.
+
+**Disposition:** accepted-as-is.
+
+### Flag-for-spec-revision — Locality (Tier 0) step is UI-only at b1 (no `member_business_jurisdictions` substrate)
+
+**What:** T073 acceptance line 36 says step 4 writes a `member_business_jurisdictions` row with `verification_source='self_attested'`. That table does not exist — F037 owns the substrate. The step UI captures the ZIP and discards it on submit. The scenario AC "Given Maya skips the Tier 0 locality step → no row, no badge" passes either way; the "Given Maya fills in the ZIP" path silently no-ops at b1.
+
+**Why:** The review explicitly says "F036 does NOT need that substrate" (review-F036.md § cross-system consistency) — direct contradiction with T073's acceptance text. Two sources of truth diverged. Implementation chose surface continuity (keep the step visible so the future F037 retro-fit doesn't have to add a new step + change the indicator count) over silently dropping the step. Wired into SPEC-PATCHES so F037's surfacing brings the persistence path.
+
+**Disposition:** flag-for-spec-revision — F037 substrate + a follow-on micro-ticket to wire the locality-step write once `member_business_jurisdictions` ships.
+
+### Flag-for-spec-revision — `sellCreateLocationAction` writes directly to `locations` table (no `location.create` handler)
+
+**What:** Ticket acceptance: "Anchor-Location step's '+ Add a new Location' sub-flow wires `<AddEntityDrawer>` to `location.create` handler". The `location.create` action handler does not exist in the action registry. The server action inserts directly into `locations` via the Supabase server client.
+
+**Why:** RLS gates the insert, so it's not a credential-boundary violation, but it does bypass the action layer's audit-event invariant — no `location.created` event row writes. Acceptable at b1 for the inline-add path because there's no consumer of `location.created` yet, but the substrate gap is real. Wired into SPEC-PATCHES.
+
+**Disposition:** flag-for-spec-revision — `location.create` handler is a substrate ticket that ships in a near-term sprint; once it lands, swap `sellCreateLocationAction`'s body for a handler call (~3 lines).
+
+### Deferred — Anchor-Location picker may render empty at b1 (no Member↔Location relationship)
+
+**What:** `member_location_affinities` was retired by T061 and `member_place_interests` (T062) replaces it for *places*, not for *Locations*. The picker queries `locations` with `.limit(20)` — at b1 it returns whatever Locations RLS exposes to the viewer, which is unlikely to be a curated "your Locations" list. The "+ Add a new Location" path covers the gap.
+
+**Why:** Producing a Member-curated Location list would require either a new join table (`member_location_anchors`?) or a re-read of which Locations the Member founded. Both are outside T073's scope; the AddEntityDrawer path keeps the walkthrough completable.
+
+**Disposition:** revert-on-next-pass — once a Member↔Location anchor model lands, swap the picker's data source.
+
+### Deferred — `/you/sell` index stub renders only `Add a product` (services + gatherings later)
+
+**What:** T073 acceptance line 48: "lists the Member's active business Groups + an 'Add a product' CTA per Group, deferring product/service/gathering composers to F038/F040/F034". The current stub renders one "Add a product" link per Shop with `href="#"`. Service + gathering CTAs are not surfaced at all.
+
+**Why:** Per the ticket itself — those composers are forward-tickets. Adding non-functional buttons now would conflict with the "no orphan CTAs" rule. The stub is intentionally minimal; F038/F040/F034 will extend it.
+
+**Disposition:** accepted-as-is — F038 surfaces the product composer; this stub gains a wired CTA then.
+
+### Deferred — Full focus-trap on `<SellWalkthrough>` (inherits from T071/T072 a11y follow-up)
+
+**What:** Composer + drawer both delegate to their underlying T071 / T072 components' focus management (mount focus + ESC + restore). Full Tab-trap within the dialog is the deferred item that was already filed under T071's M3 trail.
+
+**Why:** Same rationale as T071/T072 — basic a11y is satisfied; full-trap is a shared follow-up. No new debt introduced by T073.
+
+**Disposition:** accepted-as-is.
+
 ## 2026-05-31 — T072 — `<AddEntityDrawer>` sub-flow — M2 + M3 trail
 
 **Verdict:** M2 self-review PROCEED after one a11y addition (aria-live=assertive on the submit error). M3 satisfied at the basic level. Two deferrals carry the same disposition as T071's a11y follow-up.

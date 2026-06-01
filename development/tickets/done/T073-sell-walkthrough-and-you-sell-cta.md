@@ -66,5 +66,26 @@ status: open
 
 ## Completion
 
-Date: {YYYY-MM-DD}
-Commit: {git hash}
+Date: 2026-06-01
+Commit: {pending PM commit}
+
+**Summary.** SellWalkthrough (5-step), getDraftGroup resume detector, server-action wrappers for `group.create`/`group.update_draft`/`group.activate`, `<SellCta>` with 3-branch routing, `/you/sell` index stub, /you page mounts the CTA. 73/73 src/ vitest GREEN. Action-layer conformance OK. TSC clean on new files. 5 DEVIATIONS entries (3 applied criticals + 2 flag-for-spec-revision substrate gaps). 2 SPEC-PATCHES entries queued (locality substrate gap, missing `location.create` handler).
+
+**M-gates.**
+- M2 (`engineering:code-review`): self-review PROCEED after 3 fix-now landings (brand-re-edit double-create guard; sellActivateAction URL-builder strictness; SellCta toast auto-clear timeout).
+- M3 (`design:accessibility-review`): basic level satisfied — composer + drawer inherit T071/T072 a11y (focus mount, ESC, focus-restore). Full focus-trap deferred to shared T071/T072 follow-up.
+- M4 (`engineering:deploy-checklist`): no migration; web bundle change only. Vercel preview will surface any RSC/server-action issues.
+
+**Files added.**
+- `web/src/lib/sell/getDraftGroup.ts` + `.test.ts`
+- `web/src/components/sell/SellWalkthrough.tsx` + `.test.tsx`
+- `web/src/components/sell/SellCta.tsx` + `.test.tsx`
+- `web/src/app/you/sell/actions.ts`
+- `web/src/app/you/sell/page.tsx`
+
+**Files modified.**
+- `web/src/app/you/page.tsx` — mount `<SellCta memberId={userId} />`.
+- `web/BUILD-LOG.md` — T073 row.
+- `development/DEVIATIONS.md` — T073 M2 trail (5 entries).
+- `planning/SPEC-PATCHES.md` — 2 entries.
+- `planning/STAGE-LEDGER.md` — F036 row Tickets column update.
