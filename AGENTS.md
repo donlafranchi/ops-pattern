@@ -143,7 +143,7 @@ The single absolute — wealth circulation over wealth extraction — is invoked
 Rejected absolutes are deleted; the JOURNAL records the removal.
 
 **Two gates `weigh` backstops:**
-- **Gate A — `scope`.** A scenario cannot move from `scenarios-backlog/` to `scenarios/` if the spec sections it cites contain unratified absolutes the scenario would encode.
+- **Gate A — `scope`.** A scenario cannot move from `backlog/` to `next/` if the spec sections it cites contain unratified absolutes the scenario would encode.
 - **Gate B — `ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes.
 
 **Hard constraints:** skip-if-ratified; no batch landing (per-statement walk); no scalar scores; no deferral without observable trigger + bounded review horizon; no Gate-1 deferral (safety-failing absolutes are revised or rejected, never deferred); both advocates run on Member-shaped tension or neither does; PM adjudicates (override permitted with cause logged).
