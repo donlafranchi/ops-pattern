@@ -45,6 +45,6 @@ Without this fix the F036 eval breaks at first beat (anchor-Location picker empt
 ## Completion
 
 Date: 2026-06-01
-Commit: `{pending — fills on commit}`
+Commit: `ae3b448` (web, branch `t073a`) → merged as `bc92524`; `01a9e29` (parent, main)
 
 **Summary.** Two-file fix-forward (SellCta locations query + sellCreateLocationAction insert) + one regression test. 43/43 src/ vitest GREEN. Action-layer OK. No migration.
