@@ -139,7 +139,6 @@ Eleven skills cover the full lifecycle. Each runs in **one tool only** — the h
 | "tests for F###", "Playwright spec for F###", "run F### tests" | `test` | Claude Code |
 | "implement T###", "TDD this", "build T###" | `build` | Claude Code |
 | "tidy", "sweep the docs", "anything rotting", "triage the inbox", "audit the skills", "anything to archive" | `tidy` | Cowork |
-| "scaffold a new project" | `scaffold` (utility) | Claude Code |
 | "I want this to improve itself", "design a self-improvement loop", "Karpathy loop" | `loop-designer` (utility) | Cowork |
 
 Full per-skill firewalls and read/write permissions: [`AGENTS.md`](AGENTS.md). Pipeline patterns + commit choreography: [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns. Close-call rule + the one absolute: [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md).
@@ -302,7 +301,7 @@ Want detail? Say "expand."
 
 **Rule of thumb.** If a fact wouldn't change the PM's next move, withhold it. Hashes don't change the next move. Lane counts don't change the next move. The status and the ask do.
 
-**Scope.** Applies to multi-step reports from any pipeline skill (`atomize`, `build`, `explore`, `memo`, `orient`, `review`, `scope`, `scaffold`, `test`, `ticket`, `tidy`, `weigh`) and to any Cowork or Claude Code response over ~50 words reporting completed work. Single-step actions and TDD loop bodies keep their existing narration discipline; this rule governs the *final* report.
+**Scope.** Applies to multi-step reports from any pipeline skill (`atomize`, `build`, `explore`, `memo`, `orient`, `review`, `scope`, `test`, `ticket`, `tidy`, `weigh`) and to any Cowork or Claude Code response over ~50 words reporting completed work. Single-step actions and TDD loop bodies keep their existing narration discipline; this rule governs the *final* report.
 
 ## Language & Framing
 

@@ -14,6 +14,14 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-06-01 — Retired the project-scaffolding skill and cleaned up the last reorg path misses
+
+The local `scaffold` skill taught the old 11-directory planning structure (`scenarios/`, `scenarios-backlog/`, `bundles/`, `DECISIONS.md`); keeping it would make any future scaffolded project start in the wrong shape and need the same migration we just did. Deleted the skill and pulled its routing rows from CLAUDE.md, AGENTS.md routing, REGISTRY, skills/README, and orient. Also swept the four straggler path cites the reorg missed: the Gate A rule in CLAUDE.md + AGENTS.md (now `backlog/` → `next/`) and two BUILD-LOG bundle links (now `planning/now/bundle-1.md`). **Forward note:** if we scaffold a new project later, start from a current snapshot of this repo's structure rather than the retired template.
+
+→ `skills/` (scaffold dir removed); `CLAUDE.md` § Agent routing + rebuild rule 11 Gate A; `AGENTS.md` Gate A; `web/BUILD-LOG.md`.
+
+---
+
 ## 2026-06-01 — Picked "Shop" as the user-facing label for business Groups
 
 The CLAUDE.md naming table already had it ratified — schema stays `groups.kind='business'`, URL stays `/g/[slug]`, CTA stays "Sell," only the noun in UI strings changes. T073 lands the Sell walkthrough with "Shop" everywhere ("Set up your Shop," "Your Shop is live," empty-state "You don't have a Shop yet"). F036 scenario body still reads "business Group" — schema-flavored drift, fix in a `tidy` pass after the bundle ships.

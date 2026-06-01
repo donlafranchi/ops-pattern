@@ -116,7 +116,6 @@ _115 docs._
 | `how-review-skill` | `skills/review/SKILL.md` |  |  |
 | `how-safety` | `standards/safety.md` | Safety standard — placeholder for safety-floor requirements. | draft |
 | `how-saved-search-composer` | `planning/backlog/initiative-phase-3-saved-search-composer.md` | Phase 3 item stub — the saved-search composer surface + fan-out worker. | stub |
-| `how-scaffold-skill` | `skills/scaffold/SKILL.md` |  |  |
 | `how-scope-skill` | `skills/scope/SKILL.md` |  |  |
 | `how-security` | `standards/security.md` | Security standard — placeholder for threat-model and audit. | draft |
 | `how-spec-patches` | `planning/SPEC-PATCHES.md` | Queue of product/ spec patches flagged by the build agent. Closes the Build → Product return path. | active |

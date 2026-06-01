@@ -32,7 +32,6 @@ See [`workflow.md`](workflow.md). The two folded sub-routines (steps 10 + 11) on
 - `build` — TDD ticket implementation
 - `test` — acceptance test authoring + execution
 - `tidy` — anti-sprawl sweeper (triage-inbox / sweep-docs / sweep-skills)
-- `scaffold` — set up a new project with this pipeline
 
 ## Hand off
 

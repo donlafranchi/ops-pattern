@@ -119,7 +119,6 @@ After the orientation pass, route via the table below.
 | Implement a ticket via TDD | `build` |
 | Write or run acceptance tests | `test` |
 | Triage `_inbox/`, sweep docs, audit skills, anything anti-sprawl | `tidy` |
-| Set up a brand-new project with this pipeline | `scaffold` |
 | Reflect on / merge / prune memory | `consolidate-memory` (Cowork) |
 | Self-improvement loop spec (Karpathy loop) | `loop-designer` |
 
@@ -187,7 +186,7 @@ Explore (dream) → Scope (filter) → Test-write (oracle) → Ticket (sequence)
 └── {app}/                     # Code (separate repo if two-repo setup)
 ```
 
-If any of these are missing, suggest `scaffold`.
+If any of these are missing, the pipeline structure is incomplete — bootstrap from a current snapshot of this repo's structure rather than from a template (the `scaffold` skill was retired 2026-06-01).
 
 ## Hand off
 

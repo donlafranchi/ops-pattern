@@ -23,7 +23,6 @@ The two columns in the table below capture the recommendation. *"Both"* means th
 | `ticket` | Sequencer. Breaks approved scenarios into ordered, session-sized tickets. Reads scenarios + the review (if any), never code. | Both — Cowork if you want the doc tooling alongside; Claude Code if you're about to go straight to build |
 | `build` | Builder. TDD implementation of existing tickets. Does not write tickets. | **Claude Code (mandatory in practice)** — needs shell, tests, git without lock friction |
 | `test` | Verifier. Translates Given/When/Then into automated tests; runs and reports. Write mode never reads code. | **Claude Code** — write mode benefits from repo context; run mode needs local Supabase reachable |
-| `scaffold` | Bootstraps a new project with the pipeline structure. | Claude Code (creates directory tree + git repos + symlinks) |
 | `orient` | Journal / DECISIONS hygiene — rotate, memorialize, prune. | Cowork (pure markdown work; doc-generation skills handy for the rotated archive) |
 | `orient` | Sub-bundle work-map maintenance after sub-bundle slip. | Cowork (markdown-only) |
 | `weigh` | Audit markdown for Category-2 absolutes missing `Intent:` annotations. | Cowork (markdown-only) |
@@ -65,7 +64,6 @@ Skills auto-trigger on intent in any project. The user does not need to read any
 - "write tickets for F018" / "break F018 into tickets" → `ticket`
 - "implement T012" / "TDD this" → `build`
 - "write evals for F003" / "run evals" → `test`
-- "scaffold a new project" → `scaffold`
 
 ## The PM cycle
 
