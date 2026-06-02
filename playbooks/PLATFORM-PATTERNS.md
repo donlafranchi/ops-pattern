@@ -117,7 +117,7 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 
 ### Replace MSA with county; use readable + random-suffix slugs for user-generated entities
 
-**Decision.** `places.kind` enum becomes `region`, `state`, `county`, `city`, `neighborhood` — `county` replaces `msa` as the tier between state and city (FIPS-coded, total U.S. coverage including rural). Items, Groups, and Locations get system-generated slugs of the form `{title-derived}-{short-random-suffix}` applied always (not only on collision). Place slugs stay human-readable with parent-scoped uniqueness; the Member `@handle` is the only user-chosen vanity namespace.
+**Decision.** `places.kind` enum becomes `region`, `state`, `county`, `city`, `neighborhood` — `county` replaces `msa` as the tier between state and city (FIPS-coded, total U.S. coverage including rural). (`region`-kind is reserved for URL-browsable regions only; colloquial metros live in the `metro_polygons` overlay, not the tree — see § metro-polygon overlay, D3 ratified 2026-06-02.) Items, Groups, and Locations get system-generated slugs of the form `{title-derived}-{short-random-suffix}` applied always (not only on collision). Place slugs stay human-readable with parent-scoped uniqueness; the Member `@handle` is the only user-chosen vanity namespace.
 
 **Intent.** A hierarchy tier must resolve every coordinate to exactly one anchor — MSAs leave roughly 1,200 rural counties unassigned and let one MSA swallow tri-state metros into a single un-navigable tile. Counties tile the country completely with stable FIPS codes and admin-level-2 equivalents in every country (international-ready). The readable stem on entity slugs serves humans, search engines, and agents; the random suffix makes collisions impossible by construction and slugs non-enumerable, so the platform doesn't add collision-time mangling or expose enumeration as a scrape surface. User-chosen slugs beyond the handle would open squatting and impersonation — a moderation surface the platform declines to create.
 
@@ -135,7 +135,7 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 - Metro-polygon discovery overlay — **(Ratified 2026-06-02, D1)**. The construct exists: a platform-curated discovery overlay, `ST_Contains` membership against coordinates, read-only, never in URLs, never a messaging target, not editable by Members.
 - CSA grain — **(Ratified 2026-06-02, D2)**. Metro polygons are curated from Census CSA (Combined Statistical Area) definitions, hand-tunable where Census disagrees with how residents think about their metro.
 - Travel-time isochrone — **(Deferred until T2; review at isochrone scope, D4)**. Radius + metro polygon ship now; the third discovery geometry waits.
-- Region-kind vs. metro-polygon ownership of "metros" (D3) — **unratified**; see JOURNAL / build-plan checklist for the open question.
+- Region-kind vs. metro-polygon ownership of "metros" (D3) — **(Ratified 2026-06-02, D3)**. Colloquial metros (Sacramento MSA, Bay Area, etc.) belong exclusively to the `metro_polygons` overlay, not as region tree rows. Region-kind is reserved for URL-browsable regions only; if no such use case materializes in b1, region drops from the tree.
 
 **Touches.** `product/systems/discovery.md`
 
