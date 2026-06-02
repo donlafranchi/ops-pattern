@@ -5,14 +5,14 @@
 | | |
 |---|---|
 | **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario the ticket references), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
-| **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Produces a **commit summary** for the PM — does NOT run git itself (per CLAUDE.md Commit Rules). |
-| **Branch** | One per ticket: `t{nnn}`, **in its own worktree** at `../web-t{nnn}/` (or `../community-t{nnn}/` for parent-repo work). Agent creates at session start via `git worktree add`; PM merges to `main` at close. Worktrees isolate concurrent agents so uncommitted edits in one ticket can't be overwritten by another agent committing in the shared `web/` tree. |
+| **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section, including the commit hash you produce), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Runs `git add` + `git commit` after PM `y` on the permission prompt (per CLAUDE.md Commit Rules). |
+| **Branch** | One per ticket: `t{nnn}`, **in its own worktree** at `../web-t{nnn}/` (or `../community-t{nnn}/` for parent-repo work). Agent creates at session start via `git worktree add`; agent merges to `main` and removes the worktree at ticket close after PM `y` on the merge-permission prompt. Worktrees isolate concurrent agents so uncommitted edits in one ticket can't be overwritten by another agent committing in the shared `web/` tree. |
 | **Templates** | none — ticket template lives in `ticket/`; build implements, doesn't author specs |
 | **Does NOT read** | `planning/backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
-| **Does NOT run** | `git add`, `git commit`, `git push`. Worktree creation (`git worktree add ../web-t{nnn} -b t{nnn}`) is fine — that doesn't touch `.git/index`. |
+| **Does NOT run** | `git push`, `git rebase`, anything that rewrites history. `git add` + `git commit` only fire after PM `y` on the permission prompt at ticket close. Worktree creation happens at session start. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
 | **Hands to** | `test` (run mode) — verifies F### evals pass against the scenario |
-| **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the commit-summary handoff per CLAUDE.md rebuild-phase rule #3. The reviewed state is what gets handed to PM for commit; fixes happen in the same loop, not as follow-up commits. |
+| **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the PM permission prompt per CLAUDE.md rebuild-phase rule #3. The reviewed state is what you commit; fixes happen in the same loop, not as follow-up commits. |
 
 ## TDD loop (every ticket)
 
@@ -29,23 +29,26 @@
 10. Run tests — confirm PASS (green).
 11. Refactor if needed.
 12. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (`git diff` + `git diff --cached` for this ticket's files). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `scope`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward. Per CLAUDE.md rebuild-phase rule #3.
-13. Update the ticket's Completion section (Date filled in; Commit hash left blank — PM backfills after committing).
+13. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 17, after you commit).
 14. Move the ticket file to `development/tickets/done/`.
 15. Update `BUILD-LOG.md`.
-16. **Produce commit summary for PM.** Do NOT run `git add` or `git commit` yourself — the sandbox can't clean up `.git/index.lock` after them. Instead, output a block the PM can paste-and-go:
+16. **Ask PM permission to commit.** Output one line, verbatim:
 
     ```
-    **Commit summary — T{NNN}**
-    Repo:     web   (or parent)
-    Branch:   t{nnn}
-    Files:    <newline-separated list of files to stage>
-    Message:  T{NNN}: {Title}
-
-    Suggested command (PM runs from Mac terminal):
-      cd web && clearlock && git add <files> && git commit -m "T{NNN}: {Title}"
+    Ready to commit T{NNN} on branch t{nnn} with message "T{NNN}: {Title}"? (y/n)
     ```
 
-    PM commits, pastes back the resulting hash. You backfill the hash into the ticket's Completion section in a follow-up edit (which is a file write, not a git call — safe).
+    On **y**: re-run the lock pre-flight (`ls web/.git/index.lock web/.git/worktrees/*/index.lock 2>/dev/null`); if clean, run `git add <files> && git commit -m "T{NNN}: {Title}"` inside the worktree. If a lock prints, stop and ask the PM to run `clearlock` first. On **n**: do not commit — PM either amends the message (re-prompt) or defers (leave the worktree dirty, hand off).
+
+17. **Backfill the commit hash** into the ticket's Completion section using the hash printed by `git commit`. Same session — never leave `{pending}`.
+
+18. **Ask PM permission to merge.** Output one line, verbatim:
+
+    ```
+    Ready to merge t{nnn} into main and remove the worktree? (y/n)
+    ```
+
+    On **y**: re-run the lock pre-flight; if clean, run `cd web && git switch main && git merge --no-ff t{nnn} && git worktree remove ../web-t{nnn} && git branch -d t{nnn}` (substitute `cd ..` and parent-repo paths for parent-repo work). Backfill the merge commit hash alongside the ticket commit hash in the Completion section. On **n**: leave the branch and worktree in place — PM directs follow-up.
 
 ## What you do NOT do
 - Write tickets. (`ticket` does.)
@@ -86,15 +89,15 @@ Read that skill's SKILL.md first. Do not hand-write these formats.
 
 ## Commit conventions
 
-**The agent does not commit — PM does, from Mac terminal.** Per CLAUDE.md Commit Rules. The agent's job is to produce a clean **commit summary** at ticket close (see TDD-loop step 16).
+**You run the commit; PM grants permission via the y/n prompt at ticket close.** Per CLAUDE.md Commit Rules. The permission gate is the message-approval moment, not the git execution. PM does not run git on your behalf.
 
-Message format the PM uses:
+Message format:
 
 ```
 T{NNN}: {Title}
 ```
 
-One line. No body. No co-author tag. The ticket and the journal carry the long form. When committing a single file, PM prefers the single-call form `git commit -m "T{NNN}: {Title}" path/to/file` over `git add` + `git commit` — halves the lock-acquisition window.
+One line. No body. No co-author tag. The ticket and the journal carry the long form. For a single-file commit, prefer the single-call form `git commit -m "T{NNN}: {Title}" path/to/file` over `git add` + `git commit` — halves the lock-acquisition window.
 
 ## Co-locate `why` with `what` (per AGENTS.md → PIPELINE-AUDIT F13)
 
@@ -136,7 +139,7 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 **SPEC-PATCHES queue.** If you flagged a `product/` spec for `explore` patching in DEVIATIONS, also append an entry to `planning/SPEC-PATCHES.md` with the spec path, section, what's wrong, and the ticket that caught it. The DEVIATIONS entry is the audit trail; SPEC-PATCHES is the queue that ensures the patch lands.
 
-**Commit-hash backfill is non-optional.** Per audit H4, T055/T056/T057 still carry `{pending}` placeholders. After PM commits, immediately edit the ticket Completion section to fill in the hash — do not defer.
+**Commit-hash backfill is non-optional.** Per audit H4, T055/T056/T057 still carry `{pending}` placeholders. Immediately after you run `git commit`, edit the ticket Completion section to fill in the hash — do not defer.
 
 ## Final report
 
@@ -150,12 +153,14 @@ Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name item
 
 The TDD loop body keeps its narration discipline; this governs the *final* close-out report only.
 
-**You produced:** code + tests on branch `t{nnn}`, updated ticket, a `DEVIATIONS.md` entry with `Why:` and `Disposition:` lines, updated `BUILD-LOG.md`, and a **commit summary** for the PM. You did NOT commit — PM commits from Mac terminal and pastes back the hash.
+**You produced:** code + tests on branch `t{nnn}` (committed by you after PM `y`), updated ticket (Completion section filled with the commit hash), a `DEVIATIONS.md` entry with `Why:` and `Disposition:` lines, updated `BUILD-LOG.md`.
 
-**Commit-hash backfill.** After PM commits and confirms the hash, you (in the same session, or the next) edit the ticket's Completion section to fill in the hash. That edit is a file write, not a git call — safe to do from the sandbox.
+**Commit-hash backfill.** Immediately after you run `git commit`, edit the ticket's Completion section to fill in the hash printed by git. Same session — do not defer.
 
 **You hand to:** `test` (run mode) — confirms F### evals pass against the scenario this ticket served.
 
-**On eval failure:** evaluator hands back to you. Run the TDD loop again — fix forward, never roll back. New iteration stays on the same `t{nnn}` branch; PM commits each pass.
+**On eval failure:** evaluator hands back to you. Run the TDD loop again — fix forward, never roll back. New iteration stays on the same `t{nnn}` branch; you commit each pass after PM `y` on the permission prompt.
 
-**On eval pass:** the loop closes. PM merges `t{nnn}` to `main` from the main `web/` working tree (`cd web && git switch main && git merge --no-ff t{nnn} && git worktree remove ../web-t{nnn} && git branch -d t{nnn}`) and picks the next scenario or asks `ticket` for the next ticket.
+**On eval pass:** the loop closes. Merge already happened at ticket close (step 18). Pick the next scenario or ask `ticket` for the next ticket.
+
+**On partial-pass with named forward-deps:** evals run on `main` after merge can have failing tests when DEVIATIONS-accepted-as-is entries name unbuilt upstream. The merge still lands — main reflects shipped state honestly, including the gaps the DEVIATIONS entries explain. The row in STAGE-LEDGER flips to `eval` (not `done`) until forward-deps ship and evals fully green.

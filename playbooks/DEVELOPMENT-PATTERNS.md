@@ -89,11 +89,11 @@ How the solo-founder pipeline runs. Where each stage lives, when each gate fires
 
 ---
 
-### Commit code with PM permission; never cross-commit between repos
+### Commit and merge code with PM permission; never cross-commit between repos
 
-**Decision.** `build` ends every ticket by asking the PM to confirm the commit message (`T###: short title`, one line, no body, no co-author tag); on confirmation, Claude Code runs the commit. Cowork does not commit code — when a Cowork skill edits docs in the parent repo, it hands the PM a commit message and a `clearlock` line to run from the Mac terminal. App code commits to the app repo (`web/`); pipeline/spec/docs commit to the parent repo; never stage files from both in one commit.
+**Decision.** `build` ends every ticket by asking the PM to confirm the commit message (`T###: short title`, one line, no body, no co-author tag); on confirmation, Claude Code runs the commit. Immediately after the commit lands, `build` asks a second y/n: "Ready to merge t### into main and remove the worktree?" On `y`, CC runs the merge + worktree cleanup; on `n`, branch and worktree stay in place for PM-directed follow-up. Cowork does not commit code — when a Cowork skill edits docs in the parent repo, it hands the PM a commit message and a `clearlock` line to run from the Mac terminal. App code commits to the app repo (`web/`); pipeline/spec/docs commit to the parent repo; never stage files from both in one commit.
 
-**Intent.** PM-confirmed commits keep ratification visible at the commit boundary — no agent commits a decision the PM hasn't seen. The cross-commit rule prevents history drift between the two-repo layout (parent local-only, `web/` pushed to GitHub) that the architecture relies on. `clearlock` exists because Cowork's sandbox can leave lock files; making it the PM's one-liner removes the workaround from agent flow.
+**Intent.** PM-confirmed commits and merges keep ratification visible at both boundaries — no agent commits or merges a decision the PM hasn't seen. The two prompts are distinct because the remedies are distinct: amend-message is the commit-prompt fallback; defer-merge is the merge-prompt fallback. The cross-commit rule prevents history drift between the two-repo layout (parent local-only, `web/` pushed to GitHub) that the architecture relies on. `clearlock` exists because Cowork's sandbox can leave lock files; making it the PM's one-liner removes the workaround from agent flow.
 
 **Touches.** `CLAUDE.md` § Commit Rules
 

@@ -19,9 +19,9 @@ Project-agnostic build-agent skill. Pure TDD execution.
 - Never roll back commits. Fix forward.
 - Escalate spec divergence — do not improvise.
 - One ticket at a time. Stage only ticket-related files.
-- **Start the ticket on its own branch:** `cd web && git switch -c t{nnn}` (or in parent for parent-repo work). Per CLAUDE.md Commit Rules.
-- **Do NOT run `git add` or `git commit`.** The sandbox can't clean up `.git/index.lock` and will wedge subsequent calls. Produce a commit summary instead; PM commits from Mac terminal. Per CLAUDE.md Commit Rules.
-- **Lock pre-flight at session start:** `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints, stop and ask PM to run `clearlock`.
+- **Start the ticket in its own worktree:** from the main `web/` working tree, `git worktree add ../web-t{nnn} -b t{nnn}` (or `git worktree add ../community-t{nnn} -b t{nnn}` from the parent repo). Then `cd ../web-t{nnn}` and do all subsequent work there. Per CLAUDE.md Commit Rules.
+- **You run the commit, with PM permission.** End every ticket by asking the PM verbatim: `Ready to commit T{NNN} on branch t{nnn} with message "T{NNN}: {Title}"? (y/n)`. On `y`, you run `git add <files> && git commit -m "T{NNN}: {Title}"` inside the worktree. On `n`, PM amends the message or defers. Per CLAUDE.md Commit Rules. The PM does **not** run git on your behalf — the permission gate is the y/n prompt, not the git execution.
+- **Lock pre-flight before any git operation:** `ls web/.git/index.lock web/.git/worktrees/*/index.lock .git/index.lock .git/worktrees/*/index.lock 2>/dev/null`. If any path prints, stop and ask the PM to run `clearlock` from the Mac terminal before continuing. Do not attempt to remove the lock yourself — the sandbox lacks the permission.
 - Do NOT write tickets — `ticket` does that. If you need a ticket that doesn't exist, hand back to `ticket`.
 
 ## Workflow
@@ -44,7 +44,7 @@ These are not code; do not write them by hand. Each skill has a SKILL.md you mus
 
 ## Hand off
 
-**You produced:** code + tests in the app repo on branch `t{nnn}`, an updated ticket (Status `Complete`, Completion section filled), an updated `BUILD-LOG.md`, and a **commit summary** for the PM (repo, branch, file list, suggested message `T{NNN}: {title}`). You do NOT commit — PM commits from Mac terminal and pastes back the hash for you to backfill into the ticket.
+**You produced:** code + tests in the app repo on branch `t{nnn}` (committed by you after PM `y` on the commit-permission prompt), the merge into `main` and worktree cleanup (after PM `y` on the merge-permission prompt — separate y/n, immediately after the commit), an updated ticket (Status `Complete`, Completion section filled with the commit hash you produced), an updated `BUILD-LOG.md`.
 
 **Next skill:** `test` (run mode) — runs the F### evals associated with the scenario this ticket served, reports pass/fail traceably. On fail, hands back to this skill to fix forward.
 

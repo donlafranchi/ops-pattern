@@ -22,6 +22,20 @@ The local `scaffold` skill taught the old 11-directory planning structure (`scen
 
 ---
 
+## 2026-06-01 — Shipped the Sell walkthrough surface; F036 evals at 5/9 with named forward-deps
+
+T073 + T073b both merged to main. T073b expanded scope mid-loop — the two named bugs (composer accessible-name collision, `<Link>`-vs-`<button>` on `/you/sell`) sat upstream of three latent surface fixes (`sellCreateLocationAction` RLS bypass, `sellActivateAction` FK rewrite, AnchorLocationStep state) plus a `role="link"` skip — six fixes total instead of two. Eval surfaced the chain after the named ones unblocked. F036 evals now 5/9 passing; four remaining failures are all forward-deps (F035 Group public page, F038/F040/F034 composers, F037 Locally Owned claim, T058 polygon seed) logged as DEVIATIONS-accepted-as-is under T073's section.
+
+→ `development/tickets/done/T073-…md`, `development/tickets/done/T073b-…md`; DEVIATIONS at `development/DEVIATIONS.md` § "T073 — forward-dep gaps surfaced 2026-06-01"; web commits per CC report; STAGE-LEDGER F036 row → `eval 2026-06-01` (partial-pass, gated on forward-deps).
+
+## 2026-06-01 — Ratified: CC runs the merge with PM permission, same pattern as commits
+
+Second instance of the commit-drift problem. CLAUDE.md and the build skill files said "PM merges from Mac terminal." Reality is the same shape as commits: CC asks, runs on `y`. Fixed CLAUDE.md § Commit Rules (new merge-permission paragraph), `playbooks/DEVELOPMENT-PATTERNS.md` § "Commit and merge code with PM permission" (extended), and both `skills/build/SKILL.md` + `skills/build/workflow.md` (new step 18 + handoff rewrite). Two prompts at ticket close — commit y/n, then merge y/n — because the remedies differ (amend vs. defer).
+
+→ `CLAUDE.md` § Commit Rules; `playbooks/DEVELOPMENT-PATTERNS.md` § "Commit and merge code with PM permission"; `skills/build/SKILL.md`; `skills/build/workflow.md` step 18.
+
+---
+
 ## 2026-06-01 — Picked "Shop" as the user-facing label for business Groups
 
 The CLAUDE.md naming table already had it ratified — schema stays `groups.kind='business'`, URL stays `/g/[slug]`, CTA stays "Sell," only the noun in UI strings changes. T073 lands the Sell walkthrough with "Shop" everywhere ("Set up your Shop," "Your Shop is live," empty-state "You don't have a Shop yet"). F036 scenario body still reads "business Group" — schema-flavored drift, fix in a `tidy` pass after the bundle ships.

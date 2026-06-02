@@ -256,9 +256,11 @@ Read before working in the named area. The pipeline skills already know to read 
 
 ## Commit Rules
 
-**Branch per ticket, worktree per branch.** Every ticket starts on its own branch in its own worktree — from the main `web/` working tree: `git worktree add ../web-t{nnn} -b t{nnn}` (or `git worktree add ../community-t{nnn} -b t{nnn}` from the parent for parent-repo work). All ticket work happens in `../web-t{nnn}/`. PM merges and removes the worktree at ticket close: `cd web && git switch main && git merge --no-ff t{nnn} && git worktree remove ../web-t{nnn} && git branch -d t{nnn}`. Branch name `t{nnn}` is the convention; matches the ticket number, no zero-padding. Worktrees isolate concurrent agents — without them, two agents in the shared `web/` tree can overwrite each other's uncommitted edits.
+**Branch per ticket, worktree per branch.** Every ticket starts on its own branch in its own worktree — from the main `web/` working tree: `git worktree add ../web-t{nnn} -b t{nnn}` (or `git worktree add ../community-t{nnn} -b t{nnn}` from the parent for parent-repo work). All ticket work happens in `../web-t{nnn}/`. Branch name `t{nnn}` is the convention; matches the ticket number, no zero-padding. Worktrees isolate concurrent agents — without them, two agents in the shared `web/` tree can overwrite each other's uncommitted edits.
 
 **Claude Code commits code — always with PM permission.** `build` ends a ticket by asking: "Ready to commit T### on branch t### with message `T###: title`? (y/n)." On `y`, `build` runs the commit. On `n`, PM amends or defers.
+
+**Claude Code merges code — always with PM permission, same pattern as commits.** After the commit lands, `build` asks: "Ready to merge t### into main and remove the worktree? (y/n)." On `y`, `build` runs `cd web && git switch main && git merge --no-ff t{nnn} && git worktree remove ../web-t{nnn} && git branch -d t{nnn}` (with lock pre-flight before each git call). On `n`, the branch and worktree stay in place — PM directs follow-up. The PM does not run git on CC's behalf — the permission gate is the y/n prompt, not the git execution.
 
 **Cowork does not commit code.** When a Cowork-side skill (`weigh`, `memo`, `explore`, `scope`, `review`, `tidy`) edits a doc in the parent repo, the skill ends by handing the PM a commit message and a `clearlock` line to run from the Mac terminal. Format:
 
