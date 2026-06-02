@@ -2,6 +2,8 @@
   "[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill \"engineering:deploy-checklist\" fired inside \"code-review\" (M-gate) — attributed as sidechain of parent",
   "[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill \"design:accessibility-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
   "[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
+  "[3fb4852b-eada-40dc-9a4f-4e19a4fada89] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
   "[5a4f381c-ed80-46fd-ae87-0d280662e5e3] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
-  "[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent"
+  "[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
+  "[c2966657-79f9-4539-ac0d-dc445220d5d7] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent"
 ]
