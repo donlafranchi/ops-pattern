@@ -393,3 +393,11 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Why:** ADR-22 wants a random suffix on Item URLs; adding a `slug` column would mean a migration (+ M4 deploy-checklist) for a b1 surface where the id-fragment satisfies both uniqueness-enough (1-in-4B collision within a single owning scope) and the random-suffix intent. The fragment is parsed in JS after RLS-scoped fetch (PostgREST can't `left(id::text,8)` on a uuid cleanly).
 
 **Disposition:** accepted-as-is — if Item-slug vanity URLs or collision-hardening are wanted later, add a `slug` column then. M2-noted (collision 1-in-4B).
+
+## 2026-06-02 — T080 — No deviations
+
+**What:** Generalized `item.create` to kind in (product, service, gathering) with a kind-branched child insert, and made the `/you/sell` composer row data-driven. Product behavior is byte-identical (same child insert + params); spine, owner-check, brand_label, location attach, and publish stay kind-agnostic.
+
+**Why:** Prep ticket so F040 (service) and F034 (gathering) branch the shared spine in parallel without colliding.
+
+**Disposition:** no deviations. `made_at_place_id` is nulled for non-product to respect the existing `items_made_at_only_on_products` CHECK — that constraint was already in the schema; no spec change implied.
