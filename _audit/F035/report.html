@@ -27,48 +27,48 @@
   footer{margin-top:40px;color:#999;font-size:12px}
 </style></head><body><div class="wrap">
 <h1>F035 — pipeline telemetry</h1>
-<p class="sub">447 Claude calls · generated from <code>F035/run.jsonl</code></p>
+<p class="sub">610 Claude calls · generated from <code>F035/run.jsonl</code></p>
 
 <h2>Cost-per-F</h2>
 <div class="cards">
-  <div class="card"><div class="k">Total tokens</div><div class="v">53,269,843</div></div>
-  <div class="card"><div class="k">Est. cost</div><div class="v">$144.80</div></div>
-  <div class="card"><div class="k">Wall time</div><div class="v">47m 18s</div></div>
-  <div class="card"><div class="k">Calls</div><div class="v">447</div></div>
+  <div class="card"><div class="k">Total tokens</div><div class="v">69,075,104</div></div>
+  <div class="card"><div class="k">Est. cost</div><div class="v">$194.44</div></div>
+  <div class="card"><div class="k">Wall time</div><div class="v">63m 43s</div></div>
+  <div class="card"><div class="k">Calls</div><div class="v">610</div></div>
 </div>
 
 <h2>By surface</h2>
 <table><thead><tr><th>Surface</th><th class="num">Calls</th><th class="num">Tokens</th><th class="num">Cost</th><th class="num">Time</th></tr></thead>
-<tbody><tr><td>cowork</td><td class="num">313</td><td class="num">34,427,732</td><td class="num">$97.99</td><td class="num">31m 52s</td></tr>
+<tbody><tr><td>cowork</td><td class="num">476</td><td class="num">50,232,993</td><td class="num">$147.63</td><td class="num">48m 17s</td></tr>
 <tr><td>claude-code</td><td class="num">134</td><td class="num">18,842,111</td><td class="num">$46.81</td><td class="num">15m 26s</td></tr></tbody></table>
 
 <h2>Bottleneck distribution (tokens by skill)</h2>
-<div class="pareto"><strong>Pareto:</strong> 3 of 4 skill(s) account for 80% of tokens.
-Dominant: <strong>(none)</strong> at 23,468,169 tokens (44.1%).</div>
+<div class="pareto"><strong>Pareto:</strong> 2 of 4 skill(s) account for 80% of tokens.
+Dominant: <strong>(none)</strong> at 39,273,430 tokens (56.9%).</div>
 <div class="barrow"><div class="barlabel">(none)</div>
         <div class="bartrack"><div class="bar" style="width:100.0%"></div></div>
-        <div class="barval">23,468,169 (44.1%)</div></div>
+        <div class="barval">39,273,430 (56.9%)</div></div>
 <div class="barrow"><div class="barlabel">test</div>
-        <div class="bartrack"><div class="bar" style="width:80.3%"></div></div>
-        <div class="barval">18,842,111 (35.4%)</div></div>
+        <div class="bartrack"><div class="bar" style="width:48.0%"></div></div>
+        <div class="barval">18,842,111 (27.3%)</div></div>
 <div class="barrow"><div class="barlabel">design:accessibility-review</div>
-        <div class="bartrack"><div class="bar" style="width:42.0%"></div></div>
-        <div class="barval">9,851,519 (18.5%)</div></div>
+        <div class="bartrack"><div class="bar" style="width:25.1%"></div></div>
+        <div class="barval">9,851,519 (14.3%)</div></div>
 <div class="barrow"><div class="barlabel">engineering:code-review</div>
-        <div class="bartrack"><div class="bar" style="width:4.7%"></div></div>
-        <div class="barval">1,108,044 (2.1%)</div></div>
+        <div class="bartrack"><div class="bar" style="width:2.8%"></div></div>
+        <div class="barval">1,108,044 (1.6%)</div></div>
 
 <h2>Skill ROI</h2>
 <p class="muted">Click a column header to sort. Skills flagged <span class="flag">no generated output</span> spent tokens but emitted zero output tokens (pure read/observation).</p>
 <table id="roi"><thead><tr>
   <th>Skill</th><th class="num" data-sort="num">Calls</th><th class="num" data-sort="num">Tokens</th>
   <th class="num" data-sort="num">Cost</th><th class="num" data-sort="num">Time</th><th class="num" data-sort="num">Tokens / invoke</th>
-</tr></thead><tbody><tr data-tokens="23468169" data-perinvoke="93499">
+</tr></thead><tbody><tr data-tokens="39273430" data-perinvoke="94863">
         <td>(none) </td>
-        <td class="num">251</td><td class="num">23,468,169</td>
-        <td class="num">$76.08</td>
-        <td class="num">24m 50s</td>
-        <td class="num">93,499</td>
+        <td class="num">414</td><td class="num">39,273,430</td>
+        <td class="num">$125.72</td>
+        <td class="num">41m 15s</td>
+        <td class="num">94,863</td>
       </tr>
 <tr data-tokens="18842111" data-perinvoke="140613">
         <td>test </td>
@@ -95,10 +95,10 @@ Dominant: <strong>(none)</strong> at 23,468,169 tokens (44.1%).</div>
 
 <h2>Backfill notes</h2>
 <div class="pareto">
-  <strong>Attribution confidence:</strong> high: 394 (88%) · low: 53 (12%).<br>
-  <strong>Basis:</strong> scenario/review-file ×260, skill-args ×134, session-dominant ×53.<br>
+  <strong>Attribution confidence:</strong> high: 394 (65%) · low: 216 (35%).<br>
+  <strong>Basis:</strong> scenario/review-file ×260, session-dominant ×216, skill-args ×134.<br>
   <strong>Data window:</strong> 2026-06-02 → 2026-06-02
-  across 4 session(s).
+  across 7 session(s).
 </div>
 <p class="muted" style="margin-top:10px">
   <strong>high</strong> = F-number from the Skill's args or a single scenario/review file in the segment;
@@ -110,7 +110,7 @@ Dominant: <strong>(none)</strong> at 23,468,169 tokens (44.1%).</div>
 <div class="notes"><p class="muted">No schema drift detected — every usage-bearing turn carried requestId, model, and timestamp across all scanned transcripts.</p></div>
 
 <h2>Segmentation notes</h2>
-<div class="notes"><ul><li>[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill "engineering:deploy-checklist" fired inside "code-review" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: high (scenario/review-file); nested M-gate skill under "null"</li><li>attribution: high (skill-args)</li><li>attribution: low (session-dominant); session-dominant fallback (F035) — low confidence; no active skill segment — raw conversation / pre-skill turn</li></ul></div>
+<div class="notes"><ul><li>[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill "engineering:deploy-checklist" fired inside "code-review" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[5a4f381c-ed80-46fd-ae87-0d280662e5e3] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: high (scenario/review-file); nested M-gate skill under "null"</li><li>attribution: high (skill-args)</li><li>attribution: low (session-dominant); session-dominant fallback (F035) — low confidence; no active skill segment — raw conversation / pre-skill turn</li></ul></div>
 
 <footer>Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out (cache write 1.25×, read 0.1×).
 Durations approximate request latency from transcript timestamps.</footer>

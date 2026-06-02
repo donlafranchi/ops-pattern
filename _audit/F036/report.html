@@ -27,39 +27,39 @@
   footer{margin-top:40px;color:#999;font-size:12px}
 </style></head><body><div class="wrap">
 <h1>F036 — pipeline telemetry</h1>
-<p class="sub">1496 Claude calls · generated from <code>F036/run.jsonl</code></p>
+<p class="sub">1563 Claude calls · generated from <code>F036/run.jsonl</code></p>
 
 <h2>Cost-per-F</h2>
 <div class="cards">
-  <div class="card"><div class="k">Total tokens</div><div class="v">365,645,164</div></div>
-  <div class="card"><div class="k">Est. cost</div><div class="v">$712.58</div></div>
-  <div class="card"><div class="k">Wall time</div><div class="v">191m 43s</div></div>
-  <div class="card"><div class="k">Calls</div><div class="v">1,496</div></div>
+  <div class="card"><div class="k">Total tokens</div><div class="v">371,404,736</div></div>
+  <div class="card"><div class="k">Est. cost</div><div class="v">$745.51</div></div>
+  <div class="card"><div class="k">Wall time</div><div class="v">198m 21s</div></div>
+  <div class="card"><div class="k">Calls</div><div class="v">1,563</div></div>
 </div>
 
 <h2>By surface</h2>
 <table><thead><tr><th>Surface</th><th class="num">Calls</th><th class="num">Tokens</th><th class="num">Cost</th><th class="num">Time</th></tr></thead>
 <tbody><tr><td>claude-code</td><td class="num">705</td><td class="num">199,349,778</td><td class="num">$352.63</td><td class="num">97m 38s</td></tr>
-<tr><td>cowork</td><td class="num">791</td><td class="num">166,295,386</td><td class="num">$359.95</td><td class="num">94m 5s</td></tr></tbody></table>
+<tr><td>cowork</td><td class="num">858</td><td class="num">172,054,958</td><td class="num">$392.87</td><td class="num">100m 43s</td></tr></tbody></table>
 
 <h2>Bottleneck distribution (tokens by skill)</h2>
 <div class="pareto"><strong>Pareto:</strong> 4 of 12 skill(s) account for 80% of tokens.
-Dominant: <strong>build</strong> at 179,255,310 tokens (49.0%).</div>
+Dominant: <strong>build</strong> at 179,255,310 tokens (48.3%).</div>
 <div class="barrow"><div class="barlabel">build</div>
         <div class="bartrack"><div class="bar" style="width:100.0%"></div></div>
-        <div class="barval">179,255,310 (49.0%)</div></div>
+        <div class="barval">179,255,310 (48.3%)</div></div>
 <div class="barrow"><div class="barlabel">engineering:deploy-checklist</div>
         <div class="bartrack"><div class="bar" style="width:43.5%"></div></div>
-        <div class="barval">77,901,928 (21.3%)</div></div>
+        <div class="barval">77,901,928 (21.0%)</div></div>
 <div class="barrow"><div class="barlabel">code-review</div>
         <div class="bartrack"><div class="bar" style="width:16.9%"></div></div>
-        <div class="barval">30,225,758 (8.3%)</div></div>
+        <div class="barval">30,225,758 (8.1%)</div></div>
 <div class="barrow"><div class="barlabel">(none)</div>
-        <div class="bartrack"><div class="bar" style="width:12.9%"></div></div>
-        <div class="barval">23,110,560 (6.3%)</div></div>
+        <div class="bartrack"><div class="bar" style="width:16.1%"></div></div>
+        <div class="barval">28,870,132 (7.8%)</div></div>
 <div class="barrow"><div class="barlabel">test</div>
         <div class="bartrack"><div class="bar" style="width:8.3%"></div></div>
-        <div class="barval">14,892,276 (4.1%)</div></div>
+        <div class="barval">14,892,276 (4.0%)</div></div>
 <div class="barrow"><div class="barlabel">weigh</div>
         <div class="bartrack"><div class="bar" style="width:5.3%"></div></div>
         <div class="barval">9,552,251 (2.6%)</div></div>
@@ -68,13 +68,13 @@ Dominant: <strong>build</strong> at 179,255,310 tokens (49.0%).</div>
         <div class="barval">8,107,636 (2.2%)</div></div>
 <div class="barrow"><div class="barlabel">explore</div>
         <div class="bartrack"><div class="bar" style="width:3.0%"></div></div>
-        <div class="barval">5,384,038 (1.5%)</div></div>
+        <div class="barval">5,384,038 (1.4%)</div></div>
 <div class="barrow"><div class="barlabel">ticket</div>
         <div class="bartrack"><div class="bar" style="width:2.9%"></div></div>
         <div class="barval">5,202,192 (1.4%)</div></div>
 <div class="barrow"><div class="barlabel">scope</div>
         <div class="bartrack"><div class="bar" style="width:2.8%"></div></div>
-        <div class="barval">5,003,744 (1.4%)</div></div>
+        <div class="barval">5,003,744 (1.3%)</div></div>
 <div class="barrow"><div class="barlabel">review</div>
         <div class="bartrack"><div class="bar" style="width:2.6%"></div></div>
         <div class="barval">4,745,657 (1.3%)</div></div>
@@ -108,12 +108,12 @@ Dominant: <strong>build</strong> at 179,255,310 tokens (49.0%).</div>
         <td class="num">13m 9s</td>
         <td class="num">364,166</td>
       </tr>
-<tr data-tokens="23110560" data-perinvoke="82538">
+<tr data-tokens="28870132" data-perinvoke="83199">
         <td>(none) </td>
-        <td class="num">280</td><td class="num">23,110,560</td>
-        <td class="num">$86.41</td>
-        <td class="num">23m 8s</td>
-        <td class="num">82,538</td>
+        <td class="num">347</td><td class="num">28,870,132</td>
+        <td class="num">$119.33</td>
+        <td class="num">29m 47s</td>
+        <td class="num">83,199</td>
       </tr>
 <tr data-tokens="14892276" data-perinvoke="248205">
         <td>test </td>
@@ -175,10 +175,10 @@ Dominant: <strong>build</strong> at 179,255,310 tokens (49.0%).</div>
 
 <h2>Backfill notes</h2>
 <div class="pareto">
-  <strong>Attribution confidence:</strong> high: 1244 (83%) · medium: 115 (8%) · low: 137 (9%).<br>
-  <strong>Basis:</strong> skill-args ×924, scenario/review-file ×320, session-dominant ×137, segment-sole-mention ×91, segment-dominant ×24.<br>
+  <strong>Attribution confidence:</strong> high: 1244 (80%) · medium: 115 (7%) · low: 204 (13%).<br>
+  <strong>Basis:</strong> skill-args ×924, scenario/review-file ×320, session-dominant ×204, segment-sole-mention ×91, segment-dominant ×24.<br>
   <strong>Data window:</strong> 2026-05-30 → 2026-06-02
-  across 11 session(s).
+  across 13 session(s).
 </div>
 <p class="muted" style="margin-top:10px">
   <strong>high</strong> = F-number from the Skill's args or a single scenario/review file in the segment;
@@ -190,7 +190,7 @@ Dominant: <strong>build</strong> at 179,255,310 tokens (49.0%).</div>
 <div class="notes"><p class="muted">No schema drift detected — every usage-bearing turn carried requestId, model, and timestamp across all scanned transcripts.</p></div>
 
 <h2>Segmentation notes</h2>
-<div class="notes"><ul><li>[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill "engineering:deploy-checklist" fired inside "code-review" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>attribution: low (session-dominant); session-dominant fallback (F036) — low confidence; no active skill segment — raw conversation / pre-skill turn</li><li>attribution: low (session-dominant); session-dominant fallback (F036) — low confidence</li><li>attribution: high (skill-args)</li><li>attribution: medium (segment-sole-mention); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: medium (segment-sole-mention); nested M-gate skill under "null"</li><li>attribution: medium (segment-dominant); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: high (skill-args); nested M-gate skill under "code-review"</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn; subagent sidechain transcript; isSidechain=true</li><li>attribution: high (scenario/review-file)</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn</li></ul></div>
+<div class="notes"><ul><li>[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill "engineering:deploy-checklist" fired inside "code-review" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[5a4f381c-ed80-46fd-ae87-0d280662e5e3] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>attribution: low (session-dominant); session-dominant fallback (F036) — low confidence; no active skill segment — raw conversation / pre-skill turn</li><li>attribution: low (session-dominant); session-dominant fallback (F036) — low confidence</li><li>attribution: high (skill-args)</li><li>attribution: medium (segment-sole-mention); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: medium (segment-sole-mention); nested M-gate skill under "null"</li><li>attribution: medium (segment-dominant); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: high (skill-args); nested M-gate skill under "code-review"</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn; subagent sidechain transcript; isSidechain=true</li><li>attribution: high (scenario/review-file)</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn</li></ul></div>
 
 <footer>Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out (cache write 1.25×, read 0.1×).
 Durations approximate request latency from transcript timestamps.</footer>

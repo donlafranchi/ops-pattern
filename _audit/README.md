@@ -5,6 +5,19 @@ transcript JSONL. Three scripts: **collect** (parse) → **report** (per-F) → 
 
 No frameworks. Only dep is [`tsx`](https://github.com/privatenumber/tsx) as the TS runner.
 
+## When to run
+
+Refresh telemetry **whenever a scenario flips `now` → `done`** (STAGE-LEDGER row reaches
+`done` — evals green, ticket merged). That's the trigger documented in
+`playbooks/DEVELOPMENT-PATTERNS.md` § *Route work through `_inbox/` → kanban → playbooks*.
+There is deliberately **no git hook** — the collector scans every transcript and can't know
+which live session to `--exclude`, so a hook would mis-attribute the firing session's own
+calls. Run it by hand on the ledger flip:
+
+```bash
+cd _audit && npx tsx collect.ts --exclude <current-session-id> && npx tsx report.ts F### && npx tsx summary.ts
+```
+
 ## Setup
 
 ```bash
