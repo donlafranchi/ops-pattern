@@ -401,3 +401,59 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Why:** Prep ticket so F040 (service) and F034 (gathering) branch the shared spine in parallel without colliding.
 
 **Disposition:** no deviations. `made_at_place_id` is nulled for non-product to respect the existing `items_made_at_only_on_products` CHECK — that constraint was already in the schema; no spec change implied.
+
+## 2026-06-02 — T084 — Gathering files under Group/Member at b1; venue-scoped `/l/<location>/e/` URL deferred to F033
+
+**What:** F034's scenario centers the entry on the venue page ("Host something here") and specifies a venue-scoped URL `/p/[…place]/l/[location-slug]/e/[slug]`. At b1 the composer is reached from the `/you/sell` shop row (the data-driven COMPOSERS array, like the product composer) and files the gathering under the Group (`/p/…/g/<slug>/e/<slug>`) or, with no anchor, under the Member (`/m/<handle>/e/<slug>`). The venue `/l/<location>/e/` path is not built.
+
+**Why:** F033 (venue page with the "Host something here" CTA + a Location resolver) has not shipped — there is no Location public page or `/l/` resolver to host the venue-scoped URL or the entry CTA. Mirroring the shipped F038 product surface (Group/Member filing through `/you/sell`) gives the gathering composer a working entry + canonical URL now, without inventing the F033 Location surface ahead of its scenario.
+
+**Disposition:** flag-for-spec-revision — when F033 lands the venue page + `/l/` resolver, add the venue entry CTA and the `/p/…/l/<location>/e/<slug>` URL form (the resolver already keys off the owning scope; a `splitGatheringSlug` arm for the `/l/` marker is the addition). SPEC-PATCHES queued against F034 § Surfaces + § Completion URL.
+
+## 2026-06-02 — T084 — `item.create` gathering arm extended with `whatToBring`
+
+**What:** Added `whatToBring` to `itemCreateInput` and the `item_gatherings` insert. T080 generalized the handler but its gathering insert omitted the `what_to_bring` column (the table has it).
+
+**Why:** F034 § Data Captured lists "What to bring" as an optional composer field, and the column already exists in migration 015. T080's comment assigns the gathering arm to F034 ("each composer ticket owns its arm"), so filling the missing column is in-scope rather than a shared-handler redesign.
+
+**Disposition:** no deviation from spec — closes a gap between the T080 scaffold and the F034 Data-Captured table. M2-noted.
+
+## 2026-06-02 — T085 — No deviations beyond the inherited id8 addressing
+
+**What:** `resolveGathering` reuses the T079 `parseIdFragment` id8-fragment addressing (no `slug` column on `items`). The group-path query does **not** constrain `groups.kind='business'` (the product resolver does), so a gathering filed under any Group kind resolves.
+
+**Why:** id8 addressing is the established b1 Item-URL contract (see T079 entry). Not constraining group kind is intentional — gatherings are not business-only (event_anchored/interest Groups host them in future); the slug + `group_id` match is the gate.
+
+**Disposition:** no new deviation. M2-noted.
+
+## 2026-06-02 — T081 — Service rate_model honors shipped schema enum, not the scenario list
+
+**What:** F040 § Data-Captured lists `rate_model` as `flat / hourly / per-session / free`. The shipped CHECK (`015_items.sql`) is `hourly / flat / quote / membership`. The build honors the durable schema: composer offers Per-hour / Flat rate / Request-a-quote / Membership. "per-session" has no schema slot (conceptually `flat`); "free" is modeled as `rate_cents = NULL` (mirrors product's free path), not a `rate_model` value.
+
+**Why:** No new migration at b1 (task constraint + the column is fine). The enum is durable; the scenario's Data-Captured row is the spec text that drifted. SPEC-PATCHES filed against the scenario row.
+
+**Disposition:** flag-for-spec-revision — SPEC-PATCHES entry appended. M2-noted.
+
+## 2026-06-02 — T081 — service_area_geography as a PostGIS buffer-circle; MultiPolygon edge unguarded
+
+**What:** `item.create` writes `service_area_geography` via `st_buffer(st_setsrid(st_makepoint(lon, lat), 4326)::geography, radius_m)` — a circle from center + radius. The column type is `geography(Polygon,4326)`; `ST_Buffer` returns a single Polygon for normal radii but could in principle yield a MultiPolygon near a pole/antimeridian, which the column type would reject.
+
+**Why:** Radius is UI-bounded (miles) and centers are real Locations, so the pathological case is not reachable at b1. Guarding it (or widening the column to MultiPolygon) is deferred.
+
+**Disposition:** accepted-as-is — revisit if a service area ever spans a pole/antimeridian. M2-noted (low-sev).
+
+## 2026-06-02 — T082 — Anchor Location doubles as the service-area center
+
+**What:** F040 § Edge Cases allows a pure area-only service (no anchor Location). The composer instead requires one center Location, which is also written as the `item_locations` anchor and supplies the circle's center coords. Pure area-only (no anchor) is deferred.
+
+**Why:** A circle needs a center point; capturing a free-floating map center is a heavier picker (deferred to b2 polygon editor per F040 § Out of Scope). Reusing the Location picker keeps the b1 surface to the product composer's shape.
+
+**Disposition:** accepted-as-is — area-only-without-anchor returns with the b2 service-area polygon editor. M2-noted.
+
+## 2026-06-02 — T083 — Service-area renders as static text at b1 (no Mapbox circle)
+
+**What:** `<ServicePublicPage>` renders the service area as a static statement ("Available around {anchor} and the surrounding area") gated on `hasServiceArea`. The resolver reports `hasServiceArea` (geography non-null) but does not recover the circle geometry; the Mapbox circle render is deferred.
+
+**Why:** Mirrors the product page's static pickup marker (T079) — the real-map surface is a later concern. The geography's load-bearing job (feed-area intersection per F040's last AC) is exercised by the Playwright eval against live Supabase, not the page render.
+
+**Disposition:** accepted-as-is — Mapbox service-area circle lands with the richer map surfaces. M2-noted.
