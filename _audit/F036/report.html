@@ -1,0 +1,131 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>F036 — pipeline telemetry</title>
+<style>
+  body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f6f7f9;color:#1a1a1a}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 24px 80px}
+  h1{font-size:24px;margin:0 0 4px} h2{font-size:16px;margin:32px 0 12px;border-bottom:1px solid #e2e4e8;padding-bottom:6px}
+  .sub{color:#666;margin:0 0 24px}
+  .cards{display:flex;gap:12px;flex-wrap:wrap}
+  .card{background:#fff;border:1px solid #e2e4e8;border-radius:8px;padding:14px 18px;flex:1;min-width:150px}
+  .card .k{color:#666;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .card .v{font-size:22px;font-weight:600;margin-top:4px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e4e8;border-radius:8px;overflow:hidden}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #eef0f3}
+  th{background:#fafbfc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#555;cursor:pointer;user-select:none}
+  th:hover{background:#f0f2f5}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:none}
+  .flag{display:inline-block;background:#fde8e8;color:#b42318;font-size:11px;padding:1px 6px;border-radius:4px;margin-left:6px}
+  .pareto{background:#eef6ff;border:1px solid #cfe3fb;border-radius:8px;padding:12px 16px;margin:12px 0}
+  .barrow{display:flex;align-items:center;gap:10px;margin:5px 0}
+  .barlabel{width:170px;font-size:13px;text-align:right;color:#333;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bartrack{flex:1;background:#eef0f3;border-radius:4px;height:16px;overflow:hidden}
+  .bar{background:#3b82f6;height:100%}
+  .barval{width:160px;font-size:12px;color:#555;font-variant-numeric:tabular-nums}
+  .muted{color:#888}
+  .notes li{margin:3px 0}
+  footer{margin-top:40px;color:#999;font-size:12px}
+</style></head><body><div class="wrap">
+<h1>F036 — pipeline telemetry</h1>
+<p class="sub">650 Claude calls · generated from <code>F036/run.jsonl</code></p>
+
+<h2>Cost-per-F</h2>
+<div class="cards">
+  <div class="card"><div class="k">Total tokens</div><div class="v">170,251,133</div></div>
+  <div class="card"><div class="k">Est. cost</div><div class="v">$320.03</div></div>
+  <div class="card"><div class="k">Wall time</div><div class="v">87m 13s</div></div>
+  <div class="card"><div class="k">Calls</div><div class="v">650</div></div>
+</div>
+
+<h2>By surface</h2>
+<table><thead><tr><th>Surface</th><th class="num">Calls</th><th class="num">Tokens</th><th class="num">Cost</th><th class="num">Time</th></tr></thead>
+<tbody><tr><td>claude-code</td><td class="num">582</td><td class="num">164,692,998</td><td class="num">$292.12</td><td class="num">78m 55s</td></tr>
+<tr><td>cowork</td><td class="num">68</td><td class="num">5,558,135</td><td class="num">$27.91</td><td class="num">8m 18s</td></tr></tbody></table>
+
+<h2>Bottleneck distribution (tokens by skill)</h2>
+<div class="pareto"><strong>Pareto:</strong> 1 of 5 skill(s) account for 80% of tokens.
+Dominant: <strong>build</strong> at 152,651,893 tokens (89.7%).</div>
+<div class="barrow"><div class="barlabel">build</div>
+        <div class="bartrack"><div class="bar" style="width:100.0%"></div></div>
+        <div class="barval">152,651,893 (89.7%)</div></div>
+<div class="barrow"><div class="barlabel">test</div>
+        <div class="bartrack"><div class="bar" style="width:7.2%"></div></div>
+        <div class="barval">11,061,777 (6.5%)</div></div>
+<div class="barrow"><div class="barlabel">(none)</div>
+        <div class="bartrack"><div class="bar" style="width:1.9%"></div></div>
+        <div class="barval">2,975,396 (1.7%)</div></div>
+<div class="barrow"><div class="barlabel">orient</div>
+        <div class="bartrack"><div class="bar" style="width:1.7%"></div></div>
+        <div class="barval">2,582,739 (1.5%)</div></div>
+<div class="barrow"><div class="barlabel">ticket</div>
+        <div class="bartrack"><div class="bar" style="width:0.6%"></div></div>
+        <div class="barval">979,328 (0.6%)</div></div>
+
+<h2>Skill ROI</h2>
+<p class="muted">Click a column header to sort. Skills flagged <span class="flag">no generated output</span> spent tokens but emitted zero output tokens (pure read/observation).</p>
+<table id="roi"><thead><tr>
+  <th>Skill</th><th class="num" data-sort="num">Calls</th><th class="num" data-sort="num">Tokens</th>
+  <th class="num" data-sort="num">Cost</th><th class="num" data-sort="num">Time</th><th class="num" data-sort="num">Tokens / invoke</th>
+</tr></thead><tbody><tr data-tokens="152651893" data-perinvoke="291320">
+        <td>build </td>
+        <td class="num">524</td><td class="num">152,651,893</td>
+        <td class="num">$268.96</td>
+        <td class="num">72m 47s</td>
+        <td class="num">291,320</td>
+      </tr>
+<tr data-tokens="11061777" data-perinvoke="245817">
+        <td>test </td>
+        <td class="num">45</td><td class="num">11,061,777</td>
+        <td class="num">$19.17</td>
+        <td class="num">5m 18s</td>
+        <td class="num">245,817</td>
+      </tr>
+<tr data-tokens="2975396" data-perinvoke="74385">
+        <td>(none) </td>
+        <td class="num">40</td><td class="num">2,975,396</td>
+        <td class="num">$20.80</td>
+        <td class="num">4m 54s</td>
+        <td class="num">74,385</td>
+      </tr>
+<tr data-tokens="2582739" data-perinvoke="92241">
+        <td>orient </td>
+        <td class="num">28</td><td class="num">2,582,739</td>
+        <td class="num">$7.11</td>
+        <td class="num">3m 24s</td>
+        <td class="num">92,241</td>
+      </tr>
+<tr data-tokens="979328" data-perinvoke="75333">
+        <td>ticket </td>
+        <td class="num">13</td><td class="num">979,328</td>
+        <td class="num">$3.99</td>
+        <td class="num">50.0 s</td>
+        <td class="num">75,333</td>
+      </tr></tbody></table>
+
+<h2>Segmentation notes</h2>
+<div class="notes"><ul><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>f-number from session-dominant (F036); no active skill segment — raw conversation / pre-skill turn</li><li>f-number from session-dominant (F036)</li><li>f-number from session-dominant (F036); local context mentions F034</li><li>f-number from session-dominant (F036); local context mentions F038</li><li>f-number from session-dominant (F036); local context mentions F035</li><li>f-number from session-dominant (F036); local context mentions F003</li><li>f-number from session-dominant (F036); local context mentions F037</li><li>f-number from session-dominant (F036); local context mentions F028; no active skill segment — raw conversation / pre-skill turn</li></ul></div>
+
+<footer>Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out (cache write 1.25×, read 0.1×).
+Durations approximate request latency from transcript timestamps.</footer>
+</div>
+<script>
+// click-to-sort for any table with sortable headers
+document.querySelectorAll('table').forEach(function(t){
+  t.querySelectorAll('th').forEach(function(th,idx){
+    th.addEventListener('click',function(){
+      var tb=t.querySelector('tbody');
+      var rows=[].slice.call(tb.querySelectorAll('tr'));
+      var asc=th._asc=!th._asc;
+      rows.sort(function(a,b){
+        var x=a.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+        var y=b.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+        var nx=parseFloat(x), ny=parseFloat(y);
+        if(!isNaN(nx)&&!isNaN(ny)) return asc?nx-ny:ny-nx;
+        return asc?x.localeCompare(y):y.localeCompare(x);
+      });
+      rows.forEach(function(r){tb.appendChild(r)});
+    });
+  });
+});
+</script>
+</body></html>

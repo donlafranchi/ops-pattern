@@ -1,0 +1,15 @@
+{
+  "name": "pipeline-telemetry",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Transcript-parsing collector + reports for the agent-pipeline telemetry system",
+  "scripts": {
+    "collect": "tsx collect.ts",
+    "report": "tsx report.ts",
+    "summary": "tsx summary.ts",
+    "all": "tsx collect.ts && tsx report.ts && tsx summary.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

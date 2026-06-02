@@ -1,0 +1,69 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pipeline telemetry — summary</title>
+<style>
+  body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f6f7f9;color:#1a1a1a}
+  .wrap{max-width:1000px;margin:0 auto;padding:32px 24px 80px}
+  h1{font-size:24px;margin:0 0 4px} .sub{color:#666;margin:0 0 24px}
+  .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+  .card{background:#fff;border:1px solid #e2e4e8;border-radius:8px;padding:14px 18px;flex:1;min-width:150px}
+  .card .k{color:#666;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .card .v{font-size:22px;font-weight:600;margin-top:4px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e4e8;border-radius:8px;overflow:hidden}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #eef0f3}
+  th{background:#fafbfc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#555;cursor:pointer;user-select:none}
+  th:hover{background:#f0f2f5}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:none} a{color:#2563eb;text-decoration:none} a:hover{text-decoration:underline}
+  footer{margin-top:40px;color:#999;font-size:12px}
+</style></head><body><div class="wrap">
+<h1>Pipeline telemetry — summary</h1>
+<p class="sub">2 F-number(s) · click a column to sort, click an F-number for its full report</p>
+<div class="cards">
+  <div class="card"><div class="k">Total tokens</div><div class="v">222,141,340</div></div>
+  <div class="card"><div class="k">Total cost</div><div class="v">$461.87</div></div>
+  <div class="card"><div class="k">Total wall time</div><div class="v">133m 4s</div></div>
+  <div class="card"><div class="k">Total calls</div><div class="v">1,083</div></div>
+</div>
+<table id="t"><thead><tr>
+  <th>F-number</th><th class="num">Calls</th><th class="num">Total tokens</th><th class="num">Total cost</th>
+  <th class="num">Wall time</th><th class="num">Skill count</th><th>Dominant (tokens)</th><th>Dominant (time)</th>
+</tr></thead><tbody><tr>
+    <td><a href="F036/report.html">F036</a></td>
+    <td class="num">650</td>
+    <td class="num">170,251,133</td>
+    <td class="num">$320.03</td>
+    <td class="num">87m 13s</td>
+    <td class="num">5</td>
+    <td>build</td>
+    <td>build</td>
+  </tr>
+<tr>
+    <td><a href="F035/report.html">F035</a></td>
+    <td class="num">433</td>
+    <td class="num">51,890,207</td>
+    <td class="num">$141.84</td>
+    <td class="num">45m 51s</td>
+    <td class="num">4</td>
+    <td>(none)</td>
+    <td>(none)</td>
+  </tr></tbody></table>
+<footer>Generated from _audit/F###/run.jsonl. Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out.</footer>
+</div>
+<script>
+var t=document.getElementById('t');
+t.querySelectorAll('th').forEach(function(th,idx){
+  th.addEventListener('click',function(){
+    var tb=t.querySelector('tbody'), rows=[].slice.call(tb.querySelectorAll('tr'));
+    var asc=th._asc=!th._asc;
+    rows.sort(function(a,b){
+      var x=a.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+      var y=b.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+      var nx=parseFloat(x),ny=parseFloat(y);
+      if(!isNaN(nx)&&!isNaN(ny))return asc?nx-ny:ny-nx;
+      return asc?x.localeCompare(y):y.localeCompare(x);
+    });
+    rows.forEach(function(r){tb.appendChild(r)});
+  });
+});
+</script>
+</body></html>

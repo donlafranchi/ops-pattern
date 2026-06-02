@@ -1,0 +1,121 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>F035 — pipeline telemetry</title>
+<style>
+  body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f6f7f9;color:#1a1a1a}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 24px 80px}
+  h1{font-size:24px;margin:0 0 4px} h2{font-size:16px;margin:32px 0 12px;border-bottom:1px solid #e2e4e8;padding-bottom:6px}
+  .sub{color:#666;margin:0 0 24px}
+  .cards{display:flex;gap:12px;flex-wrap:wrap}
+  .card{background:#fff;border:1px solid #e2e4e8;border-radius:8px;padding:14px 18px;flex:1;min-width:150px}
+  .card .k{color:#666;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .card .v{font-size:22px;font-weight:600;margin-top:4px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e4e8;border-radius:8px;overflow:hidden}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #eef0f3}
+  th{background:#fafbfc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#555;cursor:pointer;user-select:none}
+  th:hover{background:#f0f2f5}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:none}
+  .flag{display:inline-block;background:#fde8e8;color:#b42318;font-size:11px;padding:1px 6px;border-radius:4px;margin-left:6px}
+  .pareto{background:#eef6ff;border:1px solid #cfe3fb;border-radius:8px;padding:12px 16px;margin:12px 0}
+  .barrow{display:flex;align-items:center;gap:10px;margin:5px 0}
+  .barlabel{width:170px;font-size:13px;text-align:right;color:#333;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bartrack{flex:1;background:#eef0f3;border-radius:4px;height:16px;overflow:hidden}
+  .bar{background:#3b82f6;height:100%}
+  .barval{width:160px;font-size:12px;color:#555;font-variant-numeric:tabular-nums}
+  .muted{color:#888}
+  .notes li{margin:3px 0}
+  footer{margin-top:40px;color:#999;font-size:12px}
+</style></head><body><div class="wrap">
+<h1>F035 — pipeline telemetry</h1>
+<p class="sub">433 Claude calls · generated from <code>F035/run.jsonl</code></p>
+
+<h2>Cost-per-F</h2>
+<div class="cards">
+  <div class="card"><div class="k">Total tokens</div><div class="v">51,890,207</div></div>
+  <div class="card"><div class="k">Est. cost</div><div class="v">$141.84</div></div>
+  <div class="card"><div class="k">Wall time</div><div class="v">45m 51s</div></div>
+  <div class="card"><div class="k">Calls</div><div class="v">433</div></div>
+</div>
+
+<h2>By surface</h2>
+<table><thead><tr><th>Surface</th><th class="num">Calls</th><th class="num">Tokens</th><th class="num">Cost</th><th class="num">Time</th></tr></thead>
+<tbody><tr><td>cowork</td><td class="num">299</td><td class="num">33,048,096</td><td class="num">$95.03</td><td class="num">30m 26s</td></tr>
+<tr><td>claude-code</td><td class="num">134</td><td class="num">18,842,111</td><td class="num">$46.81</td><td class="num">15m 26s</td></tr></tbody></table>
+
+<h2>Bottleneck distribution (tokens by skill)</h2>
+<div class="pareto"><strong>Pareto:</strong> 3 of 4 skill(s) account for 80% of tokens.
+Dominant: <strong>(none)</strong> at 22,088,533 tokens (42.6%).</div>
+<div class="barrow"><div class="barlabel">(none)</div>
+        <div class="bartrack"><div class="bar" style="width:100.0%"></div></div>
+        <div class="barval">22,088,533 (42.6%)</div></div>
+<div class="barrow"><div class="barlabel">test</div>
+        <div class="bartrack"><div class="bar" style="width:85.3%"></div></div>
+        <div class="barval">18,842,111 (36.3%)</div></div>
+<div class="barrow"><div class="barlabel">design:accessibility-review</div>
+        <div class="bartrack"><div class="bar" style="width:44.6%"></div></div>
+        <div class="barval">9,851,519 (19.0%)</div></div>
+<div class="barrow"><div class="barlabel">engineering:code-review</div>
+        <div class="bartrack"><div class="bar" style="width:5.0%"></div></div>
+        <div class="barval">1,108,044 (2.1%)</div></div>
+
+<h2>Skill ROI</h2>
+<p class="muted">Click a column header to sort. Skills flagged <span class="flag">no generated output</span> spent tokens but emitted zero output tokens (pure read/observation).</p>
+<table id="roi"><thead><tr>
+  <th>Skill</th><th class="num" data-sort="num">Calls</th><th class="num" data-sort="num">Tokens</th>
+  <th class="num" data-sort="num">Cost</th><th class="num" data-sort="num">Time</th><th class="num" data-sort="num">Tokens / invoke</th>
+</tr></thead><tbody><tr data-tokens="22088533" data-perinvoke="93201">
+        <td>(none) </td>
+        <td class="num">237</td><td class="num">22,088,533</td>
+        <td class="num">$73.12</td>
+        <td class="num">23m 24s</td>
+        <td class="num">93,201</td>
+      </tr>
+<tr data-tokens="18842111" data-perinvoke="140613">
+        <td>test </td>
+        <td class="num">134</td><td class="num">18,842,111</td>
+        <td class="num">$46.81</td>
+        <td class="num">15m 26s</td>
+        <td class="num">140,613</td>
+      </tr>
+<tr data-tokens="9851519" data-perinvoke="179119">
+        <td>design:accessibility-review </td>
+        <td class="num">55</td><td class="num">9,851,519</td>
+        <td class="num">$19.33</td>
+        <td class="num">6m 6s</td>
+        <td class="num">179,119</td>
+      </tr>
+<tr data-tokens="1108044" data-perinvoke="158292">
+        <td>engineering:code-review </td>
+        <td class="num">7</td><td class="num">1,108,044</td>
+        <td class="num">$2.58</td>
+        <td class="num">55.9 s</td>
+        <td class="num">158,292</td>
+      </tr></tbody></table>
+
+<h2>Segmentation notes</h2>
+<div class="notes"><ul><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>f-number from session-dominant (F035); no active skill segment — raw conversation / pre-skill turn</li><li>f-number from session-dominant (F035); local context mentions F036; no active skill segment — raw conversation / pre-skill turn</li><li>f-number from session-dominant (F035); local context mentions F038; no active skill segment — raw conversation / pre-skill turn</li><li>nested M-gate skill under "null"</li><li>f-number from session-dominant (F035); nested M-gate skill under "null"</li><li>f-number from session-dominant (F035); local context mentions F036; nested M-gate skill under "null"</li><li>f-number from session-dominant (F035); local context mentions F037; nested M-gate skill under "null"</li><li>f-number from session-dominant (F035); local context mentions F042; no active skill segment — raw conversation / pre-skill turn</li></ul></div>
+
+<footer>Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out (cache write 1.25×, read 0.1×).
+Durations approximate request latency from transcript timestamps.</footer>
+</div>
+<script>
+// click-to-sort for any table with sortable headers
+document.querySelectorAll('table').forEach(function(t){
+  t.querySelectorAll('th').forEach(function(th,idx){
+    th.addEventListener('click',function(){
+      var tb=t.querySelector('tbody');
+      var rows=[].slice.call(tb.querySelectorAll('tr'));
+      var asc=th._asc=!th._asc;
+      rows.sort(function(a,b){
+        var x=a.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+        var y=b.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+        var nx=parseFloat(x), ny=parseFloat(y);
+        if(!isNaN(nx)&&!isNaN(ny)) return asc?nx-ny:ny-nx;
+        return asc?x.localeCompare(y):y.localeCompare(x);
+      });
+      rows.forEach(function(r){tb.appendChild(r)});
+    });
+  });
+});
+</script>
+</body></html>
