@@ -22,11 +22,11 @@ status: open
 
 ## Workflow gates
 
-- [ ] **M2 — `engineering:code-review`** on the diff before commit.
-- [ ] **M3 — `design:accessibility-review`** — N/A (no UI in this ticket; F037 owns the surface).
-- [ ] **M4 — `engineering:deploy-checklist`** before merge to main (new migration; SECURITY DEFINER function; RLS policies).
-- [ ] **DEVIATIONS.md entry** at ticket close — even one line.
-- [ ] **SPEC-PATCHES** entry if the build surfaces drift between this ticket's implementation and `business-jurisdiction.md` § Data model implications.
+- [x] **M2 — `engineering:code-review`** on the diff before commit. PROCEED — 2 issues found + fixed pre-commit (crosswalk RLS for Rule 3; seed inlined to avoid `\ir` on `supabase db push`).
+- [x] **M3 — `design:accessibility-review`** — N/A (no UI in this ticket; F037 owns the surface).
+- [ ] **M4 — `engineering:deploy-checklist`** before merge to main (new migration; SECURITY DEFINER function; RLS policies). **Pending** — branch not yet merged. Note for M4: the pre-existing `tests/rls-coverage.test.ts` failure against the live dev DB (19 partition/embedding/PostGIS tables lack RLS) is unrelated to T075 — both new tables have RLS.
+- [x] **DEVIATIONS.md entry** at ticket close — 2026-06-02 — T075 (4 deviations).
+- [x] **SPEC-PATCHES** entry — 2 filed (location.md missing `place_id`; places.md/location.md missing `msa_code`).
 
 ## Acceptance Criteria
 
@@ -122,5 +122,9 @@ status: open
 
 ## Completion
 
-Date: {YYYY-MM-DD}
-Commit: {pending}
+Date: 2026-06-02
+Commit: beb508f (branch `t75`, worktree `../web-t75`) — **not merged** (PM directs merge per commit rules).
+
+**Built:** migrations 024 (`member_business_jurisdictions` + RLS + event-kind CHECK) + 025 (`zip_metro_crosswalk` + RLS + 90-row Sacramento seed + `places.msa_code` backfill + `locations.place_id` + `zip_is_proximal_to_location()` + grants); handlers `member.business_jurisdiction.{set,remove}`; seed artifact + SQL contract test. 40/40 vitest green; migrations + 5/5 SQL-contract cases validated live (rolled back); tsc/eslint/conformance clean. `.attest_community` + `.upload_document` correctly deferred to b2+ (no stub).
+
+**Substrate gate CLOSED for F037 + F039** (STAGE-LEDGER stamped `built`; both rows annotated; files stay in `planning/backlog/` for PM to promote). F036 `:266` jurisdiction half greens on next eval re-run.

@@ -22,6 +22,16 @@ The local `scaffold` skill taught the old 11-directory planning structure (`scen
 
 ---
 
+## 2026-06-01 — Drafted three small-win scenarios to unblock the producer track post-F036
+
+F035 (viewer finds Maya's Shop), F037 (Maya claims Locally Owned Tier 0), F039 (Maya claims Locally Made Tier 0). All three Gate A pre-flight to PASS at draft time. F035 has no substrate gate and can ratify immediately; F037 gates on S-jurisdictions; F039 gates on S-jurisdictions AND F038 (product composer). The community-Group flavor of F035 (Run Club viewer) defers to same F-number, different slug, after F034 lands.
+
+Together these three green three of the four F036 forward-dep failures once their substrates + this work ship: F035 → `:167`, F037 → jurisdiction half of `:266`, F039 → provenance half of `:266`. Polygon-seed half of `:266` belongs to T058 substrate work, not these scenarios.
+
+→ `planning/backlog/scenario-F035-rosa-finds-mayas-shop.md`, `planning/backlog/scenario-F037-maya-claims-locally-owned.md`, `planning/backlog/scenario-F039-maya-claims-locally-made.md`; STAGE-LEDGER F035 / F037 / F039 rows annotated with scenario-drafted dates + gate verdicts.
+
+---
+
 ## 2026-06-01 — Shipped the Sell walkthrough surface; F036 evals at 5/9 with named forward-deps
 
 T073 + T073b both merged to main. T073b expanded scope mid-loop — the two named bugs (composer accessible-name collision, `<Link>`-vs-`<button>` on `/you/sell`) sat upstream of three latent surface fixes (`sellCreateLocationAction` RLS bypass, `sellActivateAction` FK rewrite, AnchorLocationStep state) plus a `role="link"` skip — six fixes total instead of two. Eval surfaced the chain after the named ones unblocked. F036 evals now 5/9 passing; four remaining failures are all forward-deps (F035 Group public page, F038/F040/F034 composers, F037 Locally Owned claim, T058 polygon seed) logged as DEVIATIONS-accepted-as-is under T073's section.

@@ -3,7 +3,7 @@
 > **Renumbered 2026-06-02:** was `T075` (collided with `T075-member-business-jurisdictions-substrate`); renumbered to **T076**. Both still draft a `024_*` migration — the second to build rebases off `025_*`+.
 
 **Scenario:** substrate
-**Status:** Open
+**Status:** Build complete on branch `t76` (not merged)
 **Bundle:** b1 (b1.x — Substrate sprint, polygon-library backfill)
 **Depends on:** T058 (places table), T066 (county tier + URL compression), T059 (reverse-geocoder)
 
@@ -15,9 +15,9 @@
 
 ## Workflow gates
 
-- [ ] **M2 — `engineering:code-review`** invoked on the diff before commit.
-- [ ] **M4 — `engineering:deploy-checklist`** before merge to main (schema + seed-data change).
-- [ ] **DEVIATIONS.md entry** appended at close — minimum the one-line "no deviations."
+- [x] **M2 — `engineering:code-review`** invoked on the diff before commit. Verdict **Approve** (3 nits accepted: non-idempotent inserts [forward-only], redundant ST_Centroid eval, silent 0-row backfill if T058 absent).
+- [ ] **M4 — `engineering:deploy-checklist`** before merge to main (schema + seed-data change). _Pending — ticket left on branch `t76`, not merged, per PM instruction._
+- [x] **DEVIATIONS.md entry** appended at close — 4 deviations logged (2026-06-02 — T076).
 
 ## Acceptance Criteria
 
@@ -57,5 +57,16 @@
 
 ## Completion
 
-Date:
-Commit:
+Date: 2026-06-02
+Commit: `{pending}` — committed on branch `t76` (web worktree `../web-t76`), **not merged** per PM instruction.
+Status: Build complete.
+
+**Shipped:** `024_places_polygon_centroid_seed.sql` (centroid column + GiST index, 3 new cities, 11 polygon backfills, centroid derivation w/ ST_PointOnSurface fallback, 14 place_events on one correlation_id, system Member as actor, no metro/region row per D3). Vitest: `tests/places-polygon-seed.test.ts`, `tests/places-reverse-geocode.test.ts`, `tests/places-poly-fixtures.ts` — 42 GREEN.
+
+**Verification:** `npm run check:action-layer` clean (35 protected tables, 0 violations). 42 T076 vitest GREEN. The 3 T076 files lint clean (eslint exit 0). Full `npm test` shows 16 pre-existing failures (frozen migration-list snapshots + flaky subprocess CI-enforcement tests) — identical set on `main` without 024; T076 adds 0 net regressions.
+
+**Deviations (4, see DEVIATIONS.md 2026-06-02 — T076):** (1) polygons are axis-aligned bbox approximations of the cited TIGER/City sources — full-res replay owned by S-metro [SPEC-PATCHES]; (2) Placer County backfilled not inserted (T058 pre-seeded it); (3) AC's "centroid-distance tiebreak in 022" doesn't exist — neighbourhoods seeded non-overlapping for determinism, centroid column added for a future tiebreak [SPEC-PATCHES]; (4) vitest = pure-JS geometry + static SQL (no Postgres in vitest); live containment is the downstream Playwright `test` step.
+
+**SPEC-PATCHES:** line-26 (017 polygons unseeded) checked off → landed via T076; 3 new entries queued (full-res replay, places.md Open-questions resolution, centroid-tiebreak decision).
+
+**Left for PM:** M4 deploy-checklist + merge `t76` → main; downstream `test`-skill Playwright run for live-DB containment + recursive-CTE parent walks (the assertions the vitest harness can't run).

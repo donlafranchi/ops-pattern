@@ -29,6 +29,26 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 findin
 
 ## Phase 2 entries
 
+## 2026-06-02 — T076 — Sacramento-region polygon + centroid seed (substrate)
+
+**Deviation 1 — polygons are simplified bounding approximations, not full-resolution TIGER 2023 geometry.** The AC cites Census TIGER/Line 2023 (counties/state/places) + City of Sacramento Open Data (neighbourhoods) as the polygon sources. Full-resolution shapefiles can't be fetched/embedded in this build environment, so the migration embeds axis-aligned bounding-box approximations of each place, with the authoritative source URLs documented in the migration header for a future replay. The boxes give the reverse-geocoder correct **coverage** and correct **smallest-covering-polygon ordering** for the launch market (verified by `tests/places-reverse-geocode.test.ts`: downtown Davis→Davis, Folsom→Folsom, Roseville→Roseville, Oak Park boundary→Oak Park deterministically; rural Placer→Placer County; off-coast→null). Each row's `place_events.payload` carries `seed_method='approx_bbox'` so the approximation is auditable. **Flagged for spec revision — see SPEC-PATCHES.** Full-res replay is owned by the future **S-metro** ticket (polygon-library backfill).
+
+**Deviation 2 — Placer County is backfilled (`place.updated`), not inserted (`place.created`).** The AC's "Seed — Placer County" bullet assumed Placer did not yet exist. T058 (`017_places.sql`) already seeded all five Sacramento-metro counties including Placer (slug `placer`, not `placer-county`). Inserting a duplicate would violate `uniq_places_parent_slug`. The existing row already satisfies the AC's stated *why* — anchoring Roseville under a county per the `kind='city' ⇒ ancestor_state_id NOT NULL` invariant — so this migration backfills Placer's polygon instead. Slug stays `placer` (consistent with the four sibling counties), not the AC's `placer-county`.
+
+**Deviation 3 — the "centroid-distance tiebreak in 022" referenced by the AC does not exist yet.** The AC's reverse-geocode test bullet references "the centroid-distance tiebreak in `022_places_reverse_geocode.sql`," but 022's `place_for_coords` resolves purely by `ST_Area` ascending (smallest covering polygon) with no centroid tiebreak. This ticket adds the `centroid` column + GiST index that a future tiebreak would use, but does not modify `place_for_coords`. To keep resolution deterministic without a tiebreak, the five neighbourhood polygons are seeded **non-overlapping** (verified by a grid-sweep assertion in `tests/places-reverse-geocode.test.ts`), so every Sacramento-city point hits at most one neighbourhood.
+
+**Deviation 4 — vitest assertions are pure-JS geometry + static SQL, not live DB.** The AC describes DB-behaviour assertions (`ST_Contains`, recursive-CTE parent walks, `place_for_coords` spot-checks). The repo's vitest harness has no Postgres (jsdom only); live PostGIS containment lives in Playwright evals (`evals/phase-1/`). Following the established split, the new vitest files parse the WKT out of the migration and run point-in-polygon / smallest-covering-polygon / centroid-containment in JS (genuine geometry verification, not text matching), plus static SQL-shape checks for the schema/event/correlation-id structure. The live-DB containment + recursive-CTE walk belong to the downstream `test`-skill Playwright run.
+
+**Impact:** Greens the polygon-seed half of F036's locality-step prerequisite (`F036…spec.ts:266`). Schema adds `places.centroid` + `idx_places_centroid`. Reverse-geocoder now resolves the launch market by polygon (was empty geometry → always Mapbox fallback before). No UI, no runtime/action-layer code. `npm run check:action-layer` clean; the 42 new tests pass.
+
+**Pre-existing suite state (not caused by T076):** `npm test` shows 16 failing tests on `main` *before* this change — stale frozen migration-list snapshots (`migrations-phase-0/t042/t045…t050`, `auth-signup-route-t044` — they `toEqual` a hardcoded list never updated past ~012) and flaky subprocess-spawning conformance tests (`ci-enforcement-rule-*`, `ci-conformance-json`, `eval-bootstrap` — shift run-to-run, 6 on main vs 5 on t76 in isolation). T076 adds zero net regressions; its own 42 tests pass. Not fixed here — out of scope for a substrate seed; surfaced for a dedicated tidy/tech-debt pass.
+
+**Escalation:** None — all four deviations are scoped substrate decisions with the full-res replay assigned to S-metro and the spec-patch candidates queued.
+
+**Resolution:** Shipped as scoped; this entry + the SPEC-PATCHES entries close the loop.
+
+---
+
 ## 2026-06-02 — T074 — F035 public Shop page: two forward-deps + founder source + direct-to-build
 
 **Deviation 1 — Beat 2 "Claimed local owner" badge ships render-path-only, no data.** The badge's data source (`member_business_jurisdictions` table + `public.zip_is_proximal_to_location()`) is S-jurisdictions substrate that ships with F037 and does not exist yet. `resolveLocalOwnerBadge()` is the single render seam; it returns `null` until the substrate lands, so the badge never renders and the surface stays clean (no negative space). Only the negative branch of Beat 2 is testable now.
@@ -457,3 +477,19 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Why:** Mirrors the product page's static pickup marker (T079) — the real-map surface is a later concern. The geography's load-bearing job (feed-area intersection per F040's last AC) is exercised by the Playwright eval against live Supabase, not the page render.
 
 **Disposition:** accepted-as-is — Mapbox service-area circle lands with the richer map surfaces. M2-noted.
+
+## 2026-06-02 — T075 — member_business_jurisdictions Tier 0 substrate
+
+**What (4 deviations):**
+1. **`places.msa_code` + `locations.place_id` did not exist.** The ticket assumed both columns existed (per T060/T066) for the `locations.place_id → places.msa_code` proximity join. Neither did — `places` had no metro column and `locations` carried only `geography`. Both columns were added (nullable) in migration `025_zip_metro_crosswalk.sql`. `places.msa_code` is populated for the four CBSA-40900 county subtrees (Sacramento/Placer/El Dorado/Yolo + descendants — 11 rows). `locations.place_id` has no population path at b1, so the function returns null-safe-false for every current Location.
+2. **`zip_metro_crosswalk` got RLS (ticket said "no RLS").** web/CLAUDE.md Rule 3 + `tests/rls-coverage.test.ts` require RLS on every public table. Enabled RLS + a public-read `using (true)` SELECT policy — honors the ticket's "public read" intent while satisfying the hard CI rule. Seed/refresh writes run as table owner and bypass RLS.
+3. **Seed inlined, not `\i`/`\ir`-included.** The ticket allowed either; the Supabase migration runner applies files via a Postgres driver (not psql), so a backslash include would fail on `supabase db push`. The 90-row Sacramento INSERT is inlined into migration 025; the standalone `seeds/zip_metro_crosswalk_sacramento.sql` is kept as the canonical manual-reload + national-expansion artifact (mirrors the inline block).
+4. **Owner-role soft-delete column is `left_at`, not `removed_at`.** The ticket note said "`group_memberships.removed_at is null`"; the shipped schema (014_groups.sql) uses `left_at`. Handlers use `left_at is null` + `role='owner'` + `groups.kind='business'`.
+
+**Also folded `.set`/`.update` into one handler** per the ticket's own § Action handlers guidance: update is a soft-replace inside `.set`, preserving the audit chain in the historical row. No separate `.update` handler.
+
+**Why:** Deviations 1–3 are forced by the divergence between the ticket's assumptions and the shipped schema/CI rules; each is the conservative, CI-conformant choice. The function is null-safe-false so the missing `locations.place_id` population never produces a false-positive badge.
+
+**Verification:** Both migrations applied + rolled back against live local Supabase (90 seed rows, 11 places stamped, RLS=on, function created). The SQL contract test (`supabase/tests/zip_is_proximal_to_location.sql`) passed all 5 cases live ("T075 OK"). 40 vitest file-shape/input/source tests green.
+
+**Disposition:** flag-for-spec-revision — two SPEC-PATCHES entries appended (`location.md` missing `place_id`; `places.md`/`location.md` missing `msa_code`). M2 PROCEED (2 issues found + fixed before commit: crosswalk RLS, inline seed).
