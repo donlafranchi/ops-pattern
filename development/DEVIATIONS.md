@@ -29,6 +29,86 @@ Fulfills `pipeline-process-audit-2026-05-22.md` **R6** — the audit's E2 findin
 
 ## Phase 2 entries
 
+## 2026-06-01 — T073b — Sell-walkthrough eval-driven fixes
+
+**Verdict:** M2 self-review PROCEED. Six applied fixes. F036 eval: **5 passing, 4 failing** (was 2/9 before). Remaining four fails are forward-deps on unbuilt upstream — logged separately under "T073 — F036 forward-dep gaps" below.
+
+### Applied — `MultiStepComposer.dialogLabel` prop + Skip `role="link"`
+
+**What:** Dialog `aria-labelledby` previously pointed at the per-step `<h3>` title, so the dialog's accessible name shifted with each step and matched the step's input label (e.g., both dialog and brand input were named "Brand name"). Replaced with `aria-label={dialogLabel}` + a stable default; SellWalkthrough passes `"Set up your shop"`. Skip button gained `role="link"` to match the DLS recipe ("text link, center").
+
+**Why:** Playwright's `getByLabel('Brand name')` resolved to BOTH the dialog and the brand input on every test — strict-mode violation, no eval reached step 1 input fill. Per DLS § Multi-step composer Skip is semantically a link; my T073 ship rendered it as a button. Eval `getByRole('link', ...)` couldn't resolve.
+
+**Disposition:** accepted-as-is. Unit tests updated to use `role: 'link'` for Skip — not a silent test rewrite to match wrong impl; the new role IS the right impl per DLS, the old tests were protecting the wrong behavior.
+
+### Applied — `sellCreateLocationAction` switched to action-layer pg pool
+
+**What:** Original used the supabase server client (session-bound, RLS-enforced). `locations` has no INSERT RLS policy — all writes are designed to go through the action layer. Eval surfaced `new row violates row-level security policy for table "locations"` on every inline-add. Switched to `withTransaction()` (service-role-effective DB connection).
+
+**Why:** The proper fix is a `location.create` action handler (substrate ticket flagged in SPEC-PATCHES). T073b's pg-pool insert mirrors what that handler will do; swap is ~3 lines when it lands.
+
+**Disposition:** flag-for-spec-revision — `location.create` handler still missing (SPEC-PATCHES already queues it).
+
+### Applied — `sellActivateAction` URL builder rewritten
+
+**What:** Original joined `groups → locations → places` via a non-existent FK (`locations` has no `place_id`). The PostgREST relational join silently returned null and tripped `shop_url_unresolved` on every activation. Rewrote to call `public.place_for_coords(lat, lon)` against the location's geography centroid + walk the `parent_id` chain recursively to assemble the slash-joined place path.
+
+**Why:** I assumed a relational link that doesn't exist — the design uses `place_for_coords` against the geography column (per `022_places_reverse_geocode.sql`). Anchor: my own original T073 spec was unaware of this.
+
+**Disposition:** accepted-as-is.
+
+### Applied — `/you/sell` index uses `<button>` not `<Link>`
+
+**What:** Per-Shop CTA was rendered as `<Link href="#">` (role=link). Eval expects `role=button`. Until F038 ships the real composer, the CTA is now a disabled `<button>` (semantically a button; intentionally inert).
+
+**Why:** F038 lands the real composer; until then the surface is a forward-looking placeholder, but its ARIA role still needs to match the eventual surface (button → opens composer, not link → navigates).
+
+**Disposition:** accepted-as-is.
+
+### Applied — Anchor-picker auto-select uses local `addedLocations` state
+
+**What:** `onSaved` tried to look up the new entity's label via `available.find()` — but `available` is the parent's snapshot at composer mount, so the just-created id is never in it. Refactored: `onSave` (where the result is in hand) appends `{id, label}` to a local `addedLocations` state + sets the selection. `onSaved` just closes the drawer.
+
+**Why:** Eval :327 asserts the new Location's label is visible after the drawer closes. Without local state extension the picker had no row to render.
+
+**Disposition:** accepted-as-is.
+
+## 2026-06-01 — T073 — F036 forward-dep gaps surfaced by eval run
+
+**Verdict:** Four scenario Then-clauses cannot pass at b1 because their upstream surfaces haven't shipped. Surfaced by the F036 eval run after T073b made the walkthrough drive end-to-end. These belong on T073 (the scenario's parent ticket) — T073b just exposed them by getting the walkthrough far enough to reach the assertions.
+
+### Accepted-as-is — :112 + :167 fail at F035 Group-page rendering
+
+**What:** Eval Then-clauses `getByRole('heading', { name: /Oak Park Sourdough/i })` + `expect(page).toHaveURL(/p\/.+\/g\/oak-park-sourdough/)` rely on F035 (Group public page) rendering the just-activated Shop. The walkthrough now drives end-to-end and the URL resolves; F035 hasn't shipped, so the destination page renders nothing.
+
+**Why:** F035 is the explicit dependency named in the F036 scenario's `## Assumptions` section ("F035 (Group public page) ships alongside this scenario so the walkthrough completion has a destination"). T073's contract was "ship the surface + handler wiring; the eval verifies the scenario's Then-clauses end-to-end" — the upstream F035 has to land before the Then-clause that asserts the destination page is satisfied.
+
+**Disposition:** accepted-as-is — waits on F035.
+
+### Accepted-as-is — :224 fails at `Add a product / service / gathering` on /you
+
+**What:** Eval asserts post-onboarding /you renders "Add a product", "Add a service", "Add a gathering" buttons from the active business-Group state. /you currently surfaces only the Sell CTA + a "Continue setting up your shop" affordance; the per-kind item composers are F038/F040/F034.
+
+**Why:** F036's scenario explicitly says selling-tool affordances "appear from her active membership — no profile toggle" but doesn't itself ship the composers — those are F038 (product), F040 (service), F034 (gathering). T073's `/you/sell` index stub has the wired buttons-per-Shop; the /you home page additions are the upstream composers' surface work.
+
+**Disposition:** accepted-as-is — waits on F038 + F040 + F034.
+
+### Accepted-as-is — :266 fails at `Group settings | Manage shop | Settings` link
+
+**What:** After completing the walkthrough with Locality skipped, eval looks for a Group settings / Manage shop link on the destination page. F035 owns the Group public page chrome; F037 owns the Locally-Owned claim lifecycle surface. Neither ships in T073's scope.
+
+**Why:** Scenario AC "she can return to the locality claim via Group settings later (F037 covers the claim lifecycle)" puts both halves upstream of T073.
+
+**Disposition:** accepted-as-is — waits on F035 + F037.
+
+### Accepted-as-is — `places.geography` polygons unseeded at b1 (T058 substrate gap)
+
+**What:** None of the `places` rows seeded by `017_places.sql` have a `geography` polygon — only name + parent hierarchy. `public.place_for_coords()` returns zero rows for every coordinate, so any surface that resolves a place from a Location (T073's `sellActivateAction` URL builder; future surfaces in F035 and the producer feed) cannot resolve at b1.
+
+**Why:** T058's seed scope didn't include polygons (the polygon stamping was deferred to a follow-up). The F036 fixture stamps a tiny test polygon around Oak Park as a localized workaround; the real seed lives outside T073.
+
+**Disposition:** flag-for-spec-revision — SPEC-PATCHES entry queues the polygon seed.
+
 ## 2026-06-01 — T073a — Sell-side `locations` column-name fix-forward
 
 **Verdict:** No deviations beyond the schema-alignment itself.
