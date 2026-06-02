@@ -359,3 +359,37 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 ```
 
 (Log entries as they occur)
+
+---
+
+## 2026-06-02 — T077 — `schedule_kind='permanent'` mapped to `'ongoing'`
+
+**What:** F038's Data-Captured table specifies `item_locations.schedule_kind='permanent'` for a pickup point. The `item_locations.schedule_kind` CHECK (015_items.sql) only permits `one_time | recurring | ongoing | by_appointment` — `'permanent'` is not a valid value. The handler defaults a pickup attachment to `'ongoing'`.
+
+**Why:** The scenario author conflated Location *permanence* (`location_permanent` kind) with the Item↔Location *schedule* enum. A permanent pickup point is best modeled as `'ongoing'` availability. Using a non-enum value would fail the CHECK at insert.
+
+**Disposition:** flag-for-spec-revision — the F038 scenario's Data-Captured row should read `schedule_kind='ongoing'`. SPEC-PATCHES entry filed.
+
+## 2026-06-02 — T077 — Cross-Member pickup Location attaches as `status='approved'`
+
+**What:** `item.create` / `item.attach_location` insert `item_locations` with `status='approved'` unconditionally. The schema reserves `status` (`pending|approved|declined`) for cross-Member Location attachments (attaching to a Location you don't own should be `'pending'` until the Location owner approves).
+
+**Why:** No Location-ownership read model exists at b1 — T061 retired `member_location_affinities`, and the anchor model is thin. The composer only offers the Member's own/just-added Locations, so `'approved'` is correct for every b1 path. The `'pending'` flow needs an owner-approval surface that isn't in b1 scope.
+
+**Disposition:** accepted-as-is — revisit when a Location-ownership/approval surface lands (forward-dep). M2-noted.
+
+## 2026-06-02 — T078 — Product written atomically at publish; composer steps are collect-only
+
+**What:** Unlike the SellWalkthrough (which persists each step via `group.update_draft`), `<ProductComposer>`'s `onAdvance` is a no-op; the entire product is written in one `item.create` call at the final Publish step.
+
+**Why:** F038's "Composer writes Item + child + Location in one transaction" Then-clause requires a single atomic write. A product has no half-built-draft lifecycle at b1 (no draft-Item composer-resume contract like Groups have), so per-step persistence would add a draft-Item state machine the scenario doesn't call for.
+
+**Disposition:** accepted-as-is — matches the scenario's one-transaction criterion.
+
+## 2026-06-02 — T079 — id8-fragment Item addressing (no `slug` column on `items`)
+
+**What:** The Item URL slug is `toSlug(title)-<first 8 chars of items.id>`; the resolver matches the trailing fragment against `items.id`'s first 8 chars. `items` has no `slug` column.
+
+**Why:** ADR-22 wants a random suffix on Item URLs; adding a `slug` column would mean a migration (+ M4 deploy-checklist) for a b1 surface where the id-fragment satisfies both uniqueness-enough (1-in-4B collision within a single owning scope) and the random-suffix intent. The fragment is parsed in JS after RLS-scoped fetch (PostgREST can't `left(id::text,8)` on a uuid cleanly).
+
+**Disposition:** accepted-as-is — if Item-slug vanity URLs or collision-hardening are wanted later, add a `slug` column then. M2-noted (collision 1-in-4B).
