@@ -2,7 +2,8 @@
 id: how-f035-rosa-finds-mayas-shop
 purpose: Viewer (Rosa) finds Maya's Shop via shared URL and lands on the public business-Group page.
 layer: how
-status: backlog
+status: done
+closed_on: 2026-06-02
 ---
 
 # F035: Rosa finds Maya's Shop
