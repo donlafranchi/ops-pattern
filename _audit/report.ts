@@ -19,8 +19,8 @@ import {
   esc,
 } from './lib';
 
-function loadNotes(): string[] {
-  const p = path.join(AUDIT_DIR, 'segmentation-notes.json');
+function loadJson(name: string): string[] {
+  const p = path.join(AUDIT_DIR, name);
   if (!fs.existsSync(p)) return [];
   try {
     return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -28,6 +28,7 @@ function loadNotes(): string[] {
     return [];
   }
 }
+const loadNotes = () => loadJson('segmentation-notes.json');
 
 interface Agg {
   calls: number;
@@ -93,6 +94,53 @@ function buildReport(fNum: string): boolean {
   const recordNotes = Array.from(
     new Set(records.map((r) => r.notes).filter(Boolean)),
   );
+
+  // ---- backfill provenance: attribution confidence + basis + date range + drift ----
+  const confCounts: Record<string, number> = {};
+  const basisCounts: Record<string, number> = {};
+  const sessions = new Set<string>();
+  let minTs = '';
+  let maxTs = '';
+  for (const r of records) {
+    confCounts[r.attribution_confidence || '—'] =
+      (confCounts[r.attribution_confidence || '—'] || 0) + 1;
+    basisCounts[r.attribution_basis || '—'] =
+      (basisCounts[r.attribution_basis || '—'] || 0) + 1;
+    sessions.add(r.session);
+    if (r.timestamp) {
+      if (!minTs || r.timestamp < minTs) minTs = r.timestamp;
+      if (!maxTs || r.timestamp > maxTs) maxTs = r.timestamp;
+    }
+  }
+  const confOrder = ['high', 'medium', 'low', 'none'];
+  const confLine = confOrder
+    .filter((k) => confCounts[k])
+    .map((k) => `${k}: ${confCounts[k]} (${((confCounts[k] / records.length) * 100).toFixed(0)}%)`)
+    .join(' · ');
+  const basisLine = Object.entries(basisCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([k, v]) => `${esc(k)} ×${v}`)
+    .join(', ');
+  const driftNotes = loadJson('drift-notes.json');
+  const driftSection = driftNotes.length
+    ? `<ul>${driftNotes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`
+    : '<p class="muted">No schema drift detected — every usage-bearing turn carried requestId, model, and timestamp across all scanned transcripts.</p>';
+  const backfillSection = `
+<h2>Backfill notes</h2>
+<div class="pareto">
+  <strong>Attribution confidence:</strong> ${confLine || '—'}.<br>
+  <strong>Basis:</strong> ${basisLine || '—'}.<br>
+  <strong>Data window:</strong> ${esc(minTs.slice(0, 10) || '?')} → ${esc(maxTs.slice(0, 10) || '?')}
+  across ${sessions.size} session(s).
+</div>
+<p class="muted" style="margin-top:10px">
+  <strong>high</strong> = F-number from the Skill's args or a single scenario/review file in the segment;
+  <strong>medium</strong> = the F most-mentioned inside the segment;
+  <strong>low</strong> = session-dominant fallback (weakest — flagged per-call);
+  <strong>none</strong> would be bucketed as <code>unattributed</code> rather than guessed.
+</p>
+<h3 style="font-size:14px;margin:18px 0 6px">Schema drift</h3>
+<div class="notes">${driftSection}</div>`;
 
   const cell = (n: number) => `<td class="num">${fmtInt(n)}</td>`;
 
@@ -201,6 +249,8 @@ ${bars}
   <th>Skill</th><th class="num" data-sort="num">Calls</th><th class="num" data-sort="num">Tokens</th>
   <th class="num" data-sort="num">Cost</th><th class="num" data-sort="num">Time</th><th class="num" data-sort="num">Tokens / invoke</th>
 </tr></thead><tbody>${skillTableRows}</tbody></table>
+
+${backfillSection}
 
 <h2>Segmentation notes</h2>
 <div class="notes">${notesSection}</div>

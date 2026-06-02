@@ -29,6 +29,10 @@ export interface CallRecord {
   notes: string;
   // attribution context — not part of the required schema but handy for reports
   session: string;
+  // backfill attribution provenance: how confident we are this call belongs to f_number,
+  // and which signal produced it. confidence ∈ high|medium|low|none.
+  attribution_confidence: string;
+  attribution_basis: string;
 }
 
 // Current Claude pricing, USD per 1M tokens (Jan 2026). Keyed by model family.

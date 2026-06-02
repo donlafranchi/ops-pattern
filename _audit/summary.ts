@@ -27,6 +27,8 @@ interface Row {
   domTokSkill: string;
   domTimeSkill: string;
   calls: number;
+  conf: string;
+  window: string;
 }
 
 const rows: Row[] = [];
@@ -54,6 +56,23 @@ for (const name of fs.readdirSync(AUDIT_DIR).sort()) {
   const domTok = Object.entries(tokBySkill).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—';
   const domTime = Object.entries(timeBySkill).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—';
 
+  // attribution-confidence mix + data window for the backfill view
+  const confCounts: Record<string, number> = {};
+  let minTs = '';
+  let maxTs = '';
+  for (const r of records) {
+    confCounts[r.attribution_confidence || '—'] = (confCounts[r.attribution_confidence || '—'] || 0) + 1;
+    if (r.timestamp) {
+      if (!minTs || r.timestamp < minTs) minTs = r.timestamp;
+      if (!maxTs || r.timestamp > maxTs) maxTs = r.timestamp;
+    }
+  }
+  const conf = ['high', 'medium', 'low', 'none']
+    .filter((k) => confCounts[k])
+    .map((k) => `${k[0].toUpperCase()} ${Math.round((confCounts[k] / records.length) * 100)}%`)
+    .join(' ');
+  const window = `${minTs.slice(5, 10)}→${maxTs.slice(5, 10)}`;
+
   rows.push({
     f: name,
     tokens,
@@ -63,10 +82,27 @@ for (const name of fs.readdirSync(AUDIT_DIR).sort()) {
     domTokSkill: domTok,
     domTimeSkill: domTime,
     calls: records.length,
+    conf,
+    window,
   });
 }
 
 rows.sort((a, b) => b.tokens - a.tokens);
+
+// Backfill targets requested for F032–F035. Surface any that produced no
+// confidently-attributable calls so the gap is documented, not silent.
+const BACKFILL_TARGETS = ['F032', 'F033', 'F034', 'F035'];
+const gaps = BACKFILL_TARGETS.filter((f) => !rows.some((r) => r.f === f));
+const gapLinks = gaps.map((f) => `<a href="${f}/report.html">${f}</a>`).join(', ');
+const gapCallout = gaps.length
+  ? `<div class="gap"><strong>Backfill gap:</strong> ${gapLinks} produced
+     <strong>no confidently-attributable calls</strong> in any scanned transcript
+     (2026-05-25 → 2026-06-02). These features remain in <code>planning/backlog/</code>
+     with no tickets or dedicated build segments — their F-numbers appear only inside
+     backlog-scan / sequence-table contexts dominated by other features, so per the
+     "don't guess" rule those calls stayed with their host feature rather than being
+     force-bucketed here.</div>`
+  : '';
 
 const grand = rows.reduce(
   (acc, r) => {
@@ -89,7 +125,8 @@ const body = rows
     <td class="num">${fmtDuration(r.duration)}</td>
     <td class="num">${r.skills}</td>
     <td>${esc(r.domTokSkill)}</td>
-    <td>${esc(r.domTimeSkill)}</td>
+    <td>${esc(r.conf)}</td>
+    <td>${esc(r.window)}</td>
   </tr>`,
   )
   .join('\n');
@@ -110,10 +147,12 @@ const html = `<!doctype html>
   th:hover{background:#f0f2f5}
   td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   tr:last-child td{border-bottom:none} a{color:#2563eb;text-decoration:none} a:hover{text-decoration:underline}
+  .gap{background:#fff8e6;border:1px solid #f5d98a;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#6b5400}
   footer{margin-top:40px;color:#999;font-size:12px}
 </style></head><body><div class="wrap">
 <h1>Pipeline telemetry — summary</h1>
 <p class="sub">${rows.length} F-number(s) · click a column to sort, click an F-number for its full report</p>
+${gapCallout}
 <div class="cards">
   <div class="card"><div class="k">Total tokens</div><div class="v">${fmtInt(grand.tokens)}</div></div>
   <div class="card"><div class="k">Total cost</div><div class="v">${fmtUSD(grand.cost)}</div></div>
@@ -122,7 +161,7 @@ const html = `<!doctype html>
 </div>
 <table id="t"><thead><tr>
   <th>F-number</th><th class="num">Calls</th><th class="num">Total tokens</th><th class="num">Total cost</th>
-  <th class="num">Wall time</th><th class="num">Skill count</th><th>Dominant (tokens)</th><th>Dominant (time)</th>
+  <th class="num">Wall time</th><th class="num">Skill count</th><th>Dominant (tokens)</th><th>Attribution conf.</th><th>Data window</th>
 </tr></thead><tbody>${body}</tbody></table>
 <footer>Generated from _audit/F###/run.jsonl. Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out.</footer>
 </div>

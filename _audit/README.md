@@ -23,7 +23,15 @@ markers, attributes every Claude API call to an F-number, skill, and surface, an
 npm run collect                          # scan everything, bucket by F-number
 npx tsx collect.ts --f F035              # only write the F035 bucket (still scans all)
 npx tsx collect.ts --sessions a,b,c      # restrict input to session files matching a/b/c
+npx tsx collect.ts --exclude 9b5e64d7    # drop session(s) matching (comma-sep)
 ```
+
+> **Self-attribution caveat.** The collector scans the live transcript dir, including any
+> in-progress session. A session doing *audit/tooling* work mentions feature F-numbers
+> heavily and gets session-dominant-attributed to whichever feature it cites most. The
+> committed F032–F035 backfill snapshot was produced with `--exclude 9b5e64d7` (the audit
+> session itself, which otherwise folded ~88 low-confidence calls into F035). Pass your own
+> session id to `--exclude` when snapshotting.
 
 **Per-call record schema:**
 
@@ -42,12 +50,18 @@ npx tsx collect.ts --sessions a,b,c      # restrict input to session files match
   "duration_ms": 8894,
   "request_id": "req_011Cb…",
   "is_sidechain": false,
-  "notes": "f-number from session-dominant (F035)",
-  "session": "34ee58d3-…"
+  "notes": "attribution: high (scenario/review-file)",
+  "session": "34ee58d3-…",
+  "attribution_confidence": "high",
+  "attribution_basis": "scenario/review-file"
 }
 ```
 
 ### How attribution works
+
+Attribution is **segment-level** (two passes per transcript). Each top-level `Skill`
+tool-call marker opens a segment; pass 1 collects the strongest local F-signal for that
+segment, pass 2 emits one record per usage-bearing turn using its segment's signal.
 
 - **Skill** — last `Skill` tool-call marker seen in the session. A pipeline skill
   (`build`/`test`/`ticket`/`scope`/`review`/`orient`/…) replaces the active segment;
@@ -57,11 +71,29 @@ npx tsx collect.ts --sessions a,b,c      # restrict input to session files match
 - **Surface** — derived from the skill→tool firewall in `CLAUDE.md`
   (`build`/`ticket`/`test`/`atomize` → `claude-code`; `orient`/`scope`/`review`/… →
   `cowork`), falling back to the transcript `entrypoint`.
-- **F-number** — priority: F-number in the skill's `args` → session-dominant F-number
-  (most-mentioned across the transcript) → rolling F-number from recent text → `unknown`.
+- **F-number** — resolved per segment with a confidence tier (recorded in
+  `attribution_confidence` + `attribution_basis`):
+  | Tier | Basis | Signal |
+  |---|---|---|
+  | `high` | `skill-args` | F-number in the segment's `Skill` args |
+  | `high` | `scenario/review-file` | a *single* `scenario-F###` / `review-F###` file referenced in the segment |
+  | `medium` | `segment-sole-mention` | exactly one distinct F mentioned inside the segment |
+  | `medium` | `segment-dominant` | one F is ≥2 mentions and >50% of the segment's F-mentions |
+  | `low` | `session-dominant` | most-mentioned F across the whole transcript (weakest — flagged per call) |
+  | `none` | — | no signal → bucketed as **`unattributed`**, never guessed |
+  This is why a feature that appears only inside backlog-scan / sequence-table contexts
+  (e.g. F032, F033) gets **no bucket** — its mentions stay attributed to the feature that
+  actually owns each segment rather than being force-bucketed.
 - **Duration** — gap between the previous transcript line and the assistant turn, i.e.
   approximate request latency. Gaps over 10 minutes are flagged as likely idle time.
 - **Sidechain** — `isSidechain=true` or a `subagents/` transcript.
+
+### Schema-drift probe
+
+Each transcript is checked for usage-bearing turns missing `requestId` / `model` /
+`timestamp`. Findings are written to `_audit/drift-notes.json` and surfaced in every
+report's *Backfill notes → Schema drift* section. The parser tolerates the entire
+2026-05-25 → 2026-06-02 range with no drift; missing fields (if any) are defaulted, never fixed.
 
 ### Segmentation notes
 
@@ -74,7 +106,13 @@ F-numbers) are written per-record in the `notes` field **and** aggregated into
 Reads `_audit/F###/run.jsonl`, renders `_audit/F###/report.html` — inline CSS, no deps,
 click-to-sort tables. Sections: cost-per-F (tokens + dollar estimate, by skill and surface),
 bottleneck distribution with a Pareto call-out, skill ROI (sortable by tokens-per-invoke and
-total tokens; flags skills that spent tokens but produced no output), and segmentation notes.
+total tokens; flags skills that spent tokens but produced no output), **backfill notes**
+(attribution-confidence mix, basis breakdown, data window, schema-drift findings), and
+segmentation notes.
+
+Backfill targets that produced no confidently-attributable calls (F032, F033) get a
+hand-written `report.html` stub explaining the gap instead of a fabricated `run.jsonl`;
+the `summary.html` cross-links them in its *Backfill gap* call-out.
 
 ```bash
 npx tsx report.ts F035     # one F-number

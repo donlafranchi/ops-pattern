@@ -27,83 +27,170 @@
   footer{margin-top:40px;color:#999;font-size:12px}
 </style></head><body><div class="wrap">
 <h1>F036 — pipeline telemetry</h1>
-<p class="sub">650 Claude calls · generated from <code>F036/run.jsonl</code></p>
+<p class="sub">1496 Claude calls · generated from <code>F036/run.jsonl</code></p>
 
 <h2>Cost-per-F</h2>
 <div class="cards">
-  <div class="card"><div class="k">Total tokens</div><div class="v">170,251,133</div></div>
-  <div class="card"><div class="k">Est. cost</div><div class="v">$320.03</div></div>
-  <div class="card"><div class="k">Wall time</div><div class="v">87m 13s</div></div>
-  <div class="card"><div class="k">Calls</div><div class="v">650</div></div>
+  <div class="card"><div class="k">Total tokens</div><div class="v">365,645,164</div></div>
+  <div class="card"><div class="k">Est. cost</div><div class="v">$712.58</div></div>
+  <div class="card"><div class="k">Wall time</div><div class="v">191m 43s</div></div>
+  <div class="card"><div class="k">Calls</div><div class="v">1,496</div></div>
 </div>
 
 <h2>By surface</h2>
 <table><thead><tr><th>Surface</th><th class="num">Calls</th><th class="num">Tokens</th><th class="num">Cost</th><th class="num">Time</th></tr></thead>
-<tbody><tr><td>claude-code</td><td class="num">582</td><td class="num">164,692,998</td><td class="num">$292.12</td><td class="num">78m 55s</td></tr>
-<tr><td>cowork</td><td class="num">68</td><td class="num">5,558,135</td><td class="num">$27.91</td><td class="num">8m 18s</td></tr></tbody></table>
+<tbody><tr><td>claude-code</td><td class="num">705</td><td class="num">199,349,778</td><td class="num">$352.63</td><td class="num">97m 38s</td></tr>
+<tr><td>cowork</td><td class="num">791</td><td class="num">166,295,386</td><td class="num">$359.95</td><td class="num">94m 5s</td></tr></tbody></table>
 
 <h2>Bottleneck distribution (tokens by skill)</h2>
-<div class="pareto"><strong>Pareto:</strong> 1 of 5 skill(s) account for 80% of tokens.
-Dominant: <strong>build</strong> at 152,651,893 tokens (89.7%).</div>
+<div class="pareto"><strong>Pareto:</strong> 4 of 12 skill(s) account for 80% of tokens.
+Dominant: <strong>build</strong> at 179,255,310 tokens (49.0%).</div>
 <div class="barrow"><div class="barlabel">build</div>
         <div class="bartrack"><div class="bar" style="width:100.0%"></div></div>
-        <div class="barval">152,651,893 (89.7%)</div></div>
-<div class="barrow"><div class="barlabel">test</div>
-        <div class="bartrack"><div class="bar" style="width:7.2%"></div></div>
-        <div class="barval">11,061,777 (6.5%)</div></div>
+        <div class="barval">179,255,310 (49.0%)</div></div>
+<div class="barrow"><div class="barlabel">engineering:deploy-checklist</div>
+        <div class="bartrack"><div class="bar" style="width:43.5%"></div></div>
+        <div class="barval">77,901,928 (21.3%)</div></div>
+<div class="barrow"><div class="barlabel">code-review</div>
+        <div class="bartrack"><div class="bar" style="width:16.9%"></div></div>
+        <div class="barval">30,225,758 (8.3%)</div></div>
 <div class="barrow"><div class="barlabel">(none)</div>
-        <div class="bartrack"><div class="bar" style="width:1.9%"></div></div>
-        <div class="barval">2,975,396 (1.7%)</div></div>
+        <div class="bartrack"><div class="bar" style="width:12.9%"></div></div>
+        <div class="barval">23,110,560 (6.3%)</div></div>
+<div class="barrow"><div class="barlabel">test</div>
+        <div class="bartrack"><div class="bar" style="width:8.3%"></div></div>
+        <div class="barval">14,892,276 (4.1%)</div></div>
+<div class="barrow"><div class="barlabel">weigh</div>
+        <div class="bartrack"><div class="bar" style="width:5.3%"></div></div>
+        <div class="barval">9,552,251 (2.6%)</div></div>
 <div class="barrow"><div class="barlabel">orient</div>
-        <div class="bartrack"><div class="bar" style="width:1.7%"></div></div>
-        <div class="barval">2,582,739 (1.5%)</div></div>
+        <div class="bartrack"><div class="bar" style="width:4.5%"></div></div>
+        <div class="barval">8,107,636 (2.2%)</div></div>
+<div class="barrow"><div class="barlabel">explore</div>
+        <div class="bartrack"><div class="bar" style="width:3.0%"></div></div>
+        <div class="barval">5,384,038 (1.5%)</div></div>
 <div class="barrow"><div class="barlabel">ticket</div>
-        <div class="bartrack"><div class="bar" style="width:0.6%"></div></div>
-        <div class="barval">979,328 (0.6%)</div></div>
+        <div class="bartrack"><div class="bar" style="width:2.9%"></div></div>
+        <div class="barval">5,202,192 (1.4%)</div></div>
+<div class="barrow"><div class="barlabel">scope</div>
+        <div class="bartrack"><div class="bar" style="width:2.8%"></div></div>
+        <div class="barval">5,003,744 (1.4%)</div></div>
+<div class="barrow"><div class="barlabel">review</div>
+        <div class="bartrack"><div class="bar" style="width:2.6%"></div></div>
+        <div class="barval">4,745,657 (1.3%)</div></div>
+<div class="barrow"><div class="barlabel">engineering:code-review</div>
+        <div class="bartrack"><div class="bar" style="width:1.3%"></div></div>
+        <div class="barval">2,263,814 (0.6%)</div></div>
 
 <h2>Skill ROI</h2>
 <p class="muted">Click a column header to sort. Skills flagged <span class="flag">no generated output</span> spent tokens but emitted zero output tokens (pure read/observation).</p>
 <table id="roi"><thead><tr>
   <th>Skill</th><th class="num" data-sort="num">Calls</th><th class="num" data-sort="num">Tokens</th>
   <th class="num" data-sort="num">Cost</th><th class="num" data-sort="num">Time</th><th class="num" data-sort="num">Tokens / invoke</th>
-</tr></thead><tbody><tr data-tokens="152651893" data-perinvoke="291320">
+</tr></thead><tbody><tr data-tokens="179255310" data-perinvoke="291947">
         <td>build </td>
-        <td class="num">524</td><td class="num">152,651,893</td>
-        <td class="num">$268.96</td>
-        <td class="num">72m 47s</td>
-        <td class="num">291,320</td>
+        <td class="num">614</td><td class="num">179,255,310</td>
+        <td class="num">$313.28</td>
+        <td class="num">83m 41s</td>
+        <td class="num">291,947</td>
       </tr>
-<tr data-tokens="11061777" data-perinvoke="245817">
-        <td>test </td>
-        <td class="num">45</td><td class="num">11,061,777</td>
-        <td class="num">$19.17</td>
-        <td class="num">5m 18s</td>
-        <td class="num">245,817</td>
+<tr data-tokens="77901928" data-perinvoke="450300">
+        <td>engineering:deploy-checklist </td>
+        <td class="num">173</td><td class="num">77,901,928</td>
+        <td class="num">$129.16</td>
+        <td class="num">23m 39s</td>
+        <td class="num">450,300</td>
       </tr>
-<tr data-tokens="2975396" data-perinvoke="74385">
+<tr data-tokens="30225758" data-perinvoke="364166">
+        <td>code-review </td>
+        <td class="num">83</td><td class="num">30,225,758</td>
+        <td class="num">$63.28</td>
+        <td class="num">13m 9s</td>
+        <td class="num">364,166</td>
+      </tr>
+<tr data-tokens="23110560" data-perinvoke="82538">
         <td>(none) </td>
-        <td class="num">40</td><td class="num">2,975,396</td>
-        <td class="num">$20.80</td>
-        <td class="num">4m 54s</td>
-        <td class="num">74,385</td>
+        <td class="num">280</td><td class="num">23,110,560</td>
+        <td class="num">$86.41</td>
+        <td class="num">23m 8s</td>
+        <td class="num">82,538</td>
       </tr>
-<tr data-tokens="2582739" data-perinvoke="92241">
+<tr data-tokens="14892276" data-perinvoke="248205">
+        <td>test </td>
+        <td class="num">60</td><td class="num">14,892,276</td>
+        <td class="num">$26.90</td>
+        <td class="num">8m 34s</td>
+        <td class="num">248,205</td>
+      </tr>
+<tr data-tokens="9552251" data-perinvoke="176894">
+        <td>weigh </td>
+        <td class="num">54</td><td class="num">9,552,251</td>
+        <td class="num">$20.05</td>
+        <td class="num">9m 23s</td>
+        <td class="num">176,894</td>
+      </tr>
+<tr data-tokens="8107636" data-perinvoke="90085">
         <td>orient </td>
-        <td class="num">28</td><td class="num">2,582,739</td>
-        <td class="num">$7.11</td>
-        <td class="num">3m 24s</td>
-        <td class="num">92,241</td>
+        <td class="num">90</td><td class="num">8,107,636</td>
+        <td class="num">$19.78</td>
+        <td class="num">9m 8s</td>
+        <td class="num">90,085</td>
       </tr>
-<tr data-tokens="979328" data-perinvoke="75333">
+<tr data-tokens="5384038" data-perinvoke="215362">
+        <td>explore </td>
+        <td class="num">25</td><td class="num">5,384,038</td>
+        <td class="num">$10.19</td>
+        <td class="num">5m 32s</td>
+        <td class="num">215,362</td>
+      </tr>
+<tr data-tokens="5202192" data-perinvoke="167813">
         <td>ticket </td>
-        <td class="num">13</td><td class="num">979,328</td>
-        <td class="num">$3.99</td>
-        <td class="num">50.0 s</td>
-        <td class="num">75,333</td>
+        <td class="num">31</td><td class="num">5,202,192</td>
+        <td class="num">$12.46</td>
+        <td class="num">5m 24s</td>
+        <td class="num">167,813</td>
+      </tr>
+<tr data-tokens="5003744" data-perinvoke="161411">
+        <td>scope </td>
+        <td class="num">31</td><td class="num">5,003,744</td>
+        <td class="num">$11.63</td>
+        <td class="num">3m 28s</td>
+        <td class="num">161,411</td>
+      </tr>
+<tr data-tokens="4745657" data-perinvoke="135590">
+        <td>review </td>
+        <td class="num">35</td><td class="num">4,745,657</td>
+        <td class="num">$11.59</td>
+        <td class="num">4m 49s</td>
+        <td class="num">135,590</td>
+      </tr>
+<tr data-tokens="2263814" data-perinvoke="113191">
+        <td>engineering:code-review </td>
+        <td class="num">20</td><td class="num">2,263,814</td>
+        <td class="num">$7.87</td>
+        <td class="num">1m 49s</td>
+        <td class="num">113,191</td>
       </tr></tbody></table>
 
+
+<h2>Backfill notes</h2>
+<div class="pareto">
+  <strong>Attribution confidence:</strong> high: 1244 (83%) · medium: 115 (8%) · low: 137 (9%).<br>
+  <strong>Basis:</strong> skill-args ×924, scenario/review-file ×320, session-dominant ×137, segment-sole-mention ×91, segment-dominant ×24.<br>
+  <strong>Data window:</strong> 2026-05-30 → 2026-06-02
+  across 11 session(s).
+</div>
+<p class="muted" style="margin-top:10px">
+  <strong>high</strong> = F-number from the Skill's args or a single scenario/review file in the segment;
+  <strong>medium</strong> = the F most-mentioned inside the segment;
+  <strong>low</strong> = session-dominant fallback (weakest — flagged per-call);
+  <strong>none</strong> would be bucketed as <code>unattributed</code> rather than guessed.
+</p>
+<h3 style="font-size:14px;margin:18px 0 6px">Schema drift</h3>
+<div class="notes"><p class="muted">No schema drift detected — every usage-bearing turn carried requestId, model, and timestamp across all scanned transcripts.</p></div>
+
 <h2>Segmentation notes</h2>
-<div class="notes"><ul><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>f-number from session-dominant (F036); no active skill segment — raw conversation / pre-skill turn</li><li>f-number from session-dominant (F036)</li><li>f-number from session-dominant (F036); local context mentions F034</li><li>f-number from session-dominant (F036); local context mentions F038</li><li>f-number from session-dominant (F036); local context mentions F035</li><li>f-number from session-dominant (F036); local context mentions F003</li><li>f-number from session-dominant (F036); local context mentions F037</li><li>f-number from session-dominant (F036); local context mentions F028; no active skill segment — raw conversation / pre-skill turn</li></ul></div>
+<div class="notes"><ul><li>[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill "engineering:deploy-checklist" fired inside "code-review" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>attribution: low (session-dominant); session-dominant fallback (F036) — low confidence; no active skill segment — raw conversation / pre-skill turn</li><li>attribution: low (session-dominant); session-dominant fallback (F036) — low confidence</li><li>attribution: high (skill-args)</li><li>attribution: medium (segment-sole-mention); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: medium (segment-sole-mention); nested M-gate skill under "null"</li><li>attribution: medium (segment-dominant); no active skill segment — raw conversation / pre-skill turn</li><li>attribution: high (skill-args); nested M-gate skill under "code-review"</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn; subagent sidechain transcript; isSidechain=true</li><li>attribution: high (scenario/review-file)</li><li>attribution: high (scenario/review-file); no active skill segment — raw conversation / pre-skill turn</li></ul></div>
 
 <footer>Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out (cache write 1.25×, read 0.1×).
 Durations approximate request latency from transcript timestamps.</footer>
