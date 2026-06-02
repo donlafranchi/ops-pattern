@@ -131,6 +131,12 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 
 **Intent.** Treating MSAs as a hierarchy tier failed because hierarchy tiers must tile every coordinate — roughly 1,200 rural counties have no MSA, so the hierarchy left holes a URL namespace can't tolerate. The same MSA geometry works cleanly as a discovery overlay because discovery has different obligations: feeds don't need to tile, they just need to answer "what's near me" with a named, shareable shape. Keeping the metro layer adjacent to the county tree (not parented to it) preserves the two-layer separation: county tree owns addressing and URLs; the discovery layer owns "what's near me" and can carry multiple geometries (radius + metro polygon now, travel-time isochrone deferred). Metros stay read-only filters because they're a feed scope, not a destination — consistent with the anti-Nextdoor commitment.
 
+**State.** (ratifies the D1/D2/D4 dispositions of the former ADR-24 draft)
+- Metro-polygon discovery overlay — **(Ratified 2026-06-02, D1)**. The construct exists: a platform-curated discovery overlay, `ST_Contains` membership against coordinates, read-only, never in URLs, never a messaging target, not editable by Members.
+- CSA grain — **(Ratified 2026-06-02, D2)**. Metro polygons are curated from Census CSA (Combined Statistical Area) definitions, hand-tunable where Census disagrees with how residents think about their metro.
+- Travel-time isochrone — **(Deferred until T2; review at isochrone scope, D4)**. Radius + metro polygon ship now; the third discovery geometry waits.
+- Region-kind vs. metro-polygon ownership of "metros" (D3) — **unratified**; see JOURNAL / build-plan checklist for the open question.
+
 **Touches.** `product/systems/discovery.md`
 
 ---
