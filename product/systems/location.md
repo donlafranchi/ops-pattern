@@ -7,7 +7,7 @@ status: active
 
 # System: Location
 
-**Status:** Active — reconciled with the Places primitive 2026-05-23 (ADR-20 accepted). The third foundational primitive (per [`primitives.md`](../foundation/primitives.md)). Locations now anchor to [`places.md`](places.md) via `place_id`; canonical URLs are place-scoped (`/p/[…place path]/l/[slug]`) and slug uniqueness is per-Place. Recognized civic geography — city / neighborhood / MSA / region — lives in the Places primitive, **not** in `kind=area` Locations.
+**Status:** Active — reconciled with the Places primitive 2026-05-23 (ADR-20 accepted). The third foundational primitive (per [`primitives.md`](../foundation/primitives.md)). Locations now anchor to [`places.md`](places.md) via `place_id`; canonical URLs are place-scoped (`/p/[…place path]/l/[slug]`) and slug uniqueness is per-Place. Recognized civic geography — region / state / county / city / neighborhood — lives in the Places primitive (colloquial metros live in the `metro_polygons` discovery overlay, per D3), **not** in `kind=area` Locations.
 
 **Purpose:** Establish Location as the platform's primitive for *physical places where things happen*. Three kinds — permanent, recurring-temporary, area — share a spine with kind-specific child tables, mirroring the Item and Group primitives. The platform's grammar becomes legible at the data layer: **People form Groups to do things using Items, attached to Locations.** Locations are where the attaching happens.
 
@@ -19,7 +19,7 @@ status: active
 
 **North stars served:** All five families. Locations are present on at least one side of every loop that involves doing-something-somewhere. Specific kinds map to specific surfaces (permanent → standing presence, recurring-temporary → market booths and recurring gatherings, area → service radii and neighborhood scopes), but the primitive itself is shared infrastructure.
 
-**Canonical examples this spec serves:** Drake's hosting the Run Club and Barn Movie Night (permanent, with sub-venue) · the Sacramento farmers market the Quarterly Dip Vendor visits (recurring-temporary) · Ferrari Fisheries' boat dock pickup point (recurring-temporary, intermittent) · the food truck's sequence of stops (area + recurring-temporary stops) · a plumber's service radius (area) · **Concerts in the Park** — a Member follows multiple parks across the Sacramento MSA and gets a feed of outdoor live-music gathering Items attached to those parks (permanent, multi-Location follow, taste-profile filtered). Per [`use-cases.md`](../needs/use-cases.md).
+**Canonical examples this spec serves:** Drake's hosting the Run Club and Barn Movie Night (permanent, with sub-venue) · the Sacramento farmers market the Quarterly Dip Vendor visits (recurring-temporary) · Ferrari Fisheries' boat dock pickup point (recurring-temporary, intermittent) · the food truck's sequence of stops (area + recurring-temporary stops) · a plumber's service radius (area) · **Concerts in the Park** — a Member follows multiple parks across the Sacramento metro (the `metro_polygons` overlay, per D3) and gets a feed of outdoor live-music gathering Items attached to those parks (permanent, multi-Location follow, taste-profile filtered). Per [`use-cases.md`](../needs/use-cases.md).
 
 ---
 
@@ -50,7 +50,7 @@ Three kinds at b1, fixed. The kind is set at creation and **does not transition*
 
 **Area.** A polygonal region a Member declares — a service radius, a custom delivery zone, a neighborhood-shaped boundary that isn't infrastructural. Geometry is a Polygon (PostGIS `geography(Polygon)`). Used for service-area inclusion queries (does this plumber serve this address?) and for browse filters over Member-declared zones. Areas have a representative Point (auto-computed centroid) so they participate in the same proximity queries as the other kinds without special-casing.
 
-**Recognized civic geography — cities, neighborhoods, MSAs, regions — is *not* a kind=area Location.** That is the **Places** primitive (per [`places.md`](places.md), ADR-20): platform-curated, hierarchical, the anchor every Location and URL nests under. Area Locations are for *Member-declared* geographic scopes; Places are *infrastructural* scopes nobody declares. A Location is a specific point a Member declared; a Place is the bucket it sits inside.
+**Recognized civic geography — regions, counties, cities, neighborhoods — is *not* a kind=area Location.** That is the **Places** primitive (per [`places.md`](places.md), ADR-20): platform-curated, hierarchical, the anchor every Location and URL nests under. Colloquial metros are *not* a Place row either — they live in the `metro_polygons` discovery overlay (per D3): platform-curated, `ST_Contains`-tested, never in URLs. Area Locations are for *Member-declared* geographic scopes; Places are *infrastructural* scopes nobody declares. A Location is a specific point a Member declared; a Place is the bucket it sits inside.
 
 The kind enum is intentionally narrow at b1. Future candidates if real cases warrant: `route` (a recurring path — a delivery route, a foot-race course), `mobile` (an ambulatory operator without a fixed point — the truly nomadic food truck) — not in scope at b1. The food-truck canonical example (#4) is modeled at b1 as a Member with multiple recurring-temporary Locations they post to in sequence; route/mobile become valuable when that pattern stops being expressive enough.
 
@@ -244,7 +244,7 @@ Per [`policy.md`](../foundation/policy.md):
 
 ## Open questions
 
-1. **Polygon authoring UI.** Drawing a polygon for an area Location (a service radius, a custom zone) is a real UX challenge. User-drawn polygons defer until the surface is designed. Civic geography is *not* affected — cities, neighborhoods, MSAs and regions ship as seeded [`places`](places.md) rows with curated polygons (per ADR-20), independent of the area-Location authoring surface. Tracked: how many area-creation attempts hit "polygon I want isn't here" in the first month.
+1. **Polygon authoring UI.** Drawing a polygon for an area Location (a service radius, a custom zone) is a real UX challenge. User-drawn polygons defer until the surface is designed. Civic geography is *not* affected — regions, counties, cities and neighborhoods ship as seeded [`places`](places.md) rows with curated polygons (per ADR-20), and colloquial metros ship as curated `metro_polygons` overlay rows (per D3) — both independent of the area-Location authoring surface. Tracked: how many area-creation attempts hit "polygon I want isn't here" in the first month.
 
 2. **Sub-venue creation flow.** Schema reserves `parent_location_id` at b1 but no surface composes it. When sub-venue surface ships at T2, the flow likely lives on the parent Location page ("Add a sub-venue") rather than as a kind picker on the create flow. Confirm with first canonical case (Drake's barn).
 

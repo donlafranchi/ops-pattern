@@ -63,7 +63,7 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 | [P5](#p5-a-service-provider-tradesperson-builds-trust-with-prospective-customers) | Producer | Service-provider builds trust with prospective customers | A plumber, electrician, hairdresser, piano teacher | Deferred (b2+) | ⬜ Not built |
 | [O1](#o1-a-group-meets-at-a-regular-time-and-place) | Organizer | A group meets at a regular time and place | The Thursday Run Club at Drake's | MVP | 🟩 Built — recurring gathering composer + venue page ship |
 | [O2](#o2-a-venues-recurring-program-becomes-findable-alongside-everything-nearby) | Organizer | A venue's recurring program is findable alongside everything nearby | Barn Movie Night at Drake's | MVP | 🟨 Partial — venue page + gathering by business Group ship; sub-venue deferred |
-| [O3](#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed) | Organizer | A multi-venue series spans Places, members find it via the awareness feed | Concerts in the Park across the Sacramento MSA | MVP substrate; surface b2 | 🟨 Partial — feed aggregation via place hierarchy works; saved-search surface deferred |
+| [O3](#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed) | Organizer | A multi-venue series spans Places, members find it via the awareness feed | Concerts in the Park across the Sacramento metro | MVP substrate; surface b2 | 🟨 Partial — feed aggregation via place hierarchy (to county) + `metro_polygons` overlay (metro scope, per D3) works; saved-search surface deferred |
 | [O4](#o4-a-member-floats-an-idea-to-test-interest-before-committing-to-host) | Organizer | Floats an idea to test interest before committing to host | Someone thinking about a Sunday coffee walk | Deferred (b2+) | ⬜ Not built |
 | [O5](#o5-a-community-steward-keeps-an-ongoing-operation-alive) | Organizer | A steward keeps an ongoing operation alive | A community garden lead, a tool library volunteer | Deferred (b2+) | ⬜ Not built |
 | [O6](#o6-a-community-coordinates-around-a-vacant-space) | Organizer | A community coordinates around a vacant space | Cafe Capricho's would-be successor | **Deferred (far horizon)** | ⬜ Not built |
@@ -104,13 +104,13 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 **Primitive shape:** Person → `member_place_interests`(primary + up to 5 secondary) × `member_interests` → community-awareness feed × Place-hierarchy traversal. Optional `member_saved_searches`(`location_id` or `place_id` + interest tags) for narrower subscriptions. Per ADR-21 (2026-05-23).
 
 **Persona examples:**
-- A Sacramentan loves outdoor live music in the summer. A dozen public parks across the Sacramento MSA host concert series. The member's `primary_home` is Oak Park and the MSA traverses as parent; the awareness feed serves every park's concerts without any per-park follow click.
+- A Sacramentan loves outdoor live music in the summer. A dozen public parks across the Sacramento metro host concert series. The member's `primary_home` is Oak Park; opting into metro scope lets the `metro_polygons` overlay (`ST_Contains`, per D3) gather every park inside the metro — no MSA tree row, no per-park follow click — and the awareness feed serves every park's concerts.
 - A member lives in Oak Park but works in Folsom — adds Folsom as a `secondary` Place-interest; the feed serves both.
 - A member who wants a narrower filter ("anything at Drake's") creates a `member_saved_searches` row via a "Follow this venue" CTA (b2 surface).
 
 **Distinct functionality this case requires beyond C1:**
 - `member_place_interests` with primary + multiple secondary rows (substrate at b1 — done in C1 baseline; the multi-Place usage is what's distinct here).
-- Place-hierarchy traversal so adding "Sacramento MSA" covers every neighborhood under it without enumeration.
+- Metro-scope opt-in so the `metro_polygons` overlay covers every Location in the Sacramento metro without enumeration (per D3 — metros live in the overlay, not as a place-tree row); within the tree, `places.parent_id` traversal covers neighborhood → city → county.
 - `member_saved_searches` substrate (b1) for parameterized "follow this venue" / "follow this filter" rows.
 - Saved-search UI composer + fan-out worker (**b2 surface — deferred**).
 - T3 natural-language compositional query layer ("places near me with summer concerts in the park") waits for the vector layer over `places` and `member_interests`.
@@ -290,8 +290,8 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 
 | Producer | Owner residence (jurisdiction) | Product made at | Locally Owned | Locally Made |
 |---|---|---|---|---|
-| **Maya at Oak Park Sourdough** (anchor) | Sacramento MSA (self-attested at b1) | Oak Park | ✓ | ✓ |
-| Sacramento-resident reseller of imported textiles | Sacramento MSA | Hanoi, Vietnam | ✓ | ✗ |
+| **Maya at Oak Park Sourdough** (anchor) | Sacramento metro (self-attested at b1) | Oak Park | ✓ | ✓ |
+| Sacramento-resident reseller of imported textiles | Sacramento metro | Hanoi, Vietnam | ✓ | ✗ |
 | National-chain coffee franchise | Franchisee resident in Sacramento | Roasted Seattle, brewed local | ✓ (franchisee) | partial (open) |
 | Out-of-state designer labeling products "from Sacramento" | Out-of-state ZIP | Sacramento (declared) | ✗ | ✓ at Tier 0; community-attestation at b2+ |
 
@@ -388,7 +388,7 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 **Primitive shape:** Multiple hosts (Person or Group) → recurring gathering Items → Locations across multiple Places → Place-hierarchy aggregation → member's community-awareness feed (per ADR-21).
 
 **Persona examples:**
-- Concerts in the Park summer series across the Sacramento MSA — a dozen public parks host concert series (Capitol Mall, Cesar Chavez Plaza, Land Park amphitheater, etc.). Each is run by a different host (city Parks & Rec, a nonprofit, a local rotary, a small promoter), publishes on a different website, and surfaces in no shared place today.
+- Concerts in the Park summer series across the Sacramento metro — a dozen public parks host concert series (Capitol Mall, Cesar Chavez Plaza, Land Park amphitheater, etc.). Each is run by a different host (city Parks & Rec, a nonprofit, a local rotary, a small promoter), publishes on a different website, and surfaces in no shared place today.
 - A regional farmers-market circuit spanning four counties run by independent market operators.
 - A summer outdoor-cinema series with screenings at a dozen partner venues.
 
