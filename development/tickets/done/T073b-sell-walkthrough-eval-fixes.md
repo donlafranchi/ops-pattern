@@ -58,6 +58,6 @@ The F036 Playwright eval (run after the dev-env infra + fixture seed landed) sur
 ## Completion
 
 Date: 2026-06-01
-Commit: `{pending}`
+Commit: `c36759c` (web, branch `t073b`) → merged as `3ec3420`; `0224c8b` (parent, main)
 
 **Summary.** Six code fixes (MultiStepComposer dialogLabel + Skip role, /you/sell button, sellCreateLocationAction pg-pool, sellActivateAction place_for_coords URL builder, anchor-picker added-Locations state). 74/74 src vitest GREEN. 5/9 F036 evals pass (was 2/9); 4 remaining are forward-deps on F035, F038/F040/F034, F037.
