@@ -1,8 +1,8 @@
 ---
 id: how-f030-newcomer-signs-up-and-lands-in-feed
-purpose: Backlog scenario — a newcomer signs up, picks a locality + interest tags, and lands in the awareness feed.
+purpose: Scenario — a newcomer signs up, picks a locality + interest tags, and lands in the awareness feed.
 layer: how
-status: draft
+status: approved
 ---
 
 # F030: A newcomer signs up and lands in the awareness feed
@@ -11,7 +11,12 @@ status: draft
 **Loops:** 3 (Land here), 8 (Follow what you love)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) — the newcomer-to-Sacramento situation.
 **Primitive shape:** Person → `member_place_interests`(primary_home) × `member_interests` → discovery feed (read from `discoverable_items`).
-**Status:** backlog
+**Status:** in `planning/now/` (moved from backlog 2026-06-02); ticketing blocked — see below.
+
+> **Ticketing blocked (2026-06-02).** Three gates open before `ticket`:
+> 1. **Deps not met** — F036 surface incomplete (eval 5/9; 4 reds) and F038 not yet merged/evaled (T077–T079 on branch `t77`). F034 + F040 are done.
+> 2. **Auth-method decision unratified** — see Assumptions; required before `ticket` per scenario.
+> 3. **No `review-F030`** — rebuild rule 1 requires `review` before tickets.
 **Replaces:** F028 (archived 2026-05-28 — drop persona; replace `member_location_affinities` references with `member_place_interests`; trim MSA-depth opt-in into F031's scope).
 
 ## The Person
