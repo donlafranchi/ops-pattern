@@ -585,3 +585,43 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Disposition:** flag-for-separate-ticket (tech-debt; extract shared canonical-URL resolver + move PNG gen off the tx).
 
 **No spec divergence requiring a SPEC-PATCH.** `item.qr_card_requested` event_kind and the `qrcode` dep already existed; no migration.
+
+### T095 (F032 re-cycle): Member discoverability default = private
+
+**What (1) — `members_public_read` was NOT tightened (M2 reversal of the ticket's RLS criterion).** The ticket specified updating `members_public_read` so anon only sees `is_discoverable=true ∧ profile_visibility='public'` rows. Built that way first; M2 code-review caught a critical regression and it was dropped in-loop. The gate now lives entirely in the `resolve_member_page_visibility` SECURITY DEFINER verdict function (the `/m/[handle]` page), the robots-`noindex` meta (external index), and the search-origin path (`p_via_direct_link=false`).
+
+**Why:** `resolve-product.ts` / `resolve-service.ts` / `resolve-gathering.ts` read `members` directly and embed `owner:members!member_id(handle, display_name)`, returning `null` (→404) when the owner row is withheld. With the new `members_only` default, the tightened policy made **every individually-sold public Item 404 for anonymous viewers** — the opposite of "outputs surface, people opt in." Verified under the live `anon` role: a `members_only` member's row returned 0 rows. The verdict function (SECURITY DEFINER over `member_privacy`) gates the page without touching attribution; validated across the full anon/auth/self matrix.
+
+**Disposition:** accepted-as-is (the RLS floor is unnecessary for T095's goals); the direct-`members` enumeration vector is flagged for a follow-up that must migrate attribution reads onto a bypass-RLS projection first — see SPEC-PATCHES.
+
+**What (2) — F032 fixture target (Nadia) seeded discoverable+public; the ticket's "flip Beat 1 to 404" was not applied to Nadia.** The ticket suggested seeding the F032 target with `is_discoverable=false` and changing Beat 1 (anon read) to expect 404.
+
+**Why:** F032 is literally "a viewer *finds* a member's public page and follows them" — the scenario premise requires the target to be findable, and Beats 2–4 (anon follow CTA, signed-in follow, self-view) all need her page to render. The ticket's own Notes concede F032's clauses "apply when the target's `is_discoverable=true`." Resolved by making Nadia an opted-in producer (discoverable+public) and adding *new* gating members/beats instead: CONSUMER (`members_only` default → anon 404, signed-in renders) and VAULT (`private` → signed-in tombstone, anon 404), plus a robots-meta assertion.
+
+**Disposition:** accepted-as-is.
+
+**What (3) — `discoverability-gates.test.ts` not created; prompt-on-acquisition steward path + prompt UI not built.** Ticket asked for a unit file covering each search/autocomplete/directory gate, a steward-role acquisition trigger, and a `/you` prompt surface.
+
+**Why:** No member search/autocomplete/directory surface and no steward-assignment handler exist in the codebase at b1 — there is nothing to gate or hook. The business-Group-founder path (`group.create`) is the one real acquisition path and is wired; the helper is generic for future paths. The prompt UI is explicitly b2-deferrable per the ticket (substrate shipped: `member_prompts` + the enqueue hook, both unit-tested). `/you` is still the legacy vendor client page, an awkward host for the new-architecture prompt.
+
+**Disposition:** flag-for-separate-ticket (enumeration hardening; prompt UI; search-surface gate when those surfaces land) — see SPEC-PATCHES. The `member.md` § Policy posture "default `public`" drift is now corrected — **landed 2026-06-03 (b1e10eb)**, block reads default `members_only`.
+
+### T095 Revision 2 (PM-directed 2026-06-03): Group-attribution for items
+
+**What (4) — Layered the Group-attribution model on top of the existing Revision 1 ticket on the same branch (`t095`), not a separate ticket.** PM directive 2026-06-03 after reviewing Revision 1's M2 disposition: "Business Group items attribute to the Group, not the Member." Rather than open a parallel ticket, the revision extends T095's acceptance criteria, migration, code, and tests in place.
+
+**Why:** The Revision 1 close-out flagged the seller-privacy-vs-item-visibility loop (a `members_only` seller's items 404 for anon if RLS hides them) as a follow-up enumeration-hardening ticket. The PM resolved it instead by decoupling item attribution from member visibility entirely: a Group is always public-by-default, so attributing items to the Group eliminates the cross-Member members read for the common case. This is the structurally cleaner answer and the one the PLATFORM-PATTERNS entry "outputs surface, people opt in" implicitly endorsed. One commit on one branch keeps the privacy + attribution shift atomic.
+
+**Disposition:** accepted-as-is. The work folds into T095 as Revision 2; the same branch carries both. Remaining cross-Member reads at b1: (a) Shop "Founded by" lookup (handle/display/avatar), (b) individual-Item attribution (gathering hosted as Member with no Group). Both use the new `member_public_discoverability` projection for `is_discoverable`; the base members embed for handle/display_name persists for those two paths. The full enumeration-hardening (migrate those last two paths onto a SECURITY DEFINER projection that exposes only handle/display_name/avatar) is now the **only** remaining enumeration follow-up — narrower than before — and stays in SPEC-PATCHES.
+
+**What (5) — `member.md` does not yet describe the Item-attribution model.** The Revision 2 code change is fully ratified by the PLATFORM-PATTERNS entry "outputs surface, people opt in" + the kind='business' Group-public-by-default clause. But `member.md` § Privacy controls / § Policy posture talks about profile visibility + discoverability without enumerating how the Group-attribution model fans out across Item kinds.
+
+**Why:** The platform pattern entry is the load-bearing decision; the spec gap is a documentation/discoverability issue, not a ratification gap. Spec patches typically describe what landed in code so future builds find the contract in one place.
+
+**Disposition:** **landed 2026-06-03 (b1e10eb)** — `member.md` § Privacy controls now documents the Item-attribution model (Group-filed → Group; individual → Member with `is_discoverable`-gated link; selling publicly is consent to attribution), and `groups.md` + `item.md` were updated to match. No open spec gap remains for the attribution model.
+
+**What (6) — Plain-text attribution Playwright beats deferred.** The unit tests cover the plain-text fallback path (Member + isDiscoverable=false → `<span>`); no Playwright beat asserts the same path end-to-end. The eval fixtures opt seeded canonical sellers / founders INTO discoverability so the existing link assertions hold.
+
+**Why:** Adding the negative-branch beat to each of F034 / F038 / F040 + F035 requires a second fixture seed per scenario (a non-discoverable variant), roughly doubling the fixture surface for marginal end-to-end coverage. The unit tests already lock the conditional render; the missing piece is a real-DB integration assertion, which the live `resolveProduct` / `resolveShop` projections-view path already exercises.
+
+**Disposition:** flag-for-separate-ticket — add plain-text-attribution Playwright beats once a non-discoverable member fixture pattern is shared (likely at the b1.5 polish sweep).
