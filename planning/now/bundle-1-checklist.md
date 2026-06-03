@@ -45,7 +45,7 @@ Ordinary people will step forward where they live, and their neighbors will show
 
 ## What newcomers can do
 
-- [ ] Sign up and land in a populated feed
+- [x] Sign up and land in a populated feed
 - [ ] Find another Member's profile and follow them
 - [ ] See everything they follow — people, Groups, venues — in one place
 - [ ] Adjust how wide their "near me" reach is
@@ -61,7 +61,7 @@ Ordinary people will step forward where they live, and their neighbors will show
 
 - **Foundations:** done except the four items above (one awaiting merge, three not yet built).
 - **Producer surfaces:** Sell walkthrough is in build; the rest haven't started.
-- **Gatherer + newcomer surfaces:** none started.
+- **Gatherer + newcomer surfaces:** newcomer signup → locality feed shipped (F030, eval green 2026-06-02); the rest haven't started.
 - **Integration test:** waits on everything above.
 
 ## What this scoreboard is not
