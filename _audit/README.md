@@ -1,9 +1,29 @@
 # Pipeline telemetry
 
-Token / cost / time telemetry for the agent pipeline, parsed straight from Claude Code
-transcript JSONL. Three scripts: **collect** (parse) → **report** (per-F) → **summary** (cross-F).
+Token / cost / time telemetry, parsed straight from Claude Code transcript JSONL
+across **both** Claude Code CLI sessions and Cowork desktop sessions. Four scripts:
+**collect** (parse) → **report** (per-F) → **summary** (cross-F) → **totals** (cross-everything).
 
 No frameworks. Only dep is [`tsx`](https://github.com/privatenumber/tsx) as the TS runner.
+
+## Sources scanned
+
+- `~/.claude/projects/-Users-don-Projects-community/*.jsonl` — Claude Code CLI sessions for this project (plus subagent sidechains under `<sid>/subagents/`).
+- `~/Library/Application Support/Claude/local-agent-mode-sessions/<org>/<acct>/local_<sid>/.claude/projects/<encoded>/*.jsonl` — Cowork desktop sessions (plus their subagent sidechains). One CC-format transcript per Cowork session.
+
+Sibling `audit.jsonl` files at each Cowork `local_<sid>/` root are **not** parsed — they're a separate Cowork-only event stream.
+
+**Claude Desktop chat is excluded** — its conversations are server-side only and have no local jsonl.
+
+## Surface taxonomy
+
+Surface is derived in `collect.ts` from the transcript source path + `isSidechain` flag (not the skill firewall — a skill nominally from one surface can fire inside the other via subagent dispatch).
+
+| Value | Source |
+|---|---|
+| `code` | File under `~/.claude/projects/` and not a sidechain |
+| `cowork` | File under `local-agent-mode-sessions/` and not a sidechain |
+| `dispatch` | File under any `/subagents/` dir OR record has `isSidechain=true` |
 
 ## When to run
 
@@ -134,18 +154,34 @@ npm run report             # every F### with a run.jsonl
 
 ## 3. Summary — `summary.ts`
 
-Reads every `_audit/F###/run.jsonl`, renders `_audit/summary.html` — one sortable row per
-F-number: total tokens, cost, wall time, skill count, dominant skill by tokens, dominant
-skill by time. Each F-number links to its full report.
+Reads every `_audit/*/run.jsonl` (including `unattributed`), renders `_audit/summary.html` —
+one sortable row per bucket: total tokens, cost, wall time, skill count, dominant skill by
+tokens, attribution-confidence mix, per-bucket data window. Header shows the absolute
+dataset window across every bucket. Each F-number links to its full per-F report.
 
 ```bash
 npm run summary
 ```
 
+## 4. Totals — `totals.ts`
+
+Reads every `_audit/*/run.jsonl` and renders `_audit/totals.html` — the "everything,
+diced three ways" view:
+
+- **By surface** — `code` / `cowork` / `dispatch` split with % of total tokens.
+- **By skill** — every skill that fired, sorted by tokens, with % of total.
+- **By time** — three switchable tables: day (YYYY-MM-DD), ISO week (YYYY-Www), month (YYYY-MM).
+
+Top of page: grand totals (tokens / cost / wall time / calls) + dataset window. Every table is click-to-sort.
+
+```bash
+npm run totals
+```
+
 ## Everything at once
 
 ```bash
-npm run all     # collect → report → summary
+npm run all     # collect → report → summary → totals
 ```
 
 ## Pricing

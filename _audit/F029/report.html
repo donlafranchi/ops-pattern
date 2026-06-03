@@ -27,47 +27,48 @@
   footer{margin-top:40px;color:#999;font-size:12px}
 </style></head><body><div class="wrap">
 <h1>F029 — pipeline telemetry</h1>
-<p class="sub">39 Claude calls · generated from <code>F029/run.jsonl</code></p>
+<p class="sub">401 Claude calls · generated from <code>F029/run.jsonl</code></p>
 
 <h2>Cost-per-F</h2>
 <div class="cards">
-  <div class="card"><div class="k">Total tokens</div><div class="v">3,182,665</div></div>
-  <div class="card"><div class="k">Est. cost</div><div class="v">$8.61</div></div>
-  <div class="card"><div class="k">Wall time</div><div class="v">4m 2s</div></div>
-  <div class="card"><div class="k">Calls</div><div class="v">39</div></div>
+  <div class="card"><div class="k">Total tokens</div><div class="v">99,188,909</div></div>
+  <div class="card"><div class="k">Est. cost</div><div class="v">$446.27</div></div>
+  <div class="card"><div class="k">Wall time</div><div class="v">76m 44s</div></div>
+  <div class="card"><div class="k">Calls</div><div class="v">401</div></div>
 </div>
 
 <h2>By surface</h2>
 <table><thead><tr><th>Surface</th><th class="num">Calls</th><th class="num">Tokens</th><th class="num">Cost</th><th class="num">Time</th></tr></thead>
-<tbody><tr><td>cowork</td><td class="num">39</td><td class="num">3,182,665</td><td class="num">$8.61</td><td class="num">4m 2s</td></tr></tbody></table>
+<tbody><tr><td>cowork</td><td class="num">362</td><td class="num">96,006,244</td><td class="num">$437.66</td><td class="num">72m 42s</td></tr>
+<tr><td>code</td><td class="num">39</td><td class="num">3,182,665</td><td class="num">$8.61</td><td class="num">4m 2s</td></tr></tbody></table>
 
 <h2>Bottleneck distribution (tokens by skill)</h2>
 <div class="pareto"><strong>Pareto:</strong> 1 of 1 skill(s) account for 80% of tokens.
-Dominant: <strong>(none)</strong> at 3,182,665 tokens (100.0%).</div>
+Dominant: <strong>(none)</strong> at 99,188,909 tokens (100.0%).</div>
 <div class="barrow"><div class="barlabel">(none)</div>
         <div class="bartrack"><div class="bar" style="width:100.0%"></div></div>
-        <div class="barval">3,182,665 (100.0%)</div></div>
+        <div class="barval">99,188,909 (100.0%)</div></div>
 
 <h2>Skill ROI</h2>
 <p class="muted">Click a column header to sort. Skills flagged <span class="flag">no generated output</span> spent tokens but emitted zero output tokens (pure read/observation).</p>
 <table id="roi"><thead><tr>
   <th>Skill</th><th class="num" data-sort="num">Calls</th><th class="num" data-sort="num">Tokens</th>
   <th class="num" data-sort="num">Cost</th><th class="num" data-sort="num">Time</th><th class="num" data-sort="num">Tokens / invoke</th>
-</tr></thead><tbody><tr data-tokens="3182665" data-perinvoke="81607">
+</tr></thead><tbody><tr data-tokens="99188909" data-perinvoke="247354">
         <td>(none) </td>
-        <td class="num">39</td><td class="num">3,182,665</td>
-        <td class="num">$8.61</td>
-        <td class="num">4m 2s</td>
-        <td class="num">81,607</td>
+        <td class="num">401</td><td class="num">99,188,909</td>
+        <td class="num">$446.27</td>
+        <td class="num">76m 44s</td>
+        <td class="num">247,354</td>
       </tr></tbody></table>
 
 
 <h2>Backfill notes</h2>
 <div class="pareto">
-  <strong>Attribution confidence:</strong> low: 39 (100%).<br>
-  <strong>Basis:</strong> session-dominant ×39.<br>
-  <strong>Data window:</strong> 2026-05-28 → 2026-05-28
-  across 1 session(s).
+  <strong>Attribution confidence:</strong> low: 401 (100%).<br>
+  <strong>Basis:</strong> session-dominant ×401.<br>
+  <strong>Data window:</strong> 2026-05-25 → 2026-05-28
+  across 3 session(s).
 </div>
 <p class="muted" style="margin-top:10px">
   <strong>high</strong> = F-number from the Skill's args or a single scenario/review file in the segment;
@@ -76,10 +77,10 @@ Dominant: <strong>(none)</strong> at 3,182,665 tokens (100.0%).</div>
   <strong>none</strong> would be bucketed as <code>unattributed</code> rather than guessed.
 </p>
 <h3 style="font-size:14px;margin:18px 0 6px">Schema drift</h3>
-<div class="notes"><p class="muted">No schema drift detected — every usage-bearing turn carried requestId, model, and timestamp across all scanned transcripts.</p></div>
+<div class="notes"><ul><li>[cowork:040cfa7b/3a6a6157] 82 usage-bearing turns; missing fields: requestId×2, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:060c1b90/e3bac829] 126 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:0d139a59/49566cbe] 24 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:3be9f03c/4dd82e87] 110 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:4a391343/d07750a0] 150 usage-bearing turns; missing fields: requestId×2, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:505126c7/d492e85d] 274 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:7778786b/98513c63] 53 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:77e5e0d0/b9f7396d] 112 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:781fa3ec/ae69548a] 118 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:94df0ef4/cbbc27e4] 189 usage-bearing turns; missing fields: requestId×2, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:94df0ef4/e6327958] 173 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:995331a3/24f0b961] 87 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:a369d2ec/1b57b9b7] 562 usage-bearing turns; missing fields: requestId×2, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:aeaf3ccc/54e0eafb] 93 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:bc515770/6eeccf44] 275 usage-bearing turns; missing fields: requestId×4, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:bfe88da4/d54d6361] 82 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:d/4441aec5] 1191 usage-bearing turns; missing fields: requestId×19, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:da1d3c7d/a428c167] 138 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)</li><li>[cowork:e1a0b52a/0c336dd0] 185 usage-bearing turns; missing fields: requestId×2, model×0, timestamp×0 (parsed anyway, defaulted)</li></ul></div>
 
 <h2>Segmentation notes</h2>
-<div class="notes"><ul><li>[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill "engineering:deploy-checklist" fired inside "code-review" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[5a4f381c-ed80-46fd-ae87-0d280662e5e3] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>attribution: low (session-dominant); session-dominant fallback (F029) — low confidence; no active skill segment — raw conversation / pre-skill turn</li></ul></div>
+<div class="notes"><ul><li>[014361f8-27bc-4c8e-858c-ffc1aad0a10e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[19cf591c-41be-4186-94f7-c300a89b5828] nested skill "engineering:code-review" fired inside "build" (M-gate) — attributed as sidechain of parent</li><li>[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill "engineering:deploy-checklist" fired inside "code-review" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "design:accessibility-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[3fb4852b-eada-40dc-9a4f-4e19a4fada89] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[5a4f381c-ed80-46fd-ae87-0d280662e5e3] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[7fd1b48a-a275-4747-8a23-f2c6b414eb30] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[bfc03c9a-6b64-46d8-b7b2-467648755047] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[c2966657-79f9-4539-ac0d-dc445220d5d7] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[cowork:081f7da3/6f45d437] nested skill "anthropic-skills:consolidate-memory" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[cowork:505126c7/agent-a6/sub] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[cowork:505126c7/d492e85d] nested skill "engineering:code-review" fired inside "pipeline-router" (M-gate) — attributed as sidechain of parent</li><li>[cowork:6cbbfbba/f974ed26] nested skill "anthropic-skills:pipeline-ticket" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[cowork:78f1522b/9275f237] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[cowork:bead1dbe/19ffc822] 43087541ms gap before req_011CbHoGKqQMeQ11HcRXCBMW — idle time, not pure request latency</li><li>[cowork:bead1dbe/19ffc822] 85373197ms gap before req_011CbGrW7g9aJ2VQinNnPWM3 — idle time, not pure request latency</li><li>[cowork:e1a0b52a/0c336dd0] nested skill "anthropic-skills:pipeline-ticket" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[cowork:e1a0b52a/0c336dd0] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>[cowork:f56a19a9/1a9e99a6] nested skill "engineering:code-review" fired inside "none" (M-gate) — attributed as sidechain of parent</li><li>attribution: low (session-dominant); session-dominant fallback (F029) — low confidence; no active skill segment — raw conversation / pre-skill turn</li></ul></div>
 
 <footer>Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out (cache write 1.25×, read 0.1×).
 Durations approximate request latency from transcript timestamps.</footer>

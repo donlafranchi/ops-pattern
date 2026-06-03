@@ -7,7 +7,8 @@
     "collect": "tsx collect.ts",
     "report": "tsx report.ts",
     "summary": "tsx summary.ts",
-    "all": "tsx collect.ts && tsx report.ts && tsx summary.ts"
+    "totals": "tsx totals.ts",
+    "all": "tsx collect.ts && tsx report.ts && tsx summary.ts && tsx totals.ts"
   },
   "devDependencies": {
     "tsx": "^4.19.2"

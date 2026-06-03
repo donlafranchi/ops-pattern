@@ -29,11 +29,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import {
   PROJECT_DIR,
+  COWORK_SESSIONS_DIR,
   AUDIT_DIR,
   CallRecord,
   readJsonl,
   isPluginSkill,
-  surfaceForSkill,
+  surfaceFromPath,
 } from './lib';
 
 const F_RE = /F0\d{2}\b/g;
@@ -51,22 +52,56 @@ const onlyF = flag('--f');
 const sessionFilter = flag('--sessions')?.split(',').map((s) => s.trim());
 const excludeFilter = flag('--exclude')?.split(',').map((s) => s.trim()).filter(Boolean);
 
-// ---- collect transcript files (top-level sessions + subagent sidechains) ----
-function listTranscripts(): string[] {
-  const files: string[] = [];
-  for (const name of fs.readdirSync(PROJECT_DIR)) {
-    const full = path.join(PROJECT_DIR, name);
-    if (name.endsWith('.jsonl') && fs.statSync(full).isFile()) files.push(full);
-    else if (fs.statSync(full).isDirectory()) {
-      // subagent sidechain transcripts live in <session>/subagents/*.jsonl
+// ---- collect transcript files from BOTH Claude Code and Cowork trees ----
+// CC layout:    <PROJECT_DIR>/<sessionUuid>.jsonl  +  <PROJECT_DIR>/<sessionUuid>/subagents/*.jsonl
+// Cowork layout: <COWORK_SESSIONS_DIR>/<orgId>/<accountId>/local_<sid>/.claude/projects/<encoded>/<sessionUuid>.jsonl
+//                plus .../subagents/*.jsonl sidechains
+//                plus a sibling audit.jsonl at the local_<sid>/ root (Cowork-specific event log; NOT a CC transcript)
+function scanCcDir(root: string, out: string[]): void {
+  if (!fs.existsSync(root)) return;
+  for (const name of fs.readdirSync(root)) {
+    const full = path.join(root, name);
+    let stat: fs.Stats;
+    try { stat = fs.statSync(full); } catch { continue; }
+    if (name.endsWith('.jsonl') && stat.isFile()) {
+      out.push(full);
+    } else if (stat.isDirectory()) {
       const sub = path.join(full, 'subagents');
       if (fs.existsSync(sub)) {
         for (const s of fs.readdirSync(sub)) {
-          if (s.endsWith('.jsonl')) files.push(path.join(sub, s));
+          if (s.endsWith('.jsonl')) out.push(path.join(sub, s));
         }
       }
     }
   }
+}
+
+// Cowork sessions live N levels deep; walk to find every CC project dir inside.
+function scanCoworkSessions(root: string, out: string[]): void {
+  if (!fs.existsSync(root)) return;
+  const stack: string[] = [root];
+  while (stack.length) {
+    const dir = stack.pop()!;
+    let entries: fs.Dirent[];
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { continue; }
+    for (const ent of entries) {
+      if (!ent.isDirectory()) continue;
+      // A Cowork session's CC transcript dir is nested under .claude/projects/<encoded>/
+      if (ent.name === 'projects' && dir.endsWith(path.join('.claude'))) {
+        for (const proj of fs.readdirSync(path.join(dir, ent.name))) {
+          scanCcDir(path.join(dir, ent.name, proj), out);
+        }
+      } else {
+        stack.push(path.join(dir, ent.name));
+      }
+    }
+  }
+}
+
+function listTranscripts(): string[] {
+  const files: string[] = [];
+  scanCcDir(PROJECT_DIR, files);
+  scanCoworkSessions(COWORK_SESSIONS_DIR, files);
   let out = files;
   if (sessionFilter) {
     out = out.filter((f) => sessionFilter.some((s) => f.includes(s)));
@@ -159,11 +194,21 @@ const allRecords: CallRecord[] = [];
 const driftNotes: string[] = [];
 
 for (const file of listTranscripts()) {
-  const isSubagent = file.includes(path.join('subagents', ''));
-  const sessionName =
-    path.basename(path.dirname(file)) === path.basename(PROJECT_DIR)
-      ? path.basename(file, '.jsonl')
-      : `${path.basename(path.dirname(path.dirname(file)))}/${path.basename(file, '.jsonl')}`;
+  const isSubagent = file.includes(`${path.sep}subagents${path.sep}`);
+  const isCowork = file.includes(`${path.sep}local-agent-mode-sessions${path.sep}`);
+  // Session label: keep CC sessions as <uuid>; tag Cowork sessions with local_<sid>/ prefix.
+  const baseName = path.basename(file, '.jsonl');
+  let sessionName: string;
+  if (isCowork) {
+    // find the local_<sid> ancestor for a readable label
+    const m = file.match(/local_([0-9a-f-]+)/i);
+    sessionName = m ? `cowork:${m[1].slice(0, 8)}/${baseName.slice(0, 8)}` : `cowork/${baseName}`;
+    if (isSubagent) sessionName += '/sub';
+  } else if (isSubagent) {
+    sessionName = `${path.basename(path.dirname(path.dirname(file)))}/${baseName}`;
+  } else {
+    sessionName = baseName;
+  }
 
   const raw = fs.readFileSync(file, 'utf8');
   const recs = readJsonl(raw);
@@ -278,10 +323,10 @@ for (const file of listTranscripts()) {
       const seg = segments[recSeg[i]];
       const resolved = resolveSegment(seg, sessionDom);
 
-      const entrypoint = rec.entrypoint || '';
-      const surface = topEntry?.isPlugin
-        ? surfaceForSkill(parent_skill, entrypoint)
-        : surfaceForSkill(skill, entrypoint);
+      // Surface is now derived from the transcript source path + sidechain flag,
+      // not the skill firewall — a skill nominally "from Cowork" can fire inside a
+      // CC subagent dispatch and vice versa, so the path is the source of truth.
+      const surface = surfaceFromPath(file, Boolean(rec.isSidechain || isSubagent));
 
       let duration_ms = 0;
       if (ts != null && lastTs != null) duration_ms = Math.max(0, ts - lastTs);

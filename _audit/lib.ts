@@ -3,13 +3,39 @@
 import * as os from 'os';
 import * as path from 'path';
 
+// Claude Code transcripts for this project.
 export const PROJECT_DIR = path.join(
   os.homedir(),
   '.claude',
   'projects',
   '-Users-don-Projects-community',
 );
+// Cowork desktop session transcripts. Per-session tree:
+//   <COWORK_SESSIONS_DIR>/<orgId>/<accountId>/local_<sessionId>/.claude/projects/<encoded>/<sessionUuid>.jsonl
+//   plus subagent sidechains under .../subagents/*.jsonl
+//   plus a sibling audit.jsonl (Cowork's own event stream — not parsed here).
+export const COWORK_SESSIONS_DIR = path.join(
+  os.homedir(),
+  'Library',
+  'Application Support',
+  'Claude',
+  'local-agent-mode-sessions',
+);
 export const AUDIT_DIR = __dirname;
+
+// Surface taxonomy — derived from transcript source path + sidechain flag.
+//   code     = Claude Code CLI session (under PROJECT_DIR, non-sidechain)
+//   cowork   = Cowork desktop session (under COWORK_SESSIONS_DIR, non-sidechain)
+//   dispatch = subagent dispatch (file under /subagents/ OR record has isSidechain=true)
+// Claude Desktop chat is NOT captured in any local jsonl — it's a server-side surface
+// and is intentionally absent from this taxonomy.
+export type Surface = 'code' | 'cowork' | 'dispatch';
+
+export function surfaceFromPath(filePath: string, isSidechain: boolean): Surface {
+  if (isSidechain || filePath.includes(`${path.sep}subagents${path.sep}`)) return 'dispatch';
+  if (filePath.includes(`${path.sep}local-agent-mode-sessions${path.sep}`)) return 'cowork';
+  return 'code';
+}
 
 // One telemetry record per Claude API call. Mirrors the JSONL schema in _audit/README.md.
 export interface CallRecord {
@@ -111,24 +137,8 @@ export function esc(s: string): string {
     .replace(/>/g, '&gt;');
 }
 
-// Skill → which tool it runs in (the hard firewall from CLAUDE.md).
-const COWORK_SKILLS = new Set([
-  'orient', 'explore', 'scope', 'weigh', 'review', 'memo', 'tidy', 'loop-designer',
-]);
-const CLAUDE_CODE_SKILLS = new Set(['atomize', 'ticket', 'test', 'build']);
-
 export function isPluginSkill(skill: string): boolean {
   return skill.includes(':'); // engineering:code-review, design:accessibility-review, etc.
-}
-
-// Surface for a pipeline skill; plugin/M-gate skills inherit their parent's surface.
-export function surfaceForSkill(skill: string | null, entrypoint: string): string {
-  if (skill && CLAUDE_CODE_SKILLS.has(skill)) return 'claude-code';
-  if (skill && COWORK_SKILLS.has(skill)) return 'cowork';
-  // fall back to entrypoint: claude-desktop is the Cowork surface
-  if (entrypoint && entrypoint.includes('desktop')) return 'cowork';
-  if (entrypoint && entrypoint.includes('code')) return 'claude-code';
-  return 'claude-code';
 }
 
 export function readJsonl<T = any>(text: string): T[] {

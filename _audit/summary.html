@@ -18,7 +18,7 @@
   footer{margin-top:40px;color:#999;font-size:12px}
 </style></head><body><div class="wrap">
 <h1>Pipeline telemetry — summary</h1>
-<p class="sub">16 F-number(s) · click a column to sort, click an F-number for its full report</p>
+<p class="sub">25 bucket(s) · dataset window <strong>2026-04-09 → 2026-06-03</strong> · click a column to sort, click an F-number for its full report · see <a href="totals.html">totals.html</a> for surface / skill / time pivots</p>
 <div class="gap"><strong>Backfill gap:</strong> <a href="F033/report.html">F033</a> produced
      <strong>no confidently-attributable calls</strong> in any scanned transcript
      (2026-05-25 → 2026-06-02). These features remain in <code>planning/backlog/</code>
@@ -27,68 +27,134 @@
      "don't guess" rule those calls stayed with their host feature rather than being
      force-bucketed here.</div>
 <div class="cards">
-  <div class="card"><div class="k">Total tokens</div><div class="v">1,546,408,951</div></div>
-  <div class="card"><div class="k">Total cost</div><div class="v">$3706.03</div></div>
-  <div class="card"><div class="k">Total wall time</div><div class="v">867m 21s</div></div>
-  <div class="card"><div class="k">Total calls</div><div class="v">8,324</div></div>
+  <div class="card"><div class="k">Total tokens</div><div class="v">3,535,038,046</div></div>
+  <div class="card"><div class="k">Total cost</div><div class="v">$9838.86</div></div>
+  <div class="card"><div class="k">Total wall time</div><div class="v">4659m 23s</div></div>
+  <div class="card"><div class="k">Total calls</div><div class="v">19,186</div></div>
 </div>
 <table id="t"><thead><tr>
   <th>F-number</th><th class="num">Calls</th><th class="num">Total tokens</th><th class="num">Total cost</th>
   <th class="num">Wall time</th><th class="num">Skill count</th><th>Dominant (tokens)</th><th>Attribution conf.</th><th>Data window</th>
 </tr></thead><tbody><tr>
     <td><a href="F018/report.html">F018</a></td>
-    <td class="num">1,745</td>
-    <td class="num">399,529,742</td>
-    <td class="num">$1130.87</td>
-    <td class="num">168m 35s</td>
-    <td class="num">1</td>
+    <td class="num">6,547</td>
+    <td class="num">1,348,858,295</td>
+    <td class="num">$3921.96</td>
+    <td class="num">3117m 23s</td>
+    <td class="num">8</td>
     <td>(none)</td>
-    <td>H 18% M 3% L 79%</td>
-    <td>05-27→06-01</td>
+    <td>H 5% M 46% L 49%</td>
+    <td>05-08→06-02</td>
   </tr>
 <tr>
     <td><a href="F036/report.html">F036</a></td>
-    <td class="num">1,660</td>
-    <td class="num">380,693,466</td>
-    <td class="num">$780.21</td>
-    <td class="num">208m 53s</td>
+    <td class="num">1,978</td>
+    <td class="num">425,698,386</td>
+    <td class="num">$965.31</td>
+    <td class="num">272m 50s</td>
     <td class="num">12</td>
     <td>build</td>
-    <td>H 77% M 10% L 13%</td>
-    <td>05-30→06-03</td>
-  </tr>
-<tr>
-    <td><a href="F026/report.html">F026</a></td>
-    <td class="num">637</td>
-    <td class="num">219,508,552</td>
-    <td class="num">$441.46</td>
-    <td class="num">103m 49s</td>
-    <td class="num">2</td>
-    <td>code-review</td>
-    <td>M 51% L 49%</td>
-    <td>05-25→05-26</td>
-  </tr>
-<tr>
-    <td><a href="F030/report.html">F030</a></td>
-    <td class="num">1,003</td>
-    <td class="num">134,509,488</td>
-    <td class="num">$323.99</td>
-    <td class="num">91m 36s</td>
-    <td class="num">1</td>
-    <td>(none)</td>
-    <td>H 82% L 18%</td>
+    <td>H 75% M 13% L 12%</td>
     <td>05-30→06-03</td>
   </tr>
 <tr>
     <td><a href="F035/report.html">F035</a></td>
-    <td class="num">817</td>
-    <td class="num">91,613,122</td>
-    <td class="num">$239.78</td>
-    <td class="num">79m 37s</td>
+    <td class="num">2,101</td>
+    <td class="num">320,773,198</td>
+    <td class="num">$696.81</td>
+    <td class="num">226m 18s</td>
     <td class="num">4</td>
     <td>(none)</td>
-    <td>H 48% L 52%</td>
-    <td>06-02→06-03</td>
+    <td>H 19% L 81%</td>
+    <td>04-18→06-03</td>
+  </tr>
+<tr>
+    <td><a href="F026/report.html">F026</a></td>
+    <td class="num">802</td>
+    <td class="num">240,978,989</td>
+    <td class="num">$527.97</td>
+    <td class="num">128m 48s</td>
+    <td class="num">2</td>
+    <td>code-review</td>
+    <td>M 40% L 60%</td>
+    <td>05-25→05-27</td>
+  </tr>
+<tr>
+    <td><a href="F030/report.html">F030</a></td>
+    <td class="num">1,372</td>
+    <td class="num">225,052,681</td>
+    <td class="num">$745.64</td>
+    <td class="num">158m 51s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>H 60% L 40%</td>
+    <td>05-28→06-03</td>
+  </tr>
+<tr>
+    <td><a href="F001/report.html">F001</a></td>
+    <td class="num">1,387</td>
+    <td class="num">196,236,264</td>
+    <td class="num">$575.09</td>
+    <td class="num">132m 5s</td>
+    <td class="num">2</td>
+    <td>(none)</td>
+    <td>M 28% L 72%</td>
+    <td>04-17→05-30</td>
+  </tr>
+<tr>
+    <td><a href="unattributed/report.html">unattributed</a></td>
+    <td class="num">1,222</td>
+    <td class="num">122,687,664</td>
+    <td class="num">$437.46</td>
+    <td class="num">170m 31s</td>
+    <td class="num">2</td>
+    <td>(none)</td>
+    <td>N 100%</td>
+    <td>04-09→06-03</td>
+  </tr>
+<tr>
+    <td><a href="F020/report.html">F020</a></td>
+    <td class="num">359</td>
+    <td class="num">106,615,666</td>
+    <td class="num">$262.81</td>
+    <td class="num">63m 46s</td>
+    <td class="num">2</td>
+    <td>anthropic-skills:pipeline-ticket</td>
+    <td>L 100%</td>
+    <td>05-10→05-11</td>
+  </tr>
+<tr>
+    <td><a href="F029/report.html">F029</a></td>
+    <td class="num">401</td>
+    <td class="num">99,188,909</td>
+    <td class="num">$446.27</td>
+    <td class="num">76m 44s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>L 100%</td>
+    <td>05-25→05-28</td>
+  </tr>
+<tr>
+    <td><a href="F032/report.html">F032</a></td>
+    <td class="num">639</td>
+    <td class="num">93,797,038</td>
+    <td class="num">$221.14</td>
+    <td class="num">64m 22s</td>
+    <td class="num">4</td>
+    <td>(none)</td>
+    <td>H 86% M 2% L 12%</td>
+    <td>06-03→06-03</td>
+  </tr>
+<tr>
+    <td><a href="F025/report.html">F025</a></td>
+    <td class="num">275</td>
+    <td class="num">85,186,529</td>
+    <td class="num">$341.28</td>
+    <td class="num">52m 22s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>M 100%</td>
+    <td>05-23→05-24</td>
   </tr>
 <tr>
     <td><a href="F038/report.html">F038</a></td>
@@ -111,17 +177,6 @@
     <td>(none)</td>
     <td>M 11% L 89%</td>
     <td>05-25→06-02</td>
-  </tr>
-<tr>
-    <td><a href="F032/report.html">F032</a></td>
-    <td class="num">385</td>
-    <td class="num">51,802,899</td>
-    <td class="num">$115.70</td>
-    <td class="num">27m 52s</td>
-    <td class="num">1</td>
-    <td>(none)</td>
-    <td>H 84% M 3% L 13%</td>
-    <td>06-03→06-03</td>
   </tr>
 <tr>
     <td><a href="F041/report.html">F041</a></td>
@@ -157,17 +212,6 @@
     <td>06-02→06-02</td>
   </tr>
 <tr>
-    <td><a href="F001/report.html">F001</a></td>
-    <td class="num">185</td>
-    <td class="num">17,936,193</td>
-    <td class="num">$45.00</td>
-    <td class="num">15m 34s</td>
-    <td class="num">1</td>
-    <td>(none)</td>
-    <td>M 81% L 19%</td>
-    <td>05-25→05-30</td>
-  </tr>
-<tr>
     <td><a href="F039/report.html">F039</a></td>
     <td class="num">130</td>
     <td class="num">11,062,200</td>
@@ -177,6 +221,28 @@
     <td>(none)</td>
     <td>H 100%</td>
     <td>06-02→06-02</td>
+  </tr>
+<tr>
+    <td><a href="F000/report.html">F000</a></td>
+    <td class="num">76</td>
+    <td class="num">8,520,929</td>
+    <td class="num">$20.62</td>
+    <td class="num">8m 52s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>M 100%</td>
+    <td>05-18→05-18</td>
+  </tr>
+<tr>
+    <td><a href="F014/report.html">F014</a></td>
+    <td class="num">84</td>
+    <td class="num">8,000,303</td>
+    <td class="num">$25.39</td>
+    <td class="num">7m 43s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>L 100%</td>
+    <td>04-25→04-26</td>
   </tr>
 <tr>
     <td><a href="F028/report.html">F028</a></td>
@@ -190,15 +256,26 @@
     <td>05-28→05-28</td>
   </tr>
 <tr>
-    <td><a href="F029/report.html">F029</a></td>
-    <td class="num">39</td>
-    <td class="num">3,182,665</td>
-    <td class="num">$8.61</td>
-    <td class="num">4m 2s</td>
+    <td><a href="F016/report.html">F016</a></td>
+    <td class="num">47</td>
+    <td class="num">3,527,277</td>
+    <td class="num">$22.37</td>
+    <td class="num">8m 1s</td>
     <td class="num">1</td>
     <td>(none)</td>
     <td>L 100%</td>
-    <td>05-28→05-28</td>
+    <td>04-26→04-26</td>
+  </tr>
+<tr>
+    <td><a href="F021/report.html">F021</a></td>
+    <td class="num">20</td>
+    <td class="num">1,308,091</td>
+    <td class="num">$5.03</td>
+    <td class="num">1m 37s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>M 100%</td>
+    <td>05-10→05-10</td>
   </tr>
 <tr>
     <td><a href="F031/report.html">F031</a></td>
@@ -210,6 +287,28 @@
     <td>(none)</td>
     <td>H 100%</td>
     <td>06-02→06-02</td>
+  </tr>
+<tr>
+    <td><a href="F011/report.html">F011</a></td>
+    <td class="num">19</td>
+    <td class="num">685,583</td>
+    <td class="num">$0.4025</td>
+    <td class="num">29.2 s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>L 100%</td>
+    <td>04-26→04-26</td>
+  </tr>
+<tr>
+    <td><a href="F008/report.html">F008</a></td>
+    <td class="num">4</td>
+    <td class="num">289,420</td>
+    <td class="num">$2.91</td>
+    <td class="num">1m 17s</td>
+    <td class="num">1</td>
+    <td>(none)</td>
+    <td>M 100%</td>
+    <td>05-15→05-15</td>
   </tr></tbody></table>
 <footer>Generated from _audit/F###/run.jsonl. Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out.</footer>
 </div>

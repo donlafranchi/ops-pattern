@@ -1,0 +1,568 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pipeline telemetry — totals</title>
+<style>
+  body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f6f7f9;color:#1a1a1a}
+  .wrap{max-width:1000px;margin:0 auto;padding:32px 24px 80px}
+  h1{font-size:24px;margin:0 0 4px} h2{font-size:16px;margin:32px 0 12px;border-bottom:1px solid #e2e4e8;padding-bottom:6px}
+  .sub{color:#666;margin:0 0 24px}
+  .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+  .card{background:#fff;border:1px solid #e2e4e8;border-radius:8px;padding:14px 18px;flex:1;min-width:150px}
+  .card .k{color:#666;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .card .v{font-size:22px;font-weight:600;margin-top:4px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e4e8;border-radius:8px;overflow:hidden;margin-bottom:4px}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #eef0f3}
+  th{background:#fafbfc;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#555;cursor:pointer;user-select:none}
+  th:hover{background:#f0f2f5}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:none}
+  a{color:#2563eb;text-decoration:none} a:hover{text-decoration:underline}
+  code{background:#f3f4f6;padding:1px 5px;border-radius:3px;font-size:12.5px}
+  .tabs{display:flex;gap:4px;margin-bottom:8px}
+  .tab{background:#fff;border:1px solid #e2e4e8;border-bottom:none;border-radius:6px 6px 0 0;padding:6px 14px;cursor:pointer;font-size:13px;color:#555}
+  .tab.active{background:#eef6ff;color:#1d4ed8;border-color:#cfe3fb}
+  .pane{display:none} .pane.active{display:block}
+  .note{background:#fff8e6;border:1px solid #f5d98a;border-radius:6px;padding:8px 12px;margin:8px 0;color:#6b5400;font-size:13px}
+  footer{margin-top:40px;color:#999;font-size:12px}
+</style></head><body><div class="wrap">
+<h1>Pipeline telemetry — totals</h1>
+<p class="sub">Every call across every session, 19,186 records · dataset window <strong>2026-04-09 → 2026-06-03</strong> · see <a href="summary.html">summary.html</a> for the per-feature view</p>
+
+<div class="cards">
+  <div class="card"><div class="k">Total tokens</div><div class="v">3,535,038,046</div></div>
+  <div class="card"><div class="k">Total cost</div><div class="v">$9838.86</div></div>
+  <div class="card"><div class="k">Total wall time</div><div class="v">4659m 23s</div></div>
+  <div class="card"><div class="k">Total calls</div><div class="v">19,186</div></div>
+</div>
+
+<h2>By surface</h2>
+<p class="sub" style="margin:-6px 0 12px;font-size:13px">
+  <code>code</code> = Claude Code CLI · <code>cowork</code> = Cowork desktop · <code>dispatch</code> = subagent dispatches inside either.
+  Claude Desktop chat is not captured in local jsonl and is excluded.
+</p>
+<table><thead><tr>
+    <th>Surface</th><th class="num">Calls</th><th class="num">Tokens</th>
+    <th class="num">Cost</th><th class="num">Time</th><th class="num">% tokens</th>
+  </tr></thead><tbody><tr>
+        <td>cowork</td>
+        <td class="num">9,089</td><td class="num">1,825,759,120</td>
+        <td class="num">$5677.76</td>
+        <td class="num">3644m 4s</td>
+        <td class="num">51.6%</td>
+      </tr>
+<tr>
+        <td>code</td>
+        <td class="num">8,078</td><td class="num">1,532,595,294</td>
+        <td class="num">$3725.93</td>
+        <td class="num">876m 48s</td>
+        <td class="num">43.4%</td>
+      </tr>
+<tr>
+        <td>dispatch</td>
+        <td class="num">2,019</td><td class="num">176,683,632</td>
+        <td class="num">$435.17</td>
+        <td class="num">138m 31s</td>
+        <td class="num">5.0%</td>
+      </tr></tbody></table>
+
+<h2>By skill</h2>
+<p class="sub" style="margin:-6px 0 12px;font-size:13px"><code>(none)</code> = raw conversation / pre-skill turns. Plugin / M-gate skills are flagged by their <code>family:name</code> shape.</p>
+<table><thead><tr>
+    <th>Skill</th><th class="num">Calls</th><th class="num">Tokens</th>
+    <th class="num">Cost</th><th class="num">Time</th><th class="num">% tokens</th>
+  </tr></thead><tbody><tr>
+        <td>(none)</td>
+        <td class="num">15,489</td><td class="num">2,571,024,728</td>
+        <td class="num">$7752.42</td>
+        <td class="num">4110m 40s</td>
+        <td class="num">72.7%</td>
+      </tr>
+<tr>
+        <td>build</td>
+        <td class="num">758</td><td class="num">203,110,560</td>
+        <td class="num">$373.69</td>
+        <td class="num">103m 14s</td>
+        <td class="num">5.7%</td>
+      </tr>
+<tr>
+        <td>engineering:code-review</td>
+        <td class="num">869</td><td class="num">197,690,733</td>
+        <td class="num">$468.09</td>
+        <td class="num">132m 56s</td>
+        <td class="num">5.6%</td>
+      </tr>
+<tr>
+        <td>code-review</td>
+        <td class="num">426</td><td class="num">187,040,226</td>
+        <td class="num">$369.73</td>
+        <td class="num">70m 56s</td>
+        <td class="num">5.3%</td>
+      </tr>
+<tr>
+        <td>anthropic-skills:pipeline-ticket</td>
+        <td class="num">434</td><td class="num">124,234,267</td>
+        <td class="num">$320.66</td>
+        <td class="num">76m 3s</td>
+        <td class="num">3.5%</td>
+      </tr>
+<tr>
+        <td>engineering:deploy-checklist</td>
+        <td class="num">173</td><td class="num">77,901,928</td>
+        <td class="num">$129.16</td>
+        <td class="num">23m 39s</td>
+        <td class="num">2.2%</td>
+      </tr>
+<tr>
+        <td>anthropic-skills:consolidate-memory</td>
+        <td class="num">156</td><td class="num">37,370,425</td>
+        <td class="num">$91.83</td>
+        <td class="num">20m 4s</td>
+        <td class="num">1.1%</td>
+      </tr>
+<tr>
+        <td>test</td>
+        <td class="num">194</td><td class="num">33,734,387</td>
+        <td class="num">$73.70</td>
+        <td class="num">23m 59s</td>
+        <td class="num">1.0%</td>
+      </tr>
+<tr>
+        <td>pipeline-router</td>
+        <td class="num">128</td><td class="num">19,793,528</td>
+        <td class="num">$47.93</td>
+        <td class="num">13m 36s</td>
+        <td class="num">0.6%</td>
+      </tr>
+<tr>
+        <td>pipeline-ticket</td>
+        <td class="num">68</td><td class="num">18,870,733</td>
+        <td class="num">$46.59</td>
+        <td class="num">26m 5s</td>
+        <td class="num">0.5%</td>
+      </tr>
+<tr>
+        <td>design:accessibility-review</td>
+        <td class="num">55</td><td class="num">9,851,519</td>
+        <td class="num">$19.33</td>
+        <td class="num">6m 6s</td>
+        <td class="num">0.3%</td>
+      </tr>
+<tr>
+        <td>weigh</td>
+        <td class="num">54</td><td class="num">9,552,251</td>
+        <td class="num">$20.05</td>
+        <td class="num">9m 23s</td>
+        <td class="num">0.3%</td>
+      </tr>
+<tr>
+        <td>tidy</td>
+        <td class="num">80</td><td class="num">9,341,112</td>
+        <td class="num">$35.85</td>
+        <td class="num">6m 32s</td>
+        <td class="num">0.3%</td>
+      </tr>
+<tr>
+        <td>orient</td>
+        <td class="num">90</td><td class="num">8,107,636</td>
+        <td class="num">$19.78</td>
+        <td class="num">9m 8s</td>
+        <td class="num">0.2%</td>
+      </tr>
+<tr>
+        <td>explore</td>
+        <td class="num">25</td><td class="num">5,384,038</td>
+        <td class="num">$10.19</td>
+        <td class="num">5m 32s</td>
+        <td class="num">0.2%</td>
+      </tr>
+<tr>
+        <td>ticket</td>
+        <td class="num">31</td><td class="num">5,202,192</td>
+        <td class="num">$12.46</td>
+        <td class="num">5m 24s</td>
+        <td class="num">0.1%</td>
+      </tr>
+<tr>
+        <td>scope</td>
+        <td class="num">31</td><td class="num">5,003,744</td>
+        <td class="num">$11.63</td>
+        <td class="num">3m 28s</td>
+        <td class="num">0.1%</td>
+      </tr>
+<tr>
+        <td>review</td>
+        <td class="num">35</td><td class="num">4,745,657</td>
+        <td class="num">$11.59</td>
+        <td class="num">4m 49s</td>
+        <td class="num">0.1%</td>
+      </tr>
+<tr>
+        <td>pipeline-intent-check</td>
+        <td class="num">46</td><td class="num">3,528,582</td>
+        <td class="num">$14.70</td>
+        <td class="num">4m 54s</td>
+        <td class="num">0.1%</td>
+      </tr>
+<tr>
+        <td>pipeline-adr</td>
+        <td class="num">23</td><td class="num">2,011,701</td>
+        <td class="num">$5.42</td>
+        <td class="num">1m 22s</td>
+        <td class="num">0.1%</td>
+      </tr>
+<tr>
+        <td>memo</td>
+        <td class="num">21</td><td class="num">1,538,099</td>
+        <td class="num">$4.07</td>
+        <td class="num">1m 33s</td>
+        <td class="num">0.0%</td>
+      </tr></tbody></table>
+
+<h2>By time</h2>
+<div class="tabs">
+  <div class="tab active" data-pane="day">Day (DD)</div>
+  <div class="tab" data-pane="week">Week (WW)</div>
+  <div class="tab" data-pane="month">Month (MM)</div>
+</div>
+<div class="pane active" id="pane-day"><table><thead><tr>
+    <th>Day</th><th class="num">Calls</th><th class="num">Tokens</th>
+    <th class="num">Cost</th><th class="num">Time</th>
+  </tr></thead><tbody><tr>
+        <td><code>2026-04-09</code></td>
+        <td class="num">11</td><td class="num">469,364</td>
+        <td class="num">$3.77</td>
+        <td class="num">1m 40s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-04-17</code></td>
+        <td class="num">49</td><td class="num">3,179,012</td>
+        <td class="num">$0.8290</td>
+        <td class="num">2m 38s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-04-18</code></td>
+        <td class="num">12</td><td class="num">416,885</td>
+        <td class="num">$2.06</td>
+        <td class="num">55.1 s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-04-20</code></td>
+        <td class="num">161</td><td class="num">11,678,255</td>
+        <td class="num">$27.50</td>
+        <td class="num">15m 36s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-04-25</code></td>
+        <td class="num">117</td><td class="num">10,587,757</td>
+        <td class="num">$37.74</td>
+        <td class="num">14m 9s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-04-26</code></td>
+        <td class="num">137</td><td class="num">10,813,545</td>
+        <td class="num">$39.17</td>
+        <td class="num">14m 9s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-08</code></td>
+        <td class="num">278</td><td class="num">33,429,139</td>
+        <td class="num">$108.56</td>
+        <td class="num">43m 39s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-09</code></td>
+        <td class="num">228</td><td class="num">26,996,940</td>
+        <td class="num">$105.39</td>
+        <td class="num">23m 7s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-10</code></td>
+        <td class="num">1,077</td><td class="num">242,414,686</td>
+        <td class="num">$678.42</td>
+        <td class="num">219m 5s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-11</code></td>
+        <td class="num">838</td><td class="num">194,798,563</td>
+        <td class="num">$509.04</td>
+        <td class="num">137m 41s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-12</code></td>
+        <td class="num">545</td><td class="num">94,558,742</td>
+        <td class="num">$278.63</td>
+        <td class="num">52m 48s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-13</code></td>
+        <td class="num">618</td><td class="num">91,025,888</td>
+        <td class="num">$278.15</td>
+        <td class="num">72m 22s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-14</code></td>
+        <td class="num">15</td><td class="num">2,645,788</td>
+        <td class="num">$22.62</td>
+        <td class="num">2m 40s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-15</code></td>
+        <td class="num">350</td><td class="num">111,263,818</td>
+        <td class="num">$256.27</td>
+        <td class="num">66m 17s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-16</code></td>
+        <td class="num">6</td><td class="num">1,121,508</td>
+        <td class="num">$10.84</td>
+        <td class="num">45.2 s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-17</code></td>
+        <td class="num">453</td><td class="num">89,755,673</td>
+        <td class="num">$276.02</td>
+        <td class="num">59m 48s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-18</code></td>
+        <td class="num">1,106</td><td class="num">195,695,213</td>
+        <td class="num">$520.15</td>
+        <td class="num">161m 9s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-19</code></td>
+        <td class="num">65</td><td class="num">18,806,988</td>
+        <td class="num">$50.23</td>
+        <td class="num">11m 10s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-20</code></td>
+        <td class="num">277</td><td class="num">38,402,748</td>
+        <td class="num">$177.46</td>
+        <td class="num">36m 42s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-22</code></td>
+        <td class="num">89</td><td class="num">11,354,625</td>
+        <td class="num">$50.08</td>
+        <td class="num">2149m 38s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-23</code></td>
+        <td class="num">226</td><td class="num">60,288,246</td>
+        <td class="num">$236.25</td>
+        <td class="num">38m 41s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-24</code></td>
+        <td class="num">68</td><td class="num">26,354,439</td>
+        <td class="num">$116.83</td>
+        <td class="num">14m 37s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-25</code></td>
+        <td class="num">1,140</td><td class="num">296,124,575</td>
+        <td class="num">$868.51</td>
+        <td class="num">191m 15s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-26</code></td>
+        <td class="num">166</td><td class="num">50,977,919</td>
+        <td class="num">$147.75</td>
+        <td class="num">22m 14s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-27</code></td>
+        <td class="num">1,084</td><td class="num">163,301,290</td>
+        <td class="num">$486.88</td>
+        <td class="num">153m 41s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-28</code></td>
+        <td class="num">725</td><td class="num">139,531,829</td>
+        <td class="num">$596.83</td>
+        <td class="num">105m 34s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-29</code></td>
+        <td class="num">6</td><td class="num">963,581</td>
+        <td class="num">$4.49</td>
+        <td class="num">30.6 s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-30</code></td>
+        <td class="num">1,540</td><td class="num">314,553,602</td>
+        <td class="num">$940.55</td>
+        <td class="num">181m 19s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05-31</code></td>
+        <td class="num">908</td><td class="num">214,242,023</td>
+        <td class="num">$482.54</td>
+        <td class="num">141m 28s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-06-01</code></td>
+        <td class="num">1,335</td><td class="num">216,014,921</td>
+        <td class="num">$547.30</td>
+        <td class="num">145m 12s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-06-02</code></td>
+        <td class="num">3,490</td><td class="num">540,379,522</td>
+        <td class="num">$1259.10</td>
+        <td class="num">380m 10s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-06-03</code></td>
+        <td class="num">2,066</td><td class="num">322,890,962</td>
+        <td class="num">$718.90</td>
+        <td class="num">198m 41s</td>
+        
+      </tr></tbody></table></div>
+<div class="pane" id="pane-week"><table><thead><tr>
+    <th>ISO week</th><th class="num">Calls</th><th class="num">Tokens</th>
+    <th class="num">Cost</th><th class="num">Time</th>
+  </tr></thead><tbody><tr>
+        <td><code>2026-W15</code></td>
+        <td class="num">11</td><td class="num">469,364</td>
+        <td class="num">$3.77</td>
+        <td class="num">1m 40s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-W16</code></td>
+        <td class="num">61</td><td class="num">3,595,897</td>
+        <td class="num">$2.89</td>
+        <td class="num">3m 33s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-W17</code></td>
+        <td class="num">415</td><td class="num">33,079,557</td>
+        <td class="num">$104.41</td>
+        <td class="num">43m 54s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-W19</code></td>
+        <td class="num">1,583</td><td class="num">302,840,765</td>
+        <td class="num">$892.37</td>
+        <td class="num">285m 52s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-W20</code></td>
+        <td class="num">2,825</td><td class="num">585,169,980</td>
+        <td class="num">$1631.58</td>
+        <td class="num">392m 22s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-W21</code></td>
+        <td class="num">1,831</td><td class="num">350,902,259</td>
+        <td class="num">$1150.99</td>
+        <td class="num">2411m 57s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-W22</code></td>
+        <td class="num">5,569</td><td class="num">1,179,694,819</td>
+        <td class="num">$3527.54</td>
+        <td class="num">796m 1s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-W23</code></td>
+        <td class="num">6,891</td><td class="num">1,079,285,405</td>
+        <td class="num">$2525.30</td>
+        <td class="num">724m 4s</td>
+        
+      </tr></tbody></table></div>
+<div class="pane" id="pane-month"><table><thead><tr>
+    <th>Month</th><th class="num">Calls</th><th class="num">Tokens</th>
+    <th class="num">Cost</th><th class="num">Time</th>
+  </tr></thead><tbody><tr>
+        <td><code>2026-04</code></td>
+        <td class="num">487</td><td class="num">37,144,818</td>
+        <td class="num">$111.07</td>
+        <td class="num">49m 7s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-05</code></td>
+        <td class="num">11,808</td><td class="num">2,418,607,823</td>
+        <td class="num">$7202.49</td>
+        <td class="num">3886m 12s</td>
+        
+      </tr>
+<tr>
+        <td><code>2026-06</code></td>
+        <td class="num">6,891</td><td class="num">1,079,285,405</td>
+        <td class="num">$2525.30</td>
+        <td class="num">724m 4s</td>
+        
+      </tr></tbody></table></div>
+
+<footer>Generated from _audit/*/run.jsonl across both <code>~/.claude/projects/-Users-don-Projects-community/</code> (Code) and <code>~/Library/Application Support/Claude/local-agent-mode-sessions/</code> (Cowork). Pricing: Opus $15/$75, Sonnet $3/$15, Haiku $1/$5 per 1M in/out (cache write 1.25×, read 0.1×).</footer>
+</div>
+<script>
+// Tab switcher for the Time section
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+    document.querySelectorAll('.pane').forEach(function(x){x.classList.remove('active')});
+    t.classList.add('active');
+    document.getElementById('pane-'+t.dataset.pane).classList.add('active');
+  });
+});
+// Click-to-sort for every table
+document.querySelectorAll('table').forEach(function(tbl){
+  tbl.querySelectorAll('th').forEach(function(th,idx){
+    th.addEventListener('click',function(){
+      var tb=tbl.querySelector('tbody');
+      var rows=[].slice.call(tb.querySelectorAll('tr'));
+      var asc=th._asc=!th._asc;
+      rows.sort(function(a,b){
+        var x=a.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+        var y=b.children[idx].textContent.replace(/[$,\smsMK%]/g,'');
+        var nx=parseFloat(x), ny=parseFloat(y);
+        if(!isNaN(nx)&&!isNaN(ny)) return asc?nx-ny:ny-nx;
+        return asc?x.localeCompare(y):y.localeCompare(x);
+      });
+      rows.forEach(function(r){tb.appendChild(r)});
+    });
+  });
+});
+</script>
+</body></html>

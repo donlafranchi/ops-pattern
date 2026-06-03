@@ -33,8 +33,10 @@ interface Row {
 
 const rows: Row[] = [];
 
+// Include every bucket that has a run.jsonl — F-numbers AND `unattributed`.
+// Anything else (node_modules, top-level files) is skipped by the run.jsonl check.
 for (const name of fs.readdirSync(AUDIT_DIR).sort()) {
-  if (!/^F0\d{2}$/.test(name)) continue;
+  if (name.startsWith('.') || name === 'node_modules') continue;
   const runPath = path.join(AUDIT_DIR, name, 'run.jsonl');
   if (!fs.existsSync(runPath)) continue;
   const records = readJsonl<CallRecord>(fs.readFileSync(runPath, 'utf8'));
@@ -88,6 +90,22 @@ for (const name of fs.readdirSync(AUDIT_DIR).sort()) {
 }
 
 rows.sort((a, b) => b.tokens - a.tokens);
+
+// Dataset window — earliest → latest timestamp across every bucket.
+let datasetMin = '';
+let datasetMax = '';
+for (const name of fs.readdirSync(AUDIT_DIR)) {
+  const runPath = path.join(AUDIT_DIR, name, 'run.jsonl');
+  if (!fs.existsSync(runPath)) continue;
+  for (const r of readJsonl<CallRecord>(fs.readFileSync(runPath, 'utf8'))) {
+    if (!r.timestamp) continue;
+    if (!datasetMin || r.timestamp < datasetMin) datasetMin = r.timestamp;
+    if (!datasetMax || r.timestamp > datasetMax) datasetMax = r.timestamp;
+  }
+}
+const datasetWindow = datasetMin && datasetMax
+  ? `${datasetMin.slice(0, 10)} → ${datasetMax.slice(0, 10)}`
+  : '—';
 
 // Backfill targets requested for F032–F035. Surface any that produced no
 // confidently-attributable calls so the gap is documented, not silent.
@@ -151,7 +169,7 @@ const html = `<!doctype html>
   footer{margin-top:40px;color:#999;font-size:12px}
 </style></head><body><div class="wrap">
 <h1>Pipeline telemetry — summary</h1>
-<p class="sub">${rows.length} F-number(s) · click a column to sort, click an F-number for its full report</p>
+<p class="sub">${rows.length} bucket(s) · dataset window <strong>${datasetWindow}</strong> · click a column to sort, click an F-number for its full report · see <a href="totals.html">totals.html</a> for surface / skill / time pivots</p>
 ${gapCallout}
 <div class="cards">
   <div class="card"><div class="k">Total tokens</div><div class="v">${fmtInt(grand.tokens)}</div></div>
