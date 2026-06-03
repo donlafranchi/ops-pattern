@@ -537,3 +537,11 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Why:** Live verification is the downstream `test` (run-mode) step on the user's machine, same hand-off as prior tickets. Pre-existing brittle test `auth-signup-route-t044 › contains all five Phase 0 migrations` (`toEqual` on the migrations dir, broken since T055 per BUILD-LOG:101) counts 26 vs 25 after adding migration 027 — unrelated to this work; queued under T069.
 
 **Disposition:** accepted-as-is.
+
+### T090: email-first signup — returning-user detection via an enumeration-exposing RPC; profile still not event-sourced
+
+**What:** PM redirected the auth method (supersedes T089's "magic-link primary"): email/password is now primary via a single email-first page (`/auth/signup`) that detects new vs returning users; magic-link is secondary. Detection uses a new SECURITY DEFINER RPC `public.email_is_registered(email)` (migration 028) reading `auth.users`, granted to anon.
+
+**Why:** `members` has no email column (the T044 hook mirrors auth.users → members by id), so new-vs-returning detection must read `auth.users` — only reachable via SECURITY DEFINER (same pattern as 002/006/009). Granting it to anon exposes email enumeration, but the requested two-phase UX ("set a password" vs "enter password") is inherently enumerable regardless of mechanism; scope is limited to a boolean and no other auth data leaks. The old signup page's `AuthMethods` component stays in use on `/auth/login` (no orphan).
+
+**Disposition:** flag-for-spec-revision — `member.md`/`policy.md` should record the deliberate enumeration tradeoff for the email-first flow, and the prior "magic-link primary" note (STAGE-LEDGER / T089) is superseded by "email/password primary, magic-link secondary."
