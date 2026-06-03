@@ -66,9 +66,10 @@ The b1 surface is the smallest version of Member that lets the central hypothesi
 
 ### Privacy controls (b1 surface, opt-out default per ADR-9)
 
-The b1 privacy controls cover what is publicly visible on `/m/[handle]`. The protective default applies to every field; Members opt in to richer visibility per the policy framework's three-filter test. The policy posture for each opt-in is in the **Policy posture** section below.
+The b1 privacy controls cover what is publicly visible on `/m/[handle]` and whether the Member is findable as a person at all. The protective default applies to every field; Members opt in to richer visibility per the policy framework's three-filter test. The discoverability default and the prompt-on-acquisition flow below are the b1 encoding of the platform pattern **"Default Member discoverability to private; outputs surface, people opt in"** ([`playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md)). The policy posture for each opt-in is in the **Policy posture** section below.
 
-- **Profile visibility** — `public` (default, visible to anyone with the URL, indexable) / `unlisted` (no index, link-only) / `members_only` (must be signed in to view). Three-tier matches Community's discoverability enum for consistency.
+- **Member discoverability** (`is_discoverable`, boolean, **default `false`**) — the gate on search results, directory listings, autocomplete suggestions, handle-direct typing inside the app, and external search-engine indexing of `/m/[handle]`. When false, the Member does not surface in any of those affordances; the page still resolves for anyone with the direct URL subject to `profile_visibility`. When true, the Member is findable across all four surfaces and `/m/[handle]` is indexable. T1 ships as a single switch (default off); per-surface granularity (search / directory / handle-direct / autocomplete as separate switches) and public-with-friction defer to T2/T3 per the pattern. **(Ratified 2026-06-03 — inverts the as-shipped public-default in F032 to match the platform pattern; the producer/organizer auto-opt-in was rejected in favor of a one-time prompt — see the prompt-on-acquisition rule below.)**
+- **Profile visibility** — `public` (visible to anyone with the URL, indexable subject to `is_discoverable`) / `unlisted` (no index, link-only) / `members_only` (**default**, must be signed in to view) / `private` (only the Member themselves can view the page; signed-in viewers with the URL get a tombstone). The b1 default is `members_only`: a non-discoverable Member is unfindable in search, but if a friend pastes a direct URL into chat, a signed-in viewer can see the page. Members who want full invisibility set `private` ("become private within the app from other Members"). Three-tier-plus-private supersedes the prior `public`-default; the enum extension is additive on top of Community's discoverability enum.
 - **Show items on profile** — boolean, default `true`. When false, the Member's Item count and Item list do not render on the public profile (the Items themselves remain at their own URLs and discoverability).
 - **Show following / followers** — boolean, default `false`. Counts and lists hidden by default; opt in to show.
 - **Allow direct messages** — boolean, default `true`. (DM surface ships at b2 per the user's b1 scope decision; the toggle exists at b1 so the substrate is honest.)
@@ -76,6 +77,22 @@ The b1 privacy controls cover what is publicly visible on `/m/[handle]`. The pro
 - **Show Group memberships** — boolean per membership (default `true` for explicit memberships; falsifying hides that Group affiliation from the public profile but does not affect the membership row or Items filed under the Group). Per `groups.md`.
 
 Every setting is granular, visible, revocable. Changes are written to `member_privacy` (single row per Member, columns per setting) and append a `member.privacy_changed` event with the diff.
+
+### Attribution behavior in cross-Member surfaces (T095 Ratified 2026-06-03)
+
+The discoverability bit gates findability; it does **not** gate visibility of a Member's outputs. Selling, hosting, or otherwise posting publicly is itself a consent to attribution — every Group, Item, gathering, or follow event carries the acting Member's handle and display name in the system of record. What is gated is the *link to the personal profile* on surfaces a third party sees:
+
+- **`/m/[handle]` page** — gated by the SECURITY DEFINER `resolve_member_page_visibility(handle, via_direct_link)` verdict function. Returns `render` / `tombstone` / `notfound` and the discoverability + visibility flags the page needs for robots-meta. Anon never learns a non-public Member exists (returns `notfound` for anything but `public` / `unlisted`); signed-in non-self gets `tombstone` only for `private`. The verdict function is the single source of truth for the page-render decision and the search-origin gate (via the `via_direct_link = false` argument, reserved for the b2 listing surfaces).
+
+- **Robots / external index** — the `/m/[handle]` page emits `<meta name="robots" content="noindex,nofollow">` whenever `is_discoverable = false`. External search engines never index a non-discoverable Member's page.
+
+- **Shop "Founded by" line** — the Member's display name + avatar always render (the Group surface keeps a named human visible as load-bearing accountability per `groups.md` § No-personhood guarantees). The wrapping is conditional: `<a href="/m/<handle>">` when the founder has opted into discoverability, plain `<span>` otherwise. A non-discoverable founder is named, not linked.
+
+- **Individual-Item attribution** ("Sold by Maya", "Hosted by Sam") on items not filed under a Group — same conditional rule: link to `/m/<handle>` when the seller / host is discoverable, plain text otherwise. The Item itself is visible regardless. The base members row is still embedded for the handle + display name; only `member_public_discoverability` is consulted for the link decision.
+
+- **Group-filed Item attribution** ("Sold by Oak Park Sourdough") — attribution reads from the Group, not the Member-behind-the-Group. Item resolvers do not embed `members` for Group-filed items. The Group is always public-by-default; the personal Member behind the Group is separately gated by the rules above. See `groups.md` § Public-face attribution.
+
+The projection view `public.member_public_discoverability` (regular view bypassing RLS, same pattern as `member_public_group_memberships`) exposes only `(member_id, is_discoverable)` to anon / authenticated. It is the only privacy-bearing column readable cross-Member; the base `member_privacy` row remains owner-only.
 
 ### Selling tools
 
@@ -240,8 +257,9 @@ Notes on choices:
 ```sql
 create table member_privacy (
   member_id uuid primary key references members(id) on delete cascade,
-  profile_visibility text not null default 'public'
-    check (profile_visibility in ('public','unlisted','members_only')),
+  is_discoverable boolean not null default false,
+  profile_visibility text not null default 'members_only'
+    check (profile_visibility in ('public','unlisted','members_only','private')),
   show_items_on_profile boolean not null default true,
   show_following boolean not null default false,
   show_followers boolean not null default false,
@@ -253,6 +271,10 @@ create table member_privacy (
 ```
 
 A trigger on `members` insert creates the matching `member_privacy` row with defaults. Changes append `member.privacy_changed` events with a JSON diff so the audit log is complete.
+
+### Prompt-on-acquisition for producers / organizers
+
+When a Member acquires either (a) their first active kind='business' Group membership (any role), or (b) their first active `steward`-role membership in any non-business Group, the action handler that writes the membership row also enqueues a one-time UI prompt on the Member's next session offering to flip `is_discoverable = true` (and optionally `profile_visibility = public`). The prompt is dismissible; default selection is "Not now." There is no auto-flip — Members who acquire producer / organizer roles must consent to discoverability explicitly, same as any other Member. The prompt does not re-fire on subsequent business / steward role acquisitions; one offer per Member lifetime. Substrate at b1: a row in `member_prompts (member_id, prompt_kind, shown_at, dismissed_at, accepted_at)` written by the membership action handler; the prompt UI surface itself can defer to b2 if needed, but the substrate ships at b1 so the audit log is complete and the prompt-not-yet-shown state is queryable. (Ratified 2026-06-03 — alternative was auto-opt-in on acquisition; rejected because role acquisition is a data state, not a privacy consent.)
 
 **Follow visibility is public-by-default at b1.** The `show_following` and `show_followers` columns ship as reserved substrate, but the **schema does not enforce them**: `member_follows.member_follows_public_read` is `using (true)`. Rationale: the opt-out privacy posture targets *cross-community discovery by bad actors*, not intra-community visibility. Follow graph is social fabric — same-community Members already know who hangs out with whom. The privacy investment earns its keep on the geography substrates: `member_place_interests` and `member_saved_searches` are owner-only at the row level (doxxing-prevention). If real-Member feedback at b2 surfaces follow-graph opt-out as a need, the action layer can wire the existing toggles in — action-layer-applied gating, not RLS-applied.
 
@@ -551,10 +573,15 @@ No write to `members` or `member_*` tables occurs outside these handlers. Read p
 
 Every privacy/revenue/data-sharing surface walks the three filters: helpful? harmless? abuse-resistant? The protective stance is the default; Members opt in to relax.
 
-**Profile visibility — default `public`.**
-- Helpful: discoverability is the Member's commercial and social value; default-private would defeat the locality index for Members who do want to be found.
-- Harmless: a public profile reveals only what the Member explicitly chose to put on it (display name, optional bio, optional avatar). Not address, not email, not real name unless the Member typed it.
-- Abuse-resistant: Members can switch to `unlisted` or `members_only` at any time; the affordance is in the privacy controls. The platform never auto-reverts, never nags to make public.
+**Member discoverability — default `false` (T095 Ratified 2026-06-03; reverses the prior default-public stance).**
+- Helpful: a Member's outputs (Items, Groups, public actions) are what's useful to other Members; the Member-as-person-to-search-for is a separate and rarer need that imports doxxing risk without imported loop value. Producers and organizers who want to be found get a one-time opt-in prompt on acquisition (see § Prompt-on-acquisition); they pick the timing of public exposure rather than receiving it as a default.
+- Harmless: defaulting `is_discoverable = false` removes the Member from search, directory, autocomplete, handle-direct typing, and external indexing of `/m/[handle]`. The Member is not invisible to people who already know them — direct URLs still work subject to `profile_visibility`.
+- Abuse-resistant: the platform never auto-flips the bit. Even when a Member acquires a kind='business' Group or a steward role, the prompt-on-acquisition surface offers the opt-in; Members tap to consent.
+
+**Profile visibility — default `members_only` (T095 Ratified 2026-06-03; reverses the prior default-public stance).**
+- Helpful: a Member who arrives via direct link from a friend should see a useful profile; signed-in viewers get the page. Anon viewers don't see anything (the `/m/[handle]` page returns 404 for non-public profiles to anon) — closing the casual reconnaissance vector at the same time as the discoverability bit.
+- Harmless: signed-in-only access at the audience layer matches the "people who know each other" interaction model the platform encourages, and pairs with the discoverability bit to gate findability orthogonally — a Member who has set `profile_visibility = 'public'` but kept `is_discoverable = false` is viewable-by-URL but never indexed or listed.
+- Abuse-resistant: the four-tier enum (`public` / `unlisted` / `members_only` / `private`) is the canonical surface — `private` is the strictest tier (signed-in viewers with the URL see a tombstone; anon gets 404 to avoid leaking handle existence). The platform never auto-reverts and never nags to make public.
 
 **Show items on profile — default `true`.**
 - Helpful: the Member's posted Items are the primary surface their followers and prospective customers want to see. Defaulting on lets the profile do its work.

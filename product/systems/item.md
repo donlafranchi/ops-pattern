@@ -175,6 +175,34 @@ A helper SQL function `publish_item(item_id uuid)` performs the state transition
 
 - `GET /api/hashtags/suggest?q={prefix}` — autocomplete for the hashtag input. Returns the top 10 most-used hashtags whose normalized form starts with `prefix`. Requires a non-empty `prefix` (≥1 char after normalization); empty queries return 400 to prevent dumping the whole table. Response shape: `{ hashtags: [{ hashtag: string, item_count: int }] }`. Caching: 60s edge cache keyed on the normalized prefix. Used by the gathering composer (T038), and by the future product/service/wonder composers for the same hashtag input.
 
+## Attribution contract (T095 Ratified 2026-06-03)
+
+Every public Item page surfaces an attribution line — "Sold by …" / "Offered by …" / "Hosted by …" — that names the responsible party for the Item. The contract is decoupled from the seller's personal-profile visibility: an Item is visible to anyone the Item itself allows; the attribution names the responsible party; the link from the attribution to a personal `/m/[handle]` profile is gated by the Member's discoverability bit.
+
+**The discriminated union.** Item resolvers return an `ItemAttribution` value shaped as a two-variant discriminated union:
+
+```
+type ItemAttribution =
+  | { kind: 'group';  name: string }
+  | { kind: 'member'; handle: string; displayName: string; isDiscoverable: boolean }
+```
+
+- **`kind === 'group'`** — the Item is filed under a Group (`items.group_id IS NOT NULL`). `name` is `items.brand_label`, denormalized from `group_businesses.display_name` at composer time. The attribution links to the Group page (the place-scoped `/p/[…place]/g/[slug]`, derivable from URL context). The members table is **not** read on this path.
+- **`kind === 'member'`** — the Item is sold / hosted as an individual (`items.group_id IS NULL`). `handle` + `displayName` come from the embedded `owner:members!member_id(...)` row; `isDiscoverable` comes from a separate read of the `public.member_public_discoverability` projection view (see `member.md` § Attribution behavior). The attribution links to `/m/<handle>` when `isDiscoverable === true`; otherwise the name renders as plain text.
+
+**Why the two paths differ.** Group-filed items attribute to the Group because Groups are always public-by-default (per `groups.md` § Public-face attribution) — there is no privacy state on a Group that could 404 the item page. Individual items have no public-by-default carrier, so attribution falls back to the Member and the conditional-link rule applies. This eliminates the seller-privacy-vs-item-visibility loop at the resolver layer rather than at RLS: the Group-filed common case never reads the seller's `members` row, so the seller's discoverability bit cannot 404 the Item.
+
+**`brand_label` semantics under the new contract.**
+
+- Group-filed items: `brand_label` is the denormalized Group display name and is the canonical attribution source. The Group page URL is derivable from the URL the viewer is on (the inner `/g/[slug]` segment); the resolver does not need to query `groups` for it beyond the existence check.
+- Individual items: `brand_label` is null. Attribution reads from the members embed instead.
+
+The field name `brand_label` predates this contract; it is now load-bearing for the Group-attribution path and the resolve-up rendering on the Item page is a single attribution block rather than a separate "Brand resolve-up" + "Sold by Member" pair.
+
+**The `member_public_discoverability` projection view.** Defined in migration `030_member_discoverability.sql` § 4. Regular view (runs with owner privileges, bypassing the owner-only RLS on `member_privacy`) — same pattern as `member_public_group_memberships` in migration 029. Exposes only `(member_id, is_discoverable)`; never any other privacy column. Granted to `anon` and `authenticated`. The view is the only privacy-bearing read that an Item resolver makes for an individual-path Item; for a Group-filed Item, no privacy-bearing reads happen at all (Groups carry their own discoverability enum at the Group layer).
+
+**Test for future proposals.** Does a proposal want to (a) attribute a Group-filed Item to the founder's personal handle rather than the Group, (b) 404 a Group-filed Item when the founder is not discoverable, or (c) embed the base `member_privacy` row directly in an item resolver? If yes, refuse — that re-couples item visibility to member visibility and re-opens the loop the Group-attribution model exists to close. The projection view is the only readable source of cross-Member discoverability state.
+
 ## AI / LLM searchability
 
 Every Item is designed to be queryable via natural language at T3. The MVP doesn't build semantic search but commits to the schema that enables it:
