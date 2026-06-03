@@ -545,3 +545,27 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Why:** `members` has no email column (the T044 hook mirrors auth.users → members by id), so new-vs-returning detection must read `auth.users` — only reachable via SECURITY DEFINER (same pattern as 002/006/009). Granting it to anon exposes email enumeration, but the requested two-phase UX ("set a password" vs "enter password") is inherently enumerable regardless of mechanism; scope is limited to a boolean and no other auth data leaks. The old signup page's `AuthMethods` component stays in use on `/auth/login` (no orphan).
 
 **Disposition:** flag-for-spec-revision — `member.md`/`policy.md` should record the deliberate enumeration tradeoff for the email-first flow, and the prior "magic-link primary" note (STAGE-LEDGER / T089) is superseded by "email/password primary, magic-link secondary."
+
+### T091/T092 (F032): public Member-page projections — anon-readable views (migration 029); group-membership visibility gated on group discoverability
+
+**What:** F032 needs two reads the base-table RLS does not grant an anonymous (or non-co-member) viewer: (1) `member_has_standing_presence` (the badge view, created in `014_groups.sql`) had **no GRANT**, so the PostgREST `anon`/`authenticated` roles could not read it at all; (2) `group_memberships` RLS is owner/co-member only (`memberships_select_self` + `memberships_select_co_member`) — a public page listing a Member's *listed* Group memberships has no read path. Migration `029_member_public_projections.sql` (additive) grants the standing view to anon/authenticated and adds a privacy-preserving public projection view `public.member_public_group_memberships` (regular view → runs with owner privileges, bypasses base-table RLS; its WHERE clause is the gate: active explicit memberships in non-dissolved, **listed** Groups only). The b1 interpretation of "listed membership" = `groups.discoverability = 'listed'`; `members.stakeholder_visibility` and per-membership visibility remain reserved substrate with no surface.
+
+**Why:** The scenario requires anonymous read of the standing badge and listed Group memberships. The substrate (`member_follows`, the `member.followed`/`member.unfollowed` event kinds) already existed (T048 / `002_members.sql`), so no table change was needed — only the read projections. A regular view + grant is the same pattern `member_has_standing_presence` already uses (and `discoverable_items` in `016`). Place-interests are never queried (privacy commitment); unlisted/private Groups never surface.
+
+**Disposition:** flag-for-spec-revision — `member.md` should document the public Member-page read surface (the `member_public_group_memberships` projection + the standing-view grant) and ratify that "listed membership = group discoverability='listed'" is the b1 visibility gate (vs. a future per-membership / `stakeholder_visibility` control).
+
+### T092 (F032): self-view "Edit profile" links to `/you`; no profile-edit surface built
+
+**What:** On the Member's own `/m/[handle]` page, the Follow CTA is replaced by an "Edit profile" link pointing at `/you`. No dedicated profile-edit page was built (it is explicitly Out of Scope in the scenario).
+
+**Why:** F032 is a viewer-side read+follow surface; the edit-profile flow is a separate scenario (the scenario's Out of Scope names it as "deferred or absorbed into F030's onboarding surfaces"). `/you` is the existing member-home landing.
+
+**Disposition:** accepted-as-is.
+
+### T092 (F032): pre-existing repo build breakage (scripts/ tsc) unrelated to this work
+
+**What:** `npm run build` fails at the type-check phase on `scripts/check-action-layer-conformance.ts:122` (`Dirent<NonSharedBuffer>` mismatch from an `@types/node` drift). Confirmed identical failure on `main` with F032 changes stashed; F032's own code reports "✓ Compiled successfully." Likewise the `tests/migrations-t04x` / `migrations-t050` / `auth-signup-route-t044` directory-listing snapshots (`toEqual` on the migrations dir) fail because they hardcode a frozen historical file list — already stale since 013+, not a F032 regression (queued under T069).
+
+**Why:** Out of F032 scope; an environment/@types tech-debt item. Flagged for a separate fix.
+
+**Disposition:** accepted-as-is (flag-for-separate-ticket — see spawned task).

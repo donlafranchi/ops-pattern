@@ -40,3 +40,5 @@ Check the box and append `· landed YYYY-MM-DD ({commit hash})` when product pat
 ---
 
 **Historical Landed + Rescinded** — `planning/done/b1.x-spec-drain-sprint/spec-patches-landed.md`.
+
+- [ ] 2026-06-02 · `product/systems/member.md` § (Member public page / Follows) — F032 ships the public `/m/[handle]` read surface, which required migration `029` to add (a) a GRANT on the existing `member_has_standing_presence` view to anon/authenticated and (b) a new privacy-preserving public projection view `public.member_public_group_memberships` (active explicit memberships in non-dissolved, **listed** Groups). Document both in `member.md` as the public read surface, and ratify the b1 visibility gate: "listed Group membership surfaces iff `groups.discoverability='listed'`" (vs. a future per-membership / `members.stakeholder_visibility` control, which remain reserved substrate). Also decide whether the standing-badge copy ("Active in the community") is the canonical label. Caught by T092. DEVIATIONS: 2026-06-02 — T091/T092.
