@@ -14,6 +14,16 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-06-02 — Newcomer signup + locality feed eval went green and merged; documented the local-Supabase recovery dance
+
+The newcomer-signup feature's eval (anon locality feed, empty-state widen, email/password signup → onboarding → scoped feed, returning-member detection) had been blocked by a prior session's interrupted local-database reset. The block was environmental, not code: the local auth schema was left at an ancient revision (missing `email_confirmed_at`) and the post-signup hook's Vault secrets were wiped, so new signups never got a member row and onboarding's first write hit a foreign-key violation. Recovered without another reset — let the auth service replay its migrations, then re-created the two signup-hook Vault secrets to match `web/.env.local`. One real code fix: the eval fixture wasn't setting an item-location's schedule kind, so the discoverable-items view left the location geography null and the feed returned zero items; added the column + error-checking, and dropped a client-side password length minimum. 4/4 green, merged to main, pushed. Telemetry refreshed.
+
+**Forward note:** the recovery procedure is now a runbook — read it before touching a wedged local eval env instead of reaching for a reset again. The pre-warm-the-dev-server tip lives there too (cold compile vs the 5s eval timeout).
+
+→ [`operations/RUNBOOK.md`](operations/RUNBOOK.md) § Recover the local eval environment; `planning/STAGE-LEDGER.md` F030 row (`done`); `web` @ 07b35a0 (merge), T090 @ ea503b4.
+
+---
+
 ## 2026-06-01 — Retired the project-scaffolding skill and cleaned up the last reorg path misses
 
 The local `scaffold` skill taught the old 11-directory planning structure (`scenarios/`, `scenarios-backlog/`, `bundles/`, `DECISIONS.md`); keeping it would make any future scaffolded project start in the wrong shape and need the same migration we just did. Deleted the skill and pulled its routing rows from CLAUDE.md, AGENTS.md routing, REGISTRY, skills/README, and orient. Also swept the four straggler path cites the reorg missed: the Gate A rule in CLAUDE.md + AGENTS.md (now `backlog/` → `next/`) and two BUILD-LOG bundle links (now `planning/now/bundle-1.md`). **Forward note:** if we scaffold a new project later, start from a current snapshot of this repo's structure rather than the retired template.
