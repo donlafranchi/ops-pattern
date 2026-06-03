@@ -493,3 +493,47 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Verification:** Both migrations applied + rolled back against live local Supabase (90 seed rows, 11 places stamped, RLS=on, function created). The SQL contract test (`supabase/tests/zip_is_proximal_to_location.sql`) passed all 5 cases live ("T075 OK"). 40 vitest file-shape/input/source tests green.
 
 **Disposition:** flag-for-spec-revision — two SPEC-PATCHES entries appended (`location.md` missing `place_id`; `places.md`/`location.md` missing `msa_code`). M2 PROCEED (2 issues found + fixed before commit: crosswalk RLS, inline seed).
+
+---
+
+## 2026-06-02 — F030 newcomer signup + locality feed (T086–T089)
+
+### T086: `member.interests.add` is a new handler; place-interest handlers registered late
+
+**What:** The scenario assumed the interest-write handler existed; it did not. Added `member.interests.add`. Also registered `member.place_interest.add` / `.remove` (built in T062 but never added to the action registry).
+
+**Why:** T062 shipped the place-interest handlers but the registry (`src/actions/index.ts`) only listed member.create/group/item/jurisdiction handlers — onboarding could not invoke them. No migration: `member.interest_added` already exists in the `member_events` event_kind CHECK (010/018/024).
+
+**Disposition:** accepted-as-is.
+
+### T087: feed is a SQL function over a Place polygon, not a `.from()` query
+
+**What:** The locality feed runs through a new `public.locality_feed_items()` SQL function (migration 027) called via `supabase.rpc(...)`, rather than a Supabase `.from()` builder.
+
+**Why:** The feed filters `discoverable_items.nearest_location_geography` by `st_intersects` against a `places` polygon — PostGIS spatial predicates can't be expressed through the `.from()` builder. Matches the existing SQL-function pattern (`place_for_coords`, `zip_is_proximal_to_location`). Descendant Places sit inside the ancestor polygon, so containment covers the hierarchy without a recursive walk.
+
+**Disposition:** accepted-as-is.
+
+### T088: b1 IP geolocation deferred → launch-locality default; old HomeFeed unmounted from `/`
+
+**What:** AC1 specifies an "IP-geolocated locality." b1 ships a launch-locality default (`sacramento`) plus the scope picker instead of real IP geolocation. The pre-rebuild `HomeFeed` (events/vendor_bulletins) is unmounted from `/`; the new `LocalityFeed` replaces it. Feed cards link via the Member-scoped Item URL (`/m/<handle>/<seg>/<slug>-<id8>`) rather than the Group place-path URL.
+
+**Why:** IP→geo is an infra dependency (no provider wired at b1); the scenario's own edge case ("IP-geolocation fails → show picker") sanctions a picker fallback. The Member-scoped Item route exists for every kind (T079/T082/T083), so the feed need not resolve each Item's Group place-path to produce a working link. `HomeFeed` stays in the tree (other surfaces may import it); only `/` is repointed.
+
+**Disposition:** flag-for-spec-revision — IP geolocation + Group-scoped feed URLs are b2 refinements.
+
+### T089: profile fields write directly (no `member.update` handler / event)
+
+**What:** `saveProfileAction` writes `members` (display_name/handle/bio/pronouns/avatar) via the session-bound owner-update-RLS client, with no `member.updated` event. Locality + interests go through the action layer (events emitted). The handle-suggestion surfacing mutates the composer's shared state object before throwing (forced re-render shows the chips).
+
+**Why:** No `member.update` handler exists, and profile edits are not declarations (unlike place-interest / interest, which are). Building a member.update handler is out of F030 scope. The mutate-then-throw pattern is the only seam to pass async server-validation results back into the framework-agnostic `MultiStepComposer` (same shape as T073's shadowDraftId).
+
+**Disposition:** flag-for-spec-revision — `member.md` should decide whether profile edits emit `member.updated`.
+
+### F030 eval: authored, not run in-sandbox
+
+**What:** The Playwright eval (`evals/features/F030-…spec.ts`) + fixture (`evals/fixtures/F030-newcomer.ts`) are written but not executed here — the sandbox has no running Next.js dev server or live Supabase. The fixture refreshes the `discoverable_items` MV by inserting an `item.published` event (the 016 trigger) and seeds its own Place polygon (independent of the unmerged T076 region seed).
+
+**Why:** Live verification is the downstream `test` (run-mode) step on the user's machine, same hand-off as prior tickets. Pre-existing brittle test `auth-signup-route-t044 › contains all five Phase 0 migrations` (`toEqual` on the migrations dir, broken since T055 per BUILD-LOG:101) counts 26 vs 25 after adding migration 027 — unrelated to this work; queued under T069.
+
+**Disposition:** accepted-as-is.
