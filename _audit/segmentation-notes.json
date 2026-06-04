@@ -1,6 +1,7 @@
 [
   "[014361f8-27bc-4c8e-858c-ffc1aad0a10e] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
   "[19cf591c-41be-4186-94f7-c300a89b5828] nested skill \"engineering:code-review\" fired inside \"build\" (M-gate) — attributed as sidechain of parent",
+  "[2358cbe1-654b-4822-a588-833bdcd225a2] nested skill \"engineering:deploy-checklist\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
   "[2ea8b8d5-8ec5-44a7-8167-191ebd46a512] nested skill \"engineering:deploy-checklist\" fired inside \"code-review\" (M-gate) — attributed as sidechain of parent",
   "[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill \"design:accessibility-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
   "[34ee58d3-6c2e-4fd4-8679-ee2e2574a12e] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
@@ -14,6 +15,7 @@
   "[cowork:505126c7/d492e85d] nested skill \"engineering:code-review\" fired inside \"pipeline-router\" (M-gate) — attributed as sidechain of parent",
   "[cowork:6cbbfbba/f974ed26] nested skill \"anthropic-skills:pipeline-ticket\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
   "[cowork:78f1522b/9275f237] nested skill \"engineering:code-review\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",
+  "[cowork:b7b22883/agent-ae/sub] 836286ms gap before req_011Cbh7EduyKWkPHTBbFV7Yr — idle time, not pure request latency",
   "[cowork:bead1dbe/19ffc822] 43087541ms gap before req_011CbHoGKqQMeQ11HcRXCBMW — idle time, not pure request latency",
   "[cowork:bead1dbe/19ffc822] 85373197ms gap before req_011CbGrW7g9aJ2VQinNnPWM3 — idle time, not pure request latency",
   "[cowork:e1a0b52a/0c336dd0] nested skill \"anthropic-skills:pipeline-ticket\" fired inside \"none\" (M-gate) — attributed as sidechain of parent",

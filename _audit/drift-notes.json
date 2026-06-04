@@ -13,9 +13,10 @@
   "[cowork:995331a3/24f0b961] 87 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)",
   "[cowork:a369d2ec/1b57b9b7] 562 usage-bearing turns; missing fields: requestId×2, model×0, timestamp×0 (parsed anyway, defaulted)",
   "[cowork:aeaf3ccc/54e0eafb] 93 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)",
+  "[cowork:b7b22883/af4e2205] 79 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)",
   "[cowork:bc515770/6eeccf44] 275 usage-bearing turns; missing fields: requestId×4, model×0, timestamp×0 (parsed anyway, defaulted)",
   "[cowork:bfe88da4/d54d6361] 82 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)",
-  "[cowork:d/4441aec5] 1191 usage-bearing turns; missing fields: requestId×19, model×0, timestamp×0 (parsed anyway, defaulted)",
-  "[cowork:da1d3c7d/a428c167] 138 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)",
+  "[cowork:d/4441aec5] 1331 usage-bearing turns; missing fields: requestId×20, model×0, timestamp×0 (parsed anyway, defaulted)",
+  "[cowork:da1d3c7d/a428c167] 147 usage-bearing turns; missing fields: requestId×1, model×0, timestamp×0 (parsed anyway, defaulted)",
   "[cowork:e1a0b52a/0c336dd0] 185 usage-bearing turns; missing fields: requestId×2, model×0, timestamp×0 (parsed anyway, defaulted)"
 ]
