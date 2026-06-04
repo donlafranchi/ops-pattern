@@ -2,7 +2,7 @@
 id: how-f037-maya-claims-locally-owned
 purpose: Owner (Maya) sets, updates, or removes the Tier 0 self-attested ZIP that anchors her Shop's "Claimed local owner" badge.
 layer: how
-status: backlog
+status: now
 ---
 
 # F037: Maya claims Locally Owned
@@ -13,7 +13,7 @@ status: backlog
 **Loops:** 7 (Buy close), 9 (Make a living locally)
 **Canonical example:** [P4 — A locally-owned, locally-made producer earns and displays both badges](../../product/needs/use-cases.md#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges) (jurisdiction half).
 **Primitive shape:** Person(Maya, owner) → `member_business_jurisdictions`(ZIP, `verification_source='self_attested'`) → `public.zip_is_proximal_to_location()` → "Claimed local owner" badge on Group public surface.
-**Status:** backlog
+**Status:** now (in build — branch t-f037)
 **Substrate gate:** S-jurisdictions (`member_business_jurisdictions` table + `public.zip_is_proximal_to_location()` function). This scenario cannot promote to `planning/next/` until that substrate ships.
 
 > **Why this shape?** F036 ships the Shop. F035 renders the badge if a jurisdiction exists. F037 is the standalone claim lifecycle: an owner who skipped the locality step in the walkthrough returns later to add it, edits when she moves, or removes when the claim no longer applies. Small surface, large signal — the Locally Owned badge is the platform's most consequential discovery affordance.
