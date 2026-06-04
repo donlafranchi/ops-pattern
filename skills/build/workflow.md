@@ -12,7 +12,7 @@
 | **Does NOT run** | `git push`, `git rebase`, anything that rewrites history. `git add` + `git commit` only fire after PM `y` on the permission prompt at ticket close. Worktree creation happens at session start. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
 | **Hands to** | `test` (run mode) — verifies F### evals pass against the scenario |
-| **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the PM permission prompt per CLAUDE.md rebuild-phase rule #3. The reviewed state is what you commit; fixes happen in the same loop, not as follow-up commits. |
+| **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the PM permission prompt per CLAUDE.md rebuild-phase rule #3. The reviewed state is what you commit; fixes happen in the same loop, not as follow-up commits. Then `simplify-review` — structural pass on the staged diff; Approve to continue, Request changes → fix forward (in-scope) or log to DEVIATIONS (out-of-scope). |
 
 ## TDD loop (every ticket)
 
@@ -29,10 +29,11 @@
 10. Run tests — confirm PASS (green).
 11. Refactor if needed.
 12. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (`git diff` + `git diff --cached` for this ticket's files). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `scope`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward. Per CLAUDE.md rebuild-phase rule #3.
-13. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 17, after you commit).
-14. Move the ticket file to `development/tickets/done/`.
-15. Update `BUILD-LOG.md`.
-16. **Ask PM permission to commit.** Output one line, verbatim:
+13. **`simplify-review` — structural pass before commit.** Run `/simplify-review` on the staged diff. Verdict **Approve** → continue. Verdict **Request changes**: (a) if the findings are *inside* this ticket's scope, fix forward, re-run tests, re-run `/simplify-review`, loop until Approve; (b) if the findings are *outside* this ticket's scope, log each to `development/DEVIATIONS.md` with the ticket ID, the lens, and a one-line note, commit the ticket as-is, and surface to the PM in the next journal entry. The build agent does not autonomously expand ticket scope — the skill identifies structural debt; the PM decides whether to triage now or later.
+14. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 18, after you commit).
+15. Move the ticket file to `development/tickets/done/`.
+16. Update `BUILD-LOG.md`.
+17. **Ask PM permission to commit.** Output one line, verbatim:
 
     ```
     Ready to commit T{NNN} on branch t{nnn} with message "T{NNN}: {Title}"? (y/n)
@@ -40,9 +41,9 @@
 
     On **y**: re-run the lock pre-flight (`ls web/.git/index.lock web/.git/worktrees/*/index.lock 2>/dev/null`); if clean, run `git add <files> && git commit -m "T{NNN}: {Title}"` inside the worktree. If a lock prints, stop and ask the PM to run `clearlock` first. On **n**: do not commit — PM either amends the message (re-prompt) or defers (leave the worktree dirty, hand off).
 
-17. **Backfill the commit hash** into the ticket's Completion section using the hash printed by `git commit`. Same session — never leave `{pending}`.
+18. **Backfill the commit hash** into the ticket's Completion section using the hash printed by `git commit`. Same session — never leave `{pending}`.
 
-18. **Ask PM permission to merge.** Output one line, verbatim:
+19. **Ask PM permission to merge.** Output one line, verbatim:
 
     ```
     Ready to merge t{nnn} into main and remove the worktree? (y/n)
