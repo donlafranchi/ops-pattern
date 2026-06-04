@@ -5,6 +5,8 @@ layer: how
 status: active
 ---
 
+> **Frozen as of 2026-06-03.** Phase 2+ entries have been atomized to [`development/deviations/`](deviations/) — one file per ticket, so parallel sessions can append entries without write-conflicts. This file retains the original Phase 2 content as a historical anchor and remains the source of the Phase 1 archive link.
+
 # DEVIATIONS.md — Implementation Drift Log
 
 When implementation diverges from spec, log it here with context.

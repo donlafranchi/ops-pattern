@@ -5,6 +5,8 @@ layer: how
 status: active
 ---
 
+> **Frozen as of 2026-06-03.** Open patches have been atomized to [`planning/spec-patches/`](spec-patches/) — one file per patch, so parallel sessions can file and drain patches without write-conflicts. This file retains the original Open list as a historical anchor and remains the source of the landed/rescinded record.
+
 # SPEC-PATCHES — open queue
 
 When `build` writes a DEVIATIONS entry with `Disposition: flag-for-spec-revision`, it appends a one-line entry here. `explore` drains the queue as a gate before each bundle phase opens. Empty is the desired state at phase boundaries.

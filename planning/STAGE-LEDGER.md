@@ -5,6 +5,8 @@ layer: how
 status: active
 ---
 
+> **Frozen as of 2026-06-03.** Active entries have been atomized to [`planning/stage-ledger/`](stage-ledger/) — one file per F-number or substrate group, so parallel sessions can stamp transitions without write-conflicts. This file retains the original active-table content as a historical anchor and remains the source of the **Retired** tables.
+
 # STAGE-LEDGER — pipeline stage tracker
 
 > Fulfills `pipeline-process-audit-2026-05-22.md` **R4**. Renamed from the audit's proposed `planning/TRACE.md` to avoid collision with `product/TRACE.md` (feature lineage).
