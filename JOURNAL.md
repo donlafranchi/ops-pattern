@@ -14,6 +14,14 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-06-06 — Deferred "Locally Made" badge — the definition of local depends too much on the product
+
+The feature is fully built on branch `t-f039` (T099–T101, 6/6 eval GREEN, not merged). But the proximity model — whether lineage-based or radius-based — answers a geographic question when the real question is about provenance trust, and that varies by product type. Paused indefinitely. Branch can be revisited or discarded.
+
+→ `planning/now/scenario-F039-maya-claims-locally-made.md` (status → deferred); branch `t-f039` (unmerged).
+
+---
+
 ## 2026-06-02 — Newcomer signup + locality feed eval went green and merged; documented the local-Supabase recovery dance
 
 The newcomer-signup feature's eval (anon locality feed, empty-state widen, email/password signup → onboarding → scoped feed, returning-member detection) had been blocked by a prior session's interrupted local-database reset. The block was environmental, not code: the local auth schema was left at an ancient revision (missing `email_confirmed_at`) and the post-signup hook's Vault secrets were wiped, so new signups never got a member row and onboarding's first write hit a foreign-key violation. Recovered without another reset — let the auth service replay its migrations, then re-created the two signup-hook Vault secrets to match `web/.env.local`. One real code fix: the eval fixture wasn't setting an item-location's schedule kind, so the discoverable-items view left the location geography null and the feed returned zero items; added the column + error-checking, and dropped a client-side password length minimum. 4/4 green, merged to main, pushed. Telemetry refreshed.

@@ -2,10 +2,12 @@
 id: how-f039-maya-claims-locally-made
 purpose: Owner (Maya) declares where a product was made; the platform surfaces the "Locally Made" badge when the made-at Place is local.
 layer: how
-status: backlog
+status: deferred
 ---
 
 # F039: Maya claims Locally Made
+
+> **Deferred 2026-06-06.** "Locally made" carries too much nuance depending on the product — a sourdough baked in a home kitchen, a candle poured in a garage, produce grown on a farm 40 miles out, and a screen-printed shirt using blanks from overseas all mean different things by "local." The lineage-based proximity model we built (branch `t-f039`, T099–T101, 6/6 eval GREEN) is technically sound but philosophically undercooked — it answers a geographic question when the real question is about provenance and trust. Pausing until we have a clearer picture of what the badge should actually certify. Branch `t-f039` is unmerged and can be revisited or discarded.
 
 **Bundle:** b1
 **Sub-bundle:** b1.4 — Find & follow (the maker payoff)
