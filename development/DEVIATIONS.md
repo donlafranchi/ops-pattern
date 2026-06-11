@@ -627,3 +627,27 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Why:** Adding the negative-branch beat to each of F034 / F038 / F040 + F035 requires a second fixture seed per scenario (a non-discoverable variant), roughly doubling the fixture surface for marginal end-to-end coverage. The unit tests already lock the conditional render; the missing piece is a real-DB integration assertion, which the live `resolveProduct` / `resolveShop` projections-view path already exercises.
 
 **Disposition:** flag-for-separate-ticket — add plain-text-attribution Playwright beats once a non-discoverable member fixture pattern is shared (likely at the b1.5 polish sweep).
+
+---
+
+## T103 — Metro-polygon discovery overlay + `members.home_metro_id` (2026-06-11)
+
+**What (1) — Home-metro derivation hooks `member.place_interest.add/remove`, not the spec's `member.locality.set` / `home_location_id` path.** The ticket AC (§ Handler modification) and `member.md` §151/§534 name a `member.locality.set` action handler that writes `members.home_location_id`, with the backfill joining `locations.geography`. Neither exists in code: `member.locality.set` was never built, and `home_location_id` is a vestigial column never populated (last touched in migration 009; no write path). The real locality model is `member.place_interest.add` (scope `primary_home`) → `member_place_interests.place_id` → `places` (which carry `centroid` since T076). I wired `home_metro_id` resolution into the `primary_home` arm of `place-interest-add.ts` (resolve from the new Place's centroid) and `place-interest-remove.ts` (recompute from any remaining `primary_home`, → null after removal), and the migration's backfill (§5) joins the active `primary_home` interest → `places.centroid`.
+
+**Why:** Same observable intent the ticket and STAGE-LEDGER specify ("home-metro resolution at coordinate-save"; existing Members get a resolved metro so F031's wider-scope opt-in works immediately), against the data model that actually exists. Inventing a `member.locality.set` handler + a `home_location_id` population pipeline is a separate, larger scope (and `home_location_id` references `locations`/Venues, while Members pick a Place at onboarding — a different entity). Keeps derivation in the action layer per ADR-7 with no trigger.
+
+**Disposition:** flag-for-spec-revision — see SPEC-PATCHES (reconcile `member.md` §151/§534 + the ticket's Handler-modification AC with the shipped `place_interest`→`places.centroid` derivation path; decide whether `member.locality.set`/`home_location_id` are still wanted or should be retired from the spec).
+
+**What (2) — Seeded CSA polygon is an approx axis-aligned bounding box, not full-resolution TIGER 2023 CSA geometry.** Same approach and precedent as T076 (`seed_method='approx_bbox'`). The six-county Sacramento-Roseville CSA (code 472) is stored as one rectangle covering Yolo→El Dorado/Tahoe (lon) and southern-El-Dorado→northern-Yuba/Sutter (lat).
+
+**Why:** b1 substrate needs correct *coverage* (downtown Sacramento resolves to metro 472; out-of-region points resolve null) and the `resolve_home_metro` smallest-by-area tiebreak, both verified by the SQL contract test. Full-resolution CSA geometry is a data-fidelity refinement, not a substrate requirement; the authoritative replay is deferred. Provenance + approximation recorded in `metadata.seed_method`.
+
+**Disposition:** flag-for-spec-revision — see SPEC-PATCHES (full-res CSA replay, folded with T076's pending full-res place-polygon replay).
+
+**What (3) — Behavioral verification is the `resolve_home_metro.sql` contract test + static-shape Vitest guards, not live Vitest tests.** The ticket Tests section lists Vitest files asserting DB state (seed row exists, centroid inside polygon, handler populates `home_metro_id`). Docker/local Supabase is unavailable in this build environment, so — following the T075 precedent — DB-touching behavior lives in `supabase/tests/resolve_home_metro.sql` (the four contract cases: inside→id, outside→null, null→null, overlap→smallest) plus `migrations-t103.test.ts` / `actions-t103.test.ts` static-shape guards. The separate `tests/metro-polygons-seed.test.ts` file is folded into `migrations-t103.test.ts` (seed presence + the D3 no-region-row invariant are asserted there).
+
+**Why:** Matches the established no-Docker pattern (migrations are static-shape-guarded in Vitest; live-DB behavior is `.sql` contract tests run against a migrated DB + Playwright evals). The contract test is authored and ready to run when Supabase is up; F031 (the surface ticket) exercises the handler end-to-end via Playwright.
+
+**Disposition:** accepted-as-is. Live-DB run of `resolve_home_metro.sql` is the downstream `test`-skill / deploy-checklist step.
+
+**No other deviations.** Schema, GiST index, RLS (public-read, no client writes), `SECURITY INVOKER` function + grants, and the `members.home_metro_id` FK + partial index match the ticket AC exactly.
