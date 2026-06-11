@@ -4,8 +4,8 @@ purpose: Pipeline stage for S-saved-search — `member_saved_searches`.
 layer: how
 status: active
 concept_kind: substrate
-stage_current: product
-last_activity: 2026-05-28
+stage_current: built
+last_activity: 2026-06-11
 ---
 
 # S-saved-search — `member_saved_searches`
@@ -15,6 +15,8 @@ last_activity: 2026-05-28
 ## Stage history (append-only)
 
 - **2026-05-28** · `product` — substrate scoped, awaiting surface enablement
+- **2026-06-11** · `building` — T102 (surface enablement) on branch `t102`: `followVenueAction`/`unfollowVenueAction` server-action wrappers + `<FollowVenueButton>` component over T063's shipped handlers.
+- **2026-06-11** · `built` — T102 GREEN (14 unit; full suite 911 pass; build clean; M2 Approve / M3 component-pass). Substrate gate **closed for F033 + F042** — `<FollowVenueButton>` droppable into the venue page. Scenarios not auto-promoted (PM moves files).
 
 ## Notes
 
