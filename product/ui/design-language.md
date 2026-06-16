@@ -7,32 +7,70 @@ status: active
 
 # Main Street DLS
 
-> Neutral chrome + photography + one civic accent. The chrome shuts up so the content speaks.
+> White canvas + photography + one signature accent. The chrome disappears so the content speaks.
 
 ## Principles
 
-1. **One accent color.** Civic green (`#1B7A3D`) is reserved for primary CTAs and the brand mark. Ownership tier colors live only on badges — never on buttons, links, or backgrounds.
-2. **Hairlines over shadows.** Separation comes from 1px borders. Shadows are reserved for hover lift and overlays.
-3. **Photography is the surface.** Cards are quiet (no border at rest, no shadow at rest) so images do the emotional work.
-4. **Generous whitespace.** 24px page gutters mobile, 40–80px desktop. Components breathe.
-5. **One typeface, restrained scale.** Inter, Book/Medium/Bold only. Type scale tops out at 32px in product surfaces.
-6. **Bottom-anchored, thumb-reachable.** All primary controls anchor to the bottom of the viewport. Search bar at the bottom expands upward on focus; detail cards slide up from below; nav (when present) sits at the bottom. No top-anchored toolbars or search fields. Mobile-first; desktop adapts but is not the priority. Follow Google Maps / Apple Maps interaction patterns so users are instantly familiar.
+1. **One accent color, used sparingly.** Satin Pistachio (`#BACBB5`) is the brand mark. One or two shades appear on CTAs, active nav states, badges, and subtle accent lines — present enough to register the brand, restrained enough to never compete with photos. The full 50–900 ramp exists as a system resource but core surfaces only ever use one or two shades. Think Airbnb's Rausch Red: unmistakable, not ubiquitous.
+2. **Dark neutral text, not brand-colored text.** Body text and headlines use a near-black (`#2D2D2D`). The brand color disappears from text roles entirely — it appears on interactive surfaces and accents, never on paragraphs or headings.
+3. **White-dominant canvas.** Clean white (`#FFFFFF`) or near-white backgrounds, generous whitespace, minimal UI chrome. The feed breathes. No tinted backgrounds, no graduated greens across components.
+4. **Photography is sacred.** No color pills, frosted badges, colored overlays, or tier markers over photo cards. Photos are clean — like Airbnb. Kind labels, featured tags, and metadata go in the text zone below the image only.
+5. **No color block cards.** Items without photos use clean, text-forward editorial layouts (white bg, hairline border, editorial typography). Never solid-color rectangles or tinted card backgrounds.
+6. **Hairlines over shadows.** Separation comes from 1px borders. Shadows are reserved for hover lift and overlays.
+7. **Generous whitespace.** 24px page gutters mobile, 40–80px desktop. Components breathe.
+8. **One typeface, restrained scale.** Inter, Book/Medium/SemiBold/Bold only. Type scale tops out at 32px in product surfaces.
+9. **Bottom-anchored, thumb-reachable.** All primary controls anchor to the bottom of the viewport. Search bar at the bottom expands upward on focus; detail cards slide up from below; nav (when present) sits at the bottom. No top-anchored toolbars or search fields. Mobile-first; desktop adapts but is not the priority. Follow Google Maps / Apple Maps interaction patterns so users are instantly familiar.
 
 ## Tokens
 
 ### Color
 
+Brand palette anchored on **Satin Pistachio** (`#BACBB5`) as the single signature color, paired with **dark neutrals** for text. The approach mirrors Airbnb: one unmistakable brand hue, everything else black/white/gray.
+
+#### Pistachio ramp (system resource — edge cases only)
+
+The full ramp exists for design-tool reference and rare edge cases. **Core surfaces use only `--pistachio-400` (brand mark) and `--pistachio-500` (CTA fill).** Do not reach for other ramp values in product UI without a specific reason.
+
+| Token | Value | Notes |
+|---|---|---|
+| `--pistachio-50` | `#F5F7F2` | Reserved — not for page backgrounds |
+| `--pistachio-100` | `#E8EDE3` | Reserved — selected-state fill only when pistachio context is already established |
+| `--pistachio-200` | `#D5DECF` | Reserved |
+| `--pistachio-300` | `#C7D6C2` | Reserved |
+| `--pistachio-400` | `#BACBB5` | **Brand primary — Satin Pistachio.** Logo, brand mark, accent lines, active nav icon. |
+| `--pistachio-500` | `#A0B49A` | **CTA fill.** Primary action button background. |
+| `--pistachio-600` | `#869C7F` | CTA hover state. |
+| `--pistachio-700` | `#6D8367` | Pressed/active state. |
+| `--pistachio-800` | `#566952` | Reserved |
+| `--pistachio-900` | `#3F4D3C` | Reserved — no longer used for text. |
+
+#### Role tokens
+
 | Token | Value | Use |
 |---|---|---|
-| `--color-bg` | `#FFFFFF` | Page background |
-| `--color-surface` | `#F7F6F2` | Subtle surface (raised sections, hover) |
-| `--color-fg` | `#1A1A1A` | Body text |
-| `--color-fg-muted` | `#6B6B6B` | Secondary text, captions |
-| `--color-border` | `#E5E3DD` | Hairline separators |
-| `--color-accent` | `#0FAB8E` | Primary CTA, brand mark — "Tide" Caribbean green |
-| `--color-accent-hover` | `#0A8A72` | CTA hover |
-| `--color-accent-tint` | `#E8F7F2` | Soft accent surface (banner backgrounds, hover wash) |
-| `--color-focus` | `#1A1A1A` | Focus ring (2px) |
+| `--color-bg` | `#FFFFFF` | Page background — **pure white**. Clean, lets photography and content lead. |
+| `--color-surface` | `#F7F7F7` | Subtle surface — hover states, text-forward card backgrounds, empty states. Neutral gray, not green-tinted. |
+| `--color-fg` | `#2D2D2D` | **Body text** — dark neutral near-black. Not brand-colored. |
+| `--color-fg-muted` | `#717171` | **Muted text** — secondary text, captions (matches Airbnb's secondary gray). |
+| `--color-border` | `#EBEBEB` | Hairline separators — neutral gray. |
+| `--color-brand` | `#BACBB5` | Brand mark / logo / accent lines — Satin Pistachio (`--pistachio-400`). Not a button color. |
+| `--color-accent` | `#A0B49A` | Primary CTA button background (`--pistachio-500`); pair with white text. |
+| `--color-accent-hover` | `#869C7F` | CTA hover (`--pistachio-600`). |
+| `--color-heading` | `#2D2D2D` | Headline color — same dark neutral as body text. |
+| `--color-focus` | `#2D2D2D` | Focus ring (2px) — dark neutral. |
+
+**Removed tokens:** `--color-accent-tint` (was pistachio-100 wash — no longer used on core surfaces). If a selected-state fill is needed, use `--color-surface` or a 4% opacity overlay of `--color-accent`.
+
+#### Semantics (earthy, not candy — system feedback only)
+
+Semantic colors appear **only** in system feedback contexts (toasts, validation, alerts). They never appear decoratively in the feed, on cards, or as accent surfaces.
+
+| Token | Value | Use |
+|---|---|---|
+| `--color-success` | `#2D6A4F` | Success / confirmed — **forest** |
+| `--color-warning` | `#D89E4A` | Warning / caution — **honey** |
+| `--color-danger` | `#B4513C` | Error / destructive — **terracotta** |
+| `--color-info` | `#4A7C7E` | Info / neutral notice — **slate teal** |
 
 ### Ownership tier spectrum (badges + map pins only)
 
@@ -52,7 +90,7 @@ Listings tagged `pe-corporate` carry `data-extractive="true"`, which applies `gr
 ### Typography
 
 - Family: **Inter** via `next/font/google`, fallback to system sans.
-- Weights: 400 (Book), 500 (Medium), 700 (Bold). No italics.
+- Weights: 400 (Book), 500 (Medium), 600 (SemiBold), 700 (Bold). No italics.
 - Scale (px): 12 / 14 / 16 / 18 / 22 / 26 / 32.
 - Body line-height: 1.5. Heading line-height: 1.2.
 
@@ -82,8 +120,8 @@ Listings tagged `pe-corporate` carry `data-extractive="true"`, which applies `gr
 ## Component recipes
 
 ### Button — primary
-- Bg `--color-accent`, text white, radius `--radius-md`, height 48px, weight 500.
-- Hover: bg `--color-accent-hover`. Focus: 2px dark ring.
+- Bg `--color-accent` (`--pistachio-500`), text `#FFFFFF` (white — AA-contrast on the darker pistachio-500 fill), radius `--radius-md`, height 48px, weight 600.
+- Hover: bg `--color-accent-hover`. Focus: 2px `--color-focus` ring.
 
 ### Button — secondary
 - Bg white, 1px `--color-border`, text `--color-fg`, radius `--radius-md`, height 48px, weight 500.
@@ -91,12 +129,14 @@ Listings tagged `pe-corporate` carry `data-extractive="true"`, which applies `gr
 
 ### Card
 - Bg white, no border, no shadow at rest. Image uses `--radius-md` corners.
-- Title 16px/500. Subtitle 14px/400 muted. Optional price 14px/600.
+- Title 15px/600. Subtitle 14px/400 muted. Optional price 14px/600.
 - Hover: `--shadow-md` + slight scale.
+- **Photo cards: no overlays.** No pills, badges, tier markers, or any colored element over the image. Heart/save icon is the only overlay (white stroke, dark fill, shadow — same as Airbnb). All metadata goes below the image in the text zone.
+- **No-photo cards:** white background with `1px --color-border`, editorial layout. Uppercase category label in 11px/600 `--color-fg-muted`, large title, meta line. Optional thin accent line (2px `--color-brand`) as a subtle brand mark. No tinted backgrounds, no colored badges, no decorative emoji circles.
 
 ### Pill / chip
 - Radius `--radius-full`, 1px `--color-border`, padding `8px 14px`, 14px text.
-- Selected: bg `--color-fg`, text white, no border.
+- Selected: bg `--color-fg` (dark neutral), text white, no border.
 
 ### Search bar
 - Single white pill with `--shadow-md`. Internal sections separated by 1px dividers, not gaps.
@@ -218,28 +258,36 @@ Surfaces are pages or recurring page-region templates. Each surface fixes header
 
 ### Venue page (`/l/[slug]`)
 
-The page anyone lands on for a Location — Drake's, the brewery, the community garden, the library. Anonymous-readable. The host's pre-arrival surface; the public face of a place.
+The page anyone lands on for a Location — Drake's, the brewery, the community garden, the library. Anonymous-readable. The public face of a place: most visitors come to browse and follow, not to create.
+
+> URL note: the venue page lives at `/p/[…place]/l/[slug]` (place-scoped per ADR-20). Next.js forbids a static segment after a catch-all, so the `/l/` dispatch folds into the `app/p/[...slug]/page.tsx` catch-all alongside the `/g/` Group dispatch (T060 deviation) — not a standalone `l/[slug]/page.tsx` route.
 
 **Header (top of page).**
-- Hero image — 16:9 on desktop, 4:3 on mobile. `--radius-md` corners. No border, no shadow. Photography-first per design principle #3.
+- Hero image — 16:9 on desktop, 4:3 on mobile. `--radius-md` corners. No border, no shadow. Photography-first per design principle #3. `alt` text is the venue name ("Photo of Drake's"). If the Location has no image, the hero space collapses entirely — no empty container, no ARIA role on an absent element.
 - Venue name in the 26px / 700 type slot.
-- Address in 14px / 400 muted, single line. Distance from the viewer (if locality is set) appears on the same line, separated by `·`.
+- Address in 14px / 400 muted, single line. Distance from the viewer (if locality is set) appears on the same line, separated by `·`. Distance derives from the viewer's primary-home Place centroid (`member_place_interests` `scope_kind='primary_home'` → `places.centroid`), not from a raw Location coordinate. Omitted for anonymous visitors and for auth'd Members with no primary-home Place interest.
 - Hairline (`--color-border`, 1px) below the address row.
 
 **Primary CTA — below the header, above any content sections.**
 - Single primary-accent button using the `Button — primary` recipe (height 48, `--color-accent`). One per page (per CTA placement pattern #4).
-- Default copy: **"Host something here"**. The label is verb-first and surface-anchored; the user is at *this venue*, intending to do *something here*.
-- Tapping invokes the gathering composer drawer (per the gathering-host capability) with the venue pre-attached as the location.
-- For unauthenticated visitors: the CTA still renders; tapping routes to `/sign-in?return=/l/[slug]&action=host`. After auth, the composer opens with the venue pre-attached.
-- Above the fold on mobile (~640px viewport). Verifiable via snapshot test.
+- Copy: **"Follow this venue"** (flips to **"Following"** once active). Follow is the primary action because most venue-page visitors are consuming — browsing, following — not creating. Follow serves Loop 8 (Follow what you love): the standing relationship that turns a one-time visit into recurring awareness. Per `principles.md` people-first, the primary CTA serves the majority visitor.
+- For auth'd Members: tapping writes a `member_saved_searches` row scoped to the Location; the button flips to "Following" with an unfollow affordance and communicates state via `aria-pressed`.
+- For unauthenticated visitors: the CTA still renders; tapping routes to sign-in with a return URL (`/auth/login?next=<venue path>`). After auth, the visitor lands back on the venue page.
 
-**Sections below the CTA (in order):**
-1. **What's happening here** — list of `kind=gathering` Items at this venue with `next_occurrence` ≤ 30 days, sorted by next occurrence. Empty state: *"Nothing scheduled here yet. Be the first."* with a quiet inline link back up to the primary CTA.
-2. **About** — venue description, hours, contact, optional link to the venue's external site.
-3. **Items here** — Items of other kinds attached to this Location (products available for pickup here, services that operate here).
+**Secondary CTA.**
+- **"Host something here"** using the `Button — secondary` recipe (white bg, border). Host is the minority action — surfaced, not primary.
+- Tapping opens the gathering composer with this Location pre-attached. For unauthenticated visitors, routes to sign-in with a return URL carrying `action=host`; after auth, the composer opens with the Location still pre-attached.
+
+**Sections below the CTAs (in order):**
+1. **What's happening here** — Items hosted by the venue's owning kind='business' Group (resolved via `groups.anchor_location_id`), scoped to those also attached to this Location (`item_locations.location_id`). This is the venue's own storefront: it shows what the venue itself hosts (Host = `items.group_id`), not everything that happens at the venue's coordinates. Empty state: *"Nothing scheduled yet."* — honest, with no call-to-action pushing the viewer to host (the venue owner creates their own content). *(Section content ships in T105.)*
+2. **What's happening nearby** — an expandable, secondary section (`<details>`/`<summary>`) listing public Items by proximity, excluding the venue's owning Group. Collapsed/secondary by default so it never competes with the venue's own content. *(Section content ships in T105.)*
+3. **About** — venue description, accessibility notes, and the Location kind tag (permanent / recurring-temporary / area). Renders even when the description is empty (kind tag still shows).
+
+**Minimal-page variant.** A Location with no anchored kind='business' Group (a public park, a community center, a bar that hasn't created a business Group) renders without "What's happening here" — there is no owning Group to scope against. "What's happening nearby" may still appear; both CTAs still render.
 
 **What this surface does not have:**
-- Two competing primary CTAs. The "Host something here" button is the one primary on the page.
+- Two competing primary CTAs. "Follow this venue" is the one primary; "Host something here" is secondary.
+- "Be the first."-style empty-state copy that pushes the viewer to host. The venue owner creates the venue's content; the viewer's most useful action on an empty venue is to follow.
 - Producer-recruitment copy. This surface is for hosts and visitors, not for venue-owner onboarding (that's a separate flow).
 - Reviews or ratings (per `principles.md`'s no-reviews stance).
 
