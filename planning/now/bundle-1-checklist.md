@@ -23,32 +23,32 @@ Ordinary people will step forward where they live, and their neighbors will show
 - [x] Members, Locations, and the action layer
 - [x] Items substrate (the four kinds; the locality-first materialized view)
 - [x] Groups substrate (all six kinds)
-- [ ] Geography substrate (places, member–place interests, made-at provenance) — *built, awaiting merge to main*
-- [ ] Metro polygons — lets members opt into a wider "near me" scope
-- [ ] "Follow this venue" wiring — the table exists; the button and handlers don't
-- [ ] Jurisdiction badges substrate — powers the "Locally Owned" and "Locally Made" badges
+- [x] Geography substrate (places, member–place interests, made-at provenance)
+- [x] Metro polygons — substrate for opting into a wider "near me" scope (the F031 opt-in surface still to come)
+- [x] "Follow this venue" wiring — table, handlers, and button all shipped (T102)
+- [x] Jurisdiction badges substrate — powers the "Locally Owned" and "Locally Made" badges
 
 ## What producers can do
 
-- [~] Create a business through the Sell walkthrough — *in build; walkthrough surface is the open piece*
-- [ ] List a product
-- [ ] List a service
-- [ ] Claim the "Locally Owned" badge
-- [ ] Claim the "Locally Made" badge
-- [ ] Generate a printable QR card for any item
+- [~] Create a business through the Sell walkthrough — *built + merged; eval partial (5/9), forward-deps now merged, awaits eval re-run*
+- [~] List a product — *merged; Playwright eval not yet run*
+- [x] List a service
+- [ ] Claim the "Locally Owned" badge — *ticketed (T107)*
+- [ ] Claim the "Locally Made" badge — *deferred (F039; branch t-f039 unmerged)*
+- [x] Generate a printable QR card for any item
 
 ## What gatherers can do
 
-- [ ] Host a recurring gathering
-- [ ] Find a venue's public page and follow it
-- [ ] Find a Group's public page
+- [x] Host a recurring gathering
+- [~] Find a venue's public page and follow it — *venue page built + merged (T104/T105); eval not yet written*
+- [x] Find a Group's public page
 
 ## What newcomers can do
 
 - [x] Sign up and land in a populated feed
-- [ ] Find another Member's profile and follow them
-- [ ] See everything they follow — people, Groups, venues — in one place
-- [ ] Adjust how wide their "near me" reach is
+- [x] Find another Member's profile and follow them
+- [ ] See everything they follow — people, Groups, venues — in one place — *ticketed (T108/T109)*
+- [ ] Adjust how wide their "near me" reach is — *backlog (F031)*
 
 ## The integration test — gates MVP close
 
@@ -59,10 +59,12 @@ Ordinary people will step forward where they live, and their neighbors will show
 
 ## Where we are right now
 
-- **Foundations:** done except the four items above (one awaiting merge, three not yet built).
-- **Producer surfaces:** Sell walkthrough is in build; the rest haven't started.
-- **Gatherer + newcomer surfaces:** newcomer signup → locality feed shipped (F030, eval green 2026-06-02); the rest haven't started.
-- **Integration test:** waits on everything above.
+- **Foundations:** complete. All substrate — members, locations, items, groups, geography, metro polygons, saved-search / follow-venue wiring, jurisdiction badges — is built and merged to main.
+- **Producer surfaces:** *List a service* (F040) and the *QR card* generator (F041) are done end-to-end (evals green, merged). *List a product* (F038) is merged but its Playwright eval hasn't run. The *Sell walkthrough* (F036) is built and merged, eval partial (5/9) — its forward-deps have since merged, so it awaits a re-run. *Locally Owned* (F037) is ticketed (T107); *Locally Made* (F039) is the one deferred branch (t-f039, unmerged).
+- **Gatherer surfaces:** *Host a recurring gathering* (F034) and *Group public page* (F035) are done (evals green, merged). The *venue page* (F033) is built and merged (T104/T105) but its eval hasn't been written or run.
+- **Newcomer surfaces:** signup → locality feed (F030) and *Member page + follow* (F032) are done (evals green, merged). The unified *follow everything* page (F042) is ticketed (T108/T109); *adjust near-me reach* (F031) is still in backlog.
+- **Integration test:** waits on the remaining surfaces above — F033 eval, F037/F042 build, F038 eval.
+- **Only unmerged branch:** `t-f039` (Locally Made), deliberately deferred.
 
 ## What this scoreboard is not
 
