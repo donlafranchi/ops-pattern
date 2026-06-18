@@ -23,9 +23,9 @@ Optional but recommended for scenarios that introduce any of the following:
 
 If none of the above apply, skip review and go straight to `ticket`.
 
-## Two checks, one document
+## Three checks, one document
 
-The review covers two checks. Both run; one document captures both verdicts plus a combined recommendation.
+The review covers three checks. All run; one document captures all findings plus a combined recommendation.
 
 ### Architecture check
 
@@ -53,6 +53,19 @@ For each surface the scenario names:
 
 Reference: `product/ui/design-language.md`, root `CLAUDE.md` "Language & Framing" section.
 
+### Apple platform legibility check
+
+Advisory check — flags issues for future native integration but does not gate at b1. For each surface and action the scenario introduces:
+
+1. **Action-handler shape.** Does every new write go through a named handler with typed input → typed output → event? Named handlers map 1:1 to App Intents actions. Flag any write that bypasses the action-handler contract.
+2. **Entity exposure.** Does the scenario surface a core primitive (Event, Venue, Group, Product, Member) on a public page? If yes, confirm the page will carry schema.org JSON-LD for the corresponding type (Event, LocalBusiness, Product, Person). Structured data feeds Spotlight web indexing today and maps to App Intents entity schemas post-Capacitor.
+3. **Deep-linkable URL.** Is the scenario's primary surface reachable via a clean place-scoped URL (`/p/[…]/l/[slug]`, `/p/[…]/g/[slug]`, `/p/[…]/e/[slug]`)? Clean URLs are the substrate for Universal Links and deep linking. Flag any surface that relies on query params or client-side state for its identity.
+4. **App Intents schema candidate.** If the scenario introduces a new entity type or a new write action, note it as a candidate for the App Intents schema list in `product/exploration/apple-platform-integration.md § How Our Architecture Maps to App Intents`.
+
+**Output.** A one-paragraph "Apple legibility" section in the review document. All four pass → one line: "Apple legibility: clean — no new flags." Any flag → describe what needs attention. This check is advisory at b1; it does not contribute to the PROCEED / REVISE / EXTEND verdict.
+
+Reference: `product/exploration/apple-platform-integration.md`.
+
 ### Sibling-scenario consistency check (audit R9)
 
 Fulfills `pipeline-process-audit-2026-05-22.md` **R9** — closes the H5 gap (cross-feature consistency had no owner; F018's `<GatheringComposer>` and F019's `<DropComposer>` were called out as the canonical case nobody was checking).
@@ -77,12 +90,14 @@ If no sibling exists yet, write one line: "First in family — no sibling check 
 1. Read the approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`).
 2. Read every system the scenario references.
 3. Read `product/ui/design-language.md`.
-4. Run the architecture check; capture findings in the review template.
-5. Run the design check; capture findings in the review template.
-6. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
-7. Save to `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`).
-8. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
-9. **STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Reviewed column: `{VERDICT} YYYY-MM-DD`. A second review appends, does not overwrite, so two-cycle reviews like F018 are visible.
+4. Read `product/exploration/apple-platform-integration.md` (for the Apple legibility check).
+5. Run the architecture check; capture findings in the review template.
+6. Run the design check; capture findings in the review template.
+7. Run the Apple platform legibility check; capture findings in the review template.
+8. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
+9. Save to `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`).
+10. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
+11. **STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Reviewed column: `{VERDICT} YYYY-MM-DD`. A second review appends, does not overwrite, so two-cycle reviews like F018 are visible.
 
 ## Verdict semantics
 
