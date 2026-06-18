@@ -8,7 +8,7 @@ status: open
 # T093 — QR card lib + `item.qr_card.request` handler
 
 **Scenario:** [F041 — A producer generates a QR card for their item](../../planning/now/scenario-F041-producer-generates-qr-card.md)
-**Binds to:** `product/systems/item.md` (Item URL pattern, ADR-20 + ADR-22) · ADR-7 (action-layer-only) · ADR-10 (same-transaction row+event)
+**Binds to:** `product/systems/item.md` (Item URL pattern) · action-layer-only · same-transaction row+event
 **Status:** Open
 **Bundle:** b1
 **Depends on:** T077/T080 (item handlers + multi-kind) · T079/T083/T085 (item-page resolvers + canonical URL shape) — all shipped. `qrcode` npm dep already present. `item.qr_card_requested` event_kind already in the `item_events` CHECK (015 + 020) — no migration.

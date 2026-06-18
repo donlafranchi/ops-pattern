@@ -8,7 +8,7 @@ status: open
 # T083 — Public service Item page
 
 **Scenario:** [F040 — A producer lists a service](../../planning/now/scenario-F040-producer-lists-service.md)
-**Binds to:** `product/systems/item.md` · ADR-20 (place-scoped URLs) · ADR-22 · CLAUDE.md § Naming conventions (`/s/[slug]` for services)
+**Binds to:** `product/systems/item.md` · place-scoped URLs · CLAUDE.md § Naming conventions (`/s/[slug]` for services)
 **Status:** Open
 **Bundle:** b1 (b1.3 — Item composers)
 **Depends on:** T081 (writes the rows) · T082 (composer builds the URL) · T079 (resolve-product split pattern) · T060 (place catch-all)

@@ -10,7 +10,7 @@ status: draft
 **Bundle:** b1
 **Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly), 8 (Follow what you love)
 **Canonical example:** [C2 — A member organizes awareness across multiple Places](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — the Oak-Park-resident-who-works-in-Folsom situation.
-**Primitive shape:** Person → `member_place_interests`(primary + ≤5 secondary) × `member_interests` → community-awareness feed × Place-hierarchy traversal. Per ADR-21.
+**Primitive shape:** Person → `member_place_interests`(primary + ≤5 secondary) × `member_interests` → community-awareness feed × Place-hierarchy traversal.
 **Status:** backlog
 **Replaces:** F029 (archived 2026-05-28 — drop persona; structurally sound, mostly a name scrub).
 
@@ -24,7 +24,7 @@ From any page, they tap their avatar → "Locality." The `/you/locality` page sh
 
 They tap "Add a Place," search for "Folsom," and select it. The feed now includes Folsom Items the next time they visit `/`. To promote Folsom to their primary, they tap "Make primary" — Oak Park atomically demotes to secondary, the unique-primary-home invariant holds. To change Oak Park's granularity from neighborhood to city, they tap the granularity control on the primary row.
 
-The page also shows their current metro-polygon (per ADR-24) and a "Show me everything in Greater Sacramento" opt-in — when on, the feed widens to the metro CSA; when off, it stays at Place-interest scope only.
+The page also shows their current metro-polygon and a "Show me everything in Greater Sacramento" opt-in — when on, the feed widens to the metro CSA; when off, it stays at Place-interest scope only.
 
 ## Surfaces
 
@@ -91,7 +91,7 @@ Implicit: `member.place_interest_added` / `.removed` / `.promoted` / `.demoted` 
 
 ## Assumptions
 
-- ADR-24 ratified → `metro_polygons` table + `members.home_metro_id` + Census CSA seed shipped (substrate ticket).
+- Metro-overlay design ratified → `metro_polygons` table + `members.home_metro_id` + Census CSA seed shipped (substrate ticket).
 - Phase 1 `member_place_interests` table + action handlers shipped (T058–T066).
 - `places` table populated to neighborhood depth for Sacramento at minimum.
 
@@ -100,7 +100,7 @@ Implicit: `member.place_interest_added` / `.removed` / `.promoted` / `.demoted` 
 - Cross-Place navigation filters in the feed (e.g., "show me only Items from Oak Park, not Folsom this morning") — deferred to b2.
 - Place-interest aggregate insights ("you spent the most attention on Folsom this month") — deferred to b2.
 - Sharing Place-interest scope between Members — never planned.
-- The saved-search composer surface (`/you/saved-searches`) — b2 per ADR-21 + use-cases.md C2 deferral note.
+- The saved-search composer surface (`/you/saved-searches`) — b2 per use-cases.md C2 deferral note.
 
 ## Capabilities unlocked
 

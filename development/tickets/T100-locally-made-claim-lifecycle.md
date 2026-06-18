@@ -12,7 +12,7 @@
 The write path for the made-at Place claim — set on create, and set/edit/remove post-create.
 
 1. **Handlers (`src/actions/item/set-made-at.ts`)** — two item-owner-only handlers over T064's column, registered in `src/actions/index.ts`:
-   - `itemMadeAtSet(ctx, { itemId, placeId })` — guards the Item is the acting member's `kind='product'` (the `items_made_at_only_on_products` CHECK backs this), updates `made_at_place_id`, emits `item.made_at_set` in the same transaction (ADR-10). Non-owner → `AuthorizationError`; missing → `NotFoundError`.
+   - `itemMadeAtSet(ctx, { itemId, placeId })` — guards the Item is the acting member's `kind='product'` (the `items_made_at_only_on_products` CHECK backs this), updates `made_at_place_id`, emits `item.made_at_set` in the same transaction. Non-owner → `AuthorizationError`; missing → `NotFoundError`.
    - `itemMadeAtRemove(ctx, { itemId })` — sets `made_at_place_id = null`, emits `item.made_at_removed`. Idempotent (already-null → no event).
 
 2. **Place lookup (`src/lib/places/list-places.ts`)** — `listSelectablePlaces(supabase)` returns `{ id, displayName, kind, pathLabel }[]` for non-deleted `places` (the typeahead source). `pathLabel` is the display_name with its parent chain for disambiguation ("Oak Park · Sacramento, CA"). Public-read RLS covers it.

@@ -8,7 +8,7 @@ status: open
 # T102 — `member_saved_searches` surface enablement (Follow this venue CTA)
 
 **Scenario:** substrate
-**Binds to:** `product/systems/member.md` § Saved searches · `product/systems/location.md` § Saved searches scoped to a Location · ADR-21
+**Binds to:** `product/systems/member.md` § Saved searches · `product/systems/location.md` § Saved searches scoped to a Location
 **Status:** Open
 **Bundle:** b1 (STAGE-LEDGER row `S-saved-search`)
 **Depends on:** T063 (`member_saved_searches` schema, RLS, indexes, action handlers — all shipped)

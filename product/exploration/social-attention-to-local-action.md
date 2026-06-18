@@ -86,7 +86,7 @@ No b1 changes needed. All channels are additive to existing substrate.
 
 - **OG metadata quality.** TikTok's OG tags are minimal; Instagram's better; YouTube's rich. How much signal can the platform reliably extract? Needs prototyping.
 - **Category taxonomy.** The `member_interests` vocabulary needs to map "handmade dress" and "vintage clothing" to the same neighborhood. Tag hierarchy or embedding similarity? b2 design decision.
-- **Producer demand dashboard.** Aggregated demand signals need a privacy-by-design pass (ADR-9 three-filter test) before surfacing to producers.
+- **Producer demand dashboard.** Aggregated demand signals need a privacy-by-design pass (three-filter test) before surfacing to producers.
 - **oEmbed reliability.** TT/IG embed APIs have rate limits and can change terms. The platform should degrade gracefully if an embed fails.
 - **Non-English metadata.** The dog beach in Italy has Italian OG tags. Extract what we can, let the member edit.
 

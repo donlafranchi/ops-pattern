@@ -13,7 +13,7 @@ status: active
 
 **North stars served:** Buy Close (Loop 9, Trade family) — the platform's most consequential discovery affordance is the locally-owned-and-operated index. The verification ladder is what keeps that index *honest* without forcing every business owner to publish their home address.
 
-**Decisions encoded:** This spec is the home of the verification-ladder decision ratified 2026-05-11 (formerly captured in `_attic/2026-05-19/product-exploration/locally-owned-verification.md`). Cross-cutting: ADR-9 (opt-out default, three-filter test) · ADR-21 (Member↔Geography substrate split; the locally-owned derivation now reads this spec's substrate as the first signal, with community-attestation as the second signal at b2+) · the people-first refusal of address-as-locality.
+**Decisions encoded:** This spec is the home of the verification-ladder decision ratified 2026-05-11 (formerly captured in `_attic/2026-05-19/product-exploration/locally-owned-verification.md`). Cross-cutting: the opt-out default and three-filter test · the Member↔Geography substrate split (the locally-owned derivation now reads this spec's substrate as the first signal, with community-attestation as the second signal at b2+) · the people-first refusal of address-as-locality.
 
 **Companion specs:** [`groups.md`](groups.md) (the locality-derivation surface that consumes this signal) · [`member.md`](member.md) (the owner Member who holds the jurisdiction record) · [`location.md`](location.md) (the anchor Location whose proximity is tested) · [`policy.md`](../foundation/policy.md) (doxxing-prevention posture).
 
@@ -23,7 +23,7 @@ status: active
 
 ## What this system is
 
-A `kind='business'` Group's "locally owned and operated" claim is derived from one or more signals about whether at least one owner Member is local to the Group's `anchor_location_id`. Per ADR-21 (2026-05-23), the **first signal** at b1 is this spec's substrate — `member_business_jurisdictions`, tested against the anchor Location via `public.zip_is_proximal_to_location()`. The prior affinity-based path retires with the six-kind `member_location_affinities` table.
+A `kind='business'` Group's "locally owned and operated" claim is derived from one or more signals about whether at least one owner Member is local to the Group's `anchor_location_id`. The **first signal** at b1 is this spec's substrate — `member_business_jurisdictions`, tested against the anchor Location via `public.zip_is_proximal_to_location()`. The prior affinity-based path retires with the six-kind `member_location_affinities` table.
 
 The Business Jurisdiction substrate is the **first signal** for the locally-owned claim — the public, evidence-tiered floor a seller declares about their own business. The platform stores a ZIP (or ZIP-equivalent locality token) plus the **source** of the ZIP. The source becomes the public signal: a Group can be a "Claimed local owner" (Tier 0, self-attested), a "Community-confirmed local owner" (Tier 1, community-attested), or a "Documented local owner" (Tier 2, document-supported). Members aren't punished for being at Tier 0; the platform is transparent about the evidence level.
 
@@ -79,9 +79,9 @@ The query reads every active owner's jurisdiction row in parallel; `exists` shor
 
 The `public.zip_is_proximal_to_location(zip text, location_id uuid) returns boolean` function is a public-callable SECURITY DEFINER that compares the ZIP's metro/MSA against the anchor Location's metro/MSA, returning true within the proximity threshold (same threshold spec'd in `groups.md`).
 
-**Note on the retired `member_location_affinities` substrate.** Per ADR-21 (2026-05-23), the six-kind `member_location_affinities` table is retired entirely. The locally-owned derivation now reads `member_business_jurisdictions` (this spec) as the first signal, and community-attestation rows (a sibling table at b2+) as the second signal. Seller locality has one structured ladder; this is it.
+**Note on the retired `member_location_affinities` substrate.** The six-kind `member_location_affinities` table is retired entirely. The locally-owned derivation now reads `member_business_jurisdictions` (this spec) as the first signal, and community-attestation rows (a sibling table at b2+) as the second signal. Seller locality has one structured ladder; this is it.
 
-**Companion claim — "Locally Made."** Owner residence (this spec) is one of two sibling badges per ADR-21. The other is product-provenance — "Locally Made" — which lives on `items.made_at_place_id` (per [`item.md`](item.md), kind='product' only). Same evidence-ladder shape, different signal: jurisdiction answers "does the money go to a local owner?"; provenance answers "is the product made here?" Designed together so the platform never has to retrofit one against the other.
+**Companion claim — "Locally Made."** Owner residence (this spec) is one of two sibling badges. The other is product-provenance — "Locally Made" — which lives on `items.made_at_place_id` (per [`item.md`](item.md), kind='product' only). Same evidence-ladder shape, different signal: jurisdiction answers "does the money go to a local owner?"; provenance answers "is the product made here?" Designed together so the platform never has to retrofit one against the other.
 
 ---
 
@@ -159,28 +159,28 @@ create index idx_jurisdiction_zip_active
   where removed_at is null;
 ```
 
-**Event log.** Every write fires a `member.business_jurisdiction.*` event (per ADR-7 — same-transaction row+event invariant). Events: `member.business_jurisdiction_set` (Tier 0), `member.business_jurisdiction_community_attested` (Tier 1, b2+), `member.business_jurisdiction_documented` (Tier 2, b2+/b3), `member.business_jurisdiction_removed`. Tier-1 community-attestation also fires per-attestor events on a sibling substrate when the b2 attestation table lands; the jurisdiction row's `verification_source` flips to `community_attested` when thresholds are met. Each event carries the diff (old → new ZIP, old → new source). The event log is the audit trail for any later challenge.
+**Event log.** Every write fires a `member.business_jurisdiction.*` event (same-transaction row+event invariant). Events: `member.business_jurisdiction_set` (Tier 0), `member.business_jurisdiction_community_attested` (Tier 1, b2+), `member.business_jurisdiction_documented` (Tier 2, b2+/b3), `member.business_jurisdiction_removed`. Tier-1 community-attestation also fires per-attestor events on a sibling substrate when the b2 attestation table lands; the jurisdiction row's `verification_source` flips to `community_attested` when thresholds are met. Each event carries the diff (old → new ZIP, old → new source). The event log is the audit trail for any later challenge.
 
 **Soft delete.** `removed_at` is the standard pattern. Historical rows preserve the audit chain even after a Member changes their declared jurisdiction.
 
 **Proximity computation.** The `public.zip_is_proximal_to_location()` function reads a `zip_metro_crosswalk` table (USPS / HUD ZIP-to-MSA mapping, refreshed quarterly). The function returns true when the input ZIP's MSA matches the anchor Location's MSA (or matches within a configurable proximity radius for rural cases).
 
-**RLS.** `member_business_jurisdictions` SELECT is public for `removed_at IS NULL` rows — the jurisdiction record is meant to be a *public* claim on the Group's surface, by deliberate contrast with the private Member-geography substrates (`member_place_interests`, `member_saved_searches`) which are owner-only per ADR-21. The ZIP and source columns are intentionally readable; the document blob (T3) is private. INSERT/UPDATE/DELETE goes through action handlers only.
+**RLS.** `member_business_jurisdictions` SELECT is public for `removed_at IS NULL` rows — the jurisdiction record is meant to be a *public* claim on the Group's surface, by deliberate contrast with the private Member-geography substrates (`member_place_interests`, `member_saved_searches`) which are owner-only. The ZIP and source columns are intentionally readable; the document blob (T3) is private. INSERT/UPDATE/DELETE goes through action handlers only.
 
 ---
 
-## Action handlers (per ADR-7)
+## Action handlers
 
 - `member.business_jurisdiction.set(group_id, zip, [state], [legal_entity_name])` — Tier 0 write. Inserts or soft-replaces the active row for (`member_id`, `group_id`). `verification_source = 'self_attested'`, `verified_at = null`. Validates the Member is an active owner-role membership in the Group; rejects otherwise.
 - `member.business_jurisdiction.attest_community(group_id)` (b2+) — Tier 1 write triggered by the attestation-threshold worker, not directly by a Member. When confirming attestations on a jurisdiction cross the threshold, the platform sets `verification_source = 'community_attested'`, `verified_at = now()`. Demotion path also lives here when dissent thresholds flag a claim. The buyer-side attestation surface (the friction-light "Does this Group operate locally?" prompt) writes to a separate `member_business_jurisdiction_attestations` table — substrate lands at b2 alongside the surface.
 - `member.business_jurisdiction.upload_document(group_id, document_blob_id, document_type)` — Tier 2 write. Records the document reference, queues OCR/human review. On confirmation, updates row to `verification_source = 'document_upload'`, `verified_at = now()`, `source_document_id = ...`.
 - `member.business_jurisdiction.remove(group_id)` — soft-deletes the active row. Fires `member.business_jurisdiction_removed`. The Group's "local" claim drops if this was the only qualifying jurisdiction across its owners.
 
-All four handlers are scoped capabilities (per `action-layer.md`): Member-on-self only; never delegable to a third party (per ADR-9 categorical refusal of delegating identity claims).
+All four handlers are scoped capabilities (per `action-layer.md`): Member-on-self only; never delegable to a third party (categorical refusal of delegating identity claims).
 
 ---
 
-## Policy posture (per ADR-9)
+## Policy posture
 
 This system touches public visibility and the locally-owned claim. Three-filter analysis:
 
@@ -219,8 +219,8 @@ This system touches public visibility and the locally-owned claim. Three-filter 
 - **Group** — `member_business_jurisdictions` is keyed by `group_id`. The locality-derivation surface in `groups.md` consumes the jurisdiction signal (via `public.zip_is_proximal_to_location()`) to compute the locally-owned-and-operated claim.
 - **Member** — `member_business_jurisdictions` is keyed by `member_id`. Only owner-role Members of a kind='business' Group can hold a jurisdiction record for that Group; the role check is enforced in the action handler.
 - **Location** — the anchor `location_id` on the Group is the proximity target for the ZIP check. The ZIP-to-MSA crosswalk and the Location's MSA are both substrates here.
-- **`member_place_interests` / `member_saved_searches`** (per `member.md`, ADR-21) — **separate, private substrates.** Place-interests are the Member's awareness scope; saved-searches are the Member's subscriptions. Both are owner-only at the row level. Jurisdictions (this spec) are *public* and serve the Group's locality claim. The retired `member_location_affinities` table tried to be all of these at once; the substrate split (ADR-21) keeps each in its right home.
-- **Action layer** (per ADR-7) — every write through `member.business_jurisdiction.*` handlers.
+- **`member_place_interests` / `member_saved_searches`** (per `member.md`) — **separate, private substrates.** Place-interests are the Member's awareness scope; saved-searches are the Member's subscriptions. Both are owner-only at the row level. Jurisdictions (this spec) are *public* and serve the Group's locality claim. The retired `member_location_affinities` table tried to be all of these at once; the substrate split keeps each in its right home.
+- **Action layer** — every write through `member.business_jurisdiction.*` handlers.
 - **Event log** — every write fires a `member.business_jurisdiction_*` event.
 
 **Used by:**
@@ -251,18 +251,18 @@ This system touches public visibility and the locally-owned claim. Three-filter 
 3. **Confirming and dissent thresholds for Tier 1.** How many confirming attestations promote a seller to "Community-confirmed"? How many dissents flag for review? Working answer: design at b2 entry with first-principles + early-data. Likely a function of seller's transaction volume (more buyers = higher threshold to prevent low-bar promotion at scale; lower threshold for new sellers with few interactions to avoid stranding them indefinitely).
 4. **Attestation eligibility — what counts as a qualifying interaction?** Working answer: a purchase via `items.kind='product'` or `'service'`; an RSVP-then-attendance at a kind='business' Group's recurring gathering; sustained presence in the Group's stream (repeated engagement over time). Manufactured-interaction patterns get de-weighted via reputation signals. Design at b2 entry.
 5. **Attestation freshness window.** Working answer: 12 months. Old confirmations decay; the badge tier reflects what the community shows *now*, not historical interactions. Confirm at b2 design.
-6. **Anti-Nextdoor interaction (per ADR-9 §1).** This system makes jurisdiction-based claims about kind='business' Groups. It does NOT enable any messaging or feed scoped to a jurisdiction; jurisdiction is a property of the Group, not an addressability surface. The no-Location-scoped-messaging commitment in `policy.md` is unaffected.
+6. **Anti-Nextdoor interaction.** This system makes jurisdiction-based claims about kind='business' Groups. It does NOT enable any messaging or feed scoped to a jurisdiction; jurisdiction is a property of the Group, not an addressability surface. The no-Location-scoped-messaging commitment in `policy.md` is unaffected.
 7. **Federation (Loop 13, T3).** A jurisdiction record is portable across federated platforms in principle — the ZIP + verification source travel with the Member. The signature / trust mechanism for verified jurisdictions across federation peers is a T3 concern, parked.
 
 ---
 
 ## Comments
 
-This system is the structural answer to the "how does the platform know a business is local without forcing the owner to expose a home address" question. Member-geography substrates are owner-only (per ADR-21) — correct for doxxing-prevention but unverifiable from the outside on their own; the jurisdiction system answers that gap by adding a public floor of evidence — a ZIP, anchored to a public source, separated from address by design. Per ADR-21, this spec is the *first signal* the locally-owned derivation reads at b1; a second signal (community-member corroboration) layers in at b2+ when the interaction graph matures, and the two together carry the badge.
+This system is the structural answer to the "how does the platform know a business is local without forcing the owner to expose a home address" question. Member-geography substrates are owner-only — correct for doxxing-prevention but unverifiable from the outside on their own; the jurisdiction system answers that gap by adding a public floor of evidence — a ZIP, anchored to a public source, separated from address by design. This spec is the *first signal* the locally-owned derivation reads at b1; a second signal (community-member corroboration) layers in at b2+ when the interaction graph matures, and the two together carry the badge.
 
 The ladder is the load-bearing idea. A monolithic "locally owned" badge with one definition fails two ways: too strict (sole props can't qualify), or too lax (anyone can claim it). The ladder lets the platform say *yes* at every level — "you participated, here's the badge with the appropriate evidence level shown" — without ever lying about the strength of the claim. The Tier 0 → Tier 1 → Tier 2 climb is voluntary; the public signal differentiates climbers from non-climbers; the platform's job is to surface the distinction honestly.
 
-The deliberate separation of locality from address is the structural commitment that lets safety-conscious owners (home-based businesses, vulnerable populations, anyone with stalking risk) participate without exposing their home. The platform never sees, stores, or surfaces a street address as locality evidence. ZIPs, MSAs, registered-agent addresses, EIN-letter ZIPs — these are the evidence floor. Per ADR-21, the Member's home Location stays as the private `members.home_location_id` (per ADR-4) and never participates in the public locality claim; the prior pattern of recording residence as a `lives` affinity row retires with the affinity substrate.
+The deliberate separation of locality from address is the structural commitment that lets safety-conscious owners (home-based businesses, vulnerable populations, anyone with stalking risk) participate without exposing their home. The platform never sees, stores, or surfaces a street address as locality evidence. ZIPs, MSAs, registered-agent addresses, EIN-letter ZIPs — these are the evidence floor. The Member's home Location stays as the private `members.home_location_id` and never participates in the public locality claim; the prior pattern of recording residence as a `lives` affinity row retires with the affinity substrate.
 
 ---
 
@@ -270,7 +270,7 @@ The deliberate separation of locality from address is the structural commitment 
 
 This spec is the live home for the locality-verification-ladder decision (ratified 2026-05-11; formerly captured in `_attic/2026-05-19/product-exploration/locally-owned-verification.md`). See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register.
 
-This spec also *encodes* (but does not own) ADR-9 (the policy-posture section above is the three-filter analysis), ADR-21 (this spec is the *first signal* the locally-owned derivation reads; community-corroboration is the second signal at b2+), and the people-first refusal of address-as-locality.
+This spec also *encodes* (but does not own) the policy posture (the policy-posture section above is the three-filter analysis), the Member↔Geography substrate split (this spec is the *first signal* the locally-owned derivation reads; community-corroboration is the second signal at b2+), and the people-first refusal of address-as-locality.
 
 When a kind='business' Group's locality-claim surface formally ratifies (likely scenario F02X-locally-owned-claim under `scope`), the b1 ticket sequence will land:
 - A schema ticket creating `member_business_jurisdictions` + `zip_metro_crosswalk` + the `public.zip_is_proximal_to_location()` function.

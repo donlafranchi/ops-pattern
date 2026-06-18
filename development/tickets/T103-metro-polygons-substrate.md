@@ -81,7 +81,7 @@ status: open
 ### Handler modification — `member.locality.set`
 
 - [ ] Modify the existing `member.locality.set` action handler: after setting `home_location_id`, resolve `home_metro_id` by calling `resolve_home_metro(location.geography)` and update `members.home_metro_id` in the same transaction.
-  _Why: STAGE-LEDGER specifies "home-metro resolution at coordinate-save" as part of S-metro. Keeps derivation in the action layer (per ADR-7) and ensures `home_metro_id` stays in sync without a trigger._
+  _Why: STAGE-LEDGER specifies "home-metro resolution at coordinate-save" as part of S-metro. Keeps derivation in the action layer and ensures `home_metro_id` stays in sync without a trigger._
 - [ ] If the location has no containing metro (rural), set `home_metro_id = null`.
 - [ ] If `home_location_id` is set to null (Member clears locality), set `home_metro_id = null`.
 

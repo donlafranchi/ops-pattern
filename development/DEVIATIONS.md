@@ -302,9 +302,9 @@ accepted-as-is. The regression test added to `SellCta.test.tsx` is the structura
 
 **What:** `web/src/actions/group/create.ts` and `update-draft.ts` append a 4-byte random hex suffix to every draft `groups.slug` value (via `node:crypto.randomBytes(4).toString('hex')`).
 
-**Why:** `groups.slug` is `NOT NULL UNIQUE` (per migration 014_groups.sql line 51). Two Members opening the Sell walkthrough concurrently with the same brand name would collide on the second INSERT with Postgres 23505. ADR-22's user-visible random-suffix scheme applies to *activated* rows; draft rows need their own collision avoidance because they hit the same UNIQUE constraint. Draft slugs aren't publicly addressable (RLS hides drafts), so the user-facing shape is irrelevant — what matters is no 23505. Surfaced by [F036-review.md § Findings #2](../planning/now/review-F036.md).
+**Why:** `groups.slug` is `NOT NULL UNIQUE` (per migration 014_groups.sql line 51). Two Members opening the Sell walkthrough concurrently with the same brand name would collide on the second INSERT with Postgres 23505. The user-visible random-suffix scheme applies to *activated* rows; draft rows need their own collision avoidance because they hit the same UNIQUE constraint. Draft slugs aren't publicly addressable (RLS hides drafts), so the user-facing shape is irrelevant — what matters is no 23505. Surfaced by [F036-review.md § Findings #2](../planning/now/review-F036.md).
 
-**Disposition:** accepted-as-is (fold-in mandatory). The user-visible final slug for activated Groups is a follow-up patch on `group.activate` per ADR-22 — flagged for the next pass; this ticket's responsibility ends at the draft state machine.
+**Disposition:** accepted-as-is (fold-in mandatory). The user-visible final slug for activated Groups is a follow-up patch on `group.activate` — flagged for the next pass; this ticket's responsibility ends at the draft state machine.
 
 ### Folded — Suggestion #3: `group.member_removed` removed from migration's CHECK
 
@@ -412,7 +412,7 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 
 **What:** The Item URL slug is `toSlug(title)-<first 8 chars of items.id>`; the resolver matches the trailing fragment against `items.id`'s first 8 chars. `items` has no `slug` column.
 
-**Why:** ADR-22 wants a random suffix on Item URLs; adding a `slug` column would mean a migration (+ M4 deploy-checklist) for a b1 surface where the id-fragment satisfies both uniqueness-enough (1-in-4B collision within a single owning scope) and the random-suffix intent. The fragment is parsed in JS after RLS-scoped fetch (PostgREST can't `left(id::text,8)` on a uuid cleanly).
+**Why:** The intended design wants a random suffix on Item URLs; adding a `slug` column would mean a migration (+ M4 deploy-checklist) for a b1 surface where the id-fragment satisfies both uniqueness-enough (1-in-4B collision within a single owning scope) and the random-suffix intent. The fragment is parsed in JS after RLS-scoped fetch (PostgREST can't `left(id::text,8)` on a uuid cleanly).
 
 **Disposition:** accepted-as-is — if Item-slug vanity URLs or collision-hardening are wanted later, add a `slug` column then. M2-noted (collision 1-in-4B).
 
@@ -634,7 +634,7 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 
 **What (1) — Home-metro derivation hooks `member.place_interest.add/remove`, not the spec's `member.locality.set` / `home_location_id` path.** The ticket AC (§ Handler modification) and `member.md` §151/§534 name a `member.locality.set` action handler that writes `members.home_location_id`, with the backfill joining `locations.geography`. Neither exists in code: `member.locality.set` was never built, and `home_location_id` is a vestigial column never populated (last touched in migration 009; no write path). The real locality model is `member.place_interest.add` (scope `primary_home`) → `member_place_interests.place_id` → `places` (which carry `centroid` since T076). I wired `home_metro_id` resolution into the `primary_home` arm of `place-interest-add.ts` (resolve from the new Place's centroid) and `place-interest-remove.ts` (recompute from any remaining `primary_home`, → null after removal), and the migration's backfill (§5) joins the active `primary_home` interest → `places.centroid`.
 
-**Why:** Same observable intent the ticket and STAGE-LEDGER specify ("home-metro resolution at coordinate-save"; existing Members get a resolved metro so F031's wider-scope opt-in works immediately), against the data model that actually exists. Inventing a `member.locality.set` handler + a `home_location_id` population pipeline is a separate, larger scope (and `home_location_id` references `locations`/Venues, while Members pick a Place at onboarding — a different entity). Keeps derivation in the action layer per ADR-7 with no trigger.
+**Why:** Same observable intent the ticket and STAGE-LEDGER specify ("home-metro resolution at coordinate-save"; existing Members get a resolved metro so F031's wider-scope opt-in works immediately), against the data model that actually exists. Inventing a `member.locality.set` handler + a `home_location_id` population pipeline is a separate, larger scope (and `home_location_id` references `locations`/Venues, while Members pick a Place at onboarding — a different entity). Keeps derivation in the action layer with no trigger.
 
 **Disposition:** flag-for-spec-revision — see SPEC-PATCHES (reconcile `member.md` §151/§534 + the ticket's Handler-modification AC with the shipped `place_interest`→`places.centroid` derivation path; decide whether `member.locality.set`/`home_location_id` are still wanted or should be retired from the spec).
 

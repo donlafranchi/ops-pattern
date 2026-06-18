@@ -26,7 +26,7 @@ The scenario fits existing schema and substrate cleanly — all required tables,
 - `product/systems/business-jurisdiction.md` — the primary system. F037 exercises the T1 (b1) self-attested ZIP flow: `member.business_jurisdiction.set`, `member.business_jurisdiction.remove`, badge derivation via `public.zip_is_proximal_to_location()`. All substrate shipped (T075).
 - `product/systems/groups.md` — the locality-derivation pseudocode (lines 304–318) is the badge-render path. `groups.anchor_location_id` is the proximity target. F035 (Shop page) already wired beat 2 to check for a jurisdiction row; F037 is what lets producers create one.
 - `product/systems/member.md` — the owner-role membership check that gates access to the claim widget. `group_memberships.role = 'owner'` + `ended_at is null` is the auth predicate. Existing.
-- `product/systems/action-layer.md` — both handlers (`member.business_jurisdiction.set`, `.remove`) follow the action-handler contract: named handler → typed input → row write + event in same transaction. Scoped capabilities, Member-on-self only, never delegable (per ADR-9).
+- `product/systems/action-layer.md` — both handlers (`member.business_jurisdiction.set`, `.remove`) follow the action-handler contract: named handler → typed input → row write + event in same transaction. Scoped capabilities, Member-on-self only, never delegable.
 
 ### Schema fit
 
@@ -45,7 +45,7 @@ The scenario fits existing schema and substrate cleanly — all required tables,
 - **business-jurisdiction ↔ groups:** The locality pseudocode in `groups.md` lines 304–318 queries `member_business_jurisdictions` joined through `group_memberships` — exactly the path F037's badge render will take. The "computed at query time" commitment (line 323) means no stored `is_locally_owned` flag; the badge re-derives on every page load. Consistent.
 - **F035 (Shop page) ↔ F037:** F035 beat 2 already checks for a jurisdiction row and renders the badge when it exists. F037 is the write surface that creates/edits/removes that row. The two scenarios partition cleanly: F035 reads, F037 writes.
 - **F036 (Sell walkthrough) ↔ F037:** F036's walkthrough has an optional "where is this business based?" step that writes the same `member.business_jurisdiction.set` handler. F037's story ("Maya skipped the optional step and comes back later") is the complementary entry point. Both write through the same handler; no divergence.
-- **RLS consistency:** `member_business_jurisdictions` SELECT is public for `removed_at IS NULL` rows (per spec: the claim is intentionally public). INSERT/UPDATE/DELETE goes through action handlers only. The owner-view widget reads the public row (the owner can see their own claim because everyone can); the write is handler-gated to owner-role Members. Consistent with the private-geography / public-claim split from ADR-21.
+- **RLS consistency:** `member_business_jurisdictions` SELECT is public for `removed_at IS NULL` rows (per spec: the claim is intentionally public). INSERT/UPDATE/DELETE goes through action handlers only. The owner-view widget reads the public row (the owner can see their own claim because everyone can); the write is handler-gated to owner-role Members. Consistent with the private-geography / public-claim split.
 
 ### Loop fidelity
 
@@ -59,7 +59,7 @@ The scenario tags **Loop 7 (Buy close)** and **Loop 9 (Make a living locally)**.
 
 - Tier 0 self-attested ZIP: helpful (locality discovery), not harmful (ZIP ≠ address; no street address ever collected), abuse-limited (public "Claimed" label + one-active-row-per-Group constraint + out-of-metro fudge fails proximity).
 - The doxxing-prevention posture is load-bearing: Maya can enter her accountant's ZIP, a PO Box ZIP, or any ZIP she chooses — the platform never asks for or stores a street address.
-- `member_business_jurisdictions` is intentionally public (contrast with the owner-only `member_place_interests`). The jurisdiction claim is meant to be visible; this is consistent with the ADR-21 substrate split.
+- `member_business_jurisdictions` is intentionally public (contrast with the owner-only `member_place_interests`). The jurisdiction claim is meant to be visible; this is consistent with the substrate split.
 
 ### Architecture verdict
 
@@ -119,7 +119,7 @@ Apple legibility: clean — no new flags.
 
 1. **Action-handler shape:** Both handlers (`member.business_jurisdiction.set`, `.remove`) follow the named-handler contract with typed input → output → event. Map 1:1 to App Intents actions (e.g., "Claim locally owned for my shop at ZIP 95817").
 2. **Entity exposure:** No new entity. The Shop (Group) page already exists and will carry schema.org `LocalBusiness` data. The badge is a derived property, not a new entity.
-3. **Deep-linkable URL:** The owner view lives on the same URL as the public Shop page (`/p/[…place]/g/[slug]`). Clean place-scoped URL per ADR-20.
+3. **Deep-linkable URL:** The owner view lives on the same URL as the public Shop page (`/p/[…place]/g/[slug]`). Clean place-scoped URL.
 4. **App Intents candidate:** `member.business_jurisdiction.set` is a strong App Intent candidate — typed, scoped, low-risk, meaningful via voice ("Claim my shop is locally owned at ZIP 95817"). Note for the Apple integration doc.
 
 ---

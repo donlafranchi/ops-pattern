@@ -51,7 +51,7 @@ The create flow walks the Member through kind selection with examples. Kind is l
 - **Multi-owner partnerships** (T2) — multiple owner-role memberships in kind='business' Groups (sole prop ships at b1; partnership shape ships at T2 via additional owner-role invites).
 - **Federation export of Group identity** (T3 — per Loop 13).
 
-**Deferred indefinitely:** cooperative voting / distributions / off-platform legal verbs. Cooperative-shape coordination is served by kind='business' Groups with multiple owner-role memberships; no separate cooperative entity ships (per ADR-11, archived). The `cooperative_*` schema reservations from the prior architecture are dropped.
+**Deferred indefinitely:** cooperative voting / distributions / off-platform legal verbs. Cooperative-shape coordination is served by kind='business' Groups with multiple owner-role memberships; no separate cooperative entity ships. The `cooperative_*` schema reservations from the prior architecture are dropped.
 
 ## Acceptance signal
 

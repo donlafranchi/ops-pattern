@@ -22,9 +22,9 @@ status: queued
 
 | Gate | Spec contract | Blocks | Current state |
 |---|---|---|---|
-| **S-metro** — `metro_polygons` table + Census CSA seed + `members.home_metro_id` + home-metro resolution at coordinate-save | `discovery.md` (per playbooks/PLATFORM-PATTERNS.md § metro-polygon overlay); ADR-24 migrated to playbook 2026-05-30 | F031 | Decision ratified; substrate not built. No `metro_polygons` table in `web/supabase/migrations/`. |
-| **S-saved-search** — surface enablement | `member.md` § Saved searches; ADR-21 | F033, F042 | Table `member_saved_searches` exists (migration 019). Action handlers `member.saved_search.create / .update / .remove` and "Follow this venue" CTA not yet wired. |
-| **S-jurisdictions** — `member_business_jurisdictions` Tier 0 + `public.zip_is_proximal_to_location()` | `business-jurisdiction.md`; ADR-21 | F037, F039 | `items.made_at_place_id` + `items.made_at_verification_source` columns ship (migration 020). `member_business_jurisdictions` table and proximity function not built. |
+| **S-metro** — `metro_polygons` table + Census CSA seed + `members.home_metro_id` + home-metro resolution at coordinate-save | `discovery.md` (per playbooks/PLATFORM-PATTERNS.md § metro-polygon overlay); migrated to playbook 2026-05-30 | F031 | Decision ratified; substrate not built. No `metro_polygons` table in `web/supabase/migrations/`. |
+| **S-saved-search** — surface enablement | `member.md` § Saved searches | F033, F042 | Table `member_saved_searches` exists (migration 019). Action handlers `member.saved_search.create / .update / .remove` and "Follow this venue" CTA not yet wired. |
+| **S-jurisdictions** — `member_business_jurisdictions` Tier 0 + `public.zip_is_proximal_to_location()` | `business-jurisdiction.md` | F037, F039 | `items.made_at_place_id` + `items.made_at_verification_source` columns ship (migration 020). `member_business_jurisdictions` table and proximity function not built. |
 
 ## Sequence — order of approval
 
@@ -70,7 +70,7 @@ Carried over from the archived sequence — these remain out of scope for the ac
 
 1. **P2 status mismatch in `use-cases.md`.** P2 is tagged "MVP (b1)" in the Status column but "⬜ Not built — bulletin composer + delivery are b2" in the Build column. Treat P2 as **substrate-at-b1, surface-at-b2** — no F-number in this sequence. The push-to-followers that P3 depends on does not ship at b1; followers see new Items via the locality feed on refresh. PM decision: re-tag the use-cases.md row to "MVP substrate; surface deferred" to match this treatment.
 
-2. **`region`-kind in `places`.** ADR-24 (now in playbooks) notes `region` may drop out of the tree entirely if no URL-browsable region surfaces in b1. This sequence does not introduce one. PM decision at F043 close: drop `region` kind in a follow-on patch if no use case has materialized.
+2. **`region`-kind in `places`.** The metro-polygon overlay decision (now in playbooks) notes `region` may drop out of the tree entirely if no URL-browsable region surfaces in b1. This sequence does not introduce one. PM decision at F043 close: drop `region` kind in a follow-on patch if no use case has materialized.
 
 ## Doc-tidy follow-ons
 

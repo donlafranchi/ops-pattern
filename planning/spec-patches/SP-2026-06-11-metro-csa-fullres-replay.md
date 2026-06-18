@@ -7,7 +7,7 @@ filed: 2026-06-11
 caught_by: T103
 deviation_pointer: 2026-06-11 — T103
 target_spec: product/systems/discovery.md
-target_section: § Community-awareness feed (metro_polygons overlay) + PLATFORM-PATTERNS § metro-polygon overlay (D2)
+target_section: § Community-awareness feed (metro_polygons overlay) + PLATFORM-PATTERNS § metro-polygon overlay
 ---
 
 # Sacramento CSA metro polygon is an approx bbox, not full-res TIGER geometry

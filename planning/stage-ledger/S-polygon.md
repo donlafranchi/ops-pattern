@@ -10,7 +10,7 @@ last_activity: 2026-06-02
 
 # S-polygon — places polygon + centroid backfill (T076)
 
-**Spec contract:** places.md § T1 + § Reverse-geocoder; PLATFORM-PATTERNS county tier (ADR-0022) + metro-overlay D3
+**Spec contract:** places.md § T1 + § Reverse-geocoder; PLATFORM-PATTERNS county tier + metro-overlay D3
 
 ## Stage history (append-only)
 

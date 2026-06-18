@@ -8,7 +8,7 @@ status: open
 # T081 — `item.create` service arm (`service_area_geography`)
 
 **Scenario:** [F040 — A producer lists a service](../../planning/now/scenario-F040-producer-lists-service.md)
-**Binds to:** `product/systems/item.md` § Per-kind typed columns · `product/systems/action-layer.md` § Same-transaction row+event invariant (ADR-10) · migration 015 `item_services`
+**Binds to:** `product/systems/item.md` § Per-kind typed columns · `product/systems/action-layer.md` § Same-transaction row+event invariant · migration 015 `item_services`
 **Status:** Open
 **Bundle:** b1 (b1.3 — Item composers)
 **Depends on:** T080 (generalized item.create — rate_model/rate_cents arm) · T077 (handler pattern)

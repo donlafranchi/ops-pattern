@@ -181,7 +181,7 @@ The canonical shape for any flow that gathers several pieces of information from
 If none of those hold, use a single-form composer (one screen, one submit, validated on submit). Multi-step machinery costs the Member attention; only spend it when the sequence buys clarity.
 
 **Structure.**
-- **Container.** Bottom-anchored drawer on mobile (per Principle #6 + ADR-2 — primary controls reach the thumb); modal on desktop. The drawer/modal occupies up to 90% of viewport height and slides up over the originating surface (the `/you` page for Sell, the venue page for gather). Background dims with `--color-overlay` at 40% opacity. Tap-outside-to-dismiss is **off** for in-flight composers — see partial-state preservation below.
+- **Container.** Bottom-anchored drawer on mobile (per Principle #6 — primary controls reach the thumb); modal on desktop. The drawer/modal occupies up to 90% of viewport height and slides up over the originating surface (the `/you` page for Sell, the venue page for gather). Background dims with `--color-overlay` at 40% opacity. Tap-outside-to-dismiss is **off** for in-flight composers — see partial-state preservation below.
 - **Step indicator.** Top of the drawer/modal. Horizontal row of `N` dots (`--color-fg` filled for completed + current, `--color-border` hollow for upcoming). Counter text to the right reads *"Step k of N"* in 14px / 500 / muted. Tappable dots jump to any previously-completed step (back-edit allowed); upcoming dots are inert. Skipped optional steps render as completed (filled) with a small *"(skipped)"* affordance on the dot's tooltip.
 - **Step body.** One step per scroll-region. Step title in the 22px / 600 slot at the top of the body; one-sentence helper in 14px / 400 / muted directly below. Inputs use the existing `Input` recipe; pickers use existing recipes (Recurrence picker, search bar). Each step holds **one decision class** — don't pack two unrelated fields into one step.
 - **Navigation row (bottom of drawer/modal).** Three-zone layout: `[← Back]` (text link, left) · `[Skip this step]` (text link, center, **only on optional steps**) · `[Continue]` (Button — primary, right). The primary advances when the step's required fields validate; otherwise it's disabled with inline error rendering at the field. The final step's primary CTA reads the destination verb — *"Create my shop"* / *"Host the gathering"* / *"List the product"* — never *"Submit"* or *"Done"*.
@@ -260,7 +260,7 @@ Surfaces are pages or recurring page-region templates. Each surface fixes header
 
 The page anyone lands on for a Location — Drake's, the brewery, the community garden, the library. Anonymous-readable. The public face of a place: most visitors come to browse and follow, not to create.
 
-> URL note: the venue page lives at `/p/[…place]/l/[slug]` (place-scoped per ADR-20). Next.js forbids a static segment after a catch-all, so the `/l/` dispatch folds into the `app/p/[...slug]/page.tsx` catch-all alongside the `/g/` Group dispatch (T060 deviation) — not a standalone `l/[slug]/page.tsx` route.
+> URL note: the venue page lives at `/p/[…place]/l/[slug]` (place-scoped). Next.js forbids a static segment after a catch-all, so the `/l/` dispatch folds into the `app/p/[...slug]/page.tsx` catch-all alongside the `/g/` Group dispatch (T060 deviation) — not a standalone `l/[slug]/page.tsx` route.
 
 **Header (top of page).**
 - Hero image — 16:9 on desktop, 4:3 on mobile. `--radius-md` corners. No border, no shadow. Photography-first per design principle #3. `alt` text is the venue name ("Photo of Drake's"). If the Location has no image, the hero space collapses entirely — no empty container, no ARIA role on an absent element.
@@ -331,7 +331,7 @@ When the viewer is an owner-role Member of the entity they're looking at (a Shop
 
 ### Other surfaces (cross-reference)
 
-- **Member page (`/m/[handle]`)** — the Member's public page (per [`../systems/member.md`](../systems/member.md)); when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item (per ADR-12 SUPERSEDED 2026-05-12), the page surfaces selling-tool affordances. Header layout follows the same pattern: hero image → name → tagline → primary CTA below the header (label varies by Member context — *"Drop something now"* for irregular Sellers, etc.). The kind='business' Group page (`/g/[slug]`) follows the same pattern with Group identity as the header anchor (per [`../systems/groups.md`](../systems/groups.md)).
+- **Member page (`/m/[handle]`)** — the Member's public page (per [`../systems/member.md`](../systems/member.md)); when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item, the page surfaces selling-tool affordances. Header layout follows the same pattern: hero image → name → tagline → primary CTA below the header (label varies by Member context — *"Drop something now"* for irregular Sellers, etc.). The kind='business' Group page (`/g/[slug]`) follows the same pattern with Group identity as the header anchor (per [`../systems/groups.md`](../systems/groups.md)).
 - **Item pages (kind-specific URLs: `/e/[slug]` Event · `/p/[slug]` Product · `/s/[slug]` Service · `/i/[slug]` Idea · `/o/[slug]` Offer · `/a/[slug]` Ask · `/initiative/[slug]` Initiative — per [`../../CLAUDE.md`](../../CLAUDE.md) § Naming)** — quiet header (no hero image at b1; reserved for T2 photo-upload), with title in the 26px slot, kind-specific detail rows below. Primary CTAs vary by kind (RSVP for gathering at b2, Follow for product, etc.). At b1 the primary action on a gathering Item is the Share-link affordance.
 - **Hashtag page (`/h/[hashtag]`)** — list view of Items carrying that hashtag. No hero. No primary CTA — the search bar at the top is the primary surface (per pattern #6).
 
@@ -339,6 +339,6 @@ When the viewer is an owner-role Member of the entity they're looking at (a Shop
 
 This file is the live home for the following architectural decision. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register; this spec's Principles section *is* the load-bearing ratification.
 
-| ADR | Status | What lives here |
+| Decision | Status | What lives here |
 |---|---|---|
-| ADR-2 | Accepted | Bottom-anchored, mobile-first, thumb-reachable UI. Primary controls anchor to the viewport bottom; search bar expands upward; detail cards slide up; nav (when present) sits at the bottom. No top-anchored toolbars or search fields. Mobile-first; desktop adapts but is not the priority. Follow Google Maps / Apple Maps interaction patterns. See Principles #6 and Surface patterns throughout. |
+| Bottom-anchored UI | Accepted | Bottom-anchored, mobile-first, thumb-reachable UI. Primary controls anchor to the viewport bottom; search bar expands upward; detail cards slide up; nav (when present) sits at the bottom. No top-anchored toolbars or search fields. Mobile-first; desktop adapts but is not the priority. Follow Google Maps / Apple Maps interaction patterns. See Principles #6 and Surface patterns throughout. |

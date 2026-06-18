@@ -8,7 +8,7 @@ status: open
 # T075 — `member_business_jurisdictions` Tier 0 substrate + proximity function
 
 **Scenario:** substrate
-**Binds to:** `product/systems/business-jurisdiction.md` § T1 — MVP Tier (b1) · § Data model implications · § Action handlers · `product/systems/action-layer.md` § Same-transaction row+event invariant · ADR-21
+**Binds to:** `product/systems/business-jurisdiction.md` § T1 — MVP Tier (b1) · § Data model implications · § Action handlers · `product/systems/action-layer.md` § Same-transaction row+event invariant
 **Status:** Open
 **Bundle:** b1 (sub-bundle b1.2 — Business Groups & makers; STAGE-LEDGER row `S-jurisdictions`)
 **Depends on:** T055 (`groups` schema) · T070 (`groups.lifecycle_state` + owner-role checks) · T060 (places place_id substrate, MSA column)
@@ -74,7 +74,7 @@ status: open
 - [ ] `enable row level security`.
 - [ ] Policy `mbj_select_public_active`: `for select using (removed_at is null)`. Anonymous + authenticated both readable.
   _Why: per `business-jurisdiction.md` § RLS — the jurisdiction record is a *public* claim by deliberate contrast with the private `member_place_interests` / `member_saved_searches` substrates. The Group surface renders the claim; readability is the point._
-- [ ] **No** direct INSERT / UPDATE / DELETE policy from client roles. All writes go through the action handlers in the action layer (per ADR-7 + `action-layer.md`). Handlers run with the service role inside `withTransaction` and bypass RLS by design.
+- [ ] **No** direct INSERT / UPDATE / DELETE policy from client roles. All writes go through the action handlers in the action layer (per `action-layer.md`). Handlers run with the service role inside `withTransaction` and bypass RLS by design.
 - [ ] No RLS policy on `zip_metro_crosswalk` (public read; no writes from clients).
 
 ### Action handlers — `web/src/actions/member/business-jurisdiction-*.ts`
@@ -116,7 +116,7 @@ status: open
 - **Owner-role precondition.** A kind='business' Group's owners are Members with `group_memberships.role = 'owner'` AND `group_memberships.removed_at is null` for that `group_id`. Confirm against T070's schema; do not invent a new role string.
 - **Event names.** `member.business_jurisdiction_set` and `member.business_jurisdiction_removed`. Underscored verb form per existing event-log convention (e.g. `group.activated`).
 - **Encodes ratified absolute:** `product/systems/business-jurisdiction.md:109` — Intent (Ratified 2026-05-23) — Tier 1 is community-attestation, not external SOS lookup. This ticket's b2-deferral of `.attest_community` honors that Intent literally; the handler stub does not exist at b1, so no code path can be accidentally pointed at an external SOS API.
-- **Encodes ratified absolute:** ADR-21 (the locality-derivation reads `member_business_jurisdictions` as the first signal at b1, with `member_location_affinities` retired). This substrate is exactly that first signal.
+- **Encodes ratified absolute:** the locality-derivation reads `member_business_jurisdictions` as the first signal at b1, with `member_location_affinities` retired. This substrate is exactly that first signal.
 - **F036 eval impact.** Once this ticket merges, F036's `:266` eval needs a re-run — the jurisdiction half of the failure is expected to green. The provenance half (`items.made_at_place_id`) is **out of scope** for T075 and lives in a sibling substrate ticket per the STAGE-LEDGER `S-jurisdictions` row.
 - **What's deliberately deferred:** Tier 1 attestation substrate (`member_business_jurisdiction_attestations`), Tier 2 document upload + OCR, attestation-threshold worker, public verification-source filter, multi-jurisdiction surface affordance, family-business co-jurisdiction surface. All per `business-jurisdiction.md` § What does not ship at b1.
 

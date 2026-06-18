@@ -12,7 +12,7 @@ status: draft
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) — the viewer side. Also seeds P3 (variable-cadence producer).
 **Primitive shape:** Person → `members` (read) + `member_follows` (write).
 **Status:** backlog
-**Replaces:** F025 (archived 2026-05-28). Splits per ADR-20 reframe — F032 takes the Member page; F035 takes the Group page.
+**Replaces:** F025 (archived 2026-05-28). Splits per the reframe — F032 takes the Member page; F035 takes the Group page.
 
 ## The Person
 

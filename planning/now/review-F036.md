@@ -94,7 +94,7 @@ The data model is fully landed (Phase 1 substrate ships `groups`, `group_busines
 
 - **Partial-state preservation on abandonment** — described as a UX commitment ("each step writes incrementally"). Implementation pattern not specified. **Recommend** ticket writer makes this an explicit ticket with acceptance criteria.
 - **Anchor Location doesn't exist** — sub-flow opens to add new Location; on save, returns to walkthrough. Pattern not yet in DLS; bespoke per scenario.
-- **Brand name collision** — handled by slug-suffix-on-create per ADR-22 (now in `playbooks/PLATFORM-PATTERNS.md`). Display name has no uniqueness constraint.
+- **Brand name collision** — handled by slug-suffix-on-create (now in `playbooks/PLATFORM-PATTERNS.md`). Display name has no uniqueness constraint.
 - **Loading state during submit** — not specified. **Recommend** standard button-disabled-during-submit + spinner pattern (Button — primary already implies it).
 - **Error state on submit failure** — not specified. **Recommend** ticket writer asks for inline error display + retry, no destructive rollback (partial state preservation should mean the user doesn't lose typed data).
 
@@ -170,7 +170,7 @@ This review is a pre-flight on a backlog scenario, requested by the PM ahead of 
 | # | Disposition | Rationale |
 |---|---|---|
 | 1 | **Fold-in (already applied)** | Mandatory critical. TOCTOU re-assertion added on both `groups` UPDATE and `group_businesses` UPDATE; `rowCount === 0` surfaces concurrent activate as `STATE_CONFLICT`. |
-| 2 | **Fold-in (already applied)** | Mandatory critical. Random 4-byte hex suffix on draft slug at insert; `activate` re-derives the user-visible slug per ADR-22 on promotion. |
+| 2 | **Fold-in (already applied)** | Mandatory critical. Random 4-byte hex suffix on draft slug at insert; `activate` re-derives the user-visible slug on promotion. |
 | 3 | **Fold-in** | One-line migration edit, free window before commit, prevents misleading orphan event_kind in CHECK. |
 | 4 | **Defer** | No `group.member_remove` handler exists at b1 — the race is theoretical. Add when that handler lands. |
 | 5 | **Fold-in** | Three-line extract to new `src/actions/group/constants.ts`. Pre-empts schema drift when a new kind is added. |

@@ -116,7 +116,7 @@ Walk in order. Report per category.
 - The active bundle plan lives in `planning/now/` as `bundle-{N}.md`, with artifacts `bundle-{N}-themes.md` and `bundle-{N}-checklist.md` alongside it.
 - Only one active bundle plan belongs in `planning/now/`. A closed bundle and its artifacts move to `planning/done/`. Surface drift in either direction.
 - Every shipped user-visible version still has a one-line row in `planning/RELEASES.md`.
-- Every shipped user-visible version has a one-line row in `planning/RELEASES.md` pointing at its `{owning-dir}/archive/vN-{slug}/RELEASE.md` per ADR-25 (pre-2026-05-28 versions cite `_attic/YYYY-MM-DD-vN-{slug}/RELEASE.md` and are grandfathered). Surface missing rows.
+- Every shipped user-visible version has a one-line row in `planning/RELEASES.md` pointing at its `{owning-dir}/archive/vN-{slug}/RELEASE.md` (pre-2026-05-28 versions cite `_attic/YYYY-MM-DD-vN-{slug}/RELEASE.md` and are grandfathered). Surface missing rows.
 
 **5. Closed kanban items.** Walk `planning/done/`. Items older than ~60 days with no follow-up references → propose archive to `_attic/YYYY-MM-DD-kanban-done/` (preserves the trail without growing `done/` indefinitely). Don't auto-move.
 
@@ -131,7 +131,7 @@ Detection heuristics (any 2 of):
 - A `## Summary` or `## Checklist` table summarizing per-item state.
 
 For each candidate, propose:
-- Atomize → one stub per item in `{plan-area}/items/`, original archived to `{plan-area}/archive/YYYY-MM-DD-{slug}/` (per ADR-25 — directory-local archives). Use the stub shape in DEV-PATTERN § Atomize big plans § The mechanics.
+- Atomize → one stub per item in `{plan-area}/items/`, original archived to `{plan-area}/archive/YYYY-MM-DD-{slug}/` (directory-local archives). Use the stub shape in DEV-PATTERN § Atomize big plans § The mechanics.
 - Or: skip (the plan is a coherent reference, items are tightly sequenced, or meta-content is load-bearing without a durable home yet).
 
 Do not auto-atomize. The mechanics are PM-ratified per-doc — atomization changes how the work is tracked and may need to land a meta-content home first.
@@ -145,7 +145,7 @@ Single document, eight sections (1, 2, 3, 4, 4a, 5, 6, 7). Each finding: file(s)
 For each ratified finding:
 - Frontmatter fixes → edit in place.
 - File moves → `git mv` + update REGISTRY + grep-and-update back-references.
-- Archive moves → `git mv` to `{owning-dir}/archive/YYYY-MM-DD-{slug}/` per ADR-25 + leave one-line stub if anything cites the original. (Pre-2026-05-28 archives at `_attic/` are grandfathered — do not retroactively move.)
+- Archive moves → `git mv` to `{owning-dir}/archive/YYYY-MM-DD-{slug}/` + leave one-line stub if anything cites the original. (Pre-2026-05-28 archives at `_attic/` are grandfathered — do not retroactively move.)
 - Propagation acks → no file change; optional JOURNAL entry.
 
 Commit at end: `docs(tidy): {YYYY-MM-DD} doc sweep — {N} findings landed`.

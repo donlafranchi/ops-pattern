@@ -70,7 +70,7 @@ Implicit: `items.kind='product'`, `items.member_id=<seller>`, `items.state='publ
 
 **Given** the product is filed under a business Group with anchor Location resolving to a place path
 **When** the URL is generated
-**Then** the URL is `/p/[…place]/g/[group-slug-suffix]/p/[title-slug-suffix]` per ADR-20 + ADR-22. If sold as individual (no Group filing), URL is `/m/[handle]/p/[title-slug-suffix]`.
+**Then** the URL is `/p/[…place]/g/[group-slug-suffix]/p/[title-slug-suffix]`. If sold as individual (no Group filing), URL is `/m/[handle]/p/[title-slug-suffix]`.
 
 ### Item page shows brand resolve-up + owner
 
@@ -102,7 +102,7 @@ Implicit: `items.kind='product'`, `items.member_id=<seller>`, `items.state='publ
 
 - F036 ships before this scenario (business Group exists).
 - Phase 1 substrate: `items` + `item_products`, `item_locations`, action handlers `item.create`, `item.publish`, `item.attach_location`.
-- ADR-20 + ADR-22 URL generation is wired.
+- URL generation is wired.
 - Locality feed (F030) reads from `discoverable_items` so new products surface on next feed query.
 
 ## Out of Scope

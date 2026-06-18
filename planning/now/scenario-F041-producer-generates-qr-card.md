@@ -22,7 +22,7 @@ The farmers-market seller, the dip vendor, the food-truck operator, the recurrin
 
 From the Item management page (or as a post-create affordance on any composer), the producer taps **"Get a QR card."** The `item.qr_card.request` action handler fires. A PNG generates server-side at print-quality DPI (300+), encoding the Item's kind-specific canonical URL. The PNG downloads (or is offered as a one-tap save on mobile).
 
-The QR card can be printed at any size; the URL embedded resolves to the Item's place-scoped path (per ADR-20 + ADR-22): `/p/[…place]/g/[group-slug-suffix]/p/[item-slug-suffix]` for products, `/e/[slug-suffix]` for gatherings, etc.
+The QR card can be printed at any size; the URL embedded resolves to the Item's place-scoped path: `/p/[…place]/g/[group-slug-suffix]/p/[item-slug-suffix]` for products, `/e/[slug-suffix]` for gatherings, etc.
 
 ## Surfaces
 
@@ -52,7 +52,7 @@ Implicit: action handler `item.qr_card.request` fires; PNG is generated (not sto
 
 **Given** a generated QR card
 **When** scanned by any QR reader
-**Then** the embedded URL is the Item's place-scoped canonical URL per ADR-20 + ADR-22 (e.g., `/p/sacramento/oak-park/g/oak-park-sourdough-7gx9/p/country-sourdough-loaf-4mzx`). Scanner opens the platform in the browser to that page.
+**Then** the embedded URL is the Item's place-scoped canonical URL (e.g., `/p/sacramento/oak-park/g/oak-park-sourdough-7gx9/p/country-sourdough-loaf-4mzx`). Scanner opens the platform in the browser to that page.
 
 ### Works across all Item kinds
 
@@ -76,7 +76,7 @@ Implicit: action handler `item.qr_card.request` fires; PNG is generated (not sto
 
 - **Item is unpublished (`state='draft'`):** affordance hidden — QR cards are for findable Items only.
 - **Item is soft-deleted:** affordance hidden; existing printed cards land on a 404.
-- **Item slug changes (rare with random suffix):** existing QR cards land on the new URL via redirect if `slug_history` exists for Items (b2 surface; at b1, slug is set on create and immutable per ADR-22).
+- **Item slug changes (rare with random suffix):** existing QR cards land on the new URL via redirect if `slug_history` exists for Items (b2 surface; at b1, slug is set on create and immutable).
 - **PNG generation fails server-side:** error toast + retry button.
 - **Repeated requests:** allowed; each generates a fresh PNG (no rate-limit at b1 unless abuse pattern emerges).
 
@@ -84,7 +84,7 @@ Implicit: action handler `item.qr_card.request` fires; PNG is generated (not sto
 
 - Phase 1 substrate: `items` (any kind), action handler `item.qr_card.request` ships with the Phase 2 surface batch.
 - PNG generation library available server-side (e.g., `qrcode` npm package or equivalent).
-- ADR-22 random-suffix slugs are stable post-create (no slug regeneration on edit).
+- Random-suffix slugs are stable post-create (no slug regeneration on edit).
 - `items.qr_card_url` column may or may not be populated; cached-vs-on-demand is an implementation detail for the build agent.
 
 ## Out of Scope

@@ -12,7 +12,7 @@ status: draft
 **Canonical example:** [O1 — A group meets at a regular time and place](../../product/needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) — Run Club at Drake's.
 **Primitive shape:** Person → Item(kind='gathering', recurring) → Location(permanent, pre-attached); optional kind='event_anchored' Group emergence reserved for b2.
 **Status:** backlog
-**Replaces:** F018 (archived; reframed). Fixes the three review blockers from the 2026-05-18 REVISE verdict: (1) `item.md` state enum reconciliation (now `draft/published/withdrawn/fulfilled/closed`), (2) design-language component recipes for kind picker / Share-link / Event-page recurring surface, (3) `/i/` → `/e/` URL slot + kind-label harmonization. URLs now follow ADR-20 + ADR-22 (place-scoped + random-suffix slug).
+**Replaces:** F018 (archived; reframed). Fixes the three review blockers from the 2026-05-18 REVISE verdict: (1) `item.md` state enum reconciliation (now `draft/published/withdrawn/fulfilled/closed`), (2) design-language component recipes for kind picker / Share-link / Event-page recurring surface, (3) `/i/` → `/e/` URL slot + kind-label harmonization. URLs now follow the place-scoped + random-suffix slug pattern.
 
 ## The Person
 
@@ -77,7 +77,7 @@ Implicit: `items.kind='gathering'`, `items.member_id=<host>`, `items.state='publ
 
 **Given** the gathering is published under a venue
 **When** the URL is generated
-**Then** the URL takes the shape `/p/[…place]/l/[location-slug]/e/[title-slug]-[4-char-random]` per ADR-20 + ADR-22. If no venue is attached (composer entered from `/you`), URL falls back to `/m/[handle]/e/[title-slug]-[4-char-random]`.
+**Then** the URL takes the shape `/p/[…place]/l/[location-slug]/e/[title-slug]-[4-char-random]`. If no venue is attached (composer entered from `/you`), URL falls back to `/m/[handle]/e/[title-slug]-[4-char-random]`.
 
 ### Item page shows next occurrence + Share-link
 
@@ -95,7 +95,7 @@ Implicit: `items.kind='gathering'`, `items.member_id=<host>`, `items.state='publ
 
 - **Unauthenticated host attempt:** "Host something here" → auth flow with return URL; composer opens after sign-in with Location still pre-attached.
 - **Recurrence in the past:** validation error — first occurrence must be in the future.
-- **Slug collision:** the random suffix is collision-resistant by construction (per ADR-22); on the unlikely collision, regenerate suffix.
+- **Slug collision:** the random suffix is collision-resistant by construction; on the unlikely collision, regenerate suffix.
 - **Member cancels a single occurrence:** out of scope at b1; recurrence is uninterruptible until edit-gathering ships (b2).
 - **Member edits the gathering after publish:** at b1, edit covers title, description, hashtags, recurrence, capacity, cost, what-to-bring — not host, kind, or Location.
 

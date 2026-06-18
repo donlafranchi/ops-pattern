@@ -22,7 +22,7 @@ Adopt the posture. Sequence three audiences across three phases.
 
 ## Substrate readiness — mostly already there
 
-- `product/systems/action-layer.md` (ADR-7) — same-transaction row+event invariant, scope catalog, scoped capability vending, credential injection at the network edge. This is the trust model any external app would need.
+- `product/systems/action-layer.md` — same-transaction row+event invariant, scope catalog, scoped capability vending, credential injection at the network edge. This is the trust model any external app would need.
 - `product/systems/agent-assistance.md` — Skills as Member-deployed code running against the action layer.
 - `product/systems/payments.md` — wealth-circulation rubric (fees / float / rail-ownership / lock-in) as the selection process for any commerce surface.
 
@@ -63,7 +63,7 @@ Does opening the platform increase Member power or invite extraction? Lexicograp
 
 ## Cross-references
 
-- `product/systems/action-layer.md` (ADR-7) — substrate
+- `product/systems/action-layer.md` — substrate
 - `product/systems/agent-assistance.md` — Skill primitive
 - `product/systems/payments.md` — wealth-circulation rubric, no platform fees
 - `product/systems/producer-tools.md` — what the b2 producer app extends from

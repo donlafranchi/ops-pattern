@@ -55,7 +55,7 @@ Legalized by `pipeline-process-audit-2026-05-22.md` R3 — codifies what T041–
 Substrate-ticket header differs from a scenario-driven ticket on three fields only:
 
 - **Scenario:** `substrate`
-- **Serves:** name the system spec section(s) + ADR(s) that are the contract — e.g. `product/systems/member.md § Schema; ADR-7`. The system-spec section *is* the Given/When/Then for substrate work; the ADR(s) supply the rationale.
+- **Serves:** name the system spec section(s) that are the contract — e.g. `product/systems/member.md § Schema`. The system-spec section *is* the Given/When/Then for substrate work.
 - **Acceptance Criteria:** mirror the spec section literally — column names, constraint names, RLS policy names. Drift from the spec is a `DEVIATIONS.md` entry, same as any other ticket.
 
 **Gate B still applies to substrate tickets.** Schema and RLS are the canonical Category-2 code surface — if any absolute the substrate will encode lacks a Ratified/Deferred Intent tag, stop and route to `weigh`.

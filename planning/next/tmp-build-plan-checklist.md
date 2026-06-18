@@ -22,7 +22,7 @@ status: active
 | **S-jurisdictions** — `member_business_jurisdictions` Tier 0 + `zip_is_proximal_to_location()` + handlers | [`T075-member-business-jurisdictions-substrate.md`](../../development/tickets/T075-member-business-jurisdictions-substrate.md) | ☑ **done** (merged to main) | F037 ✅, F039 (deferred); jurisdiction half of F036 | Shipped. |
 | **Polygon/centroid seed** — Sacramento-region `places` polygons + `centroid` column | [`T076-places-polygon-centroid-seed.md`](../../development/tickets/T076-places-polygon-centroid-seed.md) | ☑ **done** (merged to main) | polygon half of F036 locality step | Shipped. Seeds county/city/neighborhood tree rows only — no metro/region row (per D3); the Sacramento metro polygon belongs to S-metro (CSA grain). |
 | **S-saved-search** — wire `member.saved_search.*` handlers + "Follow this venue" CTA (table exists, migration 019) | — (not yet ticketed) | ☐ **blocked** — needs ticket | F033, F042 | Surface enablement only; substrate already shipped (T063). The remaining gate for the F033/F042 tail. |
-| **S-metro** — `metro_polygons` table + Census CSA seed + `members.home_metro_id` | — (not yet ticketed) | ☐ **next** — needs ticket | F031 | Unblocked: metro-polygon overlay D1–D4 all ratified 2026-06-02 in PLATFORM-PATTERNS (ADR-24). Table not built; needs a ticket. **Owns the Sacramento metro geometry** (CSA grain, wider than the four-county MSA). |
+| **S-metro** — `metro_polygons` table + Census CSA seed + `members.home_metro_id` | — (not yet ticketed) | ☐ **next** — needs ticket | F031 | Unblocked: metro-polygon overlay decisions all ratified 2026-06-02 in PLATFORM-PATTERNS. Table not built; needs a ticket. **Owns the Sacramento metro geometry** (CSA grain, wider than the four-county MSA). |
 | **T095 substrate** — member discoverability default-private | [`T095-member-discoverability-default-private.md`](../../development/tickets/T095-member-discoverability-default-private.md) | ☑ **done** (merged to main) | — | Shipped alongside the F037 build. |
 
 ---
@@ -41,7 +41,7 @@ status: active
 - [~] **F039 — Producer claims Locally Made (Tier 0)** · status: **deferred** · deps: F038 ✅, S-jurisdictions ✅ · *Intentionally deferred — too much product-specific nuance (per close-out ef8797b). Branch `t-f039` preserved (not merged); scenario marked deferred. Not blocked.*
 - [ ] **F033 — Viewer finds venue page** · status: **blocked** · deps: F034 ✅ · gate: **S-saved-search** (needs ticket) · *"Follow this venue" writes a default `member_saved_searches` row; needs handlers wired. Not yet ticketed.*
 - [ ] **F042 — Member follows producer, Group, venue** · status: **blocked** · deps: F032 ✅, F035 ✅, F033 · gate: **S-saved-search** · *Unified `/you/following`. Also needs group-follow substrate (`member_follows` is member→member only today). Not yet ticketed.*
-- [ ] **F031 — Member manages place-interest scope** · status: **blocked** · deps: F030 ✅ · gate: **S-metro** (needs table build + ticket; ADR-24 ratified, so unblocked at the decision level) · *Metro-polygon "wider scope" opt-in; secondary place-interest cap (≤5). Not yet ticketed.*
+- [ ] **F031 — Member manages place-interest scope** · status: **blocked** · deps: F030 ✅ · gate: **S-metro** (needs table build + ticket; ratified, so unblocked at the decision level) · *Metro-polygon "wider scope" opt-in; secondary place-interest cap (≤5). Not yet ticketed.*
 - [ ] **F043 — Newcomer completes journey under target** · status: **blocked** · deps: all above (F033, F042, F031) · gate: — · *Integration test; gates b1 close. 90s is a smell target, "no getting stuck" is the load-bearing form.*
 
 ---
@@ -51,7 +51,7 @@ status: active
 The shippable surface set is done. The remaining tail is gated on two substrate tickets that **don't exist yet**:
 
 1. **Ticket + build S-saved-search** — wire `member.saved_search.*` handlers + the "Follow this venue" CTA (table already shipped at T063, migration 019). This is the single gate blocking **F033** (venue page) and, with F033, **F042** (unified following).
-2. **Ticket + build S-metro** — `metro_polygons` table + Census CSA seed + `members.home_metro_id`. ADR-24 ratified the metro-overlay design (D1–D4), so this is unblocked at the decision level — it just needs the table built and a ticket. Gates **F031** (place-interest scope).
+2. **Ticket + build S-metro** — `metro_polygons` table + Census CSA seed + `members.home_metro_id`. The metro-overlay design is ratified, so this is unblocked at the decision level — it just needs the table built and a ticket. Gates **F031** (place-interest scope).
 
 Recommended immediate sequence:
 1. Ticket + build **S-saved-search**, then scope → review → ticket → build **F033**.

@@ -33,19 +33,19 @@ The labels in the nav stay simple ("Home" / "Explore" / "You") because every soc
 
 | ID | Name | Tier | Status | Notes |
 |----|------|------|--------|-------|
-| C1 | Locality Feed (Home) | T1 | Design | Mixed cards from Items declared in the Member's locality; extend with the Event card type that covers all gathering categories (ADR-5 — `items.kind = 'gathering'`). Folded in from the prior `capabilities/consumer-feed.md` on 2026-05-22; spec lives in the T1 Home section below. |
-| ~~C2~~ | ~~Business Events~~ | — | **Archived** | Capability rewrote as: Event Items hosted by Members (per ADR-5; schema `items.kind = 'gathering'`). The standalone "business events" framing is retired; original in `capabilities/archive/business-events.md`. |
+| C1 | Locality Feed (Home) | T1 | Design | Mixed cards from Items declared in the Member's locality; extend with the Event card type that covers all gathering categories (`items.kind = 'gathering'`). Folded in from the prior `capabilities/consumer-feed.md` on 2026-05-22; spec lives in the T1 Home section below. |
+| ~~C2~~ | ~~Business Events~~ | — | **Archived** | Capability rewrote as: Event Items hosted by Members (schema `items.kind = 'gathering'`). The standalone "business events" framing is retired; original in `capabilities/archive/business-events.md`. |
 | ~~C3~~ | ~~Business Updates~~ | — | **Archived** | Capability replaced by [`systems/producer-tools.md`](../systems/producer-tools.md) — Member-authored broadcast to followers, optional kind='business' Group branding. |
-| ~~C4~~ | ~~Class / Workshop event type~~ | — | **Resolved by ADR-5** | Events with `category=class` or `category=workshop`. Not a separate kind. |
-| ~~C5~~ | ~~Community Project event type~~ | — | **Resolved by ADR-5** | Events with `category=community-project` (or similar). Not a separate kind. |
-| ~~C6~~ | ~~Market-as-event~~ | — | **Resolved by ADR-5** | A market is an Event (`items.kind = 'gathering'`). No separate "market" entity or feed-card. |
-| C7 | Producer Bulletin (broadcast to followers) | T2 | Proposed | Substack-light; see [`systems/producer-tools.md`](../systems/producer-tools.md). Member-authored; gated on `member_has_standing_presence` (per ADR-12 + ADR-13). |
+| ~~C4~~ | ~~Class / Workshop event type~~ | — | **Resolved** | Events with `category=class` or `category=workshop`. Not a separate kind. |
+| ~~C5~~ | ~~Community Project event type~~ | — | **Resolved** | Events with `category=community-project` (or similar). Not a separate kind. |
+| ~~C6~~ | ~~Market-as-event~~ | — | **Resolved** | A market is an Event (`items.kind = 'gathering'`). No separate "market" entity or feed-card. |
+| C7 | Producer Bulletin (broadcast to followers) | T2 | Proposed | Substack-light; see [`systems/producer-tools.md`](../systems/producer-tools.md). Member-authored; gated on `member_has_standing_presence`. |
 | C8 | RSVP / "I'm going" | T2 | Proposed | Event social proof, attendee count. |
-| C9 | You — Member tab | T1 | Design | Follows, locality, settings. Every Member has the same surface, with selling-tool affordances appearing conditionally per ADR-12 SUPERSEDED 2026-05-12 — visible when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. |
-| C10 | You — Seller section (conditional) | T1 | Design | **Per ADR-12 SUPERSEDED 2026-05-12:** appears when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. Entered via the "Sell" CTA (which walks the Member through kind='business' Group creation per [`../systems/groups.md`](../systems/groups.md)). List/edit Items, appearance schedule, followers count. To stop selling, the Member ends their owner-role membership; the kind='business' Group enters its 90-day dormancy window per `groups.md`. Full producer panel defers to T2 (see [`../systems/producer-tools.md`](../systems/producer-tools.md)). |
-| C11 | Active locality selector | T1 | Design | **Per ADR-4:** geolocate first, city-pick fallback, mutable from any locality-dependent surface. |
+| C9 | You — Member tab | T1 | Design | Follows, locality, settings. Every Member has the same surface, with selling-tool affordances appearing conditionally — visible when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. |
+| C10 | You — Seller section (conditional) | T1 | Design | Appears when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. Entered via the "Sell" CTA (which walks the Member through kind='business' Group creation per [`../systems/groups.md`](../systems/groups.md)). List/edit Items, appearance schedule, followers count. To stop selling, the Member ends their owner-role membership; the kind='business' Group enters its 90-day dormancy window per `groups.md`. Full producer panel defers to T2 (see [`../systems/producer-tools.md`](../systems/producer-tools.md)). |
+| C11 | Active locality selector | T1 | Design | Geolocate first, city-pick fallback, mutable from any locality-dependent surface. |
 | C12 | Following list (folded into You) | T1 | Design | `/following` route deprecated; surfaces as a section on /you. |
-| ~~C13~~ | ~~Maker activity signal (derived)~~ | — | **Resolved by ADR-12 SUPERSEDED 2026-05-12** | The derived `maker_signal` from the original ADR-3 was rejected. Standing-tier surfaces gate on `member_has_standing_presence` (per groups.md — the view returns true if the Member has ≥1 active kind='business' Group membership OR steward-role membership in any non-business Group); selling-tool surface visibility gates on the same Group / Item signals (`maker_mode_enabled` is dropped). Curation surfaces (e.g., "Featured Seller of the week") read from those signals plus engagement, not from a behavior-derived score. |
+| ~~C13~~ | ~~Maker activity signal (derived)~~ | — | **Resolved** | The derived `maker_signal` from the original derived-signal proposal was rejected. Standing-tier surfaces gate on `member_has_standing_presence` (per groups.md — the view returns true if the Member has ≥1 active kind='business' Group membership OR steward-role membership in any non-business Group); selling-tool surface visibility gates on the same Group / Item signals (`maker_mode_enabled` is dropped). Curation surfaces (e.g., "Featured Seller of the week") read from those signals plus engagement, not from a behavior-derived score. |
 
 ---
 
@@ -53,11 +53,11 @@ The labels in the nav stay simple ("Home" / "Explore" / "You") because every soc
 
 ### T1 — MVP (b1)
 
-**Home (locality feed):** Vertical scroll of mixed cards, scoped by the Member's locality (geolocate → city-pick fallback per ADR-4). Card types in MVP:
+**Home (locality feed):** Vertical scroll of mixed cards, scoped by the Member's locality (geolocate → city-pick fallback). Card types in MVP:
 
-- **Event** — one card type covering farmers markets, swap meets, classes, run clubs, movie nights, community projects, etc. (per ADR-5 — "market session" is not a distinct card; it's an Event with `category=farmers-market`). Schema `items.kind = 'gathering'`.
+- **Event** — one card type covering farmers markets, swap meets, classes, run clubs, movie nights, community projects, etc. ("market session" is not a distinct card; it's an Event with `category=farmers-market`). Schema `items.kind = 'gathering'`.
 - **Idea** — a Member's open question or curiosity declared as an Item. Schema `items.kind = 'wonder'`.
-- **Seller update** — a text post from a Member who has ≥1 active kind='business' Group membership OR at least one product/service Item. The Group / Item state is the explicit gate per ADR-12 SUPERSEDED 2026-05-12.
+- **Seller update** — a text post from a Member who has ≥1 active kind='business' Group membership OR at least one product/service Item. The Group / Item state is the explicit gate.
 - **Featured Seller of the week** — curated.
 - **Followed-Member float** — content from Members the viewer follows surfaces above general locality content.
 
@@ -83,16 +83,16 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 
 **Acceptance signal (Explore).** An unauthenticated visitor navigates to `/explore`, enters a location, sees a list of nearby Items without being prompted to sign up, and can reach an Item page in two taps.
 
-**You:** Single tab in MVP (everyone is a Member; selling-tool affordances appear conditionally per ADR-12 SUPERSEDED 2026-05-12):
+**You:** Single tab in MVP (everyone is a Member; selling-tool affordances appear conditionally):
 
-- **Locality control** (change `home_location_id`; the same control surfaces on locality-dependent pages too — per ADR-4).
+- **Locality control** (change `home_location_id`; the same control surfaces on locality-dependent pages too).
 - **Followed Members section** (replaces `/following` route).
 - **Multi-Location affinities surface** (b2 — the Member's `lives` / `works` / `plays` / `visits` / `follows` / `liked` Locations, per [`../systems/member.md`](../systems/member.md)).
 - **Recently viewed.**
 - **Notification preferences.**
-- **"Sell" CTA** (per ADR-12 SUPERSEDED 2026-05-12) — visible to Members with no active kind='business' Group membership and no kind='product'/'service' Items. Tapping it opens the kind='business' Group creation walkthrough per [`../systems/groups.md`](../systems/groups.md).
+- **"Sell" CTA** — visible to Members with no active kind='business' Group membership and no kind='product'/'service' Items. Tapping it opens the kind='business' Group creation walkthrough per [`../systems/groups.md`](../systems/groups.md).
 - **Conditional Seller section** — renders when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item. List/edit your Items, your appearance schedule, your followers count. To stop selling, the Member ends their owner-role Group membership; the Group enters its 90-day dormancy window per `groups.md` (there is no "pause toggle" — the Group lifecycle is the off-switch).
-- **Data export** (per ADR-6 b1 commitment) — `/you/data` JSON export of the Member's full envelope (profile, Items, follows, memberships, Assistant Context). One-tap purge action also lives there.
+- **Data export** (b1 commitment) — `/you/data` JSON export of the Member's full envelope (profile, Items, follows, memberships, Assistant Context). One-tap purge action also lives there.
 - **Sign out.**
 
 **Explicitly deferred from MVP:**
@@ -100,13 +100,13 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 - Producer Bulletin (broadcast to followers) — too much net-new infra for b1.
 - RSVP — wait for Event volume to justify.
 - Producer panel full dashboard (followers growth chart, profile views, insights) — at b1 the Seller section is just list/edit; the full producer-growth surface defers to T2.
-- Multiple saved localities ("home + while traveling") — single mutable scope at b1 (ADR-4); multi-scope is T3.
+- Multiple saved localities ("home + while traveling") — single mutable scope at b1; multi-scope is T3.
 
-**Note on previously deferred items now resolved by ADR:**
+**Note on previously deferred items now resolved:**
 
-- ~~Class / workshop event type~~ — per ADR-5 these are Events with the right category, not a separate kind.
+- ~~Class / workshop event type~~ — these are Events with the right category, not a separate kind.
 - ~~Community projects~~ — same: Events with `category=community-project` (or similar).
-- ~~Active locality header pill deferred to T3~~ — superseded by ADR-4: locality affordance ships at b1, on locality-dependent surfaces.
+- ~~Active locality header pill deferred to T3~~ — superseded: locality affordance ships at b1, on locality-dependent surfaces.
 
 ### T2 — Core (b2)
 
@@ -158,8 +158,8 @@ Add filters at top of feed: All / Events / Ideas / Seller updates / Bulletins.
 
 ## Changelog
 
-**2026-05-11** — Phase 4 cleanup pass. Replaced "Nextdoor-style location-locked feed" hypothesis framing with locality-aware-but-not-Location-scoped framing aligned with the anti-Nextdoor commitment in policy.md. Replaced "Shopper tab" / "Business tab" with "Member tab" / "Producer panel" throughout. Replaced "vendor" references with "Member operating in producer capacity" / "producer Member." Updated C10 to reference kind='business' Group creation walkthrough (per ADR-13) rather than the retired `member-operations.md`. Archived C2 (Business Events) and C3 (Business Updates) as obsolete framings; their successors are gathering Items (per ADR-5) and producer-tools.md respectively. Added Group/Location-follow card types to T2 feed. Added Group panel to T2 You-tab. Added DM inbox to T3 You-tab. Added data export to T1 You-tab (already exists at b1 substrate per ADR-6).
+**2026-05-11** — Phase 4 cleanup pass. Replaced "Nextdoor-style location-locked feed" hypothesis framing with locality-aware-but-not-Location-scoped framing aligned with the anti-Nextdoor commitment in policy.md. Replaced "Shopper tab" / "Business tab" with "Member tab" / "Producer panel" throughout. Replaced "vendor" references with "Member operating in producer capacity" / "producer Member." Updated C10 to reference kind='business' Group creation walkthrough rather than the retired `member-operations.md`. Archived C2 (Business Events) and C3 (Business Updates) as obsolete framings; their successors are gathering Items and producer-tools.md respectively. Added Group/Location-follow card types to T2 feed. Added Group panel to T2 You-tab. Added DM inbox to T3 You-tab. Added data export to T1 You-tab (already exists at b1 substrate).
 
-**2026-05-08** — Three ADR alignments. ADR-3: Maker profile is implicit (no toggle); /You renders Maker sections conditionally on product Item activity. C9 renamed to "Member tab"; C10 reframed; C13 added for the derived activity signal. ADR-4: locality default is geolocate-then-city-pick, mutable from any locality-dependent surface — supersedes the prior /you-only decision on C11. ADR-5: a market is a Gathering Item; gathering is broad and varied (farmers markets, swap meets, classes, workshops, community projects, etc.) — C4, C5, C6 resolved as gathering categories rather than separate event types. "Market session" feed-card type removed; one gathering card covers all categories.
+**2026-05-08** — Three decision alignments. Maker profile is implicit (no toggle); /You renders Maker sections conditionally on product Item activity. C9 renamed to "Member tab"; C10 reframed; C13 added for the derived activity signal. Locality default is geolocate-then-city-pick, mutable from any locality-dependent surface — supersedes the prior /you-only decision on C11. A market is a Gathering Item; gathering is broad and varied (farmers markets, swap meets, classes, workshops, community projects, etc.) — C4, C5, C6 resolved as gathering categories rather than separate event types. "Market session" feed-card type removed; one gathering card covers all categories.
 
 **2026-04-25** — Initial product file. Consolidates Home/Explore/You roles, decides location selector lives on /you (not header), defers Bulletin and event-type expansion to T2.

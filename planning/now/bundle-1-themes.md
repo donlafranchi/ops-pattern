@@ -78,7 +78,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 **What ships:**
 - Member sign-up, profile, public `/m/[handle]` page
-- Locality default per ADR-4 (geolocate or city pick → `members.home_location_id`)
+- Locality default (geolocate or city pick → `members.home_location_id`)
 - Privacy controls per `member.md` b1 set: profile visibility, item display, follow display, locality precision, allow DMs (substrate)
 - Browse Items + Members at city scope, no login required for read
 - URL namespacing per `b1.x` lands here
@@ -130,7 +130,7 @@ A schema decision that must be made before any public URL exists, because it con
 **What ships:**
 - Create a `kind='business'` Group (sole prop = Group of one per `groups.md`)
 - Required at create: name, founder = operating owner, anchor Location, ZIP for Tier 0 self-attested locality per `business-jurisdiction.md`
-- "Become a Maker" CTA + `maker_mode_enabled` toggle per `member.md` Maker mode (ADR-12)
+- "Become a Maker" CTA + `maker_mode_enabled` toggle per `member.md` Maker mode
 - Business Group page with "Claimed local owner" badge (Tier 0)
 - The substrate read path from b1.1 — `member_has_standing_presence` — becomes user-visible (Maker surfaces render only for Members with standing presence)
 

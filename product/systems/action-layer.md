@@ -21,7 +21,7 @@ The argument for elevating this from "good architecture" to "first-class archite
 
 The action layer is also the substrate that makes agent assistance safe. Member-facing primitives like Delegation describe what the Member has authorized; the action layer is what *honors* that authorization at runtime. The Member sees: "I allowed my assistant to draft Wonders." The action layer turns that into: vend a per-turn capability bound to `draft_wonder`, inject it at the egress edge, evaluate the scope at handler entry, gate `confirm_publish_item` behind a Member tap, write the row + event in one transaction with the Delegation id stamped on the event. The Member never sees this machinery; that's the point.
 
-This document supersedes the prior inline ADR-7 treatment in `playbooks/DEVELOPMENT-PATTERNS.md`. ADR-7's full ratification lives here.
+This document supersedes the prior inline action-layer treatment in `playbooks/DEVELOPMENT-PATTERNS.md`. The action layer's full ratification lives here.
 
 ## The runtime trust substrate
 
@@ -134,7 +134,7 @@ The action layer does not introduce opt-ins of its own. Opt-ins live in `agent-a
 - **Credentials never traverse agent context.** The edge mints and applies; the agent never holds. Code review rejects any pathway that puts a long-lived credential in an agent-readable surface.
 - **System Member writes are honest.** The platform attributes its own events to handle='system' (a real, login-disabled Member row), not to a fake placeholder.
 
-The three-filter test (per `policy.md` / ADR-9) applies to every new scope added to the catalog: helpful? harm-free for others? abuse-resistant? Catalog additions without a three-filter pass are rejected at code review.
+The three-filter test (per `policy.md`) applies to every new scope added to the catalog: helpful? harm-free for others? abuse-resistant? Catalog additions without a three-filter pass are rejected at code review.
 
 **CI enforcement — deadline-pressure-safe defaults.** Four CI rules (per ticket T051, extending T043's conformance script) make the McKinsey/Lily-class failure mode unreachable: (1) `pg.Pool` and service-role credentials are forbidden outside `web/src/actions/_lib/`; (2) every non-GET `route.ts` under `web/src/app/api/**` must import from `@/actions/`, so a writeable endpoint physically cannot skip the handler's auth check; (3) every public table has RLS enabled, asserted in Vitest against the live DB; (4) `.query` and `.rpc` template literals cannot contain string interpolations — parameterized `$1, $2` is the only sanctioned path. Build fails on violation. The point is that these properties survive an exhausted developer at 11pm: there is no shortcut that lints clean. The closed-world catalog above and the network-layer credential injection (§ "Network-layer credential injection") are the design-time commitments; these four rules are how the design holds when the codebase grows and the team is under shipping pressure.
 
@@ -150,7 +150,7 @@ The three-filter test (per `policy.md` / ADR-9) applies to every new scope added
   - **Delegation** (the action layer validates Delegation scope on every agent-originated call; per [`agent-assistance.md`](agent-assistance.md))
   - **Assistant Context** (Assistant Context reads/writes flow through the action layer with scope enforcement; per [`agent-assistance.md`](agent-assistance.md))
   - **Skills** (Skills run in the sandbox defined here; Skill writes flow through the action layer; per [`agent-assistance.md`](agent-assistance.md))
-  - **Event log** (every action writes its event row in the same transaction as the primitive row; the `*_events` tables — `item_events`, `member_events`, `group_events`, `location_events` — are the canonical history, partitioned monthly, with audit fields per ADR-7)
+  - **Event log** (every action writes its event row in the same transaction as the primitive row; the `*_events` tables — `item_events`, `member_events`, `group_events`, `location_events` — are the canonical history, partitioned monthly, with audit fields)
   - **All primitive writes** (Item, Group, Member, Location lifecycle handlers; per their respective specs)
 - **Used by:**
   - The web composer (every form submit → action handler)
@@ -169,13 +169,13 @@ The three-filter test (per `policy.md` / ADR-9) applies to every new scope added
 
 ## Decisions encoded here
 
-This spec is the live home for **ADR-7 (Action layer is a first-class architectural commitment)**. The full ratification text — previously inline in `playbooks/DEVELOPMENT-PATTERNS.md` — moved here on graduation. The cross-cutting pointer in `playbooks/DEVELOPMENT-PATTERNS.md` references this spec.
+This spec is the live home for the **action layer as a first-class architectural commitment**. The full ratification text — previously inline in `playbooks/DEVELOPMENT-PATTERNS.md` — moved here on graduation. The cross-cutting pointer in `playbooks/DEVELOPMENT-PATTERNS.md` references this spec.
 
-| ADR | Status | What lives here |
-|---|---|---|
-| ADR-7 | Accepted | The action layer is the single canonical write surface. Named, schema-validated, transactional handlers; same-transaction row+event commit; audit fields populated inside the handler; system Member as the platform actor. The runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution) is enforced here. Web composer, in-app assistant, MCP server, and federation peers are all thin clients over the same handlers. |
+| Status | What lives here |
+|---|---|
+| Accepted | The action layer is the single canonical write surface. Named, schema-validated, transactional handlers; same-transaction row+event commit; audit fields populated inside the handler; system Member as the platform actor. The runtime trust substrate (scoped capabilities, closed-world catalog, unbypassable approval gates, network-layer credential injection, per-turn capability selection, sandboxed Skill execution) is enforced here. Web composer, in-app assistant, MCP server, and federation peers are all thin clients over the same handlers. |
 
-This spec also *consumes* and enforces decisions from other ADRs without owning them:
+This spec also *consumes* and enforces decisions from other specs without owning them:
 
-- **ADR-6** (`agent-assistance.md`) — the read-automatable/write-confirmed commitment is enforced by the confirmation-required scope tier here.
-- **ADR-9** (`policy.md`) — the three-filter test applies to every catalog addition; the closed-world catalog is what makes anti-Nextdoor refusals structurally unreachable.
+- **`agent-assistance.md`** — the read-automatable/write-confirmed commitment is enforced by the confirmation-required scope tier here.
+- **`policy.md`** — the three-filter test applies to every catalog addition; the closed-world catalog is what makes anti-Nextdoor refusals structurally unreachable.

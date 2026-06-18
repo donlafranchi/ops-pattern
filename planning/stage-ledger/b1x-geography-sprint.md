@@ -1,6 +1,6 @@
 ---
 id: stage-b1x-geography-sprint
-purpose: Pipeline stage for b1.x — ADR-20 + ADR-21 geography substrate sprint.
+purpose: Pipeline stage for b1.x — geography substrate sprint.
 layer: how
 status: active
 concept_kind: substrate
@@ -8,9 +8,9 @@ stage_current: ready-to-merge
 last_activity: 2026-05-25
 ---
 
-# b1.x — ADR-20 + ADR-21 geography substrate sprint
+# b1.x — geography substrate sprint
 
-**Spec contract:** places.md; member.md § Place-interest scope / § Saved searches; item.md § Provenance; ADR-20, ADR-21
+**Spec contract:** places.md; member.md § Place-interest scope / § Saved searches; item.md § Provenance
 
 ## Stage history (append-only)
 

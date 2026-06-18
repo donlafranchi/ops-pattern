@@ -9,7 +9,7 @@
 
 **Serves:**
 - **Spec:** [`product/systems/places.md`](../../product/systems/places.md) § T1 — MVP Tier (polygon library), § Reverse-geocoder fallback, § Open questions — *Polygon source-of-truth and licensing* (resolves the b1 working answer for the launch market).
-- **Patterns:** [`playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) — ADR-0020 (locality-scoped URLs, platform-curated places), ADR-0022 (county tier). Metro-polygon overlay D1–D3 (2026-06-02): colloquial metros live in `metro_polygons`, **not** the place tree — this ticket seeds the county/city/neighborhood tree only.
+- **Patterns:** [`playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) — locality-scoped URLs, platform-curated places; county tier. Metro-polygon overlay D1–D3 (2026-06-02): colloquial metros live in `metro_polygons`, **not** the place tree — this ticket seeds the county/city/neighborhood tree only.
 - **Use cases:** [`product/needs/use-cases.md`](../../product/needs/use-cases.md) — C1 (newcomer locality feed), O3 (Concerts in the Park across the Sacramento MSA), P4 (Maya at Oak Park Sourdough).
 - **Greens half of:** [`web/evals/features/F036-member-creates-business-group-via-sell-walkthrough.spec.ts:266`](../../web/evals/features/F036-member-creates-business-group-via-sell-walkthrough.spec.ts) — the polygon-seed prerequisite for the locality-step path (the other half is the `member_business_jurisdictions` write).
 
@@ -35,7 +35,7 @@
   - `Folsom` — slug `folsom`, parent=Sacramento County.
 - [ ] **Backfill polygons.** For every existing city/county already seeded by T058 (California, Sacramento County, Yolo County, Sacramento, West Sacramento) populate `geography` from TIGER 2023. For the five existing Sacramento neighborhoods (Oak Park, Curtis Park, East Sacramento, Midtown, Land Park) populate from the City of Sacramento Open Data neighborhood polygons. Migration computes `centroid` for every backfilled row in the same transaction.
 - [ ] Polygon sources documented in the migration header (Census TIGER 2023 LINE files for state/county/CBSA; Census 2023 Places shapefile for incorporated cities; City of Sacramento Open Data for neighborhoods). Header lists exact URLs + retrieval date.
-  _Why: ADR-0020 § Curation — every polygon row needs a provenance trail so a future tier-1 admin tool can replay or supersede. Also satisfies places.md § Open questions — *Polygon source-of-truth and licensing* (TIGER + Census Places are public-domain; city open-data terms documented inline)._
+  _Why: The Curation pattern — every polygon row needs a provenance trail so a future tier-1 admin tool can replay or supersede. Also satisfies places.md § Open questions — *Polygon source-of-truth and licensing* (TIGER + Census Places are public-domain; city open-data terms documented inline)._
 - [ ] One `place_events` row per seeded/backfilled place — `event_kind = 'place.created'` for new rows, `'place.updated'` for polygon backfills. `acting_member_id` = `system_member_id`; `correlation_id` = a single UUID per migration so the seed batch can be unwound by correlation.
 - [ ] Vitest `tests/places-polygon-seed.test.ts`:
   - Asserts the four new place rows exist with expected (parent slug, slug, kind).
@@ -52,7 +52,7 @@
 - **Polygon storage strategy.** Embed the polygons inline in the migration as `ST_GeomFromGeoJSON(...)` literals OR as `\copy` from a staged CSV — the build agent picks whichever keeps the migration under ~200KB. If polygons exceed that budget, split into `024a_places_polygon_centroid_schema.sql` + `024b_places_polygon_seed_data.sql` and document the split in the migration header.
 - **Centroid invariant.** `ST_Centroid` on a MultiPolygon can fall outside the polygon for concave shapes (rare for civic boundaries, common for islands). For any row where `ST_Contains(geography, ST_Centroid(geography))` is false, use `ST_PointOnSurface` instead and note the substitution in `metadata.centroid_method`.
 - **Metro geometry → S-metro ticket.** Cross-county "wider than city" browse for the Sacramento metro is **out of scope here** and does not live in the place tree. Per D3 (2026-06-02) the metro is a `metro_polygons` overlay row, seeded at CSA grain (D2 — wider than the four-county MSA) by the future **S-metro** ticket (`metro_polygons` table + Census CSA seed + `members.home_metro_id`). This ticket stores only the county/city/neighborhood tree rows the reverse-geocoder and URL plumbing need.
-- **Encodes ratified absolutes:** `product/systems/places.md:30` (platform-curated), `product/systems/places.md:54` (parent_id is the single source of hierarchy), `playbooks/PLATFORM-PATTERNS.md` ADR-0022 (county tier).
+- **Encodes ratified absolutes:** `product/systems/places.md:30` (platform-curated), `product/systems/places.md:54` (parent_id is the single source of hierarchy), `playbooks/PLATFORM-PATTERNS.md` (county tier).
 - **SPEC-PATCHES candidates** (file at close if surfaced during build): (a) places.md § T1 county/city/neighborhood seed list — confirm it matches the rows this ticket seeds (no metro/region row; the metro is an overlay row owned by S-metro per D3); (b) places.md § Open questions — *Polygon source-of-truth* should move from "deferred" to "resolved: TIGER 2023 + Census Places + City of Sacramento Open Data" once this lands.
 
 ## Completion

@@ -12,7 +12,7 @@ target_section: § Open questions — Polygon source-of-truth and licensing; § 
 
 # Resolve polygon source-of-truth in places.md + confirm T1 seed list
 
-**What's wrong:** `places.md` § Open questions lists "Polygon source-of-truth and licensing" as deferred. T076 shipped Census TIGER/Line 2023 (counties/state/places) + City of Sacramento Open Data (neighbourhoods), all public-domain / open-licence — embedded as approximations pending S-metro full-res replay. Also need to confirm § T1 seed list matches the 024 rows (no metro/region row per D3; metros live in `metro_polygons`).
+**What's wrong:** `places.md` § Open questions lists "Polygon source-of-truth and licensing" as deferred. T076 shipped Census TIGER/Line 2023 (counties/state/places) + City of Sacramento Open Data (neighbourhoods), all public-domain / open-licence — embedded as approximations pending S-metro full-res replay. Also need to confirm § T1 seed list matches the 024 rows (no metro/region row; metros live in `metro_polygons`).
 
 **The fix:** Move the "Polygon source-of-truth and licensing" question from "deferred" to "resolved (launch market): Census TIGER/Line 2023 + City of Sacramento Open Data, all public-domain / open-licence; embedded as approximations pending S-metro full-res replay." Confirm § T1 seed list matches the 024 rows.
 

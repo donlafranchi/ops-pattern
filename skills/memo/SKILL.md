@@ -8,8 +8,6 @@ description: Walks the PM through writing or superseding a reversal memo followi
 
 Project-resident skill for writing and superseding **reversal memos** — the only document the project writes when a prior decision in force needs to be reversed by user feedback. New decisions land directly as pattern-doc entries in `playbooks/PLATFORM-PATTERNS.md` (what the platform IS or refuses to be) or `playbooks/DEVELOPMENT-PATTERNS.md` (how we build); this skill is **not** for those. It fires only when an existing pattern entry must be overturned.
 
-> **Background.** The project's decisions used to live as ADRs in a dedicated `adrs/` directory under `planning/`. On 2026-05-30 that content migrated into the playbook pattern docs, and that directory was retired. Bare `ADR-N` labels survive in specs as historical shorthand (retained for git citation stability). Reversal memos continue the old numbering sequence — ADR-1 through 0025 retain their numbers; new memos start at `memo-0024` and climb.
-
 ## When to use
 
 - User says "reverse this decision" / "user feedback contradicts {pattern entry}" / "we need to overturn X."

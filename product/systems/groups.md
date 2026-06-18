@@ -7,7 +7,7 @@ status: active
 
 # System: Group
 
-**Status:** Active. Ratified by PM; ADR-13 (Group consolidation) is the load-bearing decision.
+**Status:** Active. Ratified by PM; the Group-consolidation decision is the load-bearing one.
 
 **Purpose:** Establish Group as the platform's primitive for *people organized to do things together on the platform* — a single spine + child architecture mirroring [`item.md`](item.md)'s pattern. The platform's grammar becomes: **People form Groups to do things using Items, attached to Locations.** Some Groups affiliate — a Run Club, school parents, a family. Some Groups operate — Maya's bakery, a partnership, an auto shop. All are people, never persons.
 
@@ -93,7 +93,7 @@ Structural rules:
 
 A Member can hold any role across multiple Groups simultaneously.
 
-**Forward-looking — permissions decomposition.** Roles at b1 are fixed bundles of permissions, enforced in the action layer (per ADR-7) rather than by check constraint. A future direction (not b1) is decomposing roles into a permissions table — `group_role_permissions(kind, role, permission)` for the role-default bundle, plus optional `group_member_permissions(group_id, member_id, permission)` for per-Member overrides. This would allow custom roles like *manager* or *kitchen lead*, and granular per-Member adjustments (the long-trusted staff Member granted Item-edit rights), without expanding the role enum or migrating existing rows. The change is purely additive: the `role` column stays; new permission tables join on it. Flagged as open question for when real custom-role cases surface.
+**Forward-looking — permissions decomposition.** Roles at b1 are fixed bundles of permissions, enforced in the action layer rather than by check constraint. A future direction (not b1) is decomposing roles into a permissions table — `group_role_permissions(kind, role, permission)` for the role-default bundle, plus optional `group_member_permissions(group_id, member_id, permission)` for per-Member overrides. This would allow custom roles like *manager* or *kitchen lead*, and granular per-Member adjustments (the long-trusted staff Member granted Item-edit rights), without expanding the role enum or migrating existing rows. The change is purely additive: the `role` column stays; new permission tables join on it. Flagged as open question for when real custom-role cases surface.
 
 ## Selling, with or without a Group
 
@@ -101,7 +101,7 @@ Not every commercial transaction requires a Group. Three modes at b1, one forwar
 
 **One-off sale** — A Member posts a product Item with no Group. Photo, description, price, location. Item lifecycle: `active → fulfilled` (or `withdrawn`). The garage-sale shape, the single-loaf-of-sourdough shape, the I-don't-know-if-I'm-doing-this-again shape. `items.group_id = null`. No selling-tool surface beyond the composer; no standing tier.
 
-**Ongoing commercial** — A Member operates through a kind='business' Group. Items have `group_id` set. The Group page is the storefront. Standing tier, agent context, full selling-tool surfaces per the superseded ADR-12 (the surfaces follow Group membership, not a Member-level mode).
+**Ongoing commercial** — A Member operates through a kind='business' Group. Items have `group_id` set. The Group page is the storefront. Standing tier, agent context, full selling-tool surfaces (the surfaces follow Group membership, not a Member-level mode).
 
 **Selling on behalf of others (future, not b1)** — A Member sells things owned by other Members. Garage-sale-for-someone-else, estate-sale-for-a-neighbor, kid-selling-mom's-art. Probably warrants its own Item kind (`kind='consignment'`) with separate seller-Member and owner-Member fields. Flag for forward design; don't model now.
 
@@ -153,7 +153,7 @@ Groups do not change kind. If a Member pivots — a Run Club's organizers decide
 - They have ≥1 active membership in a kind='business' Group, **OR**
 - They have a `role='steward'` membership in any non-business Group.
 
-Replaces both `member.maker_signal` (ADR-3, deprecated) and the prior Operations-derived `member_has_standing_presence` (ADR-8, fully superseded by this spec). Assistant Context affordance prominence, agent context tier, and Skill subscription affordance read this view.
+Replaces both `member.maker_signal` (deprecated) and the prior Operations-derived `member_has_standing_presence` (fully superseded by this spec). Assistant Context affordance prominence, agent context tier, and Skill subscription affordance read this view.
 
 A Member with only one-off sale Items has no standing tier — correctly.
 
@@ -183,7 +183,7 @@ create table groups (
     'place','interest','practice','event_anchored','family','business'
   )),
   anchor_location_id uuid references locations(id) on delete set null,
-  place_id uuid references places(id),  -- anchor Place (ADR-20); derived — see Place anchoring below
+  place_id uuid references places(id),  -- anchor Place; derived — see Place anchoring below
   parent_group_id uuid references groups(id) on delete set null,
   founder_member_id uuid not null references members(id),
   description text not null,
@@ -202,7 +202,7 @@ create table groups (
   dormant_at timestamptz,           -- when entered dormancy (null otherwise)
   dissolves_at timestamptz,         -- scheduled dissolution time during dormancy
   dissolved_at timestamptz,
-  unique (place_id, slug)           -- per-Place slug namespace (ADR-20); replaces global unique on slug
+  unique (place_id, slug)           -- per-Place slug namespace; replaces global unique on slug
 );
 
 create index idx_groups_anchor on groups (anchor_location_id) where dissolved_at is null;
@@ -245,7 +245,7 @@ create index idx_memberships_role on group_memberships (group_id, role)
   where left_at is null;
 ```
 
-Role validation per kind is enforced in the action layer (per ADR-7), not by check constraint, because the valid set varies by `groups.kind`. The handler reads kind first, validates role, then writes.
+Role validation per kind is enforced in the action layer, not by check constraint, because the valid set varies by `groups.kind`. The handler reads kind first, validates role, then writes.
 
 `source = 'soft_via_*'` is valid only for community kinds. The action layer rejects soft-source memberships for the business kind.
 
@@ -259,13 +259,13 @@ Role validation per kind is enforced in the action layer (per ADR-7), not by che
 - A kind='business' Group may anchor to a Location via `groups.anchor_location_id`. The Location renders the Group's storefront affordances on its public page.
 - Brand label precedence on the Location page: `group_businesses.display_name` (canonical when an anchored Group exists) wins over `locations.brand_label` (the Location-level fallback for places without a Group anchor — e.g., Drake's the bar). Per [`location.md`](location.md), `locations.brand_label` is denormalized to power resolve-up rendering when no Group is anchored; the Location page renderer must check Group first, then fall back.
 
-**Place anchoring (per ADR-20).**
+**Place anchoring.**
 
 - `groups.place_id` anchors every Group to a curated [`places`](places.md) row. It is **derived, not user-chosen**: a Group with an `anchor_location_id` inherits that Location's `place_id`; an anchorless Group falls back to the founder's home Location's place; a federation Group whose Members span multiple places anchors at the **smallest common ancestor** place. Stored as a column with a trigger that recomputes on `anchor_location_id` change (per the `places.md` working assumption — drift is bounded because Locations rarely move).
 - **Default anchor depth for kind='business' Groups: neighborhood when the neighborhood-place exists, city otherwise.** Granularity rolls up automatically; the founder is not asked to choose.
 - The canonical Group URL is place-scoped: `/p/[…place path]/g/[slug]`. Slug uniqueness is per-Place (`UNIQUE (place_id, slug)`) — an Oak Park, CA Group and an Oak Park, IL Group with the same slug do not collide. Items filed under a Group inherit the Group's place path for their own URLs.
 
-**Group-of-Group relationship (per ADR-20).**
+**Group-of-Group relationship.**
 
 A Group can be a *vendor / member / participant* of another Group — a many-to-many relationship distinct from Member↔Group memberships and distinct from the `parent_group_id` hierarchy column.
 
@@ -283,9 +283,9 @@ create table group_group_memberships (
 
 The food-truck-at-farmers-market pattern: a kind='business' Group (Adaeze's Kitchen) is a `vendor` in several kind='place' / kind='event_anchored' Groups (Oak Park Farmers Market, Davis Farmers Market) — one row per relationship. The child Group's public page can inherit event dates from each parent Group's attached Items. This relationship is independent of the place-anchor hierarchy: a Group anchored in Oak Park can vendor at a Group anchored in Davis; its URL stays at its own place anchor.
 
-**Event log entries (required at b1):** `group.created` (fires on draft creation), `group.activated` (fires on draft → active promotion via final-step composer submit), `group.member_joined`, `group.member_left`, `group.member_removed`, `group.role_changed`, `group.steward_transferred` (community kinds only), `group.dormant` (community kinds only), `group.dormancy_extended` (community kinds only), `group.revived` (community kinds only), `group.dissolved`. Append-only, partitioned monthly per ADR-10. Audit fields per ADR-6.
+**Event log entries (required at b1):** `group.created` (fires on draft creation), `group.activated` (fires on draft → active promotion via final-step composer submit), `group.member_joined`, `group.member_left`, `group.member_removed`, `group.role_changed`, `group.steward_transferred` (community kinds only), `group.dormant` (community kinds only), `group.dormancy_extended` (community kinds only), `group.revived` (community kinds only), `group.dissolved`. Append-only, partitioned monthly. Audit fields on every row.
 
-**Action handlers (per ADR-7):** `group.create` (creates row with `lifecycle_state='draft'`), `group.activate` (promotes draft → active; final-step composer submit calls this), `group.update_draft` (owner-only; mutates an in-flight draft row's fields step-by-step per the Multi-step composer recipe), `group.member_join`, `group.member_leave`, `group.member_remove` (owner-only; for removing other members), `group.role_change` (owner-only; for promoting staff↔owner, etc.), `group.steward_transfer` (community kinds only), `group.confirm_membership` (b2 — for member confirmation in business kind), `group.extend_dormancy` (community kinds only), `group.revive` (community kinds only), `group.dissolve` (owner-only). The action layer enforces the structural rules:
+**Action handlers:** `group.create` (creates row with `lifecycle_state='draft'`), `group.activate` (promotes draft → active; final-step composer submit calls this), `group.update_draft` (owner-only; mutates an in-flight draft row's fields step-by-step per the Multi-step composer recipe), `group.member_join`, `group.member_leave`, `group.member_remove` (owner-only; for removing other members), `group.role_change` (owner-only; for promoting staff↔owner, etc.), `group.steward_transfer` (community kinds only), `group.confirm_membership` (b2 — for member confirmation in business kind), `group.extend_dormancy` (community kinds only), `group.revive` (community kinds only), `group.dissolve` (owner-only). The action layer enforces the structural rules:
 - ≥1 active owner for kind='business' Groups; the operating owner is the founder while their owner-role membership remains active.
 - Members control their own membership: writes to other Members' rows are rejected, except the operating owner of a kind='business' Group may end a member-role (staff) membership.
 - Routine functionality writes (display_name, public_description, member confirmations, dissolution) on a kind='business' Group require the operating owner.
@@ -296,12 +296,12 @@ The food-truck-at-farmers-market pattern: a kind='business' Group (Adaeze's Kitc
 
 The platform promotes locally owned and operated Business Groups. Locality is derivable, not stored — the `ownership_locality` enum approach was the wrong shape because "locality" is a property of *who owns this Group's location*, not a label on the Group itself.
 
-**The rule (per ADR-21).** A kind='business' Group is locally owned and operated when **at least one owner Member holds a `member_business_jurisdictions` row whose ZIP passes the proximity test against the Group's `anchor_location_id`**. Proximity is computed by `public.zip_is_proximal_to_location()` (per [`business-jurisdiction.md`](business-jurisdiction.md)). Per ADR-21 (2026-05-23), the jurisdiction substrate is the **first signal** at b1 — the seller's own evidence-tiered declaration. A **second signal**, community-member corroboration (interaction reconnaissance), comes online at b2+ when the interaction graph reaches enough density to be meaningful; design lives in [`business-jurisdiction.md`](business-jurisdiction.md). Together the two signals are "peer pressure for the greater good": the badge tier reflects what *both* signals show. The prior `member_is_local_to_location()` function reading `lives`/`works` affinity rows is retired with the six-kind affinity table.
+**The rule.** A kind='business' Group is locally owned and operated when **at least one owner Member holds a `member_business_jurisdictions` row whose ZIP passes the proximity test against the Group's `anchor_location_id`**. Proximity is computed by `public.zip_is_proximal_to_location()` (per [`business-jurisdiction.md`](business-jurisdiction.md)). The jurisdiction substrate is the **first signal** at b1 — the seller's own evidence-tiered declaration. A **second signal**, community-member corroboration (interaction reconnaissance), comes online at b2+ when the interaction graph reaches enough density to be meaningful; design lives in [`business-jurisdiction.md`](business-jurisdiction.md). Together the two signals are "peer pressure for the greater good": the badge tier reflects what *both* signals show. The prior `member_is_local_to_location()` function reading `lives`/`works` affinity rows is retired with the six-kind affinity table.
 
 **Access path.** The derivation reads `member_business_jurisdictions` through `public.zip_is_proximal_to_location(zip text, location_id uuid) returns boolean`. The jurisdiction substrate is *public* by design (see [`business-jurisdiction.md`](business-jurisdiction.md) RLS), so the test is a straightforward JOIN — no SECURITY DEFINER escape hatch needed. The substrate's evidence tier (Tier 0 self-attested → Tier 1 SOS-verified → Tier 2 document-uploaded) is *publicly visible* on the Group's surface as the "Claimed / Verified / Documented local owner" badge.
 
 ```sql
--- Pseudocode for the locality test on a kind='business' Group (per ADR-21).
+-- Pseudocode for the locality test on a kind='business' Group.
 -- b1: jurisdiction-only (first signal).
 -- b2+: layer community-corroboration on top (second signal) — design in business-jurisdiction.md.
 select exists (
@@ -318,7 +318,7 @@ select exists (
 );
 ```
 
-A set-returning variant for index-time bulk computation can land at T2+ if per-call cost becomes hot. The b2+ community-corroboration signal layers *on top of* this query rather than replacing it; the substrate split (per ADR-21) leaves room for the second signal to land as its own substrate without disturbing the first.
+A set-returning variant for index-time bulk computation can land at T2+ if per-call cost becomes hot. The b2+ community-corroboration signal layers *on top of* this query rather than replacing it; the substrate split leaves room for the second signal to land as its own substrate without disturbing the first.
 
 **Computed at query time.** Locality is dynamic. If Maya owns Oak Park Sourdough (anchor: Oak Park) and her jurisdiction ZIP is in the Sacramento MSA, the Group is locally owned. If Maya updates her jurisdiction to a Phoenix ZIP, the Group is no longer locally owned — the wealth created here now flows out of the community. The platform recomputes locality on every jurisdiction change; no stored field to drift out of sync.
 
@@ -355,7 +355,7 @@ Schema-level, not policy-level:
 
   > **Intent:** `items.member_id NOT NULL` is the schema-level enforcement of the no-impersonal-business-entity commitment from [`../foundation/principles.md`](../foundation/principles.md). Every Item has a named human accountable for it — and that Member must be the one *operating* the Group the Item is filed under (or operating no Group, for one-off sales). `items.group_id` is the *filing surface* (where the Item sits commercially — under the bakery Group, under the Run Club, etc.); `items.member_id` is the *responsible operator* of that filing — the human whose social capital is on the line for the Item's existence. **What this rules out:** Items existing without a Member (orphaned, headless, corporate-only), and Items filed under a Group by a Member who isn't operating that Group. **What this rules in:** Group display branding on an Item via the Member-as-operator's chosen `group_id` filing, with the Member's identity (and accumulated social capital — Member-anchored per line 125) as the load-bearing accountability surface. **Test for future proposals:** does this proposal want to let Items have a `group_id` without a `member_id`, treat a Group as the primary owner of an Item, or let Members post Items under Groups they don't operate? If yes, refuse — that's reintroducing the impersonal-business-entity path through the back door. **Forward-looking — substantial-scale gate:** when appointment-based operator succession is designed (currently deferred), the question of how `items.member_id` behaves across an operator change (stays with original poster, or follows current operator?) is part of the deferred work. b1 is trivially safe because operator = founder = immutable; the question is real at scale.
 - No `group_assets` table at b1. The platform does not custody capital, hold title, or mirror financial flows for its own balance sheet. Money flows are visible and accountable to identified recipients (Members, Groups of Members, identified external recipients) per `payments.md`. Custody is at a chartered partner (CDFI / credit union / cooperative bank), never the platform. The "no `group_assets` table" decision is current-scope, not categorical — revisitable if cooperative-coordination needs emerge.
-- Groups cannot be the target of a Delegation (per ADR-6). Only Members can grant or hold Delegations.
+- Groups cannot be the target of a Delegation. Only Members can grant or hold Delegations.
 
   > **Intent:** Delegations are the substrate by which non-human actors (assistants, Skills, federation peers) act on a Member's behalf — and the trust commitment (per [`../systems/agent-assistance.md`](../systems/agent-assistance.md)) is fundamentally a *Person-level* commitment. Groups can't consent (no context window, no prompt-injection surface, no "I withdraw this" mechanism). Letting Groups grant or hold Delegations would force the platform to invent Group-consent machinery — who consents on behalf of the Group, by what quorum, under what dispute mechanism — every answer to which collapses back to "a specific Member." The schema makes it impossible by construction: only Members can be Delegation principals.
   >
@@ -363,9 +363,9 @@ Schema-level, not policy-level:
   >
   > **Test for future proposals:** does this proposal want Groups to grant/hold Delegations, or let Members create custom Group-scoped agents at b1? If yes, refuse — the answer is "use platform-curated Group-coordination agents, invoked under the operator's Delegation." Person-anchoring is the trust commitment; agent creation is platform-curated (at b1), not Member-invented.
 - Groups dissolve when their Members leave (community kinds, or business kinds without an off-platform legal entity) or when an off-platform legal entity is recorded as dissolved.
-- The action layer (ADR-7) rejects any write attempting to set Item ownership to a Group, Group-to-Group ownership, or any other corporate-shell-shaped relationship.
+- The action layer rejects any write attempting to set Item ownership to a Group, Group-to-Group ownership, or any other corporate-shell-shaped relationship.
 
-  > **Intent:** This is the action-layer (ADR-7) enforcement counterpart to the `items.member_id NOT NULL` schema constraint above. Where the schema prevents the *column-shape* of corporate-shell ownership, the action layer prevents the *writes* that would skirt it — proxying ownership through a system-Member that represents a Group, constructing Group-to-Group ownership relations through metadata fields, or any other path that ends up with a non-human entity as the load-bearing accountability for an Item or a Group. Specifically refused: (a) writes setting Item ownership to a Group (collapses back to the schema constraint), (b) writes establishing Group-to-Group ownership (parent-Group / child-Group structures that mirror a corporate hierarchy), (c) any other write that constructs a corporate-shell-shaped relationship by combining individually-legal operations. **Test for future proposals:** does this proposal want to add a write path that effectively gives a Group ownership of Items or other Groups, even indirectly through metadata or proxy Members? If yes, refuse — the no-impersonal-business-entity commitment (per [`../foundation/principles.md`](../foundation/principles.md)) is enforced at both layers; the action layer is the runtime guardrail that catches the writes the schema can't see (composed-from-legal-parts attacks).
+  > **Intent:** This is the action-layer enforcement counterpart to the `items.member_id NOT NULL` schema constraint above. Where the schema prevents the *column-shape* of corporate-shell ownership, the action layer prevents the *writes* that would skirt it — proxying ownership through a system-Member that represents a Group, constructing Group-to-Group ownership relations through metadata fields, or any other path that ends up with a non-human entity as the load-bearing accountability for an Item or a Group. Specifically refused: (a) writes setting Item ownership to a Group (collapses back to the schema constraint), (b) writes establishing Group-to-Group ownership (parent-Group / child-Group structures that mirror a corporate hierarchy), (c) any other write that constructs a corporate-shell-shaped relationship by combining individually-legal operations. **Test for future proposals:** does this proposal want to add a write path that effectively gives a Group ownership of Items or other Groups, even indirectly through metadata or proxy Members? If yes, refuse — the no-impersonal-business-entity commitment (per [`../foundation/principles.md`](../foundation/principles.md)) is enforced at both layers; the action layer is the runtime guardrail that catches the writes the schema can't see (composed-from-legal-parts attacks).
 
 ## Public-face attribution (T095 Ratified 2026-06-03)
 
@@ -421,13 +421,13 @@ What ships at b1: the spine, the `group_businesses` child table (full), the memb
 
 - **Member** — Members hold zero or many Group memberships. Standing tier reads from `member_has_standing_presence`.
 - **Item** — Items optionally file under a Group via `items.group_id`. Items always belong to their Member, never to the Group.
-- **Location** — Groups optionally anchor to a Location. Per ADR-21, Members relate to Locations through Items they author, Groups they belong to, and `member_saved_searches` rows (the "follow this venue" subscription affordance). Subscriptions are not memberships; memberships are named, addressable, intentional. If you want a named, addressable set of People organized to do something at or about a Location, you need a Group anchored to it.
+- **Location** — Groups optionally anchor to a Location. Members relate to Locations through Items they author, Groups they belong to, and `member_saved_searches` rows (the "follow this venue" subscription affordance). Subscriptions are not memberships; memberships are named, addressable, intentional. If you want a named, addressable set of People organized to do something at or about a Location, you need a Group anchored to it.
 
-  > **Intent:** Conflating Location-subscriptions with Group-memberships is the Nextdoor failure pattern (geographic auto-inclusion creates a constituency the platform then has to moderate) — the same failure mode the auto-assignment refusal guards against, applied to the Location surface. Two records exist precisely because the distinction is load-bearing in the schema: `member_saved_searches` is multi-soft-asymmetric (a Member can subscribe to a venue's stream without anyone there knowing); `group_memberships` is named-addressable-intentional (joining a Group makes the Member visible as part of it). When a future proposal wants to "send a notification to everyone subscribed to a Location" or "let Location subscribers post in a feed," the answer is: that's Group surface, not Location surface — anchor a Group there. **Test for future proposals:** does this proposal want to treat a saved-search filter as if it were membership (addressable, listable, broadcast-targetable)? If yes, refuse — that's the Nextdoor pattern entering through the Location door. Saved-searches are owner-only (per ADR-21); memberships are addressable.
+  > **Intent:** Conflating Location-subscriptions with Group-memberships is the Nextdoor failure pattern (geographic auto-inclusion creates a constituency the platform then has to moderate) — the same failure mode the auto-assignment refusal guards against, applied to the Location surface. Two records exist precisely because the distinction is load-bearing in the schema: `member_saved_searches` is multi-soft-asymmetric (a Member can subscribe to a venue's stream without anyone there knowing); `group_memberships` is named-addressable-intentional (joining a Group makes the Member visible as part of it). When a future proposal wants to "send a notification to everyone subscribed to a Location" or "let Location subscribers post in a feed," the answer is: that's Group surface, not Location surface — anchor a Group there. **Test for future proposals:** does this proposal want to treat a saved-search filter as if it were membership (addressable, listable, broadcast-targetable)? If yes, refuse — that's the Nextdoor pattern entering through the Location door. Saved-searches are owner-only; memberships are addressable.
 - **Operation (retiring)** — Member Operations are absorbed into Group memberships. The remaining "personal commercial capacity" use case is covered by sole-prop Groups (a kind='business' Group of one with the Member as owner). The `member_operations` table retires once the migration completes.
 - **Delegation** (b2+) — `staff_edit_items` Delegation scope from Group owner to Group staff member.
-- **Action layer** (ADR-7) — every Group write goes through a named handler.
-- **Event log** (ADR-6) — every Group event row carries `acting_member_id` + `via_delegation_id`.
+- **Action layer** — every Group write goes through a named handler.
+- **Event log** — every Group event row carries `acting_member_id` + `via_delegation_id`.
 
 ## Open questions
 
@@ -438,7 +438,7 @@ What ships at b1: the spine, the `group_businesses` child table (full), the memb
 
 4. **Substantial-scale gate for transfer / appointment / continuity design.** Transferability, appointment-based succession, and the social-capital-at-scale question (OQ #3) are all deferred until the platform sees Groups operating at substantial scale — Groups where dissolve-and-recreate would be materially harmful due to accumulated infrastructure, customer base, product catalog, operational complexity, etc. Until then, the b1 framings hold (founder-immutable operating-owner per line 78, founder-only revival per line 115, Member-anchored social capital per line 125, recreation-via-`established_on` for succession). Open: what threshold of size / complexity / accumulated value triggers the design work? Likely tied to observable metrics on the platform once it's running and has its first substantial Groups. Working answer: defer entirely until specific use cases surface; do not pre-design for hypothetical scale. Not b1; revisit at b2+ if the platform begins to see Groups at that scale.
 
-5. **Locality verification / counter-gaming.** Per ADR-21, locality depends on `member_business_jurisdictions` records with a public evidence tier (Tier 0 self-attested → Tier 1 SOS-verified → Tier 2 document-uploaded). Tier 0 is fudge-able (a Member can self-attest any ZIP); Tiers 1 and 2 are evidence-protected. The public evidence-tier badge ("Claimed / Verified / Documented local owner") is the platform's transparency answer — Members see exactly how strong the locality claim is. **Asymmetric trade-off:** Tier 2 document upload helps the community of Members by protecting them from deceitful owners but imposes a privacy / friction cost on the owner being verified. **PM direction (2026-05-12, carried forward post-ADR-21):** some form of **interaction reconnaissance** — neighbors who interact with a Group / Member provide implicit signals (proximity-based interaction patterns, vouching, dispute mechanisms) that can corroborate or challenge declared locality. Shifts the verification burden from "owner uploads documents" (high individual cost) to "community implicitly confirms" (low individual cost, distributed across many Members). Not b1; depends on critical-mass interaction data. Until then, Tier 0 is the input at b1, evidence-tier-publishing is the platform's transparency answer, and Tier 1/2 ship at b2+.
+5. **Locality verification / counter-gaming.** Locality depends on `member_business_jurisdictions` records with a public evidence tier (Tier 0 self-attested → Tier 1 SOS-verified → Tier 2 document-uploaded). Tier 0 is fudge-able (a Member can self-attest any ZIP); Tiers 1 and 2 are evidence-protected. The public evidence-tier badge ("Claimed / Verified / Documented local owner") is the platform's transparency answer — Members see exactly how strong the locality claim is. **Asymmetric trade-off:** Tier 2 document upload helps the community of Members by protecting them from deceitful owners but imposes a privacy / friction cost on the owner being verified. **PM direction (2026-05-12, carried forward):** some form of **interaction reconnaissance** — neighbors who interact with a Group / Member provide implicit signals (proximity-based interaction patterns, vouching, dispute mechanisms) that can corroborate or challenge declared locality. Shifts the verification burden from "owner uploads documents" (high individual cost) to "community implicitly confirms" (low individual cost, distributed across many Members). Not b1; depends on critical-mass interaction data. Until then, Tier 0 is the input at b1, evidence-tier-publishing is the platform's transparency answer, and Tier 1/2 ship at b2+.
 
 6. **Group-coordination agents (platform-curated path).** Many Group-coordination use cases exist (calendar management, scheduling, member-onboarding, recurring-event coordination). The b1 path is platform-curated — the platform builds these agents centrally; a Group's operator opts the Group into using them via the operator's own Delegation. Open: what's the curation pipeline (who reviews, what scopes are available, how Groups discover and adopt)? Likely lives in `agent-assistance.md` (forward-looking, not b1) when that spec is built out. Member-invented Group-coordination agents are deferred — open whether a safe future design surface lets Groups create operation-specific agents themselves (with sufficient scoping, review, and protection for other Group Members). Both are future work; cross-references `agent-assistance.md` (forward-looking).
 
@@ -470,8 +470,8 @@ The Group of one is the same shape as the partnership of three or the bakery-wit
 
 ## Decisions encoded here
 
-This spec is the live home for ADR-13 (Group consolidation): spine + child architecture, six kinds at b1 — five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) + one operate (`business`). The standing-tier gate `member_has_standing_presence` is defined here: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group.
+This spec is the live home for the Group-consolidation decision: spine + child architecture, six kinds at b1 — five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) + one operate (`business`). The standing-tier gate `member_has_standing_presence` is defined here: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group.
 
-This spec *encodes* (but does not own) ADR-21 (Member↔Geography substrate split): the locality-promotion derivation in the **Locality and promotion** section reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` as the first signal.
+This spec *encodes* (but does not own) the Member↔Geography substrate split: the locality-promotion derivation in the **Locality and promotion** section reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` as the first signal.
 
-This spec *encodes* (but does not own) ADR-20 (locality-scoped URLs): the **Place anchoring** and **Group-of-Group relationship** sections carry the Group-side substrate — `groups.place_id`, per-Place slug uniqueness, the place-scoped URL form (`/p/[…place path]/g/[slug]`), and the `group_group_memberships` join table. ADR-20's home docs are [`places.md`](places.md) and [`location.md`](location.md).
+This spec *encodes* (but does not own) the locality-scoped-URLs decision: the **Place anchoring** and **Group-of-Group relationship** sections carry the Group-side substrate — `groups.place_id`, per-Place slug uniqueness, the place-scoped URL form (`/p/[…place path]/g/[slug]`), and the `group_group_memberships` join table. The home docs for that decision are [`places.md`](places.md) and [`location.md`](location.md).

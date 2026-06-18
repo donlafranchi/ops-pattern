@@ -10,7 +10,7 @@ last_activity: 2026-06-11
 
 # S-saved-search — `member_saved_searches`
 
-**Spec contract:** member.md Saved searches; ADR-21
+**Spec contract:** member.md Saved searches
 
 ## Stage history (append-only)
 

@@ -8,7 +8,7 @@ status: done
 # T092 — Public Member page (`/m/[handle]`)
 
 **Scenario:** [F032 — A viewer finds a member's public page and follows them](../../planning/now/scenario-F032-viewer-finds-member-page-and-follows.md)
-**Binds to:** `product/systems/member.md` · `product/systems/groups.md` (standing-presence view) · ADR-20 (Member page is the one global namespace) · CLAUDE.md § Naming conventions
+**Binds to:** `product/systems/member.md` · `product/systems/groups.md` (standing-presence view) · Member page is the one global namespace · CLAUDE.md § Naming conventions
 **Status:** Open
 **Bundle:** b1 (b1.4 — Member surface)
 **Depends on:** T091 (follow/unfollow handlers + server actions) · T074 (resolve-shop pattern) · T088 (item-url helper)

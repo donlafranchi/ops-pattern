@@ -8,7 +8,7 @@ status: open
 # T080 — Generalize `item.create` for multi-kind support
 
 **Scenario:** substrate
-**Binds to:** `product/systems/item.md` § Data model implications (per-kind child tables `item_products` / `item_services` / `item_gatherings`) · `product/systems/action-layer.md` § Same-transaction row+event invariant (ADR-10)
+**Binds to:** `product/systems/item.md` § Data model implications (per-kind child tables `item_products` / `item_services` / `item_gatherings`) · `product/systems/action-layer.md` § Same-transaction row+event invariant
 **Status:** Open
 **Bundle:** b1 (b1.3 — Item composers)
 **Depends on:** T077 (item handlers) · T078 (product composer surface)

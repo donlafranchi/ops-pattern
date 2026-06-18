@@ -8,7 +8,7 @@ status: done
 # T091 — member.follow / member.unfollow handlers
 
 **Scenario:** [F032 — A viewer finds a member's public page and follows them](../../planning/now/scenario-F032-viewer-finds-member-page-and-follows.md)
-**Binds to:** `product/systems/member.md` § Follows substrate · ADR-7 (action-layer-only writes) · ADR-10 (same-transaction row+event)
+**Binds to:** `product/systems/member.md` § Follows substrate · action-layer-only writes · same-transaction row+event
 **Status:** Open
 **Bundle:** b1 (b1.4 — Member surface)
 **Depends on:** T048 (member_follows table + indexes + RLS — shipped) · T043 (action layer)

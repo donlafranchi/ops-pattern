@@ -10,7 +10,7 @@ last_activity: 2026-06-02
 
 # S-jurisdictions — `member_business_jurisdictions` Tier 0 + `made_at`
 
-**Spec contract:** business-jurisdiction.md; item.md Provenance; ADR-21
+**Spec contract:** business-jurisdiction.md; item.md Provenance
 
 ## Stage history (append-only)
 

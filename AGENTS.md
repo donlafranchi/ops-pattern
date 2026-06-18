@@ -181,7 +181,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 **Task:** Write a memo **only when user feedback contradicts a prior pattern-doc entry** that is now in force. New decisions land directly as pattern-doc entries in `playbooks/{PLATFORM,DEVELOPMENT}-PATTERNS.md` — they do not need a memo. The memo's job is to record *why we changed direction*: what feedback came in, why the original Intent no longer holds, what the new pattern entry replaces.
 
-**Format and lifecycle:** numbering continues from 0024 (ADR-1 through 0025 retain their numbers in the original ADR files for git-history citation stability; new reversal memos start at memo-0024 onward).
+**Format and lifecycle:** numbering continues from 0024 (new reversal memos start at memo-0024 onward).
 
 ---
 

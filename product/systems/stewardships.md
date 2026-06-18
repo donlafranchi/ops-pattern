@@ -80,7 +80,7 @@ create index idx_group_stewardships_template ON group_stewardships(template_kind
 create index idx_group_stewardships_active ON group_stewardships(group_id) where archived_at is null;
 ```
 
-**Constraints enforced in the action layer (per ADR-7):**
+**Constraints enforced in the action layer:**
 
 - The Group's `kind` must be in `(practice, interest, event_anchored, place)`. A `business` Group cannot declare a stewardship (the operate verb-family is wrong; if a business runs a tool library, the tool library is a separate Group). A `family` Group cannot declare a stewardship (private discoverability would defeat the point).
 - The Group must have at least one active membership with `role='steward'` before the stewardship row is created.
@@ -88,7 +88,7 @@ create index idx_group_stewardships_active ON group_stewardships(group_id) where
 
 ### Event log additions
 
-Per ADR-6 (audit fields on every row) and ADR-7 (action layer is the only write surface):
+Per the audit-fields-on-every-row and action-layer-only-write-surface commitments:
 
 - `group.stewardship_declared` — fires when the row is inserted. Payload: `template_kind`, `shared_thing_description`, `upkeep_gathering_item_id` (nullable), `acting_member_id`.
 - `group.stewardship_upkeep_changed` — fires when `upkeep_gathering_item_id` is updated. Payload: old and new values.

@@ -27,7 +27,7 @@
   - Venues: `member_saved_searches` WHERE `member_id = memberId` AND `removed_at IS NULL` AND `location_id IS NOT NULL` → join `locations` (label, image).
   _Why: one reader, two surfaces — review-F042 § Recommendations notes `/you` and `/you/following` share the same data queries; centralizing the union prevents the substrate distinction from leaking into two divergent query paths. The `source = 'explicit'` filter on Groups encodes the ratified addressability distinction (groups.md:393, Ratified 2026-05-31) — soft-suggested memberships (`source='soft_via_*'`) are not follows._
 - [ ] The reader runs as the authenticated Member reading their own rows — no SECURITY DEFINER / RPC needed.
-  _Why: `member_saved_searches` is owner-only RLS (`member_id = auth.uid()`, member.md:368, Ratified 2026-05-23 per ADR-21); `member_follows` is public-read (member.md:279); `group_memberships` readable by the member. All three are directly selectable by the owner — no privilege escalation required._
+  _Why: `member_saved_searches` is owner-only RLS (`member_id = auth.uid()`, member.md:368, Ratified 2026-05-23); `member_follows` is public-read (member.md:279); `group_memberships` readable by the member. All three are directly selectable by the owner — no privilege escalation required._
 - [ ] A followed Person who is non-discoverable or soft-deleted resolves to a tombstone row (fallback display name + no thumbnail, `isTombstone: true`) — never an error, never a 404.
   _Why: scenario edge case "Followed Member soft-deletes → row stays as tombstone." Reuse the F032 attribution resolver's discoverability handling rather than rolling new logic._
 
@@ -61,7 +61,7 @@
 - **Reuse, don't rewrite.** The follow/unfollow/leave writes already exist — this ticket is read-only plus the `/you` summary UI. The unfollow/leave affordances live in T109.
 - **Member-display resolver:** F032/T092 already resolves a Member's public display data with discoverability + tombstone handling (post-T095 default-private). Reuse it for the People cards — don't re-implement the discoverability branch.
 - **Venue follow rows** are `member_saved_searches` with `location_id` populated; `label` holds the venue name (set by T102's `<FollowVenueButton>`). Use `label` as the display name fallback, the joined `locations.label` as primary.
-- **Encodes ratified absolutes:** `member.md:368` (owner-only saved-search RLS, Ratified 2026-05-23, ADR-21); `member.md:279` (follow public-read, ratified); `groups.md:393` (`source='explicit'` addressability, Ratified 2026-05-31). All read-only reuse — no new absolute introduced.
+- **Encodes ratified absolutes:** `member.md:368` (owner-only saved-search RLS, Ratified 2026-05-23); `member.md:279` (follow public-read, ratified); `groups.md:393` (`source='explicit'` addressability, Ratified 2026-05-31). All read-only reuse — no new absolute introduced.
 - **No migration.** Pure surface work over shipped substrate (review-F042 § Schema fit: no new tables/columns/events).
 
 ## Completion

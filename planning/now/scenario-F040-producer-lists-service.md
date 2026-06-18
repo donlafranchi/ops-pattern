@@ -69,7 +69,7 @@ Implicit: `items.kind='service'`, `items.member_id=<seller>`, `items.state='publ
 
 **Given** the service is filed under a business Group
 **When** the URL is generated
-**Then** the URL is `/p/[…place]/g/[group-slug-suffix]/s/[title-slug-suffix]` per ADR-20 + ADR-22. If sold as individual, URL is `/m/[handle]/s/[title-slug-suffix]`.
+**Then** the URL is `/p/[…place]/g/[group-slug-suffix]/s/[title-slug-suffix]`. If sold as individual, URL is `/m/[handle]/s/[title-slug-suffix]`.
 
 ### Item page shows brand + service area + pricing
 

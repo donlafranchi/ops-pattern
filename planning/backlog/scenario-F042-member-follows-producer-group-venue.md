@@ -10,7 +10,7 @@ status: draft
 **Bundle:** b1
 **Loops:** 8 (Follow what you love)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love).
-**Primitive shape:** Person → multiple follow substrates: `member_follows` (Member follow, covered in F032 — referenced here for cross-cutting test), `group_memberships(source='explicit')` (Group follow), `member_saved_searches(location_id)` (Venue follow per ADR-21).
+**Primitive shape:** Person → multiple follow substrates: `member_follows` (Member follow, covered in F032 — referenced here for cross-cutting test), `group_memberships(source='explicit')` (Group follow), `member_saved_searches(location_id)` (Venue follow).
 **Status:** backlog
 **New scenario** — no existing F-number. F032 covers the Member follow path; this scenario covers Group + Venue follow paths and the cross-cutting "Things you follow" management surface.
 

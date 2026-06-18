@@ -49,7 +49,7 @@ b1 is done when all 14 user-surface scenarios (F030–F043) are shipped and gree
 
 ## Current build status
 
-**Substrate — done.** Phase 0 (extensions + embedding floor) and Phase 1 (Members, Locations, action layer, Groups + Items substrate) shipped (T041–T064). The ADR-20/21 geography substrate sprint is complete and awaiting merge to main.
+**Substrate — done.** Phase 0 (extensions + embedding floor) and Phase 1 (Members, Locations, action layer, Groups + Items substrate) shipped (T041–T064). The geography substrate sprint is complete and awaiting merge to main.
 
 **Surfaces — in flight.** F036 (Sell walkthrough → business Group) is `building`: three of four tickets shipped (T070 schema/handlers, T071 multi-step composer, T072 add-entity drawer); **T073** (the walkthrough surface itself) is the open ticket.
 

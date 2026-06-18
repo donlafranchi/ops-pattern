@@ -29,7 +29,7 @@
 | Forward-tier impact | clear / flagged | {will any T2/T3 capability be harder after this T1 ships?} |
 | Shell-entity smell | clean / flagged | Does any column / relationship / user-facing label introduce an entity that owns Items without being a Person or Community? Names to flag: "vendor," "business," "merchant," "establishment," "operator." If `*_id` columns point to a non-Person/Community entity holding Items, flag EXTEND. |
 | Loop fidelity | matched / mismatched | Quote the loop's pain point from `member-journey.md` and write one sentence on how this scenario advances it. If the named loop doesn't match the actual mechanic, flag REVISE. |
-| Policy posture present | n/a / present / missing | If the scenario touches privacy / monetary flow / agent permissions / data sharing / visibility, the relevant `product/systems/{name}.md` must carry a Policy posture section per ADR-9. If absent, verdict is EXTEND. |
+| Policy posture present | n/a / present / missing | If the scenario touches privacy / monetary flow / agent permissions / data sharing / visibility, the relevant `product/systems/{name}.md` must carry a Policy posture section. If absent, verdict is EXTEND. |
 
 ### Cross-system consistency
 

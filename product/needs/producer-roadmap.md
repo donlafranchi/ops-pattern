@@ -27,7 +27,7 @@ status: active
 - Member public page at `/m/[handle]` showing Items and Group memberships
 - Items appear in the locality-first awareness feed via place-interest × interest-tag matching
 - QR card generation for any Item — print-quality PNG, resolves to canonical URL
-- Place-scoped URLs (ADR-20) so every page is shareable and chalk-on-a-board-able
+- Place-scoped URLs so every page is shareable and chalk-on-a-board-able
 
 **Later:**
 - `/explore` — the no-login locality-first browse index (Phase 3)
@@ -81,7 +81,7 @@ status: active
 - Tier 1 community-attested badges — other members vouch for Locally Owned / Locally Made claims (b2+, paired with C5 attestation surface)
 - Tier 2 document-supported badges — producer uploads SOS filing or similar evidence (b2+/b3)
 - Badge rendering comparison table on the discover page — side-by-side Locally Owned vs. Locally Made (b2)
-- "Designed in" as a separate signal from "Made at" (open question — historical context: `_attic/2026-05-28-reorg/product-exploration/member-geography-redesign.md`, exploration concluded; ADR-21 accepted)
+- "Designed in" as a separate signal from "Made at" (open question — historical context: `_attic/2026-05-28-reorg/product-exploration/member-geography-redesign.md`, exploration concluded; accepted)
 
 **Won't:**
 - Ratings or star scores of any kind. Per `principles.md` — the platform does not rank people. Trust signals are factual claims (ownership, provenance) with tiered evidence, not aggregated opinion.

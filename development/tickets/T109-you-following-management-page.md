@@ -70,7 +70,7 @@
 - **No new server actions** (review-F042 § Recommendations) — all three soft-delete writes reuse handlers shipped by T091 (`member.unfollow`), T070 (`group.member_leave`), T102 (`member.saved_search.remove`). This page is client calls + list rendering over T108's reader.
 - **Section grouping** is presentation over the same `getMemberFollows` union — partition T108's normalized list by `kind`. Don't write three separate queries here.
 - **Undo pattern:** prefer the optimistic-remove-with-undo-window over a confirm dialog — lighter touch for a reversible action. If the build agent finds no existing undo primitive, a local timeout + re-activate call is acceptable; note it as a deviation if it warrants a DLS recipe.
-- **Encodes ratified absolutes:** `member.md:368` (owner-only saved-search RLS, Ratified 2026-05-23, ADR-21); `groups.md:393` (`source='explicit'` addressability, Ratified 2026-05-31); count-privacy via `member_public_group_memberships` (shipped T095). All reuse — no new absolute introduced.
+- **Encodes ratified absolutes:** `member.md:368` (owner-only saved-search RLS, Ratified 2026-05-23); `groups.md:393` (`source='explicit'` addressability, Ratified 2026-05-31); count-privacy via `member_public_group_memberships` (shipped T095). All reuse — no new absolute introduced.
 - **No migration.** Pure surface work over shipped substrate.
 
 ## Completion

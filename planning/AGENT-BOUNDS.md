@@ -88,7 +88,7 @@ Each topic anchors L1, L2 (here), and L3 (case files). Topics added when a recur
 
 | Topic | L1 anchor | L2 owner | L3 source |
 |---|---|---|---|
-| Schema additions during build | `product/foundation/principles.md` § People-First; ADR-7 | This file § *Schema additions* | `DEVIATIONS.md`, `SPEC-PATCHES.md` |
+| Schema additions during build | `product/foundation/principles.md` § People-First | This file § *Schema additions* | `DEVIATIONS.md`, `SPEC-PATCHES.md` |
 | Scope creep inside a ticket | `principles.md` § Decision Test; b1 bundle | This file § *Scope* | `DEVIATIONS.md` |
 | Absolute language in specs | `principles.md` | `skills/weigh/` | `review-*.md` ratification logs (in the scenario's lane) |
 | Vendor / cost decisions | (none yet — TBD) | This file § *Vendor & cost* | `JOURNAL.md` |
@@ -102,7 +102,7 @@ Each topic anchors L1, L2 (here), and L3 (case files). Topics added when a recur
 > Each topic below has the same shape: *In bounds* (agent decides alone), *Out of bounds* (escalate). Empty topics are intentional placeholders — populate them when the first case forces clarity. Premature population is speculation; the audit's whole diagnosis is that hygiene rots when imposed top-down.
 
 ### Schema additions
-Source intent: `product/foundation/principles.md` § People-First; ADR-0007 (action-layer write surface — migrated to `playbooks/DEVELOPMENT-PATTERNS.md`)
+Source intent: `product/foundation/principles.md` § People-First (action-layer write surface — migrated to `playbooks/DEVELOPMENT-PATTERNS.md`)
 Source casebook: `DEVIATIONS.md`, `SPEC-PATCHES.md`
 
 **In bounds:**

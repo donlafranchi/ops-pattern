@@ -34,7 +34,7 @@ The Member page is one of the four shareable entity surfaces (Item / Member / Lo
 - Canonical URL: `/m/[handle]`. Stable — once issued, never changes unless the Member explicitly renames the handle (and old handle 301-redirects).
 - SSR with full OG / Twitter Card metadata (title, description, image, type).
 - OG image: the Member's avatar, with a kind-themed default fallback.
-- Rendered content: display name, bio, selling-tool affordances (when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item, per ADR-12 SUPERSEDED 2026-05-12), recent Items.
+- Rendered content: display name, bio, selling-tool affordances (when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item), recent Items.
 - Public read for non-private accounts (per RLS on `members`).
 - Mobile-responsive (per [`../ui/design-language.md`](../ui/design-language.md)).
 

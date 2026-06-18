@@ -51,7 +51,7 @@ The minimum surface that lets us ship "follow a Member, receive their bulletins.
 
 ### Authorship
 - Any Member with `member_has_standing_presence` = true (≥1 active kind='business' Group membership OR steward-role membership in any non-business Group, per [`groups.md`](groups.md)) can compose and publish bulletins.
-- Members without standing presence see a "Sell" CTA in place of the compose surface — tapping it opens the kind='business' Group walkthrough per [`groups.md`](groups.md) (per ADR-12 SUPERSEDED 2026-05-12; the prior `maker_mode_enabled` gate is dropped).
+- Members without standing presence see a "Sell" CTA in place of the compose surface — tapping it opens the kind='business' Group walkthrough per [`groups.md`](groups.md) (the prior `maker_mode_enabled` gate is dropped).
 
 ### Compose
 - Plain-text body, optional title.
@@ -105,7 +105,7 @@ This is the **single home** for bulletin engagement metrics. The Growth dashboar
 
 ### Audience segmentation
 - Segment by: locality (followers in Sacramento vs elsewhere), follow date (new followers vs longtime), past actions (supported recently vs lurkers). Anonymized aggregates only — the producer sees segment sizes and behavior, never individual follower identity beyond what `member_follows` already exposes.
-- Geographic segments use the follower's `home_location_id` (per [`location.md`](location.md) and ADR-4), not a stored address.
+- Geographic segments use the follower's `home_location_id` (per [`location.md`](location.md)), not a stored address.
 
 ### Drip sequences
 - Auto-sequence on new follow: welcome → 3 days later → "here's our story" → 7 days later → "come visit us." Per-producer template library.
@@ -317,7 +317,7 @@ Per the people-first / policy commitments:
 
 The substrate lands at b1 even though no surface ships. Skipping any of these creates impossible-to-backfill gaps.
 
-**Event sourcing via the action layer.** Every relevant action — profile view, support click, follow/unfollow, share, bulletin open, bulletin click, gathering RSVP, Item view, search query, referrer URL — writes a row to the existing `*_events` log in the same transaction as the underlying state change (per ADR-7 in [`action-layer.md`](action-layer.md)). No new event-source mechanism; Growth is a *read* over the existing event log.
+**Event sourcing via the action layer.** Every relevant action — profile view, support click, follow/unfollow, share, bulletin open, bulletin click, gathering RSVP, Item view, search query, referrer URL — writes a row to the existing `*_events` log in the same transaction as the underlying state change (per [`action-layer.md`](action-layer.md)). No new event-source mechanism; Growth is a *read* over the existing event log.
 
 **Rollup table — `member_growth_stats_daily`** (one row per Member per day, populated nightly):
 - `member_id` (FK to `members`)
@@ -382,7 +382,7 @@ Per [`../foundation/policy.md`](../foundation/policy.md) — protective defaults
   - **Location** (T2 bulletin attachment; geographic follower segmentation; multi-Location producer tools; per [`location.md`](location.md))
   - **Item** (T2 bulletin attachment; Item views / support clicks / share events feed the Growth activity tab; per [`item.md`](item.md))
   - **Discovery** (referrer breakdown, search-term insights, category rank; per [`discovery.md`](discovery.md))
-  - **Action layer** (every bulletin publish/schedule/mute/reply through named handlers; every Growth event captured here by ADR-7's same-transaction commit; per [`action-layer.md`](action-layer.md))
+  - **Action layer** (every bulletin publish/schedule/mute/reply through named handlers; every Growth event captured here by the action layer's same-transaction commit; per [`action-layer.md`](action-layer.md))
   - **Agent Assistance** (T3 Growth revenue context lives in the standing-tier Assistant Context; producer-capacity gating uses `member_has_standing_presence` defined there; per [`agent-assistance.md`](agent-assistance.md))
 - **Used by:**
   - The You-tab Producer panel (per the community-platform UI doc)
@@ -394,9 +394,9 @@ Per [`../foundation/policy.md`](../foundation/policy.md) — protective defaults
 
 ## Decisions encoded here
 
-This spec does not own any ADR. It *consumes*:
-- **ADR-6** ([`agent-assistance.md`](agent-assistance.md)) — producer-capacity gating uses `member_has_standing_presence` (standing-derived); T3 revenue context lives in the standing-tier Assistant Context.
-- **ADR-7** ([`action-layer.md`](action-layer.md)) — every publish/schedule/mute/reply is a named handler with same-transaction row+event commit; Growth is a read over the event log.
-- **ADR-9** ([`../foundation/policy.md`](../foundation/policy.md)) — protective defaults, anti-Nextdoor messaging-scope commitment, three-filter test on segmentation opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
-- There is no Maker mode; both Bulletin authorship and the Growth surface gate on kind='business' Group membership (per ADR-13) directly.
-- **ADR-13** ([`groups.md`](groups.md)) — branding attribution via kind='business' Group memberships; Groups are decoration on bulletins, not authors; multi-Location producers use kind='business' Group structure.
+This spec does not own any cross-cutting decision. It *consumes*:
+- **[`agent-assistance.md`](agent-assistance.md)** — producer-capacity gating uses `member_has_standing_presence` (standing-derived); T3 revenue context lives in the standing-tier Assistant Context.
+- **[`action-layer.md`](action-layer.md)** — every publish/schedule/mute/reply is a named handler with same-transaction row+event commit; Growth is a read over the event log.
+- **[`../foundation/policy.md`](../foundation/policy.md)** — protective defaults, anti-Nextdoor messaging-scope commitment, three-filter test on segmentation opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
+- There is no Maker mode; both Bulletin authorship and the Growth surface gate on kind='business' Group membership directly.
+- **[`groups.md`](groups.md)** — branding attribution via kind='business' Group memberships; Groups are decoration on bulletins, not authors; multi-Location producers use kind='business' Group structure.

@@ -41,10 +41,10 @@ These are foundational rows — they exist because the architecture needs them, 
 
 | What it does | System | Tickets | Status |
 |---|---|---|---|
-| Action layer — the only write path; vends per-turn capabilities; same-transaction row+event commit. | [`systems/action-layer.md`](systems/action-layer.md) (ADR-7) | T043 (scaffold + member.create), T044 (auth signup hook), T051 (CI enforcement) | active (b1) |
+| Action layer — the only write path; vends per-turn capabilities; same-transaction row+event commit. | [`systems/action-layer.md`](systems/action-layer.md) | T043 (scaffold + member.create), T044 (auth signup hook), T051 (CI enforcement) | active (b1) |
 | Event-log substrate — `*_events` tables, partitioned, audit fields on every row. | [`systems/action-layer.md`](systems/action-layer.md) | T041 (extensions + embedding), T043 (action layer scaffold), T052 (Phase 0 eval helpers), T053 (Phase 1 eval helpers) | active (b1) |
-| Member-auth PK equality (`members.id = auth.users.id`). | ADR-15, [`systems/member.md`](systems/member.md) | T042 (members floor + system member), T044 (auth signup hook), T047 (Phase 1 FK / privacy / handle history) | active (b1) |
-| Member-location affinity privacy (RLS owner-only). | ADR-16, [`systems/member.md`](systems/member.md), [`systems/location.md`](systems/location.md) | T049 (member-location affinities) | active (b1) |
+| Member-auth PK equality (`members.id = auth.users.id`). | [`systems/member.md`](systems/member.md) | T042 (members floor + system member), T044 (auth signup hook), T047 (Phase 1 FK / privacy / handle history) | active (b1) |
+| Member-location affinity privacy (RLS owner-only). | [`systems/member.md`](systems/member.md), [`systems/location.md`](systems/location.md) | T049 (member-location affinities) | active (b1) |
 
 ---
 

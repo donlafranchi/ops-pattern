@@ -128,7 +128,7 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 >
 > **What:** Per the ticket's literal acceptance criterion, the same-transaction guarantee was to be enforced by middleware in `web/lib/action-layer/middleware.ts`. Implementation uses a Postgres trigger on `members` instead.
 >
-> **Why:** The middleware doesn't fire on bulk inserts (per `web/lib/action-layer/middleware.ts` line 47 — single-row paths only). The trigger is the only point that catches every insert path, including the future migration-time bulk seeds. Acceptable per ADR-7's same-transaction invariant because trigger is single-purpose and event-row writes are idempotent.
+> **Why:** The middleware doesn't fire on bulk inserts (per `web/lib/action-layer/middleware.ts` line 47 — single-row paths only). The trigger is the only point that catches every insert path, including the future migration-time bulk seeds. Acceptable per the same-transaction invariant because trigger is single-purpose and event-row writes are idempotent.
 >
 > **Disposition:** flag-for-spec-revision — `action-layer.md` should clarify whether the same-transaction guarantee is enforced at the application or database layer; the spec is ambiguous.
 

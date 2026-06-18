@@ -41,7 +41,7 @@ Source: [`product/foundation/primitives.md`](product/foundation/primitives.md). 
 
 The platform uses a three-layer naming pattern. Each layer has a distinct purpose; mixing them is the most common source of doc/code drift. The mapping below is load-bearing — when you touch any spec, surface, or copy, match the right layer.
 
-| Schema (durable) | URL (public — place-scoped per ADR-20) | UI label (user-facing) | UI verb (CTAs) |
+| Schema (durable) | URL (public — place-scoped) | UI label (user-facing) | UI verb (CTAs) |
 |---|---|---|---|
 | `members` | `/m/[handle]` (global — not place-scoped) | Member · Seller (when ≥1 active kind='business' Group membership or kind='product'/'service' Item) · Producer (ag/food context) | Sign up · Sell · Offer |
 | `places` | `/p/[…place path]` | **Place** | — (platform-curated; no Member create surface) |
@@ -63,7 +63,7 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 3. **No umbrella word for Items in UI copy.** "Item" is the database term. In the UI, always use the specific kind: Event, Product, Service, Idea, Offer, Ask, Initiative. The Explore tab can use kind-specific filter copy ("Browse events," "Browse what's for sale") rather than "Browse items."
 4. **"Seller" is the generic UI term for a Member offering goods or services.** It applies whenever a Member has ≥1 active kind='business' Group membership or has posted an `items.kind='product'` / `'service'` row. There is no `maker_mode_enabled` toggle — selling tools surface from Group/Item state. **"Producer"** is preferred in the agricultural and food context — used in `producer-tools.md` and `platform-promise.md`. **"Maker"** survives only as a UI label when the Member specifically self-identifies as such (craftspeople, artisans); it is not a default role.
 5. **Loop names stay conceptual.** Loop 2 is "Wonder," Loop 4 is "Gather regularly." Loop names are durable spec language; they don't migrate to the new UI labels.
-6. **URLs are place-scoped (ADR-20).** Every public URL except the Member page nests under a variable-depth place path — `/p/[…ancestor place slugs]/[place slug]`. Groups append `/g/[slug]`, Locations append `/l/[slug]`. Items take the resource segment (`/e/`, `/p/`, `/s/`, `/i/`, `/o/`, `/a/`, `/initiative/`) appended to either their Group's place path (`/p/[…place]/g/[group-slug]/p/[slug]`) or — for Items not filed under a Group — the owner's Member path (`/m/[handle]/p/[slug]`). The Member page (`/m/[handle]`) is the one intentionally global namespace: the handle is the auth identity and must survive relocation. Outer `/p/` (place) and inner `/p/` (product) are positionally unambiguous. Places are platform-curated — there is no Member-facing create surface for a `places` row; the UI label "Place" belongs to `places`, while a specific Location is a "Venue."
+6. **URLs are place-scoped.** Every public URL except the Member page nests under a variable-depth place path — `/p/[…ancestor place slugs]/[place slug]`. Groups append `/g/[slug]`, Locations append `/l/[slug]`. Items take the resource segment (`/e/`, `/p/`, `/s/`, `/i/`, `/o/`, `/a/`, `/initiative/`) appended to either their Group's place path (`/p/[…place]/g/[group-slug]/p/[slug]`) or — for Items not filed under a Group — the owner's Member path (`/m/[handle]/p/[slug]`). The Member page (`/m/[handle]`) is the one intentionally global namespace: the handle is the auth identity and must survive relocation. Outer `/p/` (place) and inner `/p/` (product) are positionally unambiguous. Places are platform-curated — there is no Member-facing create surface for a `places` row; the UI label "Place" belongs to `places`, while a specific Location is a "Venue."
 
 ### When in doubt
 
@@ -81,12 +81,12 @@ A separate set of rules from entity naming — these govern *where docs live* an
 | Active spec / system | `kebab-case.md`, no date | `groups.md` | `product/systems/`, `product/foundation/`, `product/ui/`, etc. |
 | Scenario | `scenario-F###-{slug}.md` | `scenario-F018-brian-declares-run-club.md` | `planning/backlog/` (draft) → `planning/next/` (approved, gated for build) → `planning/now/` (in build) → `planning/done/` (closed) |
 | Pattern entry | A section in `playbooks/{PLATFORM,DEVELOPMENT}-PATTERNS.md` (Decision / Intent / Touches) | "Anchor all primary controls to the bottom of the viewport" | `playbooks/` |
-| Reversal memo | `memo-NNNN-{slug}.md` (numbering continues from 0024 — ADR-1 through 0025 retain numbering for git citation stability) | `memo-0024-{slug}.md` | `playbooks/memos/` — only when a prior decision needs to be reversed by user feedback |
+| Reversal memo | `memo-NNNN-{slug}.md` (numbering continues from 0024) | `memo-0024-{slug}.md` | `playbooks/memos/` — only when a prior decision needs to be reversed by user feedback |
 | Review | `review-F###.md` | `review-F036.md` | alongside its scenario, in the **same lane** (`planning/next/` or `planning/now/`); archives to `planning/done/` with the scenario |
-| Ticket | `T###-{slug}.md` (no zero-padding) | `T056-items-state-enum.md` | `development/tickets/` (open) → `development/tickets/done/` (wraps to `development/tickets/done/vN/` on shipped-version cut per ADR-25) |
+| Ticket | `T###-{slug}.md` (no zero-padding) | `T056-items-state-enum.md` | `development/tickets/` (open) → `development/tickets/done/` (wraps to `development/tickets/done/vN/` on shipped-version cut) |
 | Bundle overview | `bundle-N.md` (one slim overview per bundle) | `bundle-1.md` | `planning/now/` (active) → `planning/done/YYYY-MM-DD-{slug}/` when atomized or shipped |
 | Bundle artifact | `bundle-N-{kind}.md` — kind ∈ {`checklist`, `themes`, `sequence`, `sprint`, `work-map`, `audit`, `wrapup`} | `bundle-1-checklist.md`, `bundle-1-themes.md` | `planning/now/` (archives with parent bundle to `planning/done/`) |
-| Initiative (non-bundle work package) | overview `initiative-{name}.md`; child items `initiative-{name}-{slug}.md` per ADR-25 (local lifecycle ownership) | `initiative-phase-3.md` (overview) + `initiative-phase-3-thesis-page.md` (item) | overview in `planning/now/`; items in `planning/backlog/` → `planning/done/` when done |
+| Initiative (non-bundle work package) | overview `initiative-{name}.md`; child items `initiative-{name}-{slug}.md` (local lifecycle ownership) | `initiative-phase-3.md` (overview) + `initiative-phase-3-thesis-page.md` (item) | overview in `planning/now/`; items in `planning/backlog/` → `planning/done/` when done |
 | Kanban-staged work item | `{kind}-{slug}.md` (e.g. `audit-orphans.md`, `decision-payment-rail.md`) | `decision-F018-flagship.md` | `planning/backlog/` (drafts + parked + awaiting approval) → `planning/next/` (approved, gated for build) → `planning/now/` (in flight) → `planning/done/` (closed; dated subdirs `YYYY-MM-DD-{slug}/`). PM moves files across the four lanes; lane membership is the state. `atomize` outputs new stubs into `planning/backlog/`. |
 | Dated work product | `_attic/YYYY-MM-DD-{slug}/` directly | `_attic/2026-MM-DD-some-effort/` | `_attic/` |
 | Retired spec | `{owning-dir}/archive/YYYY-MM-DD-{slug}/` with `retired_from:` in frontmatter for provenance | `product/archive/2026-MM-DD-some-spec/some-spec.md` | `{owning-dir}/archive/` |
@@ -95,8 +95,6 @@ A separate set of rules from entity naming — these govern *where docs live* an
 | Audit | `pipeline-process-audit-YYYY-MM-DD.md` (named at root during the audit; **on absorption, atomize the findings into `planning/backlog/` and archive the audit to `_attic/YYYY-MM-DD-{slug}/`**) | `pipeline-process-audit-2026-05-22.md` | (transient at root) |
 | Playbook (decisions in force + how-to-write canon) | `SCREAMING-KEBAB.md` for pattern docs, `kebab-case.md` for how-to-write | `PLATFORM-PATTERNS.md`, `writing-docs.md` | `playbooks/` (reversal memos live under `playbooks/memos/` — see "Reversal memo" row above) |
 | Skill | `skills/{kebab-name}/SKILL.md` + `workflow.md` | `skills/build/` | `skills/` |
-
-> **Decisions used to be ADRs.** The `ADR-NNNN-{slug}.md` files (formerly in a dedicated `adrs/` directory under `planning/`) were retired on 2026-05-30 — their content migrated into the playbook pattern docs (`playbooks/PLATFORM-PATTERNS.md`, `playbooks/DEVELOPMENT-PATTERNS.md`). Bare `ADR-N` labels survive in specs as historical shorthand (retained for git citation stability). New decisions land as pattern-doc entries; reversals are reversal memos (see rows above).
 
 ### Filename prefix carries kind
 

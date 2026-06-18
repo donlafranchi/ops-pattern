@@ -65,7 +65,7 @@ The assistant never holds the credential it acts under. The action layer ([`acti
 
 The Assistant Context is the Member's property. It is fully exportable (one-click `/you/data` action), fully deletable (one-click purge with cascade through the action layer), never trained on, never input to recommendation surfaces, never visible to other Members or their assistants without explicit per-section opt-in sharing.
 
-Skill subscriptions are equally Member-owned. The platform-curated catalog is free forever; Group/peer/federation Skills default to off-platform payment with no platform cut. The opt-in platform-mediated payment (capped 5–10%, per ADR-9) is the Member's choice for each Skill they install, not a default.
+Skill subscriptions are equally Member-owned. The platform-curated catalog is free forever; Group/peer/federation Skills default to off-platform payment with no platform cut. The opt-in platform-mediated payment (capped 5–10%) is the Member's choice for each Skill they install, not a default.
 
 This is the relational realization of `principles.md`'s refusal of the surveillance-and-ranking model. The Member's context is theirs, not the platform's product.
 
@@ -81,7 +81,7 @@ The three primitives share three pieces of substrate. Defined once here; referen
 
 ### The standing-tier gate — `member_has_standing_presence`
 
-A read-only view (per [`groups.md`](groups.md)) returning Members with `member_has_standing_presence = true` (≥1 active membership in a kind='business' Group OR steward-role membership in any non-business Group). Replaces the earlier `member_standing_signal` derivation (retired alongside ADR-3's `maker_signal` per ADR-8 + ADR-12 + ADR-13). Outputs a single boolean per Member: standing tier (Group declared) or scratch tier (no qualifying Group). The simplicity is deliberate — every previous draft of a behavioral signal drifted, was gameable, or required policing. Declared Groups are clean.
+A read-only view (per [`groups.md`](groups.md)) returning Members with `member_has_standing_presence = true` (≥1 active membership in a kind='business' Group OR steward-role membership in any non-business Group). Replaces the earlier `member_standing_signal` derivation (retired alongside the earlier `maker_signal`). Outputs a single boolean per Member: standing tier (Group declared) or scratch tier (no qualifying Group). The simplicity is deliberate — every previous draft of a behavioral signal drifted, was gameable, or required policing. Declared Groups are clean.
 
 The standing-tier path is the explicit "Sell" CTA, which creates a kind='business' Group with the Member as sole owner-role membership. No `maker_mode_enabled` column exists; the Group membership itself is the signal. Ending the owner-role membership starts a 90-day dormancy window per `groups.md`; persistence across all three primitives follows the same Group-lifecycle gate (no separate toggle to pause).
 
@@ -103,7 +103,7 @@ Published as code constants (TypeScript enum + Postgres enum) and stable from b1
 
 ### The action-layer contract
 
-Every action — read, draft, confirm, monetary — flows through the named handlers defined in [`action-layer.md`](action-layer.md) (ADR-7). Every write writes its row and its event in the same transaction. Every Delegation-mediated action populates `acting_member_id` (the granting Member) and `via_delegation_id` (the active grant) in the event log. Per-turn capability vending is the runtime trust substrate; the assistant never holds the credential it acts under.
+Every action — read, draft, confirm, monetary — flows through the named handlers defined in [`action-layer.md`](action-layer.md). Every write writes its row and its event in the same transaction. Every Delegation-mediated action populates `acting_member_id` (the granting Member) and `via_delegation_id` (the active grant) in the event log. Per-turn capability vending is the runtime trust substrate; the assistant never holds the credential it acts under.
 
 ---
 
@@ -136,7 +136,7 @@ The kind enum is extensible without schema migration.
 The b1 commitment is **schema reserved, scopes defined, audit fields populated.** No surfaces ship.
 
 - `delegations` table exists with all fields below.
-- The action-layer handlers (per ADR-7) accept an optional `delegation_id` parameter and write `acting_member_id` + `via_delegation_id` to the event log on every action.
+- The action-layer handlers accept an optional `delegation_id` parameter and write `acting_member_id` + `via_delegation_id` to the event log on every action.
 - All MVP-shipped actions populate these fields with the obvious values: `acting_member_id = session.member_id`, `via_delegation_id = NULL`. No agent calls happen yet, but the substrate exists.
 - The scope vocabulary (above) is published in code as a constant and is stable from b1 forward.
 - A read-only `GET /api/me/delegations` endpoint returns the Member's active grants (always empty at b1; non-empty at b2).
@@ -148,7 +148,7 @@ The assistant surfaces ship; Members can issue, view, and revoke Delegations.
 - Member-facing UI: a "Connected Assistants and Skills" page in `/you` listing every active Delegation with kind, grantee label, scopes, expires_at, last-used-at, and a revoke button.
 - Grant flow: when a Skill is subscribed (per § Skills) or the assistant requests an elevated scope, the Member sees a clear, scope-by-scope confirmation screen before the Delegation is issued. No silent grants.
 - Revocation flow: one-tap from the settings page; takes effect on the next action attempt; revoked Delegations remain in the event log for audit.
-- **Confirmation-required scopes.** Scopes ending in `_publish` (e.g., `confirm_publish_item`, `confirm_publish_response`, `confirm_publish_pledge`) cannot be exercised without a per-action Member confirmation, regardless of grant. The Delegation lets the assistant *prepare* the action; the Member always presses publish. This is the line the assistant must not cross (per ADR-6).
+- **Confirmation-required scopes.** Scopes ending in `_publish` (e.g., `confirm_publish_item`, `confirm_publish_response`, `confirm_publish_pledge`) cannot be exercised without a per-action Member confirmation, regardless of grant. The Delegation lets the assistant *prepare* the action; the Member always presses publish. This is the line the assistant must not cross.
 - Money-flow scopes are off by default and opt-in only (see § Policy posture below).
 - Delegation expiry is enforced server-side; expired Delegations are rejected at the action handler with a re-grant prompt for the Member.
 - The Member's event log surfaces "acted via Assistant" / "acted via {Skill name}" annotations on entries where `via_delegation_id` is non-null.
@@ -225,7 +225,7 @@ Per [`../foundation/policy.md`](../foundation/policy.md): default is the protect
   - `expires_at` — required; default subject to deep-dive ratification per the Pending Ratifications list.
   - `reversibility_window_hours` — buyer's-remorse window during which the Member can unilaterally reverse the purchase. Default subject to ratification; per `payments.md` §8 the default range is 24–72 hours configurable at grant time.
   - `first_recipient_confirmation` — boolean, default true; first purchase from any new recipient requires per-action confirmation even within an active Delegation.
-  - `prefer_local` — boolean, default true; when multiple matches exist, the agent surfaces locally-owned options first (computed per `groups.md`'s locality derivation, which reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` per `business-jurisdiction.md` — the only locality path under ADR-21).
+  - `prefer_local` — boolean, default true; when multiple matches exist, the agent surfaces locally-owned options first (computed per `groups.md`'s locality derivation, which reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` per `business-jurisdiction.md` — the only locality path).
 - **Required execution semantics:**
   - Any transaction exceeding caps, scope, or category → auto-blocked; surfaced as a re-confirm prompt.
   - Per-execution event: `delegation.bounded_purchase_executed` with `amount_cents`, `recipient_ref`, `recipient_kind` (member / group / external), `item_id` (if applicable), `caps_in_force`, `via_delegation_id`.
@@ -294,7 +294,7 @@ The non-negotiable across all three: nothing the Member did not author or confir
 
 ### Persistence is standing-gated
 
-Per ADR-6 and the umbrella commitment above, the Assistant Context's persistence tier is gated on `member_has_standing_presence` (defined in § Shared substrate).
+Per the umbrella commitment above, the Assistant Context's persistence tier is gated on `member_has_standing_presence` (defined in § Shared substrate).
 
 **Scratch tier (default).** A new Member, or a Member doing only ephemeral loops (Wonder posting, Loop 3 newcomer browsing) without standing presence, has an Assistant Context that defaults to a small, transient context — name, preferred locality, optional pronouns. Updates persist across sessions but are intentionally minimal. The assistant is helpful but not deeply personalized.
 
@@ -316,7 +316,7 @@ The b1 commitment is **schema reserved, export and purge live, no UI ships.**
 The assistant surfaces ship; Members can author and curate the Assistant Context through the assistant or directly.
 
 - An Assistant Context editor in `/you` exposing each section as a small free-text field with version history. Members can edit directly without the assistant.
-- The three update pathways (per ADR-6) are wired:
+- The three update pathways are wired:
   - **Explicit teach** — the Member tells the assistant something to remember; the assistant writes it verbatim with `source = explicit`.
   - **Confirmation-derived** — the assistant proposes ("Want me to remember you prefer plainspoken descriptions?"); on accept, written with `source = confirmation_derived`.
   - **Inferred** — the assistant notices a behavioral pattern and surfaces a *suggestion* with the underlying evidence link; on accept, written with `source = inferred`. Rejected suggestions are logged but not retried for 90 days.
@@ -562,7 +562,7 @@ Rules out: Skills that auto-publish or move money without explicit Member confir
 **Substrate only.** No agent-assistance surfaces ship at b1. What lands:
 
 - The three tables: `delegations` (with the scope enum populated), `member_self_records` (one row per Member, default scratch-tier), and `skill_subscriptions` (empty at b1, fillable from `/you/skills` at b2). Plus `skills` (the manifest spine) and `skill_versions`.
-- The audit fields `acting_member_id NOT NULL` and `via_delegation_id` (nullable) on every `*_events` row, populated by the action layer (per ADR-7). The system Member is the `acting_member_id` for platform-emitted events; Members are the `acting_member_id` for their own writes; Delegation-mediated writes (b2+) carry the granted Delegation's id.
+- The audit fields `acting_member_id NOT NULL` and `via_delegation_id` (nullable) on every `*_events` row, populated by the action layer. The system Member is the `acting_member_id` for platform-emitted events; Members are the `acting_member_id` for their own writes; Delegation-mediated writes (b2+) carry the granted Delegation's id.
 - The `/you/data` export action (one-click JSON of the Member's full data envelope including Assistant Context) and the `/you/data` purge action (cascade-delete via the action layer).
 
 **No surfaces at b1.** No assistant chat panel, no `/you/skills` catalog browsing, no Skill subscription flow, no Assistant Context editor UI. Members at b1 know none of this exists — but every write they perform populates the audit trail that lets the b2+ stack land cleanly without retrofit.
@@ -573,7 +573,7 @@ The assistant surfaces. The platform-curated Skill catalog at `/skills`. The sub
 
 ## What ships at b3
 
-Federation-grade Delegations. Group-/peer-/federation-authored Skills. Assistant Context federation portability. The opt-in platform-mediated Skill payment (per ADR-9, opt-in for authors who choose it; capped 5–10%; funds maintenance, not ranking). Per-Skill Assistant Context section scoping.
+Federation-grade Delegations. Group-/peer-/federation-authored Skills. Assistant Context federation portability. The opt-in platform-mediated Skill payment (opt-in for authors who choose it; capped 5–10%; funds maintenance, not ranking). Per-Skill Assistant Context section scoping.
 
 ---
 
@@ -599,14 +599,14 @@ Federation-grade Delegations. Group-/peer-/federation-authored Skills. Assistant
 
 This spec is the live home for the architectural decisions below. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register.
 
-| ADR | Status | What lives here |
+| Decision | Status | What lives here |
 |---|---|---|
-| ADR-6 | Accepted, refined by ADR-9 | Agent assistance is first-class. Three primitives (Delegation, Assistant Context, Skills). Five umbrella commitments: loop-shaped not role-shaped · persistence is standing-derived · read can be automated, write requires human confirmation · Member-owned, never platform-owned · federation-portable. b1 ships substrate only; surfaces ship b2; federation-grade ships b3. |
-| ADR-9 (Delegation portion) | Accepted | Opt-in monetary-flow scopes with schema-enforced mitigations: `recurring_payment` and `bounded_purchase`. Outside an active monetary-flow Delegation, one-time monetary actions remain Member-direct. Pledges are not delegable at this writing; revisit if a pledge-shaped scope passes its own three-filter test. |
-| ADR-9 (Assistant Context portion) | Accepted | Opt-in anonymized aggregate analysis (k-anonymity floor N≥10). Opt-in cross-Member sharing (granular, time-bounded). Categorical refusal of feed input *for other Members* is permanent. |
-| ADR-9 (Skills portion) | Accepted | Platform-curated Skills remain free permanently. Group/peer/federation Skills default to off-platform payment with no platform cut. Opt-in available T2-late / T3: platform-mediated payment with a published, capped cut (target 5–10%) for authors who choose it. The cut funds maintenance, not catalog ranking. No paid promotion ever. |
+| Agent assistance | Accepted | Agent assistance is first-class. Three primitives (Delegation, Assistant Context, Skills). Five umbrella commitments: loop-shaped not role-shaped · persistence is standing-derived · read can be automated, write requires human confirmation · Member-owned, never platform-owned · federation-portable. b1 ships substrate only; surfaces ship b2; federation-grade ships b3. |
+| Policy posture (Delegation portion) | Accepted | Opt-in monetary-flow scopes with schema-enforced mitigations: `recurring_payment` and `bounded_purchase`. Outside an active monetary-flow Delegation, one-time monetary actions remain Member-direct. Pledges are not delegable at this writing; revisit if a pledge-shaped scope passes its own three-filter test. |
+| Policy posture (Assistant Context portion) | Accepted | Opt-in anonymized aggregate analysis (k-anonymity floor N≥10). Opt-in cross-Member sharing (granular, time-bounded). Categorical refusal of feed input *for other Members* is permanent. |
+| Policy posture (Skills portion) | Accepted | Platform-curated Skills remain free permanently. Group/peer/federation Skills default to off-platform payment with no platform cut. Opt-in available T2-late / T3: platform-mediated payment with a published, capped cut (target 5–10%) for authors who choose it. The cut funds maintenance, not catalog ranking. No paid promotion ever. |
 | `bounded_purchase` Delegation scope | Ratified | Scope shape, mitigations, and three-filter analysis live in this spec under § Delegation Policy posture. |
 
-This spec *consumes* ADR-7 (the action-layer contract — Delegation grants flow through the named handlers `delegation.grant` / `delegation.revoke`; every issuance writes an event row in the same transaction as the row insert; runtime enforcement of scope, capability vending, and the confirmation gate is the action layer's job, not this spec's). ADR-7's full ratification lives in [`action-layer.md`](action-layer.md).
+This spec *consumes* the action-layer contract (Delegation grants flow through the named handlers `delegation.grant` / `delegation.revoke`; every issuance writes an event row in the same transaction as the row insert; runtime enforcement of scope, capability vending, and the confirmation gate is the action layer's job, not this spec's). The action layer's full ratification lives in [`action-layer.md`](action-layer.md).
 
-This spec also *encodes* ADR-7 portions for: the `self_record.update_propose` / `self_record.update_confirm` / `self_record.export` / `self_record.purge` handlers; the Skill subscribe/unsubscribe flow through action handlers.
+This spec also *encodes* action-layer portions for: the `self_record.update_propose` / `self_record.update_confirm` / `self_record.export` / `self_record.purge` handlers; the Skill subscribe/unsubscribe flow through action handlers.

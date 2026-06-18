@@ -8,7 +8,7 @@ status: open
 # T085 — Public gathering Item page
 
 **Scenario:** [F034 — A member hosts a recurring gathering](../../planning/now/scenario-F034-member-hosts-recurring-gathering.md)
-**Binds to:** `product/systems/item.md` · ADR-20 (place-scoped URLs) · ADR-22 · CLAUDE.md § Naming conventions (`/e/` Item URL column)
+**Binds to:** `product/systems/item.md` · place-scoped URLs · CLAUDE.md § Naming conventions (`/e/` Item URL column)
 **Status:** Open
 **Bundle:** b1 (b1.3 — Item composers)
 **Depends on:** T080 (handler writes the rows) · T079 (product-page dispatch pattern) · T060 (place catch-all)

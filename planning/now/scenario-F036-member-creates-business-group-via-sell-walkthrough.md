@@ -30,7 +30,7 @@ Steps:
 4. **Locality claim (optional)** — Tier 0 self-attested ZIP step. She can fill it in now or skip (F037 covers the claim lifecycle). At b1 she can fill it in, but the badge UI rendering is tested in F037.
 5. **Done.**
 
-She lands on the new Group page (F035). The page shows her as founder (owner role), her brand name as the page title, and an empty Items section ("List a product" CTA visible). Selling-tool affordances now surface from her active kind='business' Group membership — no profile toggle, no maker_mode flag (per ADR-12 SUPERSEDED 2026-05-12).
+She lands on the new Group page (F035). The page shows her as founder (owner role), her brand name as the page title, and an empty Items section ("List a product" CTA visible). Selling-tool affordances now surface from her active kind='business' Group membership — no profile toggle, no maker_mode flag (SUPERSEDED 2026-05-12).
 
 The "Sell" CTA on `/you` and as a secondary CTA on gathering/wonder composers all route to this walkthrough for first-time Sellers; for Members with ≥1 active kind='business' Group, those CTAs route to "Add an Item" instead.
 
@@ -72,13 +72,13 @@ Implicit: `groups` spine row with `kind='business'`, `founder_member_id=<member>
 
 **Given** the walkthrough completes
 **When** Maya is redirected
-**Then** she lands on `/p/[…place]/g/[slug-suffix]` (slug derived from display_name + random suffix per ADR-22); page renders her as founder + owner; empty Items section with "Add a product" CTA visible.
+**Then** she lands on `/p/[…place]/g/[slug-suffix]` (slug derived from display_name + random suffix); page renders her as founder + owner; empty Items section with "Add a product" CTA visible.
 
 ### Selling-tool affordances surface from Group membership
 
 **Given** Maya now has ≥1 active kind='business' Group membership
 **When** she returns to `/you` or any Item composer entry
-**Then** selling-tool affordances (Add a product, Add a service, Add a gathering) appear from her active membership — no profile toggle. Per ADR-12 SUPERSEDED 2026-05-12.
+**Then** selling-tool affordances (Add a product, Add a service, Add a gathering) appear from her active membership — no profile toggle. SUPERSEDED 2026-05-12.
 
 ### Locality step is skippable
 
@@ -89,7 +89,7 @@ Implicit: `groups` spine row with `kind='business'`, `founder_member_id=<member>
 ## Edge Cases
 
 - **Anchor Location doesn't exist:** sub-flow opens to add a new Location; on save, returns to the walkthrough with the new Location selected.
-- **Brand name collision:** slug suffix per ADR-22 makes collision-resistant; display_name has no uniqueness constraint.
+- **Brand name collision:** slug suffix makes collision-resistant; display_name has no uniqueness constraint.
 - **Walkthrough abandoned mid-flow:** partial state preserved (the Group is created on step 1 with the brand name; later steps update). Resume on next "Sell" tap or via `/you`.
 - **Member already has a business Group:** "Sell" routes to "Add an Item" picker; walkthrough is for first-time Sellers only. (Multi-business-Group case: b2 surface, but schema supports it.)
 
@@ -98,7 +98,7 @@ Implicit: `groups` spine row with `kind='business'`, `founder_member_id=<member>
 - Phase 1 substrate: `groups`, `group_businesses`, `group_memberships`, `locations`, `members`.
 - Action handlers: `group.create`, `group.member_join` (per Phase 2 plan).
 - F035 (Group public page) ships alongside this scenario so the walkthrough completion has a destination.
-- ADR-22 random-suffix slug pattern is wired for Group slug generation.
+- Random-suffix slug pattern is wired for Group slug generation.
 
 ## Out of Scope
 
@@ -106,7 +106,7 @@ Implicit: `groups` spine row with `kind='business'`, `founder_member_id=<member>
 - Cooperative governance, voting, treasury — deferred indefinitely per `groups.md`.
 - Edit-business-Group flow — separate scenario.
 - Staff confirmation flow — b2.
-- Profile-toggle "Maker mode" entry — explicitly retired per ADR-12 SUPERSEDED 2026-05-12.
+- Profile-toggle "Maker mode" entry — explicitly retired (SUPERSEDED 2026-05-12).
 - The Locally Owned claim lifecycle (set, edit, remove, out-of-metro) — F037.
 
 ## Capabilities unlocked

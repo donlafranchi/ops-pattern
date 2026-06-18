@@ -71,7 +71,7 @@ _Why: Loop 3 (Land here) — the venue page must be fully readable without login
 **Given** an auth'd Member whose `member_place_interests` row with `scope_kind='primary_home'` resolves to a Place with a centroid
 **When** they view the venue page
 **Then** the header shows distance derived from that Place's centroid to the venue's coordinates.
-_Why: `home_location_id` is a vestigial soft pointer to a specific Location. Distance reflects the Member's community-awareness scope (Place-level), not a raw Location coordinate. `member_place_interests` is the community-awareness feed's source (ADR-21), so distance is consistent with that scope._
+_Why: `home_location_id` is a vestigial soft pointer to a specific Location. Distance reflects the Member's community-awareness scope (Place-level), not a raw Location coordinate. `member_place_interests` is the community-awareness feed's source, so distance is consistent with that scope._
 
 ### Anon visitor distance is omitted or IP-derived
 
@@ -158,7 +158,7 @@ _Why: not every Location has an owning business Group. A public park, a communit
 
 - Phase 1 substrate: `locations` + child tables, `items`, `item_locations`, `groups` with `anchor_location_id`.
 - S-saved-search substrate landed (T102: `<FollowVenueButton>`, `followVenueAction`/`unfollowVenueAction` built). Gate closed 2026-06-11.
-- Place-scoped URL routing per ADR-20 is wired (the `/p/[…place]/l/[slug]` resolver works).
+- Place-scoped URL routing is wired (the `/p/[…place]/l/[slug]` resolver works).
 - `member_place_interests` with `scope_kind='primary_home'` rows exist for auth'd Members (shipped with F030).
 - `places.centroid` exists (shipped with S-polygon / T076).
 
@@ -167,7 +167,7 @@ _Why: not every Location has an owning business Group. A public park, a communit
 - Sub-venue support ("Drake's barn" as a sub-Location of Drake's) — schema reserved at b1 via `locations.parent_location_id`; surface at b2.
 - Venue-page bulletin or announcement section — venues don't broadcast; that's a producer-tools concern (b2).
 - Venue claim / steward flow (a venue regular asking to manage the page) — b2.
-- Saved-search composer UI for editing filters/label after the default write — b2 per ADR-21.
+- Saved-search composer UI for editing filters/label after the default write — b2.
 - The "What's happening nearby" radius and sorting algorithm — the scenario specifies the affordance exists and shows public Items by proximity; the exact radius and ranking are implementation decisions for `ticket`.
 
 ## Capabilities unlocked

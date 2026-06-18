@@ -26,7 +26,7 @@ If any answer is unclear, stop. Escalate to `explore` (if the reversal needs mor
 
 ### 2. Allocate the next number
 
-Scan `playbooks/memos/`. Take the highest existing memo number and add one. Numbering **continues from memo-0024** (ADR-1 through 0025 retain their original numbers for git citation stability). **Never reuse a number** — if a draft was previously rejected, that number is retired.
+Scan `playbooks/memos/`. Take the highest existing memo number and add one. Numbering **continues from memo-0024**. **Never reuse a number** — if a draft was previously rejected, that number is retired.
 
 ### 3. Decide the home
 

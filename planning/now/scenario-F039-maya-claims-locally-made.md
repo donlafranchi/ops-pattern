@@ -67,7 +67,7 @@ Implicit:
 
 ### Story beat 3 — "Locally Made" badge renders for proximal viewers
 
-**Given** the product has `made_at_place_id` set to Oak Park AND the viewer holds a `member_place_interests` row whose Place is proximal to Oak Park (either Oak Park itself, any ancestor in the Place hierarchy — Sacramento city, Sacramento County — or co-membership in the same `metro_polygons` overlay per D3)
+**Given** the product has `made_at_place_id` set to Oak Park AND the viewer holds a `member_place_interests` row whose Place is proximal to Oak Park (either Oak Park itself, any ancestor in the Place hierarchy — Sacramento city, Sacramento County — or co-membership in the same `metro_polygons` overlay)
 **When** the page renders
 **Then** the "Locally Made" badge displays. _Why: per `business-jurisdiction.md` P4 table and the awareness-feed model in C2, locality is relative to the viewer's place-interest set. Eval verifies the badge renders for a Sacramento-interest viewer AND does NOT render for a viewer whose place-interests are entirely outside the proximity threshold._
 
@@ -88,7 +88,7 @@ Implicit:
 ## Edge Cases
 
 - **Place not in the typeahead:** The `places` table is platform-curated. If Maya needs a Place that doesn't exist, the typeahead suggests the closest match (parent Place) — she can pick Sacramento if Oak Park isn't yet in the lookup. Adding new Places is a platform-curation operation, not a Member surface.
-- **made-at Place is a coarse Place (e.g., Sacramento County rather than the Oak Park neighborhood):** `made_at_place_id` is always a `places` row; the proximity test runs against that Place's curated polygon centroid or boundary. Colloquial metros are not pickable here — they live in the `metro_polygons` discovery overlay (per D3), not the `places` tree.
+- **made-at Place is a coarse Place (e.g., Sacramento County rather than the Oak Park neighborhood):** `made_at_place_id` is always a `places` row; the proximity test runs against that Place's curated polygon centroid or boundary. Colloquial metros are not pickable here — they live in the `metro_polygons` discovery overlay, not the `places` tree.
 - **Product made at one Place but sold from many:** F039 captures the one made-at Place. The Item's location attachments (where it's sold) live on a separate table per `item.md`.
 - **Reseller case** (per P4's reseller row): A producer reselling imported textiles sets `made_at_place_id` to the import origin (e.g., Hanoi). The "Made in Hanoi" line renders; the "Locally Made" badge never renders to any local viewer because Hanoi fails proximity. Tier 0 doesn't punish honesty — the platform reports what the producer declared.
 - **Provenance lie:** Maya could enter a false Place. Tier 0 is self-attested and gaming-prone per `business-jurisdiction.md` line 327; community-attestation at b2+ corroborates or challenges. Out of scope for F039.
