@@ -14,44 +14,6 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
-## PM reading list — review regularly
-
-Documents that define what we're building, why, and what ships next. Revisit these when making scope calls, evaluating features, or returning after time away.
-
-**The why — mission and principles**
-- [`product/foundation/principles.md`](product/foundation/principles.md) — the constitution; P1–P8, the People-First Principle, the Decision Test, the one absolute
-- [`product/foundation/platform-promise.md`](product/foundation/platform-promise.md) — public commitments to members and producers
-- [`product/foundation/community-health-rubric.md`](product/foundation/community-health-rubric.md) — the 0–3 scoring rubric for every platform decision
-- [`product/foundation/primitives.md`](product/foundation/primitives.md) — Person / Item / Location / Group — the data spine
-
-**The what — systems and needs**
-- [`product/needs/member-journey.md`](product/needs/member-journey.md) — the 13 loops, the north star
-- [`product/needs/use-cases.md`](product/needs/use-cases.md) — the 12 real situations the platform serves
-- [`product/MAP.md`](product/MAP.md) — one sentence per system, the 100k-foot view
-
-**What ships now — bundle 1**
-- [`planning/now/bundle-1.md`](planning/now/bundle-1.md) — what's in the MVP and what defers
-- [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md) — the one-page scoreboard
-- [`planning/now/bundle-1-themes.md`](planning/now/bundle-1-themes.md) — sub-bundle sequencer (b1.0–b1.6 and beyond)
-- [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) — pipeline tracker, one row per feature
-
-**How we build**
-- [`playbooks/PLATFORM-PATTERNS.md`](playbooks/PLATFORM-PATTERNS.md) — what the platform IS or refuses to be
-- [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) — how we build, commit rules, pipeline patterns
-- [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) — the close-call rule, the lexicographic tiebreaker
-- [`playbooks/deployment-pipeline.md`](playbooks/deployment-pipeline.md) — local → staging → production go-live path
-
-**Brand and exploration**
-- [`product/exploration/brand-strategy-and-naming.md`](product/exploration/brand-strategy-and-naming.md) — brand voice, mascot, naming territories, what a strong name looks like
-- [`product/exploration/social-attention-to-local-action.md`](product/exploration/social-attention-to-local-action.md) — TikTok/Instagram integration channels
-
-**Reference**
-- [`REGISTRY.md`](REGISTRY.md) — catalog of every doc with purpose + status
-- [`product/TRACE.md`](product/TRACE.md) — feature lineage, every capability traced from need to ticket
-- [`AGENTS.md`](AGENTS.md) — pipeline firewalls, gates, escalation
-
----
-
 ## 2026-06-16 — Reviewed F037 (Locally Owned claim) — PROCEED, all substrate shipped
 
 Mandatory rebuild-phase review on the Locally Owned claim scenario. Architecture: every table, handler, function, and event type already exists (T075 S-jurisdictions substrate). The surface is a narrow owner-view widget on F035's Shop page — reads `member_business_jurisdictions`, writes via `member.business_jurisdiction.set/.remove`, badge derives at query time via `zip_is_proximal_to_location()`. Design: DLS needs an "owner-view section" pattern (role-gated management section on a public page); can land inline with the first ticket. Loop number discrepancy noted (scenario says Loop 7 = Buy close; spec says Loop 9).
