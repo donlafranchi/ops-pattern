@@ -148,6 +148,27 @@ The mental model in `primitives.md` is one Item primitive with a `kind` enum. Th
 - **`item_gatherings`** — `starts_at` (timestamptz, for one-time), `ends_at` (nullable), `recurrence_rule` (text RRULE format, nullable), `capacity` (nullable int), `cost_cents` (nullable; null = free), `what_to_bring` (text nullable), `host_member_id` (FK; usually = `items.member_id`, may differ for delegated hosting), `rsvp_cutoff` (nullable). Indexes: `(starts_at)` for the discovery feed, `(host_member_id)` for "who's hosting what."
 - **`item_wonders`** — `interest_count` (int default 0; denormalized from `item_responses` for fast sort), `expires_at` (timestamptz; default 90 days from create), `conversion_target_kind` (enum nullable — author hint "I'd convert to a gathering if this gets traction"), `converted_to_item_id` (nullable FK — set when Wonder converts).
 
+### Recurring gathering lifecycle (F034 architecture)
+
+A recurring gathering (e.g., "Run Club every Thursday, June–August") is a single `items` row with a single `item_gatherings` child. The `recurrence_rule` column holds the iCal RRULE defining the series; `starts_at` always holds the **next upcoming occurrence**.
+
+**One live occurrence at a time.** The platform materializes only the next occurrence as a concrete `starts_at` value. When that occurrence passes, a rotation job advances `starts_at` to the next date computed from the RRULE. This keeps the DB lean — no pre-creation of 13 rows for 13 Thursdays — while keeping the Item perpetually discoverable until the series ends.
+
+**Rotation job.** A background process (cron or database trigger, implementation TBD) watches for `starts_at < now()` on items with a non-null `recurrence_rule`. For each match it computes the next occurrence from the RRULE, updates `starts_at` (and `ends_at` if duration is defined), and fires an `item.published` event to refresh the `discoverable_items` MV. If the RRULE has no more occurrences (series ended), the item transitions to `state='fulfilled'`.
+
+**Discovery filtering.** The `discoverable_items` MV carries `starts_at` (T106). Discovery surfaces (`locality_feed_items`, `venue_nearby_items`) filter out past gatherings (`starts_at < now()`) and gatherings with no date set (`starts_at IS NULL` for kind='gathering'). Non-gathering items (products, services) pass through with null `starts_at`. Between the rotation job and the MV filter, a recurring series is always discoverable by its next occurrence and never shows stale dates.
+
+**"I can't make this one — show me the next."** The RRULE is the series definition. Computing the next N occurrences from the rule is a pure function — no schema change, no pre-creation. The UI calls it on demand and renders a list of upcoming dates. A viewer who can't make this Thursday sees next Thursday, the Thursday after, etc., and can add any of them to their calendar.
+
+**Calendar export.** The RRULE *is* the iCal recurrence format. Generating an `.ics` file with the full series is a literal pass-through of the stored rule — no transformation needed.
+
+**Follow → notification across occurrences.** The `member_saved_searches` follow (from the venue page or item page) is tied to the *item* (the series), not to a single date. When the rotation job fires `item.published` on the next occurrence, the existing saved-search → event → notification pipeline alerts everyone following the item or venue. A viewer who follows "Run Club at Drake's" gets notified each time the next Thursday materializes — no re-follow needed.
+
+**What ships when:**
+
+- **b1 (shipped):** RRULE capture in the gathering composer (F034/T084-T085). `starts_at` on the MV (T106). Past-event filtering on discovery surfaces (T106). Schema supports the full lifecycle.
+- **b2:** Rotation job. "Show me upcoming dates" UI on the event page. Single-occurrence cancellation. `.ics` export with RRULE. Edit-gathering flow (recurrence changes). RSVP per-occurrence.
+
 **Shared join tables** (serve all kinds; no kind discriminator needed):
 
 - **`item_locations`** — `id`, `item_id`, `location_id`, `schedule_kind` (enum: `one_time`, `recurring`, `ongoing`, `by_appointment`), `schedule_metadata` (JSONB), `status` (enum: `pending`, `approved`, `declined` — for cross-Member Location attachments), `created_at`, `removed_at` (soft).
