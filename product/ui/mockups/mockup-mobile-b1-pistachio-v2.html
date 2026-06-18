@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Movers, Makers &amp; Shakers — Mobile Mockup (b1) — Satin Pistachio v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Satin Pistachio palette */
+  --color-bg: #FAFAF7;
+  --color-surface: #F4F4F0;
+  --color-fg: #3F4D3C;
+  --color-fg-muted: #767670;
+  --color-border: #E5E5DF;
+  --color-accent: #869C7F;
+  --color-accent-hover: #6D8367;
+  --color-accent-tint: #E8EDE3;
+  --color-accent-light: #BACBB5;
+  --color-danger: #B4513C;
+  --color-success: #2D6A4F;
+  --color-warning: #D89E4A;
+  --color-info: #4A7C7E;
+  --radius-sm: 8px;
+  --radius-md: 14px;        /* bumped from 12 → 14 for warmer containment */
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-card: 0 0 0 1px rgba(63,77,60,0.04), 0 2px 8px rgba(63,77,60,0.06);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.16);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; min-height: 100%; background: #D5DECF; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--color-fg); -webkit-font-smoothing: antialiased; }
+
+.phone {
+  width: 390px; height: 844px; margin: 32px auto 16px;
+  background: var(--color-bg); border-radius: 48px;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.22);
+  overflow: hidden; position: relative; border: 10px solid #3F4D3C;
+}
+.screen { position: absolute; inset: 0; display: none; flex-direction: column; background: var(--color-bg); }
+.screen.active { display: flex; }
+
+.status-bar { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.status-bar .dots { display: inline-flex; gap: 4px; align-items: center; }
+.status-bar .dots span { width: 3px; height: 3px; background: #3F4D3C; border-radius: 50%; }
+
+.top-bar { padding: 8px 20px 14px; display: flex; align-items: center; justify-content: space-between; }
+/* [FIX 4] logo mark → neutral, not accent */
+.logo { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
+.logo .mark { color: var(--color-border); }
+/* [FIX 4] locality pin → foreground, not accent */
+.locality-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: 13px; font-weight: 500; background: var(--color-bg); cursor: pointer; }
+.locality-pill .pin { color: var(--color-fg); }
+
+.body { flex: 1; overflow-y: auto; padding: 0 20px 120px; -webkit-overflow-scrolling: touch; }
+.body::-webkit-scrollbar { display: none; }
+
+/* ──────────────────── CARD SYSTEM v2 ──────────────────── */
+
+/* [FIX 3] card containment: border + warm green shadow */
+/* [FIX 6] spacing: 28px between cards */
+.card {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  margin-bottom: 28px;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;          /* clip children to border-radius */
+}
+
+/* [FIX 2] kind-tags move to text zone */
+.card .kind-line {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-fg-muted);
+  padding: 0; margin-bottom: 3px;
+}
+.card .kind-line .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+
+/* [FIX 7] carousel dots on photo */
+.card .photo { aspect-ratio: 4/3; overflow: hidden; position: relative; background: var(--color-surface); }
+.card .photo svg { width: 100%; height: 100%; display: block; }
+.carousel-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+.carousel-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.45); }
+.carousel-dots span.active { background: white; }
+
+/* [FIX 5] beefier text block */
+.card .card-text { padding: 12px 14px 14px; }
+.card .title { font-size: 16px; font-weight: 600; line-height: 1.3; margin-bottom: 3px; }
+.card .meta { font-size: 13px; color: var(--color-fg-muted); line-height: 1.4; }
+.card .meta-attr { font-size: 12px; color: var(--color-fg-muted); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
+.card .meta-attr .attr-av { width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: white; flex-shrink: 0; }
+
+/* [FIX 1] unified silhouette: text cards get a banner header */
+.card.text { border: 1px solid var(--color-border); box-shadow: var(--shadow-card); overflow: hidden; }
+.card-banner {
+  padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+}
+.card-banner .avatar { width: 36px; height: 36px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.card-banner .author-name { font-size: 14px; font-weight: 600; color: white; }
+.card-banner .author-sub { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 1px; }
+.card-text-body { padding: 14px 16px 16px; }
+.card-text-body p { margin: 0; font-size: 15px; line-height: 1.5; }
+
+/* ──────────────────── END CARD v2 ──────────────────── */
+
+.bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; background: rgba(255,255,255,0.96); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-top: 1px solid var(--color-border); display: flex; padding-bottom: 22px; z-index: 10; }
+.bottom-nav .tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; color: var(--color-fg-muted); transition: color 200ms; }
+/* [FIX 4] active nav is one of two accent places — keep */
+.bottom-nav .tab.active { color: var(--color-accent); }
+.bottom-nav .tab .icon { width: 24px; height: 24px; }
+.bottom-nav .tab .label { font-size: 11px; font-weight: 600; }
+
+.search-bar { position: absolute; bottom: 100px; left: 16px; right: 16px; background: var(--color-bg); border-radius: var(--radius-full); box-shadow: var(--shadow-md); padding: 14px 20px; display: flex; align-items: center; gap: 12px; z-index: 9; }
+.search-bar input { border: none; outline: none; flex: 1; font-size: 15px; font-family: inherit; color: var(--color-fg); background: transparent; min-width: 0; }
+.search-bar input::placeholder { color: var(--color-fg-muted); }
+.search-bar .search-icon { color: var(--color-fg-muted); flex-shrink: 0; }
+
+.chip-row { position: absolute; bottom: 170px; left: 0; right: 0; display: flex; gap: 8px; overflow-x: auto; padding: 0 16px; z-index: 8; }
+.chip-row::-webkit-scrollbar { display: none; }
+.chip { padding: 8px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: 13px; font-weight: 500; background: var(--color-bg); white-space: nowrap; box-shadow: var(--shadow-sm); cursor: pointer; flex-shrink: 0; }
+.chip.active { background: var(--color-fg); color: white; border-color: var(--color-fg); }
+
+.list-card { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); cursor: pointer; }
+.list-card:last-child { border-bottom: none; }
+.list-card .thumb { width: 72px; height: 72px; border-radius: var(--radius-md); background: var(--color-surface); flex-shrink: 0; overflow: hidden; }
+.list-card .info { flex: 1; min-width: 0; }
+.list-card .info .title { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.list-card .info .meta { font-size: 12px; color: var(--color-fg-muted); }
+.list-card .info .distance { font-size: 12px; color: var(--color-fg-muted); margin-top: 4px; }
+
+.you-header { display: flex; align-items: center; gap: 14px; padding: 4px 4px 8px; }
+/* [FIX 4] you-avatar → warm neutral, not accent */
+.you-avatar { width: 56px; height: 56px; border-radius: 50%; background: #6B6B6B; color: white; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; }
+.you-name { font-size: 20px; font-weight: 600; }
+.you-handle { font-size: 14px; color: var(--color-fg-muted); margin-top: 2px; }
+
+.section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-fg-muted); margin: 28px 0 12px; padding: 0 4px; }
+
+.follow-row { display: flex; gap: 14px; padding: 4px 0 8px; overflow-x: auto; }
+.follow-row::-webkit-scrollbar { display: none; }
+.follow-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; }
+.follow-item .av { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: white; }
+.follow-item .name { font-size: 11px; color: var(--color-fg); max-width: 64px; text-align: center; line-height: 1.2; }
+
+.settings-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px; border-bottom: 1px solid var(--color-border); cursor: pointer; }
+.settings-row:last-child { border-bottom: none; }
+.settings-row .label { font-size: 15px; font-weight: 500; }
+.settings-row .chev { color: var(--color-fg-muted); font-size: 18px; }
+.settings-row.danger .label { color: var(--color-danger); }
+
+/* [FIX 4] CTA buttons are the other accent place — keep */
+.btn-primary { display: block; width: 100%; padding: 15px 20px; background: var(--color-accent); color: white; border: none; border-radius: var(--radius-md); font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 200ms; }
+.btn-primary:active { background: var(--color-accent-hover); }
+.btn-secondary { display: block; width: 100%; padding: 14px 20px; background: var(--color-bg); color: var(--color-fg); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; }
+
+/* [FIX 4] sell CTA block → neutral surface, not accent tint */
+.sell-cta-block { background: var(--color-surface); border-radius: var(--radius-md); padding: 20px; margin: 16px 0 8px; }
+.sell-cta-block .head { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.sell-cta-block .sub { font-size: 14px; color: var(--color-fg-muted); margin-bottom: 16px; line-height: 1.4; }
+
+.detail-header { position: relative; }
+.detail-back, .detail-share { position: absolute; top: 14px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); cursor: pointer; z-index: 5; font-size: 18px; font-weight: 600; }
+.detail-back { left: 16px; }
+.detail-share { right: 16px; }
+.detail-hero { aspect-ratio: 4/3; background: var(--color-surface); overflow: hidden; position: relative; }
+.detail-hero svg { width: 100%; height: 100%; }
+/* [FIX 4] detail-kind → neutral muted, not accent */
+.detail-kind { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-fg-muted); margin-bottom: 8px; }
+.detail-body { padding: 22px 24px 160px; overflow-y: auto; flex: 1; }
+.detail-body::-webkit-scrollbar { display: none; }
+.detail-title { font-size: 26px; font-weight: 700; line-height: 1.2; margin: 0 0 14px; }
+.detail-meta { font-size: 14px; color: var(--color-fg-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.detail-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--color-border); }
+.detail-section h3 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-fg-muted); margin: 0 0 12px; }
+.detail-section p { font-size: 15px; line-height: 1.5; margin: 0; }
+.host-row { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
+.host-row .av { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; }
+.host-row .info .name { font-size: 15px; font-weight: 500; }
+.host-row .info .role { font-size: 12px; color: var(--color-fg-muted); }
+
+.sticky-cta { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.96); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-top: 1px solid var(--color-border); padding: 16px 20px 34px; z-index: 11; }
+.sticky-cta .trust { font-size: 12px; color: var(--color-fg-muted); text-align: center; margin-top: 10px; }
+
+.drawer-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); z-index: 20; opacity: 0; pointer-events: none; transition: opacity 280ms; }
+.drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.drawer { position: absolute; bottom: 0; left: 0; right: 0; height: 90%; background: var(--color-bg); border-radius: 24px 24px 0 0; transform: translateY(100%); transition: transform 340ms cubic-bezier(0.32, 0.72, 0, 1); z-index: 21; display: flex; flex-direction: column; }
+.drawer.open { transform: translateY(0); }
+.drawer-grabber { width: 36px; height: 4px; border-radius: 2px; background: var(--color-border); margin: 10px auto 0; flex-shrink: 0; }
+.drawer-head { padding: 14px 20px 8px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.drawer-close { width: 32px; height: 32px; border-radius: 50%; background: var(--color-surface); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: var(--color-fg-muted); }
+.step-dots { display: flex; align-items: center; gap: 8px; }
+.step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-border); transition: background 200ms; }
+.step-dot.done { background: var(--color-fg); }
+.step-counter { font-size: 13px; font-weight: 500; color: var(--color-fg-muted); margin-left: 8px; }
+.drawer-body { flex: 1; overflow-y: auto; padding: 12px 24px 20px; }
+.drawer-body::-webkit-scrollbar { display: none; }
+.step-title { font-size: 22px; font-weight: 600; line-height: 1.25; margin: 8px 0 8px; }
+.step-helper { font-size: 14px; color: var(--color-fg-muted); margin: 0 0 24px; line-height: 1.5; }
+.step-input { width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 16px; font-family: inherit; outline: none; }
+.step-input:focus { border-color: var(--color-fg); border-width: 2px; padding: 13px 15px; }
+.step-options { display: flex; flex-direction: column; gap: 10px; }
+.step-option { padding: 14px; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 12px; background: var(--color-bg); transition: all 150ms; }
+.step-option.selected { border-color: var(--color-accent-light); background: var(--color-accent-tint); border-width: 2px; padding: 13px; }
+.step-option .opt-icon { font-size: 24px; flex-shrink: 0; }
+.step-option .opt-text { flex: 1; min-width: 0; }
+.step-option .opt-title { font-size: 15px; font-weight: 600; }
+.step-option .opt-sub { font-size: 12px; color: var(--color-fg-muted); margin-top: 1px; }
+.drawer-nav { border-top: 1px solid var(--color-border); padding: 14px 20px 32px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; }
+.drawer-nav .back-link { font-size: 15px; color: var(--color-fg-muted); font-weight: 500; cursor: pointer; padding: 12px 4px; background: none; border: none; font-family: inherit; }
+.drawer-nav .back-link.hidden { visibility: hidden; }
+.drawer-nav .btn-primary { width: auto; flex: 1; max-width: 220px; }
+
+.notes { max-width: 720px; margin: 24px auto 64px; padding: 24px 28px; background: var(--color-bg); border-radius: var(--radius-md); font-size: 14px; line-height: 1.6; color: #3F4D3C; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.notes h2 { font-size: 16px; font-weight: 600; margin: 0 0 12px; color: var(--color-fg); }
+.notes h2:not(:first-child) { margin-top: 20px; }
+.notes ul { padding-left: 20px; margin: 0; }
+.notes li { margin-bottom: 6px; }
+.notes b { font-weight: 600; }
+.notes code { background: var(--color-surface); padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="phone" id="phone">
+
+  <!-- HOME -->
+  <div class="screen active" id="screen-home">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="top-bar">
+      <div class="logo">m<span class="mark">·</span>m<span class="mark">·</span>s</div>
+      <div class="locality-pill"><span class="pin">●</span> West Sacramento ▾</div>
+    </div>
+    <div class="body">
+
+      <!-- CARD 1: Sutter Buttes (photo card) -->
+      <div class="card" onclick="go('detail')">
+        <div class="photo">
+          <!-- [FIX 2] no kind-tag overlay — image is clean -->
+          <!-- [FIX 7] carousel dots -->
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4DCB3"/><stop offset="1" stop-color="#C58642"/></linearGradient></defs>
+            <rect width="400" height="300" fill="url(#g1)"/>
+            <ellipse cx="200" cy="190" rx="135" ry="75" fill="#9D6628"/>
+            <ellipse cx="200" cy="175" rx="125" ry="60" fill="#C58642"/>
+            <path d="M 110 155 Q 200 130 290 155" stroke="#5C3712" stroke-width="3" fill="none"/>
+            <path d="M 135 148 Q 200 132 265 148" stroke="#5C3712" stroke-width="2" fill="none"/>
+            <ellipse cx="160" cy="155" rx="3" ry="6" fill="#3D250C"/>
+            <ellipse cx="200" cy="148" rx="3" ry="6" fill="#3D250C"/>
+            <ellipse cx="240" cy="155" rx="3" ry="6" fill="#3D250C"/>
+          </svg>
+          <div class="carousel-dots"><span class="active"></span><span></span><span></span></div>
+        </div>
+        <div class="card-text">
+          <!-- [FIX 2] kind moved here; [FIX 5] 3rd line added -->
+          <div class="kind-line"><span class="dot" style="background:#D89E4A"></span>Featured this week</div>
+          <div class="title">Sutter Buttes Sourdough</div>
+          <div class="meta">Maker · West Sac · 2 new loaves this week</div>
+          <div class="meta-attr"><span class="attr-av" style="background:#C58642">S</span> Sutter Buttes Bakery · 48 followers</div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Maya Idea (text card → unified silhouette) -->
+      <div class="card text">
+        <!-- [FIX 1] colored banner replaces flat text-card; same shape as photo cards -->
+        <div class="card-banner" style="background: linear-gradient(135deg, #8B7CC0, #6B4E9B);">
+          <div class="avatar" style="background:rgba(255,255,255,0.2)">M</div>
+          <div>
+            <div class="author-name">Maya Chen</div>
+            <div class="author-sub">Bridge District · 2 hours ago</div>
+          </div>
+        </div>
+        <div class="card-text-body">
+          <div class="kind-line"><span class="dot" style="background:#6B4E9B"></span>Idea</div>
+          <p>Anyone know a good cargo-bike repair person in West Sac? Mine's making a clunking sound and I'd rather keep it local than drive to East Sac.</p>
+          <div class="meta-attr" style="margin-top:10px; font-size:12px; color:var(--color-fg-muted);">3 replies</div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Farmers Market (photo card) -->
+      <div class="card" onclick="go('detail')">
+        <div class="photo">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE5A3"/><stop offset="1" stop-color="#E8B85C"/></linearGradient></defs>
+            <rect width="400" height="300" fill="url(#g2)"/>
+            <circle cx="330" cy="70" r="32" fill="#FFF3C9"/>
+            <rect x="50" y="175" width="80" height="85" fill="#D85B4A"/>
+            <polygon points="40,175 140,175 90,140" fill="#A0432F"/>
+            <rect x="160" y="175" width="80" height="85" fill="#3B7A57"/>
+            <polygon points="150,175 250,175 200,140" fill="#2A5A3F"/>
+            <rect x="270" y="175" width="80" height="85" fill="#4A6FA5"/>
+            <polygon points="260,175 360,175 310,140" fill="#34527A"/>
+            <rect x="60" y="220" width="60" height="6" fill="#3D250C"/>
+            <rect x="170" y="220" width="60" height="6" fill="#3D250C"/>
+            <rect x="280" y="220" width="60" height="6" fill="#3D250C"/>
+          </svg>
+          <div class="carousel-dots"><span class="active"></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-text">
+          <div class="kind-line"><span class="dot" style="background:var(--color-success)"></span>Event · Saturday</div>
+          <div class="title">West Sac Farmers Market</div>
+          <div class="meta">8am – 1pm · Bridge District · 0.4 mi</div>
+          <div class="meta-attr"><span class="attr-av" style="background:#E8B85C; color:#6B4A1A;">W</span> West Sac Market Collective · 14 members</div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Seller update (text card → unified silhouette) -->
+      <div class="card text">
+        <div class="card-banner" style="background: linear-gradient(135deg, #D4A054, #9D6628);">
+          <div class="avatar" style="background:rgba(255,255,255,0.2)">S</div>
+          <div>
+            <div class="author-name">Sutter Buttes Sourdough</div>
+            <div class="author-sub">Seller update · 4 hours ago</div>
+          </div>
+        </div>
+        <div class="card-text-body">
+          <p>Saturday's haul: country loaves, rosemary-olive, and the first batch of jalapeño-cheddar of the season. See you at the market — stall 12.</p>
+          <div class="meta-attr" style="margin-top:10px; font-size:12px; color:var(--color-fg-muted);">48 followers · West Sac</div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Concerts in the Park (photo card) -->
+      <div class="card" onclick="go('detail')">
+        <div class="photo">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E72A0"/><stop offset="1" stop-color="#1E2E52"/></linearGradient></defs>
+            <rect width="400" height="300" fill="url(#g3)"/>
+            <circle cx="340" cy="55" r="18" fill="#FFF5C7" opacity="0.85"/>
+            <circle cx="60" cy="80" r="2" fill="white" opacity="0.6"/>
+            <circle cx="120" cy="55" r="2" fill="white" opacity="0.6"/>
+            <circle cx="220" cy="70" r="2" fill="white" opacity="0.6"/>
+            <ellipse cx="70" cy="215" rx="55" ry="85" fill="#1F3A2B"/>
+            <ellipse cx="340" cy="225" rx="65" ry="75" fill="#1F3A2B"/>
+            <rect x="140" y="180" width="120" height="85" fill="#3A2A1F"/>
+            <rect x="155" y="195" width="90" height="55" fill="#0E0E0E"/>
+            <circle cx="180" cy="220" r="4" fill="#E8B85C"/>
+            <circle cx="220" cy="220" r="4" fill="#E8B85C"/>
+          </svg>
+          <div class="carousel-dots"><span class="active"></span><span></span></div>
+        </div>
+        <div class="card-text">
+          <div class="kind-line"><span class="dot" style="background:var(--color-success)"></span>Event · Friday</div>
+          <div class="title">Concerts in the Park — Cake Drops</div>
+          <div class="meta">5pm · Cesar Chavez Plaza · 2.1 mi</div>
+          <div class="meta-attr"><span class="attr-av" style="background:#4A6FA5">C</span> City of Sacramento Parks · 12 going</div>
+        </div>
+      </div>
+
+      <!-- CARD 6: Run Club (photo card) -->
+      <div class="card" onclick="go('detail')">
+        <div class="photo">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8985F"/><stop offset="1" stop-color="#B14628"/></linearGradient></defs>
+            <rect width="400" height="300" fill="url(#g4)"/>
+            <rect x="55" y="95" width="22" height="170" fill="#F5C16E"/>
+            <rect x="323" y="95" width="22" height="170" fill="#F5C16E"/>
+            <rect x="35" y="75" width="62" height="32" fill="#F5C16E"/>
+            <rect x="303" y="75" width="62" height="32" fill="#F5C16E"/>
+            <rect x="40" y="60" width="52" height="20" fill="#F5C16E"/>
+            <rect x="308" y="60" width="52" height="20" fill="#F5C16E"/>
+            <path d="M 77 175 Q 200 215 323 175" stroke="#F5C16E" stroke-width="6" fill="none"/>
+            <path d="M 77 195 Q 200 235 323 195" stroke="#F5C16E" stroke-width="3" fill="none"/>
+            <rect x="0" y="245" width="400" height="60" fill="#5C3A21" opacity="0.55"/>
+          </svg>
+          <div class="carousel-dots"><span class="active"></span><span></span><span></span></div>
+        </div>
+        <div class="card-text">
+          <div class="kind-line"><span class="dot" style="background:var(--color-success)"></span>Event · Tuesday</div>
+          <div class="title">Tower Bridge Run Club</div>
+          <div class="meta">6pm · Tower Bridge Plaza · 1.8 mi</div>
+          <div class="meta-attr"><span class="attr-av" style="background:#B14628">T</span> Tower Bridge RC · 26 members</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bottom-nav">
+      <div class="tab active" onclick="go('home')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10 L12 3 L21 10 V21 H14 V14 H10 V21 H3 Z"/></svg>
+        <span class="label">Home</span>
+      </div>
+      <div class="tab" onclick="go('explore')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <span class="label">Explore</span>
+      </div>
+      <div class="tab" onclick="go('you')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 a8 8 0 0 1 16 0"/></svg>
+        <span class="label">You</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE (unchanged except spacing) -->
+  <div class="screen" id="screen-explore">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="top-bar">
+      <div style="font-size:24px; font-weight:700; letter-spacing:-0.02em;">Near you</div>
+      <div class="locality-pill"><span class="pin">●</span> West Sac ▾</div>
+    </div>
+    <div class="body" style="padding-bottom:220px;">
+      <div style="font-size:13px; color:var(--color-fg-muted); margin-bottom:8px;">38 things within 5 miles</div>
+
+      <div class="list-card" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#E8B85C"/><circle cx="80" cy="22" r="9" fill="#FFF3C9"/><rect x="15" y="55" width="20" height="28" fill="#D85B4A"/><polygon points="13,55 37,55 25,45" fill="#A0432F"/><rect x="40" y="55" width="20" height="28" fill="#3B7A57"/><polygon points="38,55 62,55 50,45" fill="#2A5A3F"/><rect x="65" y="55" width="20" height="28" fill="#4A6FA5"/><polygon points="63,55 87,55 75,45" fill="#34527A"/></svg></div>
+        <div class="info"><div class="title">West Sac Farmers Market</div><div class="meta">Event · Saturday 8am</div><div class="distance">0.4 mi · Bridge District</div></div>
+      </div>
+      <div class="list-card" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C58642"/><ellipse cx="50" cy="60" rx="38" ry="22" fill="#9D6628"/><ellipse cx="50" cy="55" rx="35" ry="18" fill="#C58642"/><path d="M 18 50 Q 50 38 82 50" stroke="#5C3712" stroke-width="2" fill="none"/></svg></div>
+        <div class="info"><div class="title">Sutter Buttes Sourdough</div><div class="meta">Seller · Bakery</div><div class="distance">0.6 mi · West Sac</div></div>
+      </div>
+      <div class="list-card" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1E2E52"/><circle cx="80" cy="18" r="6" fill="#FFF5C7"/><ellipse cx="20" cy="68" rx="14" ry="26" fill="#1F3A2B"/><rect x="40" y="55" width="42" height="32" fill="#3A2A1F"/><rect x="46" y="63" width="30" height="18" fill="#0E0E0E"/></svg></div>
+        <div class="info"><div class="title">Concerts in the Park</div><div class="meta">Event · Friday 5pm</div><div class="distance">2.1 mi · Downtown Sac</div></div>
+      </div>
+      <div class="list-card" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#B14628"/><rect x="22" y="30" width="7" height="55" fill="#F5C16E"/><rect x="71" y="30" width="7" height="55" fill="#F5C16E"/><rect x="18" y="25" width="15" height="9" fill="#F5C16E"/><rect x="67" y="25" width="15" height="9" fill="#F5C16E"/><path d="M 29 60 Q 50 75 71 60" stroke="#F5C16E" stroke-width="3" fill="none"/></svg></div>
+        <div class="info"><div class="title">Tower Bridge Run Club</div><div class="meta">Event · Tuesday 6pm</div><div class="distance">1.8 mi · Downtown Sac</div></div>
+      </div>
+      <div class="list-card" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#7A6BAA"/><circle cx="50" cy="50" r="22" fill="#E8DFFF"/><text x="50" y="62" font-size="30" text-anchor="middle" fill="#3B2D6B" font-family="Inter, sans-serif" font-weight="600">?</text></svg></div>
+        <div class="info"><div class="title">Cargo-bike repair in West Sac?</div><div class="meta">Idea · Maya Chen</div><div class="distance">0.3 mi · Bridge District</div></div>
+      </div>
+      <div class="list-card" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3B7A57"/><circle cx="32" cy="42" r="15" fill="#7BC18B"/><circle cx="60" cy="55" r="20" fill="#5BAE6F"/><rect x="22" y="72" width="56" height="22" fill="#8B5A3F"/><rect x="42" y="78" width="16" height="16" fill="#5C3712"/></svg></div>
+        <div class="info"><div class="title">Drake's Brewery Trivia Night</div><div class="meta">Event · Thursday 7pm</div><div class="distance">0.9 mi · The Barn</div></div>
+      </div>
+      <div class="list-card" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#F4DCB3"/><circle cx="35" cy="50" r="22" fill="#FFE5A3"/><circle cx="35" cy="45" r="6" fill="#3D250C"/><path d="M 25 55 Q 35 65 45 55" stroke="#3D250C" stroke-width="2" fill="none"/><rect x="60" y="35" width="30" height="40" fill="#E8B85C"/></svg></div>
+        <div class="info"><div class="title">Music lessons — fiddle &amp; guitar</div><div class="meta">Service · Aaron K.</div><div class="distance">1.2 mi · West Sac</div></div>
+      </div>
+    </div>
+
+    <div class="chip-row">
+      <div class="chip active">All</div>
+      <div class="chip">Events</div>
+      <div class="chip">Products</div>
+      <div class="chip">Services</div>
+      <div class="chip">Ideas</div>
+      <div class="chip">5 mi ▾</div>
+      <div class="chip">This week ▾</div>
+    </div>
+    <div class="search-bar">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input placeholder="Search bakeries, markets, run clubs…" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
+    </div>
+    <div class="bottom-nav">
+      <div class="tab" onclick="go('home')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10 L12 3 L21 10 V21 H14 V14 H10 V21 H3 Z"/></svg><span class="label">Home</span></div>
+      <div class="tab active" onclick="go('explore')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="label">Explore</span></div>
+      <div class="tab" onclick="go('you')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 a8 8 0 0 1 16 0"/></svg><span class="label">You</span></div>
+    </div>
+  </div>
+
+  <!-- YOU -->
+  <div class="screen" id="screen-you">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="top-bar">
+      <div style="font-size:24px; font-weight:700; letter-spacing:-0.02em;">You</div>
+      <div style="font-size:22px; color:var(--color-fg-muted); cursor:pointer;">⚙</div>
+    </div>
+    <div class="body">
+      <div class="you-header">
+        <div class="you-avatar">D</div>
+        <div><div class="you-name">Don L</div><div class="you-handle">@donl · West Sacramento</div></div>
+      </div>
+
+      <div class="sell-cta-block">
+        <div class="head">Got something to share?</div>
+        <div class="sub">Open a shop, list a service, or host a gathering. Free, no fees, ever.</div>
+        <button class="btn-primary" onclick="openDrawer()">Sell something</button>
+      </div>
+
+      <div class="section-title">Following</div>
+      <div class="follow-row">
+        <div class="follow-item"><div class="av" style="background:#C58642">S</div><div class="name">Sutter Buttes</div></div>
+        <div class="follow-item"><div class="av" style="background:#7A6BAA">M</div><div class="name">Maya Chen</div></div>
+        <div class="follow-item"><div class="av" style="background:#3B7A57">D</div><div class="name">Drake's</div></div>
+        <div class="follow-item"><div class="av" style="background:#B14628">T</div><div class="name">Tower Bridge RC</div></div>
+        <div class="follow-item"><div class="av" style="background:#E8B85C; color:#6B4A1A;">W</div><div class="name">West Sac Market</div></div>
+      </div>
+
+      <div class="section-title">Recently viewed</div>
+      <div class="list-card" style="padding-top:8px;" onclick="go('detail')">
+        <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#E8B85C"/><rect x="15" y="55" width="20" height="28" fill="#D85B4A"/><rect x="40" y="55" width="20" height="28" fill="#3B7A57"/><rect x="65" y="55" width="20" height="28" fill="#4A6FA5"/></svg></div>
+        <div class="info"><div class="title">West Sac Farmers Market</div><div class="meta">Saturday 8am · 0.4 mi</div></div>
+      </div>
+
+      <div class="section-title">Settings</div>
+      <div class="settings-row"><span class="label">Notifications</span><span class="chev">›</span></div>
+      <div class="settings-row"><span class="label">My data &amp; privacy</span><span class="chev">›</span></div>
+      <div class="settings-row"><span class="label">Help</span><span class="chev">›</span></div>
+      <div class="settings-row danger"><span class="label">Sign out</span><span class="chev">›</span></div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="tab" onclick="go('home')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10 L12 3 L21 10 V21 H14 V14 H10 V21 H3 Z"/></svg><span class="label">Home</span></div>
+      <div class="tab" onclick="go('explore')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="label">Explore</span></div>
+      <div class="tab active" onclick="go('you')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 a8 8 0 0 1 16 0"/></svg><span class="label">You</span></div>
+    </div>
+
+    <div class="drawer-backdrop" id="backdrop" onclick="closeDrawer()"></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-grabber"></div>
+      <div class="drawer-head">
+        <div class="step-dots">
+          <div class="step-dot done" id="dot1"></div><div class="step-dot" id="dot2"></div><div class="step-dot" id="dot3"></div><div class="step-dot" id="dot4"></div>
+          <span class="step-counter" id="step-counter">Step 1 of 4</span>
+        </div>
+        <div class="drawer-close" onclick="closeDrawer()">×</div>
+      </div>
+      <div class="drawer-body" id="drawer-body"></div>
+      <div class="drawer-nav">
+        <button class="back-link hidden" id="back-btn" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" id="continue-btn" onclick="nextStep()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITEM DETAIL -->
+  <div class="screen" id="screen-detail">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="detail-header">
+      <div class="detail-back" onclick="goBack()">←</div>
+      <div class="detail-share">↗</div>
+      <div class="detail-hero">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE5A3"/><stop offset="1" stop-color="#E8B85C"/></linearGradient></defs>
+          <rect width="400" height="300" fill="url(#dh1)"/>
+          <circle cx="330" cy="65" r="32" fill="#FFF3C9"/>
+          <rect x="40" y="170" width="80" height="90" fill="#D85B4A"/><polygon points="30,170 130,170 80,135" fill="#A0432F"/>
+          <rect x="150" y="170" width="80" height="90" fill="#3B7A57"/><polygon points="140,170 240,170 190,135" fill="#2A5A3F"/>
+          <rect x="260" y="170" width="80" height="90" fill="#4A6FA5"/><polygon points="250,170 350,170 300,135" fill="#34527A"/>
+          <rect x="50" y="215" width="60" height="6" fill="#3D250C"/><rect x="160" y="215" width="60" height="6" fill="#3D250C"/><rect x="270" y="215" width="60" height="6" fill="#3D250C"/>
+        </svg>
+        <!-- [FIX 7] carousel dots on detail hero too -->
+        <div class="carousel-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-kind">Event · Farmers market</div>
+      <h1 class="detail-title">West Sac Farmers Market</h1>
+      <div class="detail-meta"><span>📅</span> Saturday, June 13 · 8:00 AM – 1:00 PM</div>
+      <div class="detail-meta"><span>📍</span> Bridge District Plaza · 0.4 mi away</div>
+      <div class="detail-meta"><span>🔁</span> Repeats every Saturday</div>
+
+      <div class="detail-section">
+        <h3>About</h3>
+        <p>Every Saturday morning year-round in the Bridge District. Around 35 producers from within 50 miles — sourdough, stone fruit, honey, eggs, a few prepared-food stalls, live music after 10am. Bring a tote.</p>
+      </div>
+      <div class="detail-section">
+        <h3>Hosted by</h3>
+        <div class="host-row">
+          <div class="av" style="background:#E8B85C; color:#6B4A1A;">W</div>
+          <div class="info"><div class="name">West Sac Market Collective</div><div class="role">Group · 14 members</div></div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h3>Sellers at this market</h3>
+        <div class="follow-row" style="margin-top:0;">
+          <div class="follow-item"><div class="av" style="background:#C58642">S</div><div class="name">Sutter Buttes</div></div>
+          <div class="follow-item"><div class="av" style="background:#3B7A57">V</div><div class="name">Valley Greens</div></div>
+          <div class="follow-item"><div class="av" style="background:#B14628">F</div><div class="name">Foothill Honey</div></div>
+          <div class="follow-item"><div class="av" style="background:#7A6BAA">B</div><div class="name">Bee's Eggs</div></div>
+          <div class="follow-item"><div class="av" style="background:#6B6B6B">+4</div><div class="name">4 more</div></div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h3>Where</h3>
+        <div style="background:var(--color-surface); aspect-ratio: 16/9; border-radius: var(--radius-md); margin-top:8px; display:flex; align-items:center; justify-content:center; color:var(--color-fg-muted); font-size:13px;">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" style="width:100%; height:100%; border-radius:var(--radius-md);">
+            <rect width="400" height="225" fill="#E5E5DF"/>
+            <path d="M 0 100 L 400 80" stroke="#C8C5BC" stroke-width="6"/>
+            <path d="M 0 160 L 400 140" stroke="#C8C5BC" stroke-width="4"/>
+            <path d="M 180 0 L 220 225" stroke="#C8C5BC" stroke-width="5"/>
+            <circle cx="200" cy="112" r="14" fill="#869C7F"/>
+            <circle cx="200" cy="112" r="6" fill="white"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="sticky-cta">
+      <button class="btn-primary">Share this market</button>
+      <div class="trust">No fees, ever. No ads.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <h2>v2 changes (Airbnb card analysis applied)</h2>
+  <ul>
+    <li><b>1. Unified silhouette:</b> Text cards (idea, seller update) now have a colored banner header that mirrors the photo position — same card width, same visual rhythm. Cards read as "top block + bottom text" regardless of type.</li>
+    <li><b>2. Tags off images:</b> Kind labels moved to a <code>.kind-line</code> in the text zone with a colored dot indicator. Photos are now clean — no overlaid pills or badges.</li>
+    <li><b>3. Card containment:</b> Every card has <code>border: 1px solid var(--color-border)</code> plus a warm green-tinted two-layer shadow (<code>--shadow-card</code>). Cards read as distinct objects.</li>
+    <li><b>4. Accent reduced to two places:</b> Pistachio appears on CTA buttons and the active bottom-nav tab. Stripped from: logo mark dots (→ border color), locality pin (→ foreground), You avatar (→ neutral gray), sell CTA block (→ surface), detail-kind label (→ muted).</li>
+    <li><b>5. Beefier text:</b> Third line added — host/seller attribution with a micro-avatar and social proof (follower count, member count, "going" count). Title dropped from 17px to 16px for tighter pairing with meta.</li>
+    <li><b>6. Spacing:</b> Inter-card gap bumped from 20px to 28px. Border-radius bumped from 12px to 14px.</li>
+    <li><b>7. Carousel dots:</b> Every photo card has white pagination dots at the bottom of the image. Signals "swipeable content" even in the static mockup.</li>
+  </ul>
+  <h2>What to look at</h2>
+  <ul>
+    <li><b>Home feed rhythm:</b> Scroll the home tab. The tall-short seesaw is gone — text cards now have a banner header that fills the "image slot." Every card is a contained object with a border.</li>
+    <li><b>Clean photos:</b> No more frosted-glass tags floating on images. The kind indicator is a small dot + label in the text zone.</li>
+    <li><b>Color discipline:</b> The feed is now almost monochrome — photos and author banner colors provide the visual interest. Pistachio green appears only when you're about to tap something (the sell CTA, the share CTA, the active tab).</li>
+    <li><b>Text block weight:</b> Three lines of info under each photo card. The attribution line (micro-avatar + name + count) adds social context and visual mass.</li>
+  </ul>
+  <h2>Flags</h2>
+  <ul>
+    <li><b>Text card banners:</b> Using the author's color as a gradient banner is opinionated — it could feel heavy if the colors are dark. With real data, some banners may need a lighter treatment. An alternative: use <code>var(--color-surface)</code> with a left-border accent stripe.</li>
+    <li><b>Logo mark nearly invisible:</b> At <code>var(--color-border)</code>, the m·m·s dots are barely there. This is deliberate brand understatement per the accent-reduction goal. If it's too quiet, bump to <code>var(--color-fg-muted)</code>.</li>
+    <li><b>Carousel dots are static:</b> In a real implementation these would paginate on swipe. Here they're visual indicators only.</li>
+    <li><b>Photo card total height increased slightly:</b> The third meta line adds ~18px per card. Offset by the 28px spacing creating more visual separation.</li>
+  </ul>
+</div>
+
+<script>
+function go(target) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + target).classList.add('active');
+  if (target === 'home' || target === 'explore' || target === 'you') window.lastTab = target;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goBack() { go(window.lastTab || 'home'); }
+
+let step = 1;
+const stepData = [
+  null,
+  { title: "What kind of shop?", helper: "We use this to set up the right tools for you. You can change it later.",
+    body: `<div class="step-options">
+      <div class="step-option selected" onclick="pickOption(this)"><div class="opt-icon">🥖</div><div class="opt-text"><div class="opt-title">Maker / producer</div><div class="opt-sub">Bread, honey, soap, art — things you make</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🌾</div><div class="opt-text"><div class="opt-title">Farm / grower</div><div class="opt-sub">Produce, eggs, flowers, meat</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🔧</div><div class="opt-text"><div class="opt-title">Service</div><div class="opt-sub">Repair, lessons, work you do for people</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🛒</div><div class="opt-text"><div class="opt-title">Resale</div><div class="opt-sub">Things you bought and want to pass on</div></div></div>
+    </div>`, cta: "Continue" },
+  { title: "Name your shop", helper: "Your handle stays /m/donl. Your shop name is what people see at the top of your stall.",
+    body: `<input class="step-input" placeholder="e.g., Don's Garage Goods" /><div style="margin-top:14px; font-size:13px; color:var(--color-fg-muted);">You can edit this anytime.</div>`, cta: "Continue" },
+  { title: "Where are you based?", helper: "We show your shop to people nearby. Your home address stays private — only the city is public.",
+    body: `<div class="step-options">
+      <div class="step-option selected" onclick="pickOption(this)"><div class="opt-icon">📍</div><div class="opt-text"><div class="opt-title">West Sacramento, CA</div><div class="opt-sub">From your locality setting</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🔍</div><div class="opt-text"><div class="opt-title">Pick a different city</div><div class="opt-sub">Search by city, neighborhood, or zip</div></div></div>
+    </div><div style="margin-top:20px; padding:14px; background:var(--color-surface); border-radius:12px; font-size:13px; color:var(--color-fg-muted); line-height:1.5;">Want a verified "Locally Owned" badge later? You can add that from your shop page.</div>`, cta: "Continue" },
+  { title: "Ready to open up shop?", helper: "You can list products and post updates from your shop page after this. About 2 minutes per product.",
+    body: `<div style="padding:20px; background:var(--color-surface); border-radius:12px; margin-bottom:24px;">
+      <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--color-fg-muted); margin-bottom:8px;">Preview</div>
+      <div style="font-size:17px; font-weight:600; margin-bottom:4px;">Don's Garage Goods</div>
+      <div style="font-size:13px; color:var(--color-fg-muted);">Maker · West Sacramento, CA</div>
+    </div><div style="font-size:14px; line-height:1.7;"><div style="margin-bottom:8px;">✓ Free, no fees on what you sell</div><div style="margin-bottom:8px;">✓ You keep every customer relationship</div><div>✓ Stop anytime — your shop goes dormant for 90 days</div></div>`, cta: "Open my shop" }
+];
+
+function openDrawer() { document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); step = 1; renderStep(); }
+function closeDrawer() { document.getElementById('drawer').classList.remove('open'); document.getElementById('backdrop').classList.remove('open'); }
+function renderStep() {
+  const d = stepData[step];
+  document.getElementById('drawer-body').innerHTML = `<h2 class="step-title">${d.title}</h2><p class="step-helper">${d.helper}</p>${d.body}`;
+  document.getElementById('step-counter').textContent = `Step ${step} of 4`;
+  document.getElementById('continue-btn').textContent = d.cta;
+  for (let i = 1; i <= 4; i++) { const dot = document.getElementById('dot' + i); if (i <= step) dot.classList.add('done'); else dot.classList.remove('done'); }
+  document.getElementById('back-btn').classList.toggle('hidden', step === 1);
+}
+function nextStep() { if (step < 4) { step++; renderStep(); } else { closeDrawer(); setTimeout(() => alert("Shop opened. In the real app you'd land on /m/donl with a 'Your shop is live' toast."), 350); } }
+function prevStep() { if (step > 1) { step--; renderStep(); } }
+function pickOption(el) { el.parentElement.querySelectorAll('.step-option').forEach(o => o.classList.remove('selected')); el.classList.add('selected'); }
+window.lastTab = 'home';
+</script>
+</body>
+</html>

@@ -312,6 +312,23 @@ The shape for "I need to pick a Location from a list, but the Location I need do
 - Picking from someone else's entities (e.g., picking another Member's Group). That's a search-and-link interaction, not an add-inline. Different pattern; not in scope here.
 - Editing an existing entity from inside a composer. The picker shows existing entities for selection only; "edit this Location" lives on the Location's own surface, not inside another composer's flow.
 
+### Owner banner (role-gated management strip)
+
+When the viewer is an owner-role Member of the entity they're looking at (a Shop page, a Group page, a venue they anchor), a management banner renders at the top of the page, above the public content. The owner sees the page exactly as every other visitor does, with management affordances layered on top in a visually distinct strip.
+
+**Shape.** A single bordered container (`--color-border`, 1px, `--radius-md`) spanning the content width, sitting between the page header and the first public section. Background `--color-surface` (white) — no tint, no accent color. Interior padding matches the page gutter (24px mobile, 40px desktop).
+
+**Contents.** One or more management widgets stacked vertically inside the banner. Each widget is a self-contained unit: a heading (14px / 600, `--color-text-muted`), a status line, and inline action affordances (Edit / Remove as text links, Add as a secondary button). At b1 the only widget is the Locally Owned claim (F037); future widgets (edit Group name, manage members, producer dashboard links) stack below it in the same banner.
+
+**Collapsible.** The banner uses `<details>`/`<summary>` with the summary line reading "Owner tools" (or the entity-specific equivalent). Default state: **expanded** when the banner contains an action the owner hasn't completed (e.g., no ZIP claimed); **collapsed** when all widgets are in a steady state. The collapse is a convenience, not a gate — the owner can always expand.
+
+**What this pattern is not.**
+- Not a separate "manage" page or tab. The owner sees the real public page with the banner on top.
+- Not a drawer or modal. Management affordances are inline, not overlaid.
+- Not visible to non-owners. The entire banner is role-gated; anonymous and non-owner-Member viewers never see it.
+
+**Accessibility.** The banner carries `role="region"` with `aria-label="Owner tools"`. The `<details>` toggle communicates expanded/collapsed state. Action links inside meet the 44px touch-target minimum.
+
 ### Other surfaces (cross-reference)
 
 - **Member page (`/m/[handle]`)** — the Member's public page (per [`../systems/member.md`](../systems/member.md)); when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item (per ADR-12 SUPERSEDED 2026-05-12), the page surfaces selling-tool affordances. Header layout follows the same pattern: hero image → name → tagline → primary CTA below the header (label varies by Member context — *"Drop something now"* for irregular Sellers, etc.). The kind='business' Group page (`/g/[slug]`) follows the same pattern with Group identity as the header anchor (per [`../systems/groups.md`](../systems/groups.md)).

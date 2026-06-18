@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup Comparison — v2 (vertical stack) vs v3 (horizontal carousels)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #1A1A1A; color: #E5E5E5; min-height: 100vh; }
+  .header { text-align: center; padding: 32px 24px 16px; }
+  .header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #999; max-width: 640px; margin: 0 auto; line-height: 1.5; }
+
+  .changes-row { display: flex; justify-content: center; gap: 12px; padding: 16px 24px 24px; flex-wrap: wrap; }
+  .change-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; background: #2A2A2A; border: 1px solid #333; color: #CCC; }
+  .change-chip .num { width: 18px; height: 18px; border-radius: 50%; background: #6D8367; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+
+  .comparison { display: flex; justify-content: center; gap: 48px; padding: 0 24px 16px; flex-wrap: wrap; }
+  .side { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .side .label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #999; }
+  .side .label span { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .side.v2 .label span { background: #869C7F; }
+  .side.v3 .label span { background: #6D8367; }
+  iframe { width: 420px; height: 960px; border: none; border-radius: 8px; background: #333; }
+
+  .notes { max-width: 860px; margin: 32px auto 48px; padding: 24px 28px; background: #222; border-radius: 12px; font-size: 13px; line-height: 1.7; color: #BBB; }
+  .notes h2 { font-size: 14px; font-weight: 600; color: #E5E5E5; margin: 0 0 10px; }
+  .notes h2:not(:first-child) { margin-top: 18px; }
+  .notes ul { padding-left: 18px; }
+  .notes li { margin-bottom: 6px; }
+  .notes .flag { color: #D89E4A; font-weight: 600; }
+  .notes code { background: #333; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Layout Redesign — v2 (vertical stack) → v3 (horizontal carousels)</h1>
+  <p>Left: v2 — full-width cards stacked vertically (Airbnb desktop pattern). Right: v3 — section-based horizontal carousels with small cards (Airbnb mobile pattern). Scroll both Home feeds to compare. Swipe right on v3's carousels to see the peek affordance.</p>
+</div>
+
+<div class="changes-row">
+  <div class="change-chip"><span class="num">1</span> Horizontal carousels</div>
+  <div class="change-chip"><span class="num">2</span> Small cards (170px)</div>
+  <div class="change-chip"><span class="num">3</span> White background</div>
+  <div class="change-chip"><span class="num">4</span> Black phone frame</div>
+  <div class="change-chip"><span class="num">5</span> Section headers</div>
+  <div class="change-chip"><span class="num">6</span> WCAG AA buttons</div>
+</div>
+
+<div class="comparison">
+  <div class="side v2">
+    <div class="label"><span></span>v2 — vertical stack</div>
+    <iframe src="mockup-mobile-b1-pistachio-v2.html"></iframe>
+  </div>
+  <div class="side v3">
+    <div class="label"><span></span>v3 — horizontal carousels</div>
+    <iframe src="mockup-mobile-b1-pistachio-v3.html"></iframe>
+  </div>
+</div>
+
+<div class="notes">
+  <h2>What changed in v3</h2>
+  <ul>
+    <li><b>Layout model:</b> The Home feed is no longer a vertical card stack. It's a vertical scroll of horizontal carousel sections — "Happening this week," "Sellers &amp; makers near you," "Ideas &amp; asks," "Groups near you." Each section shows 2 cards with a third peeking off the right edge as a scroll affordance.</li>
+    <li><b>Card size:</b> 170×170px square images (down from full-width 4:3 hero images). Cards are ~170px wide. The feed shows dramatically more items per screen while each card is still large enough to read.</li>
+    <li><b>Background:</b> Pure white (#FFFFFF) instead of warm off-white (#FAFAF7). The feed is clean and monochrome — photography provides all the color.</li>
+    <li><b>Phone frame:</b> Near-black (#1A1A1A) instead of Oak Green (#3F4D3C). The phone is a device, not a brand surface.</li>
+    <li><b>Text color:</b> Near-black (#222222) body text and #717171 muted, matching Airbnb's actual mobile values instead of the earthy Oak Green.</li>
+    <li><b>Accent color:</b> Pistachio 700 (#6D8367) for CTA buttons — passes WCAG AA at 4.7:1 contrast with white text. Pistachio 400 (#BACBB5) on logo dots only. Everything else is neutral.</li>
+    <li><b>Section headers:</b> Bold 18px title + "Show all" link per section. Airbnb mobile pattern.</li>
+    <li><b>Ideas &amp; asks:</b> Compact colored gradient blocks (130px tall) in carousel format instead of full-width text cards.</li>
+    <li><b>Outer page:</b> Neutral gray (#E8E8E8) instead of pistachio-tinted (#D5DECF).</li>
+  </ul>
+
+  <h2><span class="flag">Flags</span></h2>
+  <ul>
+    <li><span class="flag">Structural shift:</span> This is not a CSS tweak — it's a fundamentally different layout model. The v2 vertical stack suits a timeline/feed; the v3 carousels suit a discovery/marketplace. Which one m·m·s is (or both, depending on screen) is a product question.</li>
+    <li><span class="flag">Content density:</span> v3 shows ~8 items in the first screenful (2 per carousel × 4 sections if you scroll a bit). v2 shows ~2 items. The density increase helps discovery but may feel less immersive per-item.</li>
+    <li><span class="flag">Ideas section:</span> The colored gradient blocks at 130px are shorter than photo cards at 170px. This creates a deliberate visual break. May want to unify height later.</li>
+    <li><span class="flag">Color discipline extreme:</span> v3 has almost no brand color visible in the feed. The pistachio is limited to CTA buttons and the active nav tab. The logo dots are the only other green, and they're very faint. If this feels too neutral, selectively reintroduce pistachio to section header accents or the locality pill.</li>
+    <li><span class="flag">Explore tab unchanged:</span> The Explore tab still uses a vertical list-card layout. This is intentional — Explore is a filtered search view, not a discovery feed. But the two layouts should feel like the same app.</li>
+  </ul>
+</div>
+
+</body>
+</html>

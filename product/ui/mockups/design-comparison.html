@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Comparison — Airbnb vs Main Street DLS</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #F0F0ED;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 48px 24px 32px;
+  }
+  .page-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* --- Phone frames --- */
+  .comparison-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    padding: 0 24px 48px;
+    flex-wrap: wrap;
+  }
+
+  .phone-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .phone-col h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 16px;
+    letter-spacing: -0.2px;
+  }
+
+  .phone-frame {
+    width: 375px;
+    height: 812px;
+    border: 3px solid #1A1A1A;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 28px;
+    background: #1A1A1A;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .phone-screen::-webkit-scrollbar { display: none; }
+
+  /* ===========================
+     AIRBNB MOCKUP
+     =========================== */
+  .airbnb {
+    --bg: #FFFFFF;
+    --text-primary: #222222;
+    --text-secondary: #717171;
+    --rausch: #FF385C;
+    --babu: #00A699;
+    --border: #EBEBEB;
+    background: var(--bg);
+    font-family: 'Inter', -apple-system, sans-serif; /* Cereal stand-in */
+  }
+
+  .airbnb .status-bar {
+    height: 44px;
+    padding: 14px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .airbnb .status-bar .status-icons {
+    display: flex;
+    gap: 5px;
+    font-size: 12px;
+  }
+
+  /* Airbnb filter pills */
+  .airbnb .filter-bar {
+    padding: 12px 20px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .airbnb .filter-pill {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: #fff;
+    white-space: nowrap;
+  }
+  .airbnb .filter-pill.active {
+    background: var(--text-primary);
+    color: #fff;
+    border-color: var(--text-primary);
+  }
+
+  /* Airbnb search bar */
+  .airbnb .search-bar {
+    margin: 12px 20px;
+    padding: 12px 20px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  }
+  .airbnb .search-icon {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--text-primary);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .airbnb .search-icon::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 2px;
+    background: var(--text-primary);
+    bottom: -3px;
+    right: -4px;
+    transform: rotate(45deg);
+  }
+  .airbnb .search-text {
+    flex: 1;
+  }
+  .airbnb .search-text .search-primary {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .airbnb .search-text .search-secondary {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .airbnb .search-filter-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .airbnb .search-filter-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Airbnb card */
+  .airbnb .feed {
+    padding: 4px 0 100px;
+  }
+  .airbnb .card {
+    padding: 0 20px 24px;
+  }
+  .airbnb .card-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f7f7f7;
+  }
+  .airbnb .card-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .airbnb .card-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f7f7f7 0%, #ebebeb 100%);
+  }
+  .airbnb .card-image-placeholder .placeholder-content {
+    text-align: center;
+    color: #b0b0b0;
+  }
+  .airbnb .card-image-placeholder .placeholder-icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+    opacity: 0.4;
+  }
+  .airbnb .card-image-placeholder .placeholder-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #999;
+  }
+  .airbnb .heart-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .airbnb .heart-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: #fff;
+    fill: rgba(0,0,0,0.5);
+    stroke-width: 2;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  }
+  .airbnb .carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+  }
+  .airbnb .carousel-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+  }
+  .airbnb .carousel-dots .dot.active {
+    background: #fff;
+  }
+  .airbnb .guest-fav {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #fff;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+
+  .airbnb .card-info {
+    padding-top: 10px;
+  }
+  .airbnb .card-info .card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .airbnb .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .airbnb .card-rating {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+  .airbnb .card-rating .star {
+    font-size: 12px;
+  }
+  .airbnb .card-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-top: 1px;
+  }
+  .airbnb .card-detail {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 1px;
+  }
+  .airbnb .card-price {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-top: 4px;
+  }
+  .airbnb .card-price strong {
+    font-weight: 600;
+  }
+
+  /* Airbnb bottom nav */
+  .airbnb .bottom-nav {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 28px;
+    z-index: 10;
+  }
+  .airbnb .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .airbnb .nav-item.active {
+    color: var(--rausch);
+  }
+  .airbnb .nav-item svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Airbnb text-only card (no photo) */
+  .airbnb .card-image-text-forward {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+  }
+  .airbnb .card-image-text-forward .tf-category {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #717171;
+    margin-bottom: 6px;
+  }
+  .airbnb .card-image-text-forward .tf-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .airbnb .card-image-text-forward .tf-meta {
+    font-size: 13px;
+    color: #717171;
+  }
+  .airbnb .card-image-text-forward .tf-line {
+    width: 40px;
+    height: 2px;
+    background: var(--rausch);
+    margin-bottom: 12px;
+  }
+
+  /* ===========================
+     MAIN STREET MOCKUP
+     =========================== */
+  .mainst {
+    --bg: #FAFAF7;
+    --surface: #F4F4F0;
+    --fg: #3F4D3C;
+    --fg-muted: #767670;
+    --border: #E5E5DF;
+    --brand: #BACBB5;
+    --accent: #A0B49A;
+    --accent-hover: #869C7F;
+    --accent-tint: #E8EDE3;
+    --heading: #3F4D3C;
+    --pistachio-50: #F5F7F2;
+    --pistachio-100: #E8EDE3;
+    --pistachio-700: #6D8367;
+    --pistachio-800: #566952;
+    --success: #2D6A4F;
+    --warning: #D89E4A;
+    --danger: #B4513C;
+    --info: #4A7C7E;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
+    background: var(--bg);
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .mainst .status-bar {
+    height: 44px;
+    padding: 14px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .mainst .status-bar .status-icons {
+    display: flex;
+    gap: 5px;
+    font-size: 12px;
+  }
+
+  /* Main Street search bar — bottom-anchored per DLS principle 6
+     but shown at top for feed context (Explore surface, pattern #6) */
+  .mainst .search-bar {
+    margin: 12px 24px;
+    padding: 12px 20px;
+    background: #fff;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow-md);
+  }
+  .mainst .search-icon {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--fg);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .mainst .search-icon::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 2px;
+    background: var(--fg);
+    bottom: -3px;
+    right: -4px;
+    transform: rotate(45deg);
+  }
+  .mainst .search-text {
+    flex: 1;
+  }
+  .mainst .search-text .search-primary {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .mainst .search-text .search-secondary {
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+
+  /* Main Street filter pills */
+  .mainst .filter-bar {
+    padding: 8px 24px 12px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .mainst .filter-pill {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fg);
+    background: #fff;
+    white-space: nowrap;
+  }
+  .mainst .filter-pill.active {
+    background: var(--fg);
+    color: #fff;
+    border-color: var(--fg);
+  }
+
+  /* Main Street card */
+  .mainst .feed {
+    padding: 4px 0 100px;
+  }
+  .mainst .card {
+    padding: 0 24px 24px;
+  }
+  .mainst .card-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .mainst .card-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Text-forward card for no-photo items */
+  .mainst .card-text-forward {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+  }
+  .mainst .card-text-forward .tf-kind-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--accent-tint);
+    color: var(--pistachio-800);
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+  .mainst .card-text-forward .tf-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .mainst .card-text-forward .tf-meta {
+    font-size: 13px;
+    color: var(--fg-muted);
+    line-height: 1.4;
+  }
+  .mainst .card-text-forward .tf-decorative {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--pistachio-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    opacity: 0.7;
+  }
+
+  .mainst .heart-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mainst .heart-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: #fff;
+    fill: rgba(0,0,0,0.4);
+    stroke-width: 2;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  }
+  .mainst .carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+  }
+  .mainst .carousel-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+  }
+  .mainst .carousel-dots .dot.active {
+    background: #fff;
+  }
+  .mainst .tier-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .mainst .tier-badge.independent { background: #1B7A3D; }
+  .mainst .tier-badge.coop { background: #0E6B2E; }
+
+  .mainst .card-info {
+    padding-top: 10px;
+  }
+  .mainst .card-info .card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .mainst .card-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--fg);
+    line-height: 1.3;
+  }
+  .mainst .card-subtitle {
+    font-size: 14px;
+    color: var(--fg-muted);
+    line-height: 1.4;
+    margin-top: 1px;
+  }
+  .mainst .card-detail {
+    font-size: 14px;
+    color: var(--fg-muted);
+    margin-top: 1px;
+  }
+  .mainst .card-price {
+    font-size: 14px;
+    color: var(--fg);
+    margin-top: 4px;
+  }
+  .mainst .card-price strong {
+    font-weight: 600;
+  }
+  .mainst .card-kind {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--pistachio-700);
+    margin-top: 2px;
+  }
+
+  /* Main Street bottom nav */
+  .mainst .bottom-nav {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 28px;
+    z-index: 10;
+  }
+  .mainst .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--fg-muted);
+    font-weight: 500;
+  }
+  .mainst .nav-item.active {
+    color: var(--fg);
+  }
+  .mainst .nav-item svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* ===========================
+     ANALYSIS SECTION
+     =========================== */
+  .analysis-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+  .analysis-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 24px;
+  }
+  .analysis-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+  .analysis-section p {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .gap-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 32px;
+    font-size: 14px;
+  }
+  .gap-table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: #1A1A1A;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .gap-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #E5E5E5;
+    color: #444;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .gap-table tr:nth-child(even) td {
+    background: #F8F8F6;
+  }
+  .verdict {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .verdict.gap { background: #FEE2E2; color: #B91C1C; }
+  .verdict.close { background: #FEF3C7; color: #92400E; }
+  .verdict.match { background: #D1FAE5; color: #065F46; }
+
+  /* Placeholder images using CSS gradients */
+  .img-honey { background: linear-gradient(135deg, #F5D6A0 0%, #E8B868 50%, #D4A04A 100%); }
+  .img-market { background: linear-gradient(135deg, #8DB580 0%, #6B9A5C 50%, #4A7B3A 100%); }
+  .img-bread { background: linear-gradient(135deg, #E8CDA0 0%, #D4B07A 50%, #C09858 100%); }
+  .img-pottery { background: linear-gradient(135deg, #C4846C 0%, #A86B54 50%, #8C5240 100%); }
+  .img-soap { background: linear-gradient(135deg, #D4C5B5 0%, #BEB0A0 50%, #A89888 100%); }
+  .img-yoga { background: linear-gradient(135deg, #A5C4D4 0%, #88AEBF 50%, #6C98AA 100%); }
+
+  /* Image overlay icons (simulating photo content) */
+  .img-overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .img-overlay .img-icon {
+    font-size: 48px;
+    margin-bottom: 6px;
+  }
+  .img-overlay .img-caption {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 820px) {
+    .comparison-row {
+      gap: 32px;
+    }
+    .phone-frame {
+      width: 340px;
+      height: 740px;
+    }
+  }
+  @media (max-width: 720px) {
+    .comparison-row {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Airbnb vs Main Street DLS</h1>
+  <p>Same content, two design systems. Scroll both feeds, then read the gap analysis below.</p>
+</div>
+
+<div class="comparison-row">
+
+  <!-- ===== AIRBNB MOCKUP ===== -->
+  <div class="phone-col">
+    <h2>Airbnb Design System</h2>
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen airbnb">
+
+        <!-- Status bar -->
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="status-icons">
+            <span>●●●●</span>
+            <span>WiFi</span>
+            <span>🔋</span>
+          </span>
+        </div>
+
+        <!-- Search bar -->
+        <div class="search-bar">
+          <div class="search-icon"></div>
+          <div class="search-text">
+            <div class="search-primary">Where to?</div>
+            <div class="search-secondary">Anywhere · Any week · Add interests</div>
+          </div>
+          <div class="search-filter-btn">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#222" stroke-width="1.5">
+              <line x1="2" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="14" y2="12"/>
+              <circle cx="5" cy="4" r="1.5" fill="#222"/><circle cx="11" cy="8" r="1.5" fill="#222"/><circle cx="7" cy="12" r="1.5" fill="#222"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Filter pills -->
+        <div class="filter-bar">
+          <div class="filter-pill active">All</div>
+          <div class="filter-pill">Products</div>
+          <div class="filter-pill">Events</div>
+          <div class="filter-pill">Services</div>
+          <div class="filter-pill">Ideas</div>
+        </div>
+
+        <!-- Feed -->
+        <div class="feed">
+
+          <!-- Card 1: Product with photo -->
+          <div class="card">
+            <div class="card-image-wrap">
+              <div class="img-honey img-overlay">
+                <span class="img-icon">🍯</span>
+                <span class="img-caption">Photo</span>
+              </div>
+              <span class="guest-fav">Guest favorite</span>
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="carousel-dots">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Wildflower Honey — 16oz</div>
+                <div class="card-rating"><span class="star">★</span> 4.97</div>
+              </div>
+              <div class="card-subtitle">Riverbend Apiaries · 2.3 mi</div>
+              <div class="card-price"><strong>$14</strong> / jar</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Event — text-forward (no photo) -->
+          <div class="card">
+            <div class="card-image-text-forward">
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="tf-line"></div>
+              <div class="tf-category">Event · Saturday</div>
+              <div class="tf-title">Drake's Farmers Market</div>
+              <div class="tf-meta">Every Saturday 9 AM – 1 PM · Oak Park Plaza</div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Drake's Farmers Market</div>
+                <div class="card-rating"><span class="star">★</span> 4.92</div>
+              </div>
+              <div class="card-subtitle">Weekly gathering · Oak Park Plaza</div>
+              <div class="card-detail">Sat 9 AM – 1 PM · Free</div>
+            </div>
+          </div>
+
+          <!-- Card 3: Product with photo -->
+          <div class="card">
+            <div class="card-image-wrap">
+              <div class="img-bread img-overlay">
+                <span class="img-icon">🍞</span>
+                <span class="img-caption">Photo</span>
+              </div>
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="carousel-dots">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Sourdough Country Loaf</div>
+                <div class="card-rating"><span class="star">★</span> 5.0</div>
+              </div>
+              <div class="card-subtitle">Main Street Bakehouse · 0.8 mi</div>
+              <div class="card-price"><strong>$8</strong> / loaf</div>
+            </div>
+          </div>
+
+          <!-- Card 4: Service — text-forward (no photo) -->
+          <div class="card">
+            <div class="card-image-text-forward">
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="tf-line"></div>
+              <div class="tf-category">Service</div>
+              <div class="tf-title">Mobile Knife Sharpening</div>
+              <div class="tf-meta">Sharp Edge Co · Comes to you · $5/knife</div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Mobile Knife Sharpening</div>
+                <div class="card-rating"><span class="star">★</span> 4.88</div>
+              </div>
+              <div class="card-subtitle">Sharp Edge Co · Mobile</div>
+              <div class="card-price"><strong>$5</strong> / knife</div>
+            </div>
+          </div>
+
+          <!-- Card 5: Product with photo -->
+          <div class="card">
+            <div class="card-image-wrap">
+              <div class="img-pottery img-overlay">
+                <span class="img-icon">🏺</span>
+                <span class="img-caption">Photo</span>
+              </div>
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="carousel-dots">
+                <span class="dot active"></span><span class="dot"></span>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Hand-thrown Dinner Set</div>
+                <div class="card-rating"><span class="star">★</span> 4.95</div>
+              </div>
+              <div class="card-subtitle">Clay & Fire Studio · 1.5 mi</div>
+              <div class="card-price"><strong>$68</strong> / set of 4</div>
+            </div>
+          </div>
+
+          <!-- Card 6: Idea — text-forward -->
+          <div class="card">
+            <div class="card-image-text-forward">
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="tf-line"></div>
+              <div class="tf-category">Idea</div>
+              <div class="tf-title">Community Tool Library</div>
+              <div class="tf-meta">Share don't buy · 23 people interested</div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Community Tool Library</div>
+              </div>
+              <div class="card-subtitle">Proposed by Maria Chen</div>
+              <div class="card-detail">23 people interested</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom nav -->
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            Explore
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            Saved
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Map
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            You
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN STREET MOCKUP ===== -->
+  <div class="phone-col">
+    <h2>Main Street DLS (Satin Pistachio)</h2>
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen mainst">
+
+        <!-- Status bar -->
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="status-icons">
+            <span>●●●●</span>
+            <span>WiFi</span>
+            <span>🔋</span>
+          </span>
+        </div>
+
+        <!-- Search bar -->
+        <div class="search-bar">
+          <div class="search-icon"></div>
+          <div class="search-text">
+            <div class="search-primary">What's nearby?</div>
+            <div class="search-secondary">Products · Events · Services · Ideas</div>
+          </div>
+        </div>
+
+        <!-- Filter pills -->
+        <div class="filter-bar">
+          <div class="filter-pill active">All</div>
+          <div class="filter-pill">Products</div>
+          <div class="filter-pill">Events</div>
+          <div class="filter-pill">Services</div>
+          <div class="filter-pill">Ideas</div>
+        </div>
+
+        <!-- Feed -->
+        <div class="feed">
+
+          <!-- Card 1: Product with photo -->
+          <div class="card">
+            <div class="card-image-wrap">
+              <div class="img-honey img-overlay">
+                <span class="img-icon">🍯</span>
+                <span class="img-caption">Photo</span>
+              </div>
+              <span class="tier-badge independent">Independent</span>
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="carousel-dots">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Wildflower Honey — 16oz</div>
+              </div>
+              <div class="card-subtitle">Riverbend Apiaries · 2.3 mi</div>
+              <div class="card-kind">Product</div>
+              <div class="card-price"><strong>$14</strong> / jar</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Event — text-forward (no photo) -->
+          <div class="card">
+            <div class="card-text-forward">
+              <div class="tf-decorative">📅</div>
+              <div class="heart-btn" style="z-index:2">
+                <svg viewBox="0 0 24 24" style="stroke:var(--fg-muted);fill:none;filter:none;stroke-width:1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="tf-kind-badge">Event · Saturday</div>
+              <div class="tf-title">Drake's Farmers Market</div>
+              <div class="tf-meta">Every Saturday 9 AM – 1 PM · Oak Park Plaza</div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Drake's Farmers Market</div>
+              </div>
+              <div class="card-subtitle">Weekly gathering · Oak Park Plaza</div>
+              <div class="card-detail">Sat 9 AM – 1 PM · Free</div>
+            </div>
+          </div>
+
+          <!-- Card 3: Product with photo -->
+          <div class="card">
+            <div class="card-image-wrap">
+              <div class="img-bread img-overlay">
+                <span class="img-icon">🍞</span>
+                <span class="img-caption">Photo</span>
+              </div>
+              <span class="tier-badge coop">Co-op</span>
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="carousel-dots">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Sourdough Country Loaf</div>
+              </div>
+              <div class="card-subtitle">Main Street Bakehouse · 0.8 mi</div>
+              <div class="card-kind">Product</div>
+              <div class="card-price"><strong>$8</strong> / loaf</div>
+            </div>
+          </div>
+
+          <!-- Card 4: Service — text-forward (no photo) -->
+          <div class="card">
+            <div class="card-text-forward">
+              <div class="tf-decorative">🔪</div>
+              <div class="heart-btn" style="z-index:2">
+                <svg viewBox="0 0 24 24" style="stroke:var(--fg-muted);fill:none;filter:none;stroke-width:1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="tf-kind-badge">Service</div>
+              <div class="tf-title">Mobile Knife Sharpening</div>
+              <div class="tf-meta">Sharp Edge Co · Comes to you · $5/knife</div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Mobile Knife Sharpening</div>
+              </div>
+              <div class="card-subtitle">Sharp Edge Co · Mobile</div>
+              <div class="card-kind">Service</div>
+              <div class="card-price"><strong>$5</strong> / knife</div>
+            </div>
+          </div>
+
+          <!-- Card 5: Product with photo -->
+          <div class="card">
+            <div class="card-image-wrap">
+              <div class="img-pottery img-overlay">
+                <span class="img-icon">🏺</span>
+                <span class="img-caption">Photo</span>
+              </div>
+              <span class="tier-badge independent">Independent</span>
+              <div class="heart-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="carousel-dots">
+                <span class="dot active"></span><span class="dot"></span>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Hand-thrown Dinner Set</div>
+              </div>
+              <div class="card-subtitle">Clay & Fire Studio · 1.5 mi</div>
+              <div class="card-kind">Product</div>
+              <div class="card-price"><strong>$68</strong> / set of 4</div>
+            </div>
+          </div>
+
+          <!-- Card 6: Idea — text-forward -->
+          <div class="card">
+            <div class="card-text-forward">
+              <div class="tf-decorative">💡</div>
+              <div class="heart-btn" style="z-index:2">
+                <svg viewBox="0 0 24 24" style="stroke:var(--fg-muted);fill:none;filter:none;stroke-width:1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+              <div class="tf-kind-badge">Idea</div>
+              <div class="tf-title">Community Tool Library</div>
+              <div class="tf-meta">Share don't buy · 23 people interested</div>
+            </div>
+            <div class="card-info">
+              <div class="card-row">
+                <div class="card-title">Community Tool Library</div>
+              </div>
+              <div class="card-subtitle">Proposed by Maria Chen</div>
+              <div class="card-detail">23 people interested</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom nav -->
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            Explore
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            Saved
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Map
+          </div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            You
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== GAP ANALYSIS ===== -->
+<div class="analysis-section">
+  <h2>Gap Analysis: Main Street DLS vs Airbnb</h2>
+
+  <p>Both mockups show the same six items — three products with photos, one event, one service, and one idea (the latter three without photos). The comparison isolates exactly where our DLS diverges from the level of visual polish Airbnb achieves.</p>
+
+  <table class="gap-table">
+    <thead>
+      <tr>
+        <th style="width:20%">Dimension</th>
+        <th style="width:30%">Airbnb</th>
+        <th style="width:30%">Main Street DLS</th>
+        <th style="width:20%">Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Background color</strong></td>
+        <td>Pure white (#FFFFFF). Every surface is white. The cards float visually because photography does the separation work.</td>
+        <td>Warm off-white Canvas (#FAFAF7). Slightly warmer. Cards on white would create a subtle warm-cool contrast that can read as muddy at a glance.</td>
+        <td><span class="verdict close">Close call</span></td>
+      </tr>
+      <tr>
+        <td><strong>Typography weight distribution</strong></td>
+        <td>Cereal Bold (700) for card titles. One weight dominates the card. High title contrast makes scanning fast.</td>
+        <td>Inter Medium (500) for card titles per the DLS card recipe ("Title 16px/500"). Reads lighter, less scannable at speed. The 600 and 700 weights exist in the scale but aren't assigned to cards.</td>
+        <td><span class="verdict gap">Gap — bump card title to 600</span></td>
+      </tr>
+      <tr>
+        <td><strong>Card title size</strong></td>
+        <td>15px semibold. Compact but punchy because of the weight.</td>
+        <td>16px medium. Slightly larger but softer. Net effect: titles have less visual authority despite being bigger.</td>
+        <td><span class="verdict gap">Gap — weight matters more than size</span></td>
+      </tr>
+      <tr>
+        <td><strong>Social proof (ratings)</strong></td>
+        <td>Star + numeric rating on every card. Top-right of info block. Drives trust at a glance.</td>
+        <td>No ratings (per principles.md — no reviews). Replaced by ownership tier badge and kind label. The badge is useful but doesn't serve the same "is this good?" signal.</td>
+        <td><span class="verdict close">Intentional trade-off</span></td>
+      </tr>
+      <tr>
+        <td><strong>No-photo card treatment</strong></td>
+        <td>Light gray (#f7f7f7) background with generous padding, a thin red accent line, uppercase category label, large title, and secondary meta. Reads as editorial / magazine layout. Content-rich, not empty.</td>
+        <td>White background with hairline border, pistachio-tinted kind badge, decorative emoji circle, title + meta. Similar approach but the emoji circle is informal, and the pistachio badge introduces color that Airbnb avoids. Slightly busier.</td>
+        <td><span class="verdict close">Close — refine badge restraint</span></td>
+      </tr>
+      <tr>
+        <td><strong>Card spacing (feed)</strong></td>
+        <td>20px horizontal padding, 24px between cards. Tight vertical rhythm, generous side margins.</td>
+        <td>24px horizontal padding (per DLS "24px page gutters mobile"), 24px between cards. Slightly wider margins mean less image width. At 375px viewport, that's 327px vs 335px image width — small but visible.</td>
+        <td><span class="verdict match">Match</span></td>
+      </tr>
+      <tr>
+        <td><strong>Image aspect ratio</strong></td>
+        <td>1:1 square for the mobile feed. Maximizes visual impact in a vertical scroll.</td>
+        <td>1:1 square (matching). The DLS says "3:2 or 1:1" — 1:1 is the right choice for mobile feed.</td>
+        <td><span class="verdict match">Match</span></td>
+      </tr>
+      <tr>
+        <td><strong>Heart/save icon</strong></td>
+        <td>White stroke, dark semi-transparent fill, shadow. High visibility on any photo.</td>
+        <td>Same treatment on photo cards. On text-forward cards, switches to muted stroke with no fill — appropriate but less discoverable.</td>
+        <td><span class="verdict match">Match</span></td>
+      </tr>
+      <tr>
+        <td><strong>Filter pills</strong></td>
+        <td>1px border, white bg, dark text. Active: inverted (dark bg, white text). Below search bar, separated by a border-bottom hairline.</td>
+        <td>Same visual logic (DLS pill/chip recipe matches). Active state uses --color-fg (Oak Green) instead of pure black. Reads slightly softer but functionally identical.</td>
+        <td><span class="verdict match">Match</span></td>
+      </tr>
+      <tr>
+        <td><strong>Search bar</strong></td>
+        <td>White pill, subtle shadow, two text lines (primary bold + secondary muted), filter icon on right. Top of feed. Inviting but doesn't dominate.</td>
+        <td>Same structure, same shadow treatment. DLS search bar recipe is a direct Airbnb analog. Missing: the right-side filter button (not in DLS spec).</td>
+        <td><span class="verdict close">Close — add filter affordance</span></td>
+      </tr>
+      <tr>
+        <td><strong>Accent color restraint</strong></td>
+        <td>Rausch Red appears only on: the bottom-nav active icon, the "Guest favorite" badge, and the thin accent line on text-forward cards. Three instances in the entire feed. Everything else is black, white, gray.</td>
+        <td>Pistachio appears on: ownership tier badges (2 cards), kind badge on text-forward cards (3 cards), kind label text below card info (all cards), decorative emoji circle bg. That's 8+ instances. The green is more diffuse.</td>
+        <td><span class="verdict gap">Gap — reduce accent frequency</span></td>
+      </tr>
+      <tr>
+        <td><strong>Information density per card</strong></td>
+        <td>Title, subtitle, one detail line, price. Four lines max. No labels, no badges below the image.</td>
+        <td>Title, subtitle, kind label, price. Also four lines — but the kind label is an extra semantic layer Airbnb doesn't need (they only have one content type). When the kind label is removed for a homogeneous feed, density matches.</td>
+        <td><span class="verdict close">Close — kind label adds necessary info</span></td>
+      </tr>
+      <tr>
+        <td><strong>Color temperature</strong></td>
+        <td>Cool-neutral. Pure white + #222 text + gray secondary. No warmth anywhere. The photography carries all warmth.</td>
+        <td>Warm-neutral. Off-white canvas + Oak Green text + warm muted gray. The warmth is pleasant but means the chrome competes slightly more with photography for emotional register.</td>
+        <td><span class="verdict close">Intentional — earthy palette</span></td>
+      </tr>
+      <tr>
+        <td><strong>Bottom nav</strong></td>
+        <td>White bar, hairline top border, icon + label, active state in Rausch Red.</td>
+        <td>Same structure. Active state in Oak Green (--color-fg) instead of an accent. Reads more muted — the active tab doesn't pop as hard.</td>
+        <td><span class="verdict gap">Gap — active nav needs more contrast</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Top 5 Actionable Gaps</h3>
+
+  <p><strong>1. Card title weight (500 → 600).</strong> The single highest-leverage change. Airbnb's titles scan faster because they're bolder. Bumping the card recipe from 500 to 600 (SemiBold) — already in the Inter family — would close the biggest visual-authority gap without touching the type scale.</p>
+
+  <p><strong>2. Accent color frequency.</strong> Airbnb uses Rausch Red three times in the entire feed; we use pistachio eight-plus times. The ownership tier badge on photos is high-value (unique to our platform). The kind label below the card info and the kind badge on text-forward cards are lower-value — consider dropping the kind label to a muted gray, and making the text-forward badge monochrome (dark text on light gray, like Airbnb's category labels).</p>
+
+  <p><strong>3. Active bottom-nav indicator.</strong> Oak Green on white is low contrast for a nav highlight. Two fixes: use --pistachio-700 or --pistachio-800 for the active icon, or add a 2px accent-colored top border on the active tab. Airbnb uses their loudest color here intentionally.</p>
+
+  <p><strong>4. Search bar filter affordance.</strong> Airbnb's right-side filter icon (circle with sliders) is a high-utility touch for a multi-type marketplace. The DLS search bar recipe doesn't include it. Adding a bordered circle icon on the right of the search pill would be a clean addition.</p>
+
+  <p><strong>5. Text-forward card refinement.</strong> The decorative emoji circle works as a placeholder but will look informal at scale. Consider replacing it with a subtle SVG illustration per kind (calendar icon for events, tools icon for services, lightbulb for ideas) rendered at low opacity in the upper-right — same position, more polished. The Airbnb approach (thin accent line + uppercase category) is cleaner; we could adopt the line treatment using a pistachio-700 hairline instead of a full badge.</p>
+
+  <h3>What the DLS Gets Right</h3>
+
+  <p>The fundamentals are solid. Card spacing, image treatment (borderless, radiused), search bar structure, pill/chip behavior, shadow restraint (hairlines over shadows), and the overall visual hierarchy all track Airbnb's patterns closely. The warm-neutral palette is a deliberate differentiation, not a gap — it gives the feed an earthy, grounded quality that pure-white Airbnb lacks. The ownership tier badges are genuinely valuable UI that Airbnb has no analog for. The DLS is 80% there; the remaining 20% is weight, accent discipline, and small chrome refinements.</p>
+</div>
+
+</body>
+</html>
