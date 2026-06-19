@@ -134,6 +134,15 @@ Listings tagged `pe-corporate` carry `data-extractive="true"`, which applies `gr
 - **Photo cards: no overlays.** No pills, badges, tier markers, or any colored element over the image. Heart/save icon is the only overlay (white stroke, dark fill, shadow — same as Airbnb). All metadata goes below the image in the text zone.
 - **No-photo cards:** white background with `1px --color-border`, editorial layout. Uppercase category label in 11px/600 `--color-fg-muted`, large title, meta line. Optional thin accent line (2px `--color-brand`) as a subtle brand mark. No tinted backgrounds, no colored badges, no decorative emoji circles.
 
+### Horizontal card scroll
+A single-row, snap-scrolling strip of compact cards for an at-a-glance summary that links onward to a full page. First consumer: the `/you` "Following" summary (F042 / T108); use it for any "here's a peek, see all →" surface.
+- **Scroll container.** `flex` row, `overflow-x-auto`, `gap-3`, `snap-x snap-mandatory`; bottom padding (`pb-2`) leaves room for the scrollbar without clipping hover shadow. No fixed height — cards set it.
+- **Card.** Fixed width (`w-28`), `shrink-0`, `snap-start`; reuses the `card-hover` recipe. Vertical layout: 64px round thumbnail (or initial-letter placeholder on `--color-bg-muted` when no image), then a 2-line-clamped name in 12px/500.
+- **Placeholder.** When the entity has no image (Groups, Venues, tombstoned People), show the first initial in a neutral circle — never a broken image or colored badge (consistent with no-photo cards).
+- **Overflow affordance.** Native horizontal scroll; the partial last card peeking past the right edge is the affordance — no arrows at b1.
+- **Terminal "More" link.** A standard text link (CTA pattern, `--color-accent`) in the section header, right-aligned, navigating to the full page. Header carries the section title left, "More" right.
+- **Empty state.** Omit the entire section when there's nothing to show — the empty-state-with-CTA lives on the destination full page, not the summary strip.
+
 ### Pill / chip
 - Radius `--radius-full`, 1px `--color-border`, padding `8px 14px`, 14px text.
 - Selected: bg `--color-fg` (dark neutral), text white, no border.

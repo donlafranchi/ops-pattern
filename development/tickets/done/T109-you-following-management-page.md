@@ -1,7 +1,7 @@
 # T109: `/you/following` management page — sections, Unfollow/Leave, undo
 
 **Scenario:** `planning/next/scenario-F042-member-follows-producer-group-venue.md`
-**Status:** Open
+**Status:** Complete
 **Bundle:** b1
 **Depends on:** T108 (unified follows reader — this page groups its output into sections)
 
@@ -12,10 +12,10 @@
 
 ## Workflow gates (mandatory during rebuild phase)
 
-- [ ] **M2 — `engineering:code-review`** invoked on the diff before commit.
-- [ ] **M3 — `design:accessibility-review`** — new page with repeated interactive (Unfollow/Leave) rows + undo affordance. Required.
-- [ ] **M4 — `engineering:deploy-checklist`** — only if merged to main with a migration; this ticket adds no migration.
-- [ ] **DEVIATIONS.md entry** appended at ticket close — even one line.
+- [x] **M2 — `code-review` (high)** invoked on the diff before commit. Verdict: Approve.
+- [x] **M3 — `design:accessibility-review`** — WCAG 2.1 AA PASS after 2 fixes (per-entity button `aria-label`; destructive `red-700` contrast).
+- [x] **M4 — `engineering:deploy-checklist`** — N/A; no migration (new handlers write existing tables/event-kinds).
+- [x] **DEVIATIONS entry** appended at ticket close — `development/deviations/T109.md` (5 deviations + 2 SPEC-PATCH).
 
 ## Acceptance Criteria
 
@@ -75,5 +75,9 @@
 
 ## Completion
 
-Date: {YYYY-MM-DD}
-Commit: {git hash}
+Date: 2026-06-18
+Commit: a4faa88 (web) · merged to main via 7406384
+Tests: 21 new vitest GREEN (FollowingManager ×9, get-listed-member-counts ×3, actions-t109 ×9). lint + tsc + check:action-layer clean.
+Deviations: development/deviations/T109.md — **(1) built the missing `group.member_leave` / `group.member_join` handlers + server actions** (ticket wrongly assumed they shipped via T070) → SPEC-PATCH SP-2026-06-18-group-member-join-leave-handlers (F035 must adopt); (2) `group.member_join` has no fresh-join invite gate — safe here (Undo only re-activates) but F035 must add it → same SPEC-PATCH; (3) venue Undo via new `member.saved_search.restore` (emits `…updated`, no migration); (4) static-shape + Playwright test split; (5) new Following surface coexists with legacy vendor `/you` tabs → SPEC-PATCH SP-2026-06-18-legacy-you-vendor-tabs-retirement.
+Gates: M2 Approve · M3 WCAG 2.1 AA PASS · M4 N/A (no migration).
+Note: shipped together with T108 on branch t108.

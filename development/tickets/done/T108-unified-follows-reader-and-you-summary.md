@@ -1,7 +1,7 @@
 # T108: Unified follows reader + `/you` "Following" summary (card scroll)
 
 **Scenario:** `planning/next/scenario-F042-member-follows-producer-group-venue.md`
-**Status:** Open
+**Status:** Complete
 **Bundle:** b1
 **Depends on:** none (all three follow substrates + handlers shipped: T091 member-follow, T102 saved-search, T070 group-membership)
 
@@ -12,10 +12,10 @@
 
 ## Workflow gates (mandatory during rebuild phase)
 
-- [ ] **M2 — `engineering:code-review`** invoked on the diff before commit.
-- [ ] **M3 — `design:accessibility-review`** — new component (horizontal card scroll) added to an existing page. Required.
-- [ ] **M4 — `engineering:deploy-checklist`** — only if merged to main with a migration; this ticket adds no migration (pure read + UI).
-- [ ] **DEVIATIONS.md entry** appended at ticket close — even one line.
+- [x] **M2 — `code-review` (high)** invoked on the diff before commit. Verdict: Approve.
+- [x] **M3 — `design:accessibility-review`** — WCAG 2.1 AA PASS (card a11y; repeated-control fixes landed in T109's manager).
+- [x] **M4 — `engineering:deploy-checklist`** — N/A; no migration (pure read + UI).
+- [x] **DEVIATIONS entry** appended at ticket close — `development/deviations/T108.md` (3 deviations + 1 SPEC-PATCH).
 
 ## Acceptance Criteria
 
@@ -66,5 +66,9 @@
 
 ## Completion
 
-Date: {YYYY-MM-DD}
-Commit: {git hash}
+Date: 2026-06-18
+Commit: 16453ca (web) · merged to main via 7406384
+Tests: 12 new vitest GREEN (get-member-follows ×9, FollowingSummary ×3). lint + tsc + check:action-layer clean.
+Deviations: development/deviations/T108.md — (1) isomorphic reader (takes SupabaseClient, not server-only); (2) Group/Venue hrefs use slug-only short path `/p/g/[slug]` `/p/l/[slug]` (no forward place-path resolver exists) → SPEC-PATCH SP-2026-06-18-group-venue-canonical-href; (3) Group/Venue cards have no thumbnail (no image column in schema).
+Gates: M2 Approve · M3 WCAG 2.1 AA PASS · M4 N/A (no migration).
+Note: shipped together with T109 on branch t108 (shared reader; review-F042 recommended one ticket).
