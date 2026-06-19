@@ -4,8 +4,8 @@ purpose: Pipeline stage for S-polygon — places polygon + centroid backfill (T0
 layer: how
 status: active
 concept_kind: substrate
-stage_current: building
-last_activity: 2026-06-02
+stage_current: done
+last_activity: 2026-06-18
 ---
 
 # S-polygon — places polygon + centroid backfill (T076)
@@ -15,7 +15,8 @@ last_activity: 2026-06-02
 ## Stage history (append-only)
 
 - **2026-06-02** · `ticketed` — T076
-- **2026-06-02** · `building` — committed on branch `t76`, not merged; 42 vitest green; M2 PROCEED
+- **2026-06-02** · `building` — committed on branch `t76`; 42 vitest green; M2 PROCEED
+- **2026-06-18** · `done` — merged `t76` → main (`95694a5`)
 
 ## Notes
 

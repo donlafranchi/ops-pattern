@@ -33,7 +33,7 @@ Ordinary people will step forward where they live, and their neighbors will show
 - [~] Create a business through the Sell walkthrough — *built + merged; eval partial (5/9), forward-deps now merged, awaits eval re-run*
 - [~] List a product — *merged; Playwright eval not yet run*
 - [x] List a service
-- [ ] Claim the "Locally Owned" badge — *ticketed (T107)*
+- [x] Claim the "Locally Owned" badge — *built + merged (F037, branch t-f037 → main 2026-06-04; eval 8/8 green)*
 - [ ] Claim the "Locally Made" badge — *deferred (F039; branch t-f039 unmerged)*
 - [x] Generate a printable QR card for any item
 
@@ -60,10 +60,10 @@ Ordinary people will step forward where they live, and their neighbors will show
 ## Where we are right now
 
 - **Foundations:** complete. All substrate — members, locations, items, groups, geography, metro polygons, saved-search / follow-venue wiring, jurisdiction badges — is built and merged to main.
-- **Producer surfaces:** *List a service* (F040) and the *QR card* generator (F041) are done end-to-end (evals green, merged). *List a product* (F038) is merged but its Playwright eval hasn't run. The *Sell walkthrough* (F036) is built and merged, eval partial (5/9) — its forward-deps have since merged, so it awaits a re-run. *Locally Owned* (F037) is ticketed (T107); *Locally Made* (F039) is the one deferred branch (t-f039, unmerged).
+- **Producer surfaces:** *List a service* (F040) and the *QR card* generator (F041) are done end-to-end (evals green, merged). *List a product* (F038) is merged but its Playwright eval hasn't run. The *Sell walkthrough* (F036) is built and merged, eval partial (5/9) — its forward-deps have since merged, so it awaits a re-run. *Locally Owned* (F037) is built + merged (branch t-f037 → main 2026-06-04, eval 8/8 green); *Locally Made* (F039) is the one deferred branch (t-f039, unmerged).
 - **Gatherer surfaces:** *Host a recurring gathering* (F034) and *Group public page* (F035) are done (evals green, merged). The *venue page* (F033) is built and merged (T104/T105) but its eval hasn't been written or run.
 - **Newcomer surfaces:** signup → locality feed (F030) and *Member page + follow* (F032) are done (evals green, merged). The unified *follow everything* page (F042) is ticketed (T108/T109); *adjust near-me reach* (F031) is still in backlog.
-- **Integration test:** waits on the remaining surfaces above — F033 eval, F037/F042 build, F038 eval.
+- **Integration test:** waits on the remaining surfaces above — F033 eval, F042 build, F038 eval.
 - **Only unmerged branch:** `t-f039` (Locally Made), deliberately deferred.
 
 ## What this scoreboard is not

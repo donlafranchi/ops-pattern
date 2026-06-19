@@ -4,8 +4,8 @@ purpose: Pipeline stage for S-jurisdictions — `member_business_jurisdictions` 
 layer: how
 status: active
 concept_kind: substrate
-stage_current: built
-last_activity: 2026-06-02
+stage_current: done
+last_activity: 2026-06-18
 ---
 
 # S-jurisdictions — `member_business_jurisdictions` Tier 0 + `made_at`
@@ -16,7 +16,8 @@ last_activity: 2026-06-02
 
 - **2026-05-28** · `product` — substrate scoped
 - **2026-06-02** · `ticketed` — T075
-- **2026-06-02** · `built` — committed on branch `t75`, not merged; 40 vitest green; live-DB migration + SQL-contract validation; M2 PROCEED — crosswalk RLS + inline-seed fixed before commit
+- **2026-06-02** · `built` — committed on branch `t75`; 40 vitest green; live-DB migration + SQL-contract validation; M2 PROCEED — crosswalk RLS + inline-seed fixed before commit
+- **2026-06-18** · `done` — merged `t75` → main (`1740fe9`)
 
 ## Notes
 

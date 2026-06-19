@@ -4,8 +4,8 @@ purpose: Pipeline stage for b1.x — geography substrate sprint.
 layer: how
 status: active
 concept_kind: substrate
-stage_current: ready-to-merge
-last_activity: 2026-05-25
+stage_current: done
+last_activity: 2026-06-18
 ---
 
 # b1.x — geography substrate sprint
@@ -16,7 +16,8 @@ last_activity: 2026-05-25
 
 - **2026-05-25** · `ticketed` + `building` + `eval` — T058–T064 all 7 build + eval complete
 - **2026-05-25** · `ready-to-merge` — All 7 items shipped; 107/107 unit + 181/181 Phase 1 evals green; 0 conformance violations
+- **2026-06-18** · `done` — merged → main
 
 ## Notes
 
-Awaits PM sign-off + merge to main. `member_business_jurisdictions` deferred to b1.2/F026 (decision #3).
+`member_business_jurisdictions` deferred to b1.2/F026 (decision #3).
