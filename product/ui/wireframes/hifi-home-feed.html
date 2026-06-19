@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MMS — Hi-Fi Home Feed</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pistachio-50: #F5F7F2;
+    --pistachio-100: #E8EDE3;
+    --pistachio-200: #D5DECF;
+    --pistachio-300: #C7D6C2;
+    --pistachio-400: #BACBB5;
+    --pistachio-500: #A0B49A;
+    --pistachio-600: #869C7F;
+    --pistachio-700: #6D8367;
+    --bg: #FFFFFF;
+    --surface: #F7F7F7;
+    --fg: #2D2D2D;
+    --fg-muted: #717171;
+    --border: #EBEBEB;
+    --locally-owned: #1B7A3D;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.16);
+  }
+
+  body {
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    background: #F0F0F0;
+    color: var(--fg);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .wrapper { text-align: center; }
+
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--fg-muted); margin-bottom: 32px; }
+
+  .phone {
+    width: 375px;
+    background: var(--bg);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .status-bar {
+    height: 44px;
+    background: var(--bg);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 24px 6px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .bottom-nav {
+    height: 68px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 24px;
+  }
+
+  .nav-item { text-align: center; padding: 4px 8px; }
+  .nav-item .label { font-size: 10px; margin-top: 3px; color: var(--fg-muted); }
+  .nav-item.active .label { color: var(--pistachio-500); font-weight: 600; }
+  .nav-icon { width: 22px; height: 22px; }
+
+  .create-btn {
+    width: 44px; height: 44px;
+    background: var(--pistachio-500);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 22px; font-weight: 600;
+    box-shadow: 0 3px 10px rgba(160,180,154,0.4);
+  }
+
+  .home-indicator { height: 24px; display: flex; align-items: center; justify-content: center; }
+  .home-indicator div { width: 134px; height: 5px; background: var(--fg); border-radius: 3px; }
+
+  .avatar {
+    border-radius: 50%;
+    background: var(--pistachio-100);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+<h1>Hi-Fi Home Feed</h1>
+<p class="subtitle">Full-color rendering · Real content · Production fidelity</p>
+
+<div class="phone">
+  <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+
+  <!-- Header -->
+  <div style="padding:6px 24px 16px;display:flex;align-items:center;gap:10px;">
+    <svg viewBox="0 0 200 180" width="32" height="29">
+      <ellipse cx="100" cy="60" rx="85" ry="45" fill="var(--pistachio-400)"/>
+      <ellipse cx="35" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
+      <ellipse cx="165" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
+      <ellipse cx="100" cy="45" rx="60" ry="32" fill="var(--pistachio-500)"/>
+      <path d="M90,95 Q88,120 85,145 Q84,155 88,160 L112,160 Q116,155 115,145 Q112,120 110,95" fill="var(--pistachio-600)"/>
+    </svg>
+    <span style="font-size:18px;font-weight:700;">Main Street</span>
+  </div>
+
+  <!-- Locality -->
+  <div style="padding:0 24px 16px;">
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--surface);border-radius:var(--radius-full);">
+      <span style="font-size:13px;">📍</span>
+      <span style="font-size:14px;font-weight:500;">West Sacramento</span>
+      <span style="font-size:11px;color:var(--fg-muted);">▾</span>
+    </div>
+  </div>
+
+  <div style="height:1px;background:var(--border);margin:0 24px;"></div>
+
+  <!-- Event Card — full photo card -->
+  <div style="padding:20px 24px;">
+    <div style="position:relative;border-radius:var(--radius-md);overflow:hidden;">
+      <div style="width:100%;height:180px;background:linear-gradient(135deg,#6B8F71,#3A5F3E);display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);font-size:13px;">
+        <span style="font-size:32px;margin-bottom:4px;">🏃‍♂️</span>
+        Photo placeholder
+      </div>
+      <div style="position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(255,255,255,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 2px 6px rgba(0,0,0,0.1);">♡</div>
+      <div style="position:absolute;top:12px;left:12px;padding:4px 10px;background:rgba(0,0,0,0.6);border-radius:6px;font-size:11px;color:#fff;font-weight:500;">Weekly</div>
+    </div>
+    <div style="margin-top:12px;">
+      <div style="font-size:12px;color:var(--fg-muted);font-weight:500;letter-spacing:0.2px;">THU, JUN 19 · 6:00 PM</div>
+      <div style="font-size:18px;font-weight:600;margin-top:4px;">Thursday Run Club</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+        <span style="font-size:13px;color:var(--fg-muted);">Drake's Brewing</span>
+        <span style="width:3px;height:3px;border-radius:50%;background:var(--border);"></span>
+        <span style="font-size:13px;color:var(--fg-muted);">0.4 mi</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Idea Card — editorial -->
+  <div style="padding:0 24px 20px;">
+    <div style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;position:relative;overflow:hidden;">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--pistachio-400);"></div>
+      <div style="padding-left:10px;">
+        <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.4px;">💡 Idea</div>
+        <div style="font-size:16px;font-weight:600;margin-top:10px;line-height:1.45;">Anyone want to do a clothing swap this summer?</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:12px;">
+          <div class="avatar" style="width:28px;height:28px;font-size:11px;background:linear-gradient(135deg,var(--pistachio-200),var(--pistachio-400));color:#fff;">SM</div>
+          <span style="font-size:13px;color:var(--fg-muted);">Sarah M.</span>
+          <span style="width:3px;height:3px;border-radius:50%;background:var(--border);"></span>
+          <span style="font-size:13px;color:var(--fg-muted);">2 mi</span>
+          <span style="width:3px;height:3px;border-radius:50%;background:var(--border);"></span>
+          <span style="font-size:13px;color:var(--fg-muted);">3h ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Card -->
+  <div style="padding:0 24px 20px;">
+    <div style="position:relative;border-radius:var(--radius-md);overflow:hidden;">
+      <div style="width:100%;height:160px;background:linear-gradient(135deg,#D4A574,#8B6914);display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);font-size:13px;">
+        <span style="font-size:32px;margin-bottom:4px;">🍞</span>
+        Photo placeholder
+      </div>
+      <div style="position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(255,255,255,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 2px 6px rgba(0,0,0,0.1);">♡</div>
+    </div>
+    <div style="margin-top:12px;">
+      <div style="font-size:18px;font-weight:600;">Sourdough Boule</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+        <span style="font-size:13px;color:var(--fg-muted);">River City Bread</span>
+        <span style="width:3px;height:3px;border-radius:50%;background:var(--border);"></span>
+        <span style="font-size:16px;font-weight:600;">$8</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
+        <span style="font-size:10px;padding:3px 10px;background:var(--locally-owned);color:#fff;border-radius:6px;font-weight:600;">Locally Owned</span>
+        <span style="font-size:12px;color:var(--fg-muted);">Pickup Sat · Drake's</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Card — editorial style -->
+  <div style="padding:0 24px 20px;">
+    <div style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;display:flex;gap:14px;align-items:flex-start;">
+      <div class="avatar" style="width:48px;height:48px;font-size:16px;background:linear-gradient(135deg,var(--pistachio-100),var(--pistachio-300));color:var(--pistachio-700);">AJ</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:11px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.4px;">🤝 Service</div>
+        <div style="font-size:16px;font-weight:600;margin-top:6px;">Garden design & planting</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:4px;">Anna J. · 1.2 mi · Available now</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Show more -->
+  <div style="padding:0 24px 24px;text-align:center;">
+    <div style="padding:12px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:14px;font-weight:500;color:var(--fg-muted);cursor:pointer;">Show more</div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--pistachio-500)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <div class="label">Home</div>
+    </div>
+    <div class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div class="label">Explore</div>
+    </div>
+    <div class="nav-item"><div class="create-btn">+</div></div>
+    <div class="nav-item">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div class="label">You</div>
+    </div>
+  </div>
+  <div class="home-indicator"><div></div></div>
+</div>
+</div>
+
+</body>
+</html>
