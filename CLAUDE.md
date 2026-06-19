@@ -122,7 +122,7 @@ The one preserved firewall: `build` reads `next/` + `now/` and **cannot** read `
 
 ## Agent routing — use which skill when
 
-Eleven skills cover the full lifecycle. Each runs in **one tool only** — the hard firewall. Match intent to trigger; invoke the matching skill.
+Twelve skills cover the full lifecycle. Each runs in **one tool only** — the hard firewall. Match intent to trigger; invoke the matching skill.
 
 | User says / intent | Skill | Tool |
 |---|---|---|
@@ -136,6 +136,7 @@ Eleven skills cover the full lifecycle. Each runs in **one tool only** — the h
 | "tickets for F###", "break F### into tickets" | `ticket` | Claude Code |
 | "tests for F###", "Playwright spec for F###", "run F### tests" | `test` | Claude Code |
 | "implement T###", "TDD this", "build T###" | `build` | Claude Code |
+| "sync the scoreboard", "sync progress", "update the checklist", "are the tracking docs current", "reconcile the ledger" | `sync` | Cowork |
 | "tidy", "sweep the docs", "anything rotting", "triage the inbox", "audit the skills", "anything to archive" | `tidy` | Cowork |
 | "I want this to improve itself", "design a self-improvement loop", "Karpathy loop" | `loop-designer` (utility) | Cowork |
 

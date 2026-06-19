@@ -11,7 +11,7 @@
 | **Does NOT read** | `planning/backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
 | **Does NOT run** | `git push`, `git rebase`, anything that rewrites history. `git add` + `git commit` only fire after PM `y` on the permission prompt at ticket close. Worktree creation happens at session start. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
-| **Hands to** | `test` (run mode) — verifies F### evals pass against the scenario |
+| **Hands to** | `sync` (post-build mode) → `test` (run mode). After merge, sync updates the three progress-tracking surfaces (per-file ledger, monolith, checklist) before handing to test for eval verification. |
 | **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the PM permission prompt per CLAUDE.md rebuild-phase rule #3. The reviewed state is what you commit; fixes happen in the same loop, not as follow-up commits. Then `simplify-review` — structural pass on the staged diff; Approve to continue, Request changes → fix forward (in-scope) or log to DEVIATIONS (out-of-scope). |
 
 ## TDD loop (every ticket)
@@ -136,7 +136,9 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 ## Hand off
 
-**STAGE-LEDGER stamp.** When the first commit lands for a scenario's tickets, flip the F-number's row to `building` with today's date. When the last ticket for the scenario closes and evals are green, flip to `done`. For substrate tickets, stamp the corresponding row in the Substrate table.
+**`sync` (post-build mode).** After a successful merge to main, call `sync` with the ticket ID and F-number (or substrate slug). Sync updates the per-file ledger, monolith row, and checklist item. This replaces the manual STAGE-LEDGER stamp — sync handles all three surfaces in one pass.
+
+**STAGE-LEDGER stamp (legacy — now handled by `sync`).** If `sync` is unavailable, fall back to the manual stamp: when the first commit lands for a scenario's tickets, flip the F-number's row to `building` with today's date. When the last ticket closes and evals are green, flip to `done`. For substrate tickets, stamp the corresponding row in the Substrate table.
 
 **SPEC-PATCHES queue.** If you flagged a `product/` spec for `explore` patching in DEVIATIONS, also append an entry to `planning/SPEC-PATCHES.md` with the spec path, section, what's wrong, and the ticket that caught it. The DEVIATIONS entry is the audit trail; SPEC-PATCHES is the queue that ensures the patch lands.
 
@@ -158,7 +160,7 @@ The TDD loop body keeps its narration discipline; this governs the *final* close
 
 **Commit-hash backfill.** Immediately after you run `git commit`, edit the ticket's Completion section to fill in the hash printed by git. Same session — do not defer.
 
-**You hand to:** `test` (run mode) — confirms F### evals pass against the scenario this ticket served.
+**You hand to:** `sync` (post-build mode) → `test` (run mode). Sync reconciles the three tracking surfaces against the merge you just landed; test then confirms F### evals pass against the scenario this ticket served.
 
 **On eval failure:** evaluator hands back to you. Run the TDD loop again — fix forward, never roll back. New iteration stays on the same `t{nnn}` branch; you commit each pass after PM `y` on the permission prompt.
 

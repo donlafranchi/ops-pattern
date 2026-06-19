@@ -8,9 +8,9 @@ status: active
 
 > Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is documented in [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) (close-call rule) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns (the working pattern). Every multi-step report opens with the Report Shape template — see [`CLAUDE.md` § Report shape](CLAUDE.md#report-shape).
 
-Eleven skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
+Twelve skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
 
-## The team in eleven
+## The team in twelve
 
 | Skill | Role | Tool | The one question it forces |
 |---|---|---|---|
@@ -24,6 +24,7 @@ Eleven skills run the full lifecycle. Each is a role on a tight five-person dev 
 | `ticket` | Sequencer | Claude Code | Smallest unit with a clear done condition |
 | `test` | QA — write + run | Claude Code | Would a stranger know if this broke |
 | `build` | Engineer — TDD | Claude Code | Simplest code that passes, fastest |
+| `sync` | Progress reconciler | Cowork | Do the tracking docs match git reality |
 | `tidy` | Anti-sprawl sweeper | Cowork | What's stale, what folds into what |
 
 **Hard tool firewall.** Each stage runs in one tool only. No "Both." A stage that wants the other tool is a stage whose workflow has drifted — fix the workflow.
@@ -52,10 +53,11 @@ session start  →  orient
                                                           test  ←── parallel with ticket
                                                           build
                                                           (commit, with PM permission)
+                  sync  ←────── post-build (auto) or standalone (PM-invoked)
                   tidy  ←────── end-of-session sweep
 ```
 
-`ticket` and `test` run in parallel from the same approved scope, eyes-closed to each other. That separation is what keeps the test honest. `weigh`, `memo`, `review` fire as needed between `scope` and the hand-off. `atomize` sits at the front: it bridges Cowork plan-drops in `_inbox/` to the backlog lane in `planning/backlog/`, so multi-item plans don't stall in untriaged drafts.
+`ticket` and `test` run in parallel from the same approved scope, eyes-closed to each other. That separation is what keeps the test honest. `weigh`, `memo`, `review` fire as needed between `scope` and the hand-off. `atomize` sits at the front: it bridges Cowork plan-drops in `_inbox/` to the backlog lane in `planning/backlog/`, so multi-item plans don't stall in untriaged drafts. `sync` fires automatically after `build` merges (post-build mode) or on PM request (standalone mode) — it reconciles the three progress-tracking surfaces against git ground truth.
 
 ## What every gate is guarding against
 
@@ -261,7 +263,21 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 ---
 
-## 10. tidy
+## 10. sync
+
+**Tool:** Cowork. **Model:** Sonnet.
+
+**Reads:** `web/` git log + branch state, `planning/now/bundle-{N}-checklist.md`, `planning/STAGE-LEDGER.md`, `planning/stage-ledger/*.md`, `planning/now/bundle-{N}.md`, `development/tickets/done/`.
+
+**Writes:** `planning/now/bundle-{N}-checklist.md`, `planning/STAGE-LEDGER.md`, `planning/stage-ledger/{concept}.md`.
+
+**Does NOT write:** code, tickets, scenarios, specs, JOURNAL.
+
+**Task:** Reconcile the three progress-tracking surfaces against git ground truth. Two modes: **post-build** (narrow — one concept, no PM ratification, fires after `build` merges) and **standalone** (full pass, PM ratifies before writes land). Git is the single source of truth; tracking docs are the derivative.
+
+---
+
+## 11. tidy
 
 **Tool:** Cowork. **Model:** Sonnet.
 
