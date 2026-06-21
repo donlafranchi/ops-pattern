@@ -70,7 +70,7 @@ The load-bearing distinction: **a suggestion is a prompt to take an action; an a
 
 - **Decision Test ([`principles.md`](../foundation/principles.md) Part 3):** Does this expand Member options? Yes — surfaces a Group-creation possibility the Member would not have seen otherwise. Could it harm others? Only if it became a nag or a pre-populated roster. The cooldown + the no-push-surface constraints address the nag failure; the "no Group exists until a Member starts one" rule addresses the roster failure.
 - **The principles.md Group asymmetry:** *"A Group without Members ceases to exist. … Members can dissolve a Group; a Group cannot dissolve a Member."* This proposal preserves both halves — the suggested Group has zero Members until one starts it; every subsequent join is an explicit Member act.
-- **The `groups.md` Nextdoor-pattern test (line 396):** *"Does this proposal want to treat Location-affinity / signal-X as if it were membership (addressable, listable, broadcast-targetable)?"* No — the 14 other Members in the cluster are never listed, never addressed, never told another Member exists in the cluster. They learn the Group exists only after it's started, and only via a soft surface on their next session.
+- **The `groups.md` anonymous-complaint-feed-pattern test (line 396):** *"Does this proposal want to treat Location-affinity / signal-X as if it were membership (addressable, listable, broadcast-targetable)?"* No — the 14 other Members in the cluster are never listed, never addressed, never told another Member exists in the cluster. They learn the Group exists only after it's started, and only via a soft surface on their next session.
 
 ### Failure mode to watch
 

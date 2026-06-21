@@ -22,7 +22,7 @@ A public, browseable surface at `/explore` that does not require authentication.
 - URL: `/explore` — top-level, no place prefix in the URL (the visitor's IP geolocation + a visible scope picker drives what's shown). When a visitor opts a scope, the URL may upgrade to `/explore?place=...&kind=...&distance=...`.
 - Reads: `discoverable_items` materialized view exclusively. No base-table reads on the anonymous path.
 - Filter affordances: kind (product / service / gathering), category, distance (radius), schedule window ("today" / "this week" / "this month").
-- Anti-Nextdoor: no comments, no Location-scoped messaging visible to anon, no notifications. This is a read surface.
+- Accountable-participation: no comments, no Location-scoped messaging visible to anon, no notifications. This is a read surface.
 - Sign-in CTA: inline ("Make this yours" / "Save your locality") but never blocking.
 
 ## Depends on
@@ -35,7 +35,7 @@ A public, browseable surface at `/explore` that does not require authentication.
 
 1. PM decides: one F### scenario or split (e.g., F### = `/explore` core; F### = anonymous Loop 3 deep-link path)?
 2. Confirm `discoverable_items` RLS allows anon reads with the expected predicates.
-3. Design pass on the filter affordances + scope picker placement (mobile-first, anti-Nextdoor).
+3. Design pass on the filter affordances + scope picker placement (mobile-first, accountable-participation).
 4. Decide whether the anonymous path nudges or blocks at any point (default: never blocks).
 5. Promote to `planning/backlog/scenario-F###-explore-no-login.md` via `scope` when the design call is made.
 

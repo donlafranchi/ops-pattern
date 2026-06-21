@@ -21,7 +21,7 @@ The constitution and the policy filter — what the platform refuses, what it co
 
 - **[`principles.md`](foundation/principles.md)** — the constitution; the single "Never," the central premise, P1–P8 first principles, the People-First Principle, the binary Decision Test, categorical failures, monetization hypothesis, metrics baseline, privacy/security baseline.
 - **[`community-health-rubric.md`](foundation/community-health-rubric.md)** — the structured measuring stick; 5 sections of platform-decision rubric (Healthy Community Attributes / Member Journey / Peer Pressure / Ownership Arc / Platform as Enabler) grounded in Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon. Score every decision against the checklists.
-- **[`policy.md`](foundation/policy.md)** — the three-filter test (helpful? harmless? abuse-resistant?), opt-out default, and anti-Nextdoor commitments.
+- **[`policy.md`](foundation/policy.md)** — the three-filter test (helpful? harmless? abuse-resistant?), opt-out default, and accountable-participation commitments.
 - **[`platform-promise.md`](foundation/platform-promise.md)** — what the platform commits to and refuses to do, in plain language for the thesis page.
 - **[`primitives.md`](foundation/primitives.md)** — the data spine: Person · Item · Location · Group; everything the platform does is one of these acting on another.
 

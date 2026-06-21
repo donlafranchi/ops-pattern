@@ -16,7 +16,7 @@ The Sharing family of loops — Offer (Loop 5) and Ask (Loop 6) — is the only 
 Two design observations push toward needing some reciprocity surface:
 
 1. **Offer and Ask are functionally one mutual-aid relationship**, not two unrelated loops. In lived neighborhoods, the same person both has things and needs things. Treating them as fully decoupled understates how the loop actually works.
-2. **Every existing mutual-aid surface — Buy Nothing groups, Nextdoor's "free" section, neighborhood mailing lists — gets gamed by takers.** People who only ask, never give, create predictable resentment that erodes the surface for everyone. The healthy versions of these groups all have some informal reciprocity norm; the platform should consider whether to encode one.
+2. **Every existing mutual-aid surface — Buy Nothing groups, anonymous "free stuff" feeds, neighborhood mailing lists — gets gamed by takers.** People who only ask, never give, create predictable resentment that erodes the surface for everyone. The healthy versions of these groups all have some informal reciprocity norm; the platform should consider whether to encode one.
 
 The proposal under consideration: **goodwill points, possibly with an "offer before ask" gate.**
 

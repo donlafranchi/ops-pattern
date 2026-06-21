@@ -57,7 +57,7 @@ Desktop: the same four zones render as a left sidebar nav. The bottom bar disapp
 
 The feed shows time-stamped Items scoped by the viewer's locality — events, ideas, seller updates, followed-member floats. No algorithm at b1; sort is recency + locality scope. This is the "open the app and see what's happening" surface.
 
-**Why this shape:** The feed is locality-aware but not Location-scoped — it surfaces Items from Members whose home is nearby, plus Items at nearby Locations, plus Items from followed Members regardless of location. This is structurally different from Nextdoor: there is no surface that addresses "everyone in West Sac." The anti-Nextdoor commitment is honored by absence. The feed is calm by design: no infinite scroll, no red notification badges. Pagination at 20 with "Show more" — the viewer decides when to see more, not an algorithm.
+**Why this shape:** The feed is locality-aware but not Location-scoped — it surfaces Items from Members whose home is nearby, plus Items at nearby Locations, plus Items from followed Members regardless of location. This is structurally different from an anonymous neighborhood feed: there is no surface that addresses "everyone in West Sac." The accountable-participation commitment is honored by absence. The feed is calm by design: no infinite scroll, no red notification badges. Pagination at 20 with "Show more" — the viewer decides when to see more, not an algorithm.
 
 ### Explore
 

@@ -68,7 +68,7 @@ However, `impact-diagnostic.md` also contains material IT does *not* touch: the 
 
 **What question does it answer?** How do you score whether the platform itself is building healthy community?
 
-**Depends on:** `principles.md` (subordinate on conflicts), `policy.md` (anti-Nextdoor commitments), `member-journey.md` (the 13 loops it scores), `primitives.md` (the data spine).
+**Depends on:** `principles.md` (subordinate on conflicts), `policy.md` (accountable-participation commitments), `member-journey.md` (the 13 loops it scores), `primitives.md` (the data spine).
 
 **What depends on it:** Used as a periodic audit tool. Referenced by `CLAUDE.md` as the measuring stick.
 
@@ -84,7 +84,7 @@ However, `impact-diagnostic.md` also contains material IT does *not* touch: the 
 
 **Depends on:** `principles.md` (the commitment it operationalizes as process).
 
-**What depends on it:** Every system spec's "Policy posture" section. The anti-Nextdoor commitments (three structural design constraints).
+**What depends on it:** Every system spec's "Policy posture" section. The accountable-participation commitments (three structural design constraints).
 
 **Overlap with Impact Transparency:** **None.** IT *consumes* the policy framework — its own "Policy posture" section walks the three filters (helpful? harmful? abusable?) and names its mitigations. IT doesn't redefine the framework; it uses it as designed.
 
@@ -206,7 +206,7 @@ However, `impact-diagnostic.md` also contains material IT does *not* touch: the 
       member-journey    policy.md
       13 loops          Three filters +
       (north stars)     opt-out default +
-          │             anti-Nextdoor
+          │             accountable-participation
           │                 │
           ▼                 │
     community-health- ◄─────┘

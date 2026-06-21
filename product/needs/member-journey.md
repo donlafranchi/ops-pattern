@@ -65,7 +65,7 @@ A person has something to give, lend, or teach — extra zucchini from the garde
 
 #### Loop 6 — Ask for help
 
-A person needs something — a truck for a Saturday move, a babysitter recommendation, a stand mixer for a weekend, a hand fixing a leaky faucet. The platform's surface: an Ask post, identity-forward, with the same locality-first reach as Offers. The pain point: needing help and not knowing who to ask without imposing — and not wanting to surface the need in the wrong tool (Nextdoor curdles it, group chats are too narrow, Facebook is for strangers).
+A person needs something — a truck for a Saturday move, a babysitter recommendation, a stand mixer for a weekend, a hand fixing a leaky faucet. The platform's surface: an Ask post, identity-forward, with the same locality-first reach as Offers. The pain point: needing help and not knowing who to ask without imposing — and not wanting to surface the need in the wrong tool (anonymous neighborhood feeds curdle it, group chats are too narrow, Facebook is for strangers).
 
 ---
 

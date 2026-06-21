@@ -129,7 +129,7 @@ status: active
 **Won't:**
 - CRM features (customer records, purchase history, contact management). The platform is not Salesforce. Producers who need CRM use a CRM.
 - Automated chatbots or auto-replies on behalf of producers. Every message is human-to-human.
-- Community messaging feeds scoped to a Location (the anti-Nextdoor commitment — per `location.md` and `policy.md`).
+- Community messaging feeds scoped to a Location (the accountable-participation commitment — per `location.md` and `policy.md`).
 
 ---
 

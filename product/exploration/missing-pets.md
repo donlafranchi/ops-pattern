@@ -7,7 +7,7 @@ status: exploration
 
 # Exploration: Missing Pets
 
-> **Status:** Exploration, not spec. Probes a use case that pushes against the platform's anti-Nextdoor commitment ([`policy.md`](../foundation/policy.md) § The anti-Nextdoor commitments; [`location.md`](../systems/location.md) § Not a complaint surface). The question is whether there is a structural shape that captures the genuine community-rallying value of "my pet is missing" without giving the platform a freeform posting affordance that becomes a vector for rants, scams, and harassment.
+> **Status:** Exploration, not spec. Probes a use case that pushes against the platform's accountable-participation commitment ([`policy.md`](../foundation/policy.md) § The accountable-participation commitments; [`location.md`](../systems/location.md) § Not a complaint surface). The question is whether there is a structural shape that captures the genuine community-rallying value of "my pet is missing" without giving the platform a freeform posting affordance that becomes a vector for rants, scams, and harassment.
 
 > **Relationship to other docs:** Sits next to [`accountability.md`](accountability.md) (structured concern reports) and [`vetting-and-vouching.md`](vetting-and-vouching.md) (structured knowledge contributions) in the broader pattern: *when neighbors need to act collectively about something with a real cost of abuse, the answer is always a tightly scoped Item kind, never a freeform post.* This doc asks whether that pattern stretches to lost pets, and if so, how far.
 
@@ -15,11 +15,11 @@ status: exploration
 
 ## The problem
 
-A neighbor's pet is missing. Right now they post to Nextdoor, Facebook neighborhood groups, group texts, and tape flyers to telephone poles. Two-thirds of dogs and 75% of cats are recovered within a few days, and the single biggest factor is neighbors actually knowing the pet is missing. The discovery problem is real.
+A neighbor's pet is missing. Right now they post to an anonymous neighborhood app, Facebook neighborhood groups, group texts, and tape flyers to telephone poles. Two-thirds of dogs and 75% of cats are recovered within a few days, and the single biggest factor is neighbors actually knowing the pet is missing. The discovery problem is real.
 
 The platform's locality-first index — knowing which Members hold affinity to which Locations — is precisely the substrate that could solve this discovery problem better than any of the existing channels. The neighbors three blocks over already exist in the system; they already declared they care about this place. A missing-pet notification is, structurally, an awareness-feed event scoped to a small radius for a short window. The substrate is already there.
 
-But "let people post when their pet goes missing" is a one-step move from "let people post." That is exactly the surface the platform has structurally refused — for good reasons documented in [`policy.md`](../foundation/policy.md) and [`location.md`](../systems/location.md). A pet-alert surface that is even slightly loose becomes a complaint surface, a scam-bait surface, a political-rant surface, a "found a syringe in the park" surface. The failure mode is not abstract; it is what Nextdoor *is*.
+But "let people post when their pet goes missing" is a one-step move from "let people post." That is exactly the surface the platform has structurally refused — for good reasons documented in [`policy.md`](../foundation/policy.md) and [`location.md`](../systems/location.md). A pet-alert surface that is even slightly loose becomes a complaint surface, a scam-bait surface, a political-rant surface, a "found a syringe in the park" surface. The failure mode is not abstract; it is what an anonymous complaint feed becomes.
 
 So the exploration is not "should we help with missing pets?" The answer to that is obviously yes. The exploration is: **is there a shape tight enough that it can carry the help without carrying the failure mode?**
 
@@ -30,8 +30,8 @@ So the exploration is not "should we help with missing pets?" The answer to that
 Three forces are in opposition:
 
 1. **Community rallying is good.** When a neighbor's pet is missing, neighbors helping is exactly what the platform exists to enable. Loop 4 (Gather regularly) and the broader "find your people" arc are weaker if we cannot help with the moments where help most matters.
-2. **Open posting is forbidden.** Per [`policy.md`](../foundation/policy.md) § The anti-Nextdoor commitments and [`location.md`](../systems/location.md) § Not a complaint surface, the platform has no Location wall, no Location feed, no Location DM. Messaging at b2+ is item-or-group only. "Member-authored notice broadcast to nearby Members" is the exact shape that has been refused.
-3. **Slippery-slope reality.** Once "missing pet" is a kind, the second-day request is "missing person" (much harder safety + privacy lift). The third is "lost wallet" (mostly fine but spam-prone). The fourth is "found syringe in the playground" (Nextdoor's gravitational center). Each request individually sounds reasonable. The cumulative drift is what we have already structurally refused.
+2. **Open posting is forbidden.** Per [`policy.md`](../foundation/policy.md) § The accountable-participation commitments and [`location.md`](../systems/location.md) § Not a complaint surface, the platform has no Location wall, no Location feed, no Location DM. Messaging at b2+ is item-or-group only. "Member-authored notice broadcast to nearby Members" is the exact shape that has been refused.
+3. **Slippery-slope reality.** Once "missing pet" is a kind, the second-day request is "missing person" (much harder safety + privacy lift). The third is "lost wallet" (mostly fine but spam-prone). The fourth is "found syringe in the playground" (the gravitational center of anonymous complaint feeds). Each request individually sounds reasonable. The cumulative drift is what we have already structurally refused.
 
 The lexicographic close-call rule from [`DECISION-PATTERNS.md`](../../playbooks/DECISION-PATTERNS.md) applies cleanly: **member safety → platform health → member data protection → mutual benefit with reversibility.** Whatever shape this exploration lands on must pass each filter in order. A missing-pet feature that puts a Member's home address in the awareness feed fails the third filter. A missing-pet feature that becomes a complaint vector fails the second. The exploration's job is to find a shape that passes all four.
 
@@ -41,7 +41,7 @@ The lexicographic close-call rule from [`DECISION-PATTERNS.md`](../../playbooks/
 
 **Setup.** Sarah lives in Oak Park, Sacramento. Her tortoiseshell cat Mochi slips out the back door at 7am while Sarah is leaving for work. Sarah doesn't realize until she gets home at 6pm. Mochi has never been outside. Sarah is panicked.
 
-**Today (no platform):** Sarah posts to Nextdoor, the Oak Park Neighbors Facebook group, and her own Instagram stories. She tapes flyers to four telephone poles within a two-block radius. She walks the neighborhood calling Mochi's name. Three days later a neighbor four blocks over recognizes the flyer from a cat she saw in her backyard yesterday and texts Sarah. Mochi comes home.
+**Today (no platform):** Sarah posts to an anonymous neighborhood app, the Oak Park Neighbors Facebook group, and her own Instagram stories. She tapes flyers to four telephone poles within a two-block radius. She walks the neighborhood calling Mochi's name. Three days later a neighbor four blocks over recognizes the flyer from a cat she saw in her backyard yesterday and texts Sarah. Mochi comes home.
 
 **With a platform missing-pet shape (the question this doc asks):**
 
@@ -93,18 +93,18 @@ A kind='interest' Group ("Oak Park Pet Network" or similar) gets a Missing Pet s
 **Costs:**
 - Discovery is much weaker. Sarah's neighbor four blocks over only sees Mochi if they happened to join the pet-network Group. Most won't. The whole point of the platform's locality-first index is to reach the neighbor who would help but doesn't know to look.
 - The recovery rate likely drops. The Group becomes a self-selected pool of pet people, not a broad neighborhood broadcast. Mochi's actual finder is more likely to be a non-pet-person who happens to glance out their window.
-- A Group with a missing-pet surface is structurally close to "a Group with a posting surface." The same Group, with a slightly different surface inside, slides toward Nextdoor. The Group container is not actually the firewall — the Item kind is. So this shape gets the discovery cost without buying the abuse-prevention benefit.
+- A Group with a missing-pet surface is structurally close to "a Group with a posting surface." The same Group, with a slightly different surface inside, slides toward an anonymous complaint feed. The Group container is not actually the firewall — the Item kind is. So this shape gets the discovery cost without buying the abuse-prevention benefit.
 
 ### Shape C — Nothing on platform
 
-The platform does not help with missing pets. Members continue to use Nextdoor, Facebook, and flyers. The platform stays clean.
+The platform does not help with missing pets. Members continue to use anonymous neighborhood feeds, Facebook, and flyers. The platform stays clean.
 
 **Strengths:**
 - No new surface. No abuse risk. No slippery slope.
 - The platform is what it claimed to be in `policy.md` and `location.md`. No drift.
 
 **Costs:**
-- Real community value declined for fear of misuse. This is the trap [`policy.md`](../foundation/policy.md) softened against in 2026-05-12 (the anti-Nextdoor framing was softened because absolute refusals were wrong) — the design intent is sound; the absolutism was the problem.
+- Real community value declined for fear of misuse. This is the trap [`policy.md`](../foundation/policy.md) softened against in 2026-05-12 (the accountable-participation framing was softened because absolute refusals were wrong) — the design intent is sound; the absolutism was the problem.
 - The platform's claim to be the place where neighbors help neighbors has a visible hole right at one of the moments where help is most felt. The hole is more credible-damaging than any drift risk a tightly scoped kind would carry.
 - Members will improvise. Sarah will post Mochi as a `kind='wonder'` ("wondering if anyone has seen my cat?"), or as a Group post in the Oak Park interest Group, or as an Initiative ("Initiative: help me find Mochi"). The platform does not get to avoid the use case by not naming it. It gets to avoid *handling it well.*
 
@@ -198,9 +198,9 @@ Once `kind='missing_pet'` exists, the next requests will come. The PM should pre
 | **Lost wallet / phone / keys** | No. | The recovery probability does not justify the alert. Wallets that are going to be returned are returned via a local mechanism (the bartender, the lost-and-found, the address inside) without needing a broadcast. Wallets that are not going to be returned are not coming back. The alert burden on neighbors exceeds the expected value. |
 | **Found pet (no owner known)** | Probably yes, as the symmetric kind or as a response shape. | This is the dual of missing-pet and shares the same recovery loop. Could be `kind='found_pet'` or could be a response shape on a Missing Pet Item plus a standalone surface. Worth its own exploration if and when missing-pet ships. |
 | **Found item (wallet, phone, keys)** | No. | Same logic as lost wallet — the alert burden does not match the recovery probability. The Member who found the wallet can hand it to a business, drop it at a precinct, or leave it where they found it. The platform does not need to be involved. |
-| **"Suspicious person" alert** | No, hard refusal. | This is the Nextdoor failure mode. It is racially weaponized in practice. The platform does not have an alert affordance for "people I find suspicious," period. |
+| **"Suspicious person" alert** | No, hard refusal. | This is the anonymous-complaint-feed failure mode. It is racially weaponized in practice. The platform does not have an alert affordance for "people I find suspicious," period. |
 | **"Loose dog" or "aggressive dog" sighting** | Probably no, or as a sighting response only if a Missing Pet Item exists. | A standalone "warning: loose dog" surface drifts toward complaint posting about the dog's owner. A sighting response on a specific Missing Pet Item is bounded by the alert it responds to. |
-| **"Crime tip" or "saw something concerning"** | Hard no. | Police function; not the platform's role; structurally the Nextdoor failure mode. |
+| **"Crime tip" or "saw something concerning"** | Hard no. | Police function; not the platform's role; structurally the anonymous-complaint-feed failure mode. |
 | **"Neighborhood-wide announcement" (e.g., water main break)** | No. | Municipal communication channel; not the platform's role. Members get this from city alerts. |
 
 The pattern: **species enum + photo + structured fields is the substrate.** Anything that does not fit the species enum + photo pattern is a different system. Anything that fits but has higher abuse stakes (missing person) is a different system because the abuse stakes are categorical, not configurable.
@@ -241,7 +241,7 @@ A useful frame: **"missing pet" is to "lost pet" as "Initiative" is to "complain
 |---|---|
 | [`item.md`](../systems/item.md) | This is an extension to the kind enum and the child-table pattern. Shape A is structurally an Item with a strict child schema and a short lifecycle. |
 | [`location.md`](../systems/location.md) | Locality scoping is the firewall. Last-seen Location, place-hierarchy-driven scope, the doxxing-prevention default on home addresses. |
-| [`policy.md`](../foundation/policy.md) | This exploration pushes against the anti-Nextdoor commitments. It is only acceptable if the structural firewall (Item kind, schema, scope, expiry) is strong enough to keep this from becoming the wedge that opens the platform to general posting. |
+| [`policy.md`](../foundation/policy.md) | This exploration pushes against the accountable-participation commitments. It is only acceptable if the structural firewall (Item kind, schema, scope, expiry) is strong enough to keep this from becoming the wedge that opens the platform to general posting. |
 | [`groups.md`](../systems/groups.md) | Shape B (Group-mediated) would lean on kind='interest' Groups. Shape A does not — the surface is platform-wide within the locality scope, not Group-gated. |
 | [`accountability.md`](accountability.md) | Sibling pattern: structured concern reports, not freeform reviews. Same shape, different content. |
 | [`vetting-and-vouching.md`](vetting-and-vouching.md) | Sibling pattern: structured knowledge contributions with tier/category/sentiment, not freeform comments. Same shape, different content. |

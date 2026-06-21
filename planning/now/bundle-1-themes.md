@@ -280,7 +280,7 @@ Per `member.md` and `member-journey.md`. The follow surface from b1.4 substrate.
 
 ### b2.6 — Group feeds (selectively)
 
-Per `b1-primitives-plan.md` deferral list — "Communities exist at b1 as a primitive; Community feeds with discussion and structured posting defer to b2." Lands here, with care. The anti-Nextdoor commitments hold: messaging-scope item-or-group-only, complaint downvote/removal, "create an Item to lead the fix" replacing the complaint surface.
+Per `b1-primitives-plan.md` deferral list — "Communities exist at b1 as a primitive; Community feeds with discussion and structured posting defer to b2." Lands here, with care. The accountable-participation commitments hold: messaging-scope item-or-group-only, complaint downvote/removal, "create an Item to lead the fix" replacing the complaint surface.
 
 ---
 
@@ -328,7 +328,7 @@ Per the categorical commitments throughout the project. Listed so they cannot in
 - **Engagement-optimized feed / time-on-platform metrics.** Categorical failure.
 - **Auto-assigned Communities or Groups** based on geography or demographics. Categorical failure per `principles.md`.
 - **Founder-as-permanent-CEO patterns inside Communities.** Categorical failure.
-- **Location-scoped messaging walls.** The anti-Nextdoor commitment per `policy.md`.
+- **Location-scoped messaging walls.** The accountable-participation commitment per `policy.md`.
 
 ---
 

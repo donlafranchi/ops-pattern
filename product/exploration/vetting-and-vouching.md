@@ -22,7 +22,7 @@ A Member is about to spend money, time, or trust on a producer — and they have
 - "I'm looking for a plumber. The one I found online has no reviews anywhere I trust."
 - "This farm says pasture-raised but someone told me they're not."
 
-Today these questions get answered in Facebook groups, Nextdoor threads, group texts, and over the fence. The answers are scattered, unsearchable, and unrepeatable — the next person with the same question starts from zero. The platform can be the place where these answers accumulate and compound.
+Today these questions get answered in Facebook groups, neighborhood complaint threads, group texts, and over the fence. The answers are scattered, unsearchable, and unrepeatable — the next person with the same question starts from zero. The platform can be the place where these answers accumulate and compound.
 
 ---
 

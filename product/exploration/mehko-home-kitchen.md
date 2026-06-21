@@ -142,7 +142,7 @@ Additionally, there are permitted MEHKO operators in nearby counties (Riverside,
 
 **Phase A — Pre-MEHKO Sacramento (now)**
 
-1. **Find the informal home cooks.** They're on Instagram (search #SacFood, #SacFoodie, #HomeCookedSac, #SacTamales, #SacramentoFood + home cook variations). They're in Facebook groups (Sacramento Food Scene, Oak Park Community, specific ethnic community groups). They're on Nextdoor. They take orders via DM and text.
+1. **Find the informal home cooks.** They're on Instagram (search #SacFood, #SacFoodie, #HomeCookedSac, #SacTamales, #SacramentoFood + home cook variations). They're in Facebook groups (Sacramento Food Scene, Oak Park Community, specific ethnic community groups). They're on anonymous neighborhood apps. They take orders via DM and text.
 
 2. **Join the advocacy.** The Sacramento County MEHKO Advocates Coalition is active on Instagram. The Action Network petition for Sacramento MEHKO authorization is live. The platform should be visibly supportive of MEHKO legalization in Sacramento — not as a political statement, but as a practical alignment: the platform exists to serve these producers, and the permit system is the trust anchor that makes it work.
 

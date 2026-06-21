@@ -66,7 +66,7 @@ The minimum surface that lets us ship "follow a Member, receive their bulletins.
 - Delivery is per-recipient, recorded in `bulletin_deliveries` (one row per follower per bulletin).
 
 ### Author guardrails
-- Rate limit: 3 bulletins per author per 7-day window. Anti-spam — prevents the Nextdoor over-posting failure mode. Enforced at the action handler.
+- Rate limit: 3 bulletins per author per 7-day window. Anti-spam — prevents the anonymous-feed over-posting failure mode. Enforced at the action handler.
 - Followers can **mute** a producer's bulletins without unfollowing (`member_follows.bulletins_muted = true`). They keep the social tie; they just don't get the broadcast.
 - Followers can unsubscribe from email delivery only (in-app card still appears).
 
@@ -176,7 +176,7 @@ Per [`../foundation/policy.md`](../foundation/policy.md) — protective defaults
 
 **Rules in:** a Member operating in producer capacity broadcasts to their Member-followers, with attribution to a kind='business' Group if they choose; followers receive in-app and (opt-in) email; the producer sees aggregate engagement; the follower can mute, unsubscribe-email, or reply (T3); co-authored bulletins (T3) appear in both producers' fans' feeds.
 
-**Rules out:** Group-as-author (Groups don't broadcast; Members do, with optional Group branding). Location-scoped delivery (there is no surface that addresses "everyone in West Sac" — per the anti-Nextdoor commitment). Demographic targeting (geographic city-level via `home_location_id` is the limit; no age/gender/income segments exist). Selling delivery (no paid promotion of bulletins; the platform never charges to deliver). Surveying non-followers (only followers receive; non-followers cannot be reached via bulletin).
+**Rules out:** Group-as-author (Groups don't broadcast; Members do, with optional Group branding). Location-scoped delivery (there is no surface that addresses "everyone in West Sac" — per the accountable-participation commitment). Demographic targeting (geographic city-level via `home_location_id` is the limit; no age/gender/income segments exist). Selling delivery (no paid promotion of bulletins; the platform never charges to deliver). Surveying non-followers (only followers receive; non-followers cannot be reached via bulletin).
 
 ## Bulletin — open questions
 
@@ -397,6 +397,6 @@ Per [`../foundation/policy.md`](../foundation/policy.md) — protective defaults
 This spec does not own any cross-cutting decision. It *consumes*:
 - **[`agent-assistance.md`](agent-assistance.md)** — producer-capacity gating uses `member_has_standing_presence` (standing-derived); T3 revenue context lives in the standing-tier Assistant Context.
 - **[`action-layer.md`](action-layer.md)** — every publish/schedule/mute/reply is a named handler with same-transaction row+event commit; Growth is a read over the event log.
-- **[`../foundation/policy.md`](../foundation/policy.md)** — protective defaults, anti-Nextdoor messaging-scope commitment, three-filter test on segmentation opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
+- **[`../foundation/policy.md`](../foundation/policy.md)** — protective defaults, accountable-participation messaging-scope commitment, three-filter test on segmentation opt-in; categorical refusal of ad sales / demographics / data sales / named-competitor benchmarks.
 - There is no Maker mode; both Bulletin authorship and the Growth surface gate on kind='business' Group membership directly.
 - **[`groups.md`](groups.md)** — branding attribution via kind='business' Group memberships; Groups are decoration on bulletins, not authors; multi-Location producers use kind='business' Group structure.

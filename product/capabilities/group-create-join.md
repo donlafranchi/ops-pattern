@@ -46,7 +46,7 @@ The create flow walks the Member through kind selection with examples. Kind is l
 
 ## Deferred (not in b1)
 
-- **Group posting / discussion feeds** (T2) — when shipped, posts are item-or-group-scoped per the anti-Nextdoor commitment.
+- **Group posting / discussion feeds** (T2) — when shipped, posts are item-or-group-scoped per the accountable-participation commitment.
 - **Stewardship rotation** (T2) — explicit handoff flow for primary steward role.
 - **Multi-owner partnerships** (T2) — multiple owner-role memberships in kind='business' Groups (sole prop ships at b1; partnership shape ships at T2 via additional owner-role invites).
 - **Federation export of Group identity** (T3 — per Loop 13).

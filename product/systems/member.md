@@ -153,7 +153,7 @@ A Member has an **awareness scope**: a set of Places they care about for the com
 
   > **Intent (Ratified 2026-05-23 — soft commitment):** 5 is a starting point, not a structural commitment. The cap exists to bound the community-awareness feed candidate-set cost while we learn what Members actually want. We'll watch how many Members hit the cap and what they do when they hit it — if the pattern says 5 is too low, we raise it (and reshape the feed query if cardinality argues for it). The cap is action-layer-enforced, not DDL-enforced, so it's tuneable without migration. **Test for future proposals:** does the proposal want to raise / lower the cap? Land a measurement story alongside (how many Members hit the current cap, what they dropped to add the new one).
 - **The hierarchy in `places.parent_id` handles within-hierarchy traversal.** A Member with `primary_home=Oak Park` traverses up to Sacramento by default for the awareness feed — they don't need separate rows for Oak Park and Sacramento-the-city. Colloquial-metro scope ("the whole Sacramento metro") is not a tree row at all — it's computed against the `metro_polygons` discovery overlay via `ST_Contains` ([`places.md`](places.md) / [`discovery.md`](discovery.md)), not by walking the tree to an MSA ancestor. The secondary set is for *cross-hierarchy* interests, not parent-of-home interests.
-- **Place-interests do not grant addressability.** Per the anti-Nextdoor commitments in `policy.md` and `location.md`, no DM, feed, or wall is scoped to a Place. `member_place_interests` is read by feed candidate generation (per [`discovery.md`](discovery.md) community-awareness feed), never consulted for messaging targets.
+- **Place-interests do not grant addressability.** Per the accountable-participation commitments in `policy.md` and `location.md`, no DM, feed, or wall is scoped to a Place. `member_place_interests` is read by feed candidate generation (per [`discovery.md`](discovery.md) community-awareness feed), never consulted for messaging targets.
 - Events: `member.place_interest_added`, `member.place_interest_removed`, `member.place_interest_promoted` (secondary → primary_home), `member.place_interest_demoted`.
 
 ### Saved searches (substrate at b1; surface at b2)
@@ -369,7 +369,7 @@ create index idx_saved_searches_location
 
 Backend services (recommendation engine, embedding pipeline) connect with the service-role key, bypass RLS, and compute over the full row set. Outputs to users are anonymized aggregates. **Per-Member identity never surfaces in a recommendation.**
 
-**No addressability.** Per the anti-Nextdoor commitments in `policy.md` and `location.md`, no surface in the platform sends messages, posts, or any content to "Members with place-interest in X" or "Members with a saved-search matching Y." Place-interests are read by feed candidate generation in `discovery.md`; saved-searches are read by the fan-out worker. Neither is ever a *send-to* target.
+**No addressability.** Per the accountable-participation commitments in `policy.md` and `location.md`, no surface in the platform sends messages, posts, or any content to "Members with place-interest in X" or "Members with a saved-search matching Y." Place-interests are read by feed candidate generation in `discovery.md`; saved-searches are read by the fan-out worker. Neither is ever a *send-to* target.
 
 ### `member_handle_history` (T2 surface — schema reserved at b1)
 

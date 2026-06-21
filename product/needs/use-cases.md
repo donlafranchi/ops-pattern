@@ -115,7 +115,7 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 - Saved-search UI composer + fan-out worker (**b2 surface — deferred**).
 - T3 natural-language compositional query layer ("places near me with summer concerts in the park") waits for the vector layer over `places` and `member_interests`.
 
-**What the platform does:** awareness without explicit subscription. The Place hierarchy does the structural work; the member doesn't enumerate every park. Anti-Nextdoor in the affirmative — the member gets a feed of *what's happening there*, never a feed of *what people are saying about there*. Both substrates are owner-only at the row level; neither is an addressability surface.
+**What the platform does:** awareness without explicit subscription. The Place hierarchy does the structural work; the member doesn't enumerate every park. Accountable participation in the affirmative — the member gets a feed of *what's happening there*, never a feed of *what people are saying about there*. Both substrates are owner-only at the row level; neither is an addressability surface.
 
 **Cross-reference:** the host-side situation that motivates this case (a multi-venue series spans Places) lives at [O3](#o3-a-multi-venue-series-spans-places-and-members-find-it-via-awareness-feed). The badge variant of this awareness ("Locally Made sourdough near me") interacts with [P4](#p4-a-locally-owned-locally-made-producer-earns-and-displays-both-badges).
 
@@ -130,7 +130,7 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 **Primitive shape:** Person(seeker) → search over Items(kind=service) + Groups(kind='business') → trust signals (attestations, prior bookings, references) → contact.
 
 **Persona examples:**
-- Someone needs a plumber whose business is mostly word-of-mouth and barely findable online — Yelp returns ads and out-of-area chains, Nextdoor returns a thread from 2019.
+- Someone needs a plumber whose business is mostly word-of-mouth and barely findable online — Yelp returns ads and out-of-area chains, an anonymous neighborhood app returns a thread from 2019.
 - Someone needs a vet they can trust for a new puppy.
 - Someone needs a piano teacher for their kid; they want signal richer than "five stars on Google."
 

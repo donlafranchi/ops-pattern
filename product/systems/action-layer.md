@@ -37,11 +37,11 @@ For human-composer calls, the capability is derived from the authenticated sessi
 
 The action layer enforces a closed-world catalog: every scope a caller might exercise is enumerated in code (TypeScript enum + Postgres enum, kept in sync by CI). The catalog lives next to the action handlers; adding a scope requires adding a handler that consumes it. No scope can be exercised that isn't in the catalog; no handler can accept a scope that isn't catalogued.
 
-> **Intent:** Allowlist semantics are what make policy refusals become *unreachable code* rather than runtime checks that could be bypassed (or forgotten, or commented out). A future feature that needs a new capability has to add the scope to the catalog deliberately, which surfaces the policy review at the point of code change — the three-filter test from `policy.md` runs there, by construction, because there is nowhere else for the scope to come from. The closed-world property is also what lets the anti-Nextdoor commitment be enforced by *absence* (no `message.send.location-scope` capability exists, so it can't be exercised); the moment the catalog becomes open-world, that enforcement becomes a runtime check, and runtime checks erode.
+> **Intent:** Allowlist semantics are what make policy refusals become *unreachable code* rather than runtime checks that could be bypassed (or forgotten, or commented out). A future feature that needs a new capability has to add the scope to the catalog deliberately, which surfaces the policy review at the point of code change — the three-filter test from `policy.md` runs there, by construction, because there is nowhere else for the scope to come from. The closed-world property is also what lets the accountable-participation commitment be enforced by *absence* (no `message.send.location-scope` capability exists, so it can't be exercised); the moment the catalog becomes open-world, that enforcement becomes a runtime check, and runtime checks erode.
 
 The catalog is also the surface every other spec references. `agent-assistance.md` lists scopes a Member can grant; `agent-assistance.md` lists scopes a Skill can declare at install; `policy.md` walks new opt-in scopes through the three filters; this spec is where the catalog itself is enforced.
 
-The closed-world property is load-bearing: anti-Nextdoor commitments (per `policy.md`) are enforced here by *absence* — there is no `message.send.location-scope` capability in the catalog, so no handler can accept it, so no client can construct it. Policy refusals become unreachable code, not runtime checks that could be bypassed.
+The closed-world property is load-bearing: accountable-participation commitments (per `policy.md`) are enforced here by *absence* — there is no `message.send.location-scope` capability in the catalog, so no handler can accept it, so no client can construct it. Policy refusals become unreachable code, not runtime checks that could be bypassed.
 
 **Monetary-flow scope catalog (T2):** the catalog carries `delegation.recurring_payment` and `delegation.bounded_purchase` as the two monetary-flow scopes ratified to date. Each is bound to a handler with schema-enforced invariants:
 
@@ -129,7 +129,7 @@ The action layer does not require its own tables. Capabilities are ephemeral (in
 
 The action layer does not introduce opt-ins of its own. Opt-ins live in `agent-assistance.md` (which scopes the Member grants) and `agent-assistance.md` (which Skills the Member installs). What the action layer encodes structurally:
 
-- **Closed-world catalog.** No scope exists outside the catalog; no handler accepts an uncatalogued scope. Anti-Nextdoor refusals (per `policy.md`) are enforced by absence in the catalog.
+- **Closed-world catalog.** No scope exists outside the catalog; no handler accepts an uncatalogued scope. Accountable-participation refusals (per `policy.md`) are enforced by absence in the catalog.
 - **Confirmation-required scopes are unbypassable.** Code review and CI assertion enforce this; no handler can ship that lets a confirmation-tier scope execute without a fresh confirmation token.
 - **Credentials never traverse agent context.** The edge mints and applies; the agent never holds. Code review rejects any pathway that puts a long-lived credential in an agent-readable surface.
 - **System Member writes are honest.** The platform attributes its own events to handle='system' (a real, login-disabled Member row), not to a fake placeholder.
@@ -178,4 +178,4 @@ This spec is the live home for the **action layer as a first-class architectural
 This spec also *consumes* and enforces decisions from other specs without owning them:
 
 - **`agent-assistance.md`** — the read-automatable/write-confirmed commitment is enforced by the confirmation-required scope tier here.
-- **`policy.md`** — the three-filter test applies to every catalog addition; the closed-world catalog is what makes anti-Nextdoor refusals structurally unreachable.
+- **`policy.md`** — the three-filter test applies to every catalog addition; the closed-world catalog is what makes accountable-participation refusals structurally unreachable.

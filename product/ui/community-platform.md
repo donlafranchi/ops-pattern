@@ -9,7 +9,7 @@ status: active
 
 **One-line description:** The three-page consumer architecture — Home is the locality-aware activity feed, Explore is the searchable catalog, You is your identity and (if you operate in producer capacity) your producer panel.
 
-**Hypothesis:** People feel plugged into their community when they open an app and see what's happening near them — not when they have to search. A locality-aware feed (anchored on Items declared by Members, not on Location-scoped messaging) is the surface that turns one-time discovery into a habit. Members operating in producer capacity get the same surface inverted: a place to broadcast to their followers and a panel that shows who's listening. **This is explicitly not Nextdoor** — see the anti-Nextdoor commitment in [`../foundation/policy.md`](../foundation/policy.md). Locality drives *what shows up*; no surface routes messages by Location.
+**Hypothesis:** People feel plugged into their community when they open an app and see what's happening near them — not when they have to search. A locality-aware feed (anchored on Items declared by Members, not on Location-scoped messaging) is the surface that turns one-time discovery into a habit. Members operating in producer capacity get the same surface inverted: a place to broadcast to their followers and a panel that shows who's listening. **This explicitly is not an anonymous complaint feed** — see the accountable-participation commitment in [`../foundation/policy.md`](../foundation/policy.md). Locality drives *what shows up*; no surface routes messages by Location.
 
 **Bundle Assignment:** b1 (T1 partial — see per-capability breakdown), b2 (T2), b3 (T3)
 
@@ -63,7 +63,7 @@ The labels in the nav stay simple ("Home" / "Explore" / "You") because every soc
 
 Sort = recency + locality scope. No personalization algorithm at T1; simple time + scope.
 
-**The locality-aware-but-not-Location-scoped property is structural:** the feed surfaces Items declared by Members whose `home_location_id` is in the viewer's locality, plus Items attached to Locations in the viewer's locality, plus Items from followed Members regardless of location. There is no surface that lets anyone address "everyone in West Sac" — the anti-Nextdoor commitment in policy.md is honored by absence.
+**The locality-aware-but-not-Location-scoped property is structural:** the feed surfaces Items declared by Members whose `home_location_id` is in the viewer's locality, plus Items attached to Locations in the viewer's locality, plus Items from followed Members regardless of location. There is no surface that lets anyone address "everyone in West Sac" — the accountable-participation commitment in policy.md is honored by absence.
 
 **Explore (Locality Browse).** Folded in from the prior `capabilities/locality-browse.md` on 2026-05-22.
 
@@ -138,7 +138,7 @@ Add filters at top of feed: All / Events / Ideas / Seller updates / Bulletins.
 
 **You:**
 
-- **DM inbox** — the `member_threads` substrate (per [`../systems/member.md`](../systems/member.md)) surfaces here. Messaging is item-or-group-scoped per the anti-Nextdoor commitment; the inbox renders threads keyed by Item or Group.
+- **DM inbox** — the `member_threads` substrate (per [`../systems/member.md`](../systems/member.md)) surfaces here. Messaging is item-or-group-scoped per the accountable-participation commitment; the inbox renders threads keyed by Item or Group.
 - Multiple saved localities ("home" + "while traveling").
 - Active locality header pill if/when travel-mode demand becomes real.
 - Activity log (the Member's own supports, shares, RSVPs, pledges).
@@ -150,7 +150,7 @@ Add filters at top of feed: All / Events / Ideas / Seller updates / Bulletins.
 ## Open Questions
 
 - Does "Featured Seller of the week" stay manual (curated by PM) or become algorithmic in T2?
-- Is there a "post anything" capability for individual Members (beyond producer bulletins), or does the platform's broadcast surface stay producer-gated to avoid the Nextdoor-style noise pattern? Working answer: Ideas are the universal Member-authored broadcast; bulletins are producer-gated. Confirm at T2 surface design.
+- Is there a "post anything" capability for individual Members (beyond producer bulletins), or does the platform's broadcast surface stay producer-gated to avoid the anonymous-complaint-feed noise pattern? Working answer: Ideas are the universal Member-authored broadcast; bulletins are producer-gated. Confirm at T2 surface design.
 - Do community projects need a separate "host" entity, or do they always attach to a Member or a Group? Working answer: an Event (`items.kind = 'gathering'`) with `category=community-project` can be hosted by an individual Member or by a Group; no new entity needed.
 - Email digest cadence for bulletins — daily? weekly? per-post? Working answer: weekly digest of bulletins from followed producers, but per-bulletin email for opt-in Members. Confirm at T2.
 
@@ -158,7 +158,7 @@ Add filters at top of feed: All / Events / Ideas / Seller updates / Bulletins.
 
 ## Changelog
 
-**2026-05-11** — Phase 4 cleanup pass. Replaced "Nextdoor-style location-locked feed" hypothesis framing with locality-aware-but-not-Location-scoped framing aligned with the anti-Nextdoor commitment in policy.md. Replaced "Shopper tab" / "Business tab" with "Member tab" / "Producer panel" throughout. Replaced "vendor" references with "Member operating in producer capacity" / "producer Member." Updated C10 to reference kind='business' Group creation walkthrough rather than the retired `member-operations.md`. Archived C2 (Business Events) and C3 (Business Updates) as obsolete framings; their successors are gathering Items and producer-tools.md respectively. Added Group/Location-follow card types to T2 feed. Added Group panel to T2 You-tab. Added DM inbox to T3 You-tab. Added data export to T1 You-tab (already exists at b1 substrate).
+**2026-05-11** — Phase 4 cleanup pass. Replaced "anonymous-feed-style location-locked feed" hypothesis framing with locality-aware-but-not-Location-scoped framing aligned with the accountable-participation commitment in policy.md. Replaced "Shopper tab" / "Business tab" with "Member tab" / "Producer panel" throughout. Replaced "vendor" references with "Member operating in producer capacity" / "producer Member." Updated C10 to reference kind='business' Group creation walkthrough rather than the retired `member-operations.md`. Archived C2 (Business Events) and C3 (Business Updates) as obsolete framings; their successors are gathering Items and producer-tools.md respectively. Added Group/Location-follow card types to T2 feed. Added Group panel to T2 You-tab. Added DM inbox to T3 You-tab. Added data export to T1 You-tab (already exists at b1 substrate).
 
 **2026-05-08** — Three decision alignments. Maker profile is implicit (no toggle); /You renders Maker sections conditionally on product Item activity. C9 renamed to "Member tab"; C10 reframed; C13 added for the derived activity signal. Locality default is geolocate-then-city-pick, mutable from any locality-dependent surface — supersedes the prior /you-only decision on C11. A market is a Gathering Item; gathering is broad and varied (farmers markets, swap meets, classes, workshops, community projects, etc.) — C4, C5, C6 resolved as gathering categories rather than separate event types. "Market session" feed-card type removed; one gathering card covers all categories.
 

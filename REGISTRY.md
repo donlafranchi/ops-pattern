@@ -41,7 +41,7 @@ The constitution, commitments, and policy filter.
 | Constitution | [principles.md](product/foundation/principles.md) | P1–P8, People-First Principle, Decision Test, categorical failures | active |
 | Rubric | [community-health-rubric.md](product/foundation/community-health-rubric.md) | Scored 0–3 audit grading platform decisions against community-health theory | active |
 | Public commitments | [platform-promise.md](product/foundation/platform-promise.md) | What the platform commits to and refuses, in plain language for the thesis page | active |
-| Policy filter | [policy.md](product/foundation/policy.md) | Three-filter test (helpful? harmless? abuse-resistant?), opt-out default, anti-Nextdoor | active |
+| Policy filter | [policy.md](product/foundation/policy.md) | Three-filter test (helpful? harmless? abuse-resistant?), opt-out default, accountable-participation | active |
 | Data spine | [primitives.md](product/foundation/primitives.md) | Person, Item, Location, Group — everything the platform does is one of these | active |
 
 ---
@@ -68,7 +68,7 @@ The core technical specs — one per major subsystem.
 |---|---|---|---|
 | Member spec | [member.md](product/systems/member.md) | Anchor primitive — one row per real human, multi-location affinities, DM substrate | active |
 | Item spec | [item.md](product/systems/item.md) | One kind-varying entity for everything Members declare | active |
-| Location spec | [location.md](product/systems/location.md) | Permanent / recurring-temporary / area places; anti-Nextdoor encoded | active |
+| Location spec | [location.md](product/systems/location.md) | Permanent / recurring-temporary / area places; accountable-participation encoded | active |
 | Group spec | [groups.md](product/systems/groups.md) | Self-selected sets of People organized to do things together; six kinds at b1 | active |
 | Place spec | [places.md](product/systems/places.md) | Hierarchical platform-curated geographic scopes; locality URLs | active |
 

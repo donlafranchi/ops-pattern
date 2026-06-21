@@ -16,7 +16,7 @@ status: active
 **Source decisions:**
 - [locality-scoped URLs](../../playbooks/PLATFORM-PATTERNS.md) — the parent decision this spec implements.
 - [`principles.md`](../foundation/principles.md) P1 — locality-first.
-- [`policy.md`](../foundation/policy.md) — the anti-Nextdoor commitment (places are scope-for-discovery, never scope-for-messaging).
+- [`policy.md`](../foundation/policy.md) — the accountable-participation commitment (places are scope-for-discovery, never scope-for-messaging).
 
 ---
 

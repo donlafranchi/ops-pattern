@@ -21,7 +21,7 @@ status: approved
 
 ## The Person
 
-A new resident of Oak Park, Sacramento. They've heard a friend talk about this platform; they want to see what's happening near where they live before committing time to any one thing. They've used Nextdoor (loud, hostile), Yelp (advertorial), and Instagram (algorithmic). They want a quiet, locality-first feed that says *this is what's near you* without selling them anything.
+A new resident of Oak Park, Sacramento. They've heard a friend talk about this platform; they want to see what's happening near where they live before committing time to any one thing. They've used anonymous neighborhood feeds (loud, hostile), Yelp (advertorial), and Instagram (algorithmic). They want a quiet, locality-first feed that says *this is what's near you* without selling them anything.
 
 ## The Story
 

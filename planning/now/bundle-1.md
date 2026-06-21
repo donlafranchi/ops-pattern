@@ -17,7 +17,7 @@ status: active
 
 - **Person (Member T1).** Profile, auth, privacy controls, multi-Location affinities, direct messaging within shared scopes, soft delete.
 - **Item (T1).** Four kinds — `product`, `service`, `gathering`, `wonder`. Spine + kind-specific child tables, public page at a stable URL, Location attachments with optional schedules, uniform responses (RSVP / follow / save / "I'd be in") in `item_responses`.
-- **Location (T1).** Permanent / recurring-temporary / area. Public page, coordinates, PostGIS proximity. The anti-Nextdoor commitment lives in messaging scope, not in absence of Member-Location relationships.
+- **Location (T1).** Permanent / recurring-temporary / area. Public page, coordinates, PostGIS proximity. The accountable-participation commitment lives in messaging scope, not in absence of Member-Location relationships.
 - **Group (T1, full surface).** All six kinds — five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) + one operate (`business`). Emergent and optional; create / join / leave / page / index / role-per-kind validation / event log. kind='business' absorbs personal-business, partnership, and cooperative-shape use cases.
 - **Locality-first index.** A single no-login surface browsing Items, Persons, and Locations near a stated point, filterable by kind / category / distance / schedule.
 - **Person-Item creation flows.** Create any of the four kinds in under 90 seconds, including Location attachment and schedule.

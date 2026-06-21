@@ -33,7 +33,7 @@ A public index at `/g` listing Groups, filterable by anchor Location, kind, foll
 ## Advance this by
 
 1. PM decides: one F### scenario covering all six kinds, or split (e.g., business Groups index separate from community-kind index)?
-2. Decide whether anonymous viewers see all Groups or only listed kind='business' (a stricter anti-Nextdoor stance) — design call.
+2. Decide whether anonymous viewers see all Groups or only listed kind='business' (a stricter accountable-participation stance) — design call.
 3. Decide the default sort: alphabetical, newest, most-active, or locality-distance.
 4. Folds together with Phase 3 `/g/new` group-create-flow? — possibly; they're the two halves of "Group lifecycle" but can ship independently.
 5. Promote to `planning/backlog/scenario-F###-group-browse-index.md` via `scope`.
