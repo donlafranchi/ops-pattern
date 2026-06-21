@@ -10,6 +10,15 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
+    /* Charcoal ramp */
+    --charcoal-900: #2B2B2B;
+    --charcoal-700: #3C3C3C;
+    --charcoal-500: #555555;
+    --charcoal-300: #8A8A8A;
+    --charcoal-100: #E8E8E8;
+    --charcoal-50: #F5F5F5;
+
+    /* Pistachio ramp (unchanged) */
     --pistachio-50: #F5F7F2;
     --pistachio-100: #E8EDE3;
     --pistachio-200: #D5DECF;
@@ -18,259 +27,151 @@
     --pistachio-500: #A0B49A;
     --pistachio-600: #869C7F;
     --pistachio-700: #6D8367;
+
+    /* Semantic */
     --bg: #FFFFFF;
-    --surface: #F7F7F7;
-    --fg: #2D2D2D;
-    --fg-muted: #717171;
-    --border: #EBEBEB;
-    --success: #2D6A4F;
-    --danger: #B4513C;
+    --fg: var(--charcoal-900);
+    --fg-muted: var(--charcoal-500);
+    --border: var(--charcoal-100);
+    --surface: var(--charcoal-50);
     --locally-owned: #1B7A3D;
+
+    /* Spacing scale */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+
+    /* Radii */
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-full: 9999px;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
-    --shadow-lg: 0 12px 32px rgba(0,0,0,0.16);
   }
 
   body {
     font-family: Inter, system-ui, -apple-system, sans-serif;
-    background: #F0F0F0;
+    background: #EDEDED;
     color: var(--fg);
     padding: 40px 20px;
   }
 
-  h1 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
+  h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: var(--fg-muted); margin-bottom: var(--space-lg); }
 
-  .subtitle {
-    font-size: 14px;
-    color: var(--fg-muted);
-    margin-bottom: 32px;
-  }
-
-  .screen-grid {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .screen-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .screen-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--pistachio-500);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .screen-route {
-    font-size: 11px;
-    color: var(--fg-muted);
-    margin-bottom: 12px;
-  }
+  .screen-grid { display: flex; gap: var(--space-lg); flex-wrap: wrap; justify-content: center; }
+  .screen-wrapper { display: flex; flex-direction: column; align-items: center; }
+  .screen-label { font-size: 11px; font-weight: 600; color: var(--charcoal-500); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: var(--space-xs); }
+  .screen-route { font-size: 11px; color: var(--charcoal-300); margin-bottom: var(--space-sm); }
 
   .phone {
-    width: 320px;
+    width: 375px;
     background: var(--bg);
-    border-radius: 24px;
+    border-radius: 40px;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
     position: relative;
   }
 
   .status-bar {
-    height: 28px;
+    height: 44px;
     background: var(--bg);
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    padding: 0 20px;
-    font-size: 11px;
+    padding: 0 var(--space-md) 6px;
+    font-size: 14px;
     font-weight: 600;
+    color: var(--charcoal-900);
   }
 
+  /* 3-tab bottom nav */
   .bottom-nav {
-    height: 60px;
+    height: 52px;
     background: var(--bg);
     border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 0 20px;
+    padding: 0 var(--space-lg);
   }
 
-  .nav-item {
-    text-align: center;
-    padding: 4px 8px;
-    cursor: pointer;
-  }
+  .nav-item { text-align: center; padding: 4px 16px; cursor: pointer; }
+  .nav-item .label { font-size: 10px; font-weight: 500; margin-top: 3px; color: var(--charcoal-300); }
+  .nav-item.active .label { color: var(--charcoal-700); font-weight: 600; }
 
-  .nav-item .label {
-    font-size: 10px;
-    margin-top: 2px;
-    color: var(--fg-muted);
-  }
+  .nav-icon { width: 24px; height: 24px; }
 
-  .nav-item.active .label {
-    color: var(--pistachio-500);
-    font-weight: 600;
-  }
-
-  .nav-icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  .create-btn {
-    width: 44px;
-    height: 44px;
-    background: var(--pistachio-500);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 22px;
-    font-weight: 600;
-    box-shadow: 0 3px 10px rgba(160,180,154,0.4);
-  }
-
-  .home-indicator {
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .home-indicator div {
-    width: 120px;
-    height: 4px;
-    background: var(--fg);
-    border-radius: 2px;
-  }
-
-  .photo-placeholder {
-    background: linear-gradient(135deg, var(--pistachio-200), var(--pistachio-400));
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 500;
-  }
-
-  .photo-placeholder-muted {
-    background: linear-gradient(135deg, var(--pistachio-50), var(--pistachio-100));
-    border-radius: var(--radius-md);
-  }
-
-  .heart-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    font-size: 14px;
-  }
-
-  .btn-primary {
-    padding: 12px 24px;
-    background: var(--pistachio-500);
-    color: #fff;
-    border-radius: var(--radius-md);
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .btn-secondary {
-    padding: 12px 24px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .section-sep { height: 1px; background: var(--border); margin: 0 20px; }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--fg-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
-
-  .chip {
-    padding: 5px 12px;
-    border-radius: var(--radius-full);
-    font-size: 11px;
-    font-weight: 500;
-    display: inline-block;
-  }
-
-  .chip-selected { background: var(--fg); color: #fff; }
-  .chip-default { border: 1px solid var(--border); color: var(--fg); }
-  .chip-active { background: var(--surface); color: var(--fg-muted); }
+  .home-indicator { height: 24px; display: flex; align-items: center; justify-content: center; }
+  .home-indicator div { width: 134px; height: 5px; background: var(--charcoal-900); border-radius: 3px; }
 
   .avatar {
     border-radius: 50%;
     background: var(--pistachio-100);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; flex-shrink: 0;
   }
 
   .avatar-sq {
     border-radius: var(--radius-sm);
     background: var(--pistachio-100);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 500; flex-shrink: 0;
   }
 
-  .oak-mark {
-    flex-shrink: 0;
+  .section-label {
+    font-size: 11px; font-weight: 600;
+    color: var(--charcoal-500);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+  .hairline { height: 1px; background: var(--border); }
+
+  .btn-primary {
+    padding: 14px var(--space-md);
+    background: var(--pistachio-500);
+    color: #fff;
+    border-radius: var(--radius-md);
+    font-size: 14px; font-weight: 600;
+    text-align: center;
   }
+
+  .btn-secondary {
+    padding: 14px var(--space-md);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 14px; font-weight: 500;
+    text-align: center;
+    color: var(--charcoal-700);
+  }
+
+  .photo-placeholder {
+    background: linear-gradient(135deg, var(--pistachio-200), var(--pistachio-400));
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 500;
+  }
+
+  .heart-btn {
+    position: absolute; top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-size: 15px;
+  }
+
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--charcoal-100); flex-shrink: 0; }
 </style>
 </head>
 <body>
 
 <h1>Movers, Makers & Shakers — Mobile Wireframes</h1>
-<p class="subtitle">375px · Bottom-tab PWA · Pistachio palette · Quercus virginiana mark</p>
+<p class="subtitle">375px · 3-tab PWA · Charcoal + pistachio · Airbnb-informed structure</p>
 
 <div class="screen-grid">
 
@@ -281,99 +182,118 @@
   <div class="screen-label">Home</div>
   <div class="screen-route">/ (root)</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
-    <!-- Header -->
-    <div style="padding:4px 20px 12px;display:flex;align-items:center;gap:8px;">
-      <svg class="oak-mark" viewBox="0 0 200 180" width="28" height="25">
-        <ellipse cx="100" cy="60" rx="85" ry="45" fill="var(--pistachio-400)"/>
-        <ellipse cx="35" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
-        <ellipse cx="165" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
-        <ellipse cx="100" cy="45" rx="60" ry="32" fill="var(--pistachio-500)"/>
-        <path d="M90,95 Q88,120 85,145 Q84,155 88,160 L112,160 Q116,155 115,145 Q112,120 110,95" fill="var(--pistachio-600)"/>
-      </svg>
-      <span style="font-size:16px;font-weight:700;">Main Street</span>
+    <!-- Header: oak mark left, + icon right -->
+    <div style="padding:4px var(--space-md) var(--space-sm);display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg viewBox="0 0 200 180" width="28" height="25">
+          <ellipse cx="100" cy="60" rx="85" ry="45" fill="var(--pistachio-400)"/>
+          <ellipse cx="35" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
+          <ellipse cx="165" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
+          <ellipse cx="100" cy="45" rx="60" ry="32" fill="var(--pistachio-500)"/>
+          <path d="M90,95 Q88,120 85,145 Q84,155 88,160 L112,160 Q116,155 115,145 Q112,120 110,95" fill="var(--pistachio-600)"/>
+        </svg>
+        <span style="font-size:18px;font-weight:700;">Main Street</span>
+      </div>
+      <!-- Contextual create -->
+      <div style="width:36px;height:36px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--charcoal-500);cursor:pointer;">+</div>
     </div>
 
-    <!-- Locality -->
-    <div style="padding:0 20px 14px;">
-      <div style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--surface);border-radius:var(--radius-full);cursor:pointer;">
-        <span style="font-size:12px;">📍</span>
-        <span style="font-size:13px;font-weight:500;">West Sacramento</span>
-        <span style="font-size:10px;color:var(--fg-muted);">▾</span>
+    <!-- Locality pill -->
+    <div style="padding:0 var(--space-md) var(--space-sm);">
+      <div style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--surface);border-radius:var(--radius-full);cursor:pointer;">
+        <span style="font-size:13px;">📍</span>
+        <span style="font-size:14px;font-weight:500;color:var(--charcoal-700);">West Sacramento</span>
+        <span style="font-size:10px;color:var(--charcoal-300);">▾</span>
       </div>
     </div>
 
-    <div class="section-sep"></div>
+    <div class="hairline"></div>
 
-    <!-- Event card -->
-    <div style="padding:16px 20px;">
+    <!-- Event card — 24px gap below -->
+    <div style="padding:var(--space-md) var(--space-md) 0;">
       <div style="position:relative;">
-        <div class="photo-placeholder" style="width:100%;height:160px;">Photo · 16:9</div>
+        <div class="photo-placeholder" style="width:100%;height:180px;">Photo · 16:9</div>
         <div class="heart-btn">♡</div>
+        <div style="position:absolute;top:12px;left:12px;padding:4px 10px;background:rgba(0,0,0,0.55);border-radius:6px;font-size:11px;color:#fff;font-weight:500;">Weekly</div>
       </div>
-      <div style="margin-top:10px;">
-        <div style="font-size:12px;color:var(--fg-muted);font-weight:500;">Thu, Jun 19 · 6:00 PM</div>
-        <div style="font-size:16px;font-weight:600;margin-top:3px;">Thursday Run Club</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:4px;font-size:13px;color:var(--fg-muted);">
-          <span>Drake's Brewing</span><span style="color:var(--border);">·</span><span>0.4 mi</span><span style="color:var(--border);">·</span>
-          <span style="font-size:11px;padding:2px 6px;background:var(--surface);border-radius:4px;font-weight:500;">Weekly</span>
+      <div style="margin-top:12px;">
+        <div style="font-size:12px;color:var(--fg-muted);font-weight:500;letter-spacing:0.2px;">THU, JUN 19 · 6:00 PM</div>
+        <div style="font-size:18px;font-weight:600;margin-top:4px;color:var(--charcoal-900);">Thursday Run Club</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+          <span style="font-size:13px;color:var(--fg-muted);">Drake's Brewing</span>
+          <div class="dot"></div>
+          <span style="font-size:13px;color:var(--fg-muted);">0.4 mi</span>
         </div>
       </div>
     </div>
 
-    <!-- Idea card -->
-    <div style="padding:0 20px 16px;">
-      <div style="border:1px solid var(--border);border-radius:14px;padding:16px;">
-        <div style="border-left:2px solid var(--pistachio-400);padding-left:12px;">
-          <div class="section-label">💡 Idea</div>
-          <div style="font-size:15px;font-weight:600;margin-top:8px;line-height:1.4;">Anyone want to do a clothing swap this summer?</div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:10px;">
-            <div class="avatar" style="width:24px;height:24px;font-size:10px;">SM</div>
-            <span style="font-size:12px;color:var(--fg-muted);">Sarah M.</span>
-            <span style="color:var(--border);">·</span>
-            <span style="font-size:12px;color:var(--fg-muted);">2 mi</span>
-            <span style="color:var(--border);">·</span>
-            <span style="font-size:12px;color:var(--fg-muted);">3h ago</span>
+    <!-- 24px gap -->
+    <div style="height:var(--space-md);"></div>
+
+    <!-- Idea card — editorial -->
+    <div style="padding:0 var(--space-md);">
+      <div style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-md);position:relative;overflow:hidden;">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--pistachio-400);"></div>
+        <div style="padding-left:12px;">
+          <div style="font-size:11px;font-weight:600;color:var(--charcoal-500);text-transform:uppercase;letter-spacing:0.3px;">💡 Idea</div>
+          <div style="font-size:16px;font-weight:600;margin-top:10px;line-height:1.45;color:var(--charcoal-900);">Anyone want to do a clothing swap this summer?</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:12px;">
+            <div class="avatar" style="width:26px;height:26px;font-size:10px;background:linear-gradient(135deg,var(--pistachio-200),var(--pistachio-400));color:#fff;">SM</div>
+            <span style="font-size:13px;color:var(--fg-muted);">Sarah M.</span>
+            <div class="dot"></div>
+            <span style="font-size:13px;color:var(--fg-muted);">2 mi</span>
+            <div class="dot"></div>
+            <span style="font-size:13px;color:var(--fg-muted);">3h ago</span>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- 24px gap -->
+    <div style="height:var(--space-md);"></div>
+
     <!-- Product card -->
-    <div style="padding:0 20px 16px;">
+    <div style="padding:0 var(--space-md);">
       <div style="position:relative;">
-        <div class="photo-placeholder-muted" style="width:100%;height:140px;"></div>
+        <div class="photo-placeholder" style="width:100%;height:160px;background:linear-gradient(135deg,#D4A574,#8B6914);">Photo</div>
         <div class="heart-btn">♡</div>
       </div>
-      <div style="margin-top:10px;">
-        <div style="font-size:16px;font-weight:600;">Sourdough Boule</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
+      <div style="margin-top:12px;">
+        <div style="font-size:18px;font-weight:600;color:var(--charcoal-900);">Sourdough Boule</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
           <span style="font-size:13px;color:var(--fg-muted);">River City Bread</span>
-          <span style="color:var(--border);">·</span>
-          <span style="font-size:14px;font-weight:600;">$8</span>
+          <div class="dot"></div>
+          <span style="font-size:16px;font-weight:600;color:var(--charcoal-900);">$8</span>
         </div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">Pickup Sat · Drake's Brewing</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+          <span style="font-size:10px;padding:3px 10px;background:var(--locally-owned);color:#fff;border-radius:6px;font-weight:600;">Locally Owned</span>
+          <span style="font-size:12px;color:var(--fg-muted);">Pickup Sat · Drake's</span>
+        </div>
       </div>
     </div>
 
+    <!-- 24px gap -->
+    <div style="height:var(--space-md);"></div>
+
     <!-- Show more -->
-    <div style="padding:0 20px 16px;text-align:center;">
-      <div class="btn-secondary" style="padding:10px;">Show more</div>
+    <div style="padding:0 var(--space-md) var(--space-md);">
+      <div class="btn-secondary">Show more</div>
     </div>
 
+    <!-- 3-tab nav -->
     <div class="bottom-nav">
       <div class="nav-item active">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--pistachio-500)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-700)" stroke-width="1.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <div class="label">Home</div>
       </div>
       <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-300)" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <div class="label">Explore</div>
       </div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
       <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-300)" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <div class="label">You</div>
       </div>
     </div>
@@ -388,72 +308,90 @@
   <div class="screen-label">Explore</div>
   <div class="screen-route">/explore</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
-    <!-- Search bar -->
-    <div style="padding:12px 20px;">
-      <div style="background:var(--surface);border-radius:var(--radius-full);padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-sm);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <span style="font-size:14px;color:var(--fg-muted);">Search near me...</span>
+    <!-- Airbnb-style top bar: location · search · filter -->
+    <div style="padding:8px var(--space-md) 12px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--surface);border-radius:var(--radius-full);box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+        <span style="font-size:13px;">📍</span>
+        <span style="font-size:14px;font-weight:500;color:var(--charcoal-700);flex:1;">West Sacramento</span>
+        <div style="width:1px;height:20px;background:var(--border);"></div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-500)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div style="width:1px;height:20px;background:var(--border);"></div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-500)" stroke-width="1.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--charcoal-500)"/><circle cx="16" cy="12" r="2" fill="var(--charcoal-500)"/><circle cx="10" cy="18" r="2" fill="var(--charcoal-500)"/></svg>
       </div>
     </div>
 
-    <!-- Filter chips -->
-    <div style="padding:0 20px 12px;display:flex;gap:6px;flex-wrap:wrap;">
-      <div class="chip chip-selected">Events</div>
-      <div class="chip chip-default">Products</div>
-      <div class="chip chip-default">Services</div>
-      <div class="chip chip-default">Ideas</div>
-    </div>
+    <div class="hairline"></div>
 
-    <!-- Active filters -->
-    <div style="padding:0 20px 10px;display:flex;gap:6px;">
-      <div class="chip chip-active" style="display:flex;align-items:center;gap:4px;font-size:10px;">< 5 mi <span style="cursor:pointer;">✕</span></div>
-      <div class="chip chip-active" style="display:flex;align-items:center;gap:4px;font-size:10px;">This week <span style="cursor:pointer;">✕</span></div>
-    </div>
-
-    <div class="section-sep"></div>
-
-    <!-- Result 1 -->
-    <div style="padding:16px 20px;">
-      <div class="photo-placeholder" style="width:100%;height:130px;">Photo</div>
-      <div style="margin-top:10px;">
-        <div style="font-size:12px;color:var(--fg-muted);">Thu, Jun 19 · 6:00 PM</div>
-        <div style="font-size:16px;font-weight:600;margin-top:2px;">Thursday Run Club</div>
-        <div style="font-size:13px;color:var(--fg-muted);margin-top:3px;">Drake's Brewing · 0.4 mi</div>
+    <!-- Results area -->
+    <div style="padding:var(--space-md) var(--space-md) 0;">
+      <div style="position:relative;">
+        <div class="photo-placeholder" style="width:100%;height:160px;">Photo</div>
+        <div class="heart-btn">♡</div>
+      </div>
+      <div style="margin-top:12px;">
+        <div style="font-size:12px;color:var(--fg-muted);font-weight:500;">THU, JUN 19 · 6:00 PM</div>
+        <div style="font-size:18px;font-weight:600;margin-top:4px;">Thursday Run Club</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+          <span style="font-size:13px;color:var(--fg-muted);">Drake's Brewing</span>
+          <div class="dot"></div>
+          <span style="font-size:13px;color:var(--fg-muted);">0.4 mi</span>
+        </div>
       </div>
     </div>
 
-    <!-- Result 2 -->
-    <div style="padding:0 20px 16px;">
-      <div class="photo-placeholder-muted" style="width:100%;height:130px;"></div>
-      <div style="margin-top:10px;">
-        <div style="font-size:12px;color:var(--fg-muted);">Sat, Jun 21 · 8:00 AM</div>
-        <div style="font-size:16px;font-weight:600;margin-top:2px;">West Sac Farmers Market</div>
-        <div style="font-size:13px;color:var(--fg-muted);margin-top:3px;">Bridge District · 1.2 mi</div>
+    <div style="height:var(--space-md);"></div>
+
+    <div style="padding:0 var(--space-md);">
+      <div style="position:relative;">
+        <div class="photo-placeholder" style="width:100%;height:160px;background:linear-gradient(135deg,var(--pistachio-100),var(--pistachio-300));">Photo</div>
+        <div class="heart-btn">♡</div>
+      </div>
+      <div style="margin-top:12px;">
+        <div style="font-size:12px;color:var(--fg-muted);font-weight:500;">SAT, JUN 21 · 8:00 AM</div>
+        <div style="font-size:18px;font-weight:600;margin-top:4px;">West Sac Farmers Market</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+          <span style="font-size:13px;color:var(--fg-muted);">Bridge District</span>
+          <div class="dot"></div>
+          <span style="font-size:13px;color:var(--fg-muted);">1.2 mi</span>
+        </div>
       </div>
     </div>
 
-    <!-- List/Map toggle -->
-    <div style="padding:4px 20px 16px;display:flex;justify-content:center;">
+    <div style="height:var(--space-md);"></div>
+
+    <!-- List/Map toggle (inline, scrolls with content) -->
+    <div style="padding:0 var(--space-md) var(--space-sm);display:flex;justify-content:center;">
       <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);">
-        <div style="padding:8px 20px;background:var(--fg);color:#fff;font-size:12px;font-weight:500;">List</div>
-        <div style="padding:8px 20px;background:var(--bg);font-size:12px;font-weight:500;color:var(--fg-muted);">Map</div>
+        <div style="padding:8px 24px;background:var(--charcoal-700);color:#fff;font-size:12px;font-weight:500;">List</div>
+        <div style="padding:8px 24px;background:var(--bg);font-size:12px;font-weight:500;color:var(--charcoal-500);">Map</div>
       </div>
     </div>
 
+    <div style="height:var(--space-sm);"></div>
+
+    <!-- Bottom pills — anchored above nav -->
+    <div style="border-top:1px solid var(--border);padding:10px var(--space-md);display:flex;gap:8px;overflow-x:auto;">
+      <div style="padding:8px 16px;background:var(--charcoal-700);color:#fff;border-radius:var(--radius-full);font-size:12px;font-weight:500;white-space:nowrap;">All</div>
+      <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;color:var(--charcoal-900);white-space:nowrap;">Events</div>
+      <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;color:var(--charcoal-900);white-space:nowrap;">Products</div>
+      <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;color:var(--charcoal-900);white-space:nowrap;">Services</div>
+      <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;color:var(--charcoal-900);white-space:nowrap;">Ideas</div>
+    </div>
+
+    <!-- 3-tab nav -->
     <div class="bottom-nav">
       <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-300)" stroke-width="1.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <div class="label">Home</div>
       </div>
       <div class="nav-item active">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--pistachio-500)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-700)" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <div class="label">Explore</div>
       </div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
       <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-300)" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <div class="label">You</div>
       </div>
     </div>
@@ -468,27 +406,27 @@
   <div class="screen-label">You</div>
   <div class="screen-route">/you</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
     <!-- Profile -->
-    <div style="padding:16px 20px;display:flex;align-items:center;gap:14px;">
+    <div style="padding:var(--space-sm) var(--space-md) var(--space-md);display:flex;align-items:center;gap:var(--space-sm);">
       <div class="avatar" style="width:56px;height:56px;font-size:20px;background:linear-gradient(135deg,var(--pistachio-200),var(--pistachio-400));color:#fff;">D</div>
       <div>
-        <div style="font-size:17px;font-weight:600;">Don L.</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:2px;">📍 West Sacramento</div>
-        <div style="font-size:12px;color:var(--pistachio-500);margin-top:3px;cursor:pointer;">Edit profile</div>
+        <div style="font-size:18px;font-weight:700;color:var(--charcoal-900);">Don L.</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">📍 West Sacramento</div>
+        <div style="font-size:12px;color:var(--charcoal-500);margin-top:4px;cursor:pointer;">Edit profile →</div>
       </div>
     </div>
 
-    <div class="section-sep"></div>
+    <div class="hairline"></div>
 
     <!-- Following strip -->
-    <div style="padding:14px 20px 6px;">
+    <div style="padding:var(--space-md) var(--space-md) var(--space-xs);">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:13px;font-weight:600;">Following</span>
-        <span style="font-size:12px;color:var(--pistachio-500);cursor:pointer;">More →</span>
+        <span class="section-label">Following</span>
+        <span style="font-size:12px;color:var(--charcoal-500);cursor:pointer;">More →</span>
       </div>
-      <div style="display:flex;gap:12px;margin-top:10px;overflow-x:auto;padding-bottom:4px;">
+      <div style="display:flex;gap:14px;margin-top:12px;overflow-x:auto;padding-bottom:4px;">
         <div style="flex-shrink:0;text-align:center;width:52px;">
           <div class="avatar" style="width:48px;height:48px;font-size:12px;">AJ</div>
           <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Anna J.</div>
@@ -502,91 +440,99 @@
           <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Tom M.</div>
         </div>
         <div style="flex-shrink:0;text-align:center;width:52px;">
-          <div class="avatar" style="width:48px;height:48px;font-size:12px;background:var(--surface);border:1px dashed var(--border);color:var(--fg-muted);">+4</div>
+          <div class="avatar" style="width:48px;height:48px;font-size:12px;background:var(--surface);border:1px dashed var(--border);color:var(--charcoal-300);">+4</div>
         </div>
       </div>
     </div>
 
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
+
     <!-- Groups strip -->
-    <div style="padding:10px 20px 6px;">
+    <div style="padding:0 var(--space-md) var(--space-xs);">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:13px;font-weight:600;">Groups</span>
-        <span style="font-size:12px;color:var(--pistachio-500);cursor:pointer;">More →</span>
+        <span class="section-label">Groups</span>
+        <span style="font-size:12px;color:var(--charcoal-500);cursor:pointer;">More →</span>
       </div>
-      <div style="display:flex;gap:12px;margin-top:10px;overflow-x:auto;padding-bottom:4px;">
+      <div style="display:flex;gap:14px;margin-top:12px;overflow-x:auto;padding-bottom:4px;">
         <div style="flex-shrink:0;text-align:center;width:52px;">
-          <div class="avatar-sq" style="width:48px;height:48px;font-size:12px;">🏃</div>
+          <div class="avatar-sq" style="width:48px;height:48px;font-size:14px;">🏃</div>
           <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Run Club</div>
         </div>
         <div style="flex-shrink:0;text-align:center;width:52px;">
-          <div class="avatar-sq" style="width:48px;height:48px;font-size:12px;">🌿</div>
+          <div class="avatar-sq" style="width:48px;height:48px;font-size:14px;">🌿</div>
           <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Gardeners</div>
         </div>
       </div>
     </div>
 
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
+
     <!-- Venues strip -->
-    <div style="padding:10px 20px 6px;">
+    <div style="padding:0 var(--space-md) var(--space-xs);">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:13px;font-weight:600;">Venues</span>
-        <span style="font-size:12px;color:var(--pistachio-500);cursor:pointer;">More →</span>
+        <span class="section-label">Venues</span>
+        <span style="font-size:12px;color:var(--charcoal-500);cursor:pointer;">More →</span>
       </div>
-      <div style="display:flex;gap:12px;margin-top:10px;overflow-x:auto;padding-bottom:4px;">
+      <div style="display:flex;gap:14px;margin-top:12px;overflow-x:auto;padding-bottom:4px;">
         <div style="flex-shrink:0;text-align:center;width:52px;">
-          <div class="avatar-sq" style="width:48px;height:48px;font-size:12px;">🍺</div>
+          <div class="avatar-sq" style="width:48px;height:48px;font-size:14px;">🍺</div>
           <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Drake's</div>
         </div>
         <div style="flex-shrink:0;text-align:center;width:52px;">
-          <div class="avatar-sq" style="width:48px;height:48px;font-size:12px;">🌳</div>
-          <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Comm. Garden</div>
+          <div class="avatar-sq" style="width:48px;height:48px;font-size:14px;">🌳</div>
+          <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Garden</div>
         </div>
       </div>
     </div>
 
-    <div class="section-sep" style="margin-top:8px;"></div>
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
+    <div class="hairline"></div>
+
+    <!-- Create something -->
+    <div style="padding:var(--space-md) var(--space-md);">
+      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+        <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Create something</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:4px;">Host, sell, offer, or float an idea</div>
+        <div class="btn-primary" style="margin-top:var(--space-sm);display:inline-block;padding:12px 32px;">Get started</div>
+      </div>
+    </div>
 
     <!-- Near me slider -->
-    <div style="padding:14px 20px;">
+    <div style="padding:0 var(--space-md) var(--space-md);">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:13px;font-weight:600;">Near me</span>
+        <span class="section-label">Near me</span>
         <span style="font-size:12px;color:var(--fg-muted);">10 mi</span>
       </div>
-      <div style="margin-top:8px;height:4px;background:var(--border);border-radius:2px;position:relative;">
-        <div style="position:absolute;left:0;top:0;width:40%;height:100%;background:var(--pistachio-500);border-radius:2px;"></div>
-        <div style="position:absolute;left:38%;top:-5px;width:14px;height:14px;background:var(--pistachio-500);border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.15);"></div>
+      <div style="margin-top:10px;height:4px;background:var(--border);border-radius:2px;position:relative;">
+        <div style="position:absolute;left:0;top:0;width:40%;height:100%;background:var(--charcoal-500);border-radius:2px;"></div>
+        <div style="position:absolute;left:38%;top:-5px;width:14px;height:14px;background:var(--charcoal-700);border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.15);"></div>
       </div>
     </div>
 
-    <div class="section-sep"></div>
+    <div class="hairline"></div>
 
-    <!-- Sell CTA -->
-    <div style="padding:14px 20px;">
-      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center;">
-        <div style="font-size:14px;font-weight:600;">List your business</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:2px;">Free, takes 2 minutes</div>
-        <div class="btn-primary" style="margin-top:12px;display:inline-block;padding:10px 28px;">Sell</div>
-      </div>
-    </div>
-
-    <!-- Settings -->
-    <div style="padding:4px 20px 8px;display:flex;gap:16px;">
+    <!-- Settings row -->
+    <div style="padding:var(--space-sm) var(--space-md);display:flex;gap:var(--space-md);">
       <span style="font-size:12px;color:var(--fg-muted);cursor:pointer;">Settings</span>
       <span style="font-size:12px;color:var(--fg-muted);cursor:pointer;">Data export</span>
       <span style="font-size:12px;color:var(--fg-muted);cursor:pointer;">Sign out</span>
     </div>
 
+    <!-- 3-tab nav -->
     <div class="bottom-nav">
       <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-300)" stroke-width="1.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <div class="label">Home</div>
       </div>
       <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-300)" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <div class="label">Explore</div>
       </div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
       <div class="nav-item active">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--pistachio-500)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--charcoal-700)" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <div class="label">You</div>
       </div>
     </div>
@@ -601,76 +547,67 @@
   <div class="screen-label">Venue</div>
   <div class="screen-route">/p/.../l/[slug]</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
     <!-- Back -->
-    <div style="padding:8px 20px;">
-      <span style="font-size:13px;color:var(--fg-muted);cursor:pointer;">← Back</span>
+    <div style="padding:8px var(--space-md);">
+      <span style="font-size:13px;color:var(--charcoal-500);cursor:pointer;">← Back</span>
     </div>
 
     <!-- Hero -->
-    <div style="padding:0 20px;">
-      <div class="photo-placeholder" style="width:100%;height:160px;">Hero photo · 4:3</div>
+    <div style="padding:0 var(--space-md);">
+      <div class="photo-placeholder" style="width:100%;height:200px;">Hero photo</div>
     </div>
 
     <!-- Venue info -->
-    <div style="padding:14px 20px 0;">
-      <div style="font-size:22px;font-weight:700;">Drake's Brewing Co.</div>
-      <div style="font-size:13px;color:var(--fg-muted);margin-top:4px;">1933 Davis St, West Sacramento · 0.4 mi</div>
-    </div>
-
-    <div class="section-sep" style="margin-top:14px;"></div>
-
-    <!-- CTAs -->
-    <div style="padding:14px 20px;display:flex;flex-direction:column;gap:8px;">
-      <div class="btn-primary">Follow this venue</div>
-      <div class="btn-secondary">Host something here</div>
-    </div>
-
-    <!-- What's happening here -->
-    <div style="padding:8px 20px 0;">
-      <div class="section-label">What's happening here</div>
-    </div>
-    <div style="padding:10px 20px;">
-      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
-        <div style="font-size:14px;font-weight:600;">Thursday Run Club</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">Every Thu · 6:00 PM · Free</div>
+    <div style="padding:var(--space-sm) var(--space-md) 0;">
+      <div style="font-size:22px;font-weight:700;color:var(--charcoal-900);">Drake's Brewing Co.</div>
+      <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">1933 Davis St, West Sacramento · 0.4 mi</div>
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <span style="font-size:11px;padding:4px 10px;background:var(--surface);border-radius:6px;color:var(--charcoal-500);font-weight:500;">Permanent</span>
+        <span style="font-size:11px;padding:4px 10px;background:var(--surface);border-radius:6px;color:var(--charcoal-500);font-weight:500;">Accessible</span>
       </div>
     </div>
 
-    <!-- What's happening nearby -->
-    <div style="padding:4px 20px;">
-      <details>
-        <summary class="section-label" style="cursor:pointer;">What's happening nearby</summary>
-        <div style="margin-top:8px;padding:10px;background:var(--surface);border-radius:var(--radius-sm);font-size:12px;color:var(--fg-muted);">3 events within 1 mi</div>
-      </details>
-    </div>
+    <div class="hairline" style="margin-top:var(--space-md);"></div>
 
     <!-- About -->
-    <div style="padding:12px 20px;">
+    <div style="padding:var(--space-md) var(--space-md) 0;">
       <div class="section-label">About</div>
-      <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;line-height:1.6;">Craft brewery and taproom in the heart of West Sacramento. Dog-friendly patio, food trucks on weekends.</div>
-      <div style="display:flex;gap:6px;margin-top:8px;">
-        <span style="font-size:10px;padding:3px 8px;background:var(--surface);border-radius:4px;color:var(--fg-muted);">Permanent</span>
-        <span style="font-size:10px;padding:3px 8px;background:var(--surface);border-radius:4px;color:var(--fg-muted);">Accessible</span>
+      <div style="font-size:14px;color:var(--charcoal-700);margin-top:10px;line-height:1.6;">Craft brewery and taproom in the heart of West Sacramento. Dog-friendly patio, food trucks on weekends.</div>
+    </div>
+
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
+
+    <!-- What's happening here -->
+    <div style="padding:0 var(--space-md);">
+      <div class="section-label">What's happening here</div>
+    </div>
+    <div style="padding:12px var(--space-md);">
+      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-sm);">
+        <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Thursday Run Club</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">Every Thu · 6:00 PM · Free</div>
       </div>
     </div>
 
-    <div class="bottom-nav">
-      <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <div class="label">Home</div>
-      </div>
-      <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <div class="label">Explore</div>
-      </div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
-      <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <div class="label">You</div>
-      </div>
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
+
+    <!-- What's nearby -->
+    <div style="padding:0 var(--space-md);">
+      <div class="section-label">What's happening nearby</div>
+      <div style="margin-top:10px;padding:12px;background:var(--surface);border-radius:var(--radius-sm);font-size:12px;color:var(--fg-muted);">3 events within 1 mi →</div>
     </div>
+
+    <div style="height:var(--space-md);"></div>
+
+    <!-- Sticky bottom CTA -->
+    <div style="border-top:1px solid var(--border);padding:12px var(--space-md);display:flex;gap:10px;">
+      <div class="btn-primary" style="flex:1;">Follow this venue</div>
+      <div class="btn-secondary" style="flex:0 0 auto;padding:14px 20px;">+ Host</div>
+    </div>
+
     <div class="home-indicator"><div></div></div>
   </div>
 </div>
@@ -680,62 +617,54 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="screen-wrapper">
   <div class="screen-label">Thesis</div>
-  <div class="screen-route">/about (pre-auth landing)</div>
+  <div class="screen-route">/about (pre-auth)</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
     <!-- Oak hero -->
-    <div style="padding:40px 24px 24px;text-align:center;background:linear-gradient(180deg,var(--pistachio-50) 0%,var(--bg) 100%);">
-      <svg viewBox="0 0 200 180" width="140" height="126" style="display:block;margin:0 auto;">
+    <div style="padding:var(--space-xl) var(--space-md) var(--space-md);text-align:center;background:linear-gradient(180deg,var(--pistachio-50) 0%,var(--bg) 100%);">
+      <svg viewBox="0 0 200 180" width="120" height="108" style="display:block;margin:0 auto;">
         <ellipse cx="100" cy="60" rx="85" ry="45" fill="var(--pistachio-400)"/>
         <ellipse cx="35" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
         <ellipse cx="165" cy="55" rx="35" ry="28" fill="var(--pistachio-400)"/>
         <ellipse cx="100" cy="45" rx="60" ry="32" fill="var(--pistachio-500)"/>
-        <ellipse cx="90" cy="38" rx="35" ry="22" fill="var(--pistachio-500)" opacity="0.7"/>
-        <ellipse cx="130" cy="55" rx="40" ry="25" fill="var(--pistachio-600)" opacity="0.3"/>
         <path d="M90,95 Q88,120 85,145 Q84,155 88,160 L112,160 Q116,155 115,145 Q112,120 110,95" fill="var(--pistachio-600)"/>
         <path d="M85,155 Q75,162 65,168 Q60,170 62,166 Q70,158 82,152" fill="var(--pistachio-600)" opacity="0.6"/>
         <path d="M115,155 Q125,162 135,168 Q140,170 138,166 Q130,158 118,152" fill="var(--pistachio-600)" opacity="0.6"/>
         <line x1="40" y1="168" x2="160" y2="168" stroke="var(--border)" stroke-width="1"/>
       </svg>
-      <div style="margin-top:24px;font-size:26px;font-weight:700;line-height:1.25;">Small acorn.<br>Deep roots.<br>Wide reach.</div>
+      <div style="margin-top:var(--space-md);font-size:28px;font-weight:700;line-height:1.25;color:var(--charcoal-900);">Small acorn.<br>Deep roots.<br>Wide reach.</div>
     </div>
 
     <!-- Tagline -->
-    <div style="padding:0 28px 24px;text-align:center;">
-      <div style="font-size:15px;color:var(--fg-muted);line-height:1.6;">A coordination layer for collective action in a place.</div>
+    <div style="padding:0 var(--space-lg) var(--space-lg);text-align:center;">
+      <div style="font-size:15px;color:var(--fg-muted);line-height:1.7;">A coordination layer for collective action in a place.</div>
     </div>
 
     <!-- CTAs -->
-    <div style="padding:0 28px;display:flex;flex-direction:column;gap:10px;">
-      <div class="btn-primary" style="padding:14px;">See what's nearby</div>
-      <div class="btn-secondary" style="padding:14px;">Sign up</div>
+    <div style="padding:0 var(--space-lg);display:flex;flex-direction:column;gap:10px;">
+      <div class="btn-primary" style="padding:16px;">See what's nearby</div>
+      <div class="btn-secondary" style="padding:16px;">Sign up</div>
     </div>
 
-    <div class="section-sep" style="margin:24px 20px 16px;"></div>
+    <div class="hairline" style="margin:var(--space-lg) var(--space-md) 0;"></div>
 
     <!-- What people do here -->
-    <div style="padding:0 28px 16px;">
-      <div style="font-size:14px;font-weight:600;margin-bottom:12px;">What people do here</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;">
-        <div style="padding:8px 14px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:12px;">🎪 Host</div>
-        <div style="padding:8px 14px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:12px;">🛒 Sell</div>
-        <div style="padding:8px 14px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:12px;">🤝 Offer</div>
-        <div style="padding:8px 14px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:12px;">💡 Float</div>
-        <div style="padding:8px 14px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:12px;">👥 Follow</div>
-        <div style="padding:8px 14px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:12px;">🌳 Gather</div>
+    <div style="padding:var(--space-md) var(--space-lg) var(--space-md);">
+      <div style="font-size:15px;font-weight:600;margin-bottom:var(--space-sm);color:var(--charcoal-900);">What people do here</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <div style="padding:10px 16px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:13px;color:var(--charcoal-700);">🎪 Host</div>
+        <div style="padding:10px 16px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:13px;color:var(--charcoal-700);">🛒 Sell</div>
+        <div style="padding:10px 16px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:13px;color:var(--charcoal-700);">🤝 Offer</div>
+        <div style="padding:10px 16px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:13px;color:var(--charcoal-700);">💡 Float</div>
+        <div style="padding:10px 16px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:13px;color:var(--charcoal-700);">👥 Follow</div>
       </div>
     </div>
 
-    <!-- Quote -->
-    <div style="padding:0 28px 20px;">
-      <div style="font-size:13px;color:var(--fg-muted);line-height:1.7;font-style:italic;">"Every oak starts as an acorn. Every community starts with one person stepping forward."</div>
-    </div>
-
     <!-- Repeat CTA -->
-    <div style="padding:0 28px 20px;">
-      <div class="btn-primary" style="padding:14px;">Sign up — free</div>
-      <div style="text-align:center;margin-top:6px;font-size:11px;color:var(--fg-muted);">Free, takes 2 minutes</div>
+    <div style="padding:0 var(--space-lg) var(--space-md);">
+      <div class="btn-primary" style="padding:16px;">Sign up — free</div>
+      <div style="text-align:center;margin-top:8px;font-size:11px;color:var(--charcoal-300);">Free, takes 2 minutes</div>
     </div>
 
     <div class="home-indicator"><div></div></div>
@@ -747,97 +676,89 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="screen-wrapper">
   <div class="screen-label">Shop</div>
-  <div class="screen-route">/p/.../g/[slug] (kind='business')</div>
+  <div class="screen-route">/p/.../g/[slug]</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
     <!-- Back -->
-    <div style="padding:8px 20px;">
-      <span style="font-size:13px;color:var(--fg-muted);cursor:pointer;">← Back</span>
-    </div>
-
-    <!-- Owner banner -->
-    <div style="padding:0 20px 10px;">
-      <details open style="border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
-        <summary style="font-size:12px;font-weight:600;color:var(--fg-muted);cursor:pointer;">Owner tools</summary>
-        <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <div style="font-size:12px;font-weight:500;">Locally Owned</div>
-            <div style="font-size:11px;color:var(--fg-muted);">Claimed · ZIP 95605</div>
-          </div>
-          <span style="font-size:11px;color:var(--pistachio-500);cursor:pointer;">Edit</span>
-        </div>
-      </details>
+    <div style="padding:8px var(--space-md);">
+      <span style="font-size:13px;color:var(--charcoal-500);cursor:pointer;">← Back</span>
     </div>
 
     <!-- Shop header -->
-    <div style="padding:0 20px;">
-      <div style="font-size:22px;font-weight:700;">River City Bread</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
-        <span style="font-size:10px;padding:3px 10px;background:var(--locally-owned);color:#fff;border-radius:6px;font-weight:600;">Locally Owned</span>
+    <div style="padding:0 var(--space-md);">
+      <div style="font-size:22px;font-weight:700;color:var(--charcoal-900);">River City Bread</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+        <span style="font-size:10px;padding:4px 10px;background:var(--locally-owned);color:#fff;border-radius:6px;font-weight:600;">Locally Owned</span>
         <span style="font-size:12px;color:var(--fg-muted);">West Sacramento</span>
       </div>
-      <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">Artisan sourdough, baked weekly</div>
+      <div style="font-size:14px;color:var(--charcoal-700);margin-top:10px;line-height:1.6;">Artisan sourdough, baked weekly. Slow-fermented, wood-fired.</div>
     </div>
 
-    <div class="section-sep" style="margin-top:14px;"></div>
+    <div class="hairline" style="margin-top:var(--space-md);"></div>
 
-    <!-- Follow -->
-    <div style="padding:14px 20px;">
-      <div class="btn-primary">Follow</div>
+    <!-- Owner banner (collapsed) -->
+    <div style="padding:var(--space-sm) var(--space-md);">
+      <div style="padding:12px;background:var(--surface);border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--charcoal-500);">Owner tools</div>
+          <div style="font-size:11px;color:var(--charcoal-300);margin-top:2px;">Claimed · ZIP 95605</div>
+        </div>
+        <span style="font-size:11px;color:var(--charcoal-500);cursor:pointer;">Edit →</span>
+      </div>
     </div>
+
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
 
     <!-- Products -->
-    <div style="padding:0 20px 4px;">
+    <div style="padding:0 var(--space-md);">
       <div class="section-label">Products</div>
     </div>
 
-    <div style="padding:10px 20px;">
-      <div style="display:flex;gap:12px;">
+    <div style="padding:12px var(--space-md);">
+      <div style="display:flex;gap:14px;">
         <div class="photo-placeholder" style="width:80px;height:80px;flex-shrink:0;font-size:9px;">Photo</div>
         <div>
-          <div style="font-size:14px;font-weight:600;">Sourdough Boule</div>
-          <div style="font-size:14px;font-weight:600;margin-top:3px;">$8</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:3px;">Pickup Sat · Drake's</div>
+          <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Sourdough Boule</div>
+          <div style="font-size:15px;font-weight:600;margin-top:4px;">$8</div>
+          <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">Pickup Sat · Drake's</div>
         </div>
       </div>
     </div>
 
-    <div style="padding:6px 20px;">
-      <div style="display:flex;gap:12px;">
-        <div class="photo-placeholder-muted" style="width:80px;height:80px;flex-shrink:0;"></div>
+    <!-- 24px gap -->
+    <div style="height:var(--space-md);"></div>
+
+    <div style="padding:0 var(--space-md);">
+      <div style="display:flex;gap:14px;">
+        <div class="photo-placeholder" style="width:80px;height:80px;flex-shrink:0;background:linear-gradient(135deg,var(--pistachio-100),var(--pistachio-300));font-size:9px;">Photo</div>
         <div>
-          <div style="font-size:14px;font-weight:600;">Olive Focaccia</div>
-          <div style="font-size:14px;font-weight:600;margin-top:3px;">$12</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:3px;">Pickup Sat · Drake's</div>
+          <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Olive Focaccia</div>
+          <div style="font-size:15px;font-weight:600;margin-top:4px;">$12</div>
+          <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">Pickup Sat · Drake's</div>
         </div>
       </div>
     </div>
+
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
+    <div class="hairline" style="margin:0 var(--space-md);"></div>
 
     <!-- About -->
-    <div style="padding:12px 20px;">
-      <div class="section-sep" style="margin:0 0 12px;"></div>
+    <div style="padding:var(--space-md) var(--space-md) 0;">
       <div class="section-label">About</div>
-      <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;line-height:1.6;">Artisan bakery specializing in slow-fermented sourdough. Weekly bakes, pickup at local venues.</div>
-      <div style="font-size:12px;color:var(--fg-muted);margin-top:8px;">📍 West Sacramento</div>
-      <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">👤 1 member · Don L.</div>
+      <div style="font-size:13px;color:var(--fg-muted);margin-top:10px;">📍 West Sacramento</div>
+      <div style="font-size:13px;color:var(--fg-muted);margin-top:4px;">👤 1 member · Don L.</div>
     </div>
 
-    <div class="bottom-nav">
-      <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <div class="label">Home</div>
-      </div>
-      <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <div class="label">Explore</div>
-      </div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
-      <div class="nav-item">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <div class="label">You</div>
-      </div>
+    <div style="height:var(--space-md);"></div>
+
+    <!-- Sticky bottom CTA -->
+    <div style="border-top:1px solid var(--border);padding:12px var(--space-md);">
+      <div class="btn-primary">Follow</div>
     </div>
+
     <div class="home-indicator"><div></div></div>
   </div>
 </div>

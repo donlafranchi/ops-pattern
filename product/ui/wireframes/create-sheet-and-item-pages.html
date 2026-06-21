@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMS — Create Sheet, Member Page, Group Page, Item Pages</title>
+<title>MMS — Create Sheet, Member, Group & Detail Pages</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
+    --charcoal-900: #2B2B2B;
+    --charcoal-700: #3C3C3C;
+    --charcoal-500: #555555;
+    --charcoal-300: #8A8A8A;
+    --charcoal-100: #E8E8E8;
+    --charcoal-50: #F5F5F5;
     --pistachio-50: #F5F7F2;
     --pistachio-100: #E8EDE3;
     --pistachio-200: #D5DECF;
@@ -19,76 +25,57 @@
     --pistachio-600: #869C7F;
     --pistachio-700: #6D8367;
     --bg: #FFFFFF;
-    --surface: #F7F7F7;
-    --fg: #2D2D2D;
-    --fg-muted: #717171;
-    --border: #EBEBEB;
+    --fg: var(--charcoal-900);
+    --fg-muted: var(--charcoal-500);
+    --border: var(--charcoal-100);
+    --surface: var(--charcoal-50);
     --locally-owned: #1B7A3D;
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-full: 9999px;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
-    --shadow-lg: 0 12px 32px rgba(0,0,0,0.16);
   }
 
-  body {
-    font-family: Inter, system-ui, -apple-system, sans-serif;
-    background: #F0F0F0;
-    color: var(--fg);
-    padding: 40px 20px;
-  }
-
+  body { font-family: Inter, system-ui, -apple-system, sans-serif; background: #EDEDED; color: var(--fg); padding: 40px 20px; }
   h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-  .subtitle { font-size: 14px; color: var(--fg-muted); margin-bottom: 32px; }
+  .subtitle { font-size: 14px; color: var(--fg-muted); margin-bottom: var(--space-lg); }
 
-  .screen-grid {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
+  .screen-grid { display: flex; gap: var(--space-lg); flex-wrap: wrap; justify-content: center; }
   .screen-wrapper { display: flex; flex-direction: column; align-items: center; }
-  .screen-label { font-size: 11px; font-weight: 600; color: var(--pistachio-500); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
-  .screen-route { font-size: 11px; color: var(--fg-muted); margin-bottom: 12px; }
+  .screen-label { font-size: 11px; font-weight: 600; color: var(--charcoal-500); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: var(--space-xs); }
+  .screen-route { font-size: 11px; color: var(--charcoal-300); margin-bottom: var(--space-sm); }
 
-  .phone {
-    width: 320px;
-    background: var(--bg);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    position: relative;
-  }
-
-  .status-bar { height: 28px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font-size: 11px; font-weight: 600; }
-
-  .bottom-nav { height: 60px; background: var(--bg); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-around; padding: 0 20px; }
-  .nav-item { text-align: center; padding: 4px 8px; }
-  .nav-item .label { font-size: 10px; margin-top: 2px; color: var(--fg-muted); }
-  .nav-item.active .label { color: var(--pistachio-500); font-weight: 600; }
-  .nav-icon { width: 22px; height: 22px; }
-  .create-btn { width: 44px; height: 44px; background: var(--pistachio-500); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; font-weight: 600; box-shadow: 0 3px 10px rgba(160,180,154,0.4); }
-  .home-indicator { height: 20px; display: flex; align-items: center; justify-content: center; }
-  .home-indicator div { width: 120px; height: 4px; background: var(--fg); border-radius: 2px; }
+  .phone { width: 375px; background: var(--bg); border-radius: 40px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.18); position: relative; }
+  .status-bar { height: 44px; background: var(--bg); display: flex; align-items: flex-end; justify-content: space-between; padding: 0 var(--space-md) 6px; font-size: 14px; font-weight: 600; color: var(--charcoal-900); }
+  .bottom-nav { height: 52px; background: var(--bg); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-around; padding: 0 var(--space-lg); }
+  .nav-item { text-align: center; padding: 4px 16px; }
+  .nav-item .label { font-size: 10px; font-weight: 500; margin-top: 3px; color: var(--charcoal-300); }
+  .nav-item.active .label { color: var(--charcoal-700); font-weight: 600; }
+  .nav-icon { width: 24px; height: 24px; }
+  .home-indicator { height: 24px; display: flex; align-items: center; justify-content: center; }
+  .home-indicator div { width: 134px; height: 5px; background: var(--charcoal-900); border-radius: 3px; }
 
   .avatar { border-radius: 50%; background: var(--pistachio-100); display: flex; align-items: center; justify-content: center; font-weight: 600; flex-shrink: 0; }
+  .section-label { font-size: 11px; font-weight: 600; color: var(--charcoal-500); text-transform: uppercase; letter-spacing: 0.3px; }
+  .hairline { height: 1px; background: var(--border); }
+  .btn-primary { padding: 14px var(--space-md); background: var(--pistachio-500); color: #fff; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; text-align: center; }
+  .btn-secondary { padding: 14px var(--space-md); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-weight: 500; text-align: center; color: var(--charcoal-700); }
+  .photo-placeholder { background: linear-gradient(135deg, var(--pistachio-200), var(--pistachio-400)); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 500; }
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--charcoal-100); flex-shrink: 0; }
 
-  .section-label { font-size: 11px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.4px; }
-  .section-sep { height: 1px; background: var(--border); margin: 0 20px; }
-
-  .btn-primary { padding: 12px 24px; background: var(--pistachio-500); color: #fff; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; text-align: center; }
-  .btn-secondary { padding: 12px 24px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 14px; font-weight: 500; text-align: center; }
-
-  .photo-placeholder { background: linear-gradient(135deg, var(--pistachio-200), var(--pistachio-400)); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 500; }
+  /* 3-tab nav helper */
+  .nav-3 { display: flex; align-items: center; justify-content: space-around; padding: 0 var(--space-lg); }
 </style>
 </head>
 <body>
 
-<h1>Create Sheet, Member, Group & Item Pages</h1>
-<p class="subtitle">Bottom sheet kind picker · Public member page · Group page · Event detail · Product detail</p>
+<h1>Create Sheet, Member, Group & Detail Pages</h1>
+<p class="subtitle">Bottom-sheet kind picker · Public pages · Sticky bottom CTAs · 3-tab nav</p>
 
 <div class="screen-grid">
 
@@ -97,58 +84,64 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="screen-wrapper">
   <div class="screen-label">Create (Bottom Sheet)</div>
-  <div class="screen-route">Overlay from + tab</div>
+  <div class="screen-route">Overlay from + button</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
     <!-- Dimmed background -->
-    <div style="height:120px;background:rgba(0,0,0,0.3);"></div>
+    <div style="height:140px;background:rgba(0,0,0,0.35);"></div>
 
     <!-- Bottom sheet -->
-    <div style="background:var(--bg);border-radius:20px 20px 0 0;padding:16px 24px 0;">
-      <!-- Handle -->
-      <div style="display:flex;justify-content:center;margin-bottom:16px;">
-        <div style="width:36px;height:4px;background:var(--border);border-radius:2px;"></div>
+    <div style="background:var(--bg);border-radius:20px 20px 0 0;padding:var(--space-sm) var(--space-md) 0;">
+      <div style="display:flex;justify-content:center;margin-bottom:var(--space-sm);">
+        <div style="width:36px;height:4px;background:var(--charcoal-100);border-radius:2px;"></div>
       </div>
 
-      <div style="font-size:18px;font-weight:600;margin-bottom:4px;">What do you want to share?</div>
-      <div style="font-size:13px;color:var(--fg-muted);margin-bottom:20px;">Pick a type to get started</div>
+      <div style="font-size:18px;font-weight:600;color:var(--charcoal-900);margin-bottom:4px;">What do you want to share?</div>
+      <div style="font-size:13px;color:var(--fg-muted);margin-bottom:var(--space-md);">Pick a type to get started</div>
 
-      <!-- Kind grid -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center;cursor:pointer;">
-          <div style="font-size:24px;margin-bottom:6px;">🎪</div>
-          <div style="font-size:14px;font-weight:600;">Event</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">Host a gathering</div>
+      <!-- Kind list — odd count (5 shown, scrollable) -->
+      <div style="display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:var(--radius-md);overflow:hidden;">
+        <div style="background:var(--bg);padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <span style="font-size:20px;">🎪</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">Event</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Host a gathering</div>
+          </div>
         </div>
-        <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center;cursor:pointer;">
-          <div style="font-size:24px;margin-bottom:6px;">🛒</div>
-          <div style="font-size:14px;font-weight:600;">Product</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">Sell something</div>
+        <div style="background:var(--bg);padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <span style="font-size:20px;">🛒</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">Product</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Sell something</div>
+          </div>
         </div>
-        <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center;cursor:pointer;">
-          <div style="font-size:24px;margin-bottom:6px;">🤝</div>
-          <div style="font-size:14px;font-weight:600;">Service</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">Offer your skills</div>
+        <div style="background:var(--bg);padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <span style="font-size:20px;">🤝</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">Service</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Offer your skills</div>
+          </div>
         </div>
-        <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center;cursor:pointer;">
-          <div style="font-size:24px;margin-bottom:6px;">💡</div>
-          <div style="font-size:14px;font-weight:600;">Idea</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">Float a thought</div>
+        <div style="background:var(--bg);padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <span style="font-size:20px;">💡</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">Idea</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Float a thought</div>
+          </div>
         </div>
-        <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center;cursor:pointer;">
-          <div style="font-size:24px;margin-bottom:6px;">🎁</div>
-          <div style="font-size:14px;font-weight:600;">Offer</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">Give something away</div>
-        </div>
-        <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center;cursor:pointer;">
-          <div style="font-size:24px;margin-bottom:6px;">🙋</div>
-          <div style="font-size:14px;font-weight:600;">Ask</div>
-          <div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">Request help</div>
+        <div style="background:var(--bg);padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <span style="font-size:20px;">🎁</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">Offer</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Give something away</div>
+          </div>
         </div>
       </div>
 
-      <div style="height:24px;"></div>
+      <div style="padding:var(--space-sm) 0;text-align:center;">
+        <span style="font-size:12px;color:var(--charcoal-300);">Scroll for more ↓</span>
+      </div>
     </div>
 
     <div class="home-indicator"><div></div></div>
@@ -162,78 +155,78 @@
   <div class="screen-label">Member Page</div>
   <div class="screen-route">/m/[handle]</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
-    <div style="padding:8px 20px;">
-      <span style="font-size:13px;color:var(--fg-muted);cursor:pointer;">← Back</span>
+    <div style="padding:8px var(--space-md);">
+      <span style="font-size:13px;color:var(--charcoal-500);cursor:pointer;">← Back</span>
     </div>
 
     <!-- Profile header -->
-    <div style="padding:8px 20px;display:flex;align-items:center;gap:16px;">
+    <div style="padding:var(--space-xs) var(--space-md);display:flex;align-items:center;gap:var(--space-sm);">
       <div class="avatar" style="width:64px;height:64px;font-size:22px;background:linear-gradient(135deg,var(--pistachio-200),var(--pistachio-400));color:#fff;">SM</div>
       <div>
-        <div style="font-size:20px;font-weight:700;">Sarah M.</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">📍 West Sacramento</div>
+        <div style="font-size:20px;font-weight:700;color:var(--charcoal-900);">Sarah M.</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">📍 West Sacramento</div>
         <div style="font-size:12px;color:var(--fg-muted);margin-top:2px;">Joined Mar 2026</div>
       </div>
     </div>
 
-    <!-- Follow -->
-    <div style="padding:14px 20px;">
-      <div class="btn-primary">Follow</div>
-    </div>
-
-    <div class="section-sep"></div>
+    <div class="hairline" style="margin-top:var(--space-md);"></div>
 
     <!-- What they do -->
-    <div style="padding:14px 20px 4px;">
+    <div style="padding:var(--space-md) var(--space-md) 0;">
       <div class="section-label">What Sarah does</div>
-    </div>
-    <div style="padding:8px 20px;display:flex;gap:6px;flex-wrap:wrap;">
-      <span style="font-size:12px;padding:5px 12px;background:var(--surface);border-radius:var(--radius-full);">Hosts events</span>
-      <span style="font-size:12px;padding:5px 12px;background:var(--surface);border-radius:var(--radius-full);">Sells products</span>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+        <span style="font-size:12px;padding:6px 14px;background:var(--surface);border-radius:var(--radius-full);color:var(--charcoal-700);">Hosts events</span>
+        <span style="font-size:12px;padding:6px 14px;background:var(--surface);border-radius:var(--radius-full);color:var(--charcoal-700);">Sells products</span>
+      </div>
     </div>
 
-    <div class="section-sep" style="margin-top:10px;"></div>
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
 
     <!-- Their items -->
-    <div style="padding:14px 20px 4px;">
+    <div style="padding:0 var(--space-md);">
       <div class="section-label">Active listings</div>
     </div>
 
-    <div style="padding:10px 20px;">
-      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
-        <div style="font-size:14px;font-weight:600;">Clothing Swap</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">💡 Idea · 3h ago</div>
+    <div style="padding:12px var(--space-md);">
+      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-sm);">
+        <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Clothing Swap</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">💡 Idea · 3h ago</div>
       </div>
     </div>
 
-    <div style="padding:4px 20px;">
-      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
-        <div style="font-size:14px;font-weight:600;">Homemade Candles</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">🛒 Product · $15</div>
+    <div style="height:var(--space-md);"></div>
+
+    <div style="padding:0 var(--space-md);">
+      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-sm);">
+        <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Homemade Candles</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">🛒 Product · $15</div>
       </div>
     </div>
+
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
 
     <!-- Groups -->
-    <div style="padding:14px 20px 4px;">
+    <div style="padding:0 var(--space-md);">
       <div class="section-label">Groups</div>
-    </div>
-    <div style="padding:8px 20px;display:flex;gap:10px;">
-      <div style="text-align:center;width:52px;">
-        <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--pistachio-100);display:flex;align-items:center;justify-content:center;font-size:12px;">🌿</div>
-        <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Gardeners</div>
+      <div style="display:flex;gap:12px;margin-top:10px;">
+        <div style="text-align:center;width:52px;">
+          <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--pistachio-100);display:flex;align-items:center;justify-content:center;font-size:14px;">🌿</div>
+          <div style="font-size:10px;margin-top:4px;color:var(--fg-muted);">Gardeners</div>
+        </div>
       </div>
     </div>
 
-    <div style="height:16px;"></div>
+    <div style="height:var(--space-md);"></div>
 
-    <div class="bottom-nav">
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="label">Home</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="label">Explore</div></div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="label">You</div></div>
+    <!-- Sticky bottom CTA -->
+    <div style="border-top:1px solid var(--border);padding:12px var(--space-md);">
+      <div class="btn-primary">Follow</div>
     </div>
+
     <div class="home-indicator"><div></div></div>
   </div>
 </div>
@@ -245,74 +238,72 @@
   <div class="screen-label">Group (Circle)</div>
   <div class="screen-route">/p/.../g/[slug]</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
-    <div style="padding:8px 20px;">
-      <span style="font-size:13px;color:var(--fg-muted);cursor:pointer;">← Back</span>
+    <div style="padding:8px var(--space-md);">
+      <span style="font-size:13px;color:var(--charcoal-500);cursor:pointer;">← Back</span>
     </div>
 
     <!-- Group header -->
-    <div style="padding:4px 20px 0;">
-      <div style="width:56px;height:56px;border-radius:var(--radius-sm);background:var(--pistachio-100);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:10px;">🌿</div>
-      <div style="font-size:22px;font-weight:700;">West Sac Gardeners</div>
+    <div style="padding:4px var(--space-md) 0;">
+      <div style="width:56px;height:56px;border-radius:var(--radius-sm);background:var(--pistachio-100);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px;">🌿</div>
+      <div style="font-size:22px;font-weight:700;color:var(--charcoal-900);">West Sac Gardeners</div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
         <span style="font-size:12px;color:var(--fg-muted);">Practice circle</span>
-        <span style="width:3px;height:3px;border-radius:50%;background:var(--border);"></span>
+        <div class="dot"></div>
         <span style="font-size:12px;color:var(--fg-muted);">West Sacramento</span>
       </div>
-      <div style="font-size:13px;color:var(--fg-muted);margin-top:8px;line-height:1.5;">Urban gardening community. Seed swaps, plot sharing, seasonal tips.</div>
+      <div style="font-size:14px;color:var(--charcoal-700);margin-top:10px;line-height:1.6;">Urban gardening community. Seed swaps, plot sharing, seasonal tips.</div>
     </div>
 
-    <div class="section-sep" style="margin-top:14px;"></div>
-
-    <!-- CTAs -->
-    <div style="padding:14px 20px;display:flex;gap:10px;">
-      <div class="btn-primary" style="flex:1;">Join</div>
-      <div class="btn-secondary" style="flex:1;">Share</div>
-    </div>
+    <div class="hairline" style="margin-top:var(--space-md);"></div>
 
     <!-- Members -->
-    <div style="padding:0 20px 4px;">
+    <div style="padding:var(--space-md) var(--space-md) 0;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div class="section-label">Members · 23</div>
-        <span style="font-size:12px;color:var(--pistachio-500);">See all →</span>
+        <span style="font-size:12px;color:var(--charcoal-500);cursor:pointer;">See all →</span>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <div class="avatar" style="width:36px;height:36px;font-size:11px;">AJ</div>
+        <div class="avatar" style="width:36px;height:36px;font-size:11px;">SM</div>
+        <div class="avatar" style="width:36px;height:36px;font-size:11px;">TM</div>
+        <div class="avatar" style="width:36px;height:36px;font-size:11px;">RB</div>
+        <div class="avatar" style="width:36px;height:36px;font-size:11px;background:var(--surface);color:var(--charcoal-300);border:1px dashed var(--border);">+19</div>
       </div>
     </div>
-    <div style="padding:8px 20px;display:flex;gap:8px;">
-      <div class="avatar" style="width:36px;height:36px;font-size:11px;">AJ</div>
-      <div class="avatar" style="width:36px;height:36px;font-size:11px;">SM</div>
-      <div class="avatar" style="width:36px;height:36px;font-size:11px;">TM</div>
-      <div class="avatar" style="width:36px;height:36px;font-size:11px;">RB</div>
-      <div class="avatar" style="width:36px;height:36px;font-size:11px;background:var(--surface);color:var(--fg-muted);border:1px dashed var(--border);">+19</div>
-    </div>
 
-    <div class="section-sep" style="margin-top:12px;"></div>
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
 
     <!-- Activity -->
-    <div style="padding:14px 20px 4px;">
+    <div style="padding:0 var(--space-md);">
       <div class="section-label">Recent activity</div>
     </div>
-    <div style="padding:10px 20px;">
-      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
-        <div style="font-size:14px;font-weight:600;">Summer Seed Swap</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">🎪 Event · Sat, Jun 28 · 10 AM</div>
-      </div>
-    </div>
-    <div style="padding:4px 20px;">
-      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
-        <div style="font-size:14px;font-weight:600;">Anyone have extra tomato starts?</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">🙋 Ask · Anna J. · 2d ago</div>
+    <div style="padding:12px var(--space-md);">
+      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-sm);">
+        <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Summer Seed Swap</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">🎪 Event · Sat, Jun 28 · 10 AM</div>
       </div>
     </div>
 
-    <div style="height:8px;"></div>
+    <div style="height:var(--space-md);"></div>
 
-    <div class="bottom-nav">
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="label">Home</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="label">Explore</div></div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="label">You</div></div>
+    <div style="padding:0 var(--space-md);">
+      <div style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-sm);">
+        <div style="font-size:15px;font-weight:600;color:var(--charcoal-900);">Anyone have extra tomato starts?</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">🙋 Ask · Anna J. · 2d ago</div>
+      </div>
     </div>
+
+    <div style="height:var(--space-md);"></div>
+
+    <!-- Sticky bottom CTA -->
+    <div style="border-top:1px solid var(--border);padding:12px var(--space-md);display:flex;gap:10px;">
+      <div class="btn-primary" style="flex:1;">Join</div>
+      <div class="btn-secondary" style="flex:0 0 auto;padding:14px 20px;">Share</div>
+    </div>
+
     <div class="home-indicator"><div></div></div>
   </div>
 </div>
@@ -324,65 +315,68 @@
   <div class="screen-label">Event Detail</div>
   <div class="screen-route">/p/.../e/[slug]</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
-    <div style="padding:8px 20px;">
-      <span style="font-size:13px;color:var(--fg-muted);cursor:pointer;">← Back</span>
+    <div style="padding:8px var(--space-md);">
+      <span style="font-size:13px;color:var(--charcoal-500);cursor:pointer;">← Back</span>
     </div>
 
     <!-- Hero -->
-    <div style="padding:0 20px;">
-      <div class="photo-placeholder" style="width:100%;height:180px;">Event photo</div>
+    <div style="padding:0 var(--space-md);">
+      <div class="photo-placeholder" style="width:100%;height:200px;">Event photo</div>
     </div>
 
     <!-- Event info -->
-    <div style="padding:14px 20px 0;">
-      <div style="font-size:22px;font-weight:700;">Thursday Run Club</div>
-      <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;line-height:1.6;">
-        📅 Every Thursday · 6:00 PM<br>
-        📍 Drake's Brewing Co. · 0.4 mi<br>
-        💰 Free
+    <div style="padding:var(--space-sm) var(--space-md) 0;">
+      <div style="font-size:22px;font-weight:700;color:var(--charcoal-900);">Thursday Run Club</div>
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--charcoal-700);">
+          <span style="width:20px;text-align:center;">📅</span> Every Thursday · 6:00 PM
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--charcoal-700);">
+          <span style="width:20px;text-align:center;">📍</span> Drake's Brewing Co. · 0.4 mi
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--charcoal-700);">
+          <span style="width:20px;text-align:center;">💰</span> Free
+        </div>
       </div>
-      <div style="display:flex;gap:6px;margin-top:8px;">
-        <span style="font-size:10px;padding:3px 8px;background:var(--surface);border-radius:4px;">Weekly</span>
-        <span style="font-size:10px;padding:3px 8px;background:var(--surface);border-radius:4px;">Running</span>
-        <span style="font-size:10px;padding:3px 8px;background:var(--surface);border-radius:4px;">All levels</span>
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <span style="font-size:11px;padding:4px 10px;background:var(--surface);border-radius:6px;color:var(--charcoal-500);font-weight:500;">Weekly</span>
+        <span style="font-size:11px;padding:4px 10px;background:var(--surface);border-radius:6px;color:var(--charcoal-500);font-weight:500;">Running</span>
+        <span style="font-size:11px;padding:4px 10px;background:var(--surface);border-radius:6px;color:var(--charcoal-500);font-weight:500;">All levels</span>
       </div>
     </div>
 
-    <div class="section-sep" style="margin-top:14px;"></div>
+    <div class="hairline" style="margin-top:var(--space-md);"></div>
 
     <!-- Host -->
-    <div style="padding:14px 20px;display:flex;align-items:center;gap:12px;">
+    <div style="padding:var(--space-md) var(--space-md) 0;display:flex;align-items:center;gap:12px;">
       <div class="avatar" style="width:40px;height:40px;font-size:14px;background:linear-gradient(135deg,var(--pistachio-200),var(--pistachio-400));color:#fff;">BK</div>
       <div>
-        <div style="font-size:14px;font-weight:600;">Brian K.</div>
+        <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">Brian K.</div>
         <div style="font-size:12px;color:var(--fg-muted);">Host</div>
       </div>
       <div style="margin-left:auto;">
-        <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;">Follow</div>
+        <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;color:var(--charcoal-700);">Follow</div>
       </div>
     </div>
 
-    <div class="section-sep"></div>
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
 
     <!-- Description -->
-    <div style="padding:14px 20px;">
+    <div style="padding:0 var(--space-md);">
       <div class="section-label">About</div>
-      <div style="font-size:14px;color:var(--fg);margin-top:8px;line-height:1.6;">Casual 5K along the river trail, all paces welcome. Meet at the taproom patio, run starts at 6:15. Post-run beers optional but encouraged.</div>
+      <div style="font-size:14px;color:var(--charcoal-700);margin-top:10px;line-height:1.6;">Casual 5K along the river trail, all paces welcome. Meet at the taproom patio, run starts at 6:15. Post-run beers optional but encouraged.</div>
     </div>
 
-    <!-- CTA -->
-    <div style="padding:0 20px 16px;">
+    <div style="height:var(--space-md);"></div>
+
+    <!-- Sticky bottom CTA -->
+    <div style="border-top:1px solid var(--border);padding:12px var(--space-md);">
       <div class="btn-primary">Follow this event</div>
     </div>
 
-    <div class="bottom-nav">
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="label">Home</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="label">Explore</div></div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="label">You</div></div>
-    </div>
     <div class="home-indicator"><div></div></div>
   </div>
 </div>
@@ -394,68 +388,68 @@
   <div class="screen-label">Product Detail</div>
   <div class="screen-route">/p/.../g/[group]/p/[slug]</div>
   <div class="phone">
-    <div class="status-bar"><span>9:41</span><span>⚡</span></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
 
-    <div style="padding:8px 20px;">
-      <span style="font-size:13px;color:var(--fg-muted);cursor:pointer;">← Back</span>
+    <div style="padding:8px var(--space-md);">
+      <span style="font-size:13px;color:var(--charcoal-500);cursor:pointer;">← Back</span>
     </div>
 
     <!-- Hero -->
-    <div style="padding:0 20px;">
-      <div class="photo-placeholder" style="width:100%;height:200px;">Product photo</div>
+    <div style="padding:0 var(--space-md);">
+      <div class="photo-placeholder" style="width:100%;height:220px;background:linear-gradient(135deg,#D4A574,#8B6914);">Product photo</div>
     </div>
 
     <!-- Product info -->
-    <div style="padding:14px 20px 0;">
-      <div style="font-size:22px;font-weight:700;">Sourdough Boule</div>
-      <div style="font-size:22px;font-weight:700;margin-top:4px;">$8</div>
-      <div style="display:flex;align-items:center;gap:6px;margin-top:8px;">
-        <span style="font-size:10px;padding:3px 10px;background:var(--locally-owned);color:#fff;border-radius:6px;font-weight:600;">Locally Owned</span>
+    <div style="padding:var(--space-sm) var(--space-md) 0;">
+      <div style="font-size:22px;font-weight:700;color:var(--charcoal-900);">Sourdough Boule</div>
+      <div style="font-size:22px;font-weight:700;margin-top:4px;color:var(--charcoal-900);">$8</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:10px;">
+        <span style="font-size:10px;padding:4px 10px;background:var(--locally-owned);color:#fff;border-radius:6px;font-weight:600;">Locally Owned</span>
       </div>
     </div>
 
-    <div class="section-sep" style="margin-top:14px;"></div>
+    <div class="hairline" style="margin-top:var(--space-md);"></div>
 
     <!-- Seller -->
-    <div style="padding:14px 20px;display:flex;align-items:center;gap:12px;">
+    <div style="padding:var(--space-md) var(--space-md) 0;display:flex;align-items:center;gap:12px;">
       <div class="avatar" style="width:40px;height:40px;font-size:14px;background:linear-gradient(135deg,var(--pistachio-200),var(--pistachio-400));color:#fff;">DL</div>
       <div>
-        <div style="font-size:14px;font-weight:600;">River City Bread</div>
+        <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">River City Bread</div>
         <div style="font-size:12px;color:var(--fg-muted);">Don L. · West Sacramento</div>
       </div>
       <div style="margin-left:auto;">
-        <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;">Follow</div>
+        <div style="padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-full);font-size:12px;font-weight:500;color:var(--charcoal-700);">Follow</div>
       </div>
     </div>
 
-    <div class="section-sep"></div>
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
 
     <!-- Details -->
-    <div style="padding:14px 20px;">
+    <div style="padding:0 var(--space-md);">
       <div class="section-label">Details</div>
-      <div style="font-size:14px;color:var(--fg);margin-top:8px;line-height:1.6;">Slow-fermented sourdough, hand-shaped, baked in a wood-fired oven. 48-hour cold proof for maximum tang.</div>
+      <div style="font-size:14px;color:var(--charcoal-700);margin-top:10px;line-height:1.6;">Slow-fermented sourdough, hand-shaped, baked in a wood-fired oven. 48-hour cold proof for maximum tang.</div>
     </div>
 
+    <!-- 32px section gap -->
+    <div style="height:var(--space-lg);"></div>
+
     <!-- Pickup -->
-    <div style="padding:0 20px;">
+    <div style="padding:0 var(--space-md);">
       <div class="section-label">Pickup</div>
-      <div style="margin-top:8px;border:1px solid var(--border);border-radius:var(--radius-md);padding:12px;">
-        <div style="font-size:14px;font-weight:600;">Saturday pickup</div>
-        <div style="font-size:12px;color:var(--fg-muted);margin-top:3px;">Drake's Brewing · 9 AM – 12 PM</div>
+      <div style="margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-sm);">
+        <div style="font-size:14px;font-weight:600;color:var(--charcoal-900);">Saturday pickup</div>
+        <div style="font-size:12px;color:var(--fg-muted);margin-top:4px;">Drake's Brewing · 9 AM – 12 PM</div>
       </div>
     </div>
 
-    <!-- CTA -->
-    <div style="padding:16px 20px;">
+    <div style="height:var(--space-md);"></div>
+
+    <!-- Sticky bottom CTA -->
+    <div style="border-top:1px solid var(--border);padding:12px var(--space-md);">
       <div class="btn-primary">Message seller</div>
     </div>
 
-    <div class="bottom-nav">
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="label">Home</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="label">Explore</div></div>
-      <div class="nav-item"><div class="create-btn">+</div></div>
-      <div class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="label">You</div></div>
-    </div>
     <div class="home-indicator"><div></div></div>
   </div>
 </div>
