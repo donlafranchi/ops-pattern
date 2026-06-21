@@ -17,7 +17,7 @@ A member platform built to strengthen the communities who build it with us. We c
 
 Our loyalty is to our members — the makers, growers, sellers, buyers, and communities who partner with us. Not to shareholders, not to investors, not to anyone whose interests aren't aligned with the people who make the platform worth using.
 
-See [`member-journey.md`](../needs/member-journey.md) for the platform's structural arc and [`use-cases.md`](../needs/use-cases.md) for the real situations this commitment is being held against. (Producer-specific framing in this doc is pending re-anchor on Members per [`planning/rebuild-plan.md`](../../planning/rebuild-plan.md) Phase 6.)
+See [`member-journey.md`](../needs/member-journey.md) for the platform's structural arc and [`use-cases.md`](../needs/use-cases.md) for the real situations this commitment is being held against. (Producer-specific framing in this doc is pending re-anchor on Members per [`planning/rebuild-plan.md`](../../_attic/2026-05-28-rebuild-plan/rebuild-plan.md) Phase 6.)
 
 ## What We Promise
 

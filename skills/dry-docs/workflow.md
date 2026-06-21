@@ -88,7 +88,7 @@ Triggered by: "dry fix", "replace restatements with pointers", "DRY the docs".
    progressive intervention.
 
    AFTER (pointer):
-   Groups failing the extraction diagnostic (see [impact-diagnostic.md](../foundation/impact-diagnostic.md))
+   Groups failing the extraction diagnostic (see [impact-diagnostic.md](../../product/foundation/impact-diagnostic.md))
    face progressive intervention.
    ```
 

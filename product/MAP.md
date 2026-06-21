@@ -60,7 +60,7 @@ Who the platform serves, what they want, how they move through it.
 - **[`ui/design-language.md`](ui/design-language.md)** — DLS tokens, six principles (one accent · hairlines · photography · whitespace · one typeface · bottom-anchored thumb-reachable), surface patterns per page type.
 - **[`../planning/now/bundle-1.md`](../planning/now/bundle-1.md)** — the MVP scope; what ships at b1, what defers to b2/b3, what's reserved at the schema layer.
 - **[`../planning/now/bundle-1-themes.md`](../planning/now/bundle-1-themes.md)** (sub-bundle sequencer) + **[`../planning/now/bundle-1-checklist.md`](../planning/now/bundle-1-checklist.md)** (one-page MVP scoreboard) — what's left, at a glance.
-- **[`../planning/rebuild-plan.md`](../planning/rebuild-plan.md)** — clean-slate rebuild plan; four phases (0=floor, 1=schema, 2=core surfaces, 3=index+thesis).
+- **[`../planning/rebuild-plan.md`](../_attic/2026-05-28-rebuild-plan/rebuild-plan.md)** — clean-slate rebuild plan; four phases (0=floor, 1=schema, 2=core surfaces, 3=index+thesis).
 - **[`../playbooks/PLATFORM-PATTERNS.md`](../playbooks/PLATFORM-PATTERNS.md)** + **[`../playbooks/DEVELOPMENT-PATTERNS.md`](../playbooks/DEVELOPMENT-PATTERNS.md)** — decisions in force (what the platform IS / refuses; how we build).
 - **[`../AGENTS.md`](../AGENTS.md)** — agent pipeline (product → plan → review → eval → ticket → build → eval); firewalls, gates, escalation contacts.
 - **[`../CLAUDE.md`](../CLAUDE.md)** — root router; skill routing table; solo-team multiplier gates (M1 architecture, M2 code-review, M3 a11y, M4 deploy-checklist).

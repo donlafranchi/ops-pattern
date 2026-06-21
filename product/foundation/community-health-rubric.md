@@ -375,7 +375,7 @@ That last point is critical: **the platform should never create lock-in that pre
 
 **Platform implications:** Build for data portability from day one. Use open standards. Make export easy. Design governance tools that the platform doesn't have override access to. Let communities develop their own brand, culture, and identity within (and eventually beyond) the platform.
 
-> **In the platform.** [`member-journey.md`](../needs/member-journey.md) Family 5 (Federation, loop 13) is this stage in the platform's roadmap — when a Community grows deep enough infrastructure (banking, insurance, intelligence), it *spawns into a separate federated platform*. Mondragon is the model. The platform's structural commitment to data portability and federation-portability is encoded in [`agent-assistance.md`](agent-assistance.md) and the action-layer event log invariants ([`../systems/action-layer.md`](../systems/action-layer.md)).
+> **In the platform.** [`member-journey.md`](../needs/member-journey.md) Family 5 (Federation, loop 13) is this stage in the platform's roadmap — when a Community grows deep enough infrastructure (banking, insurance, intelligence), it *spawns into a separate federated platform*. Mondragon is the model. The platform's structural commitment to data portability and federation-portability is encoded in [`agent-assistance.md`](../systems/agent-assistance.md) and the action-layer event log invariants ([`../systems/action-layer.md`](../systems/action-layer.md)).
 
 ---
 

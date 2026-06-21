@@ -143,7 +143,7 @@ Ideas under investigation — not scoped, not scheduled.
 | MVP overview | [bundle-1.md](planning/now/bundle-1.md) | b1 Primitives MVP — hypothesis, what's in, what defers, success metrics | active |
 | Scoreboard | [bundle-1-checklist.md](planning/now/bundle-1-checklist.md) | One-page progress check for b1, in human terms | active |
 | Sub-themes | [bundle-1-themes.md](planning/now/bundle-1-themes.md) | 1–2 week slices per bundle (b1.0–b1.6, b2, b3) | active |
-| Surface sequence | [plan-b1-surface-sequence.md](planning/next/plan-b1-surface-sequence.md) | Active sequence for remaining b1 user-surface work | queued |
+| Surface sequence | [plan-b1-surface-sequence.md](planning/now/plan-b1-surface-sequence.md) | Active sequence for remaining b1 user-surface work | queued |
 | Phase 3 overview | [initiative-phase-3.md](planning/now/initiative-phase-3.md) | Nine candidate Phase 3 items, each a standalone backlog stub | active |
 | Sell walkthrough | [scenario-F036-...md](planning/now/scenario-F036-member-creates-business-group-via-sell-walkthrough.md) | In-build scenario — Sell walkthrough creates a business Group | draft |
 
@@ -166,7 +166,7 @@ Ideas under investigation — not scoped, not scheduled.
 |---|---|---|---|
 | Follows surface | [scenario-F042-...md](planning/next/scenario-F042-member-follows-producer-group-venue.md) | Member follows producer, Group, venue — two-level `/you` + `/you/following` | approved |
 | Venue page | [review-F042.md](planning/next/review-F042.md) | Review for F042 — PROCEED | active |
-| Reorg: YAML IDs | [reorg-12-yaml-doc-ids.md](planning/next/reorg-12-yaml-doc-ids.md) | Inject stable YAML id fields into doc front-matter | ratified |
+| Reorg: YAML IDs | [reorg-12-yaml-doc-ids.md](planning/done/2026-05-30-reorg-yaml-doc-ids/reorg-12-yaml-doc-ids.md) | Inject stable YAML id fields into doc front-matter | ratified |
 
 ---
 
@@ -176,21 +176,21 @@ Drafts not yet approved. The build agent cannot read these.
 
 | What it is | Doc | Scenario | Status |
 |---|---|---|---|
-| Run club | [scenario-F018-...md](planning/backlog/scenario-F018-brian-declares-run-club.md) | Brian declares the Run Club gathering at Drake's | draft |
-| Signup flow | [scenario-F030-...md](planning/backlog/scenario-F030-newcomer-signs-up-and-lands-in-feed.md) | Newcomer signs up, picks locality + interests, lands in feed | draft |
+| Run club | [scenario-F018-...md](planning/done/2026-06-02-backlog-cleanup/scenario-F018-brian-declares-run-club.md) | Brian declares the Run Club gathering at Drake's | draft |
+| Signup flow | [scenario-F030-...md](planning/now/scenario-F030-newcomer-signs-up-and-lands-in-feed.md) | Newcomer signs up, picks locality + interests, lands in feed | draft |
 | Place-interest scope | [scenario-F031-...md](planning/backlog/scenario-F031-member-manages-place-interest-scope.md) | Member tunes awareness scope with secondary Place-interests | draft |
-| Member page | [scenario-F032-...md](planning/backlog/scenario-F032-viewer-finds-member-page-and-follows.md) | Viewer finds Member page, taps follow | draft |
+| Member page | [scenario-F032-...md](planning/now/scenario-F032-viewer-finds-member-page-and-follows.md) | Viewer finds Member page, taps follow | draft |
 | Venue page | [scenario-F033-...md](planning/backlog/scenario-F033-viewer-finds-venue-page.md) | Viewer finds venue page, sees what's happening there | draft |
-| Recurring gathering | [scenario-F034-...md](planning/backlog/scenario-F034-member-hosts-recurring-gathering.md) | Member hosts recurring gathering at an existing venue | draft |
-| Group page | [scenario-F035-...md](planning/backlog/scenario-F035-viewer-finds-group-page.md) | Viewer finds Group page (community + business kinds) | draft |
-| Locally owned | [scenario-F037-...md](planning/backlog/scenario-F037-producer-claims-locally-owned.md) | Producer claims Tier 0 Locally Owned badge | draft |
-| List product | [scenario-F038-...md](planning/backlog/scenario-F038-producer-lists-product.md) | Producer lists a product via the composer | draft |
-| Locally made | [scenario-F039-...md](planning/backlog/scenario-F039-producer-claims-locally-made.md) | Producer claims Locally Made provenance badge (deferred) | draft |
-| List service | [scenario-F040-...md](planning/backlog/scenario-F040-producer-lists-service.md) | Producer lists a service via the composer | draft |
-| QR card | [scenario-F041-...md](planning/backlog/scenario-F041-producer-generates-qr-card.md) | Producer generates a print-quality QR card | draft |
+| Recurring gathering | [scenario-F034-...md](planning/now/scenario-F034-member-hosts-recurring-gathering.md) | Member hosts recurring gathering at an existing venue | draft |
+| Group page | [scenario-F035-...md](planning/done/2026-06-02-backlog-cleanup/scenario-F035-viewer-finds-group-page.md) | Viewer finds Group page (community + business kinds) | draft |
+| Locally owned | [scenario-F037-...md](planning/done/2026-06-02-superseded-producer-scenarios/scenario-F037-producer-claims-locally-owned.md) | Producer claims Tier 0 Locally Owned badge | draft |
+| List product | [scenario-F038-...md](planning/now/scenario-F038-producer-lists-product.md) | Producer lists a product via the composer | draft |
+| Locally made | [scenario-F039-...md](planning/done/2026-06-02-superseded-producer-scenarios/scenario-F039-producer-claims-locally-made.md) | Producer claims Locally Made provenance badge (deferred) | draft |
+| List service | [scenario-F040-...md](planning/now/scenario-F040-producer-lists-service.md) | Producer lists a service via the composer | draft |
+| QR card | [scenario-F041-...md](planning/now/scenario-F041-producer-generates-qr-card.md) | Producer generates a print-quality QR card | draft |
 | Integration test | [scenario-F043-...md](planning/backlog/scenario-F043-newcomer-completes-journey-under-target.md) | Newcomer completes full journey under 90s target | draft |
 | F018 decision | [decision-F018-flagship.md](planning/backlog/decision-F018-flagship.md) | Whether F018 stays the flagship walkthrough | proposed |
-| Story template | [USER-STORY-TEMPLATE.md](planning/backlog/USER-STORY-TEMPLATE.md) | Redirect to the real scenario template in skills/ | reference |
+| Story template | [USER-STORY-TEMPLATE.md](planning/done/2026-06-02-backlog-cleanup/USER-STORY-TEMPLATE.md) | Redirect to the real scenario template in skills/ | reference |
 
 ---
 
@@ -256,8 +256,8 @@ Cross-cutting build qualities. All placeholders pending real content.
 | What it is | Doc | Purpose | Status |
 |---|---|---|---|
 | Report shape | [T067-report-shape.md](development/tickets/T067-report-shape.md) | Install the BLUF report shape across pipeline-skill surfaces | active |
-| Follows reader + /you summary | [T108-...md](development/tickets/T108-unified-follows-reader-and-you-summary.md) | Unified follows data reader + `/you` summary card scroll | open |
-| /you/following page | [T109-...md](development/tickets/T109-you-following-management-page.md) | Full management page with People/Groups/Venues sections | open |
+| Follows reader + /you summary | [T108-...md](development/tickets/done/T108-unified-follows-reader-and-you-summary.md) | Unified follows data reader + `/you` summary card scroll | open |
+| /you/following page | [T109-...md](development/tickets/done/T109-you-following-management-page.md) | Full management page with People/Groups/Venues sections | open |
 
 ---
 

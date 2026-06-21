@@ -14,7 +14,7 @@ status: draft
 **Status:** backlog
 **New scenario** — no existing F-number. Integration test of every scenario from F030–F040; depends on all of them.
 
-> **Working target note.** The "~90 seconds" framing is the working test target carried forward from `rebuild-plan.md` Phase 2 exit. Per [`planning/done/reorg-05-soft-target-arbitrary-metrics.md`](../done/reorg-05-soft-target-arbitrary-metrics.md), the specific 90-second number is a soft target (no user testing yet). Treat as a *qualitative test* — "the new Member can complete the full journey without getting stuck or abandoning" — with 90 seconds as the working numeric proxy. If real user testing later moves the number to 60 / 120 / 180, the qualitative spirit holds.
+> **Working target note.** The "~90 seconds" framing is the working test target carried forward from `rebuild-plan.md` Phase 2 exit. Per [`_attic/2026-05-30-kanban-done-batch/reorg-05-soft-target-arbitrary-metrics.md`](../../_attic/2026-05-30-kanban-done-batch/reorg-05-soft-target-arbitrary-metrics.md), the specific 90-second number is a soft target (no user testing yet). Treat as a *qualitative test* — "the new Member can complete the full journey without getting stuck or abandoning" — with 90 seconds as the working numeric proxy. If real user testing later moves the number to 60 / 120 / 180, the qualitative spirit holds.
 
 ## The Person
 
