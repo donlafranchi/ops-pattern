@@ -33,7 +33,7 @@ The two layers reinforce each other. When both point the same direction, confide
 
 The platform does not try to score every entity. It starts with the worst offenders — organizations whose public record shows clear patterns of societal harm — and the clear alternatives. The middle is left unscored until the signal quality earns it.
 
-This is the operational expression of the anti-extraction diagnostic ([`impact-diagnostic.md`](../foundation/impact-diagnostic.md)). The five markers (profit-grows-when-cost-grows, durability suppressed, artificial switching costs, information asymmetry captured, regulatory capture) become queryable data rather than abstract categories.
+This is the operational expression of the anti-extraction diagnostic (see [`impact-diagnostic.md`](../foundation/impact-diagnostic.md)): its five markers become queryable data rather than abstract categories.
 
 ### What this system is not
 

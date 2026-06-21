@@ -39,7 +39,7 @@ MEHKOs are the purest expression of the platform's thesis: a real person, making
 
 **Alignment with principles:**
 
-- **P1 (serves people).** A MEHKO operator is a person doing work. No corporate shell, no franchise model, no middleman. The data model's refusal of impersonal Business entities is tailor-made for this producer segment.
+- **P1 (serves people).** A MEHKO operator is a person doing work — no corporate shell, no franchise, no middleman. The data model's refusal of impersonal Business entities (see [`../foundation/primitives.md`](../foundation/primitives.md)) is tailor-made for this producer segment.
 - **P2 (materially better off).** MEHKOs create income for people who face barriers to traditional restaurant entry — immigrants, stay-at-home parents, people with disabilities, retirees. The COOK Alliance reports roughly a third of early operators were first-generation immigrants.
 - **P4 (circulate wealth).** Every dollar spent at a MEHKO stays hyperlocal — the operator lives in the neighborhood where they sell. This is the tightest possible wealth-circulation loop.
 - **P7 (bad actors fail).** The permit system provides a government-verified trust anchor the platform can surface without building its own verification infrastructure.

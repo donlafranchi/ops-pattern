@@ -57,7 +57,7 @@ Desktop: the same four zones render as a left sidebar nav. The bottom bar disapp
 
 The feed shows time-stamped Items scoped by the viewer's locality — events, ideas, seller updates, followed-member floats. No algorithm at b1; sort is recency + locality scope. This is the "open the app and see what's happening" surface.
 
-**Why this shape:** The feed is locality-aware but not Location-scoped — it surfaces Items from Members whose home is nearby, plus Items at nearby Locations, plus Items from followed Members regardless of location. This is structurally different from an anonymous neighborhood feed: there is no surface that addresses "everyone in West Sac." The accountable-participation commitment is honored by absence. The feed is calm by design: no infinite scroll, no red notification badges. Pagination at 20 with "Show more" — the viewer decides when to see more, not an algorithm.
+**Why this shape:** The feed is locality-aware but not Location-scoped — it surfaces Items from Members whose home is nearby, plus Items at nearby Locations, plus Items from followed Members regardless of location. This is structurally different from an anonymous neighborhood feed: there is no surface that addresses "everyone in West Sac" — the accountable-participation commitment (see [`../foundation/policy.md`](../foundation/policy.md)) is honored by absence. The feed is calm by design: no infinite scroll, no red notification badges. Pagination at 20 with "Show more" — the viewer decides when to see more, not an algorithm.
 
 ### Explore
 
@@ -99,7 +99,7 @@ A Group's public page. Header: Group name, kind label, anchor Location (if any),
 
 A Location's public page. Hero image, venue name, address with distance, "Follow this venue" as primary CTA, "Host something here" as secondary. Sections: what's happening here (the venue's own Items), what's happening nearby (expandable), about.
 
-**Why this shape:** The venue page is the physical-place primitive's public face. Follow is primary because most venue-page visitors are consuming (Loop 8 — Follow what you love). Host is secondary because most visitors aren't organizers. No reviews, no ratings — the venue's value is shown through what happens there, not through star scores (the no-ranking-of-people corollary in [`../foundation/people-first.md`](../foundation/people-first.md), applied to places). This avoids the Yelp failure pattern where aggregated anonymous reviews become the venue's identity.
+**Why this shape:** The venue page is the physical-place primitive's public face. Follow is primary because most venue-page visitors are consuming (Loop 8 — Follow what you love). Host is secondary because most visitors aren't organizers. No reviews, no ratings — the venue's value is shown through what happens there, not through star scores (the no-ranking-of-people corollary in [`../foundation/people-first.md`](../foundation/people-first.md), applied to places).
 
 ### Thesis page
 

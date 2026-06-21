@@ -362,7 +362,7 @@ From the research across Airbnb, Linear, Stripe, Are.na, Letterboxd, and current
 
 **8. Intentional density.** "Breathing room" doesn't mean "spread everything out." It means giving each element the space it needs to be parsed independently. A tight card with 16px internal padding can feel spacious if the card has 24px of open air around it. A sparse card with 32px internal padding can feel cramped if it's butted against the next card with 8px between them. The air *between* elements matters more than the air *inside* them.
 
-**9. Calm over engagement.** No red notification badges. No infinite scroll. No "you have 3 unread" counters. No pull-to-refresh that feels like a slot machine. The app opens, shows what's happening, and waits. The member decides when to engage further. This is the Are.na principle: "No engagement bait, no red badges, no infinite scroll — and people still come back."
+**9. Calm over engagement.** No red notification badges. No infinite scroll. No "you have 3 unread" counters. No pull-to-refresh that feels like a slot machine. The app opens, shows what's happening, and waits — the no-engagement-feed commitment (see [`../foundation/people-first.md`](../foundation/people-first.md)) made concrete. The member decides when to engage further. This is the Are.na principle: "No engagement bait, no red badges, no infinite scroll — and people still come back."
 
 ---
 

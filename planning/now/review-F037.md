@@ -58,7 +58,7 @@ The scenario tags **Loop 7 (Buy close)** and **Loop 9 (Make a living locally)**.
 **Present and thorough.** `business-jurisdiction.md` carries a full three-filter analysis for all three tiers (§ Policy posture). Key points relevant to F037's b1 surface:
 
 - Tier 0 self-attested ZIP: helpful (locality discovery), not harmful (ZIP ≠ address; no street address ever collected), abuse-limited (public "Claimed" label + one-active-row-per-Group constraint + out-of-metro fudge fails proximity).
-- The doxxing-prevention posture is load-bearing: Maya can enter her accountant's ZIP, a PO Box ZIP, or any ZIP she chooses — the platform never asks for or stores a street address.
+- The doxxing-prevention posture is load-bearing and honored (per [`business-jurisdiction.md`](../../product/systems/business-jurisdiction.md)): Maya can enter her accountant's ZIP, a PO Box ZIP, or any ZIP she chooses — the platform never asks for or stores a street address.
 - `member_business_jurisdictions` is intentionally public (contrast with the owner-only `member_place_interests`). The jurisdiction claim is meant to be visible; this is consistent with the substrate split.
 
 ### Architecture verdict

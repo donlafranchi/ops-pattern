@@ -28,7 +28,7 @@ The instinct toward gating is correct in spirit but conflicts directly with seve
 
 **The people who most need help are often the least able to offer first.** A new parent in a hard month, a recently arrived neighbor without a network, someone in a financial or health crisis — these are the canonical Ask cases. A reciprocity gate excludes them by design. That is the failure mode.
 
-**Goodwill points risk reproducing the engagement-game we explicitly avoid.** The platform commits to no engagement-optimized feed, no pay-for-visibility, no rating system. A points balance that determines what you can do is in the same family of mechanics — it gamifies behavior the platform is supposed to keep human.
+**Goodwill points risk reproducing the engagement-game we explicitly avoid.** The platform refuses engagement-optimized feeds, pay-for-visibility, and rating systems (see [`../foundation/people-first.md`](../foundation/people-first.md)). A points balance that determines what you can do is in the same family of mechanics — it gamifies behavior the platform is supposed to keep human.
 
 **Quantified reciprocity erodes the texture of community.** Real neighborhoods have informal tabs that everyone is fuzzy on, on purpose. The fuzziness is the social contract. A precise points system replaces a generative ambiguity with a transactional ledger, and the ledger is what BuyNothing groups deliberately don't keep.
 

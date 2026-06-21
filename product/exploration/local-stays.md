@@ -17,9 +17,9 @@ This is the same structural pattern the platform exists to counter: extractive i
 
 ## Why this belongs on this platform
 
-The platform's primitives already model the relationships a local-stays surface needs:
+The platform's primitives (see [`primitives.md`](../foundation/primitives.md)) already model the relationships a local-stays surface needs — applied to stays:
 
-- **Person (Member)** — a real human who lives in a community and has a spare room, a guest house, or a home they travel away from sometimes. The host is a Person first, a host second — the same person who might also sell sourdough at the Saturday market, host a Run Club, and offer yard help on weekends. Hosting is a verb a Person holds, not a role-as-identity.
+- **Person (Member)** — the host: a real human with a spare room, a guest house, or a home they travel away from sometimes. Hosting is a verb they hold, not a role-as-identity — the same person might also sell sourdough at the Saturday market and run a Run Club.
 
 - **Item (kind='stay')** — a new Item kind. A rental listing is something a Person declares: here is my place, here is what it offers, here is when it's available, here is what it costs. It has a description, a Location, a schedule (availability), a price, responses from other Persons (booking requests, reviews), and a lifecycle (active, booked, withdrawn). The shape is the same as a Product or a Service — a Person declaring something at a Location, discoverable by proximity, with a kind-specific response surface.
 
@@ -39,7 +39,7 @@ One listing per Person is frictionless. A second requires manual review and writ
 
 This is the load-bearing constraint. Everything else follows from it. If the platform makes it easy to operate at scale, the operators will come and the surface will reproduce Airbnb's failure mode. The friction is the feature.
 
-**Why this works structurally:** The Person primitive already enforces "one real human." The platform does not model corporate shells. A Person who holds two stay Items triggers a review; a Person who attempts a third is told this platform is designed for people who host one place. The same structural decision that keeps the platform from modeling Business entities as corporate shells keeps the stays surface from modeling property portfolios.
+**Why this works structurally:** The Person primitive enforces "one real human" and the platform models no Business entity as a corporate shell (see [`../foundation/primitives.md`](../foundation/primitives.md)). A Person who holds two stay Items triggers a review; a third is refused. The same decision that blocks corporate shells blocks property portfolios here.
 
 ### 2. Total cost transparency
 
