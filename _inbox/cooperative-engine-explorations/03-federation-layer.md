@@ -36,7 +36,7 @@ This is the structural answer to the "Costco does insurance" question from earli
 
 ## Why it serves the mandate
 
-This is treatment pattern 4 in [`anti-extraction.md`](../../product/foundation/anti-extraction.md) at full strength: countervailing power assembled bottom-up. Federation captures the leverage of consolidation *without the extraction of consolidation*, because surplus distributes back to member-cooperatives and members rather than to external shareholders.
+This is treatment pattern 4 in [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md) at full strength: countervailing power assembled bottom-up. Federation captures the leverage of consolidation *without the extraction of consolidation*, because surplus distributes back to member-cooperatives and members rather than to external shareholders.
 
 This is also where the platform's revenue model anchors. A small federation service fee — capped by Member vote, with hard ceilings written into the structural form — sustains the platform infrastructure. Anchored to the patronage-dividend pattern that cooperatives already accept, never to engagement metrics.
 
@@ -53,7 +53,7 @@ On the Flourishing Index: federation gives Members access to bulk pricing, share
 
 ## Where this connects
 
-- [`anti-extraction.md`](../../product/foundation/anti-extraction.md) — treatment pattern 4.
+- [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md) — treatment pattern 4.
 - [`groups.md`](../../product/systems/groups.md) — group-of-groups extension.
 - [`monetization.md`](../../product/foundation/monetization.md) — federation service fees are a primary platform revenue line.
 - [`payments.md`](../../product/systems/payments.md) — federation patronage-dividend distribution.

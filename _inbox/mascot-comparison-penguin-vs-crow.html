@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mascot Comparison — Penguin vs Crow Flock</title>
+<style>
+  :root {
+    --bg: #faf8f3;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --rule: #d9d4c7;
+    --penguin: #4a6b8a;
+    --penguin-soft: #e8eef4;
+    --crow: #6b4a6b;
+    --crow-soft: #f0e8f0;
+    --good: #2d6b3f;
+    --bad: #8a3a3a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: ui-serif, Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--ink);
+    margin: 0;
+    padding: 48px 32px;
+    line-height: 1.5;
+  }
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 30px;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .sub {
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 32px;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .card {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 22px 24px 24px;
+    background: white;
+  }
+  .card.penguin { border-top: 4px solid var(--penguin); }
+  .card.crow { border-top: 4px solid var(--crow); }
+  .card h2 {
+    font-size: 22px;
+    margin: 0 0 4px;
+  }
+  .card .tagline {
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+    font-style: italic;
+  }
+  .visual {
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    font-size: 13px;
+    background: var(--penguin-soft);
+    padding: 12px 14px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    line-height: 1.45;
+  }
+  .card.crow .visual { background: var(--crow-soft); }
+  .visual strong {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .section-label {
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin: 14px 0 6px;
+  }
+  .section-label.works { color: var(--good); }
+  .section-label.doesnt { color: var(--bad); }
+  .card ul {
+    margin: 0 0 4px;
+    padding-left: 18px;
+    font-size: 14px;
+  }
+  .card li {
+    margin-bottom: 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+  caption {
+    text-align: left;
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  th, td {
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+  }
+  thead th {
+    background: #f3efe5;
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.dim {
+    font-weight: 600;
+    width: 22%;
+  }
+  td.pen, td.cro {
+    width: 39%;
+    font-size: 13.5px;
+  }
+  td.pen { background: rgba(74, 107, 138, 0.04); }
+  td.cro { background: rgba(107, 74, 107, 0.04); }
+  .score {
+    display: inline-block;
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 8px;
+    text-transform: uppercase;
+  }
+  .score.high { background: #d6e8d9; color: var(--good); }
+  .score.mid { background: #e8e3d6; color: #6b5a2d; }
+  .score.low { background: #e8d6d6; color: var(--bad); }
+  .notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .note {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 18px 20px;
+    background: white;
+    font-size: 14px;
+  }
+  .note h3 {
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .question {
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    padding: 22px 26px;
+    background: white;
+    font-size: 16px;
+  }
+  .question h3 {
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+  .question p { margin: 0 0 8px; }
+  .question ul { margin: 8px 0 0; padding-left: 22px; }
+  .question li { margin-bottom: 4px; }
+  footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-family: ui-sans-serif, -apple-system, sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 720px) {
+    body { padding: 24px 16px; }
+    .cards, .notes { grid-template-columns: 1fr; }
+    td.dim { width: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Mascot comparison: Spicy Penguin vs Crow flock</h1>
+  <p class="sub">Two candidate mascots for the platform. Same thesis underneath — neighbors showing up for each other in a place that's been hollowed out by extraction. Different vibe on the front. This is the trade-off, not the answer.</p>
+
+  <div class="cards">
+
+    <div class="card penguin">
+      <h2>Spicy Penguin</h2>
+      <p class="tagline">Round, cheeky, holding whatever the moment calls for.</p>
+
+      <div class="visual">
+        <strong>Visual treatment</strong>
+        Classic upright penguin silhouette — black-and-white, friendly proportions — holding a different object for each context. Basket at the market. Hammer at a build day. Sign at a council meeting. Fishing rod at the lake. Fork at a potluck. Same character, dozens of situations. The <em>knife penguin</em> specifically is a rare variant, reserved for inside-baseball "we're preparing for a political fight" moments — advocacy pushes, anti-extraction stories, election-adjacent organizing. Used sparingly so it keeps its charge.
+      </div>
+
+      <div class="section-label works">What works</div>
+      <ul>
+        <li><strong>Range built in.</strong> The prop system gives the mascot dozens of expressions without changing the silhouette. Same character, infinite situations — the brand can scale across every context the platform shows up in.</li>
+        <li><strong>Knife reserved for purpose.</strong> Pulling it out only when collective political action is the moment gives the rare variant meaning instead of making it the default. The inside joke stays an inside joke.</li>
+        <li><strong>Underdog warmth carries through every prop.</strong> Whether the bird holds a hammer or a basket, it still reads as a small, sympathetic character doing something. Doesn't lose the approachability.</li>
+        <li><strong>Huddle is already in the analogy.</strong> Penguins huddle for warmth and rotate position — equal contribution, no fixed hierarchy. Maps cleanly to people-first, no-extractive-cut.</li>
+        <li><strong>Universal warmth.</strong> Almost everyone likes penguins. Round, non-threatening base form makes onboarding easier — grandparents and kids both find the mascot approachable.</li>
+      </ul>
+
+      <div class="section-label doesnt">What doesn't</div>
+      <ul>
+        <li><strong>Penguins endure; they don't act.</strong> The behavioral metaphor is survival together, not collective action. The platform is about agency — building things, not just outlasting things.</li>
+        <li><strong>Antarctica isn't the American backyard.</strong> The tone guidance leans American-without-jingoism. Penguins are a zoo animal, not a neighbor.</li>
+        <li><strong>The inside joke needs containment.</strong> The knife variant only works if it stays rare and intentional. If it leaks into the default brand or social handles, the mascot starts reading edgy instead of warm.</li>
+        <li><strong>One character can't show many.</strong> The penguin is always one bird. The platform is about many people coordinating; a single mascot can't carry the collective imagery on its own.</li>
+      </ul>
+    </div>
+
+    <div class="card crow">
+      <h2>Crow flock</h2>
+      <p class="tagline">Many sharp eyes, watching the same neighborhood.</p>
+
+      <div class="visual">
+        <strong>Visual treatment</strong>
+        A flock of stylized crows — multiple silhouettes suggesting motion, watchfulness, and communal presence. The character comes from being many, not from props: birds gathered on a wire, lifting together off a roof, posted as sentinels around a perimeter, settling in for a dusk roost. Could be styled as a perched gathering, a coordinated mob, or a wheeling flight pattern. One strong statement instead of a prop system.
+      </div>
+
+      <div class="section-label works">What works</div>
+      <ul>
+        <li><strong>The flock IS the platform.</strong> Neighbors who notice, remember, share, and collectively show up. A group of crows is the thesis rendered as imagery — you don't have to explain it.</li>
+        <li><strong>Behavior maps directly.</strong> Crows recognize individual neighbors, remember favors, share food locations, mob threats together, hold territory across generations. Endorsement memory, information substrate, collective pushback on extraction, place-attached families — every feature.</li>
+        <li><strong>American everywhere.</strong> Every backyard, parking lot, county fair, and small-town main street. Crows are already on the porch — no zoo required.</li>
+        <li><strong>Active, not passive.</strong> Mobbing — neighbors collectively driving off a threat — is the visual definition of "take back / reclaim." Crows don't endure extraction; they push back on it.</li>
+        <li><strong>Strength without props.</strong> The character carries on posture, eye, and number alone. No prop system to maintain, no risk of any single accessory misreading.</li>
+      </ul>
+
+      <div class="section-label doesnt">What doesn't</div>
+      <ul>
+        <li><strong>Lower cold-start warmth.</strong> Some people find crows unsettling — a whole flock more so. More work to make first-time visitors feel invited.</li>
+        <li><strong>Cultural baggage.</strong> "Murder of crows" is internally funny but a liability if it leaks. Edgar Allan Poe, death omens, and bad-luck superstition all sit nearby. A flock leans <em>harder</em> into that imagery than a single bird.</li>
+        <li><strong>Palette skews dark.</strong> Black plumage at scale means the whole visual identity tilts toward heavier colors. Harder to feel kid-safe or grandma-safe at first glance.</li>
+        <li><strong>One image, not a system.</strong> The flock is a strong single statement but doesn't naturally produce variants the way the penguin's prop system does. Range has to come from styling and composition rather than swappable accessories.</li>
+        <li><strong>Misread risk goes the other way.</strong> Where the penguin can read as edgy-meme, a crow flock can read as goth, gritty, or vaguely countercultural. Neither is the actual platform.</li>
+      </ul>
+    </div>
+  </div>
+
+  <table>
+    <caption>Dimension-by-dimension</caption>
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Spicy Penguin</th>
+        <th>Crow flock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dim">Behavioral fit to platform thesis</td>
+        <td class="pen"><span class="score mid">Partial</span>Huddle = equal contribution. But penguins endure; they don't organize, mob, or push back.</td>
+        <td class="cro"><span class="score high">Strong</span>Recognition, memory, mobbing, information-sharing, multi-generational place attachment — the flock literally <em>is</em> the platform's mechanism.</td>
+      </tr>
+      <tr>
+        <td class="dim">Cheekiness / memorability</td>
+        <td class="pen"><span class="score high">Strong</span>Every prop is a chance for a joke. Distinctive, screenshot-worthy, easy to talk about — and the variants compound.</td>
+        <td class="cro"><span class="score mid">Decent</span>Character without props reads as serious-watchful, not cheeky. Humor has to be drawn in; it isn't built into the silhouette.</td>
+      </tr>
+      <tr>
+        <td class="dim">Cold-start brand warmth</td>
+        <td class="pen"><span class="score high">Strong</span>Round, non-threatening, kid-safe base form. Easy first impression across any prop.</td>
+        <td class="cro"><span class="score low">Weak</span>Some people are wary of a single crow. A whole flock raises the bar further on first contact.</td>
+      </tr>
+      <tr>
+        <td class="dim">American-backyard fit</td>
+        <td class="pen"><span class="score low">Weak</span>Antarctic species. Zoo animal, not a neighbor.</td>
+        <td class="cro"><span class="score high">Strong</span>Every county in America has them. The bird is already in the place you're trying to organize.</td>
+      </tr>
+      <tr>
+        <td class="dim">Cultural baggage</td>
+        <td class="pen"><span class="score mid">Mostly clean</span>Sympathy bias from <em>March of the Penguins</em>, <em>Happy Feet</em>. Generally affectionate associations.</td>
+        <td class="cro"><span class="score low">Heavy</span>Murder, Poe, death omens, bad luck. Funny internally; real liability externally — and a flock amplifies the imagery.</td>
+      </tr>
+      <tr>
+        <td class="dim">Visual flexibility</td>
+        <td class="pen"><span class="score high">Strong</span>Prop system makes it nearly limitless — every context gets a variant without changing the character.</td>
+        <td class="cro"><span class="score mid">Decent</span>Density, posture, and motion give some range, but the flock doesn't multiply into variants the way swappable props do.</td>
+      </tr>
+      <tr>
+        <td class="dim">Underdog energy</td>
+        <td class="pen"><span class="score high">Strong</span>Small character equipped for whatever the moment is. Cleanest David-and-Goliath visual when the prop matches the fight.</td>
+        <td class="cro"><span class="score high">Strong</span>Collective-underdog rather than individual-underdog. Mobbing reads as many small actors pushing back on a larger threat.</td>
+      </tr>
+      <tr>
+        <td class="dim">Misread risk</td>
+        <td class="pen"><span class="score mid">Edgy-meme</span>Reserved-use knife variant mitigates this — the default mascot is the bird with a basket or a hammer, not the bird with a blade.</td>
+        <td class="cro"><span class="score mid">Goth / gritty</span>Could read as countercultural or doom-adjacent rather than neighborly. Flock amplifies the perception either way.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="notes">
+    <div class="note">
+      <h3>"Birds of a feather" — how the framing reads</h3>
+      <p><strong>Penguin huddle</strong> reads emotional and protective — bodies pressed together for warmth. The flock is a survival mechanism. Tone: <em>we keep each other warm.</em></p>
+      <p style="margin-top: 8px;"><strong>Crow flock</strong> reads communicative and social — many birds gathering at dusk, calling, coordinating, sharing the day's information. The flock <em>is</em> an intelligence mechanism. Tone: <em>we keep each other informed.</em></p>
+      <p style="margin-top: 8px;">The crow framing is more on-point for the platform — knowing more than feeling — but the penguin framing is friendlier on first contact.</p>
+    </div>
+    <div class="note">
+      <h3>The hybrid worth considering</h3>
+      <p>Three roles, three uses — and the birds don't have to fight each other:</p>
+      <ul style="margin: 8px 0 0; padding-left: 20px;">
+        <li><strong>Spicy Penguin (prop variants)</strong> — day-to-day brand, mascot across contexts, the friendly face people first meet.</li>
+        <li><strong>Knife Penguin</strong> — rare inside-baseball variant for political-fight moments. Stays scarce, keeps its charge.</li>
+        <li><strong>Crow flock</strong> — conceptual frame in copy. "Neighbors who notice, remember, and show up for each other" lives in the writing without having to carry the brand.</li>
+      </ul>
+      <p style="margin-top: 10px;">Or: commit fully to one bird and don't split the brand.</p>
+    </div>
+  </div>
+
+  <div class="question">
+    <h3>The decision for the group</h3>
+    <p>What is the mascot for? Each candidate wins a different job:</p>
+    <ul>
+      <li><strong>Day-to-day external brand</strong> — the face new visitors meet first. <em>Spicy Penguin</em> wins on warmth, range, and the prop system that scales across contexts.</li>
+      <li><strong>Internal framing in copy</strong> — how we describe what we're doing to ourselves and to early believers. <em>Crow flock</em> wins on behavioral fit, American-backyard rootedness, and active-vs-enduring metaphor.</li>
+      <li><strong>Inside-baseball rally moments</strong> — the "we're preparing for a fight" signal. <em>Knife Penguin</em> wins precisely because it's reserved — used sparingly, it carries weight.</li>
+    </ul>
+    <p style="margin-top: 14px;">If the answer is "the same bird does all three jobs," two of them give ground. If the answer is "different birds in different contexts," nothing has to.</p>
+  </div>
+
+  <footer>
+    Mascot comparison · For discussion with collaborators · Movers, Makers &amp; Shakers
+  </footer>
+</div>
+</body>
+</html>

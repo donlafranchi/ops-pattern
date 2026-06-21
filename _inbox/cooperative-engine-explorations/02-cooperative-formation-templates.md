@@ -35,7 +35,7 @@ Months, not years, from *"I wish there was a co-op for this"* to *"I'm an owner 
 
 ## Why it serves the mandate
 
-This is treatment pattern 1 in [`anti-extraction.md`](../../product/foundation/anti-extraction.md): realigning profit via ownership. The bottleneck for cooperative formation today is matching latent demand with legal infrastructure; the platform's contribution is the matching layer.
+This is treatment pattern 1 in [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md): realigning profit via ownership. The bottleneck for cooperative formation today is matching latent demand with legal infrastructure; the platform's contribution is the matching layer.
 
 On the Flourishing Index: cooperative formation gives Members a path to *ownership stake* in services they currently consume from extractive vendors. Adequacy margin improves (members keep more of what they pay); discretionary hours improve (cooperatives often run on shorter standard work weeks than for-profits in the same vertical).
 
@@ -50,7 +50,7 @@ On the Flourishing Index: cooperative formation gives Members a path to *ownersh
 
 ## Where this connects
 
-- [`anti-extraction.md`](../../product/foundation/anti-extraction.md) — treatment pattern 1.
+- [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md) — treatment pattern 1.
 - [`groups.md`](../../product/systems/groups.md) — `kind='business'` Group with multiple owner-role memberships is the existing schema this fits into.
 - [`business-jurisdiction.md`](../../product/systems/business-jurisdiction.md) — locality-claim ladder applies to formed cooperatives.
 - [01-pooled-commitment-engine.md](01-pooled-commitment-engine.md) — provides the demand signal.

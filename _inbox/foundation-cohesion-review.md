@@ -40,7 +40,7 @@ status: review
 
 ---
 
-### 3. `product/foundation/anti-extraction.md`
+### 3. `product/foundation/impact-diagnostic.md`
 
 **What question does it answer?** How do you recognize extraction across any industry, and what can the platform do about it?
 
@@ -58,9 +58,9 @@ status: review
 | Information asymmetry captured | Pricing-transparency signals |
 | Regulatory capture | Lobbying-spend signals |
 
-However, `anti-extraction.md` also contains material IT does *not* touch: the **treatment toolkit** (5 patterns: realign via ownership, restore info symmetry, reduce switching costs, build countervailing power, policy reform) and the **applied-across-industries** section (health insurance, auto, housing, food, broadband, banking, childcare, professional services). These are the platform's *response playbook*, not the scoring system.
+However, `impact-diagnostic.md` also contains material IT does *not* touch: the **treatment toolkit** (5 patterns: realign via ownership, restore info symmetry, reduce switching costs, build countervailing power, policy reform) and the **applied-across-industries** section (health insurance, auto, housing, food, broadband, banking, childcare, professional services). These are the platform's *response playbook*, not the scoring system.
 
-**Gap IT fills:** `anti-extraction.md` is a conceptual diagnostic — "apply these five markers to any service." IT makes the markers queryable data: government enforcement records, lobbying spend, ownership structure, certification status. The diagnostic becomes a pipeline.
+**Gap IT fills:** `impact-diagnostic.md` is a conceptual diagnostic — "apply these five markers to any service." IT makes the markers queryable data: government enforcement records, lobbying spend, ownership structure, certification status. The diagnostic becomes a pipeline.
 
 ---
 
@@ -124,11 +124,11 @@ However, `anti-extraction.md` also contains material IT does *not* touch: the **
 
 **What question does it answer?** How does the platform help Members see the societal impact of organizations they patronize, and how does evidence accumulate into a score?
 
-**Depends on:** `anti-extraction.md` (the diagnostic it operationalizes), `principles.md` (people-first, no extraction), `policy.md` (data-sourcing posture, three-filter framework), `business-jurisdiction.md` (locality signal input), `groups.md` (business Group profiles consume the score), `design-language.md` (DLS token replacement).
+**Depends on:** `impact-diagnostic.md` (the diagnostic it operationalizes), `principles.md` (people-first, no extraction), `policy.md` (data-sourcing posture, three-filter framework), `business-jurisdiction.md` (locality signal input), `groups.md` (business Group profiles consume the score), `design-language.md` (DLS token replacement).
 
 **What depends on it:** Discovery surfaces (search, explore, map), entity profile pages, alternatives section, the "research a company" surface.
 
-**Overlap with other docs:** See per-doc analyses above. The highest overlap is with `anti-extraction.md`'s diagnostic half; the most productive tension is with `people-first.md`'s framing axis.
+**Overlap with other docs:** See per-doc analyses above. The highest overlap is with `impact-diagnostic.md`'s diagnostic half; the most productive tension is with `people-first.md`'s framing axis.
 
 **Gaps it fills:** Makes extraction visible to Members. Broadens the frame from local-vs-corporate to helps-many-vs-helps-few. Introduces non-local-but-helpful surfacing. Adds a Member intelligence layer for collective knowledge.
 
@@ -239,9 +239,9 @@ principles.md           "No extraction"
 
 ### 1. Are any two docs >70% overlapping?
 
-**No pair exceeds 70%.** The closest pair is `anti-extraction.md` ↔ `impact-transparency.md`, but only the diagnostic half of anti-extraction maps to IT. Anti-extraction's treatment toolkit (cooperative formation, countervailing power, policy reform) and its applied-across-industries survey have no counterpart in IT. Estimated overlap: ~40%.
+**No pair exceeds 70%.** The closest pair is `impact-diagnostic.md` ↔ `impact-transparency.md`, but only the diagnostic half of anti-extraction maps to IT. Anti-extraction's treatment toolkit (cooperative formation, countervailing power, policy reform) and its applied-across-industries survey have no counterpart in IT. Estimated overlap: ~40%.
 
-### 2. Is `anti-extraction.md` now redundant?
+### 2. Is `impact-diagnostic.md` now redundant?
 
 **No. It should stay as the conceptual foundation.** Three reasons:
 
@@ -251,7 +251,7 @@ principles.md           "No extraction"
 
 - **Conceptual foundations age differently than system specs.** anti-extraction defines *what extraction is* in terms a non-builder can read. IT defines *how the platform detects and surfaces extraction* in terms a builder needs. Folding the conceptual frame into the system spec would bury the strategic thinking under data-model tables.
 
-**Recommendation:** Add a one-line pointer at the bottom of `anti-extraction.md` — *"The diagnostic is operationalized as a data pipeline in [`impact-transparency.md`](../systems/impact-transparency.md)."* — and a reciprocal pointer in IT (already present). The two docs form a conceptual-foundation → operational-system pair, like `principles.md` → `policy.md`.
+**Recommendation:** Add a one-line pointer at the bottom of `impact-diagnostic.md` — *"The diagnostic is operationalized as a data pipeline in [`impact-transparency.md`](../systems/impact-transparency.md)."* — and a reciprocal pointer in IT (already present). The two docs form a conceptual-foundation → operational-system pair, like `principles.md` → `policy.md`.
 
 ### 3. Is `people-first.md` still pulling its weight?
 
@@ -281,9 +281,9 @@ IT is the *operational system* that makes this principle *visible to Members*. T
 
 **Recommendation:** Add 2–3 sentences to `principles.md` after the extraction paragraph:
 
-> *The platform makes this commitment visible to Members through Impact Transparency — a data-driven system that scores how organizations' behavior affects society, sourced from public records and verified member intelligence. The scoring system operationalizes the anti-extraction diagnostic ([`anti-extraction.md`](anti-extraction.md)) and is specified in [`impact-transparency.md`](../systems/impact-transparency.md).*
+> *The platform makes this commitment visible to Members through Impact Transparency — a data-driven system that scores how organizations' behavior affects society, sourced from public records and verified member intelligence. The scoring system operationalizes the anti-extraction diagnostic ([`impact-diagnostic.md`](impact-diagnostic.md)) and is specified in [`impact-transparency.md`](../systems/impact-transparency.md).*
 
-This gives IT a foundation-level anchor without creating a new doc. The principle lives in `principles.md`; the diagnostic lives in `anti-extraction.md`; the system lives in `impact-transparency.md`. Three layers, three homes, one idea.
+This gives IT a foundation-level anchor without creating a new doc. The principle lives in `principles.md`; the diagnostic lives in `impact-diagnostic.md`; the system lives in `impact-transparency.md`. Three layers, three homes, one idea.
 
 ---
 
@@ -297,19 +297,19 @@ The foundation layer is tighter than it looks. Each doc answers a distinct quest
 |---|---|---|
 | `principles.md` | What is the project for, and what will it never do? | Constitutional |
 | `people-first.md` | What does "business serves people" mean in the schema? | Schema-level encoding |
-| `anti-extraction.md` | How do you recognize extraction, and what can the platform do about it? | Conceptual diagnostic + treatment playbook |
+| `impact-diagnostic.md` | How do you recognize extraction, and what can the platform do about it? | Conceptual diagnostic + treatment playbook |
 | `community-health-rubric.md` | How do you score whether the platform itself builds healthy community? | Inward-facing measuring stick |
 | `policy.md` | What test must every policy pass? | Process framework |
 | `primitives.md` | What are the fundamental data entities? | Data spine |
 | `member-journey.md` | What loops do Members traverse? | North star |
 
-IT sits cleanly as a **system spec** that operationalizes the foundation layer — specifically `anti-extraction.md`'s diagnostic and `principles.md`'s one absolute. It does not belong *in* the foundation layer. It belongs where it is, with pointers connecting it to its foundation-level parents.
+IT sits cleanly as a **system spec** that operationalizes the foundation layer — specifically `impact-diagnostic.md`'s diagnostic and `principles.md`'s one absolute. It does not belong *in* the foundation layer. It belongs where it is, with pointers connecting it to its foundation-level parents.
 
 ### The three edits
 
 1. **`principles.md`** — Add a 2–3 sentence anchor after the extraction paragraph, pointing to IT as the Member-facing expression of the anti-extraction commitment. (Gives IT a foundation-level hook without a new doc.)
 
-2. **`anti-extraction.md`** — Add a one-line closing pointer: *"The diagnostic is operationalized as a data pipeline in [`impact-transparency.md`](../systems/impact-transparency.md)."* (Connects the conceptual-to-operational pair.)
+2. **`impact-diagnostic.md`** — Add a one-line closing pointer: *"The diagnostic is operationalized as a data pipeline in [`impact-transparency.md`](../systems/impact-transparency.md)."* (Connects the conceptual-to-operational pair.)
 
 3. **`people-first.md`** — Add a short paragraph (3–4 sentences) acknowledging that IT broadens the evaluative axis from personal/impersonal to helps-many/helps-few, and that the two coexist: schema-level refusal of impersonal commerce (people-first) + evidence-level scoring of societal impact (IT). (Resolves the framing tension before someone reads the two docs as contradictory.)
 
@@ -319,7 +319,7 @@ The phrase is an axis label, not a new principle. The principle it expresses is 
 
 - As a constitutional commitment: `principles.md` — "no extraction"
 - As a decision rule: `DECISION-PATTERNS.md` — "wealth circulation over extraction"
-- As a conceptual diagnostic: `anti-extraction.md` — "five markers"
+- As a conceptual diagnostic: `impact-diagnostic.md` — "five markers"
 - As an operational system: `impact-transparency.md` — "1–5 scale"
 
 No new doc needed. The anchor in `principles.md` (edit #1 above) is where future readers will find it at the foundation level.

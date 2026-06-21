@@ -41,7 +41,7 @@ Each doc carries the same four sections, kept short on purpose. Detail belongs i
 
 - **Practical-to-begin.** What does shipping in 6-12 months look like? What's the smallest version that proves the pattern?
 - **Ambitious-for-the-goal.** Where does this go at scale? What would Members get to do that they cannot today?
-- **Why it serves the mandate.** Which extraction markers does it address? Which treatment patterns from [`../../product/foundation/anti-extraction.md`](../../product/foundation/anti-extraction.md) does it use? How does it move Members up on the Flourishing Index?
+- **Why it serves the mandate.** Which extraction markers does it address? Which treatment patterns from [`../../product/foundation/impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md) does it use? How does it move Members up on the Flourishing Index?
 - **Open questions.** What needs to be resolved before this can be ratified into an initiative?
 
 ---

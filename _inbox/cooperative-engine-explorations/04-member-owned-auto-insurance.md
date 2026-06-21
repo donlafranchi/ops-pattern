@@ -35,7 +35,7 @@ Demonstrate the pattern that proves the broader cooperative-insurance thesis. Au
 
 ## Why it serves the mandate
 
-Auto insurance hits extraction markers 1 (profit grows with premium, though softer than health), 3 (lock-in via DMV minimum-coverage requirements), and 4 (information asymmetry on rate calculations and claims). See [`anti-extraction.md`](../../product/foundation/anti-extraction.md).
+Auto insurance hits extraction markers 1 (profit grows with premium, though softer than health), 3 (lock-in via DMV minimum-coverage requirements), and 4 (information asymmetry on rate calculations and claims). See [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md).
 
 Treatments applied: realigning profit via ownership (mutual), restoring information symmetry (transparent rate explanation, Member-shared claims experience), reducing switching costs (portable Member identity across coverage types), building countervailing power (federated rate negotiation), policy advocacy (Member-voice on regulatory reform).
 
@@ -53,7 +53,7 @@ On the Flourishing Index: insurance is one of the largest line items in basic-ne
 
 ## Where this connects
 
-- [`anti-extraction.md`](../../product/foundation/anti-extraction.md) — markers 1, 3, 4; treatments 1, 2, 3, 4, 5.
+- [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md) — markers 1, 3, 4; treatments 1, 2, 3, 4, 5.
 - [`payments.md`](../../product/systems/payments.md) — long-horizon, when platform-handled commerce includes insurance premium flow.
 - [`monetization.md`](../../product/foundation/monetization.md) — referral / placement fees as one revenue line.
 - [03-federation-layer.md](03-federation-layer.md) — federation provides the leverage to negotiate group rates.

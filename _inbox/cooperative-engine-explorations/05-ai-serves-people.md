@@ -40,7 +40,7 @@ The end state: Members spend dramatically less time on the work that agents can 
 
 The constitutional clause itself ("AI serves the people it acts for — it does not replace them") sits at the top of [`principles.md`](../../product/foundation/principles.md). This exploration operationalizes it.
 
-Treatment patterns from [`anti-extraction.md`](../../product/foundation/anti-extraction.md):
+Treatment patterns from [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md):
 - *Information symmetry* (pattern 2). Agents make tacit expertise legible. Skills are auditable.
 - *Anti-lock-in* (pattern 3). Skills are portable. Members own their Assistant Context. Members can revoke any Delegation at any time.
 - *Realigning incentives* (pattern 1). Agents are aligned to Members who employ them, never to the platform's revenue model.
@@ -60,7 +60,7 @@ On the Flourishing Index: time and money both move up. Members spend less time o
 ## Where this connects
 
 - [`principles.md`](../../product/foundation/principles.md) — the AI-serves clause is constitutional.
-- [`anti-extraction.md`](../../product/foundation/anti-extraction.md) — treatment patterns 1, 2, 3.
+- [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md) — treatment patterns 1, 2, 3.
 - [`agent-assistance.md`](../../product/systems/agent-assistance.md) — the system spec where this lives.
 - [`action-layer.md`](../../product/systems/action-layer.md) — confirmation gates and scoped capability vending are already substrate.
 - [03-federation-layer.md](03-federation-layer.md) — federations are the natural Skill-governance unit.

@@ -38,7 +38,7 @@ The leverage emerges because each Member's commitment is *conditional on others 
 
 ## Why it serves the mandate
 
-This is the lightweight form of countervailing power (treatment pattern 4 in [`anti-extraction.md`](../../product/foundation/anti-extraction.md)) and the substrate for cooperative formation (treatment pattern 1). It costs the platform almost nothing to ship; it gives Members the structural ability to do collectively what they cannot do alone.
+This is the lightweight form of countervailing power (treatment pattern 4 in [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md)) and the substrate for cooperative formation (treatment pattern 1). It costs the platform almost nothing to ship; it gives Members the structural ability to do collectively what they cannot do alone.
 
 On the Flourishing Index: commitment threshold mechanics let Members trade *time spent organizing* for *outcome unlocked at no individual risk* — they save time *and* gain access to better-priced goods, services, and group leverage. Both dimensions improve.
 
@@ -52,7 +52,7 @@ On the Flourishing Index: commitment threshold mechanics let Members trade *time
 
 ## Where this connects
 
-- [`anti-extraction.md`](../../product/foundation/anti-extraction.md) — treatment patterns 1 and 4.
+- [`impact-diagnostic.md`](../../product/foundation/impact-diagnostic.md) — treatment patterns 1 and 4.
 - [`item.md`](../../product/systems/item.md) — adds pooling capability to Item kinds.
 - [`member.md`](../../product/systems/member.md) — commitment surfaces in Member profile.
 - Every other exploration in this set depends on this one shipping first.

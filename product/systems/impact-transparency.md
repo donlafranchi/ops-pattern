@@ -15,7 +15,7 @@ status: draft
 
 **Does NOT gate b1.** The b1 build ships without impact scores. The existing locally-owned badge (per [`business-jurisdiction.md`](business-jurisdiction.md)) continues to operate at b1 and becomes one input to the Impact Transparency score at b2.
 
-**Companion specs:** [`anti-extraction.md`](../foundation/anti-extraction.md) (the diagnostic this system operationalizes) · [`business-jurisdiction.md`](business-jurisdiction.md) (locality signal becomes one input) · [`groups.md`](groups.md) (kind='business' Group surface consumes the score) · [`design-language.md`](../ui/design-language.md) (DLS section this system replaces) · [`principles.md`](../foundation/principles.md) (people-first, no extraction) · [`policy.md`](../foundation/policy.md) (data-sourcing posture)
+**Companion specs:** [`impact-diagnostic.md`](../foundation/impact-diagnostic.md) (the diagnostic this system operationalizes) · [`business-jurisdiction.md`](business-jurisdiction.md) (locality signal becomes one input) · [`groups.md`](groups.md) (kind='business' Group surface consumes the score) · [`design-language.md`](../ui/design-language.md) (DLS section this system replaces) · [`principles.md`](../foundation/principles.md) (people-first, no extraction) · [`policy.md`](../foundation/policy.md) (data-sourcing posture)
 
 **Retires:** The "Ownership tier spectrum" section in `design-language.md` (the 6-tier green-to-gray ramp and the `data-extractive` grayscale treatment). Replacement visual treatment defined in this spec's DLS section.
 
@@ -33,7 +33,7 @@ The two layers reinforce each other. When both point the same direction, confide
 
 The platform does not try to score every entity. It starts with the worst offenders — organizations whose public record shows clear patterns of societal harm — and the clear alternatives. The middle is left unscored until the signal quality earns it.
 
-This is the operational expression of the anti-extraction diagnostic ([`anti-extraction.md`](../foundation/anti-extraction.md)). The five markers (profit-grows-when-cost-grows, durability suppressed, artificial switching costs, information asymmetry captured, regulatory capture) become queryable data rather than abstract categories.
+This is the operational expression of the anti-extraction diagnostic ([`impact-diagnostic.md`](../foundation/impact-diagnostic.md)). The five markers (profit-grows-when-cost-grows, durability suppressed, artificial switching costs, information asymmetry captured, regulatory capture) become queryable data rather than abstract categories.
 
 ### What this system is not
 
@@ -76,7 +76,7 @@ The score is derived from **publicly available, verifiable data.** Each signal s
 | Congressional lobbying spend | OpenSecrets (opensecrets.org) — bulk data, updated annually | Money spent influencing legislation. High spend + anti-consumer/anti-worker/anti-environmental bill targets = strong negative signal. |
 | Environmental violations | EPA ECHO database (echo.epa.gov) | Formal enforcement actions, significant non-compliance. Count + severity + recency. |
 | OSHA violations | OSHA inspection database | Workplace safety violations. Repeat/willful violations weighted heavily. |
-| PE ownership | PitchBook, Crunchbase, SEC filings | Private equity or hedge fund ownership. PE ownership is a structural extraction signal (per `anti-extraction.md` marker 1 — profit grows when cost grows). |
+| PE ownership | PitchBook, Crunchbase, SEC filings | Private equity or hedge fund ownership. PE ownership is a structural extraction signal (per `impact-diagnostic.md` marker 1 — profit grows when cost grows). |
 | Anti-competitive enforcement | FTC/DOJ antitrust actions | Documented anticompetitive behavior — price-fixing, market allocation, monopoly maintenance. |
 | Right-to-repair opposition | Advocacy group tracking (iFixit, PIRG) | Active lobbying or legal action against right-to-repair legislation (marker 2 — repair and durability suppressed). |
 | Animal welfare violations | USDA APHIS inspection reports | For agricultural and food-industry entities. Documented AWA violations. |
@@ -364,7 +364,7 @@ Per `product/foundation/policy.md`. This system touches data sharing and visibil
 Impact Transparency strengthens the people-first stance. The old ownership tier encoded a judgment about business *structure* (local vs. corporate); the new system encodes evidence about business *behavior* (helps the many vs. helps the few). A locally owned business that lobbies against worker protections is not people-first just because it's local. The impact score catches what locality alone misses.
 
 ### Anti-extraction diagnostic
-The five markers in `anti-extraction.md` become queryable. "Profit grows when customer cost grows" maps to PE ownership + MLR-pattern signals. "Repair and durability suppressed" maps to right-to-repair opposition signals. "Switching costs artificial" maps to antitrust enforcement signals. "Information asymmetry captured" maps to pricing-transparency signals. "Regulatory environment captured" maps to lobbying-spend signals. The diagnostic is no longer a conceptual framework — it's a data pipeline.
+The five markers in `impact-diagnostic.md` become queryable. "Profit grows when customer cost grows" maps to PE ownership + MLR-pattern signals. "Repair and durability suppressed" maps to right-to-repair opposition signals. "Switching costs artificial" maps to antitrust enforcement signals. "Information asymmetry captured" maps to pricing-transparency signals. "Regulatory environment captured" maps to lobbying-spend signals. The diagnostic is no longer a conceptual framework — it's a data pipeline.
 
 ### Wealth circulation absolute
 The scoring system's core axis — helps the many vs. helps the few — is a direct expression of the wealth-circulation absolute. Entities that circulate wealth (cooperatives, credit unions, locally owned businesses reinvesting in their communities) score high. Entities that extract wealth (PE rollups extracting margin, lobbyers capturing regulation for private benefit) score low. The system makes the abstract concrete.
@@ -376,6 +376,6 @@ Unchanged at b1. At b2+, the locality signal from `business-jurisdiction.md` fee
 
 ## Integration points
 
-- **Connects to:** `business-jurisdiction.md` (locality signal input), `groups.md` (kind='business' Group profiles consume the score), `design-language.md` (DLS token replacement), `anti-extraction.md` (the diagnostic this operationalizes), `community-platform.md` (discovery surfaces implement rules 1–3), `policy.md` (data-sourcing posture)
+- **Connects to:** `business-jurisdiction.md` (locality signal input), `groups.md` (kind='business' Group profiles consume the score), `design-language.md` (DLS token replacement), `impact-diagnostic.md` (the diagnostic this operationalizes), `community-platform.md` (discovery surfaces implement rules 1–3), `policy.md` (data-sourcing posture)
 - **Used by:** Discovery/search ranking, entity profile pages, alternatives section, map pin rendering, the "research a company" surface
 - **Depends on:** External data sources (OpenSecrets, EPA ECHO, OSHA, PitchBook, B Lab) — all publicly available, no paid API dependencies at T1
