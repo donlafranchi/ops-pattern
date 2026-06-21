@@ -3,6 +3,10 @@ id: why-metrics
 purpose: Default platform metrics, anchored on Member Flourishing. Anti-metrics named explicitly so they cannot install themselves by default.
 layer: why
 status: active
+owns:
+  - flourishing-measurement
+  - discretionary-hours
+  - adequacy-margin
 ---
 
 # Metrics

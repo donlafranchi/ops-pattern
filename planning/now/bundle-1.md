@@ -29,7 +29,7 @@ Loop coverage: six loops fully reachable (1, 2, 3, 4, 7, 9), one partial (8 — 
 ## What defers
 
 - Posting surfaces inside Groups (feeds, discussion) → b2.
-- Stewardship rotation, pooled-capital / capital-flow surfaces → b2/b3. **Cooperative-style coordination deferred until real-world need + explicit user prioritization** — no `cooperative_*` schema at b1.
+- Stewardship rotation, pooled-capital / capital-flow surfaces → b2/b3. No `cooperative_*` schema at b1 — cooperative-style coordination is deferred per [`../../product/foundation/primitives.md`](../../product/foundation/primitives.md) § Why no Business entity.
 - Initiatives, Offer, Ask — reserved at the schema level only.
 - Follow streams, notifications, persistent feeds — stored at b1, surfaced at b2.
 - Reviews / ratings — permanently deferred (endorsements at Service Provider T2 instead).

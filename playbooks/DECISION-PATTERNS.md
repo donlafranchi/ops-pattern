@@ -36,7 +36,7 @@ The order is meaningful. Member safety beats platform health beats data protecti
 
 ## The one absolute — wealth circulation over wealth extraction
 
-There is exactly one categorical commitment in this project: **prefer wealth circulation over wealth extraction in every architectural, product, and business choice.**
+There is exactly one categorical commitment in this project: **prefer wealth circulation over wealth extraction in every architectural, product, and business choice.** (Owned by [`principles.md`](../product/foundation/principles.md); operationalized here as the close-call backstop.)
 
 When a design move would route value out of the local economy to a third party that isn't earning it, the move loses — even if it would be cheaper, faster, or more conventional. When a design move keeps value circulating among the people who created it, the move wins by default.
 

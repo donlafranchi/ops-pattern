@@ -7,7 +7,7 @@ status: active
 
 # Capability: Group Create and Join
 
-**Description:** A Member creates a Group, browses the Group index, and joins or leaves with one tap. Groups are emergent and self-selected — never auto-assigned by polygon or attendance.
+**Description:** A Member creates a Group, browses the Group index, and joins or leaves with one tap. Groups are emergent and self-selected — never auto-assigned (canonical wording in [`../foundation/primitives.md`](../foundation/primitives.md) § Group).
 
 **Primitive:** Group
 **Tier:** T1
@@ -18,7 +18,7 @@ status: active
 
 As a Member, I want to declare a Group when a set of people decides they are an intentional unit — the Drake's Run Club after six months of showing up at the bar, the school-parents who want to coordinate carpools, the sourdough nerds in the neighborhood. One Member creates it; the others join. The Gathering Items keep working unchanged; the Group is what they became when they decided they were a unit — not what the platform decided they already were.
 
-The platform never auto-creates or auto-assigns any Member to any Group for any reason. This is a hard constraint, not a preference.
+The platform never auto-creates or auto-assigns any Member to any Group — a hard constraint this capability inherits, not a local preference (per [`../foundation/primitives.md`](../foundation/primitives.md) § Group).
 
 ## T1 scope (ships at b1)
 

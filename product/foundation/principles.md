@@ -3,6 +3,11 @@ id: why-principles
 purpose: The constitution. Everything serves people. Measured as Member Flourishing.
 layer: why
 status: active
+owns:
+  - member-flourishing
+  - the-decision-test
+  - people-first-principle
+  - categorical-failures
 ---
 
 # Movers, Makers & Shakers — The Constitution

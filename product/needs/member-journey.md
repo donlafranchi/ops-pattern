@@ -91,7 +91,7 @@ A person needs a plumber, a vet, an accountant, a mechanic, a hairdresser, an at
 
 ### Family 4 — Pooling (community ownership)
 
-The loops where members stop being participants and become stakeholders. Capital is pooled, businesses are founded, resources are shared, and the community begins to literally own things together. This is where the squeeze is most directly answered: ownership concentration is the squeeze; collective ownership is the antidote.
+The loops where members stop being participants and become stakeholders. Capital is pooled, businesses are founded, resources are shared, and the community begins to literally own things together. This is where the squeeze is most directly answered: ownership concentration is the squeeze; collective ownership is the antidote (the wealth-circulation-over-extraction absolute lives in [`../foundation/principles.md`](../foundation/principles.md)).
 
 #### Loop 10 — Start something
 

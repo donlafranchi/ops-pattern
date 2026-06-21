@@ -27,11 +27,7 @@ Payments is one system covering all money movement on the platform: a buyer payi
 
 The argument for elevating this from "we'll integrate Stripe" to a first-class architectural commitment is that the rail itself encodes the platform's politics. Card networks extract roughly 2.9% from every transaction and route that money to large shareholders. ACH costs roughly $0.20 and routes the rest to the parties involved. Closed-loop credit costs nothing and keeps money inside the community indefinitely. These differences are not implementation details. They are the difference between a platform that says wealth circulation matters and a platform that lives it.
 
-The single "Never" of the project, restated for clarity:
-
-> **We will never support extractive wealth over circulative wealth.**
->
-> **Intent:** Extractive wealth compounds for shareholders / VC / large institutions; circulative wealth compounds for the parties to the transaction. The "never" is the line that makes wealth-circulation a load-bearing architectural commitment rather than rhetoric. A downstream agent facing a rail / partner / fee choice should refuse any option that routes value out of the community absent an explicit time-bounded justification on the other rubric dimensions (cards at b2 with friction is the canonical justified exception; score-low-on-multiple-dimensions is rejected).
+The rail is where the platform's single categorical "Never" — wealth circulation over extraction — becomes load-bearing architecture rather than rhetoric: a downstream agent facing a rail / partner / fee choice refuses any option that routes value out of the community absent an explicit time-bounded justification (cards at b2 with friction is the canonical justified exception). Owned by [`../foundation/principles.md`](../foundation/principles.md); operational rule in [`../../playbooks/DECISION-PATTERNS.md`](../../playbooks/DECISION-PATTERNS.md).
 
 Every choice in this spec is downstream of that commitment. Custody, rails, fees, partners, future stablecoin selection — all scored against the wealth-circulation rubric in §3. Speed, cost, and convenience matter and inform the choices, but never override the rubric.
 
@@ -263,7 +259,7 @@ The most consequential funding commitment in this spec:
 >
 > > **Intent:** Refusing platform revenue when it could be collected non-extractively would leave the platform structurally dependent on dues, grants, and external subsidies — which compromises mission resilience. But collecting fees the way Yelp / Etsy / Stripe collect them routes value out to external shareholders, which is what makes those platforms extractive. The job of §9 is to collect fees that help the platform AND route excess back to communities. Failure modes prevented: (a) the platform charges extractive fees (Stripe-style cuts compounding to shareholders); AND (b) the platform declines viable non-extractive revenue and starves itself out. A downstream proposal must show: is this fee shape extractive (refused) or non-extractive with mission-aligned revenue routing (admissible)?
 
-What makes the platform structurally different from existing commerce surfaces isn't the absence of fees — it's where the fees go. Yelp gates visibility behind fees that fund VC shareholders. Etsy takes a cut that funds VC shareholders. Stripe takes a cut that funds VC shareholders. Facebook Marketplace doesn't charge per transaction but extracts via attention sold to advertisers. The platform's fee revenue funds platform operations and routes excess back to communities — member dividends, community grants, CDFI lending, federation reserves. The other apps are extractive because their fees compound out. The platform's fees compound in.
+What makes the platform structurally different isn't the absence of fees — it's where the fees go: the platform's fee revenue funds operations and routes excess back to communities (member dividends, community grants, CDFI lending, federation reserves), so its fees compound in rather than out. The earn-before-extract fee philosophy and the comparison to Yelp / Etsy / Stripe revenue models live in [`../foundation/monetization.md`](../foundation/monetization.md).
 
 **Where the platform's funding comes from instead** (per `principles.md` Part 8):
 
@@ -276,10 +272,8 @@ What makes the platform structurally different from existing commerce surfaces i
 
 - Extractive transaction-fee shapes on Member commerce (per §9 test) — pay-to-rank, pay-to-be-visible, exclusionary tiering, fee revenue compounding to external shareholders.
 - Fees on closed-loop balance funding, holding, or redemption (the partner's cost is the partner's cost, but the platform doesn't mark it up).
-- Visibility fees, ranking fees, promoted listings — categorically excluded per `principles.md`.
-  **Intent:** Fails §9 prong 1 (gates access). These are the levers Yelp / Angi / Google Business pull to charge small operators for visibility, which is the exact extraction shape the platform was built to refuse. Categorically excluded means no carve-out under the §9 non-extraction test — access-gating IS the extraction.
-- Data sales — categorically excluded.
-  **Intent:** Fails §9 prong 5 (revenue must route back to communities, not external buyers). Data sales route Member behavior to advertisers, brokers, or AI training pipelines whose revenue compounds out. Categorically excluded because the wealth-circulation rubric makes data-as-product structurally incompatible with the platform's mission.
+- Visibility fees, ranking fees, promoted listings — categorically excluded (fail §9 prong 1: gates access). The revenue refusals and their rationale are owned by [`../foundation/monetization.md`](../foundation/monetization.md); the categorical "Never" by [`../foundation/principles.md`](../foundation/principles.md).
+- Data sales — categorically excluded (fail §9 prong 5: revenue must route back to communities, not external buyers). Rationale in [`../foundation/monetization.md`](../foundation/monetization.md).
 
 ---
 
@@ -494,7 +488,7 @@ The closed-loop ledger plus chartered-partner ACH is not the most exciting techn
 
 Two commitments in this spec do almost all the work:
 
-**Non-extractive fee shapes on Member-to-Member commerce.** The line every comparable platform has crossed isn't charging fees — it's charging extractive fees that compound out to external shareholders. The platform collects fees where it can do so non-extractively, funds operations consistent with the mission, and routes excess revenue back to communities per the §3 rubric. The platform's fee revenue is community-circulating; the comparable platforms' fee revenue is shareholder-extracting. That's the difference.
+**Non-extractive fee shapes on Member-to-Member commerce.** The platform collects fees only where it can do so non-extractively, funds operations consistent with the mission, and routes excess revenue back to communities per the §3 rubric — community-circulating fee revenue, not shareholder-extracting. Why extractive fee shapes compound out and the comparison to other platforms: [`../foundation/monetization.md`](../foundation/monetization.md).
 
 **The platform is not the deposit bank.** The chartered partner holds Members' money. The platform is the technology layer — operating-entity funds and mission-aligned escrows are allowed (per §1 Intent), but the deposit-bank role lives at the partner. This is both the right structure for the mission (the platform doesn't become a bank trying not to be evil; it stays a tool used by banks the community trusts) and the practical answer to regulatory complexity (the partner handles money-transmitter, FDIC/NCUA, KYC, AML, fraud monitoring).
 

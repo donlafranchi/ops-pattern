@@ -84,7 +84,7 @@ status: active
 - "Designed in" as a separate signal from "Made at" (open question — historical context: `_attic/2026-05-28-reorg/product-exploration/member-geography-redesign.md`, exploration concluded; accepted)
 
 **Won't:**
-- Ratings or star scores of any kind. Per `principles.md` — the platform does not rank people. Trust signals are factual claims (ownership, provenance) with tiered evidence, not aggregated opinion.
+- Ratings or star scores of any kind. Trust signals are factual claims (ownership, provenance) with tiered evidence, not aggregated opinion — see the no-ranking-of-people corollary in [`../foundation/people-first.md`](../foundation/people-first.md) (§ The Corollaries).
 - Automated verification via government API scraping. The verification ladder is human-driven (self-attest → community-attest → document-upload). The platform never silently checks a producer's claims against a government database.
 
 ---
@@ -189,7 +189,7 @@ status: active
 - Stablecoin payment path (b3 T3, gated)
 
 **Won't:**
-- Platform-custodied funds for the platform's own benefit. Per `payments.md` — the platform never custodies for itself; float goes to the chartered partner or the member.
+- Platform-custodied funds for the platform's own benefit — float goes to the chartered partner or the member, per the wealth-circulation rubric in [`../systems/payments.md`](../systems/payments.md).
 - Subscription billing or recurring charges managed by the platform. Producers who need recurring billing use Stripe/Square.
 - Lending, credit, or financing. The platform surfaces demand and structures pledges (long-horizon per O6); it does not lend money.
 - Platform transaction fees on member-to-member commerce. The wealth-circulation rubric in `payments.md` is load-bearing: zero fees is the commitment.
@@ -212,7 +212,7 @@ status: active
 - References — a producer lists references; those members confirm (b2+)
 
 **Won't:**
-- Star ratings or numeric scores. Per `principles.md` — the platform does not rank people. Trust is conveyed through factual claims with tiered evidence and qualitative attestation, not through aggregated numbers.
+- Star ratings or numeric scores. Trust is conveyed through factual claims with tiered evidence and qualitative attestation, not aggregated numbers — see the no-ranking-of-people corollary in [`../foundation/people-first.md`](../foundation/people-first.md) (§ The Corollaries).
 - Review responses or reputation management tools. The platform is not Yelp. There is no producer-vs-reviewer dynamic to manage.
 
 ---

@@ -124,14 +124,9 @@ Absorbs the prior `pipeline-router`, `pipeline-prune`, and `pipeline-bundle-resy
 
 **Does NOT read or write:** `web/` code, `development/tickets/`, `planning/next/`.
 
-**Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic rule from [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md):
+**Task:** Walk the PM through each close-call or unratified absolute, one at a time. Apply the lexicographic close-call rule (see [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md)).
 
-1. Member safety
-2. Platform health
-3. Member data protection
-4. Mutual benefit with reversibility (the default)
-
-The single absolute — wealth circulation over wealth extraction — is invoked only when a choice would route value out of the local economy to a party not earning it. Defaults with named exceptions are preferred to absolutes everywhere else.
+The single absolute — wealth circulation over wealth extraction — is the project's one categorical refusal ([`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md); rooted in [`product/foundation/principles.md`](product/foundation/principles.md)). Defaults with named exceptions are preferred to absolutes everywhere else.
 
 **The State marker.** Co-located with every absolute:
 

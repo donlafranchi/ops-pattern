@@ -3,6 +3,8 @@ id: why-platform-promise
 purpose: Public-voice commitments derived from the principles, for the thesis page.
 layer: why
 status: active
+owns:
+  - public-commitments
 ---
 
 # The Platform Promise

@@ -3,6 +3,12 @@ id: why-primitives
 purpose: Defines the Person, Item, Location, and Group data spine.
 layer: why
 status: active
+owns:
+  - person-member-primitive
+  - item-primitive
+  - location-primitive
+  - group-primitive
+  - no-business-entity
 ---
 
 # The Primitives

@@ -11,7 +11,7 @@ status: active
 
 ## What the MVP is
 
-The smallest expression of the platform that proves the central hypothesis: **ordinary people will step forward where they live, and their neighbors will show up for them.** A coordination layer for a place — a Person declares an Item (product, service, gathering, wonder) at a Location; other Persons respond; People form Groups when they decide they are a group. b1 ships the four primitives at their T1 scope plus the locality-first surfaces that let a newcomer find what's near them and a producer become findable. It is not the platform; it is the version of the platform that can teach us whether the platform is right.
+The smallest expression of the platform that proves the central hypothesis: **ordinary people will step forward where they live, and their neighbors will show up for them.** A coordination layer for a place, built on the four primitives ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md)). b1 ships the four primitives at their T1 scope plus the locality-first surfaces that let a newcomer find what's near them and a producer become findable. It is not the platform; it is the version of the platform that can teach us whether the platform is right.
 
 ## What "done" looks like
 
@@ -73,8 +73,8 @@ When F036 fully lands, reconcile or retire the historical sub-bundle slicings (`
 
 ## Non-negotiables — every PR upholds
 
-1. **Person declares Item at Location; other Persons respond. People form Groups when they decide they are a group.** Code reads like the grammar.
-2. **Business serves people, not the other way around.** No Business entity, no `business_name` column on Members.
-3. **Groups are emergent, optional, never auto-assigned.** The platform never enrolls a Member by geography, follows, or attendance.
+1. **The four primitives hold** — Person declares Item at Location; other Persons respond; People form Groups ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md)). Code reads like the grammar.
+2. **No Business entity** — no `business_name` column on Members ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md) § Why no Business entity).
+3. **Groups are emergent, optional, never auto-assigned** ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md) § Group).
 
 Deviations from these escalate to the PM, not to the data model.

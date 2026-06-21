@@ -275,7 +275,7 @@ The deliberate use of `metadata` JSONB per Item is what lets the schema flex acr
 
 The forward commitment to natural-language search via vector embeddings at T3 is what protects the platform from devolving into a tags-only experience. As the volume of Items grows, structured filters become insufficient — people want to ask *"who near me sells eggs from happy chickens"* and get an answer. The MVP doesn't build this, but it reserves the column, the parallel table pattern, and the description-writing posture that makes embedding work later. Skipping these reservations at MVP is the failure mode the entire data-model section is designed to prevent.
 
-Finally: no Business entity. A Person's Items belong to that Person. A cooperative's Items are owned by the cooperative-Community, with collaborator Members in `item_collaborators` (T2). There is no shell entity between Persons and the things they make. That absence is what keeps the platform feeling like neighbors-and-things rather than an LLC directory — and it is what keeps the data model honest about who is actually doing the work in any community.
+Finally: no Business entity (see [`../foundation/primitives.md`](../foundation/primitives.md) § Why no Business entity). For Items, this means a Person's Items belong to that Person, and a cooperative's Items are owned by the cooperative-Community with collaborator Members in `item_collaborators` (T2) — no shell entity between Persons and the things they make. That absence is what keeps the data model honest about who is actually doing the work in any community.
 
 ## Decisions encoded here
 

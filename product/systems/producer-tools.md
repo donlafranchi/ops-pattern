@@ -307,7 +307,7 @@ Pairs with the bulletin T3 drip surface:
 
 Per the people-first / policy commitments:
 
-- **No ad sales or sponsored placement.** The whole point is to give producers leverage *without* paying for visibility. Sponsored slots break the trust model. The pay-for-visibility refusal in [`../foundation/principles.md`](../foundation/principles.md) applies here categorically.
+- **No ad sales or sponsored placement.** Producers get leverage *without* paying for visibility — sponsored slots would break the trust model. The pay-for-visibility / no-ad-sales revenue refusal and its rationale are owned by [`../foundation/monetization.md`](../foundation/monetization.md) (categorical "Never" in [`../foundation/principles.md`](../foundation/principles.md)).
 - **No demographic targeting on followers.** The platform will not tell producers a follower's age, gender, race, or income. Geographic city-level (via `home_location_id`) is the limit.
 - **No sale of producer data to third parties.** Ever. This is in [`../foundation/policy.md`](../foundation/policy.md), not just this roadmap.
 - **No named-competitor benchmarking.** Anonymized peer aggregates only. Never "here's how Sally's Bakery compares to yours."

@@ -87,19 +87,19 @@ One structural template, varying by kind. Quiet header (no hero image at b1), ti
 
 A Person's public page at `/m/[handle]`. Name, photo, locality, bio, and a list of their Items. When the Member has ≥1 business Group or product/service Items, selling affordances surface (their shop, their products). Follow button is the primary CTA.
 
-**Why this shape:** The Member page is the anchor primitive's public face. The handle is the one intentionally global namespace — it survives relocation. Selling affordances appear conditionally, not in a separate "shop page" — because a Person who makes sourdough is still a Person, not a Business. This is the people-first principle in page form: businesses are expressed as Groups people belong to, never treated as first-class actors with their own identity.
+**Why this shape:** The Member page is the anchor primitive's public face. The handle is the one intentionally global namespace — it survives relocation. Selling affordances appear conditionally, not in a separate "shop page" — the people-first principle in page form (businesses are expressed as Groups people belong to, never first-class actors; see [`../foundation/people-first.md`](../foundation/people-first.md) and [`../foundation/primitives.md`](../foundation/primitives.md)).
 
 ### Group page (6 kinds)
 
 A Group's public page. Header: Group name, kind label, anchor Location (if any), member count. Content: Items posted by the Group, member list (role-visible). For kind='business' Groups, the page is the "Shop" — it shows the business's products/services, the Locally Owned badge (if claimed), and the owner banner (role-gated management strip).
 
-**Why this shape:** Groups are emergent, not prerequisite — the page exists because people chose to form a unit. The Shop variant of kind='business' is where producer identity lives in the UI, but it's structurally a Group page with business affordances, not a separate entity. This is the "no Business entity" principle in page form. The owner banner (management widgets above the public content) means the owner always sees the real public page — no separate "manage" view that drifts from what visitors see.
+**Why this shape:** the page exists because people chose to form a unit — Groups are emergent, never auto-assigned (see [`../foundation/primitives.md`](../foundation/primitives.md) § Group). The Shop variant of kind='business' is where producer identity lives in the UI, but it's structurally a Group page with business affordances, not a separate entity — the "no Business entity" principle in page form. The owner banner (management widgets above the public content) means the owner always sees the real public page — no separate "manage" view that drifts from what visitors see.
 
 ### Venue page
 
 A Location's public page. Hero image, venue name, address with distance, "Follow this venue" as primary CTA, "Host something here" as secondary. Sections: what's happening here (the venue's own Items), what's happening nearby (expandable), about.
 
-**Why this shape:** The venue page is the physical-place primitive's public face. Follow is primary because most venue-page visitors are consuming (Loop 8 — Follow what you love). Host is secondary because most visitors aren't organizers. No reviews, no ratings — the venue's value is shown through what happens there, not through star scores. This avoids the Yelp failure pattern where aggregated anonymous reviews become the venue's identity.
+**Why this shape:** The venue page is the physical-place primitive's public face. Follow is primary because most venue-page visitors are consuming (Loop 8 — Follow what you love). Host is secondary because most visitors aren't organizers. No reviews, no ratings — the venue's value is shown through what happens there, not through star scores (the no-ranking-of-people corollary in [`../foundation/people-first.md`](../foundation/people-first.md), applied to places). This avoids the Yelp failure pattern where aggregated anonymous reviews become the venue's identity.
 
 ### Thesis page
 

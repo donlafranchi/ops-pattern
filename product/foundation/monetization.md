@@ -3,6 +3,8 @@ id: why-monetization
 purpose: How the platform earns. Multi-source revenue, no VC, no extraction.
 layer: why
 status: active
+owns:
+  - revenue-model
 ---
 
 # Monetization

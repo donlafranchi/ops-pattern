@@ -205,7 +205,7 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 - Affinity-first Group discovery surface — showing a member "here are Groups you'd probably like to join" before any gathering exists inside them.
 - Discoverability for kind='interest' Groups with no anchored Location and no recurring Item.
 - Soft-membership inference (geographic suggestion when a member sets their home Location).
-- The "Groups cannot be auto-assigned" boundary holds — geography is suggestion, the choice is the member's.
+- The "Groups cannot be auto-assigned" boundary holds — geography is suggestion, the choice is the member's (per [`../foundation/primitives.md`](../foundation/primitives.md) § Group).
 
 **Deferral statement:** affinity-first Group discovery is not yet designed. The case stress-tests the "Groups cannot be auto-assigned" commitment in [`../systems/groups.md`](../systems/groups.md) — the polygon "Sacramento women aged 25–40" is not this Group; the Group is the women who said *we are this group*. Deferred until affinity-first discovery is designed without violating that boundary.
 

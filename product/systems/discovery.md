@@ -15,7 +15,7 @@ status: active
 
 Movers, Makers & Shakers is a place-based, people-first network — not an attention network. Discovery is a **graph + place + time** engine, not a watch-time optimizer. Each engagement (RSVP, pledge, show-up, return) is heavy and meaningful; volume is local, not global. The system must rank well in low-data regimes and degrade gracefully as a Member or Location is new.
 
-**Hard constraints (from `foundation/principles.md`):**
+**Hard constraints** (rationale owned by [`../foundation/people-first.md`](../foundation/people-first.md) and [`../foundation/principles.md`](../foundation/principles.md)):
 
 - Never rank by business size, follower count alone, or anything that amplifies corporate shells over Members.
   **Intent:** Discovery is the single highest-leverage place a chains-vs-locals bias could enter the platform — once it's in the score, it's in every surface that uses the score. Forcing the constraint into the *scoring formula itself* (rather than into review process or content moderation) makes "but it would just be more relevant to rank by popularity" structurally unavailable; the feature can't ship without modifying the scorer, which surfaces the policy review at the point of code change. Any future weight that correlates with size proxies (review counts, follower-count standalone, listing age treated as authority) should be read as the failure mode this constraint refuses.

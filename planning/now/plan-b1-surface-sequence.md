@@ -95,8 +95,4 @@ Each scenario produces Playwright + RLS-matrix evals. Specific expectations call
 
 ## Non-negotiables — every PR upholds
 
-1. **Person declares Item at Location; other Persons respond. People form Groups when they decide they are a group.** Code reads like the grammar.
-2. **Business serves people, not the other way around.** No Business entity. No `business_name` column on Members. No "Brand" abstraction beyond `brand_label` and `group_businesses.display_name`.
-3. **Groups are emergent, optional, never auto-assigned.** The platform never enrolls a Member in a Group based on geography, follows, or attendance.
-
-Deviations from these escalate to the PM, not to the data model.
+Non-negotiables per [`mvp-goal.md`](mvp-goal.md) § Non-negotiables. This sequence adds one b1-specific bound: no "Brand" abstraction beyond `brand_label` and `group_businesses.display_name`.

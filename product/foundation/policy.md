@@ -3,6 +3,10 @@ id: why-policy
 purpose: Three-filter test for privacy, revenue, monetary, data-sharing decisions.
 layer: why
 status: active
+owns:
+  - three-filter-test
+  - opt-out-default
+  - accountable-participation-commitment
 ---
 
 # Policy Framework

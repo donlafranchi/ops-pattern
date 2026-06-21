@@ -3,6 +3,8 @@ id: why-people-first
 purpose: The schema-level encoding of "platform serves people" — no impersonal Business entity, no ranking of people, no pay-for-visibility, no engagement-optimized feed.
 layer: why
 status: active
+owns:
+  - personal-vs-impersonal-business-distinction
 ---
 
 # The People-First Principle
