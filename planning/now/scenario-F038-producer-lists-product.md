@@ -46,9 +46,11 @@ The product appears in the locality-first awareness feed for Members within scop
 | Description | `items.description` | yes |
 | Price (or Free) | `item_products.price_cents`, `item_products.price_unit` (null = free) | yes |
 | Photos | `item_products.photo_urls` | optional at b1 |
-| Pickup point (auto, editable) | `item_locations.location_id, schedule_kind='permanent'` | yes |
+| Pickup point (auto, editable) | `item_locations.location_id, schedule_kind='ongoing'` | yes |
 | File under (Group, auto-default) | `items.group_id` | optional (null = sold as individual) |
 | Where is this made? (optional, opens F039) | `items.made_at_place_id` | optional (covered by F039) |
+
+*(Patched: `schedule_kind` was `'permanent'`; corrected to `'ongoing'` — `permanent` is a Location kind, not a schedule enum value; shipped enum: `one_time | recurring | ongoing | by_appointment`.)*
 
 Implicit: `items.kind='product'`, `items.member_id=<seller>`, `items.state='published'`, `items.brand_label` derived from Group's display_name if filed, `item.created` + `item.published` events with `acting_member_id`.
 
@@ -64,7 +66,7 @@ Implicit: `items.kind='product'`, `items.member_id=<seller>`, `items.state='publ
 
 **Given** Maya fills title, description, price, pickup point and taps publish
 **When** the submit fires
-**Then** in one transaction: `items` row writes (kind='product', state='published', group_id, brand_label derived); `item_products` row writes; `item_locations` row writes with schedule_kind='permanent'; `item.created` + `item.published` events log with `acting_member_id=Maya`. She is redirected to the kind-specific Item URL.
+**Then** in one transaction: `items` row writes (kind='product', state='published', group_id, brand_label derived); `item_products` row writes; `item_locations` row writes with schedule_kind='ongoing'; `item.created` + `item.published` events log with `acting_member_id=Maya`. She is redirected to the kind-specific Item URL.
 
 ### Item URL follows place-scoped + random-suffix pattern
 

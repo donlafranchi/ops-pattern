@@ -103,6 +103,7 @@ Granularities can be skipped. A small town's `city` row can parent directly to `
 - `kind` enum — `region`, `state`, `county`, `city`, `neighborhood`. (Extensible. `country` reserved at b1 for the federation horizon.)
 - `geography` geography(MultiPolygon, 4326) NULL — optional polygon for containment lookups. Counties, cities, and neighborhoods carry one when GIS is available; regions may stay coordinate-free if a polygon would be unwieldy.
 - `iso_country_code` text NULL — reserved for federation (T3).
+- `msa_code` text NULL — HUD CBSA code; source = `zip_metro_crosswalk`. Populated for CBSA-40900 county subtrees only at b1; nullable until national backfill. Added by T075 migration `025_zip_metro_crosswalk.sql`.
 - `metadata` jsonb — population estimate (informational only), GIS source attribution, etc.
 - `created_at`, `updated_at`, `deleted_at` (soft-delete; places do not get hard-deleted — they get superseded or merged).
 
@@ -181,7 +182,7 @@ Append-only, audit-field-bearing per the same-transaction row+event invariant. P
 - **Reverse-geocoder boundary handling.** What happens when a Member declares a Location whose coordinates fall on a neighborhood polygon boundary (within ~50m of two neighborhoods)? Working answer: pick the neighborhood whose centroid is closer; surface the call in the Location's `metadata.geocode_diagnostic` for admin review.
 - **User-perceived place vs computed place.** A Member says "I'm in Oak Park" but their geocoded home Location resolves to "Curtis Park" (adjacent neighborhood, boundary ambiguity). Should the platform let the Member override? Working answer: at b1 no — the geocoded place is authoritative. At T2, an "I disagree" affordance can route to admin review without letting the Member self-assign. The locality-precision privacy enum (`city` / `neighborhood` / `none`) is the b1 escape hatch — a Member who feels mis-bucketed can drop precision to city.
 - **Place-name aliases.** "SF" → San Francisco; "Sac" → Sacramento; "the Bay" → Bay Area. Should these resolve at the URL layer or only at the search layer? Working answer: only at search. URLs are canonical; aliases are search affordances. Deferred to T3 search work.
-- **Polygon source-of-truth and licensing.** Civic GIS data has licensing implications (some city GIS is permissive; some isn't). The platform must either license polygons, derive them from postal codes, or build them from civic publications. Working answer: defer the licensing decision to launch; b1 starts with manually-curated polygons for the seeded markets.
+- **Polygon source-of-truth and licensing — RESOLVED (launch market).** Census TIGER/Line 2023 (counties/state/places) + City of Sacramento Open Data (neighbourhoods), all public-domain / open-licence; embedded as approximations pending S-metro full-res replay. Resolved by T076 (`024_places_polygon_centroid_seed.sql`).
 - **What happens at the federation horizon (T3) when two platforms disagree about a place?** Place identity peers across platforms via federation. If Sacramento-the-place exists on this platform and on a sibling platform, do they share an ID or are they distinct? Working answer: distinct rows with a peer reference (`places.peer_place_id` reserved at T3). Resolution at peer-time, not at platform-launch.
 
 ---

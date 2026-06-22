@@ -160,7 +160,7 @@ create index idx_locations_parent on locations (parent_location_id) where delete
 create index idx_locations_brand on locations (brand_label) where brand_label is not null and deleted_at is null;
 ```
 
-**Place anchor.** `place_id` ties every Location to its closest matching [`places`](places.md) row. The action layer resolves it by reverse-geocoding the Location's coordinates at create. The column is nullable only for the brief insert→resolve window and catastrophic-failure recovery — from the action layer's perspective every live Location carries a Place. The Place is the Location's URL prefix and the namespace its `slug` is unique within.
+**Place anchor.** `place_id uuid references places(id)` (nullable) ties every Location to its closest matching [`places`](places.md) row. Resolves a Location to a curated Place; powers MSA derivation + variable-depth place-path URLs. Added by T075 migration `025_zip_metro_crosswalk.sql`. Population path: reverse-geocode from `geography` via `place_for_coords()` at Location create. The column is nullable only for the brief insert→resolve window and catastrophic-failure recovery — from the action layer's perspective every live Location carries a Place. The Place is the Location's URL prefix and the namespace its `slug` is unique within.
 
 **Kind-specific child tables** (1:1 with `locations` where `locations.kind` matches; FK = `location_id`):
 

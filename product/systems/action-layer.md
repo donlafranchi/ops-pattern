@@ -86,7 +86,7 @@ Sandbox technology is a b2 decision (V8 isolate, WASM, separate process, or a ma
 
 The b1 commitment is **handler invariant, audit fields populated, system Member created, same-transaction commit verified.** No agent surfaces ship at b1; no Skill executes; no capability is minted in anger. What lands:
 
-- Every Phase 1+ write handler exists as a named action handler with Zod-validated inputs (e.g., `item.create`, `delegation.grant`, `group.create`).
+- Every Phase 1+ write handler exists as a named action handler with Zod-validated inputs (e.g., `item.create`, `delegation.grant`, `group.create`, `location.create`).
 - Each handler executes the row insert + corresponding event-log insert in one transaction.
 - Audit fields `acting_member_id NOT NULL` and `via_delegation_id` (nullable) populate inside the handler. At b1 every action has `acting_member_id = session.member_id` and `via_delegation_id = NULL`.
 - The system Member (handle='system', login disabled) is the `acting_member_id` for platform-emitted events. Created in `002_system_member.sql`, ahead of any `*_events` table population.
@@ -151,7 +151,7 @@ The three-filter test (per `policy.md`) applies to every new scope added to the 
   - **Assistant Context** (Assistant Context reads/writes flow through the action layer with scope enforcement; per [`agent-assistance.md`](agent-assistance.md))
   - **Skills** (Skills run in the sandbox defined here; Skill writes flow through the action layer; per [`agent-assistance.md`](agent-assistance.md))
   - **Event log** (every action writes its event row in the same transaction as the primitive row; the `*_events` tables — `item_events`, `member_events`, `group_events`, `location_events` — are the canonical history, partitioned monthly, with audit fields)
-  - **All primitive writes** (Item, Group, Member, Location lifecycle handlers; per their respective specs)
+  - **All primitive writes** (Item, Group, Member, Location lifecycle handlers — including `location.create` per [`location.md`](location.md) § Action handlers; per their respective specs)
 - **Used by:**
   - The web composer (every form submit → action handler)
   - The in-app assistant (every drafted action → action handler via the edge)

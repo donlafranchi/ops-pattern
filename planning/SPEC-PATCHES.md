@@ -1,11 +1,15 @@
 ---
 id: how-spec-patches
-purpose: Queue of product/ spec patches flagged by the build agent. Closes the Build → Product return path.
+purpose: "RETIRED — replaced by Type A/B deviation routing in the build workflow. Type A (upstream errors) route to tidy; Type B (real decisions) become decision-* stubs in planning/backlog/."
 layer: how
-status: active
+status: retired
+retired_from: planning/SPEC-PATCHES.md
+retired_date: 2026-06-19
 ---
 
-> **Frozen as of 2026-06-03.** Open patches have been atomized to [`planning/spec-patches/`](spec-patches/) — one file per patch, so parallel sessions can file and drain patches without write-conflicts. This file retains the original Open list as a historical anchor and remains the source of the landed/rescinded record.
+> **Retired 2026-06-19.** All 14 open patches drained: 9 Type A/A+ fixes applied to source docs; 6 Type B decisions filed as `decision-*` stubs in `planning/backlog/`. The `build` workflow now classifies deviations at the point of creation — no running tally document. See `skills/build/workflow.md` § `flag-for-spec-revision`.
+>
+> **Historical context preserved below** for provenance.
 
 # SPEC-PATCHES — open queue
 

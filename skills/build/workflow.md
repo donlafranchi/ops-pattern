@@ -120,9 +120,25 @@ Every entry in `development/DEVIATIONS.md` carries its **why** alongside its **w
 **Disposition:** {one of: accepted-as-is | flag-for-spec-revision | flag-for-ticket-rewrite | revert-on-next-pass.}
 ```
 
+### `flag-for-spec-revision` — classify and route
+
+When the disposition is `flag-for-spec-revision`, classify the deviation into one of two types and route accordingly. No SPEC-PATCHES entry in either case.
+
+**Type A — Upstream authoring error.** The scenario or ticket misquoted a spec value (wrong enum, wrong table, wrong field name). The spec and code are correct. The fix is a one-line correction to the source doc. Route: note `Type: A` in the deviation entry. `tidy` fixes the doc on its next pass.
+
+**Type B — Real architectural decision.** The build agent correctly deviated because the spec described something that doesn't exist yet, or there's a genuine gap between spec intent and implementation reality. Route: note `Type: B` in the deviation entry. Drop a `decision-{slug}.md` stub directly into `planning/backlog/` with the question, the options the build agent considered, and a pointer to the DEVIATIONS entry. The decision enters the normal Kanban flow from there.
+
+**Format for `flag-for-spec-revision` entries:**
+
+```markdown
+**Disposition:** flag-for-spec-revision
+**Type:** {A (upstream authoring error) | B (real architectural decision)}
+**Route:** {A: "`tidy` fixes {file}" | B: "decision stub at `planning/backlog/decision-{slug}.md`"}
+```
+
 The "no deviations" entry still requires a Why — even if the Why is *"the ticket implementation matched the spec exactly; no design judgment required."* Empty Why is the same failure mode as a missing entry.
 
-**Example.**
+**Example (Type B).**
 
 > ### T051: Used Postgres trigger instead of action-handler middleware for same-transaction event-row commit
 >
@@ -131,6 +147,20 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 > **Why:** The middleware doesn't fire on bulk inserts (per `web/lib/action-layer/middleware.ts` line 47 — single-row paths only). The trigger is the only point that catches every insert path, including the future migration-time bulk seeds. Acceptable per the same-transaction invariant because trigger is single-purpose and event-row writes are idempotent.
 >
 > **Disposition:** flag-for-spec-revision — `action-layer.md` should clarify whether the same-transaction guarantee is enforced at the application or database layer; the spec is ambiguous.
+> **Type:** B (real architectural decision)
+> **Route:** decision stub at `planning/backlog/decision-action-layer-enforcement-point.md`
+
+**Example (Type A).**
+
+> ### T063: Ticket referenced `items.status` enum value `archived` — actual enum value is `inactive`
+>
+> **What:** Ticket acceptance criterion used `status = 'archived'`; the schema defines `'inactive'` for this state.
+>
+> **Why:** The scenario misquoted the enum from `item.md`. Code uses the correct value `'inactive'`.
+>
+> **Disposition:** flag-for-spec-revision
+> **Type:** A (upstream authoring error)
+> **Route:** `tidy` fixes `planning/now/scenario-F063-item-lifecycle.md`
 
 **Verification.** Before completing the ticket: confirm `DEVIATIONS.md` carries an entry for this T-number, the entry has both a What and a Why line, and the Why anchors to a specific constraint (file:line, ADR, system-spec section, or observed test failure). If the entry is "no deviations," confirm the Why says *why* nothing diverged in one sentence. Empty Why → not done.
 
@@ -140,7 +170,7 @@ The "no deviations" entry still requires a Why — even if the Why is *"the tick
 
 **STAGE-LEDGER stamp (legacy — now handled by `sync`).** If `sync` is unavailable, fall back to the manual stamp: when the first commit lands for a scenario's tickets, flip the F-number's row to `building` with today's date. When the last ticket closes and evals are green, flip to `done`. For substrate tickets, stamp the corresponding row in the Substrate table.
 
-**SPEC-PATCHES queue.** If you flagged a `product/` spec for `explore` patching in DEVIATIONS, also append an entry to `planning/SPEC-PATCHES.md` with the spec path, section, what's wrong, and the ticket that caught it. The DEVIATIONS entry is the audit trail; SPEC-PATCHES is the queue that ensures the patch lands.
+**Spec-deviation routing (replaces SPEC-PATCHES).** Build no longer appends to `planning/SPEC-PATCHES.md` — that document is archived. Instead, every `flag-for-spec-revision` deviation is classified at the point of deviation: Type A (upstream authoring error) routes to `tidy`; Type B (real architectural decision) gets a `decision-{slug}.md` stub dropped into `planning/backlog/`. See the `flag-for-spec-revision` classification rules in the DEVIATIONS format section above.
 
 **Commit-hash backfill is non-optional.** Per audit H4, T055/T056/T057 still carry `{pending}` placeholders. Immediately after you run `git commit`, edit the ticket Completion section to fill in the hash — do not defer.
 

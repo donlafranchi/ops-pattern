@@ -33,7 +33,7 @@ They scroll the home feed. It shows: a recurring gathering at Drake's, a bakery'
 
 ## Surfaces
 
-- **Entry point:** `/` (home) — anonymous-readable with locality-defaulted IP fallback; signup CTA inline.
+- **Entry point:** `/` (home) — anonymous-readable with locality-defaulted IP fallback *(b1: locality default + scope picker; IP geolocation is a b2 refinement)*; signup CTA inline.
 - **Primary action:** "Sign up" or "Sign in" (magic link or social).
 - **Composer / interaction:** Three-step onboarding — profile · locality · interest tags. Each step optional-skippable except locality (the feed needs it). Feed re-renders inline as steps complete.
 - **Completion:** Lands on `/` with a populated feed scoped to their `primary_home` Place + selected interests.
@@ -59,7 +59,7 @@ Implicit: `member.created` event with `acting_member_id = <new member id>`; `mem
 
 **Given** an anonymous visitor opens `/` for the first time
 **When** the page loads
-**Then** the feed renders Items near the IP-geolocated locality, with a "Make this yours" signup CTA above the feed and an inline scope picker if the visitor wants to change locality before signing up.
+**Then** the feed renders Items near the IP-geolocated locality, with a "Make this yours" signup CTA above the feed and an inline scope picker if the visitor wants to change locality before signing up. *(b1: launches with locality default + scope picker; IP geolocation is a b2 refinement per the Edge Cases fallback.)*
 
 ### Signup → profile → locality → interests onboarding flow
 

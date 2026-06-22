@@ -23,7 +23,7 @@ A piano teacher, a plumber, a hairdresser, an in-home dog trainer. They want a p
 
 From the Group page or `/you`, the producer taps **"Add a service."** The service composer opens.
 
-Fields: title ("Piano lessons — 30 min"), description, service area (radius-from-point — they pick a center point and a mile/km radius), pricing model (flat / hourly / per-session / free), optional anchor Location (their home, the studio, or area-wide).
+Fields: title ("Piano lessons — 30 min"), description, service area (radius-from-point — they pick a center point and a mile/km radius), pricing model (hourly / flat / quote / membership), optional anchor Location (their home, the studio, or area-wide).
 
 They publish. Land on `/p/[…place]/g/[group-slug]/s/[slug-suffix]` (filed under business Group) or `/m/[handle]/s/[slug-suffix]` (sold as individual).
 
@@ -44,10 +44,12 @@ The service appears in the locality-first awareness feed for Members within scop
 | Title | `items.title` | yes |
 | Description | `items.description` | yes |
 | Service area (center + radius) | `item_services.service_area_geography` (PostGIS circle via center point + radius) | yes |
-| Pricing model | `item_services.rate_model` enum (flat / hourly / per-session / free) | yes |
-| Rate | `item_services.rate_cents` (null if free) | yes if not free |
+| Pricing model | `item_services.rate_model` enum (hourly / flat / quote / membership) | yes |
+| Rate | `item_services.rate_cents` (null = free; free is not a `rate_model` value) | yes if not free |
 | Anchor Location (optional) | `item_locations.location_id` | optional |
 | File under (Group, auto-default) | `items.group_id` | optional (null = sold as individual) |
+
+*(Patched: `rate_model` enum was `flat / hourly / per-session / free`; corrected to shipped enum `hourly / flat / quote / membership`. `per-session` maps to `flat`; `free` is modeled as `rate_cents = NULL`, not a `rate_model` value.)*
 
 Implicit: `items.kind='service'`, `items.member_id=<seller>`, `items.state='published'`, `items.brand_label` derived from Group's display_name if filed, `item.created` + `item.published` events with `acting_member_id`. No `made_at_place_id` step (services are excluded by kind).
 
@@ -92,7 +94,7 @@ Implicit: `items.kind='service'`, `items.member_id=<seller>`, `items.state='publ
 ## Edge Cases
 
 - **Service area extends beyond available `places` rows:** allowed; service surfaces for any Member whose place-interest intersects the circle.
-- **Free service:** `rate_cents = NULL`, `rate_model = 'free'`; page renders "Free."
+- **Free service:** `rate_cents = NULL`; page renders "Free." *(Free is not a `rate_model` value; absence of `rate_cents` is the signal.)*
 - **No anchor Location:** allowed — service is area-only. No "available here" surface anchor.
 - **Edit service:** at b1, covers title, description, service area, pricing model, rate — not member, kind, or Group.
 
@@ -113,7 +115,7 @@ Implicit: `items.kind='service'`, `items.member_id=<seller>`, `items.state='publ
 
 ## Capabilities unlocked
 
-- **2. Product & Service Listing** — Service composer — title, description, service area (radius-from-point), pricing model (flat/hourly/per-session/free).
+- **2. Product & Service Listing** — Service composer — title, description, service area (radius-from-point), pricing model (hourly/flat/quote/membership).
 - **2. Product & Service Listing** — Item pages at kind-specific URLs (`/s/[slug]` for services).
 - **2. Product & Service Listing** — Items filed under a business Group resolve-up with the Group's brand name.
 - **2. Product & Service Listing** — Items can also attach to a Member directly (sell as individual).
