@@ -1,9 +1,11 @@
 # T099: Locally Made proximity substrate + public render (F039 read surface)
 
 **Scenario:** `planning/now/scenario-F039-maya-claims-locally-made.md`
-**Status:** Open
+**Status:** Deferred
 **Bundle:** b1 (sub-bundle b1.4 — Find & follow)
 **Depends on:** T064 (`items.made_at_place_id` column + `item.made_at_*` event kinds), T058 (`places`), T062 (`member_place_interests`), T078/T079 (F038 product composer + page).
+
+> **Deferred 2026-06-19.** F039 Locally Made is deferred — the claim needs a cross-category redesign. Branch `t-f039` deleted without merge. Work will need to be rebuilt under a new approach.
 
 **Serves:**
 - **Loop:** 7 (Buy close), 9 (Make a living locally).

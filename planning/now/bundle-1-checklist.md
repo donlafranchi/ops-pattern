@@ -34,7 +34,7 @@ Ordinary people will step forward where they live, and their neighbors will show
 - [~] List a product — *merged; Playwright eval not yet run*
 - [x] List a service
 - [x] Claim the "Locally Owned" badge — *built + merged (F037, branch t-f037 → main 2026-06-04; eval 8/8 green)*
-- [ ] ~~Claim the "Locally Made" badge~~ — *deferred (F039) — the Locally Made claim needs a redesign to work across product categories, not just kind='product'; branch t-f039 deleted, work to be re-approached*
+- [ ] ~~Claim the "Locally Made" badge~~ — *deferred (F039) — needs cross-category redesign before re-approach; branch deleted, tickets archived to `_attic/2026-06-19-f039-deferred/`*
 - [x] Generate a printable QR card for any item
 
 ## What gatherers can do
@@ -47,7 +47,7 @@ Ordinary people will step forward where they live, and their neighbors will show
 
 - [x] Sign up and land in a populated feed
 - [x] Find another Member's profile and follow them
-- [ ] See everything they follow — people, Groups, venues — in one place — *ticketed (T108/T109)*
+- [x] See everything they follow — people, Groups, venues — in one place — *built + merged (T108/T109)*
 - [ ] Adjust how wide their "near me" reach is — *backlog (F031)*
 
 ## The integration test — gates MVP close
@@ -60,11 +60,11 @@ Ordinary people will step forward where they live, and their neighbors will show
 ## Where we are right now
 
 - **Foundations:** complete. All substrate — members, locations, items, groups, geography, metro polygons, saved-search / follow-venue wiring, jurisdiction badges — is built and merged to main.
-- **Producer surfaces:** *List a service* (F040) and the *QR card* generator (F041) are done end-to-end (evals green, merged). *List a product* (F038) is merged but its Playwright eval hasn't run. The *Sell walkthrough* (F036) is built and merged, eval partial (5/9) — its forward-deps have since merged, so it awaits a re-run. *Locally Owned* (F037) is built + merged (branch t-f037 → main 2026-06-04, eval 8/8 green); *Locally Made* (F039) is **deferred** — the claim needs a redesign to work across product categories, not just kind='product'; its branch (t-f039) has been deleted and the work will be re-approached.
+- **Producer surfaces:** *List a service* (F040) and the *QR card* generator (F041) are done end-to-end (evals green, merged). *List a product* (F038) is merged but its Playwright eval hasn't run. The *Sell walkthrough* (F036) is built and merged, eval partial (5/9) — its forward-deps have since merged, so it awaits a re-run. *Locally Owned* (F037) is built + merged (eval 8/8 green); *Locally Made* (F039) is **deferred** — needs cross-category redesign; branch deleted, tickets archived to `_attic/2026-06-19-f039-deferred/`.
 - **Gatherer surfaces:** *Host a recurring gathering* (F034) and *Group public page* (F035) are done (evals green, merged). The *venue page* (F033) is built and merged (T104/T105) but its eval hasn't been written or run.
-- **Newcomer surfaces:** signup → locality feed (F030) and *Member page + follow* (F032) are done (evals green, merged). The unified *follow everything* page (F042) is ticketed (T108/T109); *adjust near-me reach* (F031) is still in backlog.
-- **Integration test:** waits on the remaining surfaces above — F033 eval, F042 build, F038 eval.
-- **Open branches:** none. `t-f039` (Locally Made) was deferred and its branch deleted — the feature needs a cross-category redesign before it's re-approached.
+- **Newcomer surfaces:** signup → locality feed (F030) and *Member page + follow* (F032) are done (evals green, merged). The unified *follow everything* page (F042) is **done** — built + merged (T108/T109). *Adjust near-me reach* (F031) is still in backlog.
+- **Integration test:** waits on remaining eval runs (F036 re-run, F038 run, F033 write+run), F031 scoping, and the two end-to-end journeys.
+- **Board health:** 24 zombie tickets cleared to `done/` during board reconciliation (2026-06-21). No open branches.
 
 ## What this scoreboard is not
 

@@ -1,9 +1,11 @@
 # T100: Locally Made claim lifecycle — handlers, composer picker, owner widget (F039 write surface)
 
 **Scenario:** `planning/now/scenario-F039-maya-claims-locally-made.md`
-**Status:** Open
+**Status:** Deferred
 **Bundle:** b1 (sub-bundle b1.4 — Find & follow)
 **Depends on:** T099 (proximity + read path), T077 (item action-handler spine), T078 (product composer).
+
+> **Deferred 2026-06-19.** F039 Locally Made is deferred — the claim needs a cross-category redesign. Branch `t-f039` deleted without merge. Work will need to be rebuilt under a new approach.
 
 **Serves:** F039 beats 1 (composer pick) + 5 (owner edit lifecycle). Loop 7, Loop 9.
 
