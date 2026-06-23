@@ -87,17 +87,18 @@ If no sibling exists yet, write one line: "First in family — no sibling check 
 
 ## Workflow
 
-1. Read the approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`).
-2. Read every system the scenario references.
-3. Read `product/ui/design-language.md`.
-4. Read `product/exploration/apple-platform-integration.md` (for the Apple legibility check).
-5. Run the architecture check; capture findings in the review template.
-6. Run the design check; capture findings in the review template.
-7. Run the Apple platform legibility check; capture findings in the review template.
-8. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
-9. Save to `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`).
-10. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
-11. **STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Reviewed column: `{VERDICT} YYYY-MM-DD`. A second review appends, does not overwrite, so two-cycle reviews like F018 are visible.
+1. **Pre-flight lane check.** Locate the scenario file. It must live in `planning/next/` or `planning/now/`. If the scenario is in `planning/backlog/`, **stop** — do not proceed with the review. Report: "Scenario is still in backlog/. Promote to next/ first (via scope) before running review." Review only runs on approved scenarios that have left the backlog.
+2. Read the approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`).
+3. Read every system the scenario references.
+4. Read `product/ui/design-language.md`.
+5. Read `product/exploration/apple-platform-integration.md` (for the Apple legibility check).
+6. Run the architecture check; capture findings in the review template.
+7. Run the design check; capture findings in the review template.
+8. Run the Apple platform legibility check; capture findings in the review template.
+9. Write the verdict (PROCEED / REVISE / EXTEND) and the recommended next skill.
+10. Save to `review-F{NNN}.md` in the **same lane** as the scenario — `planning/next/` if the scenario is in `next/`, `planning/now/` if it is in `now/`. Never place the review in a different lane.
+11. Update `JOURNAL.md` with a one-line entry: "Reviewed F### — verdict: {PROCEED / REVISE / EXTEND}; see review."
+12. **STAGE-LEDGER stamp.** Append (or update) the F-number's row in `planning/STAGE-LEDGER.md` Reviewed column: `{VERDICT} YYYY-MM-DD`. A second review appends, does not overwrite, so two-cycle reviews like F018 are visible.
 
 ## Verdict semantics
 

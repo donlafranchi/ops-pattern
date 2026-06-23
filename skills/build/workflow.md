@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario the ticket references), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
+| **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario the ticket references — lane check at step 2 enforces this), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
 | **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section, including the commit hash you produce), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Runs `git add` + `git commit` after PM `y` on the permission prompt (per CLAUDE.md Commit Rules). |
 | **Branch** | One per ticket: `t{nnn}`, **in its own worktree** at `../web-t{nnn}/` (or `../community-t{nnn}/` for parent-repo work). Agent creates at session start via `git worktree add`; agent merges to `main` and removes the worktree at ticket close after PM `y` on the merge-permission prompt. Worktrees isolate concurrent agents so uncommitted edits in one ticket can't be overwritten by another agent committing in the shared `web/` tree. |
 | **Templates** | none — ticket template lives in `ticket/`; build implements, doesn't author specs |
@@ -18,22 +18,27 @@
 
 0. **Lock pre-flight.** Run `ls web/.git/index.lock web/.git/worktrees/*/index.lock .git/index.lock .git/worktrees/*/index.lock 2>/dev/null`. If any prints a path, stop and ask the PM to run `clearlock` before continuing. Do NOT attempt to remove the lock yourself — the sandbox lacks the permission and silent failure here wedges every later git call. Per CLAUDE.md Commit Rules.
 1. **Start the ticket worktree.** From the main `web/` working tree run `git worktree add ../web-t{nnn} -b t{nnn}` (or `git worktree add ../community-t{nnn} -b t{nnn}` from the parent repo for parent-repo work). Then `cd ../web-t{nnn}` and do all subsequent work there. Worktrees share the underlying `.git/` but have independent working trees and indices — uncommitted edits in `../web-t{nnn}/` cannot be overwritten by an agent committing in `web/` or in a sibling worktree. PM merges back at close and removes the worktree (`git worktree remove ../web-t{nnn}`).
-2. Read `BUILD-LOG.md` for current state.
-3. Read the ticket in `development/tickets/T{NNN}-{slug}.md`.
-4. Read the approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md` for the in-build scenario) referenced by the ticket.
-5. Read the relevant `product/systems/{name}.md` "Data model implications" section *only* — for forward-looking schema columns to include at MVP.
-6. Read the project's design language doc (if it has one) for any UI work.
-7. Write failing tests (red). Tests must trace back to a Then-clause in the scenario or an item in the ticket's checklist.
-8. Run tests — confirm FAIL.
-9. Write minimal code to pass.
-10. Run tests — confirm PASS (green).
-11. Refactor if needed.
-12. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (`git diff` + `git diff --cached` for this ticket's files). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `scope`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward. Per CLAUDE.md rebuild-phase rule #3.
-13. **`simplify-review` — structural pass before commit.** Run `/simplify-review` on the staged diff. Verdict **Approve** → continue. Verdict **Request changes**: (a) if the findings are *inside* this ticket's scope, fix forward, re-run tests, re-run `/simplify-review`, loop until Approve; (b) if the findings are *outside* this ticket's scope, log each to `development/DEVIATIONS.md` with the ticket ID, the lens, and a one-line note, commit the ticket as-is, and surface to the PM in the next journal entry. The build agent does not autonomously expand ticket scope — the skill identifies structural debt; the PM decides whether to triage now or later.
-14. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 18, after you commit).
-15. Move the ticket file to `development/tickets/done/`.
-16. Update `BUILD-LOG.md`.
-17. **Ask PM permission to commit.** Output one line, verbatim:
+2. **Scenario lane check.** Read the ticket's `Scenario:` reference to get the F-number and slug. Verify the scenario file exists in `planning/now/`. Substrate tickets (`Scenario: substrate`) skip this check.
+   - **In `planning/now/`** → proceed.
+   - **In `planning/next/`** → flag: *"Scenario is in next/ but should be in now/ before build starts. The ticket skill should have moved it — run close or manually move it."* Do not proceed until resolved.
+   - **In `planning/backlog/`** → hard stop: *"Scenario is still in backlog/ — this violates the build firewall. Cannot proceed."*
+   - **Not found in any lane** → stop and escalate: the scenario reference in the ticket may be stale or misspelled.
+3. Read `BUILD-LOG.md` for current state.
+4. Read the ticket in `development/tickets/T{NNN}-{slug}.md`.
+5. Read the approved scenario at `planning/now/scenario-F{NNN}-{slug}.md` referenced by the ticket.
+6. Read the relevant `product/systems/{name}.md` "Data model implications" section *only* — for forward-looking schema columns to include at MVP.
+7. Read the project's design language doc (if it has one) for any UI work.
+8. Write failing tests (red). Tests must trace back to a Then-clause in the scenario or an item in the ticket's checklist.
+9. Run tests — confirm FAIL.
+10. Write minimal code to pass.
+11. Run tests — confirm PASS (green).
+12. Refactor if needed.
+13. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (`git diff` + `git diff --cached` for this ticket's files). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `scope`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward. Per CLAUDE.md rebuild-phase rule #3.
+14. **`simplify-review` — structural pass before commit.** Run `/simplify-review` on the staged diff. Verdict **Approve** → continue. Verdict **Request changes**: (a) if the findings are *inside* this ticket's scope, fix forward, re-run tests, re-run `/simplify-review`, loop until Approve; (b) if the findings are *outside* this ticket's scope, log each to `development/DEVIATIONS.md` with the ticket ID, the lens, and a one-line note, commit the ticket as-is, and surface to the PM in the next journal entry. The build agent does not autonomously expand ticket scope — the skill identifies structural debt; the PM decides whether to triage now or later.
+15. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 19, after you commit).
+16. Move the ticket file to `development/tickets/done/`.
+17. Update `BUILD-LOG.md`.
+18. **Ask PM permission to commit.** Output one line, verbatim:
 
     ```
     Ready to commit T{NNN} on branch t{nnn} with message "T{NNN}: {Title}"? (y/n)
@@ -41,9 +46,9 @@
 
     On **y**: re-run the lock pre-flight (`ls web/.git/index.lock web/.git/worktrees/*/index.lock 2>/dev/null`); if clean, run `git add <files> && git commit -m "T{NNN}: {Title}"` inside the worktree. If a lock prints, stop and ask the PM to run `clearlock` first. On **n**: do not commit — PM either amends the message (re-prompt) or defers (leave the worktree dirty, hand off).
 
-18. **Backfill the commit hash** into the ticket's Completion section using the hash printed by `git commit`. Same session — never leave `{pending}`.
+19. **Backfill the commit hash** into the ticket's Completion section using the hash printed by `git commit`. Same session — never leave `{pending}`.
 
-19. **Ask PM permission to merge.** Output one line, verbatim:
+20. **Ask PM permission to merge.** Output one line, verbatim:
 
     ```
     Ready to merge t{nnn} into main and remove the worktree? (y/n)
@@ -194,6 +199,6 @@ The TDD loop body keeps its narration discipline; this governs the *final* close
 
 **On eval failure:** evaluator hands back to you. Run the TDD loop again — fix forward, never roll back. New iteration stays on the same `t{nnn}` branch; you commit each pass after PM `y` on the permission prompt.
 
-**On eval pass:** the loop closes. Merge already happened at ticket close (step 18). Pick the next scenario or ask `ticket` for the next ticket.
+**On eval pass:** the loop closes. Merge already happened at ticket close (step 20). Pick the next scenario or ask `ticket` for the next ticket.
 
 **On partial-pass with named forward-deps:** evals run on `main` after merge can have failing tests when DEVIATIONS-accepted-as-is entries name unbuilt upstream. The merge still lands — main reflects shipped state honestly, including the gaps the DEVIATIONS entries explain. The row in STAGE-LEDGER flips to `eval` (not `done`) until forward-deps ship and evals fully green.

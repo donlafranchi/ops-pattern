@@ -4,9 +4,9 @@
 
 | | |
 |---|---|
-| **Reads** | `development/tickets/T{NNN}-{slug}.md`, `development/tickets/done/`, `development/deviations/T{NNN}.md`, `planning/STAGE-LEDGER.md`, `planning/stage-ledger/{concept}.md`, `planning/now/bundle-1-checklist.md`, `web/BUILD-LOG.md`, git log + branch state in `web/` and parent repo |
-| **Writes** | Moves ticket → `development/tickets/done/`, updates `planning/STAGE-LEDGER.md`, updates `planning/stage-ledger/{concept}.md`, updates `planning/now/bundle-1-checklist.md`, updates `web/BUILD-LOG.md` |
-| **Does NOT write** | Code, scenarios, specs, JOURNAL. Does not commit — hands PM the clearlock + commit line. |
+| **Reads** | `development/tickets/T{NNN}-{slug}.md`, `development/tickets/done/`, `development/deviations/T{NNN}.md`, `planning/STAGE-LEDGER.md`, `planning/stage-ledger/{concept}.md`, `planning/now/bundle-1-checklist.md`, `planning/now/scenario-F###-*.md`, `planning/now/review-F###.md`, `web/BUILD-LOG.md`, git log + branch state in `web/` and parent repo |
+| **Writes** | Moves ticket → `development/tickets/done/`, updates `planning/STAGE-LEDGER.md`, updates `planning/stage-ledger/{concept}.md`, updates `planning/now/bundle-1-checklist.md`, updates `web/BUILD-LOG.md`. When all tickets for an F-number are done, moves scenario + review → `planning/done/YYYY-MM-DD-f###-{slug}/` |
+| **Does NOT write** | Code, specs, JOURNAL. Does not create or edit scenarios — only archives them to `done/`. Does not commit — hands PM the clearlock + commit line. |
 | **Does NOT read** | `planning/backlog/` |
 
 ---
@@ -89,7 +89,27 @@ If it exists, flag:
 
 Do not remove it — hand the command to the PM.
 
-### 8. Hand PM the commit
+### 8. Archive scenario + review (if feature complete)
+
+Skip this step if the ticket's Scenario line is `substrate` (no F-number).
+
+**a. Extract F-number.** Read the ticket's `**Scenario:**` line. Extract the F-number (e.g., `F037`).
+
+**b. Check sibling tickets.** Scan `development/tickets/` (excluding `done/`) for any other ticket whose `**Scenario:**` line references the same F-number. If any remain, skip — the scenario stays in `planning/now/` until the feature fully ships.
+
+**c. If all tickets for the F-number are in `done/`, propose the move:**
+
+> All tickets for F{###} are done. Ready to archive scenario + review to `planning/done/`? (y/n)
+
+**d. On yes:** create `planning/done/{YYYY-MM-DD}-f{###}-{scenario-slug}/` and move:
+- `planning/now/scenario-F{###}-{slug}.md` → the new dated directory
+- `planning/now/review-F{###}.md` → the same directory (if it exists; not every scenario has a review)
+
+Add a `RETIRED.md` in the directory with one line: `Retired from: planning/now/` (matches the existing convention in `planning/done/`).
+
+**e. On no:** skip. The PM directs follow-up.
+
+### 9. Hand PM the commit
 
 Output the commit message + clearlock line for all parent-repo changes:
 
@@ -103,6 +123,13 @@ clearlock && cd /Users/don/Projects/community && \
           planning/stage-ledger/{concept}.md \
           planning/now/bundle-1-checklist.md && \
   git commit -m "docs(pipeline): close T{NNN} — {ticket title}"
+```
+
+If step 8 archived a scenario + review, include those paths too:
+
+```
+  git add planning/done/{YYYY-MM-DD}-f{###}-{slug}/ \
+          planning/now/  # catches the removal of scenario + review from now/
 ```
 
 Adjust the `git add` paths to include only files that actually changed.
@@ -130,7 +157,7 @@ For each ticket:
 
 ### 4. Execute
 
-Run the single-ticket sequence (steps 2–7) for every merged ticket.
+Run the single-ticket sequence (steps 2–8) for every merged ticket.
 
 ### 5. Report
 
@@ -155,9 +182,13 @@ clearlock && cd /Users/don/Projects/community && \
   git add development/tickets/done/ \
           planning/STAGE-LEDGER.md \
           planning/stage-ledger/ \
-          planning/now/bundle-1-checklist.md && \
+          planning/now/bundle-1-checklist.md \
+          planning/done/ \
+          planning/now/ && \
   git commit -m "docs(pipeline): close T081, T083, T085"
 ```
+
+The `planning/done/` and `planning/now/` paths cover any scenarios + reviews archived in step 8.
 
 ---
 

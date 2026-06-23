@@ -29,7 +29,7 @@ See `workflow.md`.
 
 ## Hand off
 
-**Produced:** one or more `development/tickets/T{NNN}-{slug}.md` files, each referencing an approved scenario.
+**Produced:** one or more `development/tickets/T{NNN}-{slug}.md` files, each referencing an approved scenario. On PM approval, advances the scenario (and its review doc if present) from `planning/next/` to `planning/now/`.
 
 **Next skill:** `test` (write mode) — translates the scenario's Given/When/Then into Playwright tests *before* the build agent starts. Then `build` to implement the ticket via TDD.
 

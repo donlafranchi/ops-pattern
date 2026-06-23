@@ -136,6 +136,7 @@ Twelve skills cover the full lifecycle. Each runs in **one tool only** — the h
 | "tickets for F###", "break F### into tickets" | `ticket` | Claude Code |
 | "tests for F###", "Playwright spec for F###", "run F### tests" | `test` | Claude Code |
 | "implement T###", "TDD this", "build T###" | `build` | Claude Code |
+| "close T###", "move ticket to done", "post-merge cleanup", "archive the scenario" | `close` | Cowork |
 | "sync the scoreboard", "sync progress", "update the checklist", "are the tracking docs current", "reconcile the ledger" | `sync` | Cowork |
 | "tidy", "sweep the docs", "anything rotting", "triage the inbox", "audit the skills", "anything to archive" | `tidy` | Cowork |
 | "I want this to improve itself", "design a self-improvement loop", "Karpathy loop" | `loop-designer` (utility) | Cowork |
@@ -195,7 +196,7 @@ Active until the b1 user-surface set (F030–F037 — sequence draft in `_inbox/
     - **Gate B — `ticket`.** A ticket cannot be drafted if any spec section the ticket would *encode in code* (schema, RLS, action-handler, UI affordance removal) contains unratified absolutes. `ticket` stops, surfaces the unratified statements, and routes to `weigh`. After ratification, ticketing resumes.
     - By the time tickets reach `build`, every absolute the code will encode already carries a Ratified or Deferred State tag with PM-approved Intent. The cheapest place to catch an unearned absolute is before code encodes it.
 12. **STAGE-LEDGER stamp MANDATORY at every pipeline-skill handoff.** Each skill (`scope`, `review`, `ticket`, `build`, `test`) appends or updates the relevant row in [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) as the final step of its workflow. Regressions append new dated entries rather than overwriting — round-trips (two-cycle reviews) must remain visible.
-13. **SPEC-PATCHES queue MANDATORY when build flags a spec.** Whenever `build` writes a DEVIATIONS entry with `Disposition: flag-for-spec-revision`, it also appends an entry to [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md). `explore` drains the queue as a gate before each phase opens. Closes the Build → Product return loop.
+13. **Deviation routing MANDATORY when build flags a spec.** `build` classifies each `flag-for-spec-revision` deviation as Type A (upstream authoring error — fix inline, route to `tidy`) or Type B (real architectural decision — drop a `decision-{slug}.md` stub in `planning/backlog/`). The retired `SPEC-PATCHES.md` running tally is replaced by this point-of-creation routing. `explore` drains stale Type B stubs as a gate before each phase opens.
 14. **Substrate-ticket lane LEGALIZED.** Tickets with no user-facing surface (schema, RLS, action-handler scaffolding, test helpers) carry `Scenario: substrate` and bind to a system spec section + memo(s) instead of a Given/When/Then. Full contract in the `ticket` workflow § Substrate lane.
 15. **Drift check at every session start.** `orient` runs the drift checklist — empty `scenarios/` with live ticket refs, stale BUILD-LOG bundle links, worktree shadows, oversize DEVIATIONS, `{pending}` commit hashes, retired skill dirs, stalled SPEC-PATCHES, superseded-memo citations, stalled STAGE-LEDGER rows. Flags only — does not gate.
 
@@ -217,7 +218,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`playbooks/writing-docs.md`](playbooks/writing-docs.md) | How to write any doc in the repo — where things live, style rules, anti-patterns, templates (capability spec / pattern entry / JOURNAL entry). |
 | [`playbooks/repo-tidying.md`](playbooks/repo-tidying.md) | What `tidy` looks for — ten findings, each with a trigger and a disposition. |
 | [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) | The pipeline stage tracker — one row per F-number + substrate group; stamped by each pipeline skill as the work moves through. Read at session start (router does this). |
-| [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md) | The Build → Product return queue. Build agent appends when it flags a spec; `explore` drains as a gate before each phase opens. Fulfills audit R5. |
+| [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md) | **Retired 2026-06-19.** Type A fixes applied inline; Type B decisions filed as `decision-*` stubs in `planning/backlog/`. Build now classifies deviations at the point of creation — see `skills/build/workflow.md` § flag-for-spec-revision. |
 | [`planning/AGENT-BOUNDS.md`](planning/AGENT-BOUNDS.md) | The three-layer agent-bounds doc (Intent / Bounds / Casebook) + agent-response discipline. Read when deciding whether to escalate to PM or decide alone. |
 | [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |
 | [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |

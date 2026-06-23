@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario), `development/tickets/` and `done/` (for next T-number), `product/systems/{name}.md` (Data model implications section only), root `CLAUDE.md` |
-| **Writes** | `development/tickets/T{NNN}-{slug}.md` |
+| **Writes** | `development/tickets/T{NNN}-{slug}.md`; moves scenario (+ review) from `planning/next/` → `planning/now/` on PM approval |
 | **Templates** | `templates/ticket.md` |
 | **Does NOT read** | `planning/backlog/`, `web/` (code), eval test files, `product/foundation/` |
 | **Hands to** | `build` (to implement) — `test` (write mode) runs in parallel from the scenario |
@@ -125,6 +125,16 @@ Every acceptance-criteria item that encodes a design choice carries its **why** 
 2. `build` — picks up the ticket, reads the scenario for context, runs the TDD loop (red → green → refactor), commits, updates `BUILD-LOG.md`.
 
 3. `test` (run mode) — runs the F### evals after build completes, reports pass/fail traceably. On fail, hands back to `build` to fix forward.
+
+## Lane advancement (final step)
+
+After tickets are written and the PM approves them, advance the scenario into the active lane:
+
+1. **Check current lane.** If the scenario is already in `planning/now/`, skip — nothing to move.
+2. **Propose the move.** Ask: "Ready to advance `scenario-F{NNN}-{slug}.md` from `next/` to `now/`? (y/n)"
+3. **On y:** move `planning/next/scenario-F{NNN}-{slug}.md` → `planning/now/scenario-F{NNN}-{slug}.md`. If `planning/next/review-F{NNN}.md` exists, move it to `planning/now/review-F{NNN}.md` alongside the scenario.
+4. **On n:** leave files in place. PM directs follow-up.
+5. **Include the move in the commit message** — e.g. `docs(pipeline): ticket F{NNN} — wrote T{NNN}–T{NNN}, advanced scenario to now/`.
 
 ## Final report
 

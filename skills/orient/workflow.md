@@ -26,7 +26,7 @@ Session-start check (project-agnostic):
    | `development/DEVIATIONS.md` over 400 lines without a rotation pointer at top — E2 | Audit E2 |
    | `{pending}` or `{commit hash}` placeholders in `development/tickets/done/*.md` Completion sections — H4 | Audit H4 |
    | Retired skill directories present on disk that the routing table doesn't list — H6 | Audit H6 |
-   | `planning/SPEC-PATCHES.md` has any open patch older than the current bundle's open date — Build → Product loop not draining | Audit H3 |
+   | `planning/backlog/decision-*.md` stubs older than 30 days with `status: draft` — Type B deviations not being addressed | Audit H3 (replaces retired SPEC-PATCHES check) |
    | Any decision cited as live in a ticket but marked superseded in `playbooks/PLATFORM-PATTERNS.md` / `playbooks/DEVELOPMENT-PATTERNS.md` (or by a reversal memo under `playbooks/memos/`) — E6 | Audit E6 |
    | Any F# has artifacts (ticket exists) but no `plan-approved` stamp in STAGE-LEDGER — return-path break | Audit R4 |
    | Any `.md` or `.html` at repo root other than the load-bearing set — anti-sprawl | 2026-05-23 |
@@ -40,7 +40,7 @@ Session-start check (project-agnostic):
 
    Report each failure with: check name, offending file(s), one-line fix. Do not attempt the fix.
 
-   **Also scan the kanban lanes (`planning/backlog/`, `planning/next/`, `planning/now/`) for stale items per PM convention — lane membership is the state; PM moves files when ready.**
+   **Also scan the kanban lanes (`planning/backlog/`, `planning/next/`, `planning/now/`) for stale items. Lane membership is the state. Pipeline skills advance artifacts forward one lane with PM approval (scope: backlog→next, ticket: next→now, close: now→done). If an artifact is stuck in the wrong lane, name the skill that should have moved it.**
 
 8. **Surface unsynced sub-bundle.** Glance at `planning/now/bundle-{N}-checklist.md` and the last few `development/tickets/done/T*.md`. If a sub-bundle has closed but `planning/now/bundle-{N}-themes.md` / `planning/now/bundle-{N}-checklist.md` hasn't been touched since, suggest running step 11 (folded bundle-resync) before any new scenario writing.
 
@@ -118,6 +118,7 @@ After the orientation pass, route via the table below.
 | Break an approved scenario into tickets | `ticket` |
 | Implement a ticket via TDD | `build` |
 | Write or run acceptance tests | `test` |
+| Post-merge bookkeeping, move tickets/scenarios to done | `close` |
 | Triage `_inbox/`, sweep docs, audit skills, anything anti-sprawl | `tidy` |
 | Reflect on / merge / prune memory | `consolidate-memory` (Cowork) |
 | Self-improvement loop spec (Karpathy loop) | `loop-designer` |
@@ -131,7 +132,7 @@ The pipeline runs in a strict order per feature. Each step has one input and one
                 (with Data model implications + canonical anchor)
 
 2. scope     →  writes scenario drafts in planning/backlog/
-                (PM reviews, moves approved to planning/next/ or now/)
+                On PM approval, advances backlog/ → next/.
                 Gate A: refuses scenarios whose cited spec sections
                 contain unratified absolutes — routes to weigh.
 
@@ -145,25 +146,32 @@ The pipeline runs in a strict order per feature. Each step has one input and one
 
 5. ticket    →  breaks approved scenario into ordered, session-sized
                 tickets in development/tickets/. Reads scenario AND
-                review document. Gate B: refuses tickets whose touched
-                specs contain unratified absolutes — routes to weigh.
+                review document. On PM approval, advances next/ → now/.
+                Gate B: refuses tickets whose touched specs contain
+                unratified absolutes — routes to weigh.
 
-6. build     →  implements one ticket at a time via TDD.
+6. build     →  implements one ticket at a time via TDD (on branch).
                 Runs M2 (code review) BEFORE commit. Commits to app
                 repo with PM permission. Updates BUILD-LOG.md.
 
-7. test      →  runs the F### tests against the new build.
+7. test      →  runs the F### tests against the build (on branch).
    (run)        Reports pass/fail with scenario traceability.
+
+8. close     →  post-merge bookkeeping. Moves ticket → done/,
+                stamps STAGE-LEDGER, updates checklist. When all
+                tickets for an F# are done, advances now/ → done/.
 ```
 
 **Steps 4 (test-write) and 5 (ticket) run in parallel** — both consume the approved scenario, eyes-closed to each other. Both feed step 6 (build).
 
-**Key rule:** tests are written *before* build (against the scenario only — test writer never reads code) and *run* after build. This separation makes the pipeline trustworthy.
+**Key rule:** tests are written *before* build (against the scenario only — test writer never reads code) and *run* after build, before merge. The sequence is: build (on branch) → test (on branch) → merge → close. This separation makes the pipeline trustworthy.
+
+**Lane advancement rule:** every pipeline skill proposes moving its artifacts forward one kanban lane as its final step. The PM approves (y/n). The PM never moves files manually — skills do the moving.
 
 ## Pipeline reference
 
 ```
-Explore (dream) → Scope (filter) → Test-write (oracle) → Ticket (sequence) → Build (execute) → Test-run (verify)
+Explore (dream) → Scope (filter) → Test-write (oracle) → Ticket (sequence) → Build (execute) → Test-run (verify) → Close (archive)
 ```
 
 - **Information firewalls:** each role has explicit can-read / cannot-read sets.

@@ -5,11 +5,11 @@
 | | |
 |---|---|
 | **Reads** | `product/foundation/*` (mandatory: `use-cases.md`, `member-journey.md`, `primitives.md`), `product/systems/`, `product/capabilities/`, `planning/now/bundle-{N}.md` (active bundle), `planning/now/bundle-{N}-themes.md` (mandatory — sub-bundle sequence), `planning/now/bundle-{N}-checklist.md` (mandatory — menu of 🟢/🟡/⚪ work for the active bundle) |
-| **Writes** | `planning/backlog/scenario-F{NNN}-{persona}-{verb}-{object}.md`, `planning/now/` (bundle artifacts) |
+| **Writes** | `planning/backlog/scenario-F{NNN}-{persona}-{verb}-{object}.md`, `planning/now/` (bundle artifacts). On PM approval, moves scenario from `backlog/` → `next/`. |
 | **Templates** | `templates/scenario.md` (user-story shape — required), `templates/bundle.md` |
-| **Does NOT read** | `web/` (code), `development/tickets/`, `planning/next/` and `planning/now/` scenarios (modify-wise — read for reference only) |
+| **Does NOT read** | `web/` (code), `development/tickets/`. Reads `planning/next/` and `planning/now/` scenarios for reference only (writes to `next/` only via lane-advance move). |
 | **Calls in** | `planning-filter` (Anthropic) for sprawling-backlog ranking |
-| **Hands to** | PM for review → `test` (write mode) and `ticket` |
+| **Hands to** | PM for approval → lane advance (`backlog/` → `next/`) → `test` (write mode) and `ticket` |
 
 ## What you read first (every time)
 
@@ -52,7 +52,8 @@ Apply to every system before approving scenarios from it:
    - `Intent: ...` (no parenthetical tag) or no `Intent` line at all → **unratified. Gate A fails.**
    - If Gate A fails, the scenario stays in backlog. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `weigh` for the PM to walk. After ratification, re-run Gate A; on pass, the scenario is eligible for approval.
    - Scope of the scan: only spec sections the scenario *cites or encodes* — not entire foundation docs. A scenario that touches `groups.md § Joining` triggers the gate on that section, not on every absolute in `groups.md`.
-10. **PM reviews.** PM moves the file from `planning/backlog/` to `planning/next/` when ready.
+10. **PM reviews.** PM approves or rejects the scenario.
+11. **Lane advance (final step).** If the scenario is in `planning/backlog/` and the PM approved it, ask: _"Ready to advance `scenario-F{NNN}-{slug}.md` from `backlog/` to `next/`? (y/n)"_. On **y**, move the file. On **n**, leave it in `backlog/`. If the scenario is already in `planning/next/` or `planning/now/` (e.g. a revision pass), skip the move. Include the lane advance in the commit message handed to the PM.
 
 ## When to invoke `planning-filter`
 
@@ -72,8 +73,8 @@ Skip `planning-filter` when you're writing a single scenario for a known feature
 ## Lifecycle
 
 - New scenarios → `planning/backlog/` as `scenario-F{NNN}-{slug}.md`.
-- PM approves → moves to `planning/next/` (queued) or `planning/now/` (in build).
-- Never write directly to `planning/next/` — everything goes through `backlog/` first.
+- PM approves → scope moves to `planning/next/` (queued) on PM confirmation. PM may later move to `planning/now/` (in build).
+- Never write directly to `planning/next/` — everything goes through `backlog/` first; the lane advance prompt is the only path from `backlog/` to `next/`.
 - Superseded scenarios → `planning/done/` with a one-line note in the new scenario explaining what it replaced.
 
 ## Writing guidelines
@@ -104,11 +105,11 @@ Every non-obvious Given/When/Then clause in a scenario carries its **why** along
 
 ## Hand off
 
-**STAGE-LEDGER stamp (final step).** Append (or backfill) a row in `planning/STAGE-LEDGER.md` for the F-number: stage `plan-backlog`, date today. If the PM later approves and moves the file to `planning/next/`, update the row to `plan-approved` with the approval date. A regression (approved → backlog) appends a new dated entry rather than overwriting — the audit's R4 makes round-trips visible by design.
+**STAGE-LEDGER stamp (penultimate step).** Append (or backfill) a row in `planning/STAGE-LEDGER.md` for the F-number: stage `plan-backlog`, date today. If the PM approves and confirms the lane advance, update the row to `plan-approved` with the approval date before moving the file. A regression (approved → backlog) appends a new dated entry rather than overwriting — the audit's R4 makes round-trips visible by design.
 
 **You produced:** a scenario draft in `planning/backlog/`, with `Why:` annotations on every non-obvious Given/When/Then clause.
 
-**You hand to:** the PM, who reviews and either approves (moves to `planning/next/`) or rejects (annotates and leaves in `backlog/` or archives to `planning/done/`).
+**You hand to:** the PM, who reviews and either approves (scope moves to `planning/next/` on PM confirmation) or rejects (annotates and leaves in `backlog/` or archives to `planning/done/`).
 
 **Once approved, the next skill is `ticket`**, which breaks the scenario into implementable tickets. In parallel, `test` (write mode) writes Playwright tests from the scenario before `build` starts.
 

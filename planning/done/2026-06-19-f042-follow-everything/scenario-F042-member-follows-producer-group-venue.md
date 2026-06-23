@@ -2,7 +2,7 @@
 id: how-f042-member-follows-producer-group-venue
 purpose: Backlog scenario — cross-cutting follow CTA tested for Group and Venue (Member follow tested in F032).
 layer: how
-status: draft
+status: approved
 ---
 
 # F042: A member follows a producer, a group, and a venue
@@ -11,7 +11,7 @@ status: draft
 **Loops:** 8 (Follow what you love)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love).
 **Primitive shape:** Person → multiple follow substrates: `member_follows` (Member follow, covered in F032 — referenced here for cross-cutting test), `group_memberships(source='explicit')` (Group follow), `member_saved_searches(location_id)` (Venue follow).
-**Status:** backlog
+**Status:** approved
 **New scenario** — no existing F-number. F032 covers the Member follow path; this scenario covers Group + Venue follow paths and the cross-cutting "Things you follow" management surface.
 
 ## The Person
@@ -22,14 +22,17 @@ A Member who has built up a small set of things they care about — a baker, a b
 
 From the venue page (F033), the Member taps "Follow this venue" → `member_saved_searches` row writes with `location_id` populated. From the business Group page (F035) for a non-business Group (community kind), the Member taps "Join" → `group_memberships(source='explicit')` row writes. From a Member page (F032), the Member taps "Follow" → `member_follows` row writes.
 
-From `/you` they navigate to **"Things you follow."** The page surfaces a unified list — Members, Groups, Venues — each with the right label and an Unfollow affordance. Tapping Unfollow on any row writes the appropriate soft-delete: `member_follows.removed_at` for a Member follow, `group_memberships.left_at` for a Group join (with `group.member_left` event), `member_saved_searches.removed_at` for a Venue follow (with `member.saved_search.removed` event).
+On `/you`, a **"Following" summary section** shows a horizontal card scroll of followed entities (Members, Groups, Venues mixed together, most recent first). Each card shows the entity's display name + thumbnail. A "More" link at the end of the scroll navigates to `/you/following`.
+
+At `/you/following`, the **full management page** breaks follows into three flat sections — **People**, **Groups**, **Venues** — each row labeled with the entity's display name + thumbnail. People rows show an Unfollow affordance; Group rows show a Leave affordance; Venue rows show an Unfollow affordance. Tapping Unfollow on a People row writes `member_follows.unfollowed_at`; `member.unfollowed` event logs. Tapping Leave on a Group row writes `group_memberships.left_at`; `group.member_left` event logs. Tapping Unfollow on a Venue row writes `member_saved_searches.removed_at`; `member.saved_search.removed` event logs.
 
 ## Surfaces
 
 - **Entry points (writes):** F032 (Member page Follow), F033 (Venue page "Follow this venue"), F035 (Group page Join for community kinds).
-- **Entry point (read + manage):** `/you/following` (or `/you` → "Things you follow" sub-section).
-- **Primary actions:** Follow (Member / Venue / Group) — covered by the source-page scenarios. Unfollow — covered by `/you/following`.
-- **Composer / interaction:** No composer; list + unfollow affordance per row.
+- **Entry point (glance):** `/you` → "Following" summary section (horizontal card scroll, mixed entities, most recent first, "More" link).
+- **Entry point (manage):** `/you/following` (full page, three sections: People / Groups / Venues).
+- **Primary actions:** Follow (Member / Venue / Group) — covered by the source-page scenarios. Unfollow (People, Venues) and Leave (Groups) — covered by `/you/following`.
+- **Composer / interaction:** No composer; list + unfollow/leave affordance per row.
 - **Completion:** Stays on `/you/following`; row updates inline.
 - **Discovery:** N/A.
 
@@ -37,11 +40,11 @@ From `/you` they navigate to **"Things you follow."** The page surfaces a unifie
 
 | User-language field | Schema mapping | Required? |
 |---|---|---|
-| Members I follow | `member_follows(follower_member_id, followed_member_id) where removed_at is null` | read at b1; writes covered by F032 |
+| Members I follow | `member_follows(follower_member_id, followed_member_id) where unfollowed_at is null` | read at b1; writes covered by F032 |
 | Groups I'm in | `group_memberships(member_id, group_id) where left_at is null and source='explicit'` | read at b1; writes covered by F035 |
 | Venues I follow | `member_saved_searches(member_id, location_id) where removed_at is null and location_id is not null` | read at b1; writes covered by F033 |
 
-Implicit: on Unfollow, the appropriate soft-delete handler fires (`member.unfollow`, `group.member_leave`, `member.saved_search.remove`); event log row writes per substrate.
+Implicit: on Unfollow/Leave, the appropriate soft-delete handler fires (`member.unfollow`, `group.member_leave`, `member.saved_search.remove`); event log row writes per substrate.
 
 ## Acceptance Criteria
 
@@ -57,20 +60,26 @@ Implicit: on Unfollow, the appropriate soft-delete handler fires (`member.unfoll
 **When** they tap "Join"
 **Then** a `group_memberships` row writes with `role` per kind's default + `source='explicit'`; `group.member_joined` event logs; CTA flips to "Member." (Same as F035 acceptance.)
 
-### Unified follows list at /you/following
+### Following summary on /you
+
+**Given** an auth'd Member with follows across Members, Groups, and Venues
+**When** they load `/you`
+**Then** a "Following" section renders with a horizontal card scroll showing followed entities (mixed, most recent first), each card showing display name + thumbnail. A "More" link at the end navigates to `/you/following`.
+
+### Full follows list at /you/following
 
 **Given** an auth'd Member with follows across Members, Groups, and Venues
 **When** they load `/you/following`
-**Then** the page surfaces a unified list with three sections (Members / Groups / Venues), each row labeled with the followed entity's display name + thumbnail, with an Unfollow affordance per row.
+**Then** the page surfaces three sections — **People**, **Groups**, **Venues** — each row labeled with the entity's display name + thumbnail. People and Venue rows show "Unfollow"; Group rows show "Leave."
 
-### Unfollow writes the correct soft-delete + event per substrate
+### Unfollow / Leave writes the correct soft-delete + event per substrate
 
 **Given** the Member is on `/you/following`
-**When** they tap Unfollow on a Member row → `member_follows.removed_at` updates; `member.unfollowed` event logs.
-**When** they tap Unfollow on a Group row → `group_memberships.left_at` updates; `group.member_left` event logs.
+**When** they tap Unfollow on a People row → `member_follows.unfollowed_at` updates; `member.unfollowed` event logs.
+**When** they tap Leave on a Group row → `group_memberships.left_at` updates; `group.member_left` event logs.
 **When** they tap Unfollow on a Venue row → `member_saved_searches.removed_at` updates; `member.saved_search.removed` event logs.
 
-**Then** in all three cases, the row disappears from the list (or strikethroughs with an "undo" affordance for a few seconds).
+**Then** in all three cases, the row disappears from the list (or shows an "Undo" affordance for a few seconds).
 
 ### Counts respect privacy gates
 
@@ -83,7 +92,7 @@ Implicit: on Unfollow, the appropriate soft-delete handler fires (`member.unfoll
 - **No follows yet:** empty-state ("Nothing followed yet — start exploring.") with a CTA back to `/explore` or `/`.
 - **Followed Member soft-deletes:** the row stays in the list as a tombstone (or quietly disappears, depending on UX call); no error.
 - **Followed Group `discoverability` changes to private:** the row stays as long as the Member is still a listed member; otherwise hidden.
-- **Re-follow after unfollow:** soft-deleted rows are re-activated (clear `removed_at` / `left_at`) rather than inserting duplicates.
+- **Re-follow after unfollow:** soft-deleted rows are re-activated (clear `unfollowed_at` / `left_at` / `removed_at`) rather than inserting duplicates.
 
 ## Assumptions
 

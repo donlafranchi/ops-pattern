@@ -28,6 +28,7 @@ See `workflow.md`.
 - `planning/STAGE-LEDGER.md`
 - `planning/stage-ledger/*.md` (per-file ledger)
 - `planning/now/bundle-1-checklist.md`
+- `planning/now/scenario-F###-*.md` and `planning/now/review-F###.md`
 - `web/BUILD-LOG.md`
 - git log + branch state in `web/` and parent repo
 
@@ -36,6 +37,7 @@ See `workflow.md`.
 - Updates `planning/STAGE-LEDGER.md`
 - Updates `planning/now/bundle-1-checklist.md`
 - Updates `web/BUILD-LOG.md`
+- When all tickets for an F-number are done: moves scenario + review from `planning/now/` to `planning/done/YYYY-MM-DD-f###-{slug}/`
 
 ## Does NOT
 - Run tests or evals (`test` does that)
@@ -45,7 +47,7 @@ See `workflow.md`.
 
 ## Hand off
 
-**You produced:** ticket moved to done, ledger stamped, checklist updated, BUILD-LOG updated, worktree status flagged.
+**You produced:** ticket moved to done, ledger stamped, checklist updated, BUILD-LOG updated, worktree status flagged. If feature complete: scenario + review archived to `planning/done/`.
 
 **Next skill:** `test` (run mode) if evals haven't run yet. Otherwise, none — ticket is fully closed.
 
