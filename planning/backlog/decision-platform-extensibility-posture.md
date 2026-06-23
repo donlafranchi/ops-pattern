@@ -1,8 +1,8 @@
 ---
-purpose: Park a foundation-level posture decision on platform extensibility for `explore` and a new ADR
-layer: planning
-status: parked
-captured: 2026-05-30
+purpose: Decide whether platform commits to API-first posture (b1 closed, b2 first-party app, b3 third-party API)
+layer: how
+status: draft
+source: inbox drain 2026-06-21 (originally captured 2026-05-30)
 ---
 
 # Platform extensibility — API-first posture

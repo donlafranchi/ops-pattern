@@ -1,108 +1,88 @@
 ---
 id: how-f031-member-manages-place-interest-scope
-purpose: Backlog scenario — a member tunes their awareness scope by adding/removing/promoting secondary Place-interests.
+purpose: Backlog scenario — the feed scopes to the member's metro market; rural members choose a market.
 layer: how
 status: draft
 ---
 
-# F031: A member manages their place-interest scope
+# F031: A member's feed shows their metro market
 
 **Bundle:** b1
 **Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly), 8 (Follow what you love)
-**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — the Oak-Park-resident-who-works-in-Folsom situation.
-**Primitive shape:** Person → `member_place_interests`(primary + ≤5 secondary) × `member_interests` → community-awareness feed × Place-hierarchy traversal.
-**Status:** backlog
-**Replaces:** F029 (archived 2026-05-28 — drop persona; structurally sound, mostly a name scrub).
+**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — the Oak-Park-resident-who-works-in-Folsom situation. At b1 this resolves automatically: both Oak Park and Folsom are inside the Sacramento-Roseville CSA, so the metro-scoped feed shows both without manual secondary-place management.
+**Primitive shape:** Person → `members.home_metro_id` → `metro_polygons.geography` → feed `ST_Intersects` against discoverable Items.
+**Status:** backlog (trimmed from the original 6-criteria scope to metro-only for b1)
+**Replaces:** F029 (archived 2026-05-28). Supersedes the original F031 draft which included secondary places, granularity controls, and metro opt-in toggle — all deferred to b2.
 
 ## The Person
 
-Someone who lives in one Sacramento neighborhood and routinely cares about another — works in Folsom and lives in Oak Park, or weekends at the river and weekdays downtown. They want their awareness feed to reflect both, without manually following every venue, Group, and producer in each.
+Someone who signs up in Sacramento. Or someone in a rural area outside any metro who wants to participate in a nearby market. Either way, they need a market — the community they'll discover and support.
 
 ## The Story
 
-From any page, they tap their avatar → "Locality." The `/you/locality` page shows their `primary_home` Place at the top with a granularity control (neighborhood ↔ city), and below that, a list of secondary Place-interests with add/remove controls. Up to five secondaries; the action layer enforces the cap.
+**Metro member (automatic):** A member signs up, sets their primary home to Oak Park (a Sacramento neighborhood). The `place-interest-add` action handler resolves `home_metro_id` via `resolve_home_metro()` against the Place's centroid. Their feed now shows everything in the Sacramento-Roseville metro — Oak Park, Folsom, Roseville, Davis, all of it. No toggle, no opt-in. Discovery is the default.
 
-They tap "Add a Place," search for "Folsom," and select it. The feed now includes Folsom Items the next time they visit `/`. To promote Folsom to their primary, they tap "Make primary" — Oak Park atomically demotes to secondary, the unique-primary-home invariant holds. To change Oak Park's granularity from neighborhood to city, they tap the granularity control on the primary row.
-
-The page also shows their current metro-polygon and a "Show me everything in Greater Sacramento" opt-in — when on, the feed widens to the metro CSA; when off, it stays at Place-interest scope only.
+**Rural member (choose a market):** A member signs up from a small town that doesn't fall inside any seeded metro polygon. `home_metro_id` resolves to null. During onboarding (or on first feed visit), the platform shows the 2–3 nearest open metros by distance from their primary home's centroid, and the member picks one. That metro becomes their `home_metro_id`. They can change it later from `/you/settings`.
 
 ## Surfaces
 
-- **Entry point:** `/you/locality` — reachable from any page via the You / avatar menu.
-- **Primary action:** "Add a Place" (writes a secondary `member_place_interests` row).
-- **Composer / interaction:** Place search picker (typeahead over `places`), granularity selector on primary row, metro-polygon opt-in toggle, promote/demote/remove controls on each row.
-- **Completion:** Stays on `/you/locality` after each action; feed at `/` reflects the new scope.
-- **Discovery:** N/A — surface is private to the Member.
+- **Feed (`/`):** Scoped to the member's `home_metro_id` polygon. The `locality_feed_items` RPC changes from single `p_place_id` + `ST_Intersects` to metro-polygon scope.
+- **Rural market picker:** Inline in onboarding (step after primary-home selection) or empty-state CTA on feed when `home_metro_id` is null. Shows nearest open metros with name, rough distance, and member count.
+- **Settings (`/you/settings`):** "Your market" row showing current metro, with a "Change" link for rural members who picked manually. Metro-resolved members see it as informational (no change — your home determines your market).
 
 ## Data Captured
 
 | User-language field | Schema mapping | Required? |
 |---|---|---|
-| Home (primary) Place | `member_place_interests(scope_kind='primary_home', place_id=...)` (unique partial index) | yes (one row) |
-| Other Places I care about | `member_place_interests(scope_kind='secondary', place_id=...)` × N | optional (cap 5) |
-| Wider-scope opt-in | `members.metro_scope_opt_in` (or equivalent — wire to `home_metro_id` lookup) | optional, default off |
+| Home Place | `member_place_interests(scope_kind='primary_home', place_id=...)` | yes (already shipped) |
+| Market (derived) | `members.home_metro_id` → `metro_polygons.id` | yes — auto-resolved or member-picked |
 
-Implicit: `member.place_interest_added` / `.removed` / `.promoted` / `.demoted` events with `acting_member_id`.
+Implicit: `member.metro_selected` event when a rural member picks a market manually.
 
 ## Acceptance Criteria
 
-### Add a secondary Place
+### Metro auto-resolution scopes the feed
 
-**Given** a Member with one `primary_home` Place
-**When** they search a Place and tap "Add"
-**Then** a new `member_place_interests` row writes with `scope_kind='secondary'`; the row count for that Member's secondaries is now N+1; `member.place_interest_added` event logs.
+**Given** a Member whose primary home Place centroid falls inside a seeded metro polygon
+**When** they visit the feed at `/`
+**Then** the feed shows all discoverable Items whose nearest Location geography intersects the metro polygon; Items outside the metro do not appear; no user action required.
 
-### Cap on secondaries enforced
+### Rural member selects a market
 
-**Given** a Member with 5 secondary Places already
-**When** they attempt to add a 6th
-**Then** the UI blocks the add with a clear message ("You can follow up to 5 other Places — remove one first to add this one"); no row writes; no event logs.
+**Given** a Member whose primary home Place centroid does NOT fall inside any seeded metro polygon (`home_metro_id` IS NULL)
+**When** they reach the feed for the first time (or the market-picker surface)
+**Then** the platform displays the 2–3 nearest open metros ordered by distance from their home Place centroid, with name and approximate distance; the Member taps one; `home_metro_id` updates; the feed now scopes to that metro.
 
-### Promote a secondary to primary (atomic swap)
+### Feed query uses metro polygon
 
-**Given** a Member with primary Oak Park and secondary Folsom
-**When** they tap "Make primary" on Folsom
-**Then** in a single transaction: Folsom row flips to `scope_kind='primary_home'` + Oak Park row flips to `scope_kind='secondary'`; unique-primary-home invariant holds throughout; two events log (`.promoted` + `.demoted`); the feed re-renders on next visit.
-
-### Change primary granularity
-
-**Given** a Member with primary `primary_home = Oak Park (neighborhood)`
-**When** they tap granularity control → "City: Sacramento"
-**Then** the `place_id` on the primary row updates to the parent `places` row of kind='city'; feed widens accordingly.
-
-### Metro-polygon opt-in widens the feed
-
-**Given** a Member whose home coordinates resolve into a `metro_polygons` row (`members.home_metro_id` populated)
-**When** they toggle "Show me everything in Greater Sacramento" on
-**Then** the feed query union-includes Items whose Locations are ST_Contains'd by the metro polygon, in addition to Place-interest scope.
-
-### Metro opt-in graceful fallback for rural Members
-
-**Given** a Member whose home coordinates do NOT resolve into any `metro_polygons` row (`home_metro_id` IS NULL)
-**When** they view the `/you/locality` page
-**Then** the metro-opt-in control surfaces a disabled state with an explanation ("Your home isn't inside any of our metro areas — try widening your primary scope to your county or state").
+**Given** a Member with `home_metro_id` populated (whether auto-resolved or manually selected)
+**When** the feed loads
+**Then** the `locality_feed_items` RPC (or its replacement) queries against `metro_polygons.geography` via `ST_Intersects`, not against a single Place polygon. Items from any Location inside the metro appear.
 
 ## Edge Cases
 
-- **Promote with no secondaries:** "Make primary" control hidden; nothing to swap.
-- **Last secondary removed:** primary remains; no row goes to zero count for primary_home.
-- **Secondary added that's already the primary:** rejected at write — same Place can't be both primary and secondary for one Member.
-- **Member changes primary Place that's the parent of an existing secondary:** secondary stays as-is (the data model allows redundancy; the feed dedupes at query time).
+- **Member changes primary home to a different metro:** `home_metro_id` re-resolves via `resolve_home_metro()` in the `place-interest-add` handler. Feed updates on next load.
+- **Member changes primary home to a rural area:** `home_metro_id` goes null. Rural market picker surfaces on next feed visit.
+- **Rural member's chosen metro is later un-seeded (admin action):** `home_metro_id` FK cascades to null. Rural picker re-surfaces.
+- **No metros seeded at all:** Feed falls back to primary-home Place polygon (current behavior). This is the launch-day state before metro seeds land.
 
 ## Assumptions
 
-- Metro-overlay design ratified → `metro_polygons` table + `members.home_metro_id` + Census CSA seed shipped (substrate ticket).
-- Phase 1 `member_place_interests` table + action handlers shipped (T058–T066).
-- `places` table populated to neighborhood depth for Sacramento at minimum.
+- `metro_polygons` table + `members.home_metro_id` + `resolve_home_metro()` shipped (migration 031 — done).
+- `member_place_interests` table + `place-interest-add` / `place-interest-remove` action handlers shipped (T058–T066 — done).
+- Metro polygon seeds expanded from Sacramento-only to Sacramento + Reno + one more NorCal market (Napa-Sonoma or similar). New migration required.
+- `locality_feed_items` RPC refactored from single `p_place_id` parameter to metro-polygon-aware query. This is the core code change.
 
-## Out of Scope
+## Out of Scope (deferred to b2)
 
-- Cross-Place navigation filters in the feed (e.g., "show me only Items from Oak Park, not Folsom this morning") — deferred to b2.
-- Place-interest aggregate insights ("you spent the most attention on Folsom this month") — deferred to b2.
-- Sharing Place-interest scope between Members — never planned.
-- The saved-search composer surface (`/you/saved-searches`) — b2 per use-cases.md C2 deferral note.
+- Secondary place interests (add/remove/promote Places within or across metros).
+- Granularity control (neighborhood ↔ city toggle on primary home).
+- `/you/locality` management page.
+- Cross-metro feed (seeing items from multiple metros simultaneously).
+- Place-interest aggregate insights.
+- Saved-search composer surface.
 
 ## Capabilities unlocked
 
-- **1. Presence & Findability** — Items appear in the awareness feed via place-interest × interest-tag matching, now scoped to multiple Places + optional metro polygon.
-- (Consumer-facing — the capability shape lives in the Consumer baseline note in `use-cases.md`, not in the producer taxonomy.)
+- **1. Presence & Findability** — Items appear in the awareness feed scoped to the full metro, not just one neighborhood. A producer in Folsom is discoverable by a member in Oak Park without either of them doing anything.
+- **Market selection for rural members** — Nobody is left without a community. Rural members choose their nearest market and participate.

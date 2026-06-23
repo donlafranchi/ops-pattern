@@ -2,12 +2,14 @@
 id: how-T107-locally-owned-claim-surface
 purpose: Owner-view widget on the Shop page for setting, editing, and removing the Locally Owned ZIP claim.
 layer: how
-status: open
+status: superseded
 ticket: T107
 scenario: planning/now/scenario-F037-maya-claims-locally-owned.md
 system_spec: product/systems/business-jurisdiction.md
 created: 2026-06-16
 ---
+
+> **Superseded 2026-06-19.** F037 Locally Owned claim surface already shipped 2026-06-04 (T096/T097/T098 merged → main `944d6a5`). This ticket was a redundant re-ticket created after the feature shipped.
 
 # T107: Locally Owned claim surface
 
