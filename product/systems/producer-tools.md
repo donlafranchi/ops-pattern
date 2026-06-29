@@ -45,6 +45,12 @@ The argument for elevating the bulletin to its own system (rather than treating 
 
 The bulletin is also the load-bearing surface for the producer recruitment pitch: "we'll help you compete with bigger players" depends on followers being a real audience the producer can reach. Without a bulletin, follow is a save-for-later; with it, follow is a subscription. The whole asymmetry — *a one-person operation can outcompete a chain because they have direct access to their audience the chain can't replicate* — runs through this system.
 
+### The canonical example: timely, local, socially useful
+
+A bar owner hears the World Cup semifinal is Thursday night. They compose a bulletin: "We're showing the World Cup semifinal Thursday at 7pm — $5 pitchers, sound on, big screen in the back." Their followers get the bulletin in-app and by email. Three other bars in the neighborhood post similar bulletins the same day. The result: a dozen people who would have watched alone at home end up in the same room, and the neighborhood feels more alive on a Thursday night than it has in months.
+
+This is the bulletin at its best — commercial and social at the same time. The business is commercial (the bar sells beer), but the gathering is social (watching the game together). The bulletin bridges the two without pretending to be either. It is timely (the game is Thursday), location-specific (this bar, this neighborhood), and genuinely useful to the people who receive it (they wanted to know where to watch). The more businesses post about the same moment, the more alive the community feels — this is the Rising Tide dynamic (per [`../exploration/rising-tide-civic-pride.md`](../exploration/rising-tide-civic-pride.md)) playing out at the bulletin level.
+
 ## Bulletin — T1 (b2)
 
 The minimum surface that lets us ship "follow a Member, receive their bulletins."
