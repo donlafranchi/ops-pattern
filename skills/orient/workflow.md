@@ -31,6 +31,7 @@ Session-start check (project-agnostic):
    | Any F# has artifacts (ticket exists) but no `plan-approved` stamp in STAGE-LEDGER — return-path break | Audit R4 |
    | Any `.md` or `.html` at repo root other than the load-bearing set — anti-sprawl | 2026-05-23 |
    | `_inbox/` non-empty for >7 days — triage backlog | 2026-05-23 |
+   | `scripts/harness-conformance.sh` exits non-zero — routing table / skills/ / AGENTS.md drift | harness-audit |
    | More than one bundle plan (`bundle-{N}.md`) sits in `planning/now/` — only the active bundle belongs in the `now/` lane | 2026-05-27 |
    | A bundle plan sits in `planning/now/` whose work is closed — closed bundles move to the `planning/done/` lane | 2026-05-27 |
    | A bundle artifact (themes / checklist) sits in a lane other than `planning/now/` while its parent bundle is still active | 2026-05-27 |
