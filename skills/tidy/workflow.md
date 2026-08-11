@@ -6,15 +6,15 @@
 |---|---|
 | **Reads** | mode-dependent — see each sub-routine |
 | **Writes** | nothing without PM ratification |
-| **Sub-routines** | triage-inbox · sweep-docs · sweep-skills (each callable independently) |
+| **Sub-routines** | triage-inbox · sweep-docs · sweep-skills · sweep-dry (each callable independently) |
 | **Hands to** | nothing — PM continues |
 
 ## Picking a mode
 
 1. If user named a mode (triage / sweep-docs / sweep-skills), use it.
 2. If user said just "tidy" and `_inbox/` is non-empty → default to triage-inbox.
-3. If user said just "tidy" and `_inbox/` is empty → ask: sweep-docs or sweep-skills (or both).
-4. If user said "tidy everything" during a quiet maintenance window → run triage-inbox first, then sweep-docs, then sweep-skills.
+3. If user said just "tidy" and `_inbox/` is empty → ask: sweep-docs, sweep-skills, or sweep-dry (or all).
+4. If user said "tidy everything" during a quiet maintenance window → run triage-inbox first, then sweep-docs, then sweep-skills, then sweep-dry.
 
 ---
 
@@ -202,6 +202,46 @@ For each ratified finding:
 - Description edits → edit SKILL.md.
 
 Commit at end: `docs(skills): {YYYY-MM-DD} skills sweep — {N} findings landed`.
+
+---
+
+## Sub-routine D — sweep-dry
+
+DRY enforcement across documentation. Finds inline restatements of foundation-owned concepts in downstream docs and replaces them with pointers. **Requires quiescence guard.** Formerly the standalone `dry-docs` skill; folded here because it's a doc-tree audit — same shape as sweep-docs.
+
+### Reads
+- Every `.md` in `product/foundation/` (frontmatter `owns:` + content).
+- All non-foundation `.md` files under `product/`, `planning/`, `development/`, `standards/`, `playbooks/`, root load-bearing set.
+
+### Two sub-modes
+
+**audit** (default) — report only; no files changed.
+**fix** — replace restatements with pointers, with PM ratification.
+
+Concept-scoped variant: "dry audit [concept]" / "dry fix [concept]" restricts to one concept.
+
+### Steps
+
+1. **Build the concept registry.** Read every `.md` in `product/foundation/`. Extract `owns:` from frontmatter; if absent, infer from `##` headers and bolded key terms (tag as `inferred`). Build a table of `concept → source file → detection patterns`.
+
+2. **Scan non-foundation docs.** For each doc, for each concept: search for detection patterns. Classify each match:
+
+   | Classification | Rule | Violation? |
+   |---|---|---|
+   | Pointer | ≤1 sentence + link or `see {source}` | No |
+   | Term use | Uses the term without re-explaining | No |
+   | Restatement | 2+ sentences explaining the concept inline | **Yes** |
+   | Table restatement | Table cell with multi-sentence definition | **Yes** |
+
+3. **Report (audit sub-mode).** BLUF: `Status: Done — N violations across M files restating K concepts.` On expand: violations grouped by source concept with file, line, abbreviated text, and suggested pointer.
+
+4. **Fix (fix sub-mode).** For each violation: preserve the contextual sentence, remove the duplicated explanation, add a link to the source doc. Present diffs for PM ratification before writing. Do not commit — hand PM the clearlock + commit line.
+
+### Refusals (sweep-dry specific)
+
+- Refuse to edit a foundation doc — that's `explore` or `weigh`.
+- Refuse to flag single-sentence references — those are pointers (the goal state).
+- Refuse to create a pointer to a concept with no foundation-doc home — route to `explore`.
 
 ---
 

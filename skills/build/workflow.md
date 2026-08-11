@@ -23,7 +23,7 @@
    - **In `planning/next/`** → flag: *"Scenario is in next/ but should be in now/ before build starts. The ticket skill should have moved it — run close or manually move it."* Do not proceed until resolved.
    - **In `planning/backlog/`** → hard stop: *"Scenario is still in backlog/ — this violates the build firewall. Cannot proceed."*
    - **Not found in any lane** → stop and escalate: the scenario reference in the ticket may be stale or misspelled.
-3. Read `BUILD-LOG.md` for current state.
+3. Read `BUILD-LOG.md` (thin index) for current state; if detail is needed, read the current week file in `web/build-log/`.
 4. Read the ticket in `development/tickets/T{NNN}-{slug}.md`.
 5. Read the approved scenario at `planning/now/scenario-F{NNN}-{slug}.md` referenced by the ticket.
 6. Read the relevant `product/systems/{name}.md` "Data model implications" section *only* — for forward-looking schema columns to include at MVP.
@@ -37,7 +37,7 @@
 14. **`simplify-review` — structural pass before commit.** Run `/simplify-review` on the staged diff. Verdict **Approve** → continue. Verdict **Request changes**: (a) if the findings are *inside* this ticket's scope, fix forward, re-run tests, re-run `/simplify-review`, loop until Approve; (b) if the findings are *outside* this ticket's scope, log each to `development/DEVIATIONS.md` with the ticket ID, the lens, and a one-line note, commit the ticket as-is, and surface to the PM in the next journal entry. The build agent does not autonomously expand ticket scope — the skill identifies structural debt; the PM decides whether to triage now or later.
 15. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 19, after you commit).
 16. Move the ticket file to `development/tickets/done/`.
-17. Update `BUILD-LOG.md`.
+17. Update `BUILD-LOG.md` — append to the current week file in `web/build-log/` (create a new weekly file if the week rolled over).
 18. **Ask PM permission to commit.** Output one line, verbatim:
 
     ```

@@ -139,7 +139,7 @@ Twelve skills cover the full lifecycle. Each runs in **one tool only** — the h
 | "close T###", "move ticket to done", "post-merge cleanup", "archive the scenario" | `close` | Cowork |
 | "sync the scoreboard", "sync progress", "update the checklist", "are the tracking docs current", "reconcile the ledger" | `sync` | Cowork |
 | "tidy", "sweep the docs", "anything rotting", "triage the inbox", "audit the skills", "anything to archive" | `tidy` | Cowork |
-| "I want this to improve itself", "design a self-improvement loop", "Karpathy loop" | `loop-designer` (utility) | Cowork |
+| "I want this to improve itself", "design a self-improvement loop", "Karpathy loop" | `loop-designer` (utility — plugin-provided via `anthropic-skills:loop-designer`) | Cowork |
 
 Full per-skill firewalls and read/write permissions: [`AGENTS.md`](AGENTS.md). Pipeline patterns + commit choreography: [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns. Close-call rule + the one absolute: [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md).
 

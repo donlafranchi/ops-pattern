@@ -4,6 +4,8 @@ name: dry-docs
 description: DRY enforcement across documentation. Three modes — audit (scan for inline restatements of foundation-owned concepts in downstream docs), fix (replace restatements with pointers to the source-of-truth doc), concept-scoped (audit or fix for a single concept). Use when the user says "dry audit", "dry fix", "check for restated concepts", "reference duplication check", "reduce doc duplication", "single source of truth", "concept ownership", "why do we restate this everywhere", "reference architecture", "DRY the docs", "dry fix [concept]", "dry audit [concept]", "how many places restate X", "foundation concept drift", or when a foundation doc just changed and downstream references need updating. Reads all `product/foundation/` docs, their `owns:` frontmatter, and all non-foundation `.md` files. Writes nothing without PM ratification.
 ---
 
+> **Deprecated.** Folded into `tidy` (sweep-dry mode). This skill is deprecated and will be removed. Use `tidy sweep-dry` instead.
+
 # dry-docs
 
 Define once in the source-of-truth doc, point everywhere else. Reduces the cost of foundational changes — when "ownership tiers" becomes "impact transparency," you update one doc and verify pointers, not 217 inline restatements across 94 files.

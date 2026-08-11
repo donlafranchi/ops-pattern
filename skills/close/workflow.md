@@ -66,12 +66,12 @@ Find the matching line in `planning/now/bundle-1-checklist.md`.
 
 ### 6. Update BUILD-LOG
 
-Find the T### entry in `web/BUILD-LOG.md`. Ensure it shows:
+Find the T### entry in the current week file under `web/build-log/` (create a new weekly file if the week rolled over). Ensure it shows:
 - The commit hash (from the ticket's Completion section)
 - Merged status
 - Date
 
-If the entry is missing or incomplete, update it.
+If the entry is missing or incomplete, update it. The thin index at `web/BUILD-LOG.md` should already point to the current week.
 
 ### 7. Clean up worktree
 

@@ -21,7 +21,7 @@ Session-start check (project-agnostic):
    | Check | Source |
    |---|---|
    | `planning/next/` and `planning/now/` hold no approved scenario while any `development/tickets/` (incl. `done/`) file references a `Scenario: F###` — H1 firewall vacated | Audit H1 |
-   | `web/BUILD-LOG.md` cites a bundle file that doesn't exist — E3 | Audit E3 |
+   | `web/BUILD-LOG.md` (thin index) or current week file in `web/build-log/` cites a bundle file that doesn't exist — E3 | Audit E3 |
    | `.claude/worktrees/` is non-empty AND not in `.gitignore` — shadow-repo hazard | Audit E8 |
    | `development/DEVIATIONS.md` over 400 lines without a rotation pointer at top — E2 | Audit E2 |
    | `{pending}` or `{commit hash}` placeholders in `development/tickets/done/*.md` Completion sections — H4 | Audit H4 |

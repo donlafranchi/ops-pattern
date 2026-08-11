@@ -8,9 +8,9 @@ status: active
 
 > Project-resident pipeline. Lives at root (alongside `CLAUDE.md` and `JOURNAL.md`) because it describes agents working across `product/`, `planning/`, `development/`, and `web/`. The pattern itself is project-agnostic and is documented in [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) (close-call rule) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Pipeline patterns (the working pattern). Every multi-step report opens with the Report Shape template — see [`CLAUDE.md` § Report shape](CLAUDE.md#report-shape).
 
-Twelve skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
+Thirteen skills run the full lifecycle. Each is a role on a tight five-person dev team (PM, tech lead, engineer, designer, ops). Process lives in skills, not in nested CLAUDE.md files.
 
-## The team in twelve
+## The team in thirteen
 
 | Skill | Role | Tool | The one question it forces |
 |---|---|---|---|
@@ -24,14 +24,16 @@ Twelve skills run the full lifecycle. Each is a role on a tight five-person dev 
 | `ticket` | Sequencer | Claude Code | Smallest unit with a clear done condition |
 | `test` | QA — write + run | Claude Code | Would a stranger know if this broke |
 | `build` | Engineer — TDD | Claude Code | Simplest code that passes, fastest |
+| `close` | Post-merge bookkeeper | Cowork | Is the paperwork done for this shipped ticket |
 | `sync` | Progress reconciler | Cowork | Do the tracking docs match git reality |
 | `tidy` | Anti-sprawl sweeper | Cowork | What's stale, what folds into what |
 
 **Hard tool firewall.** Each stage runs in one tool only. No "Both." A stage that wants the other tool is a stage whose workflow has drifted — fix the workflow.
 
-**Two folded sub-routines** — not standalone skills:
+**Three folded sub-routines** — not standalone skills:
 - **Security** lives inside `review` (auth, RLS, payment flow, PII surface).
 - **User-voice** lives inside `explore` (pulls from `product/needs/use-cases.md` before any new system spec).
+- **Simplify-review** lives inside `build` at step 14 (diff-level structural simplification — file-size/concern-density, repeated inline operations, missing shared models, boundary leaks). Runs on the staged diff after M2 code review and before the commit permission prompt. Not independently routable.
 
 ## Pipeline flow
 
@@ -258,7 +260,23 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 ---
 
-## 10. sync
+## 10. close
+
+**Tool:** Cowork. **Model:** Sonnet.
+
+**Reads:** `development/tickets/T{NNN}-{slug}.md`, `development/tickets/done/`, `development/deviations/T{NNN}.md`, `planning/STAGE-LEDGER.md`, `planning/stage-ledger/{concept}.md`, `planning/now/bundle-1-checklist.md`, `planning/now/scenario-F###-*.md`, `planning/now/review-F###.md`, `web/BUILD-LOG.md`, git log + branch state in `web/` and parent repo.
+
+**Writes:** Moves ticket → `development/tickets/done/`, updates `planning/STAGE-LEDGER.md`, updates `planning/stage-ledger/{concept}.md`, updates `planning/now/bundle-1-checklist.md`, updates `web/BUILD-LOG.md`. When all tickets for an F-number are done, moves scenario + review → `planning/done/YYYY-MM-DD-f###-{slug}/`.
+
+**Does NOT read:** `planning/backlog/`.
+
+**Does NOT write:** Code, specs, JOURNAL. Does not commit — hands PM a clearlock + commit line.
+
+**Task:** One-pass post-merge cleanup. Handles everything between "code merged" and "ticket closed on the board." Single-ticket mode ("close T###") and batch mode ("close all shipped tickets"). Verifies merge status, moves ticket to done, checks DEVIATIONS entry exists, stamps STAGE-LEDGER, updates checklist, updates BUILD-LOG, flags worktree cleanup, and archives scenario + review when a feature's last ticket ships.
+
+---
+
+## 11. sync
 
 **Tool:** Cowork. **Model:** Sonnet.
 
@@ -272,7 +290,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 ---
 
-## 11. tidy
+## 12. tidy
 
 **Tool:** Cowork. **Model:** Sonnet.
 

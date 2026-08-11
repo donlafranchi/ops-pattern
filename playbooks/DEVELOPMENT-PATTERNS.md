@@ -169,6 +169,16 @@ How the solo-founder pipeline runs. Where each stage lives, when each gate fires
 
 ---
 
+### Rotate BUILD-LOG.md into weekly files with a thin index
+
+**Decision.** `web/BUILD-LOG.md` is a thin index (under 50 lines) pointing at weekly entry files in `web/build-log/YYYY-WNN.md`. Each week's file captures that week's ticket completions, test results, and build notes. If a weekly file exceeds 200 lines, break into daily files (`YYYY-MM-DD.md`). The pre-rotation archive lives at `web/build-log/archive-pre-rotation.md`.
+
+**Intent.** BUILD-LOG grew to 200+ lines of dense per-ticket narrative. Every skill that reads it (`build`, `close`, `orient`, `sync`) paid the full-file token cost on every invocation, and the useful signal (current state) was buried under months of history. Weekly rotation keeps the current-state window small while preserving the full record for audits and retrospectives. The thin index gives any reader the entry point without forcing a 200-line parse.
+
+**Touches.** `web/BUILD-LOG.md` + `web/build-log/`
+
+---
+
 ## Pipeline anti-patterns
 
 Things we learned by getting them wrong. Each is a default-to-avoid, named.
