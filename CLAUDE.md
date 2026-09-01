@@ -4,8 +4,10 @@ layer: how
 status: active
 ---
 
-# Movers, Makers & Shakers
+# The Project (CDP)
 
+> Canonical name and identity: [`PROJECT.md`](PROJECT.md).
+>
 > Solo founder. Re-architecture in flight. Process lives in skills, not nested CLAUDE.md files.
 > First time in this repo? Read this file end-to-end, then [`product/MAP.md`](product/MAP.md) (100k-foot architecture map — one sentence per system), then [`product/TRACE.md`](product/TRACE.md) (feature lineage), then [`REGISTRY.md`](REGISTRY.md) (doc catalog), then [`AGENTS.md`](AGENTS.md), then [`JOURNAL.md`](JOURNAL.md).
 
@@ -13,7 +15,7 @@ status: active
 
 - **What it is:** A coordination layer for collective action in a place. People declare things — products, services, gatherings, ideas — at locations. Other people respond. Farmers markets are the wedge; the platform is broader. **People-first, not business-first.** See [`product/foundation/principles.md`](product/foundation/principles.md).
 - **Stack:** Next.js (App Router), TypeScript, Tailwind v4 (`@theme inline` tokens), Supabase (Postgres + Auth + Realtime), Mapbox GL JS, Playwright (evals), Vitest (unit), Vercel.
-- **Repo structure:** Two-repo. Parent `movers-makers-shakers/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
+- **Repo structure:** Two-repo. Parent `community/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
 - **App path:** `./web`
 - **Active bundle:** [`planning/now/bundle-1.md`](planning/now/bundle-1.md) — Primitives MVP. One-page scoreboard: [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md).
 - **Active Phase 2 plan:** none ratified; surface sequence in [`planning/now/plan-b1-surface-sequence.md`](planning/now/plan-b1-surface-sequence.md). Draft scenarios live in [`planning/backlog/`](planning/backlog/).

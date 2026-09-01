@@ -7,7 +7,7 @@ status: active
 
 # Idea Intake Template
 
-Paste this into any Claude conversation that's exploring an idea for **movers-makers-shakers**. It captures the conversation output in a shape the project pipeline can consume.
+Paste this into any Claude conversation that's exploring an idea for **the Project**. It captures the conversation output in a shape the project pipeline can consume.
 
 ## How the pipeline consumes this
 

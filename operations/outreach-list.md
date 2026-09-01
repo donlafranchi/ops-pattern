@@ -6,7 +6,7 @@ status: active
 
 # Maker & Service Provider Outreach List
 
-Categories of people to seek out as founding participants on Movers, Makers & Shakers — beyond farmers market vendors. These are the people who make "follow your makers" a genuinely broader platform rather than a market-day app.
+Categories of people to seek out as founding participants on the Project — beyond farmers market vendors. These are the people who make "follow your makers" a genuinely broader platform rather than a market-day app.
 
 ## How to Use This List
 

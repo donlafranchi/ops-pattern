@@ -188,7 +188,7 @@ Per [`../foundation/policy.md`](../foundation/policy.md) — protective defaults
 
 - **Public visibility on producer profile.** Should bulletins appear on the producer's `/m/[handle]` page (visible to non-followers as recent posts) or only in followers' feeds? Public visibility is more discoverable; hidden makes follow more valuable. Working answer: hidden by default; producer can opt a bulletin into public ("featured on profile") at publish time.
 - **Bulletin fatigue.** Rate limit is a blunt instrument; mute gives followers control but producers can't see who muted. Should we surface aggregate mute counts so producers can self-correct? T2/T3 design call.
-- **Paid bulletins.** Substack model: free to send, charge for email-domain / advanced features. For Main Street the answer is probably always free; the platform's value comes from producers staying, not from bulletin fees. Confirm at b3.
+- **Paid bulletins.** Substack model: free to send, charge for email-domain / advanced features. For the Project the answer is probably always free; the platform's value comes from producers staying, not from bulletin fees. Confirm at b3.
 - **Reply default visibility.** Private (DM-shaped) or public (Q&A under bulletin)? T3 surface design will decide; the data model supports both via the same thread substrate.
 
 ---
@@ -307,7 +307,7 @@ For Members with multiple Locations (via kind='business' Group's anchor + child 
 Pairs with the bulletin T3 drip surface:
 - Scheduled bulletin sequences for new followers (welcome → story → first event invite).
 - Automatic re-engagement bulletins for lapsing followers.
-- Birthday / anniversary triggers ("celebrating 1 year on Main Street — thank your followers").
+- Birthday / anniversary triggers ("celebrating 1 year on the Project — thank your followers").
 
 ## Growth — what this spec deliberately does not build
 

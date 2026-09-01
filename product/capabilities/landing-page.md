@@ -7,7 +7,7 @@ status: active
 
 # Capability: Landing Page
 
-**Description:** First-time visitors land on a branded page that introduces Movers, Makers & Shakers and offers sign-up, log-in, or guest-browse paths.
+**Description:** First-time visitors land on a branded page that introduces the Project and offers sign-up, log-in, or guest-browse paths.
 
 **Primitive:** Member (auth surface)
 **Tier:** T1
@@ -16,7 +16,7 @@ status: active
 
 ## User story
 
-As a first-time visitor, I want to understand what Movers, Makers & Shakers is and choose how to engage — sign up, log in, or browse anonymously — so I can start discovering what's happening in my locality.
+As a first-time visitor, I want to understand what the Project is and choose how to engage — sign up, log in, or browse anonymously — so I can start discovering what's happening in my locality.
 
 ## Scope
 

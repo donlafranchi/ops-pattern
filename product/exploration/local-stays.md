@@ -157,7 +157,7 @@ URL segment `r` for "rental" — short, unambiguous, not taken by existing kinds
 
 5. **Timing.** The platform is in b1, focused on Gatherings, Products, Services, and Wonders. Stays is a deeper surface — it involves payments, calendars, and legal compliance (permits). It's naturally a b2 or b3 surface. When in the loop sequence does it make sense to build?
 
-6. **"Main Street Stays" branding.** The platform's working name is Movers, Makers & Shakers. Does the stays surface get a sub-brand ("Main Street Stays" from earlier exploration), or is it just another Item kind with its own UI label? The sub-brand might help with traveler-facing marketing; it might also fragment the platform identity.
+6. **"Main Street Stays" branding.** The platform's canonical name is the Project (CDP). Does the stays surface get a sub-brand ("Main Street Stays" from earlier exploration), or is it just another Item kind with its own UI label? The sub-brand might help with traveler-facing marketing; it might also fragment the platform identity.
 
 7. **Cancellation and dispute resolution.** What happens when a guest arrives and the listing doesn't match the disclosures? Automatic refund? Mediation? Photo evidence comparison? This is a trust-critical flow that doesn't exist for other Item kinds.
 

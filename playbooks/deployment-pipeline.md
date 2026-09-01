@@ -15,7 +15,7 @@ How code and database changes move from a developer's laptop to production. Thre
 |---|---|---|---|
 | **Local** | `next dev` on localhost:3000 | Supabase CLI local (`supabase start`) | Development + unit tests + Playwright evals |
 | **Staging** | Vercel preview deployment (branch `staging` or PR-based) | Second Supabase project (`mms-staging`) | Integration testing, migration dry-run, manual QA |
-| **Production** | Vercel production (auto-deploy from `main`) | Primary Supabase project (`movers-makers-shakers`) | Live users |
+| **Production** | Vercel production (auto-deploy from `main`) | Primary Supabase project (`community`) | Live users |
 
 ## What needs to happen — step by step
 

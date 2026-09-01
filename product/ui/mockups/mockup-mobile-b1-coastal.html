@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Movers, Makers &amp; Shakers — Mobile Mockup (Coastal Slate)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-bg: #FFFFFF;
+  --color-surface: #EDF1F3;
+  --color-fg: #2B292C;
+  --color-fg-muted: #62727A;
+  --color-border: #E1E8EB;
+  --color-brand: #C5D6DE;
+  --color-accent: #576668;
+  --color-accent-hover: #4C595B;
+  --color-accent-pressed: #3E494B;
+  --color-danger: #B4513C;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; min-height: 100%; background: #E8E8E8; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--color-fg); -webkit-font-smoothing: antialiased; }
+
+/* ── PHONE FRAME ── */
+.phone {
+  width: 390px; height: 844px; margin: 32px auto 16px;
+  background: var(--color-bg); border-radius: 48px;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.22);
+  overflow: hidden; position: relative;
+  border: 10px solid #1A1A1A;
+}
+.screen { position: absolute; inset: 0; display: none; flex-direction: column; background: var(--color-bg); }
+.screen.active { display: flex; }
+
+.status-bar { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.status-bar .dots { display: inline-flex; gap: 4px; align-items: center; }
+.status-bar .dots span { width: 3px; height: 3px; background: #1A1A1A; border-radius: 50%; }
+
+/* ── TOP BAR ── */
+.top-bar { padding: 8px 16px 12px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--color-fg); }
+.logo .mark { color: var(--color-brand); }
+.locality-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: 13px; font-weight: 500; background: var(--color-bg); cursor: pointer; }
+.locality-pill .pin { color: var(--color-brand); font-size: 10px; }
+
+/* ── SCROLLABLE BODY ── */
+.body { flex: 1; overflow-y: auto; padding: 0 0 100px; -webkit-overflow-scrolling: touch; }
+.body::-webkit-scrollbar { display: none; }
+
+/* ── SECTION + CAROUSEL ── */
+.section { margin-bottom: 28px; }
+.section-header { display: flex; justify-content: space-between; align-items: baseline; padding: 0 16px; margin-bottom: 10px; }
+.section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.section-link { font-size: 14px; font-weight: 500; color: var(--color-accent-pressed); text-decoration: none; cursor: pointer; }
+.section-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+.carousel { display: flex; gap: 12px; overflow-x: auto; padding: 0 16px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+.carousel::-webkit-scrollbar { display: none; }
+
+/* ── CAROUSEL CARD (photo) ── */
+.c-card { flex-shrink: 0; width: 170px; scroll-snap-align: start; cursor: pointer; }
+.c-card .c-img { width: 170px; height: 170px; border-radius: var(--radius-md); overflow: hidden; position: relative; background: var(--color-surface); }
+.c-card .c-img svg { width: 100%; height: 100%; display: block; }
+.c-card .c-img .c-heart { position: absolute; top: 8px; right: 8px; font-size: 16px; opacity: 0.8; text-shadow: 0 1px 3px rgba(0,0,0,0.3); cursor: pointer; color: white; }
+.c-card .c-info { padding: 8px 2px 0; }
+.c-card .c-title { font-size: 14px; font-weight: 600; line-height: 1.3; margin-bottom: 2px; }
+.c-card .c-meta { font-size: 12px; color: var(--color-fg-muted); line-height: 1.3; }
+.c-card .c-kind { font-size: 11px; color: var(--color-fg-muted); margin-bottom: 2px; }
+
+/* ── CAROUSEL CARD (grey / no-photo) ── */
+.c-card .c-grey {
+  width: 170px; height: 150px; border-radius: var(--radius-md); overflow: hidden;
+  padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
+  background: var(--color-surface);
+}
+.c-card .c-grey .c-grey-kind {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--color-fg-muted);
+}
+.c-card .c-grey .c-grey-text {
+  font-size: 14px; font-weight: 600; color: var(--color-fg); line-height: 1.35;
+}
+.c-card .c-grey .c-grey-author {
+  display: flex; align-items: center; gap: 6px;
+}
+.c-card .c-grey .c-grey-av {
+  width: 22px; height: 22px; border-radius: 50%; background: #D8D8D8;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: var(--color-fg);
+}
+.c-card .c-grey .c-grey-name {
+  font-size: 11px; color: var(--color-fg-muted); font-weight: 500;
+}
+
+/* ── WIDE PROMO CARD ── */
+.promo-card {
+  margin: 0 16px 28px; padding: 20px; background: var(--color-bg);
+  border-radius: var(--radius-md); border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-brand); position: relative;
+}
+.promo-card .head { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.promo-card .sub { font-size: 13px; color: var(--color-fg-muted); line-height: 1.5; margin-bottom: 14px; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 84px; background: rgba(255,255,255,0.96); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-top: 1px solid var(--color-border); display: flex; padding-bottom: 22px; z-index: 10; }
+.bottom-nav .tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; color: var(--color-fg-muted); transition: color 200ms; }
+.bottom-nav .tab.active { color: var(--color-accent-pressed); }
+.bottom-nav .tab.active .label { color: var(--color-accent-pressed); }
+.bottom-nav .tab .icon { width: 24px; height: 24px; }
+.bottom-nav .tab .label { font-size: 11px; font-weight: 600; }
+
+/* ── EXPLORE ── */
+.search-bar { position: absolute; bottom: 100px; left: 16px; right: 16px; background: var(--color-bg); border-radius: var(--radius-full); box-shadow: var(--shadow-md); padding: 14px 20px; display: flex; align-items: center; gap: 12px; z-index: 9; }
+.search-bar input { border: none; outline: none; flex: 1; font-size: 15px; font-family: inherit; color: var(--color-fg); background: transparent; min-width: 0; }
+.search-bar input::placeholder { color: var(--color-fg-muted); }
+.search-bar .search-icon { color: var(--color-fg-muted); flex-shrink: 0; }
+
+.chip-row { position: absolute; bottom: 170px; left: 0; right: 0; display: flex; gap: 8px; overflow-x: auto; padding: 0 16px; z-index: 8; }
+.chip-row::-webkit-scrollbar { display: none; }
+.chip { padding: 8px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: 13px; font-weight: 500; background: var(--color-bg); white-space: nowrap; box-shadow: var(--shadow-sm); cursor: pointer; flex-shrink: 0; transition: all 150ms; }
+.chip.active { background: var(--color-brand); color: var(--color-fg); border-color: var(--color-brand); font-weight: 600; }
+
+.list-card { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-border); cursor: pointer; }
+.list-card:last-child { border-bottom: none; }
+.list-card .thumb { width: 72px; height: 72px; border-radius: var(--radius-md); background: var(--color-surface); flex-shrink: 0; overflow: hidden; }
+.list-card .info { flex: 1; min-width: 0; }
+.list-card .info .title { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.list-card .info .meta { font-size: 12px; color: var(--color-fg-muted); }
+.list-card .info .distance { font-size: 12px; color: var(--color-fg-muted); margin-top: 4px; }
+
+/* Grey thumbnail for no-photo list items */
+.list-card .thumb.grey-thumb {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--color-surface); padding: 8px;
+}
+.list-card .thumb.grey-thumb .grey-thumb-kind {
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--color-fg-muted); margin-bottom: 4px;
+}
+.list-card .thumb.grey-thumb .grey-thumb-av {
+  width: 28px; height: 28px; border-radius: 50%; background: #D8D8D8;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--color-fg);
+}
+
+/* ── YOU ── */
+.you-header { display: flex; align-items: center; gap: 14px; padding: 4px 16px 8px; }
+.you-avatar { width: 56px; height: 56px; border-radius: 50%; background: #555; color: white; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; }
+.you-name { font-size: 20px; font-weight: 600; }
+.you-handle { font-size: 14px; color: var(--color-fg-muted); margin-top: 2px; }
+
+.section-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-fg-muted); margin: 28px 16px 12px; }
+
+.follow-row { display: flex; gap: 14px; padding: 4px 16px 8px; overflow-x: auto; }
+.follow-row::-webkit-scrollbar { display: none; }
+.follow-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; }
+.follow-item .av { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: white; }
+.follow-item .name { font-size: 11px; color: var(--color-fg); max-width: 64px; text-align: center; line-height: 1.2; }
+
+.settings-row { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid var(--color-border); cursor: pointer; }
+.settings-row:last-child { border-bottom: none; }
+.settings-row .label { font-size: 15px; font-weight: 500; }
+.settings-row .chev { color: var(--color-fg-muted); font-size: 18px; }
+.settings-row.danger .label { color: var(--color-danger); }
+
+/* ── BUTTONS ── */
+.btn-primary { display: block; width: 100%; padding: 15px 20px; background: var(--color-accent); color: white; border: none; border-radius: var(--radius-md); font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 200ms; }
+.btn-primary:hover { background: var(--color-accent-hover); }
+.btn-primary:active { background: var(--color-accent-pressed); }
+.btn-secondary { display: block; width: 100%; padding: 14px 20px; background: var(--color-bg); color: var(--color-fg); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; }
+
+/* ── Brand pill (Dusty Sky outline, used for category tags on white) ── */
+.pill-pistachio {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: var(--radius-full);
+  border: 1px solid var(--color-brand); background: var(--color-bg);
+  font-size: 11px; font-weight: 600; color: var(--color-accent-pressed);
+}
+
+/* ── DETAIL ── */
+.detail-header { position: relative; }
+.detail-back, .detail-share { position: absolute; top: 14px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); cursor: pointer; z-index: 5; font-size: 18px; font-weight: 600; }
+.detail-back { left: 16px; }
+.detail-share { right: 16px; }
+.detail-hero { aspect-ratio: 4/3; background: var(--color-surface); overflow: hidden; position: relative; }
+.detail-hero svg { width: 100%; height: 100%; }
+.detail-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+.detail-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.45); }
+.detail-dots span.active { background: white; }
+.detail-kind { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent-pressed); margin-bottom: 8px; }
+.detail-body { padding: 22px 20px 160px; overflow-y: auto; flex: 1; }
+.detail-body::-webkit-scrollbar { display: none; }
+.detail-title { font-size: 24px; font-weight: 700; line-height: 1.2; margin: 0 0 14px; }
+.detail-meta { font-size: 14px; color: var(--color-fg-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.detail-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--color-border); }
+.detail-section h3 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-fg-muted); margin: 0 0 12px; }
+.detail-section p { font-size: 15px; line-height: 1.5; margin: 0; }
+.host-row { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
+.host-row .av { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; }
+.host-row .info .name { font-size: 15px; font-weight: 500; }
+.host-row .info .role { font-size: 12px; color: var(--color-fg-muted); }
+
+.sticky-cta { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.96); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-top: 1px solid var(--color-border); padding: 16px 20px 34px; z-index: 11; }
+.sticky-cta .trust { font-size: 12px; color: var(--color-fg-muted); text-align: center; margin-top: 10px; }
+
+/* ── SELL DRAWER ── */
+.sell-cta-block { padding: 0 16px; margin: 12px 0 8px; }
+.drawer-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); z-index: 20; opacity: 0; pointer-events: none; transition: opacity 280ms; }
+.drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.drawer { position: absolute; bottom: 0; left: 0; right: 0; height: 90%; background: var(--color-bg); border-radius: 24px 24px 0 0; transform: translateY(100%); transition: transform 340ms cubic-bezier(0.32, 0.72, 0, 1); z-index: 21; display: flex; flex-direction: column; }
+.drawer.open { transform: translateY(0); }
+.drawer-grabber { width: 36px; height: 4px; border-radius: 2px; background: var(--color-border); margin: 10px auto 0; flex-shrink: 0; }
+.drawer-head { padding: 14px 20px 8px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.drawer-close { width: 32px; height: 32px; border-radius: 50%; background: var(--color-surface); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: var(--color-fg-muted); }
+.step-dots { display: flex; align-items: center; gap: 8px; }
+.step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-border); transition: background 200ms; }
+.step-dot.done { background: var(--color-brand); }
+.step-counter { font-size: 13px; font-weight: 500; color: var(--color-fg-muted); margin-left: 8px; }
+.drawer-body { flex: 1; overflow-y: auto; padding: 12px 24px 20px; }
+.drawer-body::-webkit-scrollbar { display: none; }
+.step-title { font-size: 22px; font-weight: 600; line-height: 1.25; margin: 8px 0 8px; }
+.step-helper { font-size: 14px; color: var(--color-fg-muted); margin: 0 0 24px; line-height: 1.5; }
+.step-input { width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 16px; font-family: inherit; outline: none; }
+.step-input:focus { border-color: var(--color-brand); border-width: 2px; padding: 13px 15px; }
+.step-options { display: flex; flex-direction: column; gap: 10px; }
+.step-option { padding: 14px; border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 12px; background: var(--color-bg); transition: all 150ms; }
+.step-option.selected { border-color: var(--color-brand); border-width: 2px; padding: 13px; }
+.step-option .opt-icon { font-size: 24px; flex-shrink: 0; }
+.step-option .opt-text { flex: 1; min-width: 0; }
+.step-option .opt-title { font-size: 15px; font-weight: 600; }
+.step-option .opt-sub { font-size: 12px; color: var(--color-fg-muted); margin-top: 1px; }
+.drawer-nav { border-top: 1px solid var(--color-border); padding: 14px 20px 32px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; }
+.drawer-nav .back-link { font-size: 15px; color: var(--color-fg-muted); font-weight: 500; cursor: pointer; padding: 12px 4px; background: none; border: none; font-family: inherit; }
+.drawer-nav .back-link.hidden { visibility: hidden; }
+.drawer-nav .btn-primary { width: auto; flex: 1; max-width: 220px; }
+
+/* ── Featured badge (Dusty Sky outline on white, for photo cards) ── */
+.c-badge-featured {
+  position: absolute; top: 8px; left: 8px;
+  background: white; border: 1.5px solid var(--color-brand);
+  border-radius: var(--radius-full); padding: 3px 9px;
+  font-size: 10px; font-weight: 700; color: var(--color-accent-pressed);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+
+/* ── Accent line separator ── */
+.accent-line {
+  width: 32px; height: 2px; background: var(--color-brand);
+  border-radius: 1px; margin: 0 16px 10px;
+}
+
+.notes { max-width: 720px; margin: 24px auto 64px; padding: 24px 28px; background: var(--color-bg); border-radius: var(--radius-md); font-size: 14px; line-height: 1.6; color: #333; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.notes h2 { font-size: 16px; font-weight: 600; margin: 0 0 12px; }
+.notes h2:not(:first-child) { margin-top: 20px; }
+.notes ul { padding-left: 20px; margin: 0; }
+.notes li { margin-bottom: 6px; }
+.notes b { font-weight: 600; }
+.notes code { background: #F0F0F0; padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="phone" id="phone">
+
+  <!-- ═══════════════ HOME ═══════════════ -->
+  <div class="screen active" id="screen-home">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="top-bar">
+      <div class="logo">m<span class="mark">·</span>m<span class="mark">·</span>s</div>
+      <div class="locality-pill"><span class="pin">●</span> West Sacramento ▾</div>
+    </div>
+    <div class="body">
+
+      <!-- SECTION: Happening this week -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Happening this week</div>
+          <div class="section-link" onclick="go('explore')">Show all</div>
+        </div>
+        <div class="accent-line"></div>
+        <div class="carousel">
+
+          <!-- Card: Farmers Market (photo) -->
+          <div class="c-card" onclick="go('detail')">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <defs><linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE5A3"/><stop offset="1" stop-color="#E8B85C"/></linearGradient></defs>
+                <rect width="170" height="170" fill="url(#h1)"/>
+                <circle cx="140" cy="30" r="14" fill="#FFF3C9"/>
+                <rect x="20" y="90" width="35" height="45" fill="#D85B4A"/><polygon points="15,90 60,90 37,72" fill="#A0432F"/>
+                <rect x="65" y="90" width="35" height="45" fill="#3B7A57"/><polygon points="60,90 105,90 82,72" fill="#2A5A3F"/>
+                <rect x="110" y="90" width="35" height="45" fill="#4A6FA5"/><polygon points="105,90 150,90 127,72" fill="#34527A"/>
+              </svg>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">West Sac Farmers Market</div>
+              <div class="c-meta">Saturday 8am · 0.4 mi</div>
+              <div class="c-meta">14 sellers · Bridge District</div>
+            </div>
+          </div>
+
+          <!-- Card: Concerts (photo) -->
+          <div class="c-card" onclick="go('detail')">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <defs><linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E72A0"/><stop offset="1" stop-color="#1E2E52"/></linearGradient></defs>
+                <rect width="170" height="170" fill="url(#h2)"/>
+                <circle cx="145" cy="25" r="10" fill="#FFF5C7" opacity="0.85"/>
+                <circle cx="30" cy="40" r="1.5" fill="white" opacity="0.6"/>
+                <circle cx="70" cy="28" r="1.5" fill="white" opacity="0.6"/>
+                <ellipse cx="30" cy="120" rx="25" ry="45" fill="#1F3A2B"/>
+                <ellipse cx="145" cy="125" rx="30" ry="40" fill="#1F3A2B"/>
+                <rect x="60" y="95" width="55" height="45" fill="#3A2A1F"/>
+                <rect x="68" y="105" width="40" height="28" fill="#0E0E0E"/>
+                <circle cx="80" cy="118" r="3" fill="#E8B85C"/>
+                <circle cx="98" cy="118" r="3" fill="#E8B85C"/>
+              </svg>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Concerts in the Park</div>
+              <div class="c-meta">Friday 5pm · 2.1 mi</div>
+              <div class="c-meta">Cesar Chavez Plaza</div>
+            </div>
+          </div>
+
+          <!-- Card: Run Club (photo) -->
+          <div class="c-card" onclick="go('detail')">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <defs><linearGradient id="h3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8985F"/><stop offset="1" stop-color="#B14628"/></linearGradient></defs>
+                <rect width="170" height="170" fill="url(#h3)"/>
+                <rect x="30" y="50" width="10" height="75" fill="#F5C16E"/>
+                <rect x="130" y="50" width="10" height="75" fill="#F5C16E"/>
+                <rect x="25" y="40" width="20" height="14" fill="#F5C16E"/>
+                <rect x="125" y="40" width="20" height="14" fill="#F5C16E"/>
+                <path d="M 40 95 Q 85 115 130 95" stroke="#F5C16E" stroke-width="3" fill="none"/>
+                <rect x="0" y="135" width="170" height="35" fill="#5C3A21" opacity="0.55"/>
+              </svg>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Tower Bridge Run Club</div>
+              <div class="c-meta">Tuesday 6pm · 1.8 mi</div>
+              <div class="c-meta">26 members</div>
+            </div>
+          </div>
+
+          <!-- Card: Trivia (photo) -->
+          <div class="c-card" onclick="go('detail')">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <rect width="170" height="170" fill="#3B7A57"/>
+                <circle cx="55" cy="65" r="20" fill="#7BC18B"/>
+                <circle cx="100" cy="80" r="25" fill="#5BAE6F"/>
+                <rect x="38" y="115" width="95" height="35" fill="#8B5A3F"/>
+                <rect x="70" y="125" width="30" height="25" fill="#5C3712"/>
+              </svg>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Drake's Trivia Night</div>
+              <div class="c-meta">Thursday 7pm · 0.9 mi</div>
+              <div class="c-meta">The Barn</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECTION: Sellers & makers near you -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Sellers &amp; makers near you</div>
+          <div class="section-link">Show all</div>
+        </div>
+        <div class="accent-line"></div>
+        <div class="carousel">
+
+          <!-- Card: Sutter Buttes (photo + featured badge) -->
+          <div class="c-card" onclick="go('detail')">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <defs><linearGradient id="s1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4DCB3"/><stop offset="1" stop-color="#C58642"/></linearGradient></defs>
+                <rect width="170" height="170" fill="url(#s1)"/>
+                <ellipse cx="85" cy="100" rx="60" ry="35" fill="#9D6628"/>
+                <ellipse cx="85" cy="92" rx="55" ry="28" fill="#C58642"/>
+                <path d="M 45 82 Q 85 70 125 82" stroke="#5C3712" stroke-width="2" fill="none"/>
+                <ellipse cx="70" cy="85" rx="2" ry="4" fill="#3D250C"/>
+                <ellipse cx="85" cy="80" rx="2" ry="4" fill="#3D250C"/>
+                <ellipse cx="100" cy="85" rx="2" ry="4" fill="#3D250C"/>
+              </svg>
+              <span class="c-badge-featured">Featured</span>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Sutter Buttes Sourdough</div>
+              <div class="c-meta">Bakery · 48 followers</div>
+              <div class="c-meta">0.6 mi · 2 new this week</div>
+            </div>
+          </div>
+
+          <!-- Card: Valley Greens (photo) -->
+          <div class="c-card">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <rect width="170" height="170" fill="#A8C686"/>
+                <rect x="0" y="100" width="170" height="70" fill="#6B8F47"/>
+                <circle cx="45" cy="80" r="18" fill="#4A7C32"/>
+                <circle cx="90" cy="75" r="22" fill="#5C9A3E"/>
+                <circle cx="130" cy="82" r="16" fill="#4A7C32"/>
+                <rect x="30" y="120" width="110" height="10" fill="#8B5A3F"/>
+              </svg>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Valley Greens Farm</div>
+              <div class="c-meta">Produce · 23 followers</div>
+              <div class="c-meta">1.1 mi</div>
+            </div>
+          </div>
+
+          <!-- Card: Foothill Honey (photo) -->
+          <div class="c-card">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <rect width="170" height="170" fill="#F5E6C8"/>
+                <ellipse cx="85" cy="85" rx="45" ry="40" fill="#D89E4A"/>
+                <ellipse cx="85" cy="78" rx="38" ry="32" fill="#E8B85C"/>
+                <path d="M 60 65 Q 85 50 110 65" stroke="#9D6628" stroke-width="2" fill="none"/>
+                <circle cx="75" cy="72" r="3" fill="#3D250C"/>
+                <circle cx="95" cy="72" r="3" fill="#3D250C"/>
+                <path d="M 78 82 Q 85 88 92 82" stroke="#3D250C" stroke-width="1.5" fill="none"/>
+              </svg>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Foothill Honey Co</div>
+              <div class="c-meta">Honey · 31 followers</div>
+              <div class="c-meta">2.3 mi</div>
+            </div>
+          </div>
+
+          <!-- Card: Music Lessons (photo) -->
+          <div class="c-card">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170" preserveAspectRatio="xMidYMid slice">
+                <rect width="170" height="170" fill="#F4DCB3"/>
+                <circle cx="60" cy="80" r="35" fill="#FFE5A3"/>
+                <circle cx="60" cy="72" r="8" fill="#3D250C"/>
+                <path d="M 45 90 Q 60 105 75 90" stroke="#3D250C" stroke-width="2" fill="none"/>
+                <rect x="105" y="50" width="35" height="65" fill="#C58642" rx="5"/>
+                <rect x="110" y="55" width="25" height="55" fill="#E8B85C" rx="3"/>
+                <line x1="122" y1="60" x2="122" y2="105" stroke="#9D6628" stroke-width="1"/>
+              </svg>
+              <span class="c-heart">♡</span>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Music lessons — fiddle &amp; guitar</div>
+              <div class="c-meta">Service · Aaron K.</div>
+              <div class="c-meta">1.2 mi</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECTION: Ideas & asks — GREY CARDS -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Ideas &amp; asks</div>
+          <div class="section-link">Show all</div>
+        </div>
+        <div class="accent-line"></div>
+        <div class="carousel">
+
+          <div class="c-card">
+            <div class="c-grey">
+              <div class="c-grey-kind">Idea</div>
+              <div class="c-grey-text">Cargo-bike repair in West Sac?</div>
+              <div class="c-grey-author">
+                <div class="c-grey-av">M</div>
+                <div class="c-grey-name">Maya Chen · 3 replies</div>
+              </div>
+            </div>
+            <div class="c-info">
+              <div class="c-meta">2h ago · 0.3 mi</div>
+            </div>
+          </div>
+
+          <div class="c-card">
+            <div class="c-grey">
+              <div class="c-grey-kind">Ask</div>
+              <div class="c-grey-text">Anyone have a truck Saturday for a couch move?</div>
+              <div class="c-grey-author">
+                <div class="c-grey-av">R</div>
+                <div class="c-grey-name">Raul G. · 1 reply</div>
+              </div>
+            </div>
+            <div class="c-info">
+              <div class="c-meta">5h ago · 0.8 mi</div>
+            </div>
+          </div>
+
+          <div class="c-card">
+            <div class="c-grey">
+              <div class="c-grey-kind">Idea</div>
+              <div class="c-grey-text">What if we did a monthly tool-share swap?</div>
+              <div class="c-grey-author">
+                <div class="c-grey-av">J</div>
+                <div class="c-grey-name">Jess T. · 7 replies</div>
+              </div>
+            </div>
+            <div class="c-info">
+              <div class="c-meta">1d ago</div>
+            </div>
+          </div>
+
+          <div class="c-card">
+            <div class="c-grey">
+              <div class="c-grey-kind">Ask</div>
+              <div class="c-grey-text">Looking for a CSA box — who delivers to Broderick?</div>
+              <div class="c-grey-author">
+                <div class="c-grey-av">L</div>
+                <div class="c-grey-name">Lisa M. · 2 replies</div>
+              </div>
+            </div>
+            <div class="c-info">
+              <div class="c-meta">6h ago · 0.5 mi</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECTION: Groups -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Groups near you</div>
+          <div class="section-link">Show all</div>
+        </div>
+        <div class="accent-line"></div>
+        <div class="carousel">
+
+          <div class="c-card">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170"><rect width="170" height="170" fill="#E8B85C"/><rect x="15" y="90" width="35" height="45" fill="#D85B4A"/><polygon points="10,90 55,90 32,72" fill="#A0432F"/><rect x="60" y="90" width="35" height="45" fill="#3B7A57"/><polygon points="55,90 100,90 77,72" fill="#2A5A3F"/><rect x="105" y="90" width="35" height="45" fill="#4A6FA5"/><polygon points="100,90 145,90 122,72" fill="#34527A"/></svg>
+            </div>
+            <div class="c-info">
+              <div class="c-title">West Sac Market Collective</div>
+              <div class="c-meta">Place · 14 members</div>
+            </div>
+          </div>
+
+          <div class="c-card">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170"><defs><linearGradient id="g5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8985F"/><stop offset="1" stop-color="#B14628"/></linearGradient></defs><rect width="170" height="170" fill="url(#g5)"/><rect x="55" y="50" width="10" height="75" fill="#F5C16E"/><rect x="105" y="50" width="10" height="75" fill="#F5C16E"/><path d="M 65 85 Q 85 100 105 85" stroke="#F5C16E" stroke-width="3" fill="none"/></svg>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Tower Bridge Run Club</div>
+              <div class="c-meta">Interest · 26 members</div>
+            </div>
+          </div>
+
+          <div class="c-card">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170"><rect width="170" height="170" fill="#7A6BAA"/><circle cx="55" cy="70" r="20" fill="#E8DFFF"/><circle cx="100" cy="80" r="25" fill="#C5B8E8"/><circle cx="85" cy="115" r="15" fill="#E8DFFF"/></svg>
+            </div>
+            <div class="c-info">
+              <div class="c-title">Bridge District Neighbors</div>
+              <div class="c-meta">Place · 42 members</div>
+            </div>
+          </div>
+
+          <div class="c-card">
+            <div class="c-img">
+              <svg viewBox="0 0 170 170"><rect width="170" height="170" fill="#4A7C7E"/><rect x="30" y="60" width="110" height="70" fill="#2D5A5C" rx="8"/><circle cx="65" cy="95" r="15" fill="#6BA8AA"/><circle cx="105" cy="95" r="15" fill="#6BA8AA"/><rect x="55" y="50" width="60" height="20" fill="#2D5A5C" rx="6"/></svg>
+            </div>
+            <div class="c-info">
+              <div class="c-title">West Sac Board Gamers</div>
+              <div class="c-meta">Interest · 18 members</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SELL CTA — white bg with Dusty Sky accent, Graphite Teal CTA on white -->
+      <div class="promo-card">
+        <div class="head">Got something to share?</div>
+        <div class="sub">Open a shop, list a service, or host a gathering. Free, no fees, ever.</div>
+        <button class="btn-primary" onclick="go('you')">Get started</button>
+      </div>
+
+    </div>
+
+    <div class="bottom-nav">
+      <div class="tab active" onclick="go('home')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10 L12 3 L21 10 V21 H14 V14 H10 V21 H3 Z"/></svg>
+        <span class="label">Home</span>
+      </div>
+      <div class="tab" onclick="go('explore')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <span class="label">Explore</span>
+      </div>
+      <div class="tab" onclick="go('you')">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 a8 8 0 0 1 16 0"/></svg>
+        <span class="label">You</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ EXPLORE ═══════════════ -->
+  <div class="screen" id="screen-explore">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="top-bar">
+      <div style="font-size:24px; font-weight:700; letter-spacing:-0.02em;">Near you</div>
+      <div class="locality-pill"><span class="pin">●</span> West Sac ▾</div>
+    </div>
+    <div class="body" style="padding: 0 16px 220px;">
+      <div style="font-size:13px; color:var(--color-fg-muted); margin-bottom:8px;">38 things within 5 miles</div>
+      <div class="list-card" onclick="go('detail')"><div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#E8B85C"/><circle cx="80" cy="22" r="9" fill="#FFF3C9"/><rect x="15" y="55" width="20" height="28" fill="#D85B4A"/><rect x="40" y="55" width="20" height="28" fill="#3B7A57"/><rect x="65" y="55" width="20" height="28" fill="#4A6FA5"/></svg></div><div class="info"><div class="title">West Sac Farmers Market</div><div class="meta">Event · Saturday 8am</div><div class="distance">0.4 mi · Bridge District</div></div></div>
+      <div class="list-card" onclick="go('detail')"><div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C58642"/><ellipse cx="50" cy="60" rx="38" ry="22" fill="#9D6628"/><ellipse cx="50" cy="55" rx="35" ry="18" fill="#C58642"/></svg></div><div class="info"><div class="title">Sutter Buttes Sourdough</div><div class="meta">Seller · Bakery</div><div class="distance">0.6 mi · West Sac</div></div></div>
+      <div class="list-card" onclick="go('detail')"><div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#1E2E52"/><circle cx="80" cy="18" r="6" fill="#FFF5C7"/><rect x="40" y="55" width="42" height="32" fill="#3A2A1F"/><rect x="46" y="63" width="30" height="18" fill="#0E0E0E"/></svg></div><div class="info"><div class="title">Concerts in the Park</div><div class="meta">Event · Friday 5pm</div><div class="distance">2.1 mi · Downtown Sac</div></div></div>
+      <div class="list-card" onclick="go('detail')"><div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#B14628"/><rect x="22" y="30" width="7" height="55" fill="#F5C16E"/><rect x="71" y="30" width="7" height="55" fill="#F5C16E"/><path d="M 29 60 Q 50 75 71 60" stroke="#F5C16E" stroke-width="3" fill="none"/></svg></div><div class="info"><div class="title">Tower Bridge Run Club</div><div class="meta">Event · Tuesday 6pm</div><div class="distance">1.8 mi · Downtown Sac</div></div></div>
+      <div class="list-card"><div class="thumb grey-thumb"><div class="grey-thumb-kind">Idea</div><div class="grey-thumb-av">M</div></div><div class="info"><div class="title">Cargo-bike repair in West Sac?</div><div class="meta">Idea · Maya Chen</div><div class="distance">0.3 mi · Bridge District</div></div></div>
+      <div class="list-card"><div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3B7A57"/><circle cx="32" cy="42" r="15" fill="#7BC18B"/><circle cx="60" cy="55" r="20" fill="#5BAE6F"/><rect x="22" y="72" width="56" height="22" fill="#8B5A3F"/></svg></div><div class="info"><div class="title">Drake's Brewery Trivia Night</div><div class="meta">Event · Thursday 7pm</div><div class="distance">0.9 mi · The Barn</div></div></div>
+      <div class="list-card"><div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#F4DCB3"/><circle cx="35" cy="50" r="22" fill="#FFE5A3"/><rect x="60" y="35" width="30" height="40" fill="#E8B85C"/></svg></div><div class="info"><div class="title">Music lessons — fiddle &amp; guitar</div><div class="meta">Service · Aaron K.</div><div class="distance">1.2 mi · West Sac</div></div></div>
+    </div>
+    <div class="chip-row"><div class="chip active">All</div><div class="chip">Events</div><div class="chip">Products</div><div class="chip">Services</div><div class="chip">Ideas</div><div class="chip">5 mi ▾</div><div class="chip">This week ▾</div></div>
+    <div class="search-bar"><svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input placeholder="Search bakeries, markets, run clubs…" /></div>
+    <div class="bottom-nav">
+      <div class="tab" onclick="go('home')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10 L12 3 L21 10 V21 H14 V14 H10 V21 H3 Z"/></svg><span class="label">Home</span></div>
+      <div class="tab active" onclick="go('explore')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="label">Explore</span></div>
+      <div class="tab" onclick="go('you')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 a8 8 0 0 1 16 0"/></svg><span class="label">You</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ YOU ═══════════════ -->
+  <div class="screen" id="screen-you">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="top-bar">
+      <div style="font-size:24px; font-weight:700; letter-spacing:-0.02em;">You</div>
+      <div style="font-size:22px; color:var(--color-fg-muted); cursor:pointer;">⚙</div>
+    </div>
+    <div class="body" style="padding: 0 0 100px;">
+      <div class="you-header">
+        <div class="you-avatar">D</div>
+        <div><div class="you-name">Don L</div><div class="you-handle">@donl · West Sacramento</div></div>
+      </div>
+
+      <div class="sell-cta-block">
+        <div class="promo-card" style="margin:0;">
+          <div class="head">Got something to share?</div>
+          <div class="sub">Open a shop, list a service, or host a gathering. Free, no fees, ever.</div>
+          <button class="btn-primary" onclick="openDrawer()">Sell something</button>
+        </div>
+      </div>
+
+      <div class="section-label">Following</div>
+      <div class="follow-row">
+        <div class="follow-item"><div class="av" style="background:#C58642">S</div><div class="name">Sutter Buttes</div></div>
+        <div class="follow-item"><div class="av" style="background:#7A6BAA">M</div><div class="name">Maya Chen</div></div>
+        <div class="follow-item"><div class="av" style="background:#3B7A57">D</div><div class="name">Drake's</div></div>
+        <div class="follow-item"><div class="av" style="background:#B14628">T</div><div class="name">Tower Bridge RC</div></div>
+        <div class="follow-item"><div class="av" style="background:#E8B85C; color:#6B4A1A;">W</div><div class="name">West Sac Market</div></div>
+      </div>
+
+      <div class="section-label">Recently viewed</div>
+      <div style="padding: 0 16px;">
+        <div class="list-card" style="padding-top:8px;" onclick="go('detail')">
+          <div class="thumb"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#E8B85C"/><rect x="15" y="55" width="20" height="28" fill="#D85B4A"/><rect x="40" y="55" width="20" height="28" fill="#3B7A57"/><rect x="65" y="55" width="20" height="28" fill="#4A6FA5"/></svg></div>
+          <div class="info"><div class="title">West Sac Farmers Market</div><div class="meta">Saturday 8am · 0.4 mi</div></div>
+        </div>
+      </div>
+
+      <div class="section-label">Settings</div>
+      <div class="settings-row"><span class="label">Notifications</span><span class="chev">›</span></div>
+      <div class="settings-row"><span class="label">My data &amp; privacy</span><span class="chev">›</span></div>
+      <div class="settings-row"><span class="label">Help</span><span class="chev">›</span></div>
+      <div class="settings-row danger"><span class="label">Sign out</span><span class="chev">›</span></div>
+    </div>
+    <div class="bottom-nav">
+      <div class="tab" onclick="go('home')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10 L12 3 L21 10 V21 H14 V14 H10 V21 H3 Z"/></svg><span class="label">Home</span></div>
+      <div class="tab" onclick="go('explore')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="label">Explore</span></div>
+      <div class="tab active" onclick="go('you')"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 a8 8 0 0 1 16 0"/></svg><span class="label">You</span></div>
+    </div>
+
+    <div class="drawer-backdrop" id="backdrop" onclick="closeDrawer()"></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-grabber"></div>
+      <div class="drawer-head">
+        <div class="step-dots"><div class="step-dot done" id="dot1"></div><div class="step-dot" id="dot2"></div><div class="step-dot" id="dot3"></div><div class="step-dot" id="dot4"></div><span class="step-counter" id="step-counter">Step 1 of 4</span></div>
+        <div class="drawer-close" onclick="closeDrawer()">×</div>
+      </div>
+      <div class="drawer-body" id="drawer-body"></div>
+      <div class="drawer-nav">
+        <button class="back-link hidden" id="back-btn" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" id="continue-btn" onclick="nextStep()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DETAIL ═══════════════ -->
+  <div class="screen" id="screen-detail">
+    <div class="status-bar"><span>9:41</span><span class="dots"><span></span><span></span><span></span></span></div>
+    <div class="detail-header">
+      <div class="detail-back" onclick="goBack()">←</div>
+      <div class="detail-share">↗</div>
+      <div class="detail-hero">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="dh1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE5A3"/><stop offset="1" stop-color="#E8B85C"/></linearGradient></defs>
+          <rect width="400" height="300" fill="url(#dh1)"/>
+          <circle cx="330" cy="65" r="32" fill="#FFF3C9"/>
+          <rect x="40" y="170" width="80" height="90" fill="#D85B4A"/><polygon points="30,170 130,170 80,135" fill="#A0432F"/>
+          <rect x="150" y="170" width="80" height="90" fill="#3B7A57"/><polygon points="140,170 240,170 190,135" fill="#2A5A3F"/>
+          <rect x="260" y="170" width="80" height="90" fill="#4A6FA5"/><polygon points="250,170 350,170 300,135" fill="#34527A"/>
+        </svg>
+        <div class="detail-dots"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-kind">Event · Farmers market</div>
+      <h1 class="detail-title">West Sac Farmers Market</h1>
+      <div class="detail-meta"><span>📅</span> Saturday, June 13 · 8:00 AM – 1:00 PM</div>
+      <div class="detail-meta"><span>📍</span> Bridge District Plaza · 0.4 mi away</div>
+      <div class="detail-meta"><span>🔁</span> Repeats every Saturday</div>
+      <div class="detail-section">
+        <h3>About</h3>
+        <p>Every Saturday morning year-round in the Bridge District. Around 35 producers from within 50 miles — sourdough, stone fruit, honey, eggs, a few prepared-food stalls, live music after 10am. Bring a tote.</p>
+      </div>
+      <div class="detail-section">
+        <h3>Hosted by</h3>
+        <div class="host-row">
+          <div class="av" style="background:#E8B85C; color:#6B4A1A;">W</div>
+          <div class="info"><div class="name">West Sac Market Collective</div><div class="role">Group · 14 members</div></div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h3>Sellers at this market</h3>
+        <div class="follow-row" style="margin-top:0; padding-left:0;">
+          <div class="follow-item"><div class="av" style="background:#C58642">S</div><div class="name">Sutter Buttes</div></div>
+          <div class="follow-item"><div class="av" style="background:#3B7A57">V</div><div class="name">Valley Greens</div></div>
+          <div class="follow-item"><div class="av" style="background:#B14628">F</div><div class="name">Foothill Honey</div></div>
+          <div class="follow-item"><div class="av" style="background:#7A6BAA">B</div><div class="name">Bee's Eggs</div></div>
+          <div class="follow-item"><div class="av" style="background:#555">+4</div><div class="name">4 more</div></div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <h3>Where</h3>
+        <div style="background:var(--color-surface); aspect-ratio: 16/9; border-radius: var(--radius-md); margin-top:8px; overflow:hidden;">
+          <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" style="width:100%; height:100%;">
+            <rect width="400" height="225" fill="#E8E8E8"/>
+            <path d="M 0 100 L 400 80" stroke="#D0D0D0" stroke-width="6"/>
+            <path d="M 0 160 L 400 140" stroke="#D0D0D0" stroke-width="4"/>
+            <path d="M 180 0 L 220 225" stroke="#D0D0D0" stroke-width="5"/>
+            <circle cx="200" cy="112" r="14" fill="var(--color-accent-pressed)"/>
+            <circle cx="200" cy="112" r="6" fill="white"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="sticky-cta">
+      <button class="btn-primary">Share this market</button>
+      <div class="trust">No fees, ever. No ads.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <h2>Coastal Slate variant — design direction</h2>
+  <ul>
+    <li><b>Palette swap only.</b> This is the Final mockup with the Coastal Slate palette (Palette B) substituted for satin pistachio. Layout, structure, and the produce/market illustrations are unchanged — only the nine theme tokens moved.</li>
+    <li><b>Grey cards for no-photo items.</b> Ideas &amp; Asks use a soft sky-tinted grey (<code>#EDF1F3</code>) background — editorial, typographic, low color. In the Explore list, no-photo items get a tinted thumbnail with uppercase kind label + author initial.</li>
+    <li><b>Coastal accent used liberally, on white only.</b> Brand tint Dusty Sky (#C5D6DE) appears on: logo dots, locality-pill pin, active filter chips, section accent lines, Featured badge outline, selected-state borders in the sell drawer, step-progress dots, input focus ring, and promo left border. Graphite Teal (#576668) fills CTA buttons with white text; the darker pressed teal (#3E494B) carries "Show all" links, active nav, map pin, and detail kind label.</li>
+    <li><b>Accent never on color.</b> The promo/sell CTA card uses white background (with a Dusty Sky left-border accent) so the teal CTA sits on white. No accent on tinted/photo cards.</li>
+    <li><b>Photo cards are sacred.</b> No overlays, no pills on images. The only overlay is the heart icon (white stroke + shadow). Featured badge uses a sky-outlined white pill — visible but not polluting the photo.</li>
+    <li><b>Near-black text (#2B292C).</b> Body and headings in near-black. Muted text in Slate Blue-Gray (#62727A, nudged darker to clear AA contrast) — a calm secondary tone. No brand-colored body text.</li>
+    <li><b>White canvas.</b> Pure white page background. Grey (#E8E8E8) outer frame only.</li>
+    <li><b>Phone frame:</b> Near-black (#1A1A1A). Not brand-colored.</li>
+  </ul>
+  <h2>Coastal Slate surface inventory</h2>
+  <ul>
+    <li>Logo dots: <code>#C5D6DE</code> (Dusty Sky)</li>
+    <li>Locality pin: <code>#C5D6DE</code></li>
+    <li>Section accent lines: <code>#C5D6DE</code> (32px × 2px)</li>
+    <li>"Show all" links: <code>#3E494B</code> (pressed teal — passes AA for text)</li>
+    <li>Active filter chip: <code>#C5D6DE</code> fill + dark text</li>
+    <li>Featured badge: white bg + <code>#C5D6DE</code> border + <code>#3E494B</code> text</li>
+    <li>CTA buttons: <code>#576668</code> fill (Graphite Teal) + white text</li>
+    <li>Promo card: white bg + <code>#C5D6DE</code> left border</li>
+    <li>Active nav icon: <code>#3E494B</code> (pressed teal)</li>
+    <li>Detail kind label: <code>#3E494B</code> (pressed teal)</li>
+    <li>Step dots (completed): <code>#C5D6DE</code></li>
+    <li>Selected option border: <code>#C5D6DE</code></li>
+    <li>Input focus ring: <code>#C5D6DE</code></li>
+    <li>Map pin: <code>#3E494B</code></li>
+  </ul>
+</div>
+
+<script>
+function go(target) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + target).classList.add('active');
+  if (target === 'home' || target === 'explore' || target === 'you') window.lastTab = target;
+}
+function goBack() { go(window.lastTab || 'home'); }
+
+let step = 1;
+const stepData = [
+  null,
+  { title: "What kind of shop?", helper: "We use this to set up the right tools for you. You can change it later.",
+    body: `<div class="step-options">
+      <div class="step-option selected" onclick="pickOption(this)"><div class="opt-icon">🥖</div><div class="opt-text"><div class="opt-title">Maker / producer</div><div class="opt-sub">Bread, honey, soap, art — things you make</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🌾</div><div class="opt-text"><div class="opt-title">Farm / grower</div><div class="opt-sub">Produce, eggs, flowers, meat</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🔧</div><div class="opt-text"><div class="opt-title">Service</div><div class="opt-sub">Repair, lessons, work you do for people</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🛒</div><div class="opt-text"><div class="opt-title">Resale</div><div class="opt-sub">Things you bought and want to pass on</div></div></div>
+    </div>`, cta: "Continue" },
+  { title: "Name your shop", helper: "Your handle stays /m/donl. Your shop name is what people see at the top of your stall.",
+    body: `<input class="step-input" placeholder="e.g., Don's Garage Goods" /><div style="margin-top:14px; font-size:13px; color:var(--color-fg-muted);">You can edit this anytime.</div>`, cta: "Continue" },
+  { title: "Where are you based?", helper: "We show your shop to people nearby. Your home address stays private — only the city is public.",
+    body: `<div class="step-options">
+      <div class="step-option selected" onclick="pickOption(this)"><div class="opt-icon">📍</div><div class="opt-text"><div class="opt-title">West Sacramento, CA</div><div class="opt-sub">From your locality setting</div></div></div>
+      <div class="step-option" onclick="pickOption(this)"><div class="opt-icon">🔍</div><div class="opt-text"><div class="opt-title">Pick a different city</div><div class="opt-sub">Search by city, neighborhood, or zip</div></div></div>
+    </div>`, cta: "Continue" },
+  { title: "Ready to open up shop?", helper: "You can list products and post updates from your shop page after this.",
+    body: `<div style="padding:20px; background:var(--color-surface); border-radius:12px; margin-bottom:24px;">
+      <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--color-fg-muted); margin-bottom:8px;">Preview</div>
+      <div style="font-size:17px; font-weight:600; margin-bottom:4px;">Don's Garage Goods</div>
+      <div style="font-size:13px; color:var(--color-fg-muted);">Maker · West Sacramento, CA</div>
+    </div><div style="font-size:14px; line-height:1.7;"><div style="margin-bottom:8px;">✓ Free, no fees on what you sell</div><div style="margin-bottom:8px;">✓ You keep every customer relationship</div><div>✓ Stop anytime — your shop goes dormant for 90 days</div></div>`, cta: "Open my shop" }
+];
+function openDrawer() { document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); step = 1; renderStep(); }
+function closeDrawer() { document.getElementById('drawer').classList.remove('open'); document.getElementById('backdrop').classList.remove('open'); }
+function renderStep() {
+  const d = stepData[step];
+  document.getElementById('drawer-body').innerHTML = `<h2 class="step-title">${d.title}</h2><p class="step-helper">${d.helper}</p>${d.body}`;
+  document.getElementById('step-counter').textContent = `Step ${step} of 4`;
+  document.getElementById('continue-btn').textContent = d.cta;
+  for (let i = 1; i <= 4; i++) { const dot = document.getElementById('dot' + i); if (i <= step) dot.classList.add('done'); else dot.classList.remove('done'); }
+  document.getElementById('back-btn').classList.toggle('hidden', step === 1);
+}
+function nextStep() { if (step < 4) { step++; renderStep(); } else { closeDrawer(); setTimeout(() => alert("Shop opened!"), 350); } }
+function prevStep() { if (step > 1) { step--; renderStep(); } }
+function pickOption(el) { el.parentElement.querySelectorAll('.step-option').forEach(o => o.classList.remove('selected')); el.classList.add('selected'); }
+window.lastTab = 'home';
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Savannah, Georgia — Seed Market Research
 
-**For: Movers, Makers & Shakers launch decision**
+**For: CDP launch decision**
 **Date: June 22, 2026**
 
 ---
@@ -308,7 +308,7 @@ In likely order of reach:
 
 ### The Gap
 
-Eight structural gaps map directly to what Movers, Makers & Shakers would provide:
+Eight structural gaps map directly to what the Project would provide:
 
 1. **No unified local discovery.** Events, businesses, makers, markets, groups, activities are scattered across 10+ channels.
 2. **No resident-first digital platform.** Everything is tourist-facing or business-networking-facing.
@@ -335,7 +335,7 @@ Based on everything above, five champion types, in priority order:
 
 ### Champion 2: Shop-Local Organization Leader
 
-**Why second:** Buy Local Savannah (150+ businesses, 27 years, named leader Somi Benson-Jaja) and Make Savannah already have the network and the message. They lack the platform. They literally exist to do what MMS does — connect people to local businesses — but their tools are WordPress directories and Squarespace pages.
+**Why second:** Buy Local Savannah (150+ businesses, 27 years, named leader Somi Benson-Jaja) and Make Savannah already have the network and the message. They lack the platform. They literally exist to do what CDP does — connect people to local businesses — but their tools are WordPress directories and Squarespace pages.
 
 **What they need:** A real discovery/marketplace layer on top of their existing networks. Member business profiles that consumers actually use. Event/market coordination tools. Data on "how much economic activity stays local" that isn't theoretical.
 

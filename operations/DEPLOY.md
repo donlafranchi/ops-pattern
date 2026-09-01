@@ -4,7 +4,7 @@ layer: how
 status: active
 ---
 
-# Deploy + phone-dev setup — Movers, Makers & Shakers
+# Deploy + phone-dev setup — CDP
 
 How the two repos get to GitHub, and how to continue developing with Claude Code
 from a phone via a Hetzner box and Termius.
@@ -56,7 +56,7 @@ rm -f ~/Projects/mainstreetmarket/.git/index.lock \
 # 1. Parent repo — planning docs
 cd ~/Projects/mainstreetmarket
 git add -A
-git commit -m "Rename to Movers, Makers & Shakers"
+git commit -m "Rename to CDP"
 git remote add origin https://github.com/YOUR-GH-USERNAME/movers-makers-shakers-planning.git
 git branch -M main
 git push -u origin main
@@ -64,7 +64,7 @@ git push -u origin main
 # 2. Web repo — the app
 cd ~/Projects/mainstreetmarket/web
 git add -A
-git commit -m "Rename to Movers, Makers & Shakers"
+git commit -m "Rename to CDP"
 git remote add origin https://github.com/YOUR-GH-USERNAME/movers-makers-shakers.git
 git branch -M main
 git push -u origin main

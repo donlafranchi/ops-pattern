@@ -5,7 +5,7 @@ layer: what
 status: active
 ---
 
-# Main Street DLS
+# CDP Design Language System
 
 > White canvas + photography + one signature accent. The chrome disappears so the content speaks.
 
@@ -222,7 +222,7 @@ If none of those hold, use a single-form composer (one screen, one submit, valid
 
 ## CTA placement patterns
 
-Modeled on Airbnb's two-audience pattern (guest + host). Main Street has two member types — **shoppers** (consumers) and **producers** (vendors/businesses) — and signup is the #1 product goal.
+Modeled on Airbnb's two-audience pattern (guest + host). The Project has two member types — **shoppers** (consumers) and **producers** (vendors/businesses) — and signup is the #1 product goal.
 
 ### 1. Persistent top-right primary
 - Logged out: `[Sign up]` (filled accent) + `[Log in]` (text link)

@@ -7,7 +7,7 @@ owns:
   - community-health-scoring
 ---
 
-# Community Design Philosophy — Movers, Makers & Shakers
+# Community Design Philosophy — CDP
 
 > **Status:** Foundational measuring stick. The structured 0–3 scored rubric used to evaluate every platform decision and periodically audit community health. When this document and another foundation doc conflict on a principle, the principle in [`principles.md`](principles.md) wins (this document is the *how-to-grade*; `principles.md` is the *what we have committed to*). When this document and a system spec conflict on a structural mechanism (schema, action handler, accountable-participation surface rule), the system spec wins — that's where the platform's *how* lives. Read alongside [`principles.md`](principles.md) (the P1–P8 constitution, the People-First Principle, the binary Decision Test, the categorical failures), [`policy.md`](policy.md) (the three filters + accountable-participation commitments + opt-out default), [`platform-promise.md`](platform-promise.md) (the public-facing commitments), [`member-journey.md`](../needs/member-journey.md) (the 13 loops this document scores), and [`primitives.md`](primitives.md) (Person / Item / Location / Group, the data spine every checklist item is graded against). Scoped to the platform's *what we are building toward*; the linked docs encode the *what we have refused at the schema and policy layer*.
 

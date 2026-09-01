@@ -5,7 +5,7 @@ layer: how
 status: active
 ---
 
-# Movers, Makers & Shakers — Architecture Map
+# CDP — Architecture Map
 
 > **100k-foot view.** One sentence per system. Scan top-to-bottom to verify everything fits together. If a line conflicts with another line, something is misaligned.
 >

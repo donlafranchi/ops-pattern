@@ -6,7 +6,7 @@ status: draft
 
 # Phase 0 — Structure
 
-> Movers, Makers & Shakers PWA design pass. Gated deliverable — Phase 1 (foundations + hi-fi) follows on approval.
+> CDP PWA design pass. Gated deliverable — Phase 1 (foundations + hi-fi) follows on approval.
 
 ## Information Architecture
 
@@ -134,8 +134,8 @@ Printable card for any Item. Shows the Item's QR code (linking to its URL), the 
 #### Home
 ```
 ┌─────────────────────────┐
-│  🌳 Movers Makers       │  ← oak mark, top-left
-│       & Shakers         │
+│  🌳 CDP                 │  ← oak mark, top-left
+│                         │
 ├─────────────────────────┤
 │  📍 West Sacramento ▾   │  ← locality selector
 ├─────────────────────────┤

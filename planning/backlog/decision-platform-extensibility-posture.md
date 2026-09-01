@@ -9,7 +9,7 @@ source: inbox drain 2026-06-21 (originally captured 2026-05-30)
 
 ## Decision needed
 
-Whether *Movers, Makers & Shakers* commits at the foundation level to being API-first: every Member-facing capability also exists as an action-layer endpoint, and external apps become first-class once the substrate hardens.
+Whether *the Project* commits at the foundation level to being API-first: every Member-facing capability also exists as an action-layer endpoint, and external apps become first-class once the substrate hardens.
 
 ## Recommendation
 

@@ -1,6 +1,6 @@
 # Madison, Wisconsin — Seed Market Research
 
-> Compiled June 22, 2026. For launch decision on Movers, Makers & Shakers.
+> Compiled June 22, 2026. For launch decision on CDP.
 
 ---
 

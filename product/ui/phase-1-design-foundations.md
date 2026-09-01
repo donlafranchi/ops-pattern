@@ -191,7 +191,7 @@ Per DLS. Role-gated `<details>`/`<summary>` at the top of entity pages. Backgrou
 
 ### Screen readers
 - All images carry descriptive alt text. Decorative images: `alt=""` + `role="presentation"`.
-- Oak mark: `role="img"` with `aria-label="Main Street logo"`.
+- Oak mark: `role="img"` with `aria-label="CDP logo"`.
 - Follow button: `aria-pressed="true/false"` communicates state.
 - Owner banner: `role="region"` with `aria-label="Owner tools"`.
 - Filter chips: `role="checkbox"` with `aria-checked`.

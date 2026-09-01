@@ -51,6 +51,6 @@ All mockups archived in `product/ui/mockups/`:
 | `mockup-mobile-b1-pistachio-v2.html` | Reduced ramp, removed Oak Green text |
 | `mockup-mobile-b1-pistachio-v3.html` | Horizontal carousels, minimal pistachio |
 | `mockup-mobile-b1-comparison.html` | Side-by-side comparison view |
-| `design-comparison.html` | Airbnb vs Main Street comparison |
+| `design-comparison.html` | Airbnb vs CDP comparison |
 | `design-comparison-v2.html` | Revised comparison after palette simplification |
 | `mockup-mobile-final.html` | **Final direction** — grey cards, liberal pistachio on white |
