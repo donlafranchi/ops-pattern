@@ -1,5 +1,5 @@
 ---
-purpose: Two tabs plus a create action (Home, +, You) — what each surface does, what Explore's retirement absorbs, how the merged Home ranks, how location resolves to a stored hierarchy, and what You has to become.
+purpose: Two tabs plus a create action (Home, +, You) — what each surface does, what Explore's retirement absorbs, how the merged Home ranks, how a Member enters an Item's location and how it resolves to a stored hierarchy, and what You has to become.
 layer: what
 status: ratified
 ---
@@ -42,18 +42,20 @@ Intent (Ratified 2026-09-03): We want people to create, and nav placement is the
 
 PM ratified 2026-09-03. Items on the merged Home surface rank by **distance band**: nearest first, each successive band lower, online / non-physical Items last.
 
-**This is a ranking rule, not a filter rule.** A distant Item and a place-less Item are both still present in the feed — they sit below the local ones. Nothing is excluded from the catalog for being far away or for lacking a physical place.
+**This is a ranking rule, not a filter rule.** A distant Item and an Online Item are both still present in the feed — they sit below the local ones. Nothing is excluded from the catalog for being far away or for being Online.
+
+**Reconciled 2026-09-03 — this is a rule about Online, not about absence.** When this entry was written, "Items with no Location" was a live state and the rule governed it. It no longer is: every Item is given a location at creation, and **Online is the explicit opt-out rather than an absence** (§ Location is entered at creation). So the bottom band is *Online Items*, chosen as such by their creator and warned about it at the time. An Item with genuinely no location should not occur on the create path; if one appears, it is a defect to fix at the source, not a case for the ranker to interpret. Read the two entries as one rule: **items rank by hierarchy proximity, and Online ranks last.**
 Intent (Ratified 2026-09-03): Proximity is the strongest relevance signal the platform has, so it should drive *order*. It should not drive *presence*. At launch density, exclusion is the more expensive error — a feed that hides rows looks like a dead platform, while a feed that runs local → distant → online teaches the Member where the edge of their locality actually is and that there is more beyond it. Ranking is also the reversible choice: bands are a sort key we can retune per market as inventory density grows, and the Member can see and scroll past the falloff. A filter that never returned the row is a decision the Member can neither see nor undo.
 
-**What this resolves.** The open question *"do Items with no Location appear?"* — one of the three blocking the Home/Explore merge. **Answer: yes, ranked last.** `product/ui/community-platform.md` § T1 previously deferred it the other way ("Items with no Location — do not appear in the proximity index; keyword-search path at b2"). That line is retired and corrected in place; do not cite it.
+**What this resolves.** The open question *"do Items with no Location appear?"* — one of the three blocking the Home/Explore merge. **Answer: yes, ranked last** — and, after the creation-entry decision, the state that question was asking about is now *Online*. `product/ui/community-platform.md` § T1 previously deferred it the other way ("Items with no Location — do not appear in the proximity index; keyword-search path at b2"). That line is retired and corrected in place; do not cite it.
 
 ### Consequence — "Online" as a first-class location option — RESOLVED 2026-09-03
 
-*This subsection previously read "implied, NOT ratified." Superseded the same day* — Online is now a first-class declare-time choice, with a required creation-time warning and no map presence. See § Online is a location option.
+*This subsection previously read "implied, NOT ratified." Superseded the same day* — Online is now one of the three choices a Member makes at creation, with a required warning and no map presence. See § Online is a location option and § Location is entered at creation.
 
-Why it mattered more than an edge case: several Item kinds — **ask, offer, wonder, initiative** — may have no physical place *by nature*, not by omission. If that holds, place-less Items are not a tail; they are a large share of the catalog, and "ranked last" governs the bulk of what a Member sees. That is what makes the creation-time warning a requirement rather than a courtesy.
+Why it mattered more than an edge case: several Item kinds — **ask, offer, wonder, initiative** — have no venue of their own. Under creation-entry those are not place-less; they are the Items whose creator most often enters a neighborhood (frequently their own) or picks Online. Either way the choice is made by a person, not left as a gap — which is what makes the warning a requirement rather than a courtesy.
 
-**A separate session is checking the Item location data model** — which kinds carry a Location, which cannot, and whether the absence is structural or incidental. **Fold its findings in here when they land**; they size the Online band, though they no longer gate the decision.
+**A separate session is checking the Item location data model** — which kinds carry a Location and which cannot. **Fold its findings in here when they land**; they size the Online band, though they no longer gate any decision.
 
 ### Hard boundary vs. graded falloff — RESOLVED 2026-09-03
 
@@ -64,6 +66,8 @@ Why it mattered more than an edge case: several Item kinds — **ask, offer, won
 ## Location resolution — geocode once, store a hierarchy — RATIFIED
 
 PM ratified 2026-09-03. Coordinate math runs **once**, at the moment an address is entered. It resolves to a **stored location hierarchy on the Item** — neighborhood, city, county, metro, state, and so on. Every subsequent query reads those stored levels. Nothing computes distance at read time.
+
+**The input is what the Member typed.** This step and § Location is entered at creation are one pipeline, not two decisions: *Member enters address or neighborhood → resolve once → store levels → rank by levels.* A neighborhood entry resolves to a shallower hierarchy than a street address; Online skips resolution entirely.
 
 **What it replaces — both geographic mechanisms, not one.** The unresolved tension in § Feed ranking named two coexisting systems: a Place polygon with a hard in/out boundary (point-in-polygon containment, per [`product/systems/places.md`](../../product/systems/places.md) § Reverse-geocoder) and a distance radius measured from that polygon's centre (the 1/5/10/25 mi filter, `ST_DWithin` against `discoverable_items`). **One hierarchy lookup retires both.** Nearby means *same neighborhood*, then *same metro*, then *same state*, then *online*. The distance bands in § Feed ranking are hierarchy levels — they were never really miles.
 
@@ -79,7 +83,7 @@ Intent (Ratified 2026-09-03): A hard boundary and a graded falloff could not be 
 
 ## Online is a location option, and the warning is a requirement — RATIFIED
 
-PM ratified 2026-09-03. **Online is a first-class choice at declare time.** This closes the question § Feed ranking raised and explicitly left open.
+PM ratified 2026-09-03. **Online is one of the three choices a Member makes when entering an Item's location** (§ Location is entered at creation) — the explicit opt-out, chosen, not left blank. This closes the question § Feed ranking raised and explicitly left open.
 
 Two consequences ship with it, both **requirements, not polish**:
 
@@ -88,37 +92,53 @@ Two consequences ship with it, both **requirements, not polish**:
 
 Intent (Ratified 2026-09-03): Ranking a Member's Item last is a real cost we are imposing, and the warning is the only thing that makes imposing it honest. A producer who picks Online knowing it ranks last has made a trade; a producer who picks Online and then quietly gets no views has been misled by a platform that knew. That is the difference between a ranking rule and a dark pattern, and it costs one line of composer copy. Keeping Online off the map follows from the same honesty: a map pin asserts "this is here," and an Online Item is not anywhere — a fallback pin would be a lie rendered in the most literal surface the platform has. Reversible in both directions: the warning copy is tunable, and if Online inventory ever becomes the thing Members come for, the ranking is a sort key we can retune.
 
-**Why this matters more than an edge case.** Four Item kinds — **ask, offer, wonder, initiative** — may have no physical place by nature. If that holds, Online is not a tail case; it governs a large share of the catalog, and the warning is shown to a large share of creators.
+**Why this matters more than an edge case.** Four Item kinds — **ask, offer, wonder, initiative** — have no venue of their own, and their creators reach this choice every time. Online is not a tail case; the warning is shown to a large share of creators, and the alternative sitting right next to it is a neighborhood — which is usually the truer answer and the one the privacy mechanism exists to make safe.
 
 ---
 
-## Items inherit the creator's location — RATIFIED, BLOCKED ON SUBSTRATE
+## Location is entered at creation — RATIFIED
 
-PM ratified 2026-09-03. An Item with no venue of its own **takes the creator's location** — it is neither excluded from the place-scoped index nor silently defaulted to Online.
+PM ratified 2026-09-03. **Every Item gets a location when it is created, entered by the Member.** Three choices, the Member's call:
 
-Intent (Ratified 2026-09-03): The three options for a venue-less Item are exclude it, call it Online, or inherit. Exclusion contradicts the ranking rule above. Calling it Online is a lie the Member never told — an ask posted by someone in Oak Park is an Oak Park ask, and burying it below genuinely-online Items makes the local feed worse for no gain. Inheritance is the only option that keeps the Item where it actually is. Reversible: inherited levels are stored data, replaceable the moment the Member attaches a real venue.
+| Choice | What it means | Where it ranks |
+|---|---|---|
+| **A specific address** | A street address — including the Member's own home. | By hierarchy, from the resolved neighborhood up. |
+| **A neighborhood** | Just the neighborhood, no street. | By hierarchy, from the neighborhood up. |
+| **Online** | An explicit declaration that the Item is not anywhere. | Last. See § Online is a location option. |
 
-### BLOCKED — there is nothing to inherit from today
+Intent (Ratified 2026-09-03): Asking the Member is the shortest path to a correct answer. Every alternative — inferring, inheriting, defaulting — is the platform guessing at something the Member already knows and could have typed in one field. Entry also puts the Member in control of precision, which is what makes the home-address case workable at all (below). Reversible: an entered location is stored data the Member can change, and the entry surface is one composer field we can restyle, pre-fill, or make optional without touching the model underneath.
 
-**`members.home_location_id` is a dead column.** It exists (`002_members.sql`, FK added in `009_members_phase1.sql`) and it is **never populated and never read**. Migration `031_metro_polygons.sql` says so in its own header: the `member.locality.set` handler that would write it "does not exist and `home_location_id` is never populated." Both `place-interest-add.ts` and `place-interest-remove.ts` carry the same note inline.
+### Neighborhood-level entry is the privacy mechanism — not a convenience
 
-**So this decision is not implementable as written.** Making it work requires **collecting a location from Members** — a new product requirement touching signup or profile, currently **scoped nowhere**. That is the dependency, and it is a real one: no scenario, no ticket, no backlog item covers it. Do not read this section as ready for `scope`.
+Letting a Member enter *just a neighborhood* is deliberate and load-bearing. It is what lets someone host an ask at their own house and publish "Riverside" instead of their street address.
 
-**The partial signal that does exist.** `members.home_metro_id` is populated — backfilled and maintained from the Member's `primary_home` `member_place_interests` row via `resolve_home_metro()` (migration `031`, on `main`), which is the path onboarding actually walks. It is **metro grain only**, which is the coarsest level the ranking hierarchy uses. It could serve as an interim inheritance source; it is not a substitute for deciding what location the platform asks Members for.
+Intent (Ratified 2026-09-03): At-my-house Items — asks, offers, a tool to borrow, a table of extra tomatoes — are among the most ordinary things a neighbor does, and they are exactly the Items whose location is the Member's home. Without a coarse-grained option the platform offers two bad choices: publish your address or don't post. Most people correctly choose don't post, and the platform loses the entire class of neighborly exchange it exists to enable. Neighborhood grain is precise enough to rank and to be useful to someone nearby, and coarse enough that publishing it costs nothing. **This is why the coarse option is not optional** — remove it and the at-my-house case disappears with it. Coordination on the exact spot happens in messaging, between two people who have already agreed to it, which is where an address belongs.
+
+This also holds the line on the b1 no-address-store commitment in `location.md` and `member.md`: a Member who never wants a street address in the system never has to enter one.
+
+### Inheritance was considered and replaced
+
+*Superseded 2026-09-03, same day.* An earlier version of this decision had venue-less Items **inherit the creator's location** from `members.home_location_id`, and was recorded as blocked: that column is dead — never populated, never read; the `member.locality.set` handler that would write it does not exist (migration `031_metro_polygons.sql` header, plus inline notes in `place-interest-add.ts` / `place-interest-remove.ts`). Inheritance therefore required standing up member-location collection at signup or in profile, a new requirement scoped nowhere.
+
+**Entry at creation reaches the same outcome and needs none of that.** The Item ends up correctly placed either way; inheritance got there by requiring a second, unbuilt system and by guessing, while entry asks the one person who knows. The dead column is **no longer a blocker or a dependency** for Item location, and the question of what a Member with no location set produces does not arise — there is no member-location read on this path.
+
+### Entry and geocode-once are one pipeline
+
+The address or neighborhood the Member types **is the input to the geocode-once step**. Entry resolves once, at creation, into the stored hierarchy (§ Location resolution); every query afterwards reads those stored levels. These are not two decisions that happen to touch — they are the write half and the read half of one path: *Member enters → resolve once → store levels → rank by levels.* A neighborhood entry resolves to a shallower hierarchy than a street address; both store the same shape.
 
 ### Checked against the provenance prohibition — no conflict
 
-`item.md` § Provenance claims carries a State-tagged Intent (Ratified 2026-05-23) whose test reads: does the proposal want to auto-populate `made_at_verification_source` from another field — "the seller's jurisdiction ZIP, **the seller's home Location**, the seller's kind='business' Group anchor"? If yes, refuse.
+`item.md` § Provenance claims carries a State-tagged Intent (Ratified 2026-05-23) whose test reads: does the proposal want to auto-populate `made_at_verification_source` from another field — the seller's jurisdiction ZIP, the seller's home Location, the seller's kind='business' Group anchor? If yes, refuse.
 
-**That prohibition is not triggered, and the reading that they are different things is correct.** It governs the *"Locally Made" provenance claim* — an affirmative Member statement about where a product was manufactured, carrying an evidence tier that climbs by attestation. Inheritance governs *where an Item is discoverable from*. Different columns, different questions, different failure modes: a wrong provenance claim is a false advertisement, a wrong discovery location is a bad sort order.
+**Not triggered.** That prohibition governs the *"Locally Made" provenance claim* — an affirmative statement about where a product was manufactured, carrying an evidence tier that climbs by attestation. Item location answers *where the Item is discoverable from*. Different columns, different questions, different failure modes: a wrong provenance claim is a false advertisement, a wrong discovery location is a bad sort order. Member-entered location strengthens the separation — nothing is being derived from anything.
 
-**The guard that keeps it that way:** inheritance writes the Item's stored discovery hierarchy **only**. It must never write `made_at_place_id` or `made_at_verification_source`, and it must never cause a badge to render. If an implementation ever routes creator location into the provenance columns, the 2026-05-23 prohibition applies in full and the answer is refuse.
+**The guard that keeps it that way:** the location entry writes the Item's stored discovery hierarchy **only**. It must never write `made_at_place_id` or `made_at_verification_source`, and it must never cause a "Locally Made" badge to render. A Member who enters an address is stating where the Item *is*, not claiming where a product was *made*.
 
-### Open — not answered by this decision
+### Open — is location a required field at creation?
 
-1. **A Member who has set no location.** Inheritance fires and finds nothing. Does the Item fall to Online, stay unplaced and rank last, block publication until a location is given, or prompt for one inline? Compounded by the blocker above — at b1 this is the *common* case, not the exception.
-2. **Is inherited location visible on the Item, and is it editable?** A silently-inherited place a Member cannot see or change is a place they cannot correct.
-3. **At what hierarchy level does inheritance land?** A creator's neighborhood may be more precise than they want published — inheriting at neighborhood grain publishes roughly where someone lives. Metro grain is safe and nearly useless for ranking; neighborhood grain is useful and carries a privacy cost. This interacts with `member.md`'s locality-precision privacy enum (`city` / `neighborhood` / `none`) and with the platform's no-address-store commitment.
+Not decided here. It follows from "every Item gets a location," but it sits in real tension with § Create is first class: a mandatory field is friction, and **ask and offer are the lightest-weight kinds** — the ones most likely to be abandoned at a form gate, and the ones the platform most wants people to post casually.
+
+Mitigations that would soften a required field without deciding it: **remember the Member's last-used location** and pre-fill it; **default to their neighborhood** once the platform knows it; make Online a single tap rather than a menu dive. Any of these turns "required" into "already filled in," which is a different cost. Recorded, not resolved.
 
 ---
 
@@ -189,13 +209,12 @@ Raised by the two-tab decision, not answered by it.
 1. **Visual balance of the third slot.** The nav previously held three peer tabs. With two tabs and a centered **+**, what carries the third slot's weight — is the + visually dominant (raised, filled, larger), a peer of the two tabs, or does the nav re-center around two wide targets? Affects the 44px proportion decision above.
 2. **What the + opens.** A bottom sheet (kind picker, stays in context, cheap to dismiss) or a full page (room for the composer, but a harder exit). The choice sets the cost of abandoning a half-made declaration.
 3. **Signed-out You.** You's purpose changed from "your follows and settings" to "what you've made." A signed-out visitor has made nothing. What does the tab show — a sign-in wall, a pitch for creating, or does the nav render differently when signed out?
-4. **Where does the platform collect a Member's location, and at what grain?** The blocker under § Items inherit the creator's location. Signup, profile, or both; neighborhood, city, or metro. Scoped nowhere today.
-5. **What does a Member with no location produce when inheritance fires?** Fall to Online, stay unplaced, block publication, or prompt inline. At b1 this is the common case, not the exception.
-6. **Is an Item's inherited location visible and editable on the Item?**
-7. **At what hierarchy level does inheritance land?** Neighborhood grain is useful for ranking and publishes roughly where the creator lives; metro grain is safe and nearly useless. Interacts with the locality-precision privacy enum in `member.md`.
+4. **Is location a required field at creation?** It follows from "every Item gets a location," but it collides with § Create is first class — a mandatory field is friction, and ask/offer are the lightest-weight kinds. Mitigations that change the cost without deciding it: remember the last-used location, default to the Member's neighborhood once known, make Online one tap. See § Location is entered at creation → Open.
 
 **Resolved.**
 
-- *Do Items with no Location appear?* — yes, ranked last (2026-09-03). See § Feed ranking.
+- *Do Items with no Location appear?* — yes, ranked last; and after creation-entry that state is *Online*, chosen by the creator (2026-09-03). See § Feed ranking.
 - *Is "Online" a first-class location option?* — yes, with a required creation-time warning and no map presence (2026-09-03). See § Online is a location option.
 - *How do the polygon's hard boundary and the radius's graded falloff coexist?* — they don't; both retire for one stored hierarchy (2026-09-03). See § Location resolution.
+- *Where does an Item's location come from?* — the Member enters it at creation: address, neighborhood, or Online (2026-09-03). Supersedes the creator-inheritance answer recorded earlier the same day; the dead `home_location_id` column is no longer a dependency. See § Location is entered at creation.
+- *At what grain does an Item's location publish?* — the Member's choice; neighborhood-level entry is the deliberate privacy mechanism (2026-09-03). See § Location is entered at creation → Neighborhood-level entry.
