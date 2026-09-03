@@ -74,9 +74,10 @@ The bottom nav should be the quietest structural element on screen. Airbnb's app
 
 Recommended spec:
 
-- **Height:** 52px (slimmer than the Phase 1 spec's 56px — save 4px of content area; Airbnb uses ~50px).
-- **Icon size:** 24px outlined icons, 1.5px stroke weight.
-- **Label:** 10px/500 (Inter Medium), 4px below the icon.
+- **Height:** 44px (compact — matches TikTok's tight, icon-dominant bottom nav; down from the Phase 1 spec's 56px and the prior thesis value of 52px). Touch targets remain well above the 44pt minimum because each zone spans ~125px wide on a 375px screen.
+  Intent (Ratified 2026-09-02): Maximizes content viewport on mobile. The 52px nav consumed 6-8% of the screen for an element the Member taps infrequently during a browse session. 44px is the floor that keeps labels legible at 9px while feeling invisible. TikTok proved the proportion works for a content-first app.
+- **Icon size:** 20px outlined icons, 1.5px stroke weight (down from 24px — proportional to the 44px bar height).
+- **Label:** 9px/500 (Inter Medium), 3px below the icon.
 - **Active state:** Icon and label in `--color-charcoal` (#3C3C3C) — the new dark anchor, not pistachio. Active icon transitions to filled variant.
 - **Inactive state:** Icon and label in `--color-fg-muted` (#717171).
 - **Top border:** 1px `--color-border` (#EBEBEB).
@@ -84,6 +85,19 @@ Recommended spec:
 - **Safe area:** Bottom padding respects `env(safe-area-inset-bottom)` for PWA standalone mode on notched devices.
 
 Why charcoal for the active state instead of pistachio: the "paucity of color" principle. The nav bar is structural — it should communicate state (which tab am I on?) without drawing the eye. A dark charcoal active icon is unambiguous but quiet. Pistachio is reserved for CTAs and brand moments. If the nav bar uses pistachio, the accent loses its power by appearing on every screen at all times.
+
+### Top slider within Home (b2 surface)
+
+At b2, Home gains a horizontal swipeable tab bar at the top of the viewport — a category-based intent switcher, not a feed-mode toggle. The slider segments the Home feed by activity intent:
+
+- **Buy** — products and services from followed and local producers.
+- **Do** — upcoming events, gatherings, community activities.
+- **Learn** — classes, workshops, skill-sharing.
+- Additional categories as the Item taxonomy earns them.
+
+Intent (Ratified 2026-09-02): Category-based rather than "For You / Following" because the platform's value proposition is *what's available locally*, not algorithmic personalization. The Member opens Home wondering "what can I do this weekend" or "what's new to buy" — intent-first navigation serves that question directly. A For You / Following toggle implies an algorithm the platform doesn't have at b2 and a follow-graph density that may not exist yet. Categories are concrete, learnable, and don't require a cold-start solve.
+
+The three-tab bottom nav stays. The top slider is a view-mode toggle within Home, not a replacement for tab-level navigation. Explore keeps its kind-filter pills (F045); You keeps its section-based layout. The slider earns its place once the Item catalog has enough density per category to populate distinct feeds.
 
 ---
 

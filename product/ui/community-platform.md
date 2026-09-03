@@ -116,7 +116,8 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 - Group activity (when a Group the Member belongs to declares an Item or posts an update).
 - Location-follow activity (when a Location the Member follows hosts a new Item — the Concerts-in-the-Park surface per [`../systems/location.md`](../systems/location.md)).
 
-Add filters at top of feed: All / Events / Ideas / Seller updates / Bulletins.
+Add a **category-based top slider** — a horizontal swipeable tab bar at the top of the Home viewport segmenting the feed by activity intent: Buy (products/services), Do (events/gatherings), Learn (classes/workshops), with additional categories as the Item taxonomy earns them. Replaces the prior "All / Events / Ideas / Seller updates / Bulletins" filter proposal. See design-research-thesis.md §2 for full rationale.
+Intent (Ratified 2026-09-02): Intent-first navigation ("things to buy, to do, to learn") rather than content-type filters or feed-mode toggle. Matches the Member's opening question and avoids implying algorithmic personalization the platform doesn't have.
 
 **Explore:** Add Group surfaces (`/g`, `/g/[slug]`) as filterable; calendar view option for Events.
 

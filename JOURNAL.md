@@ -14,6 +14,20 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-02 — Ratified navigation architecture: compact bottom nav (b1) + category top slider in Home (b2)
+
+Two UI-scope decisions via `weigh`. (1) Bottom nav shrinks from 52px to 44px — compact, TikTok-proportioned, icon-dominant. Ships at b1. (2) Home gains a category-based top slider at b2 — "Buy / Do / Learn" intent switcher, not a "For You / Following" feed-mode toggle. The three-tab bottom nav stays; the top slider supplements it within Home only. Also ratified: kind-filter pills stay fixed when nav hides on scroll-down (F046).
+
+3 statements walked: 3 ratified, 0 deferred, 0 revised, 0 rejected.
+
+- **Ratified:** `product/ui/design-research-thesis.md` §2 — nav height 52→44px, icon 24→20px, label 10→9px (Intent landed)
+- **Ratified:** `product/ui/design-research-thesis.md` §2 — top slider as category-based Home sub-nav at b2 (Intent landed)
+- **Ratified:** `planning/backlog/scenario-F046-member-scrolls-and-nav-hides.md` — pills stay fixed when nav hides (section closed)
+
+→ design-research-thesis.md §2; decision-surfaces.md § TikTok top-slider; community-platform.md § T2 Home; scenario-F046; scenario-F047. Commit {pending}.
+
+---
+
 ## 2026-06-16 — Reviewed F037 (Locally Owned claim) — PROCEED, all substrate shipped
 
 Mandatory rebuild-phase review on the Locally Owned claim scenario. Architecture: every table, handler, function, and event type already exists (T075 S-jurisdictions substrate). The surface is a narrow owner-view widget on F035's Shop page — reads `member_business_jurisdictions`, writes via `member.business_jurisdiction.set/.remove`, badge derives at query time via `zip_is_proximal_to_location()`. Design: DLS needs an "owner-view section" pattern (role-gated management section on a public page); can land inline with the first ticket. Loop number discrepancy noted (scenario says Loop 7 = Buy close; spec says Loop 9).
