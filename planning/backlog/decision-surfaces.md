@@ -49,6 +49,24 @@ Intent (Ratified 2026-09-03): Proximity is the strongest relevance signal the pl
 
 **What this resolves.** The open question *"do Items with no Location appear?"* — one of the three blocking the Home/Explore merge. **Answer: yes, ranked last** — and, after the creation-entry decision, the state that question was asking about is now *Online*. `product/ui/community-platform.md` § T1 previously deferred it the other way ("Items with no Location — do not appear in the proximity index; keyword-search path at b2"). That line is retired and corrected in place; do not cite it.
 
+### The merged surface would have two ranking authorities — UNRESOLVED, and the hierarchy is why it can't be deferred
+
+Raised 2026-09-03 by the shipped Explore code (T115), recorded here because it contests the rule directly above.
+
+Home ranks **server-side**: `locality_feed_items(p_place_id, p_tags, p_limit)` is one public SQL function, and the distance-band hierarchy ratified above — nearest first, wider bands below, Online last — lands inside it. Explore ranks **client-side**: T115's `?sort=` re-orders an already-fetched page by newest / soonest / nearest / most-responses, in `sortExploreItems`. Absorb Explore's controls onto Home and the same list has two orderings competing for it, with the client one winning by virtue of running last.
+
+**The hierarchy decision is what makes this urgent rather than a tidy-up.** Before it, "how does Explore sort" was a preference on a flat catalog and either authority was defensible. Now proximity ordering *is* a ratified product rule with an Intent behind it — a Member picking `sort=newest` would silently discard local-first, which is the one ordering the platform has committed to. That cannot be settled after the merge ships; the merge has to name one authority.
+
+Three shapes, none picked:
+
+1. **Server owns it.** `locality_feed_items` grows a sort parameter; every `?sort=` value is a variant of the RPC's ordering, and the band hierarchy is always the outer sort key. Most faithful to the ratified rule, most SQL work, and it makes sort a round trip.
+2. **Server ranks, client re-sorts within a band.** The hierarchy holds as the outer key; `?sort=` orders *inside* each band. Cheap, keeps local-first inviolable, and the Member's sort does less than the label promises.
+3. **Sort is an explicit override.** `?sort=` replaces the hierarchy and says so in the UI. Honest, and it hands the Member a way to turn off the platform's strongest relevance signal without understanding what they turned off.
+
+**A fourth is really the framing question:** is "nearby first" a `sort` value the Member can leave, or the frame every other sort operates within? Answering that answers which of the three above is right.
+
+**Also unresolved and bundled with it:** Explore's filters narrow **the first 100 rows**, not the corpus. `fetchExploreItems` selects `EXPLORE_LIMIT = 100` from `discoverable_items` with no paging, and category / distance / schedule / sort all run client-side over that page; only `kind` filters server-side, on the MV's indexed column. On an unranked catalog "the first 100" was arbitrary. On a hierarchy-ranked feed it is *the hundred nearest*, so a Member filtering to Online would search the page least likely to contain any. Whichever authority wins, filtering probably has to move server-side with it.
+
 ### Consequence — "Online" as a first-class location option — RESOLVED 2026-09-03
 
 *This subsection previously read "implied, NOT ratified." Superseded the same day* — Online is now one of the three choices a Member makes at creation, with a required warning and no map presence. See § Online is a location option and § Location is entered at creation.
@@ -381,6 +399,28 @@ Intent (Ratified 2026-09-02): Category-based ("things to buy, to do, to learn") 
 
 ---
 
+## What the shipped Explore code carries into the merge
+
+Recorded 2026-09-03 from T115 (filter icon + bottom sheet + chips) and T116 (inline list/map toggle), both merged.
+
+**Two directions are in play and they are not in conflict — say which one you mean.** The surviving *tab* is Home; Explore is retired as a tab, per the two-tab model above. The surviving *implementation* is Explore's: `ExplorePage` and `src/lib/explore/*` hold the filtering, the URL state, the MV read and the map, while Home's contribution is one public SQL function (`locality_feed_items`) plus a server component. So the merge is Explore's code rendering under Home's name and Home's ranking rule — not a rewrite of either. This code is inventory for the merge scenario, not salvage.
+
+**Transfers unchanged — no surface knowledge in it.** `src/lib/explore/filters.ts` (the filter model, URL parsing, chip descriptors, week/weekend ranges, haversine, apply + sort), `query.ts` (serialization), `items.ts` / `ewkb.ts` / `kinds.ts` (the data layer), and `useScrollRestoration` (keyed by an arbitrary string). The three components — `ExploreFilterSheet`, `ActiveFilterChips`, `ListMapToggle` — are presentational and take props; none reads page state.
+
+**Needs rework, and one of them is a live defect.**
+
+- **`?place=` would move the feed but not the distance measurement.** `fetchExploreOrigin` (T115) calls `resolveFeedPlace(client, {})` with **neither** `memberPlaceId` **nor** `requestedSlug`, so Explore's distance origin is always the launch-locality default. `LocalityFeed` calls the same function with both. Merge the surfaces and `?place=` moves the ranked feed while "within 5 mi" keeps measuring from somewhere else — no error, no empty state, no visible symptom, just quietly wrong distances and a wrong "Nearest" sort. T115's DEVIATIONS deferred this to "an Explore place scope"; **the merge is that scope**, and this is the first wire it has to connect. It also compounds with the metro decision: once the vantage point is a *metro* rather than a place, the origin has one more layer to resolve through.
+- **Two ranking authorities.** See § Feed ranking → The merged surface would have two ranking authorities.
+- **`TOGGLE_AFTER_CARDS = 4`.** In `ExplorePage.tsx`; the inline list/map toggle interrupts the card grid after this many cards. Four is not arbitrary — it is the only value in F044's stated 3–5 range that completes a row at both `grid-cols-2` (mobile) and `lg:grid-cols-4`. It does *not* complete a row at the `md:` 3-column band, and no number in the range completes all three. Home's feed renders `max-w-3xl` at a different column count, so the merged grid re-derives this or the toggle lands beside a half-empty row. It is the only constant in either ticket that depends on the surrounding layout.
+- **Two tablists already share one results region.** The kind pills (T114) and the view toggle (T116) both point `aria-controls` at `#explore-results`. Defensible at two. The TikTok top-slider above would be a third claimant on the same panel — at that point the region should become a plain labelled `region`, not a tabpanel, since no single tab labels it.
+- **`?view=` was deliberately removed** (T116, per F044 § Out of Scope — the list/map view is ephemeral session state). If the merged surface wants a shareable map link, that is a decision to re-open, not an oversight to fix.
+
+**No URL name collisions.** Home's entire public URL surface is `?place=<slug>` — interest tags, `primary_home` and limit are all server-derived and never serialized. Explore owns `q`, `kind`, `category`, `distance`, `schedule`, `sort`. The two sets are disjoint; both collisions above are semantic, not nominal, which is why they would survive a params audit that only checked names.
+
+**Both F044 and F045 shipped without the mandatory `review` gate.** Neither has a `review-F###.md`; both went `plan-approved` → `ticketed` on 2026-09-03. Nothing in either build surfaced an architectural problem review would have caught, but the merge scenario should not repeat it — its blast radius is much larger than a filter sheet's.
+
+---
+
 ## Open questions
 
 Raised by the two-tab decision, not answered by it.
@@ -397,6 +437,8 @@ Raised by the two-tab decision, not answered by it.
 10. **Who owns metro boundary definition and maintenance?** Reference data the product now depends on, with no named owner and no update cadence. Same section.
 11. **Can a Member browsing another metro create there, or only read?** Sets whether the switcher is a read affordance or a full context switch. Same section.
 12. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
+13. **Which layer owns ranking on the merged surface — the SQL function or the client?** The distance-band hierarchy is server-side in `locality_feed_items`; Explore's shipped `?sort=` re-orders a fetched page client-side. The underlying question is whether "nearby first" is a sort value a Member can leave or the frame every other sort works within. Cannot be deferred past the merge — the hierarchy is ratified, and a client sort silently overrides it. See § Feed ranking → The merged surface would have two ranking authorities.
+14. **Does filtering move server-side with the ranking?** Explore's category / distance / schedule / sort all narrow the first 100 rows, not the corpus. Against a hierarchy-ranked feed that page is *the hundred nearest*, so filtering to Online searches the rows least likely to contain any. Same section.
 
 **Resolved.**
 

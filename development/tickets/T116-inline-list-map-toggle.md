@@ -67,7 +67,9 @@ Built on branch `t116` in worktree `../web-t116`.
 
 ## Bearing on the Explore-absorbs-Home merge (noted 2026-09-03, not acted on)
 
-Direction ratified in principle after this ticket landed: Explore absorbs Home. Nothing in T116 was refactored toward it. What this ticket learned that the merge scenario will need:
+> **Canonical home: [`planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md)** — § What the shipped Explore code carries into the merge, and § Feed ranking → The merged surface would have two ranking authorities. Everything below is also recorded there, where the merge gets scoped. If the two ever disagree, the planning doc wins; this section is a closed ticket and will not be maintained.
+
+Direction ratified in principle after this ticket landed. Nothing in T116 was refactored toward it. What this ticket learned that the merge scenario will need:
 
 **Nothing in T116 conflicts with the direction.** The toggle, the filter sheet, the chip row and the pill row all live on the surviving surface. T116's rationale strengthens rather than weakens: its whole argument was refusing a fourth fixed layer, and the merged surface inherits Home's chrome on top of the three Explore already carries (sticky search 61px + kind pills 44px + nav 44px ≈ 149px of an 812px viewport). Home's scope picker is the obvious fourth-layer candidate; the filter sheet is where it belongs instead.
 
