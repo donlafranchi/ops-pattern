@@ -79,7 +79,10 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 - Back navigation restores scroll and filter state.
 - The static rails currently on Home (category grid, Sellers-near-you, markets-near-you) **move to Explore as the empty state** so Home stays feed-first.
 
-**Explore — deferred:** Personalized / algorithmic ranking (b2); saved searches (b2); Items with no Location (do not appear in the proximity index; keyword-search path at b2); full-screen map as a primary route (map is a toggle, not a separate page).
+**Explore — deferred:** Personalized / algorithmic ranking (b2); saved searches (b2); full-screen map as a primary route (map is a toggle, not a separate page).
+
+**Ranking — distance bands, nothing excluded (Ratified 2026-09-03).** Items rank by distance band — nearest first, each successive band lower, online / non-physical Items last. This is a **ranking** rule, not a filter rule: distant Items and Items with no Location are present in the results, ordered below local ones. Intent: proximity should drive order, not presence — at launch density a feed that hides rows reads as a dead platform, and a sort key stays retunable where a filter that never returned the row is invisible and un-undoable. Full entry, the implied-but-unratified "Online" question, and the unresolved polygon-boundary / distance-falloff tension: [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Feed ranking.
+*Retired 2026-09-03:* this bullet previously deferred the opposite — "Items with no Location (do not appear in the proximity index; keyword-search path at b2)." Superseded by the ranking decision above.
 
 **Acceptance signal (Explore).** An unauthenticated visitor navigates to `/explore`, enters a location, sees a list of nearby Items without being prompted to sign up, and can reach an Item page in two taps.
 

@@ -1,5 +1,5 @@
 ---
-purpose: Two tabs plus a create action (Home, +, You) — what each surface does, what Explore's retirement absorbs, and what You has to become.
+purpose: Two tabs plus a create action (Home, +, You) — what each surface does, what Explore's retirement absorbs, how the merged Home ranks, and what You has to become.
 layer: what
 status: ratified
 ---
@@ -35,6 +35,34 @@ Intent (Ratified 2026-09-03): A second tab has to earn its slot by showing diffe
 
 A persistent **+** in the nav, sitting between the two tabs. Not a button buried on You, not a contextual affordance in the Home header.
 Intent (Ratified 2026-09-03): We want people to create, and nav placement is the signal. A + in the nav says making things is a first-class act; a + you have to navigate to says creating is something you go somewhere to do. The platform's whole thesis is that Members declare things — the nav should read that way at a glance.
+
+---
+
+## Feed ranking — distance bands, nothing excluded — RATIFIED
+
+PM ratified 2026-09-03. Items on the merged Home surface rank by **distance band**: nearest first, each successive band lower, online / non-physical Items last.
+
+**This is a ranking rule, not a filter rule.** A distant Item and a place-less Item are both still present in the feed — they sit below the local ones. Nothing is excluded from the catalog for being far away or for lacking a physical place.
+Intent (Ratified 2026-09-03): Proximity is the strongest relevance signal the platform has, so it should drive *order*. It should not drive *presence*. At launch density, exclusion is the more expensive error — a feed that hides rows looks like a dead platform, while a feed that runs local → distant → online teaches the Member where the edge of their locality actually is and that there is more beyond it. Ranking is also the reversible choice: bands are a sort key we can retune per market as inventory density grows, and the Member can see and scroll past the falloff. A filter that never returned the row is a decision the Member can neither see nor undo.
+
+**What this resolves.** The open question *"do Items with no Location appear?"* — one of the three blocking the Home/Explore merge. **Answer: yes, ranked last.** `product/ui/community-platform.md` § T1 previously deferred it the other way ("Items with no Location — do not appear in the proximity index; keyword-search path at b2"). That line is retired and corrected in place; do not cite it.
+
+### Consequence — "Online" as a first-class location option is implied, NOT ratified
+
+Ranking place-less Items last implies a band for them, and a band implies a name a Member can see and possibly choose at declare-time. That is a *separate decision* and has not been made. Do not read it as ratified by the ranking rule above.
+
+Why it matters more than an edge case: several Item kinds — **ask, offer, wonder, initiative** — may have no physical place *by nature*, not by omission. If that holds, place-less Items are not a tail; they are a large share of the catalog, and "ranked last" becomes a rule governing the bulk of what a Member sees rather than a footnote. That changes the question from "what do we do with a missing field" to "is Online a place a Member picks."
+
+**A separate session is currently checking the Item location data model** — which kinds carry a Location, which cannot, and whether the absence is structural or incidental. **Fold its findings in here when they land**; they decide whether this is the tail case or the main case, and they gate the "Online" decision.
+
+### Unresolved — hard boundary vs. graded falloff
+
+Not resolved by this decision. The merged Home surface carries two geographic mechanisms at once:
+
+- a **Place polygon** with a hard in/out boundary (point-in-polygon containment, per [`product/systems/places.md`](../../product/systems/places.md) § Reverse-geocoder), and
+- a **distance radius measured from that polygon's centre** (the 1/5/10/25 mi filter, `ST_DWithin` against `discoverable_items`).
+
+A hierarchy of distance bands has to reconcile with both, and it is not obvious how a hard boundary and a graded falloff coexist — whether the polygon gates the candidate set and bands only sort within it, whether bands cross the boundary freely and the polygon is merely a label, or whether centroid-radius retires in favour of pure band distance. Open.
 
 ---
 
@@ -105,3 +133,7 @@ Raised by the two-tab decision, not answered by it.
 1. **Visual balance of the third slot.** The nav previously held three peer tabs. With two tabs and a centered **+**, what carries the third slot's weight — is the + visually dominant (raised, filled, larger), a peer of the two tabs, or does the nav re-center around two wide targets? Affects the 44px proportion decision above.
 2. **What the + opens.** A bottom sheet (kind picker, stays in context, cheap to dismiss) or a full page (room for the composer, but a harder exit). The choice sets the cost of abandoning a half-made declaration.
 3. **Signed-out You.** You's purpose changed from "your follows and settings" to "what you've made." A signed-out visitor has made nothing. What does the tab show — a sign-in wall, a pitch for creating, or does the nav render differently when signed out?
+4. **Is "Online" a first-class location option?** Implied by the distance-band ranking rule but not ratified — see § Feed ranking → Consequence. Needs its own decision, gated on the Item location data-model findings.
+5. **How do the Place polygon's hard boundary and the distance radius's graded falloff coexist?** Raised by the distance-band ranking rule and not answered by it — see § Feed ranking → Unresolved.
+
+**Resolved.** *Do Items with no Location appear?* — yes, ranked last (2026-09-03). See § Feed ranking.
