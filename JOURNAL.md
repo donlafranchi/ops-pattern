@@ -14,6 +14,14 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-02 — Advanced three Explore/nav UI scenarios to next/ for ticketing
+
+Three presentation-layer scenarios approved and moved from `backlog/` to `next/`: the inline list/map toggle (F044), the filter-icon + kind-pills + bottom-sheet pattern (F045), and scroll-to-hide nav (F046). Gate A clear — no schema changes; all cited spec absolutes (44px nav, pill-stay behavior) ratified earlier today. F047 (category top slider in Home) stays in backlog as a b2 surface.
+
+→ planning/next/scenario-F044, F045, F046; planning/stage-ledger/F044, F045, F046.
+
+---
+
 ## 2026-09-02 — Ratified navigation architecture: compact bottom nav (b1) + category top slider in Home (b2)
 
 Two UI-scope decisions via `weigh`. (1) Bottom nav shrinks from 52px to 44px — compact, TikTok-proportioned, icon-dominant. Ships at b1. (2) Home gains a category-based top slider at b2 — "Buy / Do / Learn" intent switcher, not a "For You / Following" feed-mode toggle. The three-tab bottom nav stays; the top slider supplements it within Home only. Also ratified: kind-filter pills stay fixed when nav hides on scroll-down (F046).

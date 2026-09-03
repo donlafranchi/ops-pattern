@@ -1,7 +1,7 @@
 ---
 purpose: Scenario — bottom tab bar auto-hides on scroll down, reappears on scroll up. Global behavior. Nav spec grounded in design-research-thesis.md §2.
 layer: how
-status: backlog
+status: next
 ---
 
 # F046: Member scrolls and the bottom navigation hides
@@ -13,7 +13,7 @@ status: backlog
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → any scrollable content surface (no schema change)
 **Spec contract:** design-research-thesis.md §2 (nav visual treatment), §8 (PWA safe areas), §9 #4 ("the nav bar is furniture")
-**Status:** backlog
+**Status:** next
 
 > **Thesis reconciliation.** Thesis §9 #4 says the nav bar should be "structurally present and visually quiet — like a chair in a room." Scroll-to-hide doesn't contradict this — the nav is structurally present at rest (top of page, initial load, scroll-up) and quiet when the member is deep in content. The thesis doesn't specify scroll behavior; this scenario adds it. The thesis's "remain fixed" language (§5, about kind-filter pills on Explore) applies to the pills, not the nav bar — see the open question below about pill behavior during nav hide.
 
