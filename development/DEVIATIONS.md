@@ -651,3 +651,35 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Disposition:** accepted-as-is. Live-DB run of `resolve_home_metro.sql` is the downstream `test`-skill / deploy-checklist step.
 
 **No other deviations.** Schema, GiST index, RLS (public-read, no client writes), `SECURITY INVOKER` function + grants, and the `members.home_metro_id` FK + partial index match the ticket AC exactly.
+
+---
+
+## T112 — Bottom nav visual refresh (2026-09-02)
+
+**What (1) — Icon spec taken from the ticket + thesis §2 (20px / 9px / 3px), not from the F046 scenario text (24px / 10px / 4px).** The F046 acceptance criterion "Nav visual treatment matches thesis spec" still carries the pre-update numbers, and its Given/When/Then narrative twice cites the retired 52px bar. The ticket flags this explicitly ("The F045 scenario's assumptions section mentions '52px bottom nav' — this is stale").
+
+**Why:** thesis §2 was updated 2026-09-02 with a State-tagged ratified Intent line ("44px is the floor that keeps labels legible at 9px"). The icon and label sizes are stated there as *proportional to* the 44px bar; carrying 24px icons into a 44px bar would leave 44 − 24 − 4 − 10 = 6px of total vertical padding and break the ratified proportion. Ticket AC is the narrower, later, and internally consistent source.
+
+**Disposition:** flag-for-spec-revision — **Type A** (upstream authoring error, not an architectural decision). `planning/next/scenario-F046-member-scrolls-and-nav-hides.md` needs its "Nav visual treatment" criterion and its two "52px" prose references reconciled to 44px / 20px / 9px / 3px. Fix inline at `tidy`; no `decision-*` stub warranted.
+
+**What (2) — Active "filled icon variant" implemented as `fill="currentColor"` on the outlined lucide glyph, not a separate filled icon import.** The ticket notes "lucide supports both via separate imports like `Home` / `HomeIcon`" — it does not; lucide-react 1.11.0 ships an outline-only set (`home.mjs` and `house.mjs` are both outlined, and there is no filled sibling for `search` or `user`).
+
+**Why:** Passing `fill="currentColor"` on the same glyph produces the filled active state the AC asks for while holding the 1.5 stroke weight constant, and it keeps one icon import per tab. Matches the Instagram precedent for a solid active magnifier. Switching icon sets to obtain true filled variants is a larger change than a visual-refresh ticket should carry.
+
+**Disposition:** accepted-as-is.
+
+**What (3) — Three new nav colour tokens are component-scoped rather than the thesis §3 charcoal ramp.** Shipped `--color-charcoal` (#3C3C3C), `--color-nav-inactive` (#717171), `--color-nav-border` (#EBEBEB). Thesis §3 specifies a full six-step ramp (`--color-charcoal-900` … `--color-charcoal-50`) that also *replaces* `--color-fg`, `--color-fg-muted`, `--color-border` app-wide.
+
+**Why:** the two non-charcoal values this nav needs (#717171, #EBEBEB) are thesis §2's expected values for `--color-fg-muted` and `--color-border`, but the live tokens are #6B6B6B and #E5E3DD. Repointing those two globals would restyle every surface in the app from inside a nav ticket. Scoped tokens keep the blast radius at the nav; the ramp migration is its own ticket.
+
+**Disposition:** flag-for-spec-revision — **Type B** (real architectural decision: when and how the charcoal ramp replaces the existing neutral tokens app-wide, and what happens to the three interim nav tokens). Stub filed at `planning/backlog/decision-charcoal-ramp-migration.md`.
+
+**What (4) — Two out-of-component files edited: the sticky mobile CTA strips on the vendor and business pages.** Both pinned themselves with a hardcoded `calc(64px + env(safe-area-inset-bottom))` to sit on top of the old 64px nav; both now read `calc(var(--nav-height) + env(safe-area-inset-bottom))`.
+
+**Why:** not scope creep — a direct regression of this ticket's change. Shrinking the bar to 44px would have left both strips floating with a 20px white gap beneath them. Routing the offset through a token means the next height change cannot silently break them again. Caught by the M2 code-review gate.
+
+**Disposition:** accepted-as-is.
+
+**Note — Tailwind v4 gotcha, same class as T111.** `--nav-height` was first declared inside `@theme inline` and was silently dropped: Tailwind v4 only emits theme keys in a recognised namespace (`--color-*`, `--spacing-*`, …), so `var(--nav-height)` resolved to nothing and the sticky strips' `bottom` computed to `auto`. Moved to the plain `:root` block. Caught by live browser verification, not by unit tests or the build — neither can see it.
+
+**No other deviations.** Height, colours, icon geometry, label type, border, background, three-tab structure, scroll-to-top re-tap, and the desktop breakpoint all match the ticket AC.
