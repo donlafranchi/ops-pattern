@@ -10,7 +10,7 @@ status: draft
 
 ### The future is made by the people who show up.
 
-SocialUs is a coordination platform for communities — the people who make, grow, teach, fix, and build things in a place. We help them find each other, organize, trade, and keep the wealth they create circulating where they live.
+SocialUs is a coordination platform for communities — the people who make, grow, teach, fix, and build things in a place. We put human needs and human relationships above everything else — above growth metrics, above engagement numbers, above transactions. We help people find each other, organize, trade, and keep the wealth they create circulating where they live.
 
 Farmers markets are where we start. The future we're building is much bigger.
 
@@ -44,13 +44,29 @@ SocialUs is not another social network. We're not building a feed for you to scr
 
 ---
 
-## Section 3 — What We Believe
+## Section 3 — This Is Not Social Media
+
+### Use it. Put it down. Go do the thing.
+
+Let's be direct about what this isn't. SocialUs is not another app competing for your attention. There's no infinite scroll. No engagement metrics. No algorithm learning what keeps you angry so it can show you more of it. No notification drip engineered to pull you back in.
+
+This is a tool. You open it when you need it — to find the market happening Saturday, to see who repairs bikes nearby, to float an idea for a neighborhood potluck. Then you close it and go live your life. The platform succeeds when you put your phone down, not when you can't.
+
+**We don't replace your social media. We don't want to.** You already have an Instagram, a TikTok, a YouTube channel — keep them. If you're a maker or a seller, link your existing presence right from your profile. We're not asking you to rebuild your audience on yet another platform. We're giving you something those platforms can't: proximity. The person three blocks away who wants exactly what you make, and would never have found you in an algorithm built for a billion users.
+
+**The value is in what happens after you log off.** The bread you buy from the baker you discovered. The bike that gets fixed by the mechanic your neighbor vouched for. The run club you finally joined. The market you showed up to. The neighbor you actually met. That's the product — not time spent staring at a screen.
+
+Social media companies have built the most sophisticated attention-harvesting machines in history. We're not competing with that, and we don't want to. We're building something they structurally can't: a tool that gets better the less time you spend on it, because it means you're out in the world doing the thing.
+
+---
+
+## Section 4 — What We Believe
 
 ### Beliefs that earned their way in.
 
 These aren't slogans. They're structural commitments — encoded in how the platform works, not just in what we say about it.
 
-**People first, always.** The platform serves members. When the platform's interest conflicts with a member's interest, the member wins. That's not a talking point — it's the decision test for every feature we build.
+**Human needs and human relationships — above all else.** Every decision we make starts with the same question: does this serve the person, or does this serve the platform? When those two things conflict, the person wins. Not growth metrics. Not engagement. Not transaction volume. The relationships people form and the needs they bring — that's the north star, and everything else is infrastructure.
 
 **Wealth should circulate, not extract.** When you spend money close to home, it recirculates. It pays the baker, who pays the farmer, who pays the mechanic, who hires the kid down the street. That loop is the beating heart of a local economy. We exist to strengthen it.
 
@@ -64,7 +80,7 @@ These aren't slogans. They're structural commitments — encoded in how the plat
 
 ---
 
-## Section 4 — The Ambition
+## Section 5 — The Ambition
 
 ### Start with a farmers market. End with a movement.
 
@@ -78,7 +94,7 @@ We'd rather be the right platform in one community than a thin presence in a hun
 
 ---
 
-## Section 5 — How It Works
+## Section 6 — How It Works
 
 ### People show up. The platform gets out of the way.
 
@@ -94,7 +110,7 @@ SocialUs follows a natural arc. No one is required to follow it. The platform's 
 
 ---
 
-## Section 6 — Who's Building This
+## Section 7 — Who's Building This
 
 ### One person, for now. Built for many.
 
@@ -106,13 +122,13 @@ The platform will eventually reflect the values it promotes. As it matures, the 
 
 ---
 
-## Section 7 — Join Us
+## Section 8 — Join Us
 
 ### Three ways in.
 
 **Become a member.** Sign up, tell us where you are, and see what's happening around you. Browse what's nearby. Show up to something. Follow a maker. It starts that small.
 
-**Bring what you do.** If you make, grow, teach, fix, cook, build, or sell something — bring it. The platform is built to make you findable by the neighbors who'd buy from you. No ad spend required. Your craft is enough.
+**Bring what you do.** If you make, grow, teach, fix, cook, build, or sell something — bring it. Link your Instagram or TikTok right from your profile — we don't ask you to start over, we make you findable by the neighbors who'd actually buy from you. No ad spend required. Your craft is enough.
 
 **Build with us.** If you believe communities work better when people can find each other and coordinate — and you want to help build the tools that make that possible — we want to hear from you. Designers, engineers, organizers, dreamers, doers. The work is open.
 
@@ -122,8 +138,8 @@ The platform will eventually reflect the values it promotes. As it matures, the 
 
 ### Buy close. Build community. Build the future together.
 
-The future isn't made by platforms. It's made by people — neighbors, makers, growers, organizers, dreamers — who decide that the place they live is worth investing in. We're just building the tools to make that investment easier.
+The future isn't made by platforms. It's made by people — neighbors, makers, growers, organizers, dreamers — who decide that the place they live is worth investing in. Not by scrolling. Not by posting. By showing up, meeting each other, and doing the work.
 
-People can do more. They don't have to. But when they choose to, the right tools should be there.
+We're just building the tool that makes it easier to find the people and the moment. What happens next — the relationship, the transaction, the community — that's yours.
 
-**SocialUs is that tool.**
+**SocialUs is that tool. Use it, then go do the thing.**
