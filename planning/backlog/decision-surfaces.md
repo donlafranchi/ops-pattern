@@ -71,6 +71,8 @@ PM ratified 2026-09-03. Coordinate math runs **once**, at the moment an address 
 
 **What it replaces — both geographic mechanisms, not one.** The unresolved tension in § Feed ranking named two coexisting systems: a Place polygon with a hard in/out boundary (point-in-polygon containment, per [`product/systems/places.md`](../../product/systems/places.md) § Reverse-geocoder) and a distance radius measured from that polygon's centre (the 1/5/10/25 mi filter, `ST_DWithin` against `discoverable_items`). **One hierarchy lookup retires both.** Nearby means *same neighborhood*, then *same metro*, then *same state*, then *online*. The distance bands in § Feed ranking are hierarchy levels — they were never really miles.
 
+*Refined 2026-09-03 by § Metro is the vantage point:* the bands are measured **from the active metro**, and the top band is **the Member's saved hoods within it** — hoods first, then the rest of the metro, then wider, then Online. The ladder is unchanged; what changed is that "nearby" now has an unambiguous centre where a plural hood set would otherwise have given it several.
+
 Intent (Ratified 2026-09-03): A hard boundary and a graded falloff could not be reconciled because they answer different questions with different machinery — one asks "is this inside?", the other asks "how far?". A hierarchy answers both with one question: "how many levels up do we have to walk before these two things share an ancestor?" That is legible to a Member ("this is in your neighborhood" beats "this is 2.3 miles away"), cheap at read time, and stable — an Item's neighborhood does not change when the viewer moves, so the same row can be cached, indexed, and paged. It is also the reversible choice: the resolved levels are stored data we can re-derive with a better geocoder or re-band with a different sort key, where read-time distance math bakes the model into every query. The cost is write-time correctness — a bad resolution persists until re-resolved, where a runtime computation is always current. Accepted, because addresses move far less often than viewers do.
 
 **It fixes the "nearest location" defect, and is the fix rather than a workaround.** `discoverable_items` exposes a `nearest_location_id` that is not nearest to anything. The materialized view resolves it with a lateral `select il.location_id from item_locations il where il.item_id = i.id … order by il.created_at asc limit 1` (`web/supabase/migrations/034_discoverable_items_starts_at.sql`) — **the oldest attachment, with no distance math anywhere in the derivation.** A multi-venue Item is pinned to whichever venue happened to be attached first, regardless of where the viewer is standing; migration `033` already annotates the column as "first-location-only" and routes around it. The stored hierarchy removes the premise: an Item does not need a single "nearest" venue, because it carries its own place levels and matching happens between hierarchies, not between points.
@@ -78,6 +80,55 @@ Intent (Ratified 2026-09-03): A hard boundary and a graded falloff could not be 
 **What already exists — do not rebuild it.** The `places` tree (`parent_id`, variable-depth, `region`/`state`/`county`/`city`/`neighborhood`) and `locations.place_id`, reverse-geocoded at Location create via `place_for_coords()`. The `metro_polygons` overlay and `members.home_metro_id` (migration `031`, on `main`). The community-awareness feed already generates candidates from "the attached Location's `place_id` *or any ancestor*" (`discovery.md` § Candidate generation, source 3). **What is new** is storing the resolved levels on the Item itself and making them the only query path — which retires the radius backstop (source 4) and the centroid-radius filter.
 
 **What it does not change.** `location.md` § What does not ship at b1 defers address normalization and geocoding, with a State-tagged Intent (Ratified 2026-05-23). That deferral **stands.** This decision resolves *coordinates* to a *place hierarchy*; it does not normalize, validate, or canonicalize a street address, and it stands up no normalized-address store. `street_address` stays Member-authored free text.
+
+---
+
+## Metro is the feed's vantage point — RATIFIED
+
+PM ratified 2026-09-03. A Member saves multiple hoods, but **the feed is scoped to one metro at a time.**
+
+| Case | Behaviour |
+|---|---|
+| Several hoods **within one metro** | All active together. The hierarchy ranks *within* that metro: **your hoods first, then the rest of the metro, then wider, then Online.** |
+| Hoods **spanning more than one metro** | The Member picks which metro is active and switches between them. **No cross-metro union feed.** |
+| Hoods in several metros, none chosen yet | One metro is the default. |
+
+**This closes the plural-hoods fork.** "Nearby" is measured **from the active metro**, not from an ambiguous set of centres. The two-centres problem the plural set created does not arise, because the centre is the metro and hoods are ranking weights inside it.
+
+Intent (Ratified 2026-09-03): The fork was union-feed vs. switcher, and metro-as-vantage-point answers it by making the question smaller. Within a metro a union is obviously right — home and work in the same metro are one life, and asking a Member to switch between them would be absurd. Across metros a union is obviously wrong — merging Sacramento and Portland produces a feed that is about nowhere, and every ranking band below "your hoods" becomes meaningless. Scoping to the metro also lands on the depth the platform already ratified: `discovery.md` § Community-awareness feed makes **metro the default feed depth** (Intent Ratified 2026-09-02, per [memo-0026](../../playbooks/memos/memo-0026-metro-default-feed-depth.md)), for the same critical-mass reason. Reversible: the active metro is one piece of session or profile state, and unioning adjacent metros later (see the risk below) changes a scope query, not the model.
+
+### Consequence — the browse switcher is a *metro* switcher
+
+The place switcher on Home selects **a metro**, not a neighborhood. Hoods are **ranking weights inside the active metro**, not switchable scopes of their own. A Member with three hoods in Sacramento does not see three switcher entries; they see Sacramento, with all three hoods ranked to the top of it.
+
+**This is a different control than the docs currently describe** — flag on sight, do not silently reinterpret:
+
+| Where | What it implies today |
+|---|---|
+| `web/src/components/feed/ScopePicker.tsx` | Selects a **neighborhood-level place** — options are `kind='neighborhood'` rows, and choosing one navigates to `/?place=<slug>`. Neighborhood-as-scope is exactly the model this decision replaces. |
+| `web/src/components/feed/LocalityFeed.tsx` | Resolves the feed's vantage point to a **single Place** (`resolveFeedPlace` from `primary_home`, `?place=`, or IP), then queries from it. The vantage point becomes the metro; the Place-level resolve becomes a ranking input. |
+| `product/ui/community-platform.md` § Explore | "Location prompt … geocoding autocomplete for city / neighborhood / zip" — entry-level copy that reads as scope selection. |
+| `product/ui/phase-0-ia-wireframes.md:78` | "Near-me reach control … how wide the locality scope extends" (F031) — a *width* control over locality, which a metro switcher is not. |
+| § A Member has a set of saved hoods (this doc) | Said the saved set should populate the switcher. Refined: the saved set populates the switcher **as the metros those hoods resolve to**, deduplicated — not as one entry per hood. |
+
+### Accepted risk — metro boundaries are administrative, and lives cross them
+
+**Recorded as an accepted risk with a known bad case, not as a solved problem.**
+
+The rule is right for the **far** case: a home in one metro and a cabin three hours away are genuinely two contexts, and switching between them is the honest interaction.
+
+**It is wrong for the near case.** A Member who lives twenty minutes from a metro line, with a home hood on one side and a work hood on the other, is forced to switch between halves of **one ordinary life** — two places they move between on the same Tuesday. That is not a context switch; it is the platform's administrative geography intruding on a life that does not have a seam there. And these are exactly the **edge-dwelling Members a neighbours product should serve best** — the ones whose daily radius is not centred on a downtown, who are already least well served by metro-shaped products.
+
+**Mitigation to consider later, not now:** treat **adjacent metros as unioned when the Member's hoods straddle them.** The Member's own saved set is the signal — hoods on both sides of a line are evidence that, for this Member, the line is not real. This keeps the far case switching (Sacramento and Portland are not adjacent) while dissolving the near case entirely. It is a scope-query change, which is why accepting the risk now is cheap.
+
+**A second boundary case, confirmed in the schema.** `members.home_metro_id` is **null when the Member's Place falls outside every seeded CSA** — migration `031_metro_polygons.sql` documents this as the rural fallback, with F031 reading the null to offer radius scope instead of metro scope. So "metro is the vantage point" has no answer for a rural Member today: there is no metro to be the vantage point. The existing radius fallback is the working answer; whether it survives the retirement of read-time radius (§ Location resolution) is unexamined.
+
+### Open — not answered by this decision
+
+1. **What determines the default metro when hoods span several?** First added, most hoods, or explicitly chosen. Each reads differently to a Member: first-added is arbitrary but stable, most-hoods is inferred and can flip under them, explicit is honest but is another setup step.
+2. **Can a Member set a primary metro?** Related to (1) but separable — a primary is a durable answer where a default is a computed one.
+3. **What happens to the active metro when a Member adds a hood in a new one?** Switch to it (they are probably there), stay put (they were mid-task), or ask. The first is helpful right up until it is disorienting.
+4. **Is the geocode-once step what assigns a hood to its metro?** Assumed, not confirmed. **What is confirmed:** the mechanism exists and is metro-resolution-from-a-point — `public.resolve_home_metro(point geography)` does `ST_Contains` against `metro_polygons` (smallest-area tiebreak, null outside all polygons), and it is already wired into `member.place_interest.add` / `.remove` to derive `members.home_metro_id` from a Place centroid. What is *not* settled is whether the Item-side and hood-side resolution call that same path at geocode time, or whether metro is derived later from the stored hierarchy. A build call, but it decides where the null-metro case is handled.
 
 ---
 
@@ -202,12 +253,11 @@ Inheritance made every Item's location a *live dependency* on member-location su
 
 The trade is signup length against feed quality for non-creators. Recorded for the PM, not resolved.
 
-### Open — what the plural set does to the feed
+### What the plural set does to the feed — answered in § Metro is the vantage point
 
-1. **Does the browse feed show all saved hoods at once, or one at a time with a switcher?** This is a **product fork, not a detail**: a union feed and a switchable feed are different products. A union feed says "here is everything across your life"; a switcher says "you are in one place at a time, pick which." They imply different empty states, different notification logic, and different answers to "why am I seeing this."
-   **It also reopens the hierarchy's vantage point.** § Location resolution specifies nearby → metro → state → online *measured from a single centre*. Two hoods means two centres, and the hierarchy has to say which one "nearby" is measured from — nearest-of-any, a primary, or a merged band where an Item local to *either* hood counts as local. None of those is obviously right, and the ranking rule as written does not cover it.
-2. **Is there a cap on saved hoods?** Unbounded invites a Member to save a whole metro one neighborhood at a time, which quietly turns the locality product into a national one. `member_place_interests` already caps `secondary` Places at five; whether that is the right number here is unexamined.
-3. **Is one hood marked primary?** A primary would answer the vantage-point question cheaply and give the composer an unambiguous default. It also adds a concept and a management affordance to a feature whose whole appeal is that it is one list.
+*The union-vs-switcher fork recorded here on 2026-09-03 was resolved the same day.* **Metro is the vantage point**: hoods within one metro are all active together; hoods spanning metros switch. See the section below.
+
+Still open: **is there a cap on saved hoods?** Unbounded invites a Member to save a whole metro one neighborhood at a time, which quietly turns the locality product into a national one. `member_place_interests` already caps `secondary` Places at five; whether that is the right number here is unexamined.
 
 ---
 
@@ -314,9 +364,11 @@ Raised by the two-tab decision, not answered by it.
 2. **What the + opens.** A bottom sheet (kind picker, stays in context, cheap to dismiss) or a full page (room for the composer, but a harder exit). The choice sets the cost of abandoning a half-made declaration.
 3. **Signed-out You.** You's purpose changed from "your follows and settings" to "what you've made." A signed-out visitor has made nothing. What does the tab show — a sign-in wall, a pitch for creating, or does the nav render differently when signed out?
 4. **When is the Member asked for their hoods — at signup, or at first creation?** PM's read is first creation (asked when it is obviously needed; keeps signup short), but hoods captured at signup also personalize the feed for Members who never create anything. Signup length against feed quality for non-creators. See § Location is entered at creation → Open — when is the Member asked.
-5. **Does the browse feed show all saved hoods at once, or one at a time with a switcher?** A product fork, not a detail — and it reopens the hierarchy's vantage point, since two hoods means two centres and § Location resolution specifies "nearby" from a single one. See § Open — what the plural set does to the feed.
-6. **Is there a cap on saved hoods, and is one marked primary?** A primary would answer the vantage-point question cheaply, at the cost of a concept. Same section.
-7. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
+5. **What determines the default metro when a Member's hoods span several — and can they set a primary?** First added, most hoods, or explicitly chosen. See § Metro is the vantage point → Open.
+6. **What happens to the active metro when a Member adds a hood in a new one?** Switch, stay, or ask. Same section.
+7. **Is the geocode-once step what assigns a hood to its metro?** Assumed, not confirmed — `resolve_home_metro()` already does point→metro containment for `primary_home`, but whether the Item and hood paths call it at geocode time is unsettled, and it decides where the null-metro (rural) case is handled. Same section.
+8. **Is there a cap on saved hoods?** Unbounded lets a Member accumulate a whole metro one hood at a time. See § A Member has a set of saved hoods → What the plural set does to the feed.
+9. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
 
 **Resolved.**
 
@@ -327,4 +379,5 @@ Raised by the two-tab decision, not answered by it.
 - *At what grain does an Item's location publish?* — the Member's choice; neighborhood-level entry is the deliberate privacy mechanism, and overriding to a full address is how a specific venue is handled (2026-09-03). See § Location is entered at creation → Neighborhood-level entry.
 - *Is location a required field at creation?* — yes, and the friction objection is answered by pre-filling it: the Member saves a set of hoods once, it pre-fills every creation, and they override per Item (2026-09-03). See § A Member has a set of saved hoods.
 - *What word does the UI use for a neighborhood?* — "hood" (2026-09-03). Copy only; schema and identifiers stay as they are. See § The user-facing word is "hood".
+- *Does the feed union a Member's hoods or switch between them?* — **both, split at the metro line** (2026-09-03): hoods within one metro are active together; hoods across metros switch. "Nearby" is measured from the active metro, and the browse switcher is a *metro* switcher. Carries an **accepted risk** for Members whose lives straddle a metro boundary. See § Metro is the vantage point.
 - *Does an Item's location follow its creator?* — no. The neighborhood is **copied** onto the Item at creation and the Item owns it; a Member who moves does not relocate their past Items (2026-09-03). See § This is a default, not inheritance.
