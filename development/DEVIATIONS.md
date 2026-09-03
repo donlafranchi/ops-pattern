@@ -683,3 +683,35 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Note — Tailwind v4 gotcha, same class as T111.** `--nav-height` was first declared inside `@theme inline` and was silently dropped: Tailwind v4 only emits theme keys in a recognised namespace (`--color-*`, `--spacing-*`, …), so `var(--nav-height)` resolved to nothing and the sticky strips' `bottom` computed to `auto`. Moved to the plain `:root` block. Caught by live browser verification, not by unit tests or the build — neither can see it.
 
 **No other deviations.** Height, colours, icon geometry, label type, border, background, three-tab structure, scroll-to-top re-tap, and the desktop breakpoint all match the ticket AC.
+
+---
+
+## T113 — Scroll-to-hide bottom nav (2026-09-02)
+
+**What (1) — The nav stays in the accessibility tree while translated off-screen; it is not `aria-hidden` or `inert`.** The AC says the bar "slides out of view," which could be read as removing it.
+
+**Why:** translating the bar off-viewport is a visual affordance for a scrolling reader. Assistive-tech users do not scroll to reclaim viewport, so marking the primary navigation landmark hidden would take away access rather than protect it (WCAG 2.1 AA 2.1.1 / 4.1.2). `focus-within:translate-y-0` covers the one real hazard — a keyboard user tabbing into an off-screen control — by pulling the bar back the moment a tab link takes focus, so the focus ring is never stranded.
+
+**Disposition:** accepted-as-is.
+
+**What (2) — Keyboard-open detection is `visualViewport` vs `innerHeight`, not a focus listener on inputs.** The AC says "when the virtual keyboard opens, nav hides"; the ticket's Notes suggest no mechanism.
+
+**Why:** focus on an input is not the same event as the keyboard actually appearing — hardware keyboards, dismissed software keyboards, and non-text focus all break the proxy. The viewport gap is the physical fact the AC cares about. The asymmetry is documented at the hook: iOS holds `innerHeight` and shrinks the visual viewport, so the gap opens and the bar hides; Android shrinks the layout viewport instead, so no gap opens and none is needed — the bar has already moved clear of the keyboard. Platforms with no `visualViewport` report false and follow scroll alone.
+
+**Disposition:** accepted-as-is.
+
+**What (3) — Overlay pause is a document-level MutationObserver on `[aria-modal="true"]`, not a per-modal call into a pause API.** The AC says hide/show pauses while a modal or bottom sheet is open.
+
+**Why:** every modal in the app already carries `aria-modal="true"` (`AddEntityDrawer`, `MultiStepComposer`), so the observer costs nothing at the call sites and cannot be forgotten by the next overlay someone writes. `[data-nav-pause="true"]` is the explicit opt-in for a sheet that is not a dialog. The alternative — editing each overlay — widens this ticket's blast radius and leaves a standing trap.
+
+**Disposition:** accepted-as-is.
+
+**What (4) — Route-change reset is a render-time state adjustment keyed on the pathname, not a `useEffect`.** The ticket's edge-case note says "reset `navVisible` to `true` on navigation."
+
+**Why:** `react-hooks/set-state-in-effect` rejects a synchronous `setState` in an effect body, and it is right to — the effect version paints one frame of hidden nav before correcting itself on a tab switch. The React-documented adjust-during-render pattern lands the correct value in the first paint. Ref re-anchoring stays in an effect, since `react-hooks/refs` forbids touching refs during render.
+
+**Disposition:** accepted-as-is.
+
+**Note — F046's stale visual numbers, already flagged under T112, were not touched.** The scenario's "Nav visual treatment" criterion still carries 52px / 24px / 10px / 4px, and its prose twice cites the retired 52px bar. That is T112's open Type A finding; T113 implements only the scroll-behavior criteria and does not re-flag it. Still awaiting the `tidy` inline fix.
+
+**No other deviations.** Threshold, transition timing, initial visibility, fixed positioning, cross-tab consistency, reduced motion, modal pause, keyboard hide, jitter debounce, desktop exemption, and the context export for T114 all match the ticket AC.
