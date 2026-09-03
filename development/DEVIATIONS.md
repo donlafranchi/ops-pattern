@@ -715,3 +715,75 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Note — F046's stale visual numbers, already flagged under T112, were not touched.** The scenario's "Nav visual treatment" criterion still carries 52px / 24px / 10px / 4px, and its prose twice cites the retired 52px bar. That is T112's open Type A finding; T113 implements only the scroll-behavior criteria and does not re-flag it. Still awaiting the `tidy` inline fix.
 
 **No other deviations.** Threshold, transition timing, initial visibility, fixed positioning, cross-tab consistency, reduced motion, modal pause, keyboard hide, jitter debounce, desktop exemption, and the context export for T114 all match the ticket AC.
+
+---
+
+## T114 — Kind-filter pill row on Explore (F045)
+
+**What (1) — The kind pills filter a vendor list that has no `items.kind`, so every non-All pill resolves to zero rows.** The AC says "tapping a kind pill filters results immediately… Events → `gathering`, Products → `product`," etc. `/explore` still reads `businesses` / `vendor_categories` / `market_vendors` — the pre-rebuild marketplace surface. Vendor rows carry no item kind, so the filter seam is in place and honest but has nothing to match. The component, the `?kind=` URL state, and the `filtered` seam all ship; the results do not change except to empty.
+
+**Why:** the alternative was to improvise an items-backed Explore inside this ticket — a second query against `discoverable_items`, item cards, item map pins — which is a feature, not a pill row, and overlaps T116. `build` escalates rather than improvises. The seam is one commented line, so the ticket that makes Explore items-backed deletes it and the pills start working with no rework to the component.
+
+**Routing:** Type B — a real architectural decision (when does Explore stop being vendor-backed?). Needs a `decision-*` stub in `planning/backlog/` and a ticket. No ticket currently covers it; T115 and T116 both assume the items surface exists.
+
+**Disposition:** escalated to PM.
+
+**What (2) — Desktop keeps its market/category/day filter chips; only the mobile chip row was removed.** The AC says remove the dedicated filter buttons rendered between the search bar and results.
+
+**Why:** the pill row is `md:hidden` — thesis §5 specifies a bottom-anchored thumb-zone row, which is a mobile pattern, and the scenario's own desktop edge case says the pills "may move to a horizontal bar below the search row" (may, not must). Removing the desktop chips now would leave desktop with no kind filter and no secondary filters until T115 lands its dropdown panel — a functional regression with no replacement. Mobile loses its chips as instructed because the pills replace them there.
+
+**Disposition:** accepted-as-is; T115 owns the desktop filter surface.
+
+**What (3) — The nav-height shift is an animated `translate`, not an animated `bottom`.** The AC specifies `bottom: calc(44px + env(safe-area-inset-bottom))` when the nav is visible and `bottom: env(safe-area-inset-bottom)` when hidden.
+
+**Why:** the effective geometry is identical (verified live at 375x812 — pills at 724–768 with the nav up, 768–812 with it down), but `bottom` animates on the main thread and forces layout each frame on a fixed footer. Tailwind v4's `transition-transform` covers `transform, translate, scale, rotate`, so the row shares the nav's 200ms ease-out exactly. Same reasoning T113 applied to the nav itself.
+
+**Disposition:** accepted-as-is.
+
+**What (4) — `--color-charcoal-100` is #E8E8E8, not the #EBEBEB the ticket names.** The ticket's hairline parenthetical says #EBEBEB.
+
+**Why:** thesis §3 defines the ramp and explicitly notes charcoal-100 is "slightly warmer than the current #EBEBEB" — #EBEBEB is the legacy `--color-nav-border` value the ramp replaces. Followed the design source of truth. Three units; no perceptual difference, but the token now means one thing.
+
+**Disposition:** accepted-as-is. Type A — the ticket's parenthetical wants the inline fix.
+
+**Note — two accepted M3 findings.** The unselected pill's #E8E8E8 border is 1.2:1 against white, below 1.4.11's 3:1 for UI component boundaries; accepted because identity and state are carried by the fill (11.03:1) and the label (14.16:1), not the border, and the hairline value is spec-ratified. The tabpanel precedes the tablist in DOM order, which inverts the usual tabs pattern; accepted because DOM order matches visual order, which is what 2.4.3 actually asks for, and `aria-controls` gives AT the jump path.
+
+**No other deviations.** Pill set and order, schema mapping, selected/unselected treatment, 44px row height, hairline top border, instant selection, `navVisible` consumption, 200ms timing, content padding, Explore-only rendering, `role="tablist"`/`role="tab"`/`aria-selected`, and `?kind=` URL state all match the ticket AC.
+
+---
+
+## T117 — Rewire Explore from the dead vendor tables to `discoverable_items` (substrate)
+
+**Resolves T114 What (1).** The kind pills now filter real Items. Verified live at 375×812 against the seeded database: All = 16, Events = 3, Products = 4, Services = 4, Ideas = 2, Offers = 1, Asks = 1 — each matching the MV's own kind distribution exactly.
+
+**What (1) — Item detail links 404 for 9 of the 16 seeded Items.** The AC does not name link resolution, but Explore is now the primary path to those pages, so the gap is worth stating plainly. `itemHref` (T088, shared with the Home locality feed) always builds the Member-scoped path `/m/<handle>/<seg>/<slug>-<id8>`. Two classes miss:
+- **Group-filed Items** (4 rows) — `resolve-product` / `resolve-service` / the gathering resolver treat the Member path as the *individual-seller* path and reject a row carrying a `group_id`. Their canonical URL is the Group place-path, which `itemHref` does not build.
+- **Kinds with no page yet** (5 rows — `ask`, `offer`, `wonder`, `initiative`) — no route exists under `/m/[handle]/` for `/a/`, `/o/`, `/i/`, `/initiative/`. Only `/p/`, `/s/` and `/e/` shipped (T079 / T082 / T083).
+
+**Why:** this is pre-existing behaviour of a shared component — the Home locality feed produces the identical links today, and `item-url.ts` says so in its own header ("Group-scoped canonical URLs are a later refinement"). Fixing it means either building four Item pages or teaching `itemHref` to resolve Group place-paths; both are features with their own scenarios, and `build` escalates rather than improvises. T117 changes no linking behaviour — it only makes the existing gap visible on a second surface.
+
+**Routing:** Type B. Stub filed at `planning/backlog/decision-item-canonical-urls.md`.
+
+**What (2) — Market and day filters removed from Explore rather than rewired.** The ticket says rewire the query; it does not say delete controls.
+
+**Why:** both read `markets` / `market_vendors` through `MarketContext`. Neither table exists — PostgREST answers `PGRST205` — so `allMarkets` is always empty and both filters are structurally incapable of matching a row. Leaving two visible controls that silently no-op is worse than removing them. `MarketContext` itself is untouched: Home and `/you` still consume it. **Disposition:** accepted-as-is; T115 owns the replacement secondary-filter surface.
+
+**What (3) — Category options are derived from the result set, not from a fixed vocabulary.** The prior chip enumerated `CATEGORY_ORDER` (`bread`, `produce`, `honey-jams`, …).
+
+**Why:** no Item uses those slugs. Items carry their own vocabulary — `community`, `repair`, `garden`, `food`, `crafts`, `education`, `sustainability`. Hardcoding a replacement list would be inventing an Item taxonomy, which is `explore`'s job. Deriving the options keeps the filter honest and empties itself if the data changes. Consequence worth naming: the menu is scoped to the current kind, so switching kinds can leave an active category chip whose option is no longer listed. The chip's ✕ and Clear filters both recover. **Disposition:** accepted-as-is.
+
+**What (4) — Map coordinates are decoded from hex EWKB in the client, not added to the MV.** No AC named a mechanism.
+
+**Why:** PostgREST serializes `geography(Point,4326)` as hex EWKB, and neither `discoverable_items` nor `locations` exposes a readable lat/lng — `032_venue_distance.sql` documents that gap and worked around it with an RPC. The alternative here was a fourth drop-and-rebuild of the MV plus its six indexes to add two `st_x`/`st_y` columns, for a ticket whose stated shape is "no schema change." A 30-line pure decoder with 10 unit tests is smaller and reversible. Verified live: 16 pins across all seven kinds. **Disposition:** accepted-as-is. If a later ticket needs server-side distance sorting on Explore, the columns become worth the migration.
+
+**What (5) — The `RecruitmentGrid` no-filters default view is gone.** The ticket did not name it.
+
+**Why:** it existed because Explore had nothing real to show. Explore's default is now the browse index, which is the point of the ticket. The component stays in use on Home and `/you`. **Disposition:** accepted-as-is.
+
+**Note — `MarketPill` is now orphaned.** Removing the market filter left it with no consumer. Not deleted: the retirement of the whole vendor/market surface (`MarketPill`, `MarketSelector`, `VendorCard`, `Vendor`/`Market` types, the `markets` reads in `HomeFeed` and `/you`) is one coherent sweep, not a fragment of a read-surface rewire. Folded into the backlog stub above.
+
+**Note — `EXPLORE_LIMIT` is 100 with no pagination.** Moot at 16 seeded rows; the result count would understate past 100. T115/T116 own the filter and view surfaces and are the natural home for paging.
+
+**Three fixes applied pre-commit at the M2 gate.** (a) `hexToBytes` validated the whole string against `/^[0-9a-fA-F]+$/` — a per-byte `parseInt` accepts `'0z'` as 0 rather than NaN, which would have turned malformed hex into a plausible coordinate. (b) The MV read is `.catch()`-guarded — a rejected fetch (not a PostgREST error row) previously left `loaded` false and stranded the tab on "Loading…" forever; regression test added and confirmed red without the fix. (c) The map pin colour is `var(--color-accent)`, not a hardcoded `#0fab8e`, per `web/CLAUDE.md` § Design System; verified live as `rgb(15, 171, 142)`.
+
+**No other deviations.** MV as the read surface, server-side `item_kind` filtering, All showing every published Item, per-kind pill correctness, `ItemFeedCard` reuse, result count in items, previous-results-during-refetch, search across Item fields, and the empty state all match the ticket AC.
