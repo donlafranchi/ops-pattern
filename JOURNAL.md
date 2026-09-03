@@ -14,6 +14,14 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-03 — Shipped the mobile nav and Explore cleanup; found that most browse links 404
+
+Four of the six UI-cleanup tickets landed: the compact 44px bottom nav, scroll-to-hide behaviour, the seven kind-filter pills, and Explore reading the real items index instead of the three retired vendor tables. The filter bottom-sheet and the inline list/map toggle are still open. The rewire exposed a live gap — 9 of 16 seeded Items link to a 404, because Group-filed rows want the Group place-path and four kinds have no detail page at all; that is now a decision awaiting ratification. Also drafted an About-page section arguing the platform is deliberately not social media, and audited all 38 tables against the showcase seed.
+
+→ development/tickets/T112–T114, T117 (Done); T115, T116 (Open); planning/backlog/decision-item-canonical-urls.md; product/exploration/about-page-draft.md § This Is Not Social Media; product/exploration/showcase-completeness-audit.md.
+
+---
+
 ## 2026-09-02 — Advanced three Explore/nav UI scenarios to next/ for ticketing
 
 Three presentation-layer scenarios approved and moved from `backlog/` to `next/`: the inline list/map toggle (F044), the filter-icon + kind-pills + bottom-sheet pattern (F045), and scroll-to-hide nav (F046). Gate A clear — no schema changes; all cited spec absolutes (44px nav, pill-stay behavior) ratified earlier today. F047 (category top slider in Home) stays in backlog as a b2 surface.
@@ -32,7 +40,7 @@ Two UI-scope decisions via `weigh`. (1) Bottom nav shrinks from 52px to 44px —
 - **Ratified:** `product/ui/design-research-thesis.md` §2 — top slider as category-based Home sub-nav at b2 (Intent landed)
 - **Ratified:** `planning/backlog/scenario-F046-member-scrolls-and-nav-hides.md` — pills stay fixed when nav hides (section closed)
 
-→ design-research-thesis.md §2; decision-surfaces.md § TikTok top-slider; community-platform.md § T2 Home; scenario-F046; scenario-F047. Commit {pending}.
+→ design-research-thesis.md §2; decision-surfaces.md § TikTok top-slider; community-platform.md § T2 Home; scenario-F046; scenario-F047. Commit 2ea389e.
 
 ---
 
