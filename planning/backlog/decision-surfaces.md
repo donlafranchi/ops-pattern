@@ -134,23 +134,48 @@ The address or neighborhood the Member types **is the input to the geocode-once 
 
 **The guard that keeps it that way:** the location entry writes the Item's stored discovery hierarchy **only**. It must never write `made_at_place_id` or `made_at_verification_source`, and it must never cause a "Locally Made" badge to render. A Member who enters an address is stating where the Item *is*, not claiming where a product was *made*.
 
-### Asked once, pre-filled every time, overridable per Item — RATIFIED
+### A Member has a set of saved hoods, and they pre-fill creation — RATIFIED
 
-PM ratified 2026-09-03. **The Member is asked for their neighborhood once.** That neighborhood pre-fills the location field on every creation, and the Member can change it on any individual Item.
+PM ratified 2026-09-03. **A Member saves a *set* of neighborhoods, not one** — home, work, wherever they actually spend time. The set lives **on their profile** and is editable there. It pre-fills the location field on every creation, and the Member can change it on any individual Item.
 
 **This closes the required-field tension.** Location is required *and* creation stays low-friction, because the two were only in conflict while "required" meant "empty field the Member must fill." The field arrives already filled in; the Member confirms by doing nothing. Overriding is a choice they make when the Item is somewhere else, not a chore they perform every time.
 
-Intent (Ratified 2026-09-03): The friction cost of a required field is paid at *every* creation; the cost of asking for a neighborhood is paid *once*. Trading a recurring cost for a one-time one is the whole move, and it is what lets ask and offer — the lightest-weight kinds, the ones most likely to be abandoned at a form gate — stay genuinely light while still landing in the right place. Reversible: the default is a pre-fill, so making the field optional later changes one composer behaviour and no stored data.
+Intent (Ratified 2026-09-03): The friction cost of a required field is paid at *every* creation; the cost of saving your hoods is paid *once*. Trading a recurring cost for a one-time one is the whole move, and it is what lets ask and offer — the lightest-weight kinds, the ones most likely to be abandoned at a form gate — stay genuinely light while still landing in the right place. A *set* rather than a single value because people are not in one place: the same Member posts a tool-lending offer from home and a lunch ask from near work, and a single default makes one of those two wrong every time. Reversible: the set is a pre-fill source, so making the field optional later changes one composer behaviour and no stored data.
 
-**Overriding to a full address is how a specific venue gets handled.** Neighborhood-as-default does **not** mean neighborhood-only precision. A Member hosting at a real venue overrides the pre-fill with the address; a Member posting from their kitchen leaves the neighborhood in place. The default sets the *common* case, not the *available* one.
+**What the composer offers, in order:**
+
+1. **Pick from the saved set** — the common case, no typing.
+2. **Enter a new address or neighborhood** — always available, whether or not it gets saved.
+3. **Online** — still one of the three choices.
+
+**A Member with one saved hood sees the single-default behaviour.** No picker, no extra step, no list of one. The pick-from-set affordance appears when there is something to pick between. A feature meant to remove friction must not add a tap for the Member who needed it least.
+
+**Overriding to a full address is how a specific venue gets handled.** Hood-as-default does **not** mean hood-only precision. A Member hosting at a real venue overrides the pre-fill with the address; a Member posting from their kitchen leaves the hood in place. The default sets the *common* case, not the *available* one.
+
+### The saved set and the Home place switcher are the same list — CONVERGENCE, needs confirming
+
+Home already carries a place switcher. A Member's saved hoods are the obvious thing to populate it with: **two features specified separately are one list.** The Member curates their hoods once, on their profile, and that curation drives both where they post from and where they browse.
+
+Intent (Ratified 2026-09-03): Asking a Member to maintain two lists of the same places — one for posting, one for browsing — is the platform exposing its own seams. It is also a worse product on both ends: the browse switcher gets a hand-curated set instead of whatever the query returned, and the saved set earns its keep for Members who never create anything.
+
+**What the switcher does today — confirmed, and it is a placeholder.** `ScopePicker` (`web/src/components/feed/ScopePicker.tsx`, T088) is fed by `LocalityFeed`, which sources its options with `select slug, display_name from places where kind = 'neighborhood' … limit 12` — **an arbitrary twelve neighborhood rows, no ordering, no member relation at all**, with the current place prepended. The feed's own vantage point is resolved separately by `resolveFeedPlace` from the Member's `primary_home` place-interest, an explicit `?place=` slug, or IP geolocation. So the convergence is not a conflict to reconcile: the switcher has no real source to displace, and the saved set is a straight upgrade over a `limit 12`. **Still confirm before ticketing** whether `member_place_interests` (which already carries `primary_home` plus up to five `secondary` Places) is the substrate for saved hoods or whether a new one is warranted — that is a substrate call, not a product one.
+
+### Editing the set must not move Items — the ownership rule under pressure
+
+The copy-not-reference rule below matters **more** with a plural, editable set, because deletion is now a real case in a way a single field never made it.
+
+- **Removing a hood from the profile does not orphan the Items created against it.** Those Items keep their own resolved location. Nothing to re-resolve, nothing to fall back to.
+- **Editing a hood on the profile does not move past Items.** The Member is editing their *pre-fill source*, not the Items that were once stamped from it.
+
+Both follow from the same rule, and neither is optional: the profile set is where the *next* Item's location comes from, never where an *existing* Item's location is read from.
 
 ### This is a default, not inheritance — the distinction that will get built wrong
 
-**The neighborhood is copied onto the Item at creation. The Item owns it from then on.** The Item must **not** read through to the Member's profile at display time.
+**The hood is copied onto the Item at creation. The Item owns it from then on.** The Item must **not** read through to the Member's profile at display time — not to a single field, and not to the saved set.
 
 Consequences, both required:
 
-- **A Member who moves and updates their neighborhood does not relocate their past Items.** Those Items stay where they were created. Silent retroactive relocation would be wrong on its face — an event that happened in Oak Park did not move because its host did — and it would quietly rewrite history across every surface that had already shown, linked, or ranked those rows.
+- **A Member who moves and updates their hoods does not relocate their past Items.** Those Items stay where they were created. Silent retroactive relocation would be wrong on its face — an event that happened in Oak Park did not move because its host did — and it would quietly rewrite history across every surface that had already shown, linked, or ranked those rows.
 - **An override is permanent to that Item.** An Item created at an overridden location keeps that location; a later change to the Member's default does not reach back into it. Same reasoning: the Member made a per-Item statement, and a default must never overwrite a statement.
 
 Read as an implementation instruction: **copy the value, do not store a reference.** Anything that resolves the Member's current neighborhood at render time is the wrong build, however much cheaper it looks.
@@ -166,7 +191,7 @@ This **partially revives the member-location concept** the previous amendment di
 | If the Member moves | Past Items silently relocate | Past Items stay put |
 | What it needs to exist | A live, always-populated member-location column | A value asked for once and copied |
 
-Inheritance made every Item's location a *live dependency* on member-location substrate — which is exactly what made it blocked, since `members.home_location_id` is dead (never populated, never read; migration `031_metro_polygons.sql` header). A stored default has no read path at all after creation: the Member is asked, the value is copied, and the Item is self-contained from that moment. Whatever the platform ends up storing the Member's neighborhood in, no display surface depends on it.
+Inheritance made every Item's location a *live dependency* on member-location substrate — which is exactly what made it blocked, since `members.home_location_id` is dead (never populated, never read; migration `031_metro_polygons.sql` header). A stored default has no read path at all after creation: the Member picks, the value is copied, and the Item is self-contained from that moment. Whatever the platform ends up storing the saved hoods in, no display surface depends on it — which is also why a plural, editable, deletable set is safe here and would have been a nightmare under inheritance.
 
 ### Open — when is the Member asked?
 
@@ -176,6 +201,48 @@ Inheritance made every Item's location a *live dependency* on member-location su
 - **Signup**: the neighborhood also personalizes the *feed*, which is the surface a Member who never creates anything actually uses — and that is a real argument, not a technicality. Asking at first creation means every consumption-only Member is ranked against nothing.
 
 The trade is signup length against feed quality for non-creators. Recorded for the PM, not resolved.
+
+### Open — what the plural set does to the feed
+
+1. **Does the browse feed show all saved hoods at once, or one at a time with a switcher?** This is a **product fork, not a detail**: a union feed and a switchable feed are different products. A union feed says "here is everything across your life"; a switcher says "you are in one place at a time, pick which." They imply different empty states, different notification logic, and different answers to "why am I seeing this."
+   **It also reopens the hierarchy's vantage point.** § Location resolution specifies nearby → metro → state → online *measured from a single centre*. Two hoods means two centres, and the hierarchy has to say which one "nearby" is measured from — nearest-of-any, a primary, or a merged band where an Item local to *either* hood counts as local. None of those is obviously right, and the ranking rule as written does not cover it.
+2. **Is there a cap on saved hoods?** Unbounded invites a Member to save a whole metro one neighborhood at a time, which quietly turns the locality product into a national one. `member_place_interests` already caps `secondary` Places at five; whether that is the right number here is unexamined.
+3. **Is one hood marked primary?** A primary would answer the vantage-point question cheaply and give the composer an unambiguous default. It also adds a concept and a management affordance to a feature whose whole appeal is that it is one list.
+
+---
+
+## The user-facing word is "hood" — RATIFIED
+
+PM ratified 2026-09-03. In UI copy the platform says **hood**. *Your hoods.* Not "neighborhood," not "locality," not "area."
+
+Intent (Ratified 2026-09-03): This is a **voice** decision, not a labelling one. Location is the core primitive a Member touches on every surface — the word for it sets the register for the entire product, the way "tweet" or "pin" did. "Locality" is administrative; "neighborhood" is correct and flat; "hood" is warmer, shorter, and colloquial, and it signals that this is a *neighbours* thing rather than a listings platform. The product is allowed to be a little cheeky, and this is one of the few places where a single word does that work at no cost. Reversible at the price of a copy sweep — no data model, no schema, no URLs.
+
+**Internal naming does not have to follow.** If the code says `neighborhood`, the schema says `places.kind = 'neighborhood'`, and a spec says "locality scope," that is **fine and should not be churned to match.** This decision governs copy, not identifiers. Renaming identifiers to chase a UI word is exactly the kind of drift the three-layer naming pattern in `CLAUDE.md` § Naming conventions exists to prevent — schema names are durable; the UI-label layer translates.
+
+### Open — does "hood" land the way we intend?
+
+Not a blocker; a deliberate check before launch rather than a discovery after it.
+
+"Hood" carries regional and cultural connotations, particularly in US usage, that "neighborhood" does not. Depending on which communities the product lands in, it reads as warm and familiar or as borrowed slang — and the second reading is worst precisely where the platform most wants to be trusted. **The check:** the PM sanity-checks the word with a handful of real Members across the launch market before it ships in copy, rather than reasoning about it internally.
+
+**The fallback is trivially cheap**, which is why this is an open question and not a gate: it is a copy change, not a data-model one. Nothing about the schema, the URLs, or the stored hierarchy depends on which word renders.
+
+### Existing docs that go inconsistent the moment this lands
+
+Listed, **not rewritten** — the sweep waits on the open question above.
+
+| Where | What it says | Layer |
+|---|---|---|
+| `web/src/components/feed/ScopePicker.tsx:26` | `aria-label="Choose a locality"` | Shipped UI copy — the switcher this decision converges with |
+| `web/src/components/feed/LocalityFeed.tsx` | "Near {place}" heading; empty state "We couldn't detect your locality. Pick a Place to see what's nearby." | Shipped UI copy |
+| `product/ui/community-platform.md` § You | The "**Locality control**" bullet — the control's own label | Spec naming a UI label |
+| `product/ui/community-platform.md` § Explore | "geocoding autocomplete for city / neighborhood / zip" | Spec naming composer copy |
+| `product/ui/community-platform.md:10` | "Home is the locality-aware activity feed" | Description prose — borderline, arguably internal |
+| `product/ui/phase-0-ia-wireframes.md:78` | "Near-me reach control … how wide the locality scope extends" (F031's user-facing surface) | Spec naming a UI surface |
+| `product/ui/card-feed-design-proposals.md:82` | "the locality pill pin dot" | Design prose naming a component |
+| `CLAUDE.md` § Naming conventions | The UI-label column carries **Place** for `places` and **Venue** for `locations`. A neighborhood-kind Place surfaced to a Member as a "hood" is a distinction the table does not currently make. | The naming table itself — reconcile here first, since everything else cites it |
+
+The last row is the one to settle first: whichever way it lands, the table is the source the other seven should be swept against.
 
 ---
 
@@ -246,7 +313,10 @@ Raised by the two-tab decision, not answered by it.
 1. **Visual balance of the third slot.** The nav previously held three peer tabs. With two tabs and a centered **+**, what carries the third slot's weight — is the + visually dominant (raised, filled, larger), a peer of the two tabs, or does the nav re-center around two wide targets? Affects the 44px proportion decision above.
 2. **What the + opens.** A bottom sheet (kind picker, stays in context, cheap to dismiss) or a full page (room for the composer, but a harder exit). The choice sets the cost of abandoning a half-made declaration.
 3. **Signed-out You.** You's purpose changed from "your follows and settings" to "what you've made." A signed-out visitor has made nothing. What does the tab show — a sign-in wall, a pitch for creating, or does the nav render differently when signed out?
-4. **When is the Member asked for their neighborhood — at signup, or at first creation?** PM's read is first creation (asked when it is obviously needed; keeps signup short), but a neighborhood captured at signup also personalizes the feed for Members who never create anything. Signup length against feed quality for non-creators. See § Location is entered at creation → Open — when is the Member asked.
+4. **When is the Member asked for their hoods — at signup, or at first creation?** PM's read is first creation (asked when it is obviously needed; keeps signup short), but hoods captured at signup also personalize the feed for Members who never create anything. Signup length against feed quality for non-creators. See § Location is entered at creation → Open — when is the Member asked.
+5. **Does the browse feed show all saved hoods at once, or one at a time with a switcher?** A product fork, not a detail — and it reopens the hierarchy's vantage point, since two hoods means two centres and § Location resolution specifies "nearby" from a single one. See § Open — what the plural set does to the feed.
+6. **Is there a cap on saved hoods, and is one marked primary?** A primary would answer the vantage-point question cheaply, at the cost of a concept. Same section.
+7. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
 
 **Resolved.**
 
@@ -255,5 +325,6 @@ Raised by the two-tab decision, not answered by it.
 - *How do the polygon's hard boundary and the radius's graded falloff coexist?* — they don't; both retire for one stored hierarchy (2026-09-03). See § Location resolution.
 - *Where does an Item's location come from?* — the Member enters it at creation: address, neighborhood, or Online (2026-09-03). Supersedes the creator-inheritance answer recorded earlier the same day; the dead `home_location_id` column is no longer a dependency. See § Location is entered at creation.
 - *At what grain does an Item's location publish?* — the Member's choice; neighborhood-level entry is the deliberate privacy mechanism, and overriding to a full address is how a specific venue is handled (2026-09-03). See § Location is entered at creation → Neighborhood-level entry.
-- *Is location a required field at creation?* — yes, and the friction objection is answered by pre-filling it: the Member is asked for a neighborhood once, it pre-fills every creation, and they override per Item (2026-09-03). See § Asked once, pre-filled every time.
+- *Is location a required field at creation?* — yes, and the friction objection is answered by pre-filling it: the Member saves a set of hoods once, it pre-fills every creation, and they override per Item (2026-09-03). See § A Member has a set of saved hoods.
+- *What word does the UI use for a neighborhood?* — "hood" (2026-09-03). Copy only; schema and identifiers stay as they are. See § The user-facing word is "hood".
 - *Does an Item's location follow its creator?* — no. The neighborhood is **copied** onto the Item at creation and the Item owns it; a Member who moves does not relocate their past Items (2026-09-03). See § This is a default, not inheritance.
