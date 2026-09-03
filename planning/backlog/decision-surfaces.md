@@ -111,24 +111,49 @@ The place switcher on Home selects **a metro**, not a neighborhood. Hoods are **
 | `product/ui/phase-0-ia-wireframes.md:78` | "Near-me reach control … how wide the locality scope extends" (F031) — a *width* control over locality, which a metro switcher is not. |
 | § A Member has a set of saved hoods (this doc) | Said the saved set should populate the switcher. Refined: the saved set populates the switcher **as the metros those hoods resolve to**, deduplicated — not as one entry per hood. |
 
-### Accepted risk — metro boundaries are administrative, and lives cross them
+### Metros have inner and outer boundaries, and mostly do not overlap — RATIFIED
 
-**Recorded as an accepted risk with a known bad case, not as a solved problem.**
+PM ratified 2026-09-03, refining the vantage-point rule above.
 
-The rule is right for the **far** case: a home in one metro and a cabin three hours away are genuinely two contexts, and switching between them is the honest interaction.
+- **A metro is a dense core plus a looser outer ring**, not a single hard line. The edge is a gradient.
+- **Metros mostly do not abut.** Sacramento, Seattle, Portland, Denver all sit in real empty space. **Overlap is the exception**, confined to dense corridors — Los Angeles, the SF Bay Area, the New York area.
 
-**It is wrong for the near case.** A Member who lives twenty minutes from a metro line, with a home hood on one side and a work hood on the other, is forced to switch between halves of **one ordinary life** — two places they move between on the same Tuesday. That is not a context switch; it is the platform's administrative geography intruding on a life that does not have a seam there. And these are exactly the **edge-dwelling Members a neighbours product should serve best** — the ones whose daily radius is not centred on a downtown, who are already least well served by metro-shaped products.
+Intent (Ratified 2026-09-03): A hard line is the wrong shape for a thing people experience as a gradient, and it is the hard line — not the metro concept — that generated the straddling problem. Modelling the edge as a ring makes the common case (living somewhere loosely attached to a metro) representable instead of forcing it to one side. Reversible: rings are reference data, and a ring with zero width is the current behaviour.
 
-**Mitigation to consider later, not now:** treat **adjacent metros as unioned when the Member's hoods straddle them.** The Member's own saved set is the signal — hoods on both sides of a line are evidence that, for this Member, the line is not real. This keeps the far case switching (Sacramento and Portland are not adjacent) while dissolving the near case entirely. It is a scope-query change, which is why accepting the risk now is cheap.
+### Accepted risk — boundary-straddling, scoped to the dense corridors
+
+*Revised 2026-09-03. This entry previously recorded straddling as a general risk of metro-shaped scoping. The inner/outer-ring and non-overlap facts above narrow it substantially; the earlier, broader reading is superseded — do not cite it.*
+
+**The case is genuine but it is largely a dense-corridor case.** A Member living twenty minutes from a metro line, with a home hood on one side and a work hood on the other, is still forced to switch between halves of **one ordinary life** — and those Members are exactly the edge-dwellers a neighbours product should serve well. But **for most of the country there is empty space between metros and no straddling to speak of.** Sacramento's nearest neighbour is not twenty minutes away. The risk concentrates where metros actually abut: LA, the Bay Area, the New York area.
+
+**The ring structure is part of what handles it.** An outer ring is a softer edge than a line — a Member near the boundary sits in someone's outer ring rather than being cleanly excluded, which is a materially different experience from being told they are in the wrong metro.
+
+**Still on the books, still an accepted risk**, because in the corridors where it bites it bites hard, and those corridors hold a large share of the U.S. population. **Mitigation to consider later:** union adjacent metros when the Member's own hoods straddle them — the saved set is the signal that, for this Member, the line is not real. Cheap, and it dissolves the corridor case without touching the far case.
 
 **A second boundary case, confirmed in the schema.** `members.home_metro_id` is **null when the Member's Place falls outside every seeded CSA** — migration `031_metro_polygons.sql` documents this as the rural fallback, with F031 reading the null to offer radius scope instead of metro scope. So "metro is the vantage point" has no answer for a rural Member today: there is no metro to be the vantage point. The existing radius fallback is the working answer; whether it survives the retirement of read-time radius (§ Location resolution) is unexamined.
+
+**Substrate note — neither refinement is expressible today.** `metro_polygons` (migration `031`) carries **one** `geography(Polygon, 4326)` per row at **Census CSA grain**. That means (a) there is no inner/outer ring — one polygon, one edge; and (b) **CSAs are non-overlapping county aggregations by construction**, so deliberate overlap in the dense corridors cannot be represented at this grain at all. Both refinements imply schema and seed work — a second polygon or ring column, and a grain or curation change where corridors need to overlap. Flagged as a substrate consequence, not a blocker to the decision.
+
+### Reframe — picking a metro is an intentional act, not an ambient one
+
+A Member browsing **their own hoods** is checking what is near them. A Member picking **a different metro** is deliberately looking elsewhere — *"what's going on in Portland."* Those are different intents, and the switcher serves the second one.
+
+Intent (Ratified 2026-09-03): The default posture is ambient and local; reaching for another metro is a Member stating a purpose. Naming that distinction keeps the switcher from being read as a general-purpose scope control that Members are expected to fiddle with, and keeps the default experience from being designed around a control most people will touch rarely.
+
+**Structurally — PM's read, needs confirmation, not settled:** this is **a mode or control on the single merged browse surface**, not an argument for restoring a separate Explore tab. **The merged-surface decision holds** (§ The two-tab model).
+
+**But note plainly:** the ambient-versus-intentional distinction is *the same distinction* that originally justified Home and Explore as separate tabs. **It has now resurfaced twice** — once as the filter/search controls Home absorbed, and again here as metro switching. Two is a pattern worth naming; it is not yet evidence. **If it resurfaces a third time, that is evidence the merge is wrong**, and the merge should be **revisited on its merits** rather than defended. Record the third occurrence against this line when it happens.
 
 ### Open — not answered by this decision
 
 1. **What determines the default metro when hoods span several?** First added, most hoods, or explicitly chosen. Each reads differently to a Member: first-added is arbitrary but stable, most-hoods is inferred and can flip under them, explicit is honest but is another setup step.
 2. **Can a Member set a primary metro?** Related to (1) but separable — a primary is a durable answer where a default is a computed one.
 3. **What happens to the active metro when a Member adds a hood in a new one?** Switch to it (they are probably there), stay put (they were mid-task), or ask. The first is helpful right up until it is disorienting.
-4. **Is the geocode-once step what assigns a hood to its metro?** Assumed, not confirmed. **What is confirmed:** the mechanism exists and is metro-resolution-from-a-point — `public.resolve_home_metro(point geography)` does `ST_Contains` against `metro_polygons` (smallest-area tiebreak, null outside all polygons), and it is already wired into `member.place_interest.add` / `.remove` to derive `members.home_metro_id` from a Place centroid. What is *not* settled is whether the Item-side and hood-side resolution call that same path at geocode time, or whether metro is derived later from the stored hierarchy. A build call, but it decides where the null-metro case is handled.
+4. **What do the inner and outer rings actually do differently?** Is the outer ring a ranking band (present, ranked below the core), a filter (excluded unless asked for), or only a rendering boundary (drawn differently, behaves identically)? Three different products from the same shape.
+5. **Can a Member's hoods sit in a metro's outer ring without that metro becoming their default?** Outer-ring membership is weaker than core membership, and the default-metro rule does not currently distinguish them.
+6. **Who owns metro boundary definition and maintenance?** This is now **reference data the product depends on** — the vantage point, the switcher's entries, and the ranking bands all read it. Today it is a Census CSA seed with an approximated Sacramento polygon (`seed_method='approx_bbox'`); rings and corridor overlap make it a curated dataset with no named owner and no update cadence.
+7. **Can a Member browsing another metro create there, or only read?** Posting into a metro you are deliberately visiting is either a reasonable thing (you are moving there, you are hosting there) or the beginning of remote spam, and the answer sets whether the switcher is a read affordance or a full context switch.
+8. **Is the geocode-once step what assigns a hood to its metro?** Assumed, not confirmed. **What is confirmed:** the mechanism exists and is metro-resolution-from-a-point — `public.resolve_home_metro(point geography)` does `ST_Contains` against `metro_polygons` (smallest-area tiebreak, null outside all polygons), and it is already wired into `member.place_interest.add` / `.remove` to derive `members.home_metro_id` from a Place centroid. What is *not* settled is whether the Item-side and hood-side resolution call that same path at geocode time, or whether metro is derived later from the stored hierarchy. A build call, but it decides where the null-metro case is handled.
 
 ---
 
@@ -368,7 +393,10 @@ Raised by the two-tab decision, not answered by it.
 6. **What happens to the active metro when a Member adds a hood in a new one?** Switch, stay, or ask. Same section.
 7. **Is the geocode-once step what assigns a hood to its metro?** Assumed, not confirmed — `resolve_home_metro()` already does point→metro containment for `primary_home`, but whether the Item and hood paths call it at geocode time is unsettled, and it decides where the null-metro (rural) case is handled. Same section.
 8. **Is there a cap on saved hoods?** Unbounded lets a Member accumulate a whole metro one hood at a time. See § A Member has a set of saved hoods → What the plural set does to the feed.
-9. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
+9. **What do a metro's inner and outer rings do differently — ranking band, filter, or rendering only?** And can a Member's hoods sit in an outer ring without that metro becoming their default? See § Metro is the vantage point → Open.
+10. **Who owns metro boundary definition and maintenance?** Reference data the product now depends on, with no named owner and no update cadence. Same section.
+11. **Can a Member browsing another metro create there, or only read?** Sets whether the switcher is a read affordance or a full context switch. Same section.
+12. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
 
 **Resolved.**
 
@@ -379,5 +407,6 @@ Raised by the two-tab decision, not answered by it.
 - *At what grain does an Item's location publish?* — the Member's choice; neighborhood-level entry is the deliberate privacy mechanism, and overriding to a full address is how a specific venue is handled (2026-09-03). See § Location is entered at creation → Neighborhood-level entry.
 - *Is location a required field at creation?* — yes, and the friction objection is answered by pre-filling it: the Member saves a set of hoods once, it pre-fills every creation, and they override per Item (2026-09-03). See § A Member has a set of saved hoods.
 - *What word does the UI use for a neighborhood?* — "hood" (2026-09-03). Copy only; schema and identifiers stay as they are. See § The user-facing word is "hood".
-- *Does the feed union a Member's hoods or switch between them?* — **both, split at the metro line** (2026-09-03): hoods within one metro are active together; hoods across metros switch. "Nearby" is measured from the active metro, and the browse switcher is a *metro* switcher. Carries an **accepted risk** for Members whose lives straddle a metro boundary. See § Metro is the vantage point.
+- *Does the feed union a Member's hoods or switch between them?* — **both, split at the metro line** (2026-09-03): hoods within one metro are active together; hoods across metros switch. "Nearby" is measured from the active metro, and the browse switcher is a *metro* switcher. Carries an accepted risk, **now scoped to the dense corridors** where metros actually abut. See § Metro is the vantage point.
+- *Is a metro edge a hard line?* — no; inner core plus outer ring, and metros mostly do not overlap (2026-09-03). Neither refinement is expressible in `metro_polygons` today. Same section.
 - *Does an Item's location follow its creator?* — no. The neighborhood is **copied** onto the Item at creation and the Item owns it; a Member who moves does not relocate their past Items (2026-09-03). See § This is a default, not inheritance.
