@@ -122,7 +122,9 @@ Working assumption: stored column with a trigger that recomputes on `anchor_loca
 
 ### Item URL parent
 
-Items don't carry a place column directly — their URL parent is either a Group (place inherited via the Group) or a Member (handle-anchored, no place). This keeps the data model honest: an Item's locality is its Group's locality; orphan Items (no Group) explicitly opt out of place-scoping by anchoring under `/m/[handle]`.
+An Item's **URL parent** is either a Group (place inherited via the Group) or a Member (handle-anchored). Group-filed Items take the Group's place path; Items with no Group anchor under `/m/[handle]`.
+
+*Corrected 2026-09-03:* this section previously read "Items don't carry a place column directly … orphan Items explicitly opt out of place-scoping." Both halves are superseded. Items **do** carry stored place levels — the geocode-once decision resolves an address to a stored hierarchy on the Item, which is the only query path for discovery (see [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Location resolution). And an Item with no venue **inherits the creator's location** rather than opting out of place-scoping — ratified but blocked on there being a Member location to inherit (same doc, § Items inherit the creator's location). The URL shape above is unaffected: discovery hierarchy and URL parent are separate concerns, and a handle-anchored URL no longer implies a place-less Item.
 
 ### Slug-uniqueness rewrites
 

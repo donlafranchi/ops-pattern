@@ -68,9 +68,9 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 **Explore (Locality Browse).** Folded in from the prior `capabilities/locality-browse.md` on 2026-05-22.
 
 - Browse at `/explore` **without authentication** — no redirect, no signup wall.
-- Proximity sort via PostGIS `ST_DWithin` against the `discoverable_items` materialized view — base tables never queried on the anonymous read path.
+- Proximity sort against the `discoverable_items` materialized view — base tables never queried on the anonymous read path. *Retired 2026-09-03:* the read-time `ST_DWithin` computation is superseded by the stored place hierarchy (see § Location resolution below); the MV read path itself stands.
 - Searchable across Items, Members, Locations, and (at b2) Groups.
-- Filters at b1: kind (gathering / product / service / wonder / offer / ask — shipped as the seven-pill row `All · Events · Products · Services · Ideas · Offers · Asks`, T114), category (multi-select), distance (1/5/10/25 mi), schedule (any / this week / this weekend / recurring).
+- Filters at b1: kind (gathering / product / service / wonder / offer / ask — shipped as the seven-pill row `All · Events · Products · Services · Ideas · Offers · Asks`, T114), category (multi-select), distance (1/5/10/25 mi — *retired 2026-09-03 in favour of hierarchy levels: neighborhood / city / metro / state / online*), schedule (any / this week / this weekend / recurring).
 - Active filters as removable chips; filter state reflected in URL for shareable views.
 - Map toggle: same result set rendered as kind-color-coded pins; tap pin → compact card → Item page.
 - Location prompt (non-modal) when no location is set; geocoding autocomplete for city / neighborhood / zip.
@@ -84,11 +84,17 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 **Ranking — distance bands, nothing excluded (Ratified 2026-09-03).** Items rank by distance band — nearest first, each successive band lower, online / non-physical Items last. This is a **ranking** rule, not a filter rule: distant Items and Items with no Location are present in the results, ordered below local ones. Intent: proximity should drive order, not presence — at launch density a feed that hides rows reads as a dead platform, and a sort key stays retunable where a filter that never returned the row is invisible and un-undoable. Full entry, the implied-but-unratified "Online" question, and the unresolved polygon-boundary / distance-falloff tension: [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Feed ranking.
 *Retired 2026-09-03:* this bullet previously deferred the opposite — "Items with no Location (do not appear in the proximity index; keyword-search path at b2)." Superseded by the ranking decision above.
 
+**Location resolution — geocode once, store a hierarchy (Ratified 2026-09-03).** Coordinate math runs once, when an address is entered, resolving to a stored place hierarchy on the Item (neighborhood → city → county → metro → state). All querying reads those stored levels; nothing computes distance at read time. **This retires both** the Place-polygon containment test and the runtime centroid-radius filter — the distance bands above are hierarchy levels, not miles, and "nearby" means same neighborhood, then metro, then state, then online. It is also the fix for the `discoverable_items.nearest_location_id` defect (today the *oldest* attached venue, resolved with no distance math). Full entry: [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Location resolution.
+
+**Online is a location option (Ratified 2026-09-03).** Online is a first-class choice at declare time. Two requirements ride with it: the composer **must warn the Member, at the point of choice, that Online ranks last**, and **Online Items never render on the map** — no pin, no fallback coordinate, no cluster. The warning is the honesty mechanism that makes ranking-last acceptable, not a nice-to-have. Full entry: `decision-surfaces.md` § Online is a location option.
+
+**Items inherit the creator's location (Ratified 2026-09-03, BLOCKED).** An Item with no venue of its own takes the creator's location rather than being excluded or defaulted to Online. **Not implementable today** — `members.home_location_id` is a dead column (never populated, never read; migration `031` says so in its header), so there is nothing to inherit from. Requires collecting a location from Members, a new requirement touching signup or profile that is scoped nowhere. Do not ticket against this bullet. Full entry, the provenance-prohibition check, and the open questions: `decision-surfaces.md` § Items inherit the creator's location.
+
 **Acceptance signal (Explore).** An unauthenticated visitor navigates to `/explore`, enters a location, sees a list of nearby Items without being prompted to sign up, and can reach an Item page in two taps.
 
 **You:** Single tab in MVP (everyone is a Member; selling-tool affordances appear conditionally):
 
-- **Locality control** (change `home_location_id`; the same control surfaces on locality-dependent pages too).
+- **Locality control** (the same control surfaces on locality-dependent pages too). *Corrected 2026-09-03:* this previously said "change `home_location_id`." That column is dead — never populated, never read (migration `031` header). The live path is the Member's `primary_home` `member_place_interests` row, which drives `members.home_metro_id` via `resolve_home_metro()`. Where the platform actually collects a Member location is an open question — see `decision-surfaces.md` § Open questions 4.
 - **Followed Members section** (replaces `/following` route).
 - **Multi-Location affinities surface** (b2 — the Member's `lives` / `works` / `plays` / `visits` / `follows` / `liked` Locations, per [`../systems/member.md`](../systems/member.md)).
 - **Recently viewed.**

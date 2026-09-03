@@ -110,6 +110,7 @@ kind='product' Items carry an optional **product-provenance claim** — the plat
 
 - Edge case: "designed in Sacramento, assembled in Vietnam" — does the badge require both? Working answer: the badge reads on `made_at_place_id` (where final assembly happens); "designed in" is a separate, lower-trust signal.
 - Edge case: services have no physical provenance — the column is intentionally not extended to kind='service'.
+- **Checked 2026-09-03 — Item location inheritance does not trigger this prohibition.** An Item with no venue inherits the creator's location into its stored *discovery* hierarchy (per [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Items inherit the creator's location). That is a different question from provenance: where an Item is *discoverable from* vs. where a product was *made*. **Guard:** inheritance writes the discovery hierarchy only — never `made_at_place_id`, never `made_at_verification_source`, and it never causes a badge to render. Any implementation that routes creator location into the provenance columns falls under the Ratified 2026-05-23 test above, and the answer is refuse.
 - The document-evidence shape differs from jurisdiction (facility lease ≠ SOS filing); the Tier 2 ladder is unfinished.
 
 ## T3 — Polish Tier

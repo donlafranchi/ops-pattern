@@ -56,7 +56,7 @@ For a Member `m` viewing surface `s`, gather candidates from:
 1. Items by People `m` follows (verb edges: makes, services, convenes).
 2. Items at Locations `m` has engaged with (visited Item detail, RSVPed, pledged).
 3. Items whose attached Location's `place_id` (or any ancestor) is in `m`'s `member_place_interests` set.
-4. Items in `m`'s geographic radius (default 10 miles, configurable) — backstop for Members with empty place-interest sets or for cross-Place serendipity.
+4. Items in `m`'s geographic radius (default 10 miles, configurable) — backstop for Members with empty place-interest sets or for cross-Place serendipity. *Retired 2026-09-03:* the read-time radius is superseded by the stored place hierarchy — the backstop becomes a walk up the hierarchy (city → county → metro → state) rather than a mile count. Source 3's "`place_id` or any ancestor" is already the right shape. See [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Location resolution.
 5. Items by People followed by People `m` follows (2-hop graph, capped).
 6. Trending Items in `m`'s place-interest scope (recent engagement velocity).
 
