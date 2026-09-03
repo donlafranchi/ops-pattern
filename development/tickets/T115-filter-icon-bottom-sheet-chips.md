@@ -53,7 +53,7 @@ The F045 scenario's assumptions said "The bottom nav is 52px tall" — stale. Th
 ## Completion
 
 Date: 2026-09-03
-Commit: {pending}
+Commit: 06bc333 (merged as f4d5512)
 
 Built on branch `t115` in worktree `../web-t115`.
 

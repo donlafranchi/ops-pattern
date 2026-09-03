@@ -839,3 +839,41 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Five fixes applied pre-commit at the M2 gate.** (a) "Clear all" moved off the sub-AA accent token and given a 44px target — it was 20px tall. (b) The sheet locks `document.body` scroll while open; `aria-modal="true"` asserts the rest of the page is inert, and letting the results scroll behind the sheet made that assertion false. (c) The category options union in the current selection — switching kinds could drop a still-selected category from the sheet, leaving a filter the member could only clear from the chip row. (d) `sortExploreItems` keys each item once instead of once per comparison; the "Nearest" comparator called haversine O(n log n) times. (e) The backdrop carries `aria-hidden="true"`.
 
 **No other deviations.** Sticky search row with the three elements in thesis order, the three-slider filter glyph, the dot indicator, the sheet's four filter groups and "Show results" / "Clear all", half-height and internally scrollable, removable chips below the search bar with no chip for kind, the chip row vanishing at zero filters, wrapping rather than scrolling, URL round-trip for kind plus every secondary filter, focus trap and focus return, and `aria-label="Open filters"` / `"Remove [filter] filter"` all match the ticket AC.
+
+---
+
+## T116 — Inline List/Map toggle on Explore
+
+**Closes the F044/F045 surface.** The fixed control cluster T115 shrank to one row is gone entirely; Explore's bottom is now nav + kind pills, and the view toggle rides in the content.
+
+**What (1) — `?view=` is no longer read or written.** Explore has carried a `view` query param since before T114, and T115 kept it.
+
+**Why:** F044 says it twice — "No URL change — the toggle is ephemeral state" (§ Surfaces) and "Persisting the toggle preference across sessions (b2)" (§ Out of Scope) — and the ticket AC repeats it. Following the spec costs a shareable `?view=map` link, which is a real if small loss; the param is gone from `ExploreFilters` rather than left write-only, so nothing quietly half-supports it. Every filter param still round-trips. **Disposition:** accepted-as-is, AC-mandated. If shareable map links turn out to matter, restoring the param is a one-line change in `exploreQueryString` plus the mount-time read.
+
+**What (2) — The toggle interrupts the grid after exactly 4 cards.** The AC says "after the initial batch of result cards (3–5 cards)."
+
+**Why:** four is the only number in that range that completes a row at both 2 columns (mobile) and 4 (`lg:`), so the toggle never lands beside a half-empty row. It does not complete a row at the `md:` 3-column breakpoint — no number in 3–5 completes rows at 2, 3 and 4 simultaneously, so one breakpoint has to give, and `md:` is the narrowest band of the three. **Disposition:** accepted-as-is.
+
+**What (3) — In map view the toggle sits below the map, not "after 3–5 cards."** The AC's position rule assumes cards.
+
+**Why:** there are none in map view. Below the map keeps the toggle in the same relative place — after the results — rather than jumping to the top when the member switches. The map is `h-[70vh]` (was `calc(100vh-260px)`) so the toggle lands on screen without a scroll at every viewport height; verified at 812px, toggle at 669–713 with the pills at 724. **Disposition:** accepted-as-is.
+
+**What (4) — The transition is a 200ms fade-in on the incoming pane, not an overlapping crossfade.** The AC says "crossfade (CSS opacity transition)."
+
+**Why:** a true crossfade needs both panes painted at once, which means either mounting Mapbox on every Explore visit or stacking two panes in a container sized to the taller of them — the map would inherit the list's full scroll height. The ticket's own note sets the bar at "a simple CSS transition on opacity with 200ms duration is sufficient." Implemented as a keyframe in `globals.css` on a pane keyed by view, with `prefers-reduced-motion` honoured. Naming it accurately here because the AC's word is "crossfade" and this is not one. **Disposition:** accepted-as-is.
+
+**What (5) — The toggle is an `<li role="presentation">` inside the results grid.** No AC names the markup.
+
+**Why:** it has to interrupt the grid to sit after four cards, and a bare `<div>` between `<li>`s is invalid inside a `<ul>`. `role="presentation"` keeps the wrapper out of the list's item count, so assistive tech still reports 16 results rather than 17. The tablist inside keeps its own role — `presentation` does not cascade to interactive descendants. **Disposition:** accepted-as-is.
+
+**What (6) — Two tablists now point at `#explore-results`.** T114's kind pills already did.
+
+**Why:** both genuinely control that region, and `aria-controls` is the honest statement of that. The panel's `aria-labelledby` stays on the kind tab, which is the more informative label — "Events" says more about what is in the panel than "List" does. **Disposition:** accepted-as-is.
+
+**Caught by live verification — a T114 bug fixed in passing.** The selected tab in *both* tablists had an invisible focus ring. Neither component set `outline-color`, so it fell to the UA default `currentColor`, which on a selected pill is white — a white ring drawn against the white page. A keyboard user tabbing onto the selected kind pill or the selected view tab saw nothing. Both now set `outline-[var(--color-accent)]` **unconditionally**, with only the style and offset under `focus-visible:`; that way the colour is in the computed style whether or not the element is focused, so the regression is catchable by a test and a screenshot rather than only by a keyboard user. Confirmed under a real keyboard Tab: `outline: 2px solid rgb(15, 171, 142)` at 2px offset on the selected tab. The `KindFilterPills` change is one line in a component this ticket does not otherwise own; leaving a known invisible focus ring on the adjacent tablist of the surface under M3 review was the worse option.
+
+**Note — the accent ring is 2.9:1 on white**, marginally under 1.4.11's 3:1. Same call as T115: every ring in the app is accent, and inconsistent focus colours on one page are worse for the member than a marginal ratio. Folded into `planning/backlog/decision-accent-token-contrast.md`.
+
+**Note — F044 has no `review-F044.md`.** Neither does F045. Rebuild rule 1 makes `review` mandatory on every approved scope, and both scenarios went `plan-approved` → `ticketed` on 2026-09-02 without one. Not something `build` can fix after the fact; flagged for the PM. Nothing in either build surfaced an architectural problem review would have caught.
+
+**No other deviations.** Inline placement in the document flow, the removed fixed cluster, `[List] · [Map]` as compact text, centring, 24px above and below, charcoal-700/white active and white/charcoal-900/charcoal-100 inactive, both switch directions, session-only state resetting to List, the toggle rendering with zero results, desktop centring in the content column, and `role="tablist"` with two `aria-selected` tabs all match the ticket AC.
