@@ -388,7 +388,7 @@ For the designer revising the Phase 0 wireframes against this thesis:
 
 - [ ] Bottom nav shows three tabs: Home, Explore, You — no Create tab, no "+" icon in the nav bar
 - [ ] Active nav state uses `--color-charcoal-700`, not pistachio
-- [ ] Nav bar height is 52px + `env(safe-area-inset-bottom)` padding
+- [ ] Nav bar height is 44px + `env(safe-area-inset-bottom)` padding
 - [ ] Page side gutters are 24px minimum
 - [ ] Between-card gaps are 24px minimum
 - [ ] Between-section gaps are 32px minimum

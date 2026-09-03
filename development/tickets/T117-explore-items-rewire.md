@@ -33,7 +33,7 @@
 - [x] Result count reads in items, not vendors ("12 items", "1 item"), and the empty state offers Clear filters.
 - [x] Refetch on kind change keeps the previous result set on screen rather than blanking to "Loading…".
   _Why: a pill tap is a frequent, instant-feeling interaction (T114 AC); a full-list flush on every tap reads as a page load._
-- [x] Market and day filters removed from Explore. Both read `markets` / `market_vendors`, which are gone; they can never match. `MarketContext` itself is untouched (Home still consumes it).
+- [x] Market and day filters removed from Explore. Both read `markets` / `market_vendors`, which are gone; they can never match. `MarketContext` itself is untouched — `/you` still consumes it (Home does not; Home renders `LocalityFeed` off `discoverable_items` per T087/T088).
 - [x] Category filter options derived from the categories actually present in the result set, not from the vendor `CATEGORIES` vocabulary (`bread`, `produce`, `honey-jams`…), which no item uses.
   _Why: items carry a different category vocabulary (`community`, `repair`, `garden`, `food`, `crafts`, `education`, `sustainability`). Inventing an item taxonomy is `explore`'s job, not `build`'s._
 - [x] `ExploreMap` takes items and drops pins at the item's nearest approved Location; popup links to the item's canonical Member-scoped URL via `itemHref`.
@@ -70,4 +70,4 @@ Branch: `t117`
 
 **Three fixes applied at the M2 gate before commit** — whole-string hex validation (a per-byte `parseInt` reads `'0z'` as 0, not NaN), a `.catch()` so a rejected read falls to the empty state instead of stranding the tab on "Loading…", and the pin colour moved from a hardcoded `#0fab8e` to `var(--color-accent)`.
 
-**One Type B deviation escalated:** 9 of 16 Item detail links 404 — pre-existing `itemHref` behaviour shared with the Home feed, covering Group-filed Items and the four kinds with no detail page. Stub at `planning/backlog/decision-item-canonical-urls.md`, which also carries the wider vendor/market surface retirement (Home is still querying `events` / `businesses` / `markets`).
+**One Type B deviation escalated:** 9 of 16 Item detail links 404 — pre-existing `itemHref` behaviour shared with the Home locality feed, covering Group-filed Items and the four kinds with no detail page. Stub at `planning/backlog/decision-item-canonical-urls.md`, which also carries the wider vendor/market surface retirement. That sweep's remaining scope is `HomeFeed.tsx` — orphaned dead code since T087/T088 replaced it with `LocalityFeed`, still querying `events` / `businesses` / `markets` but rendered by nothing — plus `MarketPill`, `MarketSelector`, `VendorCard`, the `Vendor`/`Market` types, and the `markets` reads still live in `/you`.

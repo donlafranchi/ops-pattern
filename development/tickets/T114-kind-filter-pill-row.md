@@ -20,7 +20,7 @@
 ## Acceptance Criteria
 
 - [x] Create `<KindFilterPills>` component (e.g. `src/components/explore/KindFilterPills.tsx`). Renders a horizontally scrollable row of pills: `[All] [Events] [Products] [Services] [Ideas] [Offers] [Asks]`. "All" selected by default.
-- [x] Pill row is `position: fixed`, anchored above the bottom nav. Row height: 44px. 1px hairline top border (`#EBEBEB`).
+- [x] Pill row is `position: fixed`, anchored above the bottom nav. Row height: 44px. 1px hairline top border (`var(--color-charcoal-100)` / `#E8E8E8` — the thesis §3 ramp value, not the legacy `#EBEBEB` this line first named; see DEVIATIONS § T114 What (4)).
   _Why: thesis §5 — "kind-filter pills anchored at the bottom, above the nav bar." Thumb reachability for a frequent-tap interaction._
 - [x] Selected pill: `var(--color-charcoal-700)` fill (#3C3C3C), white text. Unselected: white fill, 1px `var(--color-charcoal-100)` border, `var(--color-charcoal-900)` text.
 - [~] Tapping a kind pill filters results immediately — no bottom sheet, no confirmation. `items.kind` mapping: Events → `gathering`, Products → `product`, Services → `service`, Ideas → `wonder`, Offers → `offer`, Asks → `ask`. All → no kind filter.

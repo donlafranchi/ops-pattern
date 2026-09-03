@@ -70,7 +70,7 @@ Sort = recency + locality scope. No personalization algorithm at T1; simple time
 - Browse at `/explore` **without authentication** — no redirect, no signup wall.
 - Proximity sort via PostGIS `ST_DWithin` against the `discoverable_items` materialized view — base tables never queried on the anonymous read path.
 - Searchable across Items, Members, Locations, and (at b2) Groups.
-- Filters at b1: kind (product / service / gathering / wonder), category (multi-select), distance (1/5/10/25 mi), schedule (any / this week / this weekend / recurring).
+- Filters at b1: kind (gathering / product / service / wonder / offer / ask — shipped as the seven-pill row `All · Events · Products · Services · Ideas · Offers · Asks`, T114), category (multi-select), distance (1/5/10/25 mi), schedule (any / this week / this weekend / recurring).
 - Active filters as removable chips; filter state reflected in URL for shareable views.
 - Map toggle: same result set rendered as kind-color-coded pins; tap pin → compact card → Item page.
 - Location prompt (non-modal) when no location is set; geocoding autocomplete for city / neighborhood / zip.

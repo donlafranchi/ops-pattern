@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario the ticket references — lane check at step 2 enforces this), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
-| **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section, including the commit hash you produce), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`. Runs `git add` + `git commit` after PM `y` on the permission prompt (per CLAUDE.md Commit Rules). |
+| **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section, including the commit hash you produce), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`, `planning/backlog/decision-{slug}.md` stubs and the spec / scenario lines this ticket invalidated (step 18). Runs `git add` + `git commit` after PM `y` on the permission prompt (per CLAUDE.md Commit Rules). |
 | **Branch** | One per ticket: `t{nnn}`, **in its own worktree** at `../web-t{nnn}/` (or `../community-t{nnn}/` for parent-repo work). Agent creates at session start via `git worktree add`; agent merges to `main` and removes the worktree at ticket close after PM `y` on the merge-permission prompt. Worktrees isolate concurrent agents so uncommitted edits in one ticket can't be overwritten by another agent committing in the shared `web/` tree. |
 | **Templates** | none — ticket template lives in `ticket/`; build implements, doesn't author specs |
 | **Does NOT read** | `planning/backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
@@ -35,10 +35,15 @@
 12. Refactor if needed.
 13. **M2 — `engineering:code-review` MANDATORY before commit.** Invoke the skill against the diff (`git diff` + `git diff --cached` for this ticket's files). Verdicts: PROCEED → continue; REQUEST → land the requested fixes in the same loop, re-run tests, re-invoke M2; BLOCK → stop, escalate via DEVIATIONS + `scope`. Pre-commit placement is load-bearing — issues caught here land as fix-now (clean first commit) instead of fix-forward. Per CLAUDE.md rebuild-phase rule #3.
 14. **`simplify-review` — structural pass before commit.** Run `/simplify-review` on the staged diff. Verdict **Approve** → continue. Verdict **Request changes**: (a) if the findings are *inside* this ticket's scope, fix forward, re-run tests, re-run `/simplify-review`, loop until Approve; (b) if the findings are *outside* this ticket's scope, log each to `development/DEVIATIONS.md` with the ticket ID, the lens, and a one-line note, commit the ticket as-is, and surface to the PM in the next journal entry. The build agent does not autonomously expand ticket scope — the skill identifies structural debt; the PM decides whether to triage now or later.
-15. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 19, after you commit).
+15. Update the ticket's Completion section (Date filled in; commit hash gets filled at step 20, after you commit).
 16. Move the ticket file to `development/tickets/done/`.
 17. Update `BUILD-LOG.md` — append to the current week file in `web/build-log/` (create a new weekly file if the week rolled over).
-18. **Ask PM permission to commit.** Output one line, verbatim:
+18. **Close-out reconciliation.** Before the ticket is marked done, both must hold:
+    - [ ] **Stubs committed.** Every `decision-{slug}.md` this ticket produced exists in `planning/backlog/` *and* is staged for the parent-repo commit. A stub written but left untracked is a decision that was never raised.
+    - [ ] **Invalidated text corrected.** Any spec, scenario, or ticket line this ticket's changes made false is fixed in the same pass — inline if it is a value or a stale claim about what a surface reads, or logged Type A if it belongs to another owner. Retiring a query, component, or value invalidates every doc that described it; a stale line generates bogus downstream work.
+
+    Neither is optional. Note both in the DEVIATIONS entry — "no invalidated text" is a valid answer, silence is not.
+19. **Ask PM permission to commit.** Output one line, verbatim:
 
     ```
     Ready to commit T{NNN} on branch t{nnn} with message "T{NNN}: {Title}"? (y/n)
@@ -46,9 +51,9 @@
 
     On **y**: re-run the lock pre-flight (`ls web/.git/index.lock web/.git/worktrees/*/index.lock 2>/dev/null`); if clean, run `git add <files> && git commit -m "T{NNN}: {Title}"` inside the worktree. If a lock prints, stop and ask the PM to run `clearlock` first. On **n**: do not commit — PM either amends the message (re-prompt) or defers (leave the worktree dirty, hand off).
 
-19. **Backfill the commit hash** into the ticket's Completion section using the hash printed by `git commit`. Same session — never leave `{pending}`.
+20. **Backfill the commit hash** into the ticket's Completion section using the hash printed by `git commit`. Same session — never leave `{pending}`.
 
-20. **Ask PM permission to merge.** Output one line, verbatim:
+21. **Ask PM permission to merge.** Output one line, verbatim:
 
     ```
     Ready to merge t{nnn} into main and remove the worktree? (y/n)

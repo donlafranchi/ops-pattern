@@ -61,4 +61,4 @@ Branch: t112
 
 **Verification.** 13 unit assertions in `src/components/BottomNav.test.tsx`, all passing. Full suite: 6 failing files, identical to the pre-change main baseline — none introduced here. Production build compiles. `check:action-layer` clean. ESLint clean on changed files. Computed styles confirmed in a real browser at 375px (bar 44px, targets 44x125, colors, focus ring under keyboard Tab) and the desktop breakpoint at 1024px (bottom nav `none`, top nav `flex`).
 
-**Follow-ups filed.** F046's visual-treatment criterion still carries the retired 24px/10px/4px and 52px numbers — Type A, fix inline at `tidy`. Charcoal-ramp migration — Type B, stub at `planning/backlog/decision-charcoal-ramp-migration.md`.
+**Follow-ups filed.** F046's visual-treatment criterion still carries the retired 24px/10px/4px and 52px numbers — Type A, fix inline at `tidy`. _Resolved 2026-09-03: F046 reconciled to 44px / 20px / 9px / 3px._ Charcoal-ramp migration — Type B, stub at `planning/backlog/decision-charcoal-ramp-migration.md`.

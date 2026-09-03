@@ -30,7 +30,7 @@ The newcomer taps "Events" — results filter instantly to gatherings only. They
 ## Surfaces
 
 - **Entry point:** Explore tab (`/explore`)
-- **Kind-filter pills:** Fixed row at the bottom, 44px tall, anchored above the 52px bottom nav. Horizontally scrollable. Selected pill: charcoal-700 fill, white text. Unselected: white fill, 1px charcoal-100 border, charcoal-900 text. "All" pill at far left (default).
+- **Kind-filter pills:** Fixed row at the bottom, 44px tall, anchored above the 44px bottom nav. Horizontally scrollable. Selected pill: charcoal-700 fill, white text. Unselected: white fill, 1px charcoal-100 border, charcoal-900 text. "All" pill at far left (default).
 - **Filter icon:** Three-slider glyph at the right edge of the sticky search bar. Dot indicator when secondary filters are active.
 - **Bottom sheet:** Slides up on filter icon tap. Contains: distance selector, schedule filter, category multi-select, sort order. "Show results" button at bottom, "Clear all" link when filters are set.
 - **Active filter chips:** Removable chips below the search bar for active secondary filters (not for kind — the pill shows kind state). Chip row disappears when no secondary filters are active.
@@ -108,7 +108,7 @@ No new data. Filter parameters are the same as today (kind, category, distance, 
 
 - All four filter types already exist (community-platform.md § Explore T1 confirms kind, category, distance, schedule).
 - The search bar is top-anchored and sticky (thesis §5).
-- The bottom nav is 52px tall (thesis §2).
+- The bottom nav is 44px tall (thesis §2, updated 2026-09-02).
 
 ## Out of Scope
 

@@ -18,6 +18,7 @@ If any of the three Serves lines cannot be filled in, escalate to `scope` before
 - [ ] **M3 — `design:accessibility-review`** if this ticket introduces a new page or component.
 - [ ] **M4 — `engineering:deploy-checklist`** if this ticket is part of a merge to main that touches T028+ migration tickets.
 - [ ] **DEVIATIONS.md entry** appended at ticket close — even one line saying "no deviations." Empty is no longer the default.
+- [ ] **Close-out reconciliation** at ticket close: every `decision-{slug}.md` stub this ticket produced is written **and** committed, and every spec / scenario / ticket line this ticket's changes made false is corrected (or logged Type A). "Nothing invalidated" is a valid answer; silence is not.
 
 ## Acceptance Criteria
 

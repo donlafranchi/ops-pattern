@@ -42,7 +42,7 @@ No new data. Pure interaction-layer change.
 
 **Given** a member is on any tab with scrollable content
 **When** they scroll downward by more than 20px of downward delta
-**Then** the bottom tab bar slides out of view with a smooth transition (~200ms ease-out). _Why: the tab bar consumes 52px + safe-area padding on mobile — hiding it during active scrolling maximizes the content viewport. The scroll-direction pattern is standard (Instagram, Safari, Chrome mobile). The 20px threshold prevents jitter on micro-scrolls._
+**Then** the bottom tab bar slides out of view with a smooth transition (~200ms ease-out). _Why: the tab bar consumes 44px + safe-area padding on mobile — hiding it during active scrolling maximizes the content viewport. The scroll-direction pattern is standard (Instagram, Safari, Chrome mobile). The 20px threshold prevents jitter on micro-scrolls._
 
 ### Nav reappears on scroll up
 
@@ -80,8 +80,8 @@ No new data. Pure interaction-layer change.
 **When** inspected
 **Then** it matches the thesis §2 spec:
 - Height: 44px (compact, TikTok-proportioned — per thesis §2 update 2026-09-02) + `env(safe-area-inset-bottom)` padding
-- Icons: 24px outlined, 1.5px stroke weight; active icon transitions to filled variant
-- Labels: 10px/500 (Inter Medium), 4px below icon
+- Icons: 20px outlined, 1.5px stroke weight; active icon transitions to filled variant
+- Labels: 9px/500 (Inter Medium), 3px below icon
 - Active state: icon and label in charcoal-700 (#3C3C3C) — not pistachio
 - Inactive state: icon and label in #717171
 - Top border: 1px #EBEBEB

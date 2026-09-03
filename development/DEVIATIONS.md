@@ -712,7 +712,7 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 
 **Disposition:** accepted-as-is.
 
-**Note — F046's stale visual numbers, already flagged under T112, were not touched.** The scenario's "Nav visual treatment" criterion still carries 52px / 24px / 10px / 4px, and its prose twice cites the retired 52px bar. That is T112's open Type A finding; T113 implements only the scroll-behavior criteria and does not re-flag it. Still awaiting the `tidy` inline fix.
+**Note — F046's stale visual numbers, already flagged under T112, were not touched.** The scenario's "Nav visual treatment" criterion still carries 52px / 24px / 10px / 4px, and its prose twice cites the retired 52px bar. That is T112's open Type A finding; T113 implements only the scroll-behavior criteria and does not re-flag it. _Closed 2026-09-03: F046 and F045 both reconciled to 44px / 20px / 9px / 3px._
 
 **No other deviations.** Threshold, transition timing, initial visibility, fixed positioning, cross-tab consistency, reduced motion, modal pause, keyboard hide, jitter debounce, desktop exemption, and the context export for T114 all match the ticket AC.
 
@@ -766,7 +766,7 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 
 **What (2) — Market and day filters removed from Explore rather than rewired.** The ticket says rewire the query; it does not say delete controls.
 
-**Why:** both read `markets` / `market_vendors` through `MarketContext`. Neither table exists — PostgREST answers `PGRST205` — so `allMarkets` is always empty and both filters are structurally incapable of matching a row. Leaving two visible controls that silently no-op is worse than removing them. `MarketContext` itself is untouched: Home and `/you` still consume it. **Disposition:** accepted-as-is; T115 owns the replacement secondary-filter surface.
+**Why:** both read `markets` / `market_vendors` through `MarketContext`. Neither table exists — PostgREST answers `PGRST205` — so `allMarkets` is always empty and both filters are structurally incapable of matching a row. Leaving two visible controls that silently no-op is worse than removing them. `MarketContext` itself is untouched: the provider stays mounted in `layout.tsx` and `/you` still consumes it. Home does not — `page.tsx` renders `LocalityFeed` off `discoverable_items` (T087/T088). **Disposition:** accepted-as-is; T115 owns the replacement secondary-filter surface.
 
 **What (3) — Category options are derived from the result set, not from a fixed vocabulary.** The prior chip enumerated `CATEGORY_ORDER` (`bread`, `produce`, `honey-jams`, …).
 
@@ -778,12 +778,64 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 
 **What (5) — The `RecruitmentGrid` no-filters default view is gone.** The ticket did not name it.
 
-**Why:** it existed because Explore had nothing real to show. Explore's default is now the browse index, which is the point of the ticket. The component stays in use on Home and `/you`. **Disposition:** accepted-as-is.
+**Why:** it existed because Explore had nothing real to show. Explore's default is now the browse index, which is the point of the ticket. The component stays in use on `/you`; its other importer, `HomeFeed`, is orphaned dead code. **Disposition:** accepted-as-is.
 
-**Note — `MarketPill` is now orphaned.** Removing the market filter left it with no consumer. Not deleted: the retirement of the whole vendor/market surface (`MarketPill`, `MarketSelector`, `VendorCard`, `Vendor`/`Market` types, the `markets` reads in `HomeFeed` and `/you`) is one coherent sweep, not a fragment of a read-surface rewire. Folded into the backlog stub above.
+**Note — `MarketPill` is now orphaned.** Removing the market filter left it with no consumer. Not deleted: the retirement of the whole vendor/market surface is one coherent sweep, not a fragment of a read-surface rewire. Folded into the backlog stub above. That sweep's scope: `MarketPill` (orphaned by this ticket), `HomeFeed.tsx` (orphaned since T087/T088 — it still queries `events` / `businesses` / `markets`, but nothing imports it; Home is `LocalityFeed`), `VendorCard`, the `Vendor`/`Market` types, and `MarketSelector` + the `markets` reads still live in `/you`.
 
 **Note — `EXPLORE_LIMIT` is 100 with no pagination.** Moot at 16 seeded rows; the result count would understate past 100. T115/T116 own the filter and view surfaces and are the natural home for paging.
 
 **Three fixes applied pre-commit at the M2 gate.** (a) `hexToBytes` validated the whole string against `/^[0-9a-fA-F]+$/` — a per-byte `parseInt` accepts `'0z'` as 0 rather than NaN, which would have turned malformed hex into a plausible coordinate. (b) The MV read is `.catch()`-guarded — a rejected fetch (not a PostgREST error row) previously left `loaded` false and stranded the tab on "Loading…" forever; regression test added and confirmed red without the fix. (c) The map pin colour is `var(--color-accent)`, not a hardcoded `#0fab8e`, per `web/CLAUDE.md` § Design System; verified live as `rgb(15, 171, 142)`.
 
 **No other deviations.** MV as the read surface, server-side `item_kind` filtering, All showing every published Item, per-kind pill correctness, `ItemFeedCard` reuse, result count in items, previous-results-during-refetch, search across Item fields, and the empty state all match the ticket AC.
+
+---
+
+## T115 — Filter icon, bottom sheet, and active-filter chips on Explore
+
+**Resolves T114 What (2) and T117 What (2).** Desktop now has the full filter surface (the sheet renders as a right-anchored dropdown panel), and the market/day controls T117 removed are replaced by distance / schedule / category / sort in the sheet.
+
+**What (1) — The location pill is display-only; tapping it opens no locality picker.** Thesis §5 says the pill "opens a bottom-sheet location picker (the existing Locality Selector component)."
+
+**Why:** F045's acceptance criteria place a location pill in the search row and specify nothing about its behaviour — the picker is thesis-level scope with no AC behind it. The "existing Locality Selector" the thesis points at is `MarketSelector`, which reads the retired `markets` table; wiring it back into Explore would undo T117. A real picker needs a Place-scoped Explore (`?place=`), which no ticket covers. Rendering a `<button>` that does nothing would be worse than a label, so the pill is a `<span>`.
+
+**Disposition:** accepted-as-is. The picker belongs with the Explore place scope; folded into the canonical-URL/place stub rather than improvised here.
+
+**What (2) — Distance is measured from the locality centroid, not from the device.** No AC names an origin.
+
+**Why:** the seeded `places.centroid` (026) is readable by anon, needs no permission prompt, and names the same locality the pill displays — so "within 5 mi" means "within 5 mi of where you're browsing," which is what the location pill has just told the member. Browser geolocation would add a privacy-touching affordance F045 does not ask for. When no centroid resolves, the radius options and the "Nearest" sort are disabled with an explanatory line rather than silently emptying the surface. Items with no approved Location are excluded while a radius is active — proximity cannot be verified for them.
+
+**Disposition:** accepted-as-is.
+
+**What (3) — Explore resolves the launch-locality default, not the member's `primary_home`.** `resolveFeedPlace` supports member-home precedence; Explore passes no `memberPlaceId`.
+
+**Why:** reading the member's home client-side means `auth.getUser()` plus a `members` read on every Explore mount, for a surface that has no place scope to honour it with. Home does this server-side because it *is* place-scoped. **Disposition:** accepted-as-is; lands with the Explore place scope.
+
+**What (4) — "Recurring" is backed by a second read of `item_gatherings`, not by an MV column.** `recurrence_rule` is not projected into `discoverable_items`.
+
+**Why:** projecting it means a fifth drop-and-rebuild of the MV and its six indexes for one radio option, on a ticket whose gates record M4 as N/A. `item_gatherings` reads through `select_via_parent`, which resolves to the same published/listed gate the MV encodes, so the id-only read sees exactly the rows a browse may see. Verified live: `?schedule=recurring` returns the two seeded recurring gatherings. **Disposition:** accepted-as-is.
+
+**What (5) — Scroll position is restored on every Explore mount, not only on back navigation.** The AC frames restoration as back-navigation behaviour.
+
+**Why:** in the App Router a client-side back is not a page load, so distinguishing it from a nav-bar tab switch means tracking history direction in app state. For a browse surface, returning the member where they left off is the same behaviour either way and is what comparable surfaces do. The App Router's own restoration cannot serve the AC at all — the results arrive async, so at restore time the page is one viewport tall. **Disposition:** accepted-as-is.
+
+**What (6) — The mobile List/Map toggle stays in a fixed bottom row.** Thesis §5's wireframe puts it inline, scrolling with content.
+
+**Why:** that is T116's ticket, still open on this surface. T115 shrank the cluster from two rows to one (the search input moved to the sticky top bar) and left the toggle where it was, so T116 has a single, obvious change to make. Desktop already gets the inline treatment via `md:static`. **Disposition:** accepted-as-is; T116 owns it.
+
+**What (7) — Kind pills remain `md:hidden`, so desktop still has no kind filter.** F045's desktop edge case says the pills "may move to a horizontal bar below the search row."
+
+**Why:** "may," not "must," and the pill row is T114's component — changing its desktop rendering would rework T114's tests inside a ticket that owns the secondary filters. The desktop gap is pre-existing, not introduced here. **Disposition:** carried forward; T116 or a desktop-parity ticket owns it.
+
+**What (8) — "Clear all" is charcoal-900, not the accent token every other link on the surface uses.**
+
+**Why:** `--color-accent` is 2.9:1 on white and `--color-accent-hover` 4.29:1 — both below 1.4.3's 4.5:1 for 14px text. This ticket introduces the control, so it cannot ship failing. Charcoal-900 is 14.16:1 and is the sheet's own palette (selected options and "Show results" are already charcoal), so inside the sheet it reads as more consistent, not less. The 57 pre-existing accent-as-text instances elsewhere in the app are untouched — re-theming a token app-wide is not a build-agent call.
+
+**Routing:** Type B. Stub filed at `planning/backlog/decision-accent-token-contrast.md`.
+
+**Note — the focus ring stays accent.** At 2.9:1 against white it is marginally under 1.4.11's 3:1, but every focus ring in the app is accent, and inconsistent focus colours on one page are worse for the member than a marginal ratio. Folded into the same stub. Verified live under a real keyboard Tab: `outline: 2px solid rgb(15, 171, 142)` at 2px offset, `:focus-visible` and `:has()` both matching.
+
+**Note — three accepted M3 findings.** The unselected sheet option's #E8E8E8 border is 1.2:1 against white — same finding T114 accepted, same reason (identity and state carry on fill at 11.03:1 and label at 14.16:1). The chip's ✕ is a 32px control grown to the chip's full 42px height by a `::before`, which clears 2.5.8's 24px floor but not the 44px the project prefers for thumb-zone controls; the chip row is at the top of the page, not the thumb zone, and a 44px control would force the row taller than the results it annotates. Disabled distance options at 2.6:1 are exempt from 1.4.3.
+
+**Five fixes applied pre-commit at the M2 gate.** (a) "Clear all" moved off the sub-AA accent token and given a 44px target — it was 20px tall. (b) The sheet locks `document.body` scroll while open; `aria-modal="true"` asserts the rest of the page is inert, and letting the results scroll behind the sheet made that assertion false. (c) The category options union in the current selection — switching kinds could drop a still-selected category from the sheet, leaving a filter the member could only clear from the chip row. (d) `sortExploreItems` keys each item once instead of once per comparison; the "Nearest" comparator called haversine O(n log n) times. (e) The backdrop carries `aria-hidden="true"`.
+
+**No other deviations.** Sticky search row with the three elements in thesis order, the three-slider filter glyph, the dot indicator, the sheet's four filter groups and "Show results" / "Clear all", half-height and internally scrollable, removable chips below the search bar with no chip for kind, the chip row vanishing at zero filters, wrapping rather than scrolling, URL round-trip for kind plus every secondary filter, focus trap and focus return, and `aria-label="Open filters"` / `"Remove [filter] filter"` all match the ticket AC.
