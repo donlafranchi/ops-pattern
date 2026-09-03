@@ -120,7 +120,7 @@ This also holds the line on the b1 no-address-store commitment in `location.md` 
 
 *Superseded 2026-09-03, same day.* An earlier version of this decision had venue-less Items **inherit the creator's location** from `members.home_location_id`, and was recorded as blocked: that column is dead — never populated, never read; the `member.locality.set` handler that would write it does not exist (migration `031_metro_polygons.sql` header, plus inline notes in `place-interest-add.ts` / `place-interest-remove.ts`). Inheritance therefore required standing up member-location collection at signup or in profile, a new requirement scoped nowhere.
 
-**Entry at creation reaches the same outcome and needs none of that.** The Item ends up correctly placed either way; inheritance got there by requiring a second, unbuilt system and by guessing, while entry asks the one person who knows. The dead column is **no longer a blocker or a dependency** for Item location, and the question of what a Member with no location set produces does not arise — there is no member-location read on this path.
+**Entry at creation reaches the same outcome and needs none of that.** The Item ends up correctly placed either way; inheritance got there by requiring a second, unbuilt system and by guessing, while entry asks the one person who knows. The dead column is **no longer a blocker or a dependency** for Item location, and the question of what a Member with no location set produces does not arise — there is no member-location read on this path. A Member neighborhood does return below as the *pre-fill* for that entry, stored once and copied per Item; see § This is a default, not inheritance for why that is a different thing from what was rejected here.
 
 ### Entry and geocode-once are one pipeline
 
@@ -134,11 +134,48 @@ The address or neighborhood the Member types **is the input to the geocode-once 
 
 **The guard that keeps it that way:** the location entry writes the Item's stored discovery hierarchy **only**. It must never write `made_at_place_id` or `made_at_verification_source`, and it must never cause a "Locally Made" badge to render. A Member who enters an address is stating where the Item *is*, not claiming where a product was *made*.
 
-### Open — is location a required field at creation?
+### Asked once, pre-filled every time, overridable per Item — RATIFIED
 
-Not decided here. It follows from "every Item gets a location," but it sits in real tension with § Create is first class: a mandatory field is friction, and **ask and offer are the lightest-weight kinds** — the ones most likely to be abandoned at a form gate, and the ones the platform most wants people to post casually.
+PM ratified 2026-09-03. **The Member is asked for their neighborhood once.** That neighborhood pre-fills the location field on every creation, and the Member can change it on any individual Item.
 
-Mitigations that would soften a required field without deciding it: **remember the Member's last-used location** and pre-fill it; **default to their neighborhood** once the platform knows it; make Online a single tap rather than a menu dive. Any of these turns "required" into "already filled in," which is a different cost. Recorded, not resolved.
+**This closes the required-field tension.** Location is required *and* creation stays low-friction, because the two were only in conflict while "required" meant "empty field the Member must fill." The field arrives already filled in; the Member confirms by doing nothing. Overriding is a choice they make when the Item is somewhere else, not a chore they perform every time.
+
+Intent (Ratified 2026-09-03): The friction cost of a required field is paid at *every* creation; the cost of asking for a neighborhood is paid *once*. Trading a recurring cost for a one-time one is the whole move, and it is what lets ask and offer — the lightest-weight kinds, the ones most likely to be abandoned at a form gate — stay genuinely light while still landing in the right place. Reversible: the default is a pre-fill, so making the field optional later changes one composer behaviour and no stored data.
+
+**Overriding to a full address is how a specific venue gets handled.** Neighborhood-as-default does **not** mean neighborhood-only precision. A Member hosting at a real venue overrides the pre-fill with the address; a Member posting from their kitchen leaves the neighborhood in place. The default sets the *common* case, not the *available* one.
+
+### This is a default, not inheritance — the distinction that will get built wrong
+
+**The neighborhood is copied onto the Item at creation. The Item owns it from then on.** The Item must **not** read through to the Member's profile at display time.
+
+Consequences, both required:
+
+- **A Member who moves and updates their neighborhood does not relocate their past Items.** Those Items stay where they were created. Silent retroactive relocation would be wrong on its face — an event that happened in Oak Park did not move because its host did — and it would quietly rewrite history across every surface that had already shown, linked, or ranked those rows.
+- **An override is permanent to that Item.** An Item created at an overridden location keeps that location; a later change to the Member's default does not reach back into it. Same reasoning: the Member made a per-Item statement, and a default must never overwrite a statement.
+
+Read as an implementation instruction: **copy the value, do not store a reference.** Anything that resolves the Member's current neighborhood at render time is the wrong build, however much cheaper it looks.
+
+### Why this is not the inheritance we rejected
+
+This **partially revives the member-location concept** the previous amendment discarded — and the difference is the whole reason one was rejected and this one accepted.
+
+|  | Inheritance (rejected) | Stored default (accepted) |
+|---|---|---|
+| When the member location is read | At display time, live, on every render | Once, at creation, into the Item's own field |
+| What the Item holds | A pointer to the Member | Its own resolved value |
+| If the Member moves | Past Items silently relocate | Past Items stay put |
+| What it needs to exist | A live, always-populated member-location column | A value asked for once and copied |
+
+Inheritance made every Item's location a *live dependency* on member-location substrate — which is exactly what made it blocked, since `members.home_location_id` is dead (never populated, never read; migration `031_metro_polygons.sql` header). A stored default has no read path at all after creation: the Member is asked, the value is copied, and the Item is self-contained from that moment. Whatever the platform ends up storing the Member's neighborhood in, no display surface depends on it.
+
+### Open — when is the Member asked?
+
+**At signup, or at first creation.** Not decided here.
+
+- **First creation** (the PM's read): asked at the moment it is obviously needed, in a context where the Member can see why. Keeps signup short, which matters for a platform whose newcomer journey is already a funnel.
+- **Signup**: the neighborhood also personalizes the *feed*, which is the surface a Member who never creates anything actually uses — and that is a real argument, not a technicality. Asking at first creation means every consumption-only Member is ranked against nothing.
+
+The trade is signup length against feed quality for non-creators. Recorded for the PM, not resolved.
 
 ---
 
@@ -209,7 +246,7 @@ Raised by the two-tab decision, not answered by it.
 1. **Visual balance of the third slot.** The nav previously held three peer tabs. With two tabs and a centered **+**, what carries the third slot's weight — is the + visually dominant (raised, filled, larger), a peer of the two tabs, or does the nav re-center around two wide targets? Affects the 44px proportion decision above.
 2. **What the + opens.** A bottom sheet (kind picker, stays in context, cheap to dismiss) or a full page (room for the composer, but a harder exit). The choice sets the cost of abandoning a half-made declaration.
 3. **Signed-out You.** You's purpose changed from "your follows and settings" to "what you've made." A signed-out visitor has made nothing. What does the tab show — a sign-in wall, a pitch for creating, or does the nav render differently when signed out?
-4. **Is location a required field at creation?** It follows from "every Item gets a location," but it collides with § Create is first class — a mandatory field is friction, and ask/offer are the lightest-weight kinds. Mitigations that change the cost without deciding it: remember the last-used location, default to the Member's neighborhood once known, make Online one tap. See § Location is entered at creation → Open.
+4. **When is the Member asked for their neighborhood — at signup, or at first creation?** PM's read is first creation (asked when it is obviously needed; keeps signup short), but a neighborhood captured at signup also personalizes the feed for Members who never create anything. Signup length against feed quality for non-creators. See § Location is entered at creation → Open — when is the Member asked.
 
 **Resolved.**
 
@@ -217,4 +254,6 @@ Raised by the two-tab decision, not answered by it.
 - *Is "Online" a first-class location option?* — yes, with a required creation-time warning and no map presence (2026-09-03). See § Online is a location option.
 - *How do the polygon's hard boundary and the radius's graded falloff coexist?* — they don't; both retire for one stored hierarchy (2026-09-03). See § Location resolution.
 - *Where does an Item's location come from?* — the Member enters it at creation: address, neighborhood, or Online (2026-09-03). Supersedes the creator-inheritance answer recorded earlier the same day; the dead `home_location_id` column is no longer a dependency. See § Location is entered at creation.
-- *At what grain does an Item's location publish?* — the Member's choice; neighborhood-level entry is the deliberate privacy mechanism (2026-09-03). See § Location is entered at creation → Neighborhood-level entry.
+- *At what grain does an Item's location publish?* — the Member's choice; neighborhood-level entry is the deliberate privacy mechanism, and overriding to a full address is how a specific venue is handled (2026-09-03). See § Location is entered at creation → Neighborhood-level entry.
+- *Is location a required field at creation?* — yes, and the friction objection is answered by pre-filling it: the Member is asked for a neighborhood once, it pre-fills every creation, and they override per Item (2026-09-03). See § Asked once, pre-filled every time.
+- *Does an Item's location follow its creator?* — no. The neighborhood is **copied** onto the Item at creation and the Item owns it; a Member who moves does not relocate their past Items (2026-09-03). See § This is a default, not inheritance.
