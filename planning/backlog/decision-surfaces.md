@@ -49,21 +49,22 @@ Intent (Ratified 2026-09-03): Proximity is the strongest relevance signal the pl
 
 **What this resolves.** The open question *"do Items with no Location appear?"* — one of the three blocking the Home/Explore merge. **Answer: yes, ranked last** — and, after the creation-entry decision, the state that question was asking about is now *Online*. `product/ui/community-platform.md` § T1 previously deferred it the other way ("Items with no Location — do not appear in the proximity index; keyword-search path at b2"). That line is retired and corrected in place; do not cite it.
 
-### The merged surface would have two ranking authorities — UNRESOLVED, and the hierarchy is why it can't be deferred
+### The merged surface's two ranking authorities — MOSTLY RESOLVED BY DELETION
 
-Raised 2026-09-03 by the shipped Explore code (T115), recorded here because it contests the rule directly above.
+*Revised 2026-09-03 by § Distance is out. The version recorded earlier the same day framed this as a live three-way choice; most of it was deleted rather than decided.*
 
-Home ranks **server-side**: `locality_feed_items(p_place_id, p_tags, p_limit)` is one public SQL function, and the distance-band hierarchy ratified above — nearest first, wider bands below, Online last — lands inside it. Explore ranks **client-side**: T115's `?sort=` re-orders an already-fetched page by newest / soonest / nearest / most-responses, in `sortExploreItems`. Absorb Explore's controls onto Home and the same list has two orderings competing for it, with the client one winning by virtue of running last.
+The collision was: Home ranks **server-side** (`locality_feed_items`, hierarchy inside it), Explore ranks **client-side** (T115's `?sort=` re-orders an already-fetched page in `sortExploreItems`), and merging the surfaces gives one list two orderings with the client one winning by running last. The sharpest case was **`sort=nearest`** — a client-side proximity ordering competing directly with the ratified server-side one, measured differently, and silently winning.
 
-**The hierarchy decision is what makes this urgent rather than a tidy-up.** Before it, "how does Explore sort" was a preference on a flat catalog and either authority was defensible. Now proximity ordering *is* a ratified product rule with an Intent behind it — a Member picking `sort=newest` would silently discard local-first, which is the one ordering the platform has committed to. That cannot be settled after the merge ships; the merge has to name one authority.
+**`nearest` is gone with distance.** So is the case where the two authorities disagreed *about the same thing*.
 
-Three shapes, none picked:
+**What survives, and it is a real open question.** `SORT_OPTIONS` still carries **newest**, **starting soonest**, and **most responses**, and all three still re-order the whole fetched page client-side. They no longer contest the hierarchy on *proximity*, but they do still discard it: a Member picking "Newest" gets a list where local-first is gone, which is the one ordering the platform has committed to. The framing question is unchanged and still unanswered — **is "nearby first" a sort value a Member can leave, or the frame every other sort operates within?**
 
-1. **Server owns it.** `locality_feed_items` grows a sort parameter; every `?sort=` value is a variant of the RPC's ordering, and the band hierarchy is always the outer sort key. Most faithful to the ratified rule, most SQL work, and it makes sort a round trip.
-2. **Server ranks, client re-sorts within a band.** The hierarchy holds as the outer key; `?sort=` orders *inside* each band. Cheap, keeps local-first inviolable, and the Member's sort does less than the label promises.
-3. **Sort is an explicit override.** `?sort=` replaces the hierarchy and says so in the UI. Honest, and it hands the Member a way to turn off the platform's strongest relevance signal without understanding what they turned off.
+Two shapes remain (the third, "sort is an explicit override for proximity," died with `nearest`):
 
-**A fourth is really the framing question:** is "nearby first" a `sort` value the Member can leave, or the frame every other sort operates within? Answering that answers which of the three above is right.
+1. **Server ranks, client re-sorts within a band.** The hierarchy is the outer key; newest / soonest / responses order *inside* each band. Keeps local-first inviolable; the Member's sort does less than the label promises.
+2. **Sort is an explicit override.** `?sort=` replaces the hierarchy and the UI says so. Honest; hands the Member a way to switch off the platform's strongest relevance signal.
+
+**Also open: does the `sort` control survive at all?** With `nearest` removed it is three options on a locality-ranked feed, and "Newest" over the whole metro may be a worse default experience than no control. Confirm at merge scope rather than assuming the control transfers.
 
 **Also unresolved and bundled with it:** Explore's filters narrow **the first 100 rows**, not the corpus. `fetchExploreItems` selects `EXPLORE_LIMIT = 100` from `discoverable_items` with no paging, and category / distance / schedule / sort all run client-side over that page; only `kind` filters server-side, on the MV's indexed column. On an unranked catalog "the first 100" was arbitrary. On a hierarchy-ranked feed it is *the hundred nearest*, so a Member filtering to Online would search the page least likely to contain any. Whichever authority wins, filtering probably has to move server-side with it.
 
@@ -98,6 +99,29 @@ Intent (Ratified 2026-09-03): A hard boundary and a graded falloff could not be 
 **What already exists — do not rebuild it.** The `places` tree (`parent_id`, variable-depth, `region`/`state`/`county`/`city`/`neighborhood`) and `locations.place_id`, reverse-geocoded at Location create via `place_for_coords()`. The `metro_polygons` overlay and `members.home_metro_id` (migration `031`, on `main`). The community-awareness feed already generates candidates from "the attached Location's `place_id` *or any ancestor*" (`discovery.md` § Candidate generation, source 3). **What is new** is storing the resolved levels on the Item itself and making them the only query path — which retires the radius backstop (source 4) and the centroid-radius filter.
 
 **What it does not change.** `location.md` § What does not ship at b1 defers address normalization and geocoding, with a State-tagged Intent (Ratified 2026-05-23). That deferral **stands.** This decision resolves *coordinates* to a *place hierarchy*; it does not normalize, validate, or canonicalize a street address, and it stands up no normalized-address store. `street_address` stays Member-authored free text.
+
+---
+
+## Distance is out — the hierarchy is the only proximity concept — RATIFIED
+
+PM ratified 2026-09-03. **Nothing in the product measures or displays miles.** Sorting is **hood → metro → wider → Online**, and that hierarchy is the entire proximity model. There is no radius, no mile count on a card, no "within 5 miles," no distance sort.
+
+Intent (Ratified 2026-09-03): A mile number is precision the platform cannot honestly deliver and a Member does not actually want. It is measured from a centroid the Member never chose, to a venue whose own coordinates are approximate, and it answers a question ("how far?") that a map app answers better with real roads and real traffic. The hierarchy answers the question people are actually asking — *is this near me, near-ish, or elsewhere* — in words they can act on. Removing distance also removes an entire class of quiet wrongness: every bug below exists only because something had to be measured from somewhere. Reversible in principle, but deliberately not cheap to reverse — the point is to stop treating proximity as arithmetic.
+
+### What this deletes
+
+**This is a deliberate removal of shipped work, not a defect being fixed.** Say so when scoping it.
+
+1. **The distance filter in T115's bottom sheet goes** — `DISTANCE_OPTIONS = [1, 5, 10, 25]`, the radius control, its chip, and the `distance` key in `SecondaryFilters`. T115 merged on 2026-09-03 and this removes part of it days later. That is a scope change, and the ticket was built correctly to the spec that existed.
+2. **The polygon-vs-radius tension is gone entirely — closed, not deferred.** It was already resolved in favour of the hierarchy (§ Location resolution); it is now *unfalsifiable*, because **there is no radius left to reconcile a polygon against.** Any doc still framing "hard boundary vs. graded falloff" as open is stale — close it on sight and cite this section.
+3. **The `?place=` distance-origin defect is gone.** § What the shipped Explore code carries into the merge recorded a live bug: `fetchExploreOrigin` resolves the launch-locality default while `LocalityFeed` resolves the Member's actual place, so on a merged surface changing place would move the feed and leave "within 5 mi" measuring from somewhere else, with no visible symptom. **It cannot happen if nothing measures distance.** Closed by deletion — cross-referenced there so whoever scopes the merge does not go looking for a wire that no longer needs connecting.
+4. **The distance math and the centroid-origin resolution become dead code.** `web/src/lib/explore/filters.ts` — the `toRad` / great-circle helper and the distance-apply path; `web/src/lib/explore/origin.ts` — `fetchExploreOrigin`, `ExploreOrigin`, the `places.centroid` read and the EWKB point decode that exists to feed it; `ExploreFilterSheet`'s `originAvailable` prop and every control disabled by it. **Flag for the merge scope; delete nothing now.** (`MarketSelector.tsx` carries its own `haversineMiles`, but that component is already vendor-era removal per the vendor/market retirement.)
+
+### How distance questions get answered instead — hand off
+
+**If a Member wants to know how far something is, the product gives them the address.** On mobile it opens in the phone's map app; on web it is copyable to paste into a map. The platform does not compute or display the distance itself.
+
+Intent (Ratified 2026-09-03): This is the deliberate answer to "how far is it," not an omission — and it is a better answer. The map app knows the roads, the traffic, the transit, and which of the Member's three saved addresses they are actually leaving from; the platform knows none of that and would be guessing at all four. Handing off is also honest about what the platform is for: it connects neighbours, and routing them is somebody else's competence. **Design consequence:** the address (where the Item has one) has to be present and actionable on the Item surface — a tap-to-open on mobile, a copyable string on web. That affordance is now load-bearing, because it is the only path to a distance answer.
 
 ---
 
@@ -263,6 +287,14 @@ The copy-not-reference rule below matters **more** with a plural, editable set, 
 
 Both follow from the same rule, and neither is optional: the profile set is where the *next* Item's location comes from, never where an *existing* Item's location is read from.
 
+### Future capability, NOT agreed — inferring hoods from behaviour
+
+**Recorded as a possible future capability, explicitly not part of any decision above.** The platform could infer a Member's hoods from what they actually interact with — noticing which hoods they keep returning to and offering to save them.
+
+**b2 or later.** It has no bearing on the decisions above and must not be assumed by anything scoped from them.
+
+**Flag, plainly: this means tracking browsing behaviour per Member.** That is a privacy posture the product **has not taken a position on**, and it should be decided deliberately — via `weigh`, against `policy.md` and the three-filter test — **before** anything is built, not discovered during a ticket. The platform's existing posture leans the other way: `discovery.md` § Community-awareness feed keeps the feed *computed from the Member's own stated interests* rather than from a stored behavioural graph, with a State-tagged Intent (Ratified 2026-05-23) whose test refuses stored follow-edges that become product surfaces. Per-Member browse history is a larger version of exactly that. **Do not read this paragraph as agreement — it is a flag on a road not yet taken.**
+
 ### This is a default, not inheritance — the distinction that will get built wrong
 
 **The hood is copied onto the Item at creation. The Item owns it from then on.** The Item must **not** read through to the Member's profile at display time — not to a single field, and not to the saved set.
@@ -287,14 +319,15 @@ This **partially revives the member-location concept** the previous amendment di
 
 Inheritance made every Item's location a *live dependency* on member-location substrate — which is exactly what made it blocked, since `members.home_location_id` is dead (never populated, never read; migration `031_metro_polygons.sql` header). A stored default has no read path at all after creation: the Member picks, the value is copied, and the Item is self-contained from that moment. Whatever the platform ends up storing the saved hoods in, no display surface depends on it — which is also why a plural, editable, deletable set is safe here and would have been a nightmare under inheritance.
 
-### Open — when is the Member asked?
+### The Member picks a hood **and** a metro at signup — RATIFIED
 
-**At signup, or at first creation.** Not decided here.
+PM ratified 2026-09-03. **Both, at signup**, and the metro is **picked, not derived from the hood.**
 
-- **First creation** (the PM's read): asked at the moment it is obviously needed, in a context where the Member can see why. Keeps signup short, which matters for a platform whose newcomer journey is already a funnel.
-- **Signup**: the neighborhood also personalizes the *feed*, which is the surface a Member who never creates anything actually uses — and that is a real argument, not a technicality. Asking at first creation means every consumption-only Member is ranked against nothing.
+*This closes the open question recorded earlier the same day — signup vs. first creation, with first creation as the PM's initial read. Signup wins:* a hood personalizes the **feed**, which is the surface a Member who never creates anything actually uses. Asking at first creation would leave every consumption-only Member ranked against nothing.
 
-The trade is signup length against feed quality for non-creators. Recorded for the PM, not resolved.
+Intent (Ratified 2026-09-03): Asking for the metro explicitly is **partly redundant with geocoding** — a hood resolves to a metro on its own — and it is worth the redundant question anyway. It gives an unambiguous **default** rather than an inferred one, and it handles the two cases inference gets wrong: a hood sitting near a metro boundary (§ Metro is the vantage point → Accepted risk), and a Member who simply wants a *different* metro as their default than the one their hood falls in. One extra tap at signup buys a correct answer in the cases where derivation would be silently wrong, and a Member who states their metro can never be told they are in the wrong one. Reversible: both are profile fields the Member edits later.
+
+**It also settles the default-metro question** for Members whose hoods span several: the metro they picked at signup is the default. See § Metro is the vantage point → Open for what happens when they later add a hood in a new one — still open.
 
 ### What the plural set does to the feed — answered in § Metro is the vantage point
 
@@ -405,12 +438,13 @@ Recorded 2026-09-03 from T115 (filter icon + bottom sheet + chips) and T116 (inl
 
 **Two directions are in play and they are not in conflict — say which one you mean.** The surviving *tab* is Home; Explore is retired as a tab, per the two-tab model above. The surviving *implementation* is Explore's: `ExplorePage` and `src/lib/explore/*` hold the filtering, the URL state, the MV read and the map, while Home's contribution is one public SQL function (`locality_feed_items`) plus a server component. So the merge is Explore's code rendering under Home's name and Home's ranking rule — not a rewrite of either. This code is inventory for the merge scenario, not salvage.
 
-**Transfers unchanged — no surface knowledge in it.** `src/lib/explore/filters.ts` (the filter model, URL parsing, chip descriptors, week/weekend ranges, haversine, apply + sort), `query.ts` (serialization), `items.ts` / `ewkb.ts` / `kinds.ts` (the data layer), and `useScrollRestoration` (keyed by an arbitrary string). The three components — `ExploreFilterSheet`, `ActiveFilterChips`, `ListMapToggle` — are presentational and take props; none reads page state.
+**Transfers unchanged — no surface knowledge in it.** `src/lib/explore/filters.ts` (the filter model, URL parsing, chip descriptors, week/weekend ranges, apply + sort — **minus the distance filter and the great-circle helper**, per § Distance is out), `query.ts` (serialization), `items.ts` / `ewkb.ts` / `kinds.ts` (the data layer), and `useScrollRestoration` (keyed by an arbitrary string). The three components — `ExploreFilterSheet`, `ActiveFilterChips`, `ListMapToggle` — are presentational and take props; none reads page state.
 
 **Needs rework, and one of them is a live defect.**
 
-- **`?place=` would move the feed but not the distance measurement.** `fetchExploreOrigin` (T115) calls `resolveFeedPlace(client, {})` with **neither** `memberPlaceId` **nor** `requestedSlug`, so Explore's distance origin is always the launch-locality default. `LocalityFeed` calls the same function with both. Merge the surfaces and `?place=` moves the ranked feed while "within 5 mi" keeps measuring from somewhere else — no error, no empty state, no visible symptom, just quietly wrong distances and a wrong "Nearest" sort. T115's DEVIATIONS deferred this to "an Explore place scope"; **the merge is that scope**, and this is the first wire it has to connect. It also compounds with the metro decision: once the vantage point is a *metro* rather than a place, the origin has one more layer to resolve through.
-- **Two ranking authorities.** See § Feed ranking → The merged surface would have two ranking authorities.
+- **~~`?place=` would move the feed but not the distance measurement.~~ CLOSED BY DELETION 2026-09-03 — do not scope this.** The defect was real: `fetchExploreOrigin` (T115) calls `resolveFeedPlace(client, {})` with neither `memberPlaceId` nor `requestedSlug`, so Explore's distance origin was always the launch-locality default while `LocalityFeed` resolved the Member's actual place — `?place=` would have moved the ranked feed while "within 5 mi" kept measuring from somewhere else, with no visible symptom. **§ Distance is out removes the measurement entirely, so the collision cannot occur.** Recorded here so the merge does not go looking for a wire that no longer needs connecting.
+- **Distance filtering and origin resolution are now dead code to remove, not features to port.** `DISTANCE_OPTIONS` and the `distance` filter, the great-circle helper in `filters.ts`, all of `origin.ts` (`fetchExploreOrigin`, the `places.centroid` read, the EWKB point decode that feeds it), and `ExploreFilterSheet`'s `originAvailable` prop and the controls it disables. Deliberate scope removal of shipped T115 work — see § Distance is out.
+- **Two ranking authorities — mostly resolved by deletion.** `sort=nearest` is gone with distance; newest / soonest / responses still re-order client-side. See § Feed ranking → The merged surface's two ranking authorities.
 - **`TOGGLE_AFTER_CARDS = 4`.** In `ExplorePage.tsx`; the inline list/map toggle interrupts the card grid after this many cards. Four is not arbitrary — it is the only value in F044's stated 3–5 range that completes a row at both `grid-cols-2` (mobile) and `lg:grid-cols-4`. It does *not* complete a row at the `md:` 3-column band, and no number in the range completes all three. Home's feed renders `max-w-3xl` at a different column count, so the merged grid re-derives this or the toggle lands beside a half-empty row. It is the only constant in either ticket that depends on the surrounding layout.
 - **Two tablists already share one results region.** The kind pills (T114) and the view toggle (T116) both point `aria-controls` at `#explore-results`. Defensible at two. The TikTok top-slider above would be a third claimant on the same panel — at that point the region should become a plain labelled `region`, not a tabpanel, since no single tab labels it.
 - **`?view=` was deliberately removed** (T116, per F044 § Out of Scope — the list/map view is ephemeral session state). If the merged surface wants a shareable map link, that is a decision to re-open, not an oversight to fix.
@@ -428,17 +462,16 @@ Raised by the two-tab decision, not answered by it.
 1. **Visual balance of the third slot.** The nav previously held three peer tabs. With two tabs and a centered **+**, what carries the third slot's weight — is the + visually dominant (raised, filled, larger), a peer of the two tabs, or does the nav re-center around two wide targets? Affects the 44px proportion decision above.
 2. **What the + opens.** A bottom sheet (kind picker, stays in context, cheap to dismiss) or a full page (room for the composer, but a harder exit). The choice sets the cost of abandoning a half-made declaration.
 3. **Signed-out You.** You's purpose changed from "your follows and settings" to "what you've made." A signed-out visitor has made nothing. What does the tab show — a sign-in wall, a pitch for creating, or does the nav render differently when signed out?
-4. **When is the Member asked for their hoods — at signup, or at first creation?** PM's read is first creation (asked when it is obviously needed; keeps signup short), but hoods captured at signup also personalize the feed for Members who never create anything. Signup length against feed quality for non-creators. See § Location is entered at creation → Open — when is the Member asked.
-5. **What determines the default metro when a Member's hoods span several — and can they set a primary?** First added, most hoods, or explicitly chosen. See § Metro is the vantage point → Open.
-6. **What happens to the active metro when a Member adds a hood in a new one?** Switch, stay, or ask. Same section.
-7. **Is the geocode-once step what assigns a hood to its metro?** Assumed, not confirmed — `resolve_home_metro()` already does point→metro containment for `primary_home`, but whether the Item and hood paths call it at geocode time is unsettled, and it decides where the null-metro (rural) case is handled. Same section.
-8. **Is there a cap on saved hoods?** Unbounded lets a Member accumulate a whole metro one hood at a time. See § A Member has a set of saved hoods → What the plural set does to the feed.
-9. **What do a metro's inner and outer rings do differently — ranking band, filter, or rendering only?** And can a Member's hoods sit in an outer ring without that metro becoming their default? See § Metro is the vantage point → Open.
-10. **Who owns metro boundary definition and maintenance?** Reference data the product now depends on, with no named owner and no update cadence. Same section.
-11. **Can a Member browsing another metro create there, or only read?** Sets whether the switcher is a read affordance or a full context switch. Same section.
-12. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
-13. **Which layer owns ranking on the merged surface — the SQL function or the client?** The distance-band hierarchy is server-side in `locality_feed_items`; Explore's shipped `?sort=` re-orders a fetched page client-side. The underlying question is whether "nearby first" is a sort value a Member can leave or the frame every other sort works within. Cannot be deferred past the merge — the hierarchy is ratified, and a client sort silently overrides it. See § Feed ranking → The merged surface would have two ranking authorities.
-14. **Does filtering move server-side with the ranking?** Explore's category / distance / schedule / sort all narrow the first 100 rows, not the corpus. Against a hierarchy-ranked feed that page is *the hundred nearest*, so filtering to Online searches the rows least likely to contain any. Same section.
+4. **What happens to the active metro when a Member adds a hood in a new one?** Switch, stay, or ask. See § Metro is the vantage point → Open.
+5. **Is the geocode-once step what assigns a hood to its metro?** Assumed, not confirmed — `resolve_home_metro()` already does point→metro containment for `primary_home`, but whether the Item and hood paths call it at geocode time is unsettled, and it decides where the null-metro (rural) case is handled. Same section.
+6. **Is there a cap on saved hoods?** Unbounded lets a Member accumulate a whole metro one hood at a time. See § A Member has a set of saved hoods → What the plural set does to the feed.
+7. **What do a metro's inner and outer rings do differently — ranking band, filter, or rendering only?** And can a Member's hoods sit in an outer ring without that metro becoming their default? See § Metro is the vantage point → Open.
+8. **Who owns metro boundary definition and maintenance?** Reference data the product now depends on, with no named owner and no update cadence. Same section.
+9. **Can a Member browsing another metro create there, or only read?** Sets whether the switcher is a read affordance or a full context switch. Same section.
+10. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
+11. **Does the `sort` control survive at all, and if it does, which layer owns ranking?** `nearest` died with distance, but newest / soonest / responses still re-order a fetched page client-side and still discard local-first. Confirm at merge scope whether three options on a locality-ranked feed earn a control. If they do: is "nearby first" a sort value a Member can leave, or the frame every other sort works within? See § Feed ranking → The merged surface's two ranking authorities.
+12. **Does filtering move server-side with the ranking?** Explore's category / schedule / sort narrow the first 100 rows, not the corpus. Against a hierarchy-ranked feed that page is *the hundred nearest*, so filtering to Online searches the rows least likely to contain any. Same section.
+13. **Should inferring hoods from browsing behaviour ever happen?** b2+, and it needs a per-Member browse-tracking privacy posture the product has not taken. **Not agreed** — see § A Member has a set of saved hoods → Future capability, NOT agreed.
 
 **Resolved.**
 
@@ -451,4 +484,8 @@ Raised by the two-tab decision, not answered by it.
 - *What word does the UI use for a neighborhood?* — "hood" (2026-09-03). Copy only; schema and identifiers stay as they are. See § The user-facing word is "hood".
 - *Does the feed union a Member's hoods or switch between them?* — **both, split at the metro line** (2026-09-03): hoods within one metro are active together; hoods across metros switch. "Nearby" is measured from the active metro, and the browse switcher is a *metro* switcher. Carries an accepted risk, **now scoped to the dense corridors** where metros actually abut. See § Metro is the vantage point.
 - *Is a metro edge a hard line?* — no; inner core plus outer ring, and metros mostly do not overlap (2026-09-03). Neither refinement is expressible in `metro_polygons` today. Same section.
+- *Does the product measure or display distance?* — **no.** No radius, no mile counts, no distance sort; the hierarchy is the only proximity concept, and "how far is it" is answered by handing the Member the address for their map app (2026-09-03). See § Distance is out.
+- *When is the Member asked for a hood, and where does their metro come from?* — both picked at **signup**, the metro explicitly rather than derived (2026-09-03). Supersedes the earlier first-creation lean. See § Location is entered at creation → The Member picks a hood and a metro at signup.
+- *How do the polygon boundary and the distance radius coexist on the merged surface?* — **moot.** There is no radius left (2026-09-03). See § Distance is out.
+- *Does `?place=` move the feed but not the distance origin?* — **cannot happen**; nothing measures distance (2026-09-03). Closed by deletion, not by wiring. Same section.
 - *Does an Item's location follow its creator?* — no. The neighborhood is **copied** onto the Item at creation and the Item owns it; a Member who moves does not relocate their past Items (2026-09-03). See § This is a default, not inheritance.
