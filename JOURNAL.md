@@ -14,6 +14,22 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-03 — Day wrap: two tickets deployed, and the PM looked at the result and wants the layout redone
+
+Closing entry for a long day. Two tickets shipped and are live — the Explore filter sheet with active-filter chips (T115) and the inline list/map toggle (T116). Seventeen commits went to production and the build was clean. Three live bugs went with them: a dead markets query firing on every page app-wide, the "List your business" CTA showing to Members with no business-Group membership, and the setup docs pointing at a destructive pre-rebuild script instead of the migration set.
+
+**The one thing to read before touching any UI: the deployed result is judged worse than what it replaced, and the fix reverses today's shipped work.** Looking at production, the PM wants image-rich cards, a search box sitting above the nav with a filter button at its right edge, and a floating map button for the list/map switch. That reverses T114's kind-filter pill row and T116's inline toggle, and relocates T115's filter sheet out of its current position. **Nothing has been built toward it and nothing has been scoped** — there is no scenario, no ticket, and no decision doc. A card-regression diagnosis was in progress when the day ended and never produced a findings doc on disk; **check for its findings before starting any layout work**, because the cards may already be broken in a way that changes what the redesign has to fix.
+
+Four direction changes landed as decisions, none of them built yet. **The nav goes from three tabs to two** — Home consumes, You produces, with a first-class create + between them. **Explore is absorbed into Home**, not the reverse; moving Explore's controls onto Home is roughly a third the work of moving Home's feed into Explore. **The location model was reworked end to end** — hoods as the user-facing unit, geocode once at entry into a stored hierarchy rather than resolving on read, metro as the feed's vantage point, and distance removed from the product entirely (hierarchy is the only proximity concept; the address hands off to a map app). **Business identity is local** — names scope to a hood and a metro, there is no global handle; that solves name hoarding and explicitly does not solve impersonation, which stays open. **QR codes are out of the product**; a producer generating a QR for their own business survives as a possible future capability, unscoped.
+
+Waiting on the PM, so nobody re-derives them: whether an Item's location is a required field; at what moment a Member is asked for their hood; who owns metro boundary reference data; and whether preview deployments are wanted at all, given they would need preview-scoped env vars and a non-production database.
+
+Repo state at stop: both repos clean, nothing loose. The app repo carries two unpushed commits by instruction — the QR removal and a `.claude/` gitignore — so **main is ahead of what is deployed**; deploy them deliberately, don't assume production matches HEAD. The vendor/market retirement is scoped but only partly executed: `/register-vendor`, `/vendors/[slug]`, and `/you/vendor/*` still build and ship. One unit test is red and was already red in production — `EmailFirstSignup.test.tsx` asserts `signUp` takes two arguments while the component now passes a third (`next`, added by the auth-redirect fix). Test drift, not a product bug. Twelve other failures appear only under parallel runs; the probe tests write into the source tree and collide, so `--no-file-parallelism` is the honest signal.
+
+→ planning/backlog/decision-surfaces.md (two-tab model, Home absorbs Explore); planning/backlog/decision-business-identity-impersonation.md; planning/backlog/plan-location-model-sequence.md + review-F048-F053-location-model.md; scenarios F048–F053; playbooks/PLATFORM-PATTERNS.md § No platform-generated QR codes; planning/backlog/audit-vendor-market-retirement.md. Web commits: 06bc333–fb1852b (17 pushed), fb1852b + ed11003 unpushed. Parent commit: d741558.
+
+---
+
 ## 2026-09-03 — Took QR codes out of the product entirely, and unblocked the vendor cleanup that was waiting on them
 
 The platform no longer generates QR codes — not for items, not for joining. Sharing is phone to phone: a link, copied or sent. That removed a constraint that had been quietly shaping unrelated decisions: a printed code resolves forever to whatever URL was baked into it, which made every URL it touched permanently load-bearing and had blocked the `/join` retarget for a full cycle. `/join` now points at the You surface and the whole QR feature is gone — nine files, its dependency, its evals. What stays open, deliberately, is narrower: a business owner generating a QR for *their own business* is a plausible producer tool, unscoped, likely b2 or later, and it should be built fresh rather than recovered from git history. A hashtag-style handle was raised as an alternative shareable identifier and is undecided.
@@ -28,7 +44,7 @@ Alongside it, the careful half of the vendor/market retirement is done and the p
 
 Turned today's location decisions into four writable scenarios — removing distance and handing off the address, asking for a hood and a metro at signup, keeping a set of hoods on the profile, and entering an Item's location while creating it — plus two blocked stubs for feed ranking and metro switching. Removing distance has to land *before* the Home/Explore merge: it deletes the merge's sharpest ranking conflict and stops dead distance code and a live measurement defect from being ported into Home. Recommendation is that only the distance removal and the signup change belong in b1; everything else waits. Two of the four questions the PM thought were open are already answered in the record, and the rural / no-metro path quietly lost its fallback today.
 
-→ planning/backlog/plan-location-model-sequence.md; planning/backlog/review-F048-F053-location-model.md; scenarios F048–F053; planning/stage-ledger/F048–F053, S-location-hierarchy. Commit: {pending}
+→ planning/backlog/plan-location-model-sequence.md; planning/backlog/review-F048-F053-location-model.md; scenarios F048–F053; planning/stage-ledger/F048–F053, S-location-hierarchy. Commit: d741558
 
 ---
 
