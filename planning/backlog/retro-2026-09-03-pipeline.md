@@ -45,74 +45,75 @@ Same shape on M3. `AGENTS.md` puts M3 **inside `review`** — which was skipped 
 
 ---
 
-## 3. Amendments
+## 3. Amendments, ranked by how much of today they prevent
 
-Five changes. The first three would have caught most of today.
+Checklists live in [`playbooks/process-checklists.md`](../../playbooks/process-checklists.md) — four of them, one per kind of work, each with a trigger you run rather than judge. The amendments below are what makes them fire.
 
-### A. Push it where you can see it — `skills/build/workflow.md` (load-bearing)
+### 1. Push after every merge — `skills/build/workflow.md`
 
-Replace, in the cheat sheet:
+Prevents: the entire feedback failure, and transitively the missing design review, the undesigned card, and the appearance-blind deviations — all of which you would have caught by eye in five minutes with a live URL.
+
+This is an amendment to a stated boundary. The cheat-sheet line currently reads:
 
 > | **Does NOT run** | `git push`, `git rebase`, anything that rewrites history. …
 
-with:
+Replace with:
 
 > | **Does NOT run** | `git rebase`, anything that rewrites history. `git add` + `git commit` fire after PM `y` at ticket close; `git push origin main` fires after PM `y` at step 22. |
 
-And add after step 21 (merge):
+Add after step 21 (merge):
 
-> 22. **Ask PM permission to push.** Output verbatim: `Ready to push main to origin? (y/n)`. On **y**, run `git push origin main`. Then output the deployed URL and one line naming what the PM should look at — the surface, not the ticket. A ticket is not closed until the work is reachable by someone who did not build it.
+> 22. **Ask PM permission to push.** Output verbatim: `Ready to push main to origin? (y/n)`. On **y**, run `git push origin main`, then output one line naming the **surface** to look at — not the ticket number.
 
-### B. Check the premise before building — `skills/build/workflow.md` step 2 (load-bearing)
+**What it costs.** `web/.vercel/project.json` links this repo to Vercel, so **pushing `main` deploys to production.** That is the real price and it should be a decision, not a side effect. There are no users yet, so today it is nearly free; it stops being free the moment there are.
 
-Extend the existing scenario lane check with a second clause:
+**Two gaps the ticket-close push does not cover, both real:**
 
-> **Premise check.** Read the surface spec the ticket cites (`product/ui/*.md`, `planning/backlog/decision-*.md`) and check its git log for changes since the ticket was written. If the surface has been retired, merged, superseded, or has an open ratified decision that contradicts the ticket, **stop and surface it** — do not build. Cheap version: `git log --since=<ticket date> -- <spec path>`.
+- **Non-ticket commits.** Six of today's web commits — the QR removal, the `MarketProvider` unhook, the CTA gate — had no ticket, so no ticket close would have pushed them. Add one row to `skills/orient/workflow.md` step 7: *`git log origin/main..main` non-empty in `web/` — shipped work the PM cannot see*. This row earns its place precisely because the push step doesn't cover everything.
+- **The parent repo is 32 commits ahead of `origin`.** Every location-model decision made today, and this retrospective, exist only on this Mac. `CLAUDE.md` line 18 calls the parent *"local-only,"* which is false — it has a remote (`ops-pattern`) last pushed 2026-09-02. That stale line is plausibly why nobody pushes it. Correct it, and add the parent push to the `clearlock` line every Cowork skill already hands you.
 
-This catches T116 (3h window). It does not catch T115. Say so plainly rather than pretending the rule is stronger than it is.
+**Previews are a separate decision, filed as one:** [`planning/backlog/decision-preview-deployments.md`](decision-preview-deployments.md). Short version — `web/.env.vercel.local` already says *"Scope: Preview + Development"* but its values point at the production Supabase project, so previews today would either fail or write against production. That needs a second database, not a config tweak. Recommendation is defer; screenshots stand in.
 
-### C. Make `review` actually mandatory — `skills/review/workflow.md` + `skills/ticket/workflow.md` (load-bearing)
+### 2. The ratify checklist — `skills/weigh/workflow.md`, pointing at checklist 1
 
-In `review/workflow.md`, replace:
+Prevents: T116 built on a retired surface, and the distance filter shipping hours before distance left the product. This is the checklist that did not exist, and the two items that matter are new:
 
-> Optional but recommended for scenarios that introduce any of the following:
+> - [ ] **List in-flight tickets on the affected surface.** `grep -l "<surface>" development/tickets/*.md`. Every hit is stale as of this ratification — give each a disposition **in this session**.
+> - [ ] **List approved scenarios on the affected surface.** Same grep across `planning/next/` and `planning/now/`.
 
-with:
+Nothing today asked what a decision invalidated. Explore's retirement at 10:17 had T116 open against it and said nothing; distance removal at 15:33 had T115's filter merged six hours earlier and said nothing.
 
-> **Mandatory during the rebuild phase** (CLAUDE.md rule 1) for any scenario that introduces or changes a surface a Member sees. Skip only for copy/CTA edits on an existing surface. The trigger list below is what makes it mandatory, not what makes it advisable:
+### 3. Gate C — review present, `skills/ticket/workflow.md`
 
-In `ticket/workflow.md`, change the input line from *"`review-F{NNN}.md` … if it exists"* to **required**, and add step 3b:
+Prevents: F044 and F045 reaching `ticketed` with no review, and with it the design review that never ran on either.
 
-> **Gate C — review present.** If no `review-F{NNN}.md` exists in the scenario's lane, stop. Do not draft tickets. Route to `review`. A scenario that reached `ticketed` with no review is a rebuild-rule violation; record it in the F-number's stage-ledger file.
+Add as step 3b:
 
-### D. Fix the M3 trigger — `skills/ticket/templates/ticket.md` + `AGENTS.md` gate table (load-bearing)
+> **Gate C — review present.** `ls planning/{next,now}/review-F{NNN}.md`. No file → stop, do not draft tickets, route to `review`.
 
-Replace:
+And fix the contradiction that made it skippable: `skills/review/workflow.md` opens with *"Optional but recommended"* while `CLAUDE.md` rule 1 calls review mandatory. Replace with:
 
-> - [ ] **M3 — `design:accessibility-review`** if this ticket introduces a new page or component.
-
-with:
-
-> - [ ] **M3 — `design:accessibility-review` + `design:design-critique`** if this ticket changes what a Member sees: a new page or component, an existing component rendered on a **new surface**, a **new data shape** in an existing component, or the removal or relocation of a control. **"No new component" is not a valid N/A** — the test is whether a Member could notice the difference. If yes, the gate fires.
-
-Mirror the wording in the `AGENTS.md` M1–M4 table, M3 row ("Every new page or component" → "Every change a Member could notice").
-
-### E. Acceptance criteria must name appearance — `skills/ticket/templates/ticket.md` (nice-to-have)
-
-T088 specified `ItemFeedCard` as *"shows title, kind badge, brand/owner, nearest-location label."* That is a data contract. It is the whole reason the card is text-only with no image and no hierarchy, and why no critique of it exists anywhere in the pipeline. Add to the AC section:
-
-> - [ ] {For any ticket that renders a surface: which `design-language.md` recipe governs its appearance. If none fits, that is an `explore` gap — escalate rather than inventing one at build time.}
-
-Separately, file one backlog item: a design critique of `ItemFeedCard`, plus a DLS recipe for it. The generic **Card** recipe doesn't cover a feed card, and three surfaces now share this component.
-
-### F. Two drift-check rows — `skills/orient/workflow.md` step 7 (nice-to-have)
-
-| Check | Source |
-|---|---|
-| `git log origin/main..main` non-empty in `web/` — shipped work the PM cannot see | 2026-09-03 retro |
-| Any open ticket whose cited surface spec changed after the ticket's date — premise drift | 2026-09-03 retro |
+> **Mandatory during the rebuild phase** (CLAUDE.md rule 1) for any scenario that introduces or changes a surface a Member sees. Skip only for copy/CTA edits on an existing surface.
 
 ---
+
+**If only three land, those are the three.** The two below are worth doing and I would drop them first.
+
+### 4. Make the M3 trigger mechanical — ticket template + `AGENTS.md`
+
+Replace *"if this ticket introduces a new page or component"* with the grep in checklist 4, plus: *an existing component on a route that did not previously render it, or an existing component receiving a new data shape.* **"No new component" is not a valid N/A.**
+
+Droppable because M3 lives inside `review` per `AGENTS.md`, so Gate C already restores it. This is a second lock on the same door — worth having, not worth trading for either of the first three.
+
+### 5. Premise check in `build` step 2
+
+`git log --since="<ticket Date>" -- <cited spec paths>`. Non-empty → confirm the ticket still stands before writing code.
+
+Droppable because the ratify checklist catches the same failure upstream and cheaper. Keep it only as defence in depth for decisions made in Cowork that never ran checklist 1. It catches T116's three-hour window; it does not catch T115, and no rule does.
+
+### Cut entirely
+
+The appearance clause in acceptance criteria and the second drift-check row both folded into the checklists rather than standing as separate amendments. A scenario-writing checklist and an audit checklist are **not written at all** — `scope` and the audits both worked today, and adding process to the parts that work is how you get a harness nobody runs.
 
 ## 4. What worked, and why
 
@@ -129,7 +130,9 @@ The fixes above should not touch any of this. Note that none of them are checkli
 
 ## 5. On speed
 
-**Load-bearing: A, B, C, D.** Four edits across four files. Together they add roughly one prompt per ticket (the push) and one gate per scenario (the review). That is not a week.
+**Keep 1, 2, 3. Drop 4 and 5 if anything has to go.** Together the three add one prompt per ticket (the push), one `ls` per ticket (Gate C), and two greps per decision. That is not a week — it is under a minute per unit of work, and every one of them is "run this command," not "consider whether."
+
+The point of four checklists instead of one list is that no unit of work runs more than one of them. Ratifying a decision runs six items. Building a ticket runs five. Nobody ever reads the twenty they don't need, which is why the twenty get skipped today.
 
 **Nice-to-have: E, F.** Do them when convenient.
 
