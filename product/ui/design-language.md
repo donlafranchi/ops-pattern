@@ -150,7 +150,8 @@ Intent (Ratified 2026-09-04): A card whose height depends on per-row data gives 
 - Background `--color-surface` (`#F7F7F7`). This is the token's documented purpose — *"hover states, text-forward card backgrounds, empty states."* A media block with nothing in it is an empty state. It is not a tint, and Principle 3 is not in tension with it.
 - Centered: the kind's line glyph, 28px, 1.5px stroke, `--color-fg-muted`. Nothing else — no text in the field, no circle behind the glyph, no accent line.
 - Measured contrast `--color-fg-muted` on `--color-surface` is **4.56:1** — clears AA for text and clears the 3:1 bar for graphical objects. Do not lighten either token in this pairing without re-measuring.
-- **No colour, ever.** No per-kind palette, no accent fill, no emoji. A seven-colour kind ramp would violate Principle 1; emoji render as full-colour platform art the DLS does not control. This is the surviving clause of the retired no-photo bullet and it is the binding constraint on this recipe.
+- **No colour, ever.** No per-kind palette, no accent fill, no emoji. This is the surviving clause of the retired no-photo bullet and it is the binding constraint on this recipe.
+  Intent (Ratified 2026-09-04): A seven-colour kind ramp would spend the one-accent budget of Principle 1 on a label the text zone already carries in words, and emoji are full-colour platform art rendered differently on every operating system — a canvas whose stated aim is that the chrome disappears cannot hand its most-repeated element to a vocabulary it does not control. Reversible in principle: if kind ever needs to be distinguishable at a glance without reading, the glyph is the slot that would carry it, and the decision to re-open is a Principle 1 question rather than a card question.
 
 **Kind glyphs.** `lucide-react` (already a dependency). The mapping is fixed here so no surface picks its own:
 
@@ -166,7 +167,8 @@ Intent (Ratified 2026-09-04): A card whose height depends on per-row data gives 
 
 **The kind label is text, not a chip.** Uppercase, 11px/600, `0.08em` tracking, `--color-fg-muted`, first line of the text zone — the editorial label treatment the retired no-photo bullet already specified, now used on every card in both media states. It replaces the pill-shaped kind chip: `.chip` carries `px-3.5 py-2 text-sm` and renders ~32px tall, which on a 2-column mobile card is a heavier element than the title it sits above. A chip is an interactive affordance; the kind is not interactive on a card.
 
-**The card fills its grid cell.** Full height, text zone growing to absorb the difference, so rows stay flush no matter how many lines a title wraps to. **The card specifies no width and no column count** — `ItemFeedCard` already renders in three grids at three different column counts (`LocalityFeed` 2/3, `VenuePublicPage` 2/3, `ExplorePage` 2/3/4) and the merged Home surface may use a fourth. Width is the grid's business.
+**The card fills its grid cell.** Full height, text zone growing to absorb the difference, so rows stay flush no matter how many lines a title wraps to. **The card specifies no width and no column count.**
+Intent (Ratified 2026-09-04): `ItemFeedCard` already renders in three grids at three different column counts (`LocalityFeed` 2/3, `VenuePublicPage` 2/3, `ExplorePage` 2/3/4), and the merged Home surface may use a fourth. A card that carries its own width is a card that has to be re-decided at every consumer; a card that fills its cell is decided once. Width is the grid's business. Reversible — a fixed-width variant would be a new recipe alongside this one, not an edit to it.
 
 ### Horizontal card scroll
 A single-row, snap-scrolling strip of compact cards for an at-a-glance summary that links onward to a full page. First consumer: the `/you` "Following" summary (F042 / T108); use it for any "here's a peek, see all →" surface.
