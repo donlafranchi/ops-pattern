@@ -73,6 +73,20 @@ That's the verb set. Six kinds. Two verb-families. The kinds are defined by what
 
 The kind enum is extensible. Future candidates if real cases warrant: `nonprofit`, `mutual_aid`, `worker_collective` — not in scope at b1.
 
+## What a Group-filed Item is credited to
+
+An Item filed under a Group is credited to the Group, not to the Member who authored it. For a
+`kind='business'` Group that is the business's display name (`group_businesses.display_name`,
+denormalized onto `items.brand_label` at create time so the Item page renders without a join).
+For every other kind the credit is the Group's own `name` — *"Hosted by Repair Cafe Regulars."*
+
+The distinction matters because `brand_label` exists only for business Groups, and the Item
+resolvers originally treated its absence as "this Item has no Group," which made every Item filed
+under an `event_anchored`, `interest`, `place`, or `practice` Group unresolvable. Event-anchored
+Groups are exactly the case the spec contemplates above — a Group born from a recurring Gathering
+Item — so the omission bit the kind of Group the spec was most explicit about. See
+`development/deviations/T119.md` § Deviation 3.
+
 ## Roles per kind
 
 | Kind | Valid roles |

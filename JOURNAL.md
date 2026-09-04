@@ -14,6 +14,22 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-04 — Fixed the broken item links: 11 of 11 now open, and the 5 that can't were taken off the surface
+
+**Every link a member can tap now works.** Nine of sixteen seeded items used to open a 404. Four were the items filed under a business or a club — the most credible things on the feed — and they now resolve at their real place-scoped addresses. The other five are the kinds the app cannot yet display; rather than leave them linking to nothing, they are withheld from every browse surface until they are real. Verified on production, not just locally: eleven links, eleven 200s.
+
+**The stub had found two causes; there was a third, and it was the one that mattered for v1.** Attribution on the group path read a field that is only ever filled in for *businesses*. A gathering filed under a club has it empty, and the page returned nothing — so the Repair Cafe was broken twice over, once in the link and once again in the page itself, and a correct URL would not have saved it. Group events are in v1 scope and every one of them will be filed under a non-business group, so this would have taken that whole workstream down quietly. Now the group is credited by its own name.
+
+**The place path in these URLs was decorative and is now real.** Nothing in the code reads those segments — they could have said anything and the page would still have rendered. That is exactly why they had to be built from actual data rather than assembled from whatever was to hand: a canonical URL that lies about where something is still gets shared and quoted. It is derived live rather than cached, so renaming a place corrects the links instead of staling them.
+
+**Three shipped filter pills came off with the hidden kinds.** Ideas, Offers and Asks could no longer return anything, and a filter that always finds nothing reads as broken rather than unbuilt. The pill row is now derived from the same one list, so the two cannot drift apart again. That catch came from the review — the gate F044 and F045 both skipped.
+
+**Known and deliberate:** the feed is now eleven items rather than sixteen. Eleven that work beat sixteen where five lie, and content density is its own workstream. The four withheld kinds are not one job — Ideas is close, Offers and Asks are a matched pair worth doing together, and Initiative is a project with a state machine, not a kind. All four need a reply mechanism that does not exist for any kind yet, which is the real reason to keep them together.
+
+→ playbooks/PLATFORM-PATTERNS.md § canonical Item URLs + § browsable kinds; planning/done/2026-09-04-F054-canonical-item-urls/; development/deviations/T119.md; planning/stage-ledger/F054.md. Web commits: d4f9d11, bed1e2d (pushed, deployed). Production migration 037 applied by hand.
+
+---
+
 ## 2026-09-04 — Settled the support/oppose question by deferring both, and put a plain report path in v1 instead
 
 **Support and oppose are deferred, not rejected.** A voting mechanic only carries information once there are enough buyers and producers for the signal to mean something, and bad actors don't turn up before there's an audience worth targeting — building voting mechanics for a platform with sixteen items is premature on both counts. The name does much of the filtering work at this stage anyway. The support-public / opposition-private shape stands as what to return to when density arrives; the "does the support signal show a count" question travels with the deferral and is no longer open work.

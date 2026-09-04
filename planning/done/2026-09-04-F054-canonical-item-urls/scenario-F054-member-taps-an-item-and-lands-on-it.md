@@ -1,7 +1,7 @@
 ---
 purpose: Scenario — every Item shown on a browse surface opens its own page. Fixes the 9-of-16 404 rate by emitting Group place-path URLs and withholding kinds with no page.
 layer: how
-status: next
+status: done
 ---
 
 # F054: A member taps something in the feed and lands on it

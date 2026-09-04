@@ -1,7 +1,7 @@
 ---
 purpose: Review — F054 canonical Item URLs and browsable-kind withholding. Verdict PROCEED with three binding notes.
 layer: how
-status: next
+status: done
 ---
 
 # F054 review — A member taps something in the feed and lands on it

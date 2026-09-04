@@ -1,7 +1,7 @@
 ---
 purpose: Ticket — emit Group place-path canonical URLs, fix non-business Group attribution, withhold kinds with no detail page.
 layer: how
-status: open
+status: done
 ---
 
 # T119: Canonical Item URLs and browsable-kind withholding
