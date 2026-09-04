@@ -1,5 +1,5 @@
 ---
-purpose: Two tabs plus a create action (Home, +, You) — what each surface does, what Explore's retirement absorbs, how the merged Home ranks, how a Member enters an Item's location and how it resolves to a stored hierarchy, and what You has to become.
+purpose: Two tabs plus a create action (Home, +, You) — what each surface does, what Explore's retirement absorbs, how the merged Home ranks, how business identity scopes locally, how a Member enters an Item's location and how it resolves to a stored hierarchy, and what You has to become.
 layer: what
 status: ratified
 ---
@@ -337,6 +337,38 @@ Still open: **is there a cap on saved hoods?** Unbounded invites a Member to sav
 
 ---
 
+## Business identity is local, not global — RATIFIED
+
+PM ratified 2026-09-03. **Business names are scoped to a hood or metro.** There is **no global namespace** and **no platform-wide handle**. Two businesses in different hoods may share a name, and neither is wrong.
+
+Intent (Ratified 2026-09-03): **Name hoarding is a domain-name dynamic, and it only exists when there is one global namespace with exactly one winner.** Scoping names locally **removes the incentive rather than policing it** — claiming "Joe's Pizza" in a hood you do not operate in buys nothing, because nobody outside that hood is looking for it and nobody inside it is blocked by you. There is no resale value in a name that is only worth anything to someone standing nearby. This is the strongest form of the fix: not a rule against squatting, not a takedown queue, but a namespace where squatting has no payoff. **It falls out of the location model for free** — once hoods and metros are the scope for ranking and browse, they are the natural scope for identity too, and the platform pays nothing extra for it. Reversible in the sense that any narrowing is: a global layer could be added later, and the arguments against it are below.
+
+### A global hashtag-style handle was considered and rejected
+
+**Rejected 2026-09-03.** A single platform-wide handle per business — the `@name` shape — was on the table.
+
+**It rebuilds the global namespace** and, with it, everything that namespace requires: **verification** (who is the real one), **inactivity expiry** (reclaiming names from the dormant, which means adjudicating dormancy — a thing `groups.md` § lifecycle already refuses to do, Ratified 2026-05-31), and **per-Member claim caps** (stopping bulk registration). None of those are optional once one winner per name exists; they are the machinery a scarce global namespace forces you to build.
+
+**A global handle and a neighbours product pull in opposite directions.** A global handle says *there is one Joe's Pizza and you must find out which*; a neighbours product says *there is a Joe's Pizza near you and that is the one you meant*. **The risk to avoid is ending up with both** — a local product carrying a global namespace's obligations, paying the verification and expiry costs without getting the reach that would justify them.
+
+### What this does NOT solve — impersonation
+
+**Local scoping fixes hoarding. It does not fix impersonation, and impersonation is the case that matters more.**
+
+Nothing above stops someone creating **"Joe's Pizza" inside Joe's actual hood** — the same name, the same place, aimed at the same neighbours. Local scoping makes that *the only* attack worth running, because it is the only one that reaches anyone. Squatting a name in a hood you do not operate in is now pointless; impersonating in the hood where the real business operates is exactly as effective as it ever was.
+
+**A claim or verification path is still needed, and it is unscoped.** No scenario, no ticket, no backlog item covers it. `business-jurisdiction.md`'s three-tier ladder (self-attested ZIP → SOS-verified → document-supported) is the nearest existing shape and answers a different question — *is this owner local?*, not *is this the real Joe's Pizza?* — but it is the obvious substrate to build a claim path on rather than inventing a second ladder.
+
+**Do not read this decision as handling the whole problem.** It handles the half with a free structural fix and leaves the harder half open.
+
+### Open — not answered by this decision
+
+1. **How are two same-named businesses disambiguated in a feed spanning hoods within one metro?** The metro is the feed's vantage point (§ Metro is the vantage point), so a Sacramento feed can carry two "Joe's Pizza" cards from different hoods. **Showing the hood alongside the name is the obvious mechanism and is not decided** — it costs a line on every card to solve a collision most cards do not have.
+2. **Do non-unique display names still require globally unique URL slugs, and what shape?** **Almost certainly yes** — local display names still need unique identifiers underneath, and that should be **explicit rather than assumed**. A hood-scoped path is the obvious candidate. **Partly already answered at the spec level, and contradicted by shipped code:** `groups.md` § Place anchoring and `places.md` § Slug-uniqueness rewrites both specify `UNIQUE (place_id, slug)` — place-scoped, per the locality-scoped-URLs decision — but the shipped `groups` table (`web/supabase/migrations/014_groups.sql`) still carries **`slug text not null unique`** (a global constraint) and **has no `place_id` column at all**. So the substrate is the *old* global namespace today, and this decision inherits an unbuilt spec plus a live contradiction. That is a substrate gap to schedule, not a question to answer.
+3. **What is a genuine multi-location business — one identity spanning hoods, or separate per-hood identities?** Unresolved. The Item model already supports multiple venues per Item (`item_locations`), but **a business identity across hoods is a different question** — it asks whether the *name* spans, not whether the *inventory* does. Bears directly on (1) and (2): one identity across three hoods needs a different slug shape than three identities that happen to share a name.
+
+---
+
 ## The user-facing word is "hood" — RATIFIED
 
 PM ratified 2026-09-03. In UI copy the platform says **hood**. *Your hoods.* Not "neighborhood," not "locality," not "area."
@@ -468,10 +500,14 @@ Raised by the two-tab decision, not answered by it.
 7. **What do a metro's inner and outer rings do differently — ranking band, filter, or rendering only?** And can a Member's hoods sit in an outer ring without that metro becoming their default? See § Metro is the vantage point → Open.
 8. **Who owns metro boundary definition and maintenance?** Reference data the product now depends on, with no named owner and no update cadence. Same section.
 9. **Can a Member browsing another metro create there, or only read?** Sets whether the switcher is a read affordance or a full context switch. Same section.
-10. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
-11. **Does the `sort` control survive at all, and if it does, which layer owns ranking?** `nearest` died with distance, but newest / soonest / responses still re-order a fetched page client-side and still discard local-first. Confirm at merge scope whether three options on a locality-ranked feed earn a control. If they do: is "nearby first" a sort value a Member can leave, or the frame every other sort works within? See § Feed ranking → The merged surface's two ranking authorities.
-12. **Does filtering move server-side with the ranking?** Explore's category / schedule / sort narrow the first 100 rows, not the corpus. Against a hierarchy-ranked feed that page is *the hundred nearest*, so filtering to Online searches the rows least likely to contain any. Same section.
-13. **Should inferring hoods from browsing behaviour ever happen?** b2+, and it needs a per-Member browse-tracking privacy posture the product has not taken. **Not agreed** — see § A Member has a set of saved hoods → Future capability, NOT agreed.
+10. **How are two same-named businesses disambiguated in a metro-spanning feed?** Showing the hood alongside the name is the obvious mechanism, not decided. See § Business identity is local.
+11. **Do non-unique business display names still need globally unique URL slugs, and what shape?** Almost certainly yes; a hood-scoped path is the candidate. Note the live contradiction — spec says `UNIQUE (place_id, slug)`, shipped `groups` table says global `unique` with no `place_id` column. Same section.
+12. **Is a multi-location business one identity spanning hoods or separate per-hood identities?** Different question from multi-venue Items. Same section.
+13. **Impersonation — what is the claim or verification path for a business name?** Unscoped. Local scoping fixes hoarding, not impersonation. Same section.
+14. **Does "hood" land the way we intend?** Regional and cultural connotations, particularly in US usage. PM sanity-checks with real Members before it ships in copy; fallback is a copy sweep, not a migration. See § The user-facing word is "hood".
+15. **Does the `sort` control survive at all, and if it does, which layer owns ranking?** `nearest` died with distance, but newest / soonest / responses still re-order a fetched page client-side and still discard local-first. Confirm at merge scope whether three options on a locality-ranked feed earn a control. If they do: is "nearby first" a sort value a Member can leave, or the frame every other sort works within? See § Feed ranking → The merged surface's two ranking authorities.
+16. **Does filtering move server-side with the ranking?** Explore's category / schedule / sort narrow the first 100 rows, not the corpus. Against a hierarchy-ranked feed that page is *the hundred nearest*, so filtering to Online searches the rows least likely to contain any. Same section.
+17. **Should inferring hoods from browsing behaviour ever happen?** b2+, and it needs a per-Member browse-tracking privacy posture the product has not taken. **Not agreed** — see § A Member has a set of saved hoods → Future capability, NOT agreed.
 
 **Resolved.**
 
@@ -484,6 +520,7 @@ Raised by the two-tab decision, not answered by it.
 - *What word does the UI use for a neighborhood?* — "hood" (2026-09-03). Copy only; schema and identifiers stay as they are. See § The user-facing word is "hood".
 - *Does the feed union a Member's hoods or switch between them?* — **both, split at the metro line** (2026-09-03): hoods within one metro are active together; hoods across metros switch. "Nearby" is measured from the active metro, and the browse switcher is a *metro* switcher. Carries an accepted risk, **now scoped to the dense corridors** where metros actually abut. See § Metro is the vantage point.
 - *Is a metro edge a hard line?* — no; inner core plus outer ring, and metros mostly do not overlap (2026-09-03). Neither refinement is expressible in `metro_polygons` today. Same section.
+- *Is there a global namespace for business names?* — **no.** Names are scoped to a hood or metro; a global hashtag-style handle was considered and rejected (2026-09-03). Fixes hoarding, **not** impersonation. See § Business identity is local.
 - *Does the product measure or display distance?* — **no.** No radius, no mile counts, no distance sort; the hierarchy is the only proximity concept, and "how far is it" is answered by handing the Member the address for their map app (2026-09-03). See § Distance is out.
 - *When is the Member asked for a hood, and where does their metro come from?* — both picked at **signup**, the metro explicitly rather than derived (2026-09-03). Supersedes the earlier first-creation lean. See § Location is entered at creation → The Member picks a hood and a metro at signup.
 - *How do the polygon boundary and the distance radius coexist on the merged surface?* — **moot.** There is no radius left (2026-09-03). See § Distance is out.
