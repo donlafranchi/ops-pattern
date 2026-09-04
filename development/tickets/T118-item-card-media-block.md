@@ -1,7 +1,7 @@
 # T118: The Item card always renders a media block
 
 **Scenario:** none — PM design decision (`planning/backlog/decision-item-card-media.md`, ratified 2026-09-04). See § Gate C below; this is not the substrate lane.
-**Status:** Open
+**Status:** Done
 **Bundle:** b1
 **Depends on:** T088 (`ItemFeedCard`), T117 (Explore consumes it)
 **Blocks:** nothing
@@ -30,25 +30,25 @@ One component, `src/components/feed/ItemFeedCard.tsx`, and its test. Three defec
 
 ## Acceptance Criteria
 
-- [ ] The 4:3 media block renders on every card. Photo present → `object-cover`, no overlays. Photo absent → the kind field.
-- [ ] Kind field: `--color-surface` background, centered lucide glyph at 28px / 1.5 stroke in `--color-fg-muted`. No text, no circle, no accent line, no colour.
-- [ ] Glyph mapping exactly as tabled in the DLS: `gathering`→`CalendarDays`, `product`→`Package`, `service`→`Handshake`, `wonder`→`Lightbulb`, `offer`→`Gift`, `ask`→`HandHeart`, `initiative`→`Flag`. An unknown kind falls back to `Package` rather than rendering an empty field.
-- [ ] The kind chip is gone. Kind renders as an 11px/600 uppercase `0.08em`-tracked `--color-fg-muted` label, first line of the text zone, on **both** media states.
-- [ ] Card carries `1px --color-border` at rest; hover keeps the existing shadow + lift.
-- [ ] Card fills its grid cell (`h-full`, column flex, text zone grows). **No width class and no column-count assumption anywhere in the component** — it renders today in three grids at 2/3, 2/3, and 2/3/4 columns.
-- [ ] Type scale per DLS § Card: title 15px/600, owner 14px/400 muted, location 13px/400 muted.
-- [ ] `ItemFeedCard.test.tsx` rewritten. The existing test asserting the media block is *absent* without a photo is the assertion this decision reverses; the replacement asserts it is present, and asserts the correct glyph per kind.
-- [ ] **Chrome untouched.** No edit to the search bar, filter icon, bottom sheet, kind-pill row, or list/map toggle. `git diff --name-only` must show no file under `src/components/explore/` or the nav.
-- [ ] Unit tests green, typecheck green, build green.
-- [ ] `BUILD-LOG.md` updated.
+- [x] The 4:3 media block renders on every card. Photo present → `object-cover`, no overlays. Photo absent → the kind field.
+- [x] Kind field: `--color-surface` background, centered lucide glyph at 28px / 1.5 stroke in `--color-fg-muted`. No text, no circle, no accent line, no colour.
+- [x] Glyph mapping exactly as tabled in the DLS: `gathering`→`CalendarDays`, `product`→`Package`, `service`→`Handshake`, `wonder`→`Lightbulb`, `offer`→`Gift`, `ask`→`HandHeart`, `initiative`→`Flag`. An unknown kind falls back to `Package` rather than rendering an empty field.
+- [x] The kind chip is gone. Kind renders as an 11px/600 uppercase `0.08em`-tracked `--color-fg-muted` label, first line of the text zone, on **both** media states.
+- [x] Card carries `1px --color-border` at rest; hover keeps the existing shadow + lift.
+- [x] Card fills its grid cell (`h-full`, column flex, text zone grows). **No width class and no column-count assumption anywhere in the component** — it renders today in three grids at 2/3, 2/3, and 2/3/4 columns.
+- [x] Type scale per DLS § Card: title 15px/600, owner 14px/400 muted, location 13px/400 muted.
+- [x] `ItemFeedCard.test.tsx` rewritten. The existing test asserting the media block is *absent* without a photo is the assertion this decision reverses; the replacement asserts it is present, and asserts the correct glyph per kind.
+- [x] **Chrome untouched.** No edit to the search bar, filter icon, bottom sheet, kind-pill row, or list/map toggle. `git diff --name-only` must show no file under `src/components/explore/` or the nav.
+- [x] Unit tests green, typecheck green, build green.
+- [x] `BUILD-LOG.md` updated.
 
 ## Workflow gates
 
-- [ ] **Checklist 4 — changing a surface.** Fires. All five items, no N/A without a named reason.
-- [ ] **M2 — `engineering:code-review`** before commit.
-- [ ] **M3 — `design:accessibility-review`.** Fires (new component state on a rendered surface). Not waivable by "no new component" — that is the T117 failure this checklist exists to close.
-- [ ] **M4 — `engineering:deploy-checklist`** before merge to main.
-- [ ] **DEVIATIONS.md entry** at close, including the appearance line checklist 4 requires.
+- [x] **Checklist 4 — changing a surface.** Fires. All five items, no N/A without a named reason.
+- [x] **M2 — `engineering:code-review`** before commit.
+- [x] **M3 — `design:accessibility-review`.** Fires (new component state on a rendered surface). Not waivable by "no new component" — that is the T117 failure this checklist exists to close.
+- [x] **M4 — `engineering:deploy-checklist`** before merge to main.
+- [x] **DEVIATIONS.md entry** at close, including the appearance line checklist 4 requires.
 
 ## Explicitly out of scope
 
@@ -58,5 +58,9 @@ One component, `src/components/feed/ItemFeedCard.tsx`, and its test. Three defec
 
 ## Completion
 
-Date:
-Commit:
+Date: 2026-09-04
+Commit: `2e73d88` (merge `fa49587`)
+Deployed: https://www.socialus.org — verified live, new markup serving, production build clean.
+Screenshots: `_inbox/screenshots/t118-home-feed-375x812.png`, `t118-home-feed-full.png`, `t118-explore-375x812.png` (375×812, production).
+
+All AC met. Checklist 4 run in full: `design:design-critique` and `design:accessibility-review` (M3) both pass with no critical or major findings; screenshots attached above; the DLS recipe named in Serves is the one that shipped; the appearance line is the first paragraph of the DEVIATIONS entry.
