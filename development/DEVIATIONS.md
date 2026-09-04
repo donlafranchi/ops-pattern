@@ -893,3 +893,27 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **What (4) — `F041`'s eval was deleted rather than rewritten.** `evals/features/F041-producer-generates-qr-card.spec.ts` (4 tests) tested only the QR affordance; there is no residual behaviour for it to assert. Eleven feature specs remain.
 
 **No other deviations.** The `/join` retarget, the `TEST-CHECKLIST.md` rewrite, and the `qrcode` / `@types/qrcode` manifest removal are all straightforward applications of the ratified decisions.
+
+---
+
+## 2026-09-04 — T118 (the Item card always renders a media block)
+
+**Appearance — the line checklist 4 requires.** The card changed visibly and deliberately, and the change is the point of the ticket. Before: no border, no media block ever, a ~32px pill-shaped kind chip above a 14px title, cards sized to content so rows ran ragged. After: a 1px hairline edge, a 4:3 media block on every card, kind as an 11px uppercase muted label, cards filling their cells. Verified live at 375×812 on Home and Explore against the seeded database — all 8 rows measured flush (identical card heights within every row), 4:3 ratio confirmed at 1.333, 16 cards rendering, four distinct glyphs visible in one viewport.
+
+**What (1) — the ticket has no scenario, no F-number, and no `review-F###.md`, and Gate C cannot be run on it.** Checklist 2's Gate C is `ls planning/{next,now}/review-F{NNN}.md`; with no F-number there is no filename to look for. Recorded in the ticket rather than waived. The reviewing function was not skipped — checklist 4 fired and both its design gates ran. **Disposition:** accepted; the checklist gap is flagged to the PM as the first exercise of these checklists.
+
+**What (2) — `design-language.md` § Card was amended before the ticket was written, not after.** Two bullets of the shipped recipe are overridden (the no-border rule and the no-photo editorial-layout clause) and are struck in place with a supersession note rather than deleted. This inverts the usual direction — normally the spec governs and the ticket obeys. Here the PM's decision overrode the spec, so the spec was corrected first and the ticket cites the corrected text. **Disposition:** accepted; this is what rebuild rule 2 asks for.
+
+**What (3) — the DLS colour table has drifted from `globals.css`, discovered while measuring contrast.** The document says `--color-fg-muted: #717171`, `--color-surface: #F7F7F7`, `--color-border: #EBEBEB`, `--color-fg: #2D2D2D`; the app ships `#6b6b6b`, `#f7f6f2`, `#e5e3dd`, `#1a1a1a`. The recipe's recorded contrast figure was first computed from the documented values (4.56:1) and has been corrected to the shipped ones (4.93:1) — it clears AA either way. **Not fixed here:** the drift predates this ticket, is app-wide, and is already the open question in `planning/backlog/decision-charcoal-ramp-migration.md` (routed from T112). **Disposition:** open, tracked there; a note now points at it from the DLS.
+
+**What (4) — no photo-bearing card was verified against real data, because none exists.** Both media states are covered by unit tests, but the photo branch has never rendered from the database — `grep -rn "photo_url" web/supabase/seeds/*.sql` returns one `item_products` insert with `array[]::text[]` throughout. The placeholder branch is the only one this ticket could verify live. **Disposition:** accepted; unavoidable until Items can carry photos.
+
+**Note — the empty-holder trade is real and visible.** At zero photo coverage the media block is roughly half of each card's height, so the feed reads as sixteen items *with missing images* rather than sixteen items. Constant card shape is what Decision A bought and it is what shipped; the cost is that the emptiness is now uniform and conspicuous instead of invisible. Shortening the ratio for the placeholder-only state would reduce it, but it would also reintroduce the shape change on the day the first photo lands, which is the problem the decision exists to solve. Flagged for the PM with the screenshot rather than designed around.
+
+**Note — the focus ring is correct, contrary to a first reading.** An early measurement showed `solid 1.5px` at 0 offset, which would have put the ring on top of the card's new border. Re-measured under a real `:focus-visible` match it is the global `2px solid #1a1a1a` at 2px offset — 17.4:1, clear of the border. No fix needed and none made. Recorded because T116 hit the inverse of this trap on the same surface.
+
+**M3 accessibility — pass, no critical or major findings.** Kind label 5.33:1 on white, title 17.4:1, glyph 4.93:1 against the 3:1 graphical bar, focus ring 17.4:1 at 2px offset, touch target 166×237 against a 44×44 floor, `h3` inside the section's `h2`. The glyph is `aria-hidden="true"` and the kind is carried as text, so the accessible name reads "EVENT | The Good Market | Rosa Delgado | The Good Market" — no information is lost to the decorative glyph. The 1px card border is 1.19:1 on white; 1.4.11 does not bind it, as it is a decorative boundary rather than a control edge or a state indicator.
+
+**M2 code review** found one issue — `overflow-hidden` duplicated from `.card`. Removed before commit, as rebuild rule 3 requires.
+
+**No other deviations.** The unconditional media block, the seven-glyph mapping, the colourless placeholder, the chip's replacement by an editorial label, the hairline, the fill-height behaviour, the absence of any width or column-count assumption, and the untouched chrome all match the ticket AC.
