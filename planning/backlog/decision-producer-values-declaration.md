@@ -68,7 +68,7 @@ Treat this as a gate on workstream 9, not as documentation of a risk.
 
 ## 4. What this does not decide
 
-- The declaration's shape — free text, a fixed set, or tags. Undecided.
+- The declaration's shape — free text, a fixed set, or tags. Undecided. **Recommendation on the table:** [`audit-producer-signup-comparables.md`](audit-producer-signup-comparables.md) § 4 argues for free text — every comparable uses a fixed set because fixed sets filter, but a fixed set requires the platform to author the list of politics a producer may claim, which is a cousin of the harm § 2 prevents. Awaiting PM.
 - Whether the declaration is visible to logged-out visitors.
 - Whether a Group (kind='business') carries a declaration separately from the Member who owns it.
 
