@@ -112,6 +112,7 @@ Atomic user-facing capabilities — one doc each.
 | What it is | Doc | Purpose | Status |
 |---|---|---|---|
 | Design language | [design-language.md](product/ui/design-language.md) | DLS tokens, six principles, component recipes, CTA patterns | active |
+| Design north stars | [design-north-stars.md](product/ui/design-north-stars.md) | Airbnb (style) + TikTok (partial UX) as the big-picture references; where they conflict; the case-by-case rule | active |
 | Consumer architecture | [community-platform.md](product/ui/community-platform.md) | Home / Explore / You three-page consumer architecture | active |
 
 ---
