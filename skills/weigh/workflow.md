@@ -148,6 +148,15 @@ Implicit fifth via "Other": leave unratified. If chosen, flag in the JOURNAL clo
 
 ## Sub-routine 4 — Stamp (land the change)
 
+**Run checklist 1 first — [`playbooks/process-checklists.md`](../../playbooks/process-checklists.md) § 1. Ratifying a decision.** Six items, all commands rather than judgment calls. Two of them are the reason this checklist exists, and neither existed before 2026-09-04:
+
+- **List in-flight tickets on the affected surface.** `grep -l "<surface>" development/tickets/*.md`. Every hit is stale as of this ratification. Give each one a disposition **in this session** — pause, re-scope, or accept-and-note. Do not leave it for `build` to discover.
+- **List approved scenarios on the affected surface.** The same grep across `planning/next/` and `planning/now/`. Same dispositions.
+
+**Why this is the central question.** Nothing in the pipeline asked what a decision *invalidated*. On 2026-09-03 the Explore tab was ratified for retirement at 10:17 with ticket T116 open against it; T116 merged three hours later, building an inline list/map toggle onto a surface that had already been retired. The same morning a distance filter shipped at 09:16 and distance left the product at 15:33. Both were visible to a `grep -l`. Neither was run, because no step asked.
+
+A decision that does not name what it breaks is not ratified — it is just written down. The greps take seconds; the disposition is the work, and it belongs to the session that made the decision, not to whoever trips over it next week.
+
 On PM ratification:
 
 - **Ratify or Defer** → write the (possibly revised) bullet + State-tagged `Intent` line directly to the source file with `Edit`. Re-read surrounding 5–10 lines to confirm rendering.
@@ -184,6 +193,7 @@ Flag any PM override (ratified despite a Level-1 or Level-2 conflict surfaced in
 
 - Every queued statement walked or explicitly skipped (no silent skips).
 - Every landed change wrote at the expected line; re-read confirms Intent renders with correct State tag.
+- **Checklist 1's two greps were run, and every hit has a disposition recorded in this session.** Zero hits is a valid result; not having run them is not.
 - JOURNAL entry exists and points to changes by `file:line`.
 - No edits made without per-statement PM ratification.
 

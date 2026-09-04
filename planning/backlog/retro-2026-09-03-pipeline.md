@@ -47,6 +47,12 @@ Same shape on M3. `AGENTS.md` puts M3 **inside `review`** — which was skipped 
 
 ## 3. Amendments, ranked by how much of today they prevent
 
+> **Status as of 2026-09-04 — 1, 2, 3 LANDED. 4 and 5 CUT.**
+> Amendment 1 → `skills/build/workflow.md` step 22 (+ cheat-sheet row reversed), two `orient` drift rows, and the parent push added to the `clearlock` line in `CLAUDE.md` and `AGENTS.md`. Amendment 2 → `skills/weigh/workflow.md` sub-routine 4, pointing at checklist 1. Amendment 3 → `skills/ticket/workflow.md` step 3b (Gate C) + `skills/review/workflow.md` "Optional but recommended" replaced with mandatory, plus matching handoff notes in `scope` and `ticket`.
+> Amendments 4 and 5 were cut on PM instruction — few gates over comprehensive ones — and the reasoning plus the observations that would justify revisiting them are recorded in [`playbooks/process-checklists.md`](../../playbooks/process-checklists.md) § Considered and cut. Do not re-derive them as an oversight.
+> The false "local-only" line this retro names in §3.1 is corrected in `CLAUDE.md` § Project Facts, and the same claim was traced and fixed in `playbooks/DEVELOPMENT-PATTERNS.md`, the global `~/.claude/CLAUDE.md`, and two scaffold templates.
+
+
 Checklists live in [`playbooks/process-checklists.md`](../../playbooks/process-checklists.md) — four of them, one per kind of work, each with a trigger you run rather than judge. The amendments below are what makes them fire.
 
 ### 1. Push after every merge — `skills/build/workflow.md`

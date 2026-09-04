@@ -55,6 +55,8 @@ Apply to every system before approving scenarios from it:
 10. **PM reviews.** PM approves or rejects the scenario.
 11. **Lane advance (final step).** If the scenario is in `planning/backlog/` and the PM approved it, ask: _"Ready to advance `scenario-F{NNN}-{slug}.md` from `backlog/` to `next/`? (y/n)"_. On **y**, move the file. On **n**, leave it in `backlog/`. If the scenario is already in `planning/next/` or `planning/now/` (e.g. a revision pass), skip the move. Include the lane advance in the commit message handed to the PM.
 
+    **Name the review status in the handoff.** Advancing to `next/` does not mean the scenario is ready to ticket — `ticket` Gate C (step 3b) stops on a missing `review-F{NNN}.md`. If the scenario introduces or changes a surface a Member sees, say so and route to `review` before `ticket`. This skill does not gate on the review; it just stops pretending the next step is ticketing when it is review.
+
 ## When to invoke `planning-filter`
 
 If the user hands you a wishlist of capabilities or you're scoping a new bundle, invoke the Anthropic-provided `planning-filter` skill *before* writing scenarios. It turns sprawl into a ranked, testable set. Then write user-story scenarios for the surviving items.

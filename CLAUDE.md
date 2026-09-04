@@ -15,7 +15,7 @@ status: active
 
 - **What it is:** A coordination layer for collective action in a place. People declare things — products, services, gatherings, ideas — at locations. Other people respond. Farmers markets are the wedge; the platform is broader. **People-first, not business-first.** See [`product/foundation/principles.md`](product/foundation/principles.md).
 - **Stack:** Next.js (App Router), TypeScript, Tailwind v4 (`@theme inline` tokens), Supabase (Postgres + Auth + Realtime), Mapbox GL JS, Playwright (evals), Vitest (unit), Vercel.
-- **Repo structure:** Two-repo. Parent `community/` is local-only (product, planning, development docs). `web/` is a separate git repo pushed to GitHub.
+- **Repo structure:** Two-repo, **both pushed to GitHub.** Parent `community/` (product, planning, development docs) pushes to `origin` → `donlafranchi/ops-pattern`. `web/` is a separate git repo pushing to `donlafranchi/socialus-web`, and **pushing `web` `main` deploys to production via Vercel.** The parent has no deploy attached, so pushing it is free and should happen at the end of every working session — an unpushed decision exists only on this Mac. **Both remotes are public** — treat every parent-repo doc as publishable; nothing here is private by virtue of being "planning." The repos are *separate*, never *local*: never cross-commit, and never let "separate" get restated as "local-only."
 - **App path:** `./web`
 - **Active bundle:** [`planning/now/bundle-1.md`](planning/now/bundle-1.md) — Primitives MVP. One-page scoreboard: [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md).
 - **Active Phase 2 plan:** none ratified; surface sequence in [`planning/now/plan-b1-surface-sequence.md`](planning/now/plan-b1-surface-sequence.md). Draft scenarios live in [`planning/backlog/`](planning/backlog/).
@@ -271,10 +271,13 @@ docs(pipeline): short description
 
 # Run from Mac terminal:
 clearlock && cd /Users/don/Projects/community && \
-  git add path/to/file && git commit -m "docs(pipeline): short description"
+  git add path/to/file && git commit -m "docs(pipeline): short description" && \
+  git push origin main
 ```
 
 The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` files that wedge subsequent agent calls. The skill provides the line; the PM runs it.
+
+**The push is part of the line, not an afterthought.** Parent-repo pushes carry no deploy, so there is no reason to batch them — and batching is exactly what produced a 34-commit backlog holding every location-model decision, the 2026-09-03 retrospective, and the process checklists on one laptop. A Cowork skill that hands back a commit line without `git push origin main` is handing back an incomplete line.
 
 **Lock pre-flight (Claude Code).** Before any read-or-write work, `build` runs `ls web/.git/index.lock web/.git/worktrees/*/index.lock .git/index.lock .git/worktrees/*/index.lock 2>/dev/null`. If any prints a path, stop and ask the PM to run `clearlock` first. Do not attempt to remove the lock — the sandbox lacks the permission. The PM's `clearlock` shell function must include the parent + web `.git/worktrees/*/index.lock` glob to cover worktree-resident locks (the lock for `../web-t{nnn}` lives at `web/.git/worktrees/t{nnn}/index.lock`, not in the worktree itself).
 

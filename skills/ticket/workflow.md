@@ -12,7 +12,7 @@
 
 ## Inputs you read
 - `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario you're ticketing)
-- `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) if it exists — the architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured as pattern-doc entries in `playbooks/`.
+- `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) — **required, not conditional**; Gate C at step 3b stops ticketing when it is absent (substrate tickets exempt). The architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured as pattern-doc entries in `playbooks/`.
 - `development/tickets/` and `development/tickets/done/` (to assign the next T-number and learn what already exists)
 - The project's root `CLAUDE.md` (for stack/path facts)
 - The relevant `product/systems/{name}.md` — **only** the "Data model implications" section, for forward-looking schema columns to include even if their feature ships later
@@ -31,6 +31,11 @@
    - `Intent: ...` (no parenthetical tag) or no `Intent` line → **unratified. Gate B fails.**
    - On Gate B failure, **stop**. Do not draft the ticket. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `weigh`. After ratification, re-enter at step 3.
    - Rationale: by the time tickets are written, every absolute the code will encode must already carry PM-approved Intent. The cheapest place to catch an unearned absolute is *before* a ticket asks the build agent to write the constraint that enforces it.
+3b. **Gate C — review present.** Run `ls planning/next/review-F{NNN}.md planning/now/review-F{NNN}.md 2>/dev/null`. A file in either lane passes the gate.
+   - **No file → stop. Do not draft tickets.** Route to `review` and re-enter at step 3b once the review lands.
+   - Substrate tickets (`Scenario: substrate`) are exempt — they bind to a system-spec section, not to a scenario, and have no F-number to review. State the exemption in the ticket's Notes rather than leaving the gate silently unrun.
+   - This gate is an `ls`, not a judgment call. Do not read the review to decide whether it "counts"; its existence is the gate.
+   - Rationale: F044 and F045 both reached `ticketed` with no review — and because `AGENTS.md` puts the M3 accessibility gate *inside* `review`, skipping the review silently skipped M3 too. One missing file cost two gates. Nothing downstream re-checks this, so it has to hold here.
 4. **For each unit, write a ticket** using `templates/ticket.md`:
    - **Scenario:** path to the approved scenario — OR `substrate` (see Substrate lane below).
    - **Status:** Open.

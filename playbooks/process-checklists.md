@@ -83,6 +83,19 @@ This runs **before** `scope`, not instead of it. Its whole job is to make sure t
 
 ---
 
+## Considered and cut — do not re-derive
+
+The 2026-09-03 retrospective ranked five amendments. **1, 2, and 3 landed on 2026-09-04** — push-after-merge (`skills/build/workflow.md` step 22 + two `orient` drift rows + the parent push in the `clearlock` line), the ratify checklist wired into `skills/weigh/workflow.md`, and Gate C in `skills/ticket/workflow.md` step 3b with the matching fix to `skills/review/workflow.md`.
+
+**Amendments 4 and 5 were cut deliberately.** They are recorded here because a later audit will otherwise find the gap and file it as an oversight. It is not one — it is a standing preference for **few gates over comprehensive ones**, and re-adding these without new evidence reverses a PM decision rather than fixing a miss.
+
+- **4 — Mechanical M3 trigger** (ticket template + `AGENTS.md`): replace *"if this ticket introduces a new page or component"* with a grep, plus *an existing component on a route that did not previously render it, or an existing component receiving a new data shape*, and rule that "no new component" is not a valid N/A. **Cut as redundant:** M3 lives inside `review` per `AGENTS.md`, and Gate C now makes `review` unskippable — so the door this would lock is already locked. A second lock on the same door costs a step on every ticket and buys nothing until the first lock fails.
+- **5 — Premise check in `build` step 2**: `git log --since="<ticket Date>" -- <cited spec paths>`; non-empty means confirm the ticket still stands before writing code. **Cut as redundant and later:** the ratify checklist catches the same failure upstream and cheaper — at the moment the decision is made, when the disposition is obvious, rather than days later when a build agent has to reconstruct intent. It also does not catch the case that hurt most: T115's distance filter, where nothing about distance was in question when it was built.
+
+**What would justify revisiting.** Amendment 4 earns its place if a scenario reaches `ticket` with a `review-F{NNN}.md` present that nonetheless skipped M3 — that is Gate C holding while M3 leaks, which is the failure this was insurance against. Amendment 5 earns its place if a ticket is built against a spec that changed after the ticket was written *and* checklist 1 was run on that decision — meaning the upstream catch fired and missed. Absent one of those two observations, leave both cut.
+
+The retrospective's own summary is the standing guidance: *"Keep 1, 2, 3. Drop 4 and 5 if anything has to go."* Also cut there, and still cut: the appearance clause in acceptance criteria and a second drift-check row, both folded into these checklists instead.
+
 ## Deliberately not written
 
 - **A scenario-writing checklist.** `scope` worked on 2026-09-03. F048–F053 are well-anchored and the two blocked ones are correctly marked blocked. Nothing went wrong; no gate earned.

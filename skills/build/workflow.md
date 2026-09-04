@@ -5,11 +5,11 @@
 | | |
 |---|---|
 | **Reads** | `development/tickets/T{NNN}-{slug}.md`, `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario the ticket references — lane check at step 2 enforces this), `product/systems/{name}.md` (Data model implications only), `product/ui/design-language.md` (for UI work), `web/` (code, tests), `BUILD-LOG.md` |
-| **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section, including the commit hash you produce), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`, `planning/backlog/decision-{slug}.md` stubs and the spec / scenario lines this ticket invalidated (step 18). Runs `git add` + `git commit` after PM `y` on the permission prompt (per CLAUDE.md Commit Rules). |
+| **Writes** | `web/` (code + unit tests), `development/tickets/{T-file}` (Completion section, including the commit hash you produce), moves ticket → `development/tickets/done/`, updates `BUILD-LOG.md`, `planning/backlog/decision-{slug}.md` stubs and the spec / scenario lines this ticket invalidated (step 18). Runs `git add` + `git commit` after PM `y` on the permission prompt, `git merge` after PM `y` at step 21, and `git push origin main` after PM `y` at step 22 (per CLAUDE.md Commit Rules). |
 | **Branch** | One per ticket: `t{nnn}`, **in its own worktree** at `../web-t{nnn}/` (or `../community-t{nnn}/` for parent-repo work). Agent creates at session start via `git worktree add`; agent merges to `main` and removes the worktree at ticket close after PM `y` on the merge-permission prompt. Worktrees isolate concurrent agents so uncommitted edits in one ticket can't be overwritten by another agent committing in the shared `web/` tree. |
 | **Templates** | none — ticket template lives in `ticket/`; build implements, doesn't author specs |
 | **Does NOT read** | `planning/backlog/`, eval test files (write-mode evals are an external oracle), `product/foundation/` |
-| **Does NOT run** | `git push`, `git rebase`, anything that rewrites history. `git add` + `git commit` only fire after PM `y` on the permission prompt at ticket close. Worktree creation happens at session start. |
+| **Does NOT run** | `git rebase`, anything that rewrites history. `git add` + `git commit` fire after PM `y` at ticket close; `git merge` after PM `y` at step 21; `git push origin main` after PM `y` at step 22. Worktree creation happens at session start. |
 | **Calls in** | `docx`/`pptx`/`xlsx`/`pdf` (Anthropic) for non-code deliverables |
 | **Hands to** | `sync` (post-build mode) → `test` (run mode). After merge, sync updates the three progress-tracking surfaces (per-file ledger, monolith, checklist) before handing to test for eval verification. |
 | **Pre-commit gate** | `engineering:code-review` (M2) — MANDATORY between green and the PM permission prompt per CLAUDE.md rebuild-phase rule #3. The reviewed state is what you commit; fixes happen in the same loop, not as follow-up commits. Then `simplify-review` — structural pass on the staged diff; Approve to continue, Request changes → fix forward (in-scope) or log to DEVIATIONS (out-of-scope). |
@@ -60,6 +60,22 @@
     ```
 
     On **y**: re-run the lock pre-flight; if clean, run `cd web && git switch main && git merge --no-ff t{nnn} && git worktree remove ../web-t{nnn} && git branch -d t{nnn}` (substitute `cd ..` and parent-repo paths for parent-repo work). Backfill the merge commit hash alongside the ticket commit hash in the Completion section. On **n**: leave the branch and worktree in place — PM directs follow-up.
+
+22. **Ask PM permission to push.** Output one line, verbatim:
+
+    ```
+    Ready to push main to origin? (y/n)
+    ```
+
+    On **y**: run `git push origin main`. Then output **one line naming the surface to look at** — the route or screen a person would open, not the ticket number. "Explore filter sheet is live at /explore" closes a ticket; "T115 pushed" does not.
+
+    On **n**: say so plainly in the final report and name what is now sitting unpushed. Do not silently drop it.
+
+    **This step reverses a boundary this skill used to state.** Until 2026-09-04 the cheat sheet listed `git push` under **Does NOT run**, and the terminal state of a ticket was "merged locally, ledger stamped." That is the boundary being deliberately removed, not an oversight being patched. The reason it existed — pushes are irreversible and outward-facing — is real, which is why the push is a *prompt* and not automatic. The reason it stopped being right is that with nothing pushing, the PM's feedback interval stretched to seventeen commits, and five days of UI work all landed wrong at once. A gate that protects against a bad deploy is worth less than a gate that lets the PM see the work; this prompt is both.
+
+    **What it costs, stated plainly.** `web/.vercel/project.json` links this repo to Vercel, so **pushing `web` `main` deploys to production.** There are no users yet, so today the price is near zero — and it stops being near zero the moment there are. When that changes, this step is the one to revisit (preview deployments are filed separately as `planning/backlog/decision-preview-deployments.md`); do not quietly keep pushing to prod out of habit once real people are on it. The parent repo has no deploy attached, so parent-repo pushes carry none of this cost.
+
+    **What this step does not cover.** Commits made outside a ticket — a dependency removal, a hotfix, a config unhook — never reach a ticket close, so they never reach this prompt. That gap is covered by the `orient` drift check (`git log origin/main..main` non-empty in `web/`), not here.
 
 ## What you do NOT do
 - Write tickets. (`ticket` does.)
@@ -196,7 +212,7 @@ Drop running narration ("Now doing X." "Starting Y." "Committing Z."). Name item
 
 The TDD loop body keeps its narration discipline; this governs the *final* close-out report only.
 
-**You produced:** code + tests on branch `t{nnn}` (committed by you after PM `y`), updated ticket (Completion section filled with the commit hash), a `DEVIATIONS.md` entry with `Why:` and `Disposition:` lines, updated `BUILD-LOG.md`.
+**You produced:** code + tests on branch `t{nnn}` (committed by you after PM `y`), merged and pushed to `origin` after PM `y`, updated ticket (Completion section filled with the commit hash), a `DEVIATIONS.md` entry with `Why:` and `Disposition:` lines, updated `BUILD-LOG.md`, and one line naming the surface the PM should open.
 
 **Commit-hash backfill.** Immediately after you run `git commit`, edit the ticket's Completion section to fill in the hash printed by git. Same session — do not defer.
 
@@ -204,6 +220,6 @@ The TDD loop body keeps its narration discipline; this governs the *final* close
 
 **On eval failure:** evaluator hands back to you. Run the TDD loop again — fix forward, never roll back. New iteration stays on the same `t{nnn}` branch; you commit each pass after PM `y` on the permission prompt.
 
-**On eval pass:** the loop closes. Merge already happened at ticket close (step 20). Pick the next scenario or ask `ticket` for the next ticket.
+**On eval pass:** the loop closes. Merge and push already happened at ticket close (steps 21–22). Pick the next scenario or ask `ticket` for the next ticket.
 
 **On partial-pass with named forward-deps:** evals run on `main` after merge can have failing tests when DEVIATIONS-accepted-as-is entries name unbuilt upstream. The merge still lands — main reflects shipped state honestly, including the gaps the DEVIATIONS entries explain. The row in STAGE-LEDGER flips to `eval` (not `done`) until forward-deps ship and evals fully green.

@@ -12,7 +12,13 @@
 
 ## When to invoke
 
-Optional but recommended for scenarios that introduce any of the following:
+**Mandatory during the rebuild phase** (`CLAUDE.md` rebuild rule 1) for any scenario that introduces or changes a surface a Member sees. **Skip only for copy/CTA edits on an existing surface.**
+
+This replaces the previous "Optional but recommended," which contradicted `CLAUDE.md` rule 1 and made the gate skippable in practice: `scope` advanced scenarios to `next/` with no review check, `ticket` read a review only "if it exists," and this file called it optional. Three of the four places that could have stopped an unreviewed scenario declared the gate voluntary, so F044 and F045 were not slipping past a gate — there was no gate in the code path. `ticket` step 3b (Gate C) is now a hard `ls` stop, and this section is the statement it enforces.
+
+**Reviewing also fires M3.** `AGENTS.md` puts `design:accessibility-review` inside this skill. Skipping the review skips M3 silently — one omission, two gates lost.
+
+Always review a scenario that introduces any of the following:
 
 - A **new surface** (a route or page that doesn't exist yet).
 - A **new component** that isn't in the existing UI inventory.
@@ -21,7 +27,7 @@ Optional but recommended for scenarios that introduce any of the following:
 - A **cross-system interaction** that touches more than one `product/systems/{name}.md` doc.
 - A **new pattern** the design language doesn't yet describe (modal, sheet, picker, drawer, etc.).
 
-If none of the above apply, skip review and go straight to `ticket`.
+If none of the above apply — a copy or CTA edit on a surface that already exists — skip review and go straight to `ticket`, and say in the handoff that the skip was taken and why. An unstated skip is indistinguishable from a forgotten gate.
 
 ## Three checks, one document
 

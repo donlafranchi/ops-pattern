@@ -355,6 +355,8 @@ Where:
 
 Never cross-commit (no staging files from both repos in one commit).
 
+**Both repos push.** Parent → `donlafranchi/ops-pattern` (no deploy; push freely, every session). `web/` → `donlafranchi/socialus-web`, where **pushing `main` deploys to production via Vercel** — so `build` asks the PM before pushing (step 22) rather than pushing as part of the merge. Neither repo is local-only; a doc that says otherwise is stale and should be corrected, not worked around.
+
 **Cowork does not commit code.** When `weigh`, `memo`, `explore`, `scope`, `review`, or `tidy` edits a doc in the parent repo, Cowork produces a commit message and a `clearlock` line for the PM to run from the Mac terminal. Format:
 
 ```
@@ -362,10 +364,11 @@ docs(pipeline): short description
 
 # Run from Mac terminal:
 clearlock && cd /Users/don/Projects/community && \
-  git add path/to/file && git commit -m "docs(pipeline): short description"
+  git add path/to/file && git commit -m "docs(pipeline): short description" && \
+  git push origin main
 ```
 
-The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` files that wedge subsequent git operations. The skill ends with the message; the PM runs it.
+The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` files that wedge subsequent git operations. The skill ends with the message; the PM runs it. The trailing `git push origin main` is not optional — the parent repo has a remote (`ops-pattern`) and no deploy attached, so there is nothing to batch for. See `CLAUDE.md` § Commit Rules.
 
 **Lock pre-flight (Claude Code only).** Before any read-or-write work, `build` runs `ls web/.git/index.lock 2>/dev/null; ls .git/index.lock 2>/dev/null`. If either prints a path, stop and ask the PM to run `clearlock` from the Mac terminal before proceeding. Do not attempt to remove the lock — the sandbox lacks the permission.
 

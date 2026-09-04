@@ -22,6 +22,8 @@ Session-start check (project-agnostic):
    |---|---|
    | `planning/next/` and `planning/now/` hold no approved scenario while any `development/tickets/` (incl. `done/`) file references a `Scenario: F###` — H1 firewall vacated | Audit H1 |
    | `web/BUILD-LOG.md` (thin index) or current week file in `web/build-log/` cites a bundle file that doesn't exist — E3 | Audit E3 |
+   | `git log origin/main..main` non-empty in `web/` — shipped work the PM cannot see. Covers the commits no ticket close touches (dependency removals, hotfixes, config unhooks). Name the commits; pushing `web` `main` deploys to production, so the PM decides | Retro 2026-09-03 |
+   | `git log origin/main..main` non-empty in the parent repo — ratified decisions, reviews, and retrospectives existing only on this Mac. The parent has no deploy attached, so the fix is just `git push origin main` | Retro 2026-09-03 |
    | `.claude/worktrees/` is non-empty AND not in `.gitignore` — shadow-repo hazard | Audit E8 |
    | `development/DEVIATIONS.md` over 400 lines without a rotation pointer at top — E2 | Audit E2 |
    | `{pending}` or `{commit hash}` placeholders in `development/tickets/done/*.md` Completion sections — H4 | Audit H4 |
