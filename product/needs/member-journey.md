@@ -75,7 +75,7 @@ This is the substance of the platform — the loop that turns participation into
 
 #### Loop 7 — Make and be found
 
-A person who makes things — sourdough, candles, jam, knives, furniture — wants to be findable by neighbors who would buy from them. The platform's surface: a maker profile with QR onboarding at the booth, location-anchored, surfacing the maker across markets, off-days, and direct pickup arrangements. The pain point: making a real living from a craft requires being findable beyond the one market day, and the existing tools (Etsy, Instagram, Square) optimize for engagement, scale, or aggregation — never for the simple question, *"who near me makes this?"*
+A person who makes things — sourdough, candles, jam, knives, furniture — wants to be findable by neighbors who would buy from them. The platform's surface: a maker profile, location-anchored, surfacing the maker across markets, off-days, and direct pickup arrangements. The pain point: making a real living from a craft requires being findable beyond the one market day, and the existing tools (Etsy, Instagram, Square) optimize for engagement, scale, or aggregation — never for the simple question, *"who near me makes this?"*
 
 #### Loop 8 — Follow what you love
 

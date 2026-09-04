@@ -178,3 +178,19 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 **Intent.** Adjudicating whether an off-platform business is "really" dormant requires signals the platform doesn't have (sales records, legal filings, owner intent) and creates surface area for the platform to mis-handle. The simpler shape: business Groups exist as long as an owner is on the membership; surfacing is discovery's job, not lifecycle machinery's; explicit dissolve is the only end-state. This separates *the question of whether the Group continues to exist* (membership) from *the question of whether anyone sees it* (discovery) — two distinct concerns that lifecycle machinery had been conflating. Any future proposal to auto-demote, auto-archive, or auto-dissolve a business Group based on activity heuristics belongs in discovery's ranking, not in the Group's lifecycle.
 
 **Touches.** `product/systems/discovery.md`
+
+---
+
+### No platform-generated QR codes; producer-generated business QR stays open
+
+**Decision.** The platform does not generate QR codes — not for Items, not for joining, not for onboarding. Sharing is phone to phone: a link, copied or sent. The Item-level QR-card affordance (F041 — `item.qr_card.request`, `QrCardButton`, the print-quality PNG generator) and the `/join` signup QR are removed, along with the `qrcode` dependency.
+
+**Open, not refused — a producer generating a QR for their own business.** A card on a noticeboard, a flyer at a stall: that is a *producer tool on the You surface*, not a platform feature. It is unscoped, likely b2 or later, and nobody has designed it. If it is built, it is **built fresh** — the retired implementation is welded to the vendor-era surfaces being retired alongside it, and recovering it from git history would carry the old model forward. Treat the deleted code as unavailable, not as a starting point.
+
+**Unexplored alternative.** A hashtag-style handle as the shareable physical-world identifier, instead of or alongside a QR. Raised, not decided. It opens a naming question — how such a handle relates to the Member handle at `/m/[handle]` and to Group slugs — that has not been worked through. Anyone picking up the producer-QR capability should resolve this first rather than assuming QR is the answer.
+
+**Intent.** *(Ratified 2026-09-03.)* Two things were true at once and the old design conflated them. Platform-generated QR made the platform the author of a physical artifact it cannot revise: a printed code resolves forever to whatever URL was baked in, so every URL it touched became permanently load-bearing, and that constraint propagated into unrelated decisions — it is what blocked `/join`'s retarget for an entire cycle. Removing platform QR generation dissolves that class of constraint outright, and it does so at genuinely low cost, because the shipped affordance was owner-only on Item pages and reached no one who was not already signed in and looking at their own listing.
+
+The counter-argument was raised and is not dismissed: **QR is the bridge to the physical world.** For a neighbours product, a card on a noticeboard or a flyer at a market stall reaches people who would never find the listing online, whereas phone-to-phone sharing only ever reaches people who already know a Member — it grows the network along existing ties and never across the gap to a stranger walking past. That argument is sound, and it is exactly why producer-generated business QR stays open rather than being refused. What it does not justify is the platform generating codes *for Items*, at scale, on a permanent-URL promise the platform has to keep. Scoped to a business — one durable subject, one owner who chose to print it, one artifact they control — the durability burden sits with the producer who made the card, not with every URL in the system.
+
+**Touches.** `product/capabilities/qr-onboarding.md`

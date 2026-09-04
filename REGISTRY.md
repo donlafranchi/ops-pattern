@@ -103,7 +103,7 @@ Atomic user-facing capabilities — one doc each.
 | Item page | [item-view.md](product/capabilities/item-view.md) | Public Item page — owner, location, kind-appropriate response action | active |
 | Landing page | [landing-page.md](product/capabilities/landing-page.md) | First-visit surface — sign up, log in, browse as guest | active |
 | Member profile | [member-profile.md](product/capabilities/member-profile.md) | Member public page — bio, Items, follows, shareable URL | active |
-| QR onboarding | [qr-onboarding.md](product/capabilities/qr-onboarding.md) | Member-requestable printable QR card for any Item | active |
+| Producer QR | [qr-onboarding.md](product/capabilities/qr-onboarding.md) | Producer-generated QR for a business — open, unscoped; platform-generated QR ratified out | open |
 
 ---
 
@@ -187,7 +187,7 @@ Drafts not yet approved. The build agent cannot read these.
 | List product | [scenario-F038-...md](planning/now/scenario-F038-producer-lists-product.md) | Producer lists a product via the composer | draft |
 | Locally made | [scenario-F039-...md](planning/done/2026-06-02-superseded-producer-scenarios/scenario-F039-producer-claims-locally-made.md) | Producer claims Locally Made provenance badge (deferred) | draft |
 | List service | [scenario-F040-...md](planning/now/scenario-F040-producer-lists-service.md) | Producer lists a service via the composer | draft |
-| QR card | [scenario-F041-...md](planning/now/scenario-F041-producer-generates-qr-card.md) | Producer generates a print-quality QR card | draft |
+| QR card | [scenario-F041-...md](planning/done/2026-06-18-f041-qr-card/scenario-F041-producer-generates-qr-card.md) | Producer generates a print-quality QR card | retired 2026-09-03 |
 | Integration test | [scenario-F043-...md](planning/backlog/scenario-F043-newcomer-completes-journey-under-target.md) | Newcomer completes full journey under 90s target | draft |
 | F018 decision | [decision-F018-flagship.md](planning/backlog/decision-F018-flagship.md) | Whether F018 stays the flagship walkthrough | proposed |
 | Story template | [USER-STORY-TEMPLATE.md](planning/done/2026-06-02-backlog-cleanup/USER-STORY-TEMPLATE.md) | Redirect to the real scenario template in skills/ | reference |

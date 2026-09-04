@@ -14,6 +14,24 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-03 — Took QR codes out of the product entirely, and unblocked the vendor cleanup that was waiting on them
+
+The platform no longer generates QR codes — not for items, not for joining. Sharing is phone to phone: a link, copied or sent. That removed a constraint that had been quietly shaping unrelated decisions: a printed code resolves forever to whatever URL was baked into it, which made every URL it touched permanently load-bearing and had blocked the `/join` retarget for a full cycle. `/join` now points at the You surface and the whole QR feature is gone — nine files, its dependency, its evals. What stays open, deliberately, is narrower: a business owner generating a QR for *their own business* is a plausible producer tool, unscoped, likely b2 or later, and it should be built fresh rather than recovered from git history. A hashtag-style handle was raised as an alternative shareable identifier and is undecided.
+
+Alongside it, the careful half of the vendor/market retirement is done and the plan for the rest turned out to be wrong in one important way: the shared-file prunes cannot run before the deletes, because removing an export while an importing file is still on disk breaks the build. Phases 3 and 4 swap. Two schema traces of QR were left in place on purpose — dropping a column needs a migration, and a migration cannot be reverted the way the rest of this can.
+
+→ playbooks/PLATFORM-PATTERNS.md § No platform-generated QR codes; product/capabilities/qr-onboarding.md; development/DEVIATIONS.md § 2026-09-03; planning/backlog/audit-vendor-market-retirement.md § 3.4 + § 7. Web commits: de4378b, 4fc1b89, fb1852b.
+
+---
+
+## 2026-09-03 — Scoped the location model into six scenarios; two can't be written until four calls get made
+
+Turned today's location decisions into four writable scenarios — removing distance and handing off the address, asking for a hood and a metro at signup, keeping a set of hoods on the profile, and entering an Item's location while creating it — plus two blocked stubs for feed ranking and metro switching. Removing distance has to land *before* the Home/Explore merge: it deletes the merge's sharpest ranking conflict and stops dead distance code and a live measurement defect from being ported into Home. Recommendation is that only the distance removal and the signup change belong in b1; everything else waits. Two of the four questions the PM thought were open are already answered in the record, and the rural / no-metro path quietly lost its fallback today.
+
+→ planning/backlog/plan-location-model-sequence.md; planning/backlog/review-F048-F053-location-model.md; scenarios F048–F053; planning/stage-ledger/F048–F053, S-location-hierarchy. Commit: {pending}
+
+---
+
 ## 2026-09-03 — Shipped the mobile nav and Explore cleanup; found that most browse links 404
 
 Four of the six UI-cleanup tickets landed: the compact 44px bottom nav, scroll-to-hide behaviour, the seven kind-filter pills, and Explore reading the real items index instead of the three retired vendor tables. The filter bottom-sheet and the inline list/map toggle are still open. The rewire exposed a live gap — 9 of 16 seeded Items link to a 404, because Group-filed rows want the Group place-path and four kinds have no detail page at all; that is now a decision awaiting ratification. Also drafted an About-page section arguing the platform is deliberately not social media, and audited all 38 tables against the showcase seed.

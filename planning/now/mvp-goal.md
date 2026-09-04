@@ -31,7 +31,7 @@ b1 is done when all 14 user-surface scenarios (F030–F043) are shipped and gree
 - **Person→Item composers** with Location attachment and (where relevant) schedule.
 - **Item response surfaces** (Follow / Save / RSVP / "I'd be in"), stored uniformly in `item_responses`.
 - **Tier 0 self-attested locality badges** (Locally Owned, Locally Made).
-- **Item-level QR card** affordance (F041).
+- ~~**Item-level QR card** affordance (F041)~~ — removed 2026-09-03; no platform-generated QR codes.
 - **The thesis page** — names the squeeze, the antidote, and the platform's commitments.
 
 ## Explicitly out of scope

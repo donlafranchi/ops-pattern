@@ -877,3 +877,19 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **Note — F044 has no `review-F044.md`.** Neither does F045. Rebuild rule 1 makes `review` mandatory on every approved scope, and both scenarios went `plan-approved` → `ticketed` on 2026-09-02 without one. Not something `build` can fix after the fact; flagged for the PM. Nothing in either build surfaced an architectural problem review would have caught.
 
 **No other deviations.** Inline placement in the document flow, the removed fixed cluster, `[List] · [Map]` as compact text, centring, 24px above and below, charcoal-700/white active and white/charcoal-900/charcoal-100 inactive, both switch directions, session-only state resetting to List, the toggle rendering with zero results, desktop centring in the content column, and `role="tablist"` with two `aria-selected` tabs all match the ticket AC.
+
+---
+
+## 2026-09-03 — QR removal (no ticket; PM-ratified in session)
+
+**What — nine files deleted and twelve edited with no ticket, no scenario, and no F-number.** The vendor/market Phase 0 edits and the QR removal were PM-directed in-session rather than routed through `scope` → `review` → `ticket`. Recorded here because rebuild rule 6 wants a DEVIATIONS entry at the close of every ticket, and this shipped without one to close.
+
+**Why:** both are removals of shipped behaviour ratified directly by the PM. The QR decision landed as a `PLATFORM-PATTERNS.md` entry (§ *No platform-generated QR codes; producer-generated business QR stays open*) with a State-tagged Intent line, which is the gate rule 9 asks for. **`weigh` was not run on that entry** — the PM ratified the decision and its amendment directly in conversation, including the counter-argument and its disposition. Flagging rather than claiming the gate was met.
+
+**What (2) — `isItemOwner` was removed as collateral, not as QR code.** `src/lib/items/is-item-owner.ts` is a generic ownership predicate introduced by T094. Every call site fed only the QR gate, so it was dead once the affordance went, and it was deleted with the rest. It is generic, tested substrate that the obvious next owner-only affordance (edit / unpublish your own Item) would want back. Recoverable from web commit `fb1852b`. **Disposition:** accepted; flagged to the PM in-session.
+
+**What (3) — the QR schema traces were deliberately left in place.** `items.qr_card_url` (migration `015_items.sql:57`, never written or read by any code that ever shipped) and `'item.qr_card_requested'` in the `item_events` event-kind CHECK (`015_items.sql:391`, `020_items_made_at.sql:86`) survive the removal. Dropping them needs a new migration and the M4 deploy gate, and — decisively — a migration cannot be reverted by `git revert`, which would forfeit the property the PM asked for: that the QR removal be revertable as one commit. `evals/phase-1/items.spec.ts:54` still asserts the column and is correct to. **Disposition:** open — awaiting a PM call on whether to write migration 037.
+
+**What (4) — `F041`'s eval was deleted rather than rewritten.** `evals/features/F041-producer-generates-qr-card.spec.ts` (4 tests) tested only the QR affordance; there is no residual behaviour for it to assert. Eleven feature specs remain.
+
+**No other deviations.** The `/join` retarget, the `TEST-CHECKLIST.md` rewrite, and the `qrcode` / `@types/qrcode` manifest removal are all straightforward applications of the ratified decisions.

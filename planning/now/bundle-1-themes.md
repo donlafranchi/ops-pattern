@@ -179,7 +179,7 @@ A schema decision that must be made before any public URL exists, because it con
 - Follow primitives: Member-to-Member follow (storage; stream is b2), Save an Item, Location follow (`member_location_affinities.affinity_kind='follows'`)
 - Locality-first discovery index — the `discoverable_items` materialized view per `discovery.md` and `item.md`
 - The locality-first index is the first surface that anonymous Members can use end-to-end (Loop 3 "Land here" — `b1-primitives-plan.md` lists this as full at b1)
-- Item-level QR cards per `qr-onboarding.md` — Member-requestable, generated on demand for any Member-owned Item
+- ~~Item-level QR cards~~ — removed 2026-09-03; the platform generates no QR codes (`playbooks/PLATFORM-PATTERNS.md` § No platform-generated QR codes)
 
 **Doesn't ship:** Follow stream surfaces (b2 per `member.md`); Producer Bulletin (b2 per `producer-tools.md`); endorsements (b3 per `service-provider.md`); ratings (never — per the categorical-failures commitment).
 

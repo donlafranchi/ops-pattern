@@ -103,7 +103,11 @@ src/app/layout.tsx:36  </MarketProvider>
 
 Not on the brief's list, and live in the nav. Fixes bug 1.3. Removing the `hasVendor` branch is a copy + routing decision — where does that CTA point now that `kind='business'` Groups replaced `businesses`, and now that the nav has a persistent create **+**? — not a mechanical deletion. Settle it alongside § 3.4.
 
-### 3.4 `src/app/join/page.tsx` — **repoint; ratified as staying live**
+### 3.4 `src/app/join/page.tsx` — ✅ **DONE 2026-09-03** (repointed at `/you`; QR removed)
+
+> **Resolved.** The QR-durability question below is void — the PM ratified **no QR codes anywhere** on 2026-09-03 (`playbooks/PLATFORM-PATTERNS.md` § *No platform-generated QR codes; producer-generated business QR stays open*). With no printed artifact in the field, `/join` was repointed like any other link: `/you` when signed in, `/auth/login?next=/you` when not, marked interim in the file until the You rebuild lands. `/register-vendor` therefore **deletes outright — no redirect stub needed**, which settles the § 4.1 note. The original analysis is kept below as the record of why it was blocked.
+
+### 3.4 (original analysis — superseded)
 
 `/join` stays. Its four links and one **generated QR code** currently target `/register-vendor`, which is in the delete list:
 
@@ -271,7 +275,9 @@ The nav change and the You rebuild **will** need new evals — F036 and F042 bot
 
 Six phases. The rule behind the ordering: **detach live code from the cluster before deleting any of the cluster**, and fix the live bugs before the cleanup that would otherwise bury them.
 
-**Phase 0 — the one remaining open question (PM)**
+> **Phase 0 closed 2026-09-03.** `/join` is repointed (§ 3.4), `TEST-CHECKLIST.md` is rewritten (§ 3.11), the three live bugs are fixed and merged, and `map-config.ts` / `tests/map-config.test.ts` / `BottomNav.tsx` were verified to need no edit. **Two corrections to the plan below.** (1) **Phases 3 and 4 swap.** The `slugify.ts` and `types.ts` prunes cannot run before the deletes — removing an export while an importing file is still on disk breaks the build. Verified empirically: pruning `uniqueSlug` errors on `/register-vendor`; pruning `types.ts` to `OwnershipTier` alone produces 65 errors across 26 files. (2) **`/you` is now the single tether.** With `MarketProvider` unhooked from the root layout, `HomeFeed.tsx` and `MarketPill.tsx` are at zero importers, and everything else in the cluster hangs off `src/app/you/page.tsx` alone — so the `HomeFeed` / `MarketPill` / `EventCard` subtree is deletable without waiting on the You rebuild.
+
+**Phase 0 — the one remaining open question (PM)** ✅ *closed 2026-09-03*
 Where does `/join` point? Constraints and the durability problem in § 3.4; check first whether QR codes are already in circulation, since that decides whether `/register-vendor` deletes or becomes a redirect. Blocks Phases 1 and 4.
 *(The `/you` question is settled — see the scope note at the top.)*
 

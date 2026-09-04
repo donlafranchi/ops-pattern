@@ -44,7 +44,7 @@ Approval order is the dependency order. Tickets inside a scenario can interleave
 | F037 | Producer claims Locally Owned (Tier 0) | P4 | F036 | **S-jurisdictions** |
 | F039 | Producer claims Locally Made (Tier 0) | P4 | F038 | **S-jurisdictions** |
 | F031 | Member manages place-interest scope | C2 | F030 | **S-metro** |
-| F041 | Producer generates QR card for Item | P2 + P3 | F038 (any Item kind) | — |
+| ~~F041~~ | ~~Producer generates QR card for Item~~ — *removed 2026-09-03* | — | — | — |
 | F043 | Newcomer completes journey under target | cross-cutting | all above | — |
 
 Rationale: producer surfaces ship before consumer surfaces so the feed has content. Within producers, the Sell walkthrough (F036) creates the Group; product/service Items hang off it; the gathering Item is the wedge demo. Consumer entry (F030) lands after the feed has things to display. Badges (F037, F039) attach to Items/Groups that already exist. Multi-Place awareness (F031) needs items declared across enough Locations to make multi-Place selection meaningful. F043 is the integration test — gates b1 close.
@@ -90,7 +90,7 @@ Each scenario produces Playwright + RLS-matrix evals. Specific expectations call
 - **F037** — Tier 0 ZIP claim writes `member_business_jurisdictions` row with `verification_source='self_attested'`; badge surfaces conditionally on proximity test.
 - **F039** — `made_at_place_id` round-trips; viewer-side proximity rendering for the Locally Made badge.
 - **F031** — secondary place-interest cap enforced (≤5); promote/demote atomic-swap holds unique-primary-home invariant; metro-polygon "wider scope" works inside a metro and falls back to radius outside one.
-- **F041** — QR card renders to print-quality PNG; resolves to canonical URL.
+- ~~**F041**~~ — removed 2026-09-03; no platform-generated QR codes.
 - **F043** — end-to-end integration: organizer path + producer path complete without getting stuck.
 
 ## Non-negotiables — every PR upholds

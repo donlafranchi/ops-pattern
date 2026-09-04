@@ -40,7 +40,6 @@ Desktop: the same four zones render as a left sidebar nav. The bottom bar disapp
 | Place page | `/p/[...slugs]` | No | Variable-depth geography |
 | Following (full) | `/you/following` | Yes | Unified view: people, Groups, venues |
 | Sell walkthrough | (modal/drawer) | Yes | Multi-step composer → creates biz Group |
-| QR card | `/qr/[item-id]` | Yes | Printable, any Item kind |
 | Thesis page | `/about` | No | Pre-auth landing + in-app about |
 | Auth | `/auth/login`, `/auth/signup` | — | Route form + in-context modal form |
 | Onboarding | (post-signup flow) | Yes | 3 steps: name, photo, locality |
@@ -79,7 +78,7 @@ Single tab for every Member. Profile at top, followed by horizontal scroll strip
 
 ### Item pages (7 kind variants)
 
-One structural template, varying by kind. Quiet header (no hero image at b1), title in the 26px slot, kind-specific detail rows below. The primary CTA varies by kind — Share for events at b1 (RSVP defers to b2), Follow for products/services. Every Item page has a shareable URL and a QR-card link.
+One structural template, varying by kind. Quiet header (no hero image at b1), title in the 26px slot, kind-specific detail rows below. The primary CTA varies by kind — Share for events at b1 (RSVP defers to b2), Follow for products/services. Every Item page has a shareable URL. (The QR-card link was removed 2026-09-03.)
 
 **Why this shape:** Items are the platform's core primitive — everything a Person declares. One page template with kind-specific variations keeps the platform feeling like one place instead of seven apps. No reviews or star ratings anywhere — endorsements only (the brief's no-reviews principle). The quiet header (no hero image) is deliberate at b1 — photo upload defers to T2, and a text-forward layout is more honest than a placeholder image.
 
@@ -119,11 +118,9 @@ Unified view of everything the Member follows — people, Groups, venues — in 
 
 **Why this shape:** F042. One place to see all your standing relationships on the platform. Follow is the only behavioral signal that matters early (per member-journey.md, Loop 8). The unified view makes the scope of the Member's engagement visible to them — not scattered across three separate lists.
 
-### QR card
+### QR card — removed 2026-09-03
 
-Printable card for any Item. Shows the Item's QR code (linking to its URL), the Item name, the Member/Group name, and the oak mark. Designed for print: a card the maker tapes to their booth, the organizer chalks next to a sign, the café pins by the register.
-
-**Why this shape:** QR bridges the physical-digital gap. A stranger walking past a booth can scan the code and land on the maker's page — that's Loop 1 (Find your people) and Loop 7 (Make and be found) in one gesture. The card is printable, not shareable-as-image — it's designed for the physical world, not for social media resharing.
+The platform generates no QR codes. Sharing is phone to phone: a link, copied or sent. Producer-generated QR for a *business* (not an Item) stays open as an unscoped future producer tool on the You surface — see [`../capabilities/qr-onboarding.md`](../capabilities/qr-onboarding.md) and `playbooks/PLATFORM-PATTERNS.md` § *No platform-generated QR codes*. A hashtag-style handle was raised as an alternative shareable identifier and is undecided.
 
 ---
 
@@ -357,7 +354,7 @@ I've designed Create as a bottom sheet that overlays the current surface (no rou
 
 **Q2: Thesis page — oak illustration style?**
 
-The Quercus virginiana silhouette is the centerpiece of the thesis page and the app mark (top-left of every screen). I see two directions: (A) a detailed botanical illustration — real, textured, naturalistic, like something from a field guide; or (B) a clean geometric silhouette — the distinctive wide-branching live oak shape reduced to a mark, like the Apple or Airbnb logo. Option B scales better (works at 16px favicon size, works in the bottom nav, works on a QR card). Option A is more emotionally resonant on the thesis page but breaks down at small sizes. My recommendation: B for the mark (used everywhere), A as a hero illustration (thesis page only).
+The Quercus virginiana silhouette is the centerpiece of the thesis page and the app mark (top-left of every screen). I see two directions: (A) a detailed botanical illustration — real, textured, naturalistic, like something from a field guide; or (B) a clean geometric silhouette — the distinctive wide-branching live oak shape reduced to a mark, like the Apple or Airbnb logo. Option B scales better (works at 16px favicon size, works in the bottom nav, works on print). Option A is more emotionally resonant on the thesis page but breaks down at small sizes. My recommendation: B for the mark (used everywhere), A as a hero illustration (thesis page only).
 
 **Q3: Map interaction depth at b1?**
 
@@ -372,6 +369,6 @@ The Explore surface has a list/map toggle. When the map is active, how much can 
 3. **Spacing/grid** — 8px base unit, column grid, component spacing rules
 4. **Motion principles** — transitions, micro-interactions, loading states
 5. **Accessibility baseline** — WCAG 2.1 AA color contrast, focus management, touch targets, screen reader annotations
-6. **Component library** — nav, cards (7 kind variants), feed item, location header, group header, profile header, follow button, RSVP control, endorsement chip, business badges, QR card template, empty states, forms, modals, toasts
+6. **Component library** — nav, cards (7 kind variants), feed item, location header, group header, profile header, follow button, RSVP control, endorsement chip, business badges, empty states, forms, modals, toasts
 7. **Hi-fi mockups** — every surface above at mobile (375px) and desktop (1280px) breakpoints, using the pistachio palette and oak mark
 8. **Developer handoff** — per-screen annotations: what's a component, what's a one-off, what state is shown

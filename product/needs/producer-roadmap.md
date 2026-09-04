@@ -26,7 +26,6 @@ status: active
 - Business Group public page at a clean, place-scoped URL (`/p/.../g/[slug]`)
 - Member public page at `/m/[handle]` showing Items and Group memberships
 - Items appear in the locality-first awareness feed via place-interest × interest-tag matching
-- QR card generation for any Item — print-quality PNG, resolves to canonical URL
 - Place-scoped URLs so every page is shareable and chalk-on-a-board-able
 
 **Later:**
@@ -238,7 +237,7 @@ status: active
 
 ## Summary: what a producer can do after Phase 2
 
-A producer who signs up and completes the Sell walkthrough has: a business Group with a clean URL, a public page with optional Locally Owned badge, the ability to list products and services (each with their own page and URL), an optional Locally Made badge on products, a QR card for any Item (the farmers-market onboarding affordance), and all of their Items appearing in the locality-first awareness feed for nearby members. They can be followed by members, and their Items appear on venue pages where they operate.
+A producer who signs up and completes the Sell walkthrough has: a business Group with a clean URL, a public page with optional Locally Owned badge, the ability to list products and services (each with their own page and URL), an optional Locally Made badge on products, and all of their Items appearing in the locality-first awareness feed for nearby members. They can be followed by members, and their Items appear on venue pages where they operate.
 
 What they can't yet do: broadcast to followers (bulletins are b2), see analytics about their reach (growth dashboard is b2), accept payment through the platform (b3+), or earn community-verified badges (Tier 1+ is b2+). The Phase 2 producer surface is *findability and presence*; the b2 surface adds *outreach and insight*; b3+ adds *commerce*.
 

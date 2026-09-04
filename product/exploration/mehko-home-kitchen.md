@@ -11,6 +11,8 @@ status: exploration
 
 ---
 
+> **Stale as of 2026-09-03 — QR.** This doc leans on the Item-level QR card in five places and describes it as shipping. The platform generates no QR codes as of 2026-09-03 (`playbooks/PLATFORM-PATTERNS.md` § *No platform-generated QR codes; producer-generated business QR stays open*). Producer-generated QR for a *business* — which is closer to what the operator scenarios here actually want — stays open but is unscoped. Read the QR passages as an open question, not a plan.
+
 ## What MEHKOs are
 
 A Microenterprise Home Kitchen Operation (MEHKO) is a food facility operated out of a private residence, authorized under California AB 626 (signed 2018, effective January 1, 2019). The law allows a resident to prepare, cook, and serve food to consumers directly from their home kitchen — effectively a legal home restaurant.

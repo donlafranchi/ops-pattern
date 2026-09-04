@@ -64,11 +64,11 @@ These combine more naturally than they compete. B plus E — a collision prompt 
 
 **Search and the feed.** Home has absorbed search and filtering. Two identical names in one metro is a result-list problem before it's an identity problem, and whatever disambiguation gets chosen shows up here first.
 
-**QR cards and share links.** Any member can request a printable QR card for something they've made, and it resolves to that page's address. This is the one place where the harm becomes physical and durable: a card taped to a booth, pointing at the wrong Joe. It also means the address shape underneath the name has to be settled before those cards are printed, because a printed link can't be migrated.
+**Share links.** ~~QR cards~~ — *removed 2026-09-03; the platform generates no QR codes (`playbooks/PLATFORM-PATTERNS.md` § No platform-generated QR codes).* **This weakens the argument that followed, and the weakened form should be re-weighed rather than assumed.** The original reasoning: a printable card resolving to a page address is the one place the impersonation harm becomes physical and durable — a card taped to a booth pointing at the wrong Joe — which made settling the address shape urgent, because a printed link can't be migrated. With no platform-generated QR, the durable-physical-artifact case is gone for now; share links are revisable. It returns if producer-generated business QR is ever scoped.
 
 ## 5. What can wait
 
-**Before the You rebuild.** Only two things. The address shape underneath display names — because You, the create flow, and QR cards all depend on it, and it's already specified and simply unbuilt. And the cheap floor: a collision prompt at creation, plus a report path. Together those are days of work, not a programme.
+**Before the You rebuild.** Only two things. The address shape underneath display names — because You and the create flow depend on it, and it's already specified and simply unbuilt. (QR cards were a third dependant until 2026-09-03; that pressure is off.) And the cheap floor: a collision prompt at creation, plus a report path. Together those are days of work, not a programme.
 
 **After there are real businesses.** Everything else. Verification, vouching thresholds, the multi-location identity question, and whether hood belongs on every card. There is almost no live data today — a handful of seeded groups, one of them a business — so most of the reasoning above is theoretical, and the parts that need judgement need cases to judge. Building the machinery now means tuning thresholds against no traffic and designing appeals for a queue that's empty.
 

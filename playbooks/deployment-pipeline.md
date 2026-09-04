@@ -139,7 +139,7 @@ Before flipping the switch for real users:
 - [ ] RLS policies verified: run `supabase db lint` on production (checks for tables without RLS)
 - [ ] Domain configured in Vercel + Supabase Auth redirect URLs
 - [ ] Environment variables set in Vercel for both staging and production
-- [ ] `NEXT_PUBLIC_SITE_URL` set to production domain (QR cards, share links, OG tags depend on it)
+- [ ] `NEXT_PUBLIC_SITE_URL` set to production domain (share links, OG tags, auth redirects depend on it)
 - [ ] Mapbox token scoped to production domain (prevents unauthorized usage)
 - [ ] Rate limiting reviewed: Supabase has built-in API rate limits; verify defaults are sane
 - [ ] Backups enabled: Supabase Pro plan includes daily backups; Free plan does not

@@ -327,7 +327,7 @@ In standalone mode, there's no browser back button. The app must provide its own
 
 - **Gesture-based back:** On iOS, swipe-from-left-edge navigates back natively in standalone PWAs. On Android, the system back button/gesture still works. Both should be tested.
 - **In-app back arrow:** Detail pages (venue, item, member, group) should render a back arrow (←) in the top-left corner. Tab surfaces (Home, Explore, You) don't need one — they're top-level.
-- **No "stuck" states:** Every surface must be reachable from the three-tab nav within two taps. The bottom nav is always visible on tab surfaces. On detail pages, the back arrow returns to the referring tab. If the user deep-links into a detail page (from a shared URL or QR code), the back arrow returns to Home (the default context).
+- **No "stuck" states:** Every surface must be reachable from the three-tab nav within two taps. The bottom nav is always visible on tab surfaces. On detail pages, the back arrow returns to the referring tab. If the user deep-links into a detail page (from a shared URL), the back arrow returns to Home (the default context).
 
 ### Install prompt
 

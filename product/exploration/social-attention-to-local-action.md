@@ -49,7 +49,7 @@ This keeps platform pages engaging without requiring producers to create platfor
 
 When a member finds a great local product or event, the platform generates a share card — a branded image with the item name, producer, and a short link back to the platform. Optimized for TT/IG stories.
 
-The member posts it to their social feed, their followers tap through, and they land on the platform. This is the viral loop: platform → social → new member → platform. The QR card feature (F041) is a print version of this same idea; the share card is the social-native version.
+The member posts it to their social feed, their followers tap through, and they land on the platform. This is the viral loop: platform → social → new member → platform. The share card is the social-native version. (A print version was explored as the QR card, F041, and removed 2026-09-03 — see `playbooks/PLATFORM-PATTERNS.md` § *No platform-generated QR codes*.)
 
 ## Channel 5: Event invite embeds (social → platform)
 
