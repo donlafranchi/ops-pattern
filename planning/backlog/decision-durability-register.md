@@ -278,6 +278,21 @@ A reader hitting a statement dated three versions ago in a pattern doc knows som
 
 What the PM cannot have is a from-scratch re-derivation. What he gets instead is a versioned tier where nothing stays in force without being re-affirmed against a written falsifier — which is the same guarantee, obtained at a cost someone will pay twice.
 
+## 9a. PM directive, 2026-09-04 — the constitutional tier stays narrow
+
+Ratified alongside the v1 positioning ([`../now/bundle-1.md`](../now/bundle-1.md) § Positioning). It constrains this scheme rather than contradicting it, and it settles a question § 1 left implicit: *how much should end up in the constitutional tier?*
+
+> **Very little.** Few items, genuinely durable, constraining as little as possible.
+
+The reason is forward-looking rather than tidiness. A broad constitution prevents bold early positioning: every strong stance the product takes while it is young hardens into a permanent commitment that then has to be defended or formally reversed by memo. V1's own positioning is the worked example — *market to progressive-leaning locals in one metro, keep the mechanic open to everyone* — a stance strong enough to shape the whole go-to-market, and one that must stay cheap to revise as the product grows. It belongs in the versioned tier, and it can only live there safely if the constitutional tier is narrow enough that strong statements are not swept into it by default.
+
+**This reinforces the scheme rather than amending it.** The census cap (§ 8 rule 1) and the `Overturned by: evidence` default (§ 3 rule 1) are already the mechanisms that keep the constitutional tier small; the directive says how hard to lean on them. Two consequences for how the scheme is applied:
+
+- **When a statement is genuinely ambiguous between bet and commitment, file it as a bet.** § 7 already resolved both of its ambiguous cases that way. Make that the stated default rather than a coincidence — the cost of mis-filing a commitment as a bet is that it gets re-affirmed at a version boundary; the cost of mis-filing a bet as a commitment is that a memo is required to change direction, which is exactly the drag the directive is aimed at.
+- **Positioning and go-to-market never enter the constitutional tier.** Who the product is marketed to, in which metro, in which voice, is a bet by construction. What *can* be constitutional is the mechanic underneath it — the v1 case splits cleanly: the audience focus is a bet; *the platform does not bar or remove a Member for what they declare* is the commitment shape, and *a values declaration is never sourced or inferred* is a commitment outright (see [`decision-producer-values-declaration.md`](decision-producer-values-declaration.md) § 2).
+
+Same split as § 7's "business identity is local," and the same payoff: the mechanism stays revisable without the commitment eroding.
+
 ## 10. What ratifying this costs
 
 **To adopt:** three sentences replacing the *"implicitly carries reversibility"* paragraph in `DECISION-PATTERNS.md` § Architect for reversibility, and one line added to checklist 1 in `process-checklists.md`.

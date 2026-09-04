@@ -14,6 +14,20 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-04 — Named v1: who we market to, what ships by the end of the month, and the honest read that it doesn't all fit
+
+The b1 bundle is now the **SocialUs v1** scope, rewritten rather than appended to. Two things landed together. **Positioning:** v1 markets to progressive-leaning locals in one metro, and the platform mechanic stays open to everyone — nobody is barred or removed for what they declare. The reason is not politeness, it is that a values badge only carries information if it can vary; a uniformly one-sided platform makes its own badge dead weight and the support signal meaningless. *Excluding* was considered and rejected: a membership policy needs vetting, appeals, and moderation the project cannot staff, and political affiliation is protected under public-accommodation law in several states and cities. Positioning sits in the versioned tier and is expected to change.
+
+**On the constitution — narrow, deliberately.** Few items, genuinely durable, constraining as little as possible, so strong stances can be taken in the versioned tier as the product grows. Folded into the durability scheme rather than against it: the census cap and the evidence-default are the mechanisms that keep the constitutional tier small, and ambiguous statements now file as bets by default. Positioning never enters the constitutional tier.
+
+**Producers self-declare what they stand for.** Self-declared only — never sourced, never inferred, never attached from voter records or any external dataset. Items carry locations, so a values label the platform attached is a doxxing vector regardless of how accurate its source is. That constraint is a commitment and needs `weigh` before any ticket encodes the field. The consumer-response mechanic is **recommended, not ratified**: support public, opposition private — one button to back a producer and a report path to the operator, because a public oppose control on a small local business with few ratings is a brigading vector. Open sub-question the PM still owns: whether the support signal shows a count at all, given the design language rules out numeric badges.
+
+**Scope: eight workstreams in, six out, due end of September.** In — the 404 item links including Group-filed rows, the vendor/market retirement, the card fix with real content, the Home/Explore merge, producer minimal profile with the declaration, Group events, onboarding/empty states/copy including a "we're looking for help" line, and metro-only location. Out — hoods and the hierarchy rework, the four unbuildable kinds, the You producer rebuild, social import, the top slider, preview deploys. **The honest read, recorded in the bundle rather than softened: the in-list does not fit the month.** Four of the eight are not past decision stage, one person, ~19 working days, mandatory gates on everything new. Expect four to five. Cut order if it slips: the consumer support mechanic, then real-producer recruitment (fixed seed set instead), then the Home/Explore merge (keep three tabs), then Group events. Protect: the 404 fix, onboarding and copy, metro-only location.
+
+→ planning/now/bundle-1.md (rewritten — positioning, scope, schedule risk); planning/backlog/decision-producer-values-declaration.md (new — needs `weigh` + two PM calls); planning/backlog/decision-durability-register.md § 9a; planning/now/mvp-goal.md + bundle-1-checklist.md + plan-location-model-sequence.md (corrected to match).
+
+---
+
 ## 2026-09-03 — Day wrap: two tickets deployed, and the PM looked at the result and wants the layout redone
 
 Closing entry for a long day. Two tickets shipped and are live — the Explore filter sheet with active-filter chips (T115) and the inline list/map toggle (T116). Seventeen commits went to production and the build was clean. Three live bugs went with them: a dead markets query firing on every page app-wide, the "List your business" CTA showing to Members with no business-Group membership, and the setup docs pointing at a destructive pre-rebuild script instead of the migration set.
