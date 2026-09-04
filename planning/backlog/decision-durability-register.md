@@ -1,5 +1,5 @@
 ---
-purpose: Proposal — how a reader tells a binding commitment from this version's answer. Tests the constitutional/versioned framing, substitutes a sharper cut, names the one-line mechanism, and sorts 2026-09-03's decisions as the test of whether it works.
+purpose: Proposal — how a reader tells a binding commitment from this version's answer, how the doc set stays bounded without shredding provenance, and what gets re-derived at a version boundary. Sorts 2026-09-03's decisions as the test.
 layer: how
 status: backlog
 ---
@@ -110,6 +110,8 @@ That resolves checklist 5's last item from a standoff into a decision. The PM's 
 
 Expect `DEVELOPMENT-PATTERNS.md` to come out almost entirely `evidence`. How we build is falsifiable throughout. A development pattern claiming `memo` deserves a second look.
 
+**Tested against what happened next, 2026-09-04.** The DLS conflict did get settled as this section predicts — as a decision (T118, the Item card always renders a media block), not as a memo, and the DLS was edited rather than defended. Two of the three new `Intent (Ratified 2026-09-04)` lines it landed in `design-language.md` end with their own reversibility clause — *"Reversible in principle… a Principle 1 question rather than a card question"* and *"Reversible — a fixed-width variant would be a new recipe alongside this one."* By the test in § 1 those are bets, and under the mechanism in § 3 they would carry `Overturned by: evidence` and **no** State tag. The author's instinct wrote the falsifier unprompted; only the marker failed to discriminate. That is the inflation reproducing itself one day later, in a doc that had two tags and now has three — and it is the cheapest possible confirmation that the fix belongs on the marker rather than anywhere else.
+
 ## 7. Today's decisions, sorted
 
 The real test. 24 decisions from 2026-09-03, sorted; the ambiguous ones are named as ambiguous rather than filed quietly.
@@ -177,7 +179,106 @@ Written as one sentence, the mechanism inherits the commitment's weight and beco
 
 **Two ambiguous out of twenty-four, and both resolve on one reading.** That clears the PM's bar. The three splits are not ambiguity — they are the scheme finding seams that a single sentence was hiding.
 
-## 8. What ratifying this costs
+## 8. Bounding the set — what a length limit does and does not fix
+
+### The honest answer first: a limit does not fix drift
+
+The two failures that motivate this — a scenario saying 52px beside a ratified 44px, a ticket claiming Home queried dead tables months after it stopped — are **contradiction** failures, not **volume** failures. A 200-word doc holds a stale 52px perfectly well. Trimming to a cap does not reconcile anything; it selects something to remove, and nothing about a length rule makes the removed thing the wrong one.
+
+The pressure a cap creates points the wrong way twice. Under a word budget the cheapest cut is the **newest** material (least attached to) and the **longest** material (the reasoning). That is precisely the provenance the PM wants protected — the QR alternative, the hashtag handle, creator-inheritance — recorded on 2026-09-03 specifically so the rejected option survives with the reason it lost.
+
+**Checklist 1 does the real work.** Its first item — *name what already ships that this contradicts* — and its supersession-in-place item are what force reconciliation, and they do it at **write time**, when the author knows which version is right. A cap acts at maintenance time, applied by someone who does not. **The limit is secondary and should be sized and framed as secondary.**
+
+### What a bound does fix, and it is worth having
+
+**Accumulation without contradiction.** Nothing in checklist 1 stopped `decision-surfaces.md` from reaching 528 lines and 22 State-tagged Intents in one day, because none of those 22 contradicted each other. Nothing stops `product/systems/` from its current 80,000 words across 13 docs.
+
+That harm is second-order and real: **sprawl degrades the contradiction check itself.** The grep in checklist 1 returns more hits, the reader skims further, and the reconciliation that was supposed to be forced gets eyeballed instead. The bound's job is to keep checklist 1 effective, not to replace it.
+
+### Not per-document words, not per-tier totals
+
+- **Per-document word caps** are wrong because natural size varies more than tenfold for good reasons — `standards/` is 496 words *in total*; `item.md` is a primitive spec. One number governing both is either meaningless or destructive.
+- **Per-tier word budgets** are worse: they create cross-document horse-trading, where trimming one spec buys room in another. That converts a local editing decision into a negotiation, which is how the rule stops being followed.
+
+**Bound the working set a reader has to hold** — and the durability scheme above already produces the right countable.
+
+### Rule 1 — the census cap
+
+> **No document carries more than 7 State-tagged `Intent (Ratified …)` lines of its own.** Landing an 8th forces a demotion: either the weakest becomes a bet (drop the tag, keep the prose) or it relocates to the doc that actually owns it.
+
+Enforced by `grep -c "Intent (Ratified" <file>` — count the tags the doc *owns*, not citations of other docs' tags.
+
+**Why 7, and not a round number.** It is the observed ceiling of a healthy doc plus one. `groups.md` carries 6 — the platform's most-contested primitive, six kinds, the consolidation decision, the lifecycle refusal. The rule is therefore *no document may be more decided than the most-decided system spec*. Live census against that bar:
+
+```
+decision-surfaces.md                22   ← the only violation, by 3x
+groups.md                            6
+member.md / business-jurisdiction    4
+design-language.md / discovery.md    3
+…everything else                    ≤2
+```
+
+**One violation in the entire live tree.** That is the shape a good rule has: invisible on well-run docs, unmissable on the one that sprawled. It costs one grep, folded into checklist 1's existing Intent step — no new gate.
+
+### Rule 2 — the drain rule, which is the PM's rule in its correct form
+
+The deeper defect in `decision-surfaces.md` is not its length. It is that the file is `status: ratified`, sits in `planning/backlog/`, and is still the **load-bearing copy** of 22 decisions — in a lane `build` is firewalled from reading. Twenty-two ratified decisions are stranded where nothing downstream can act on them.
+
+> **A `decision-*.md` marked `status: ratified` is drained within one working session.** Each commitment moves to its owning spec; each bet moves to a pattern-doc entry or a scenario; the file compacts to a ledger and archives with its parent work.
+
+**"New info forces old info out" is right, and the direction is down the pipeline — not into the bin.** Nothing is deleted. The durable statements move to where they are read; the file that carried them shrinks to a record of what happened.
+
+**The compaction format already exists in this repo and was approved yesterday.** `playbooks/process-checklists.md` § *Considered and cut — do not re-derive* is eight lines standing in for two full amendment sections, and each entry carries three things:
+
+1. what was rejected,
+2. why it lost,
+3. **the observation that would justify revisiting it.**
+
+That is the template. Generalized, a drained decision doc becomes one line per decision — *what was decided · what it replaced · `Overturned by:` · where it now lives* — plus one line per rejected alternative in the § Considered and cut shape. **Cap the compacted ledger at 40 lines.** QR, the hashtag handle, and creator-inheritance each keep their line and their reason; the full argument stays in git history, reachable from the pointer. Provenance is preserved by *pointing*, not by *retaining*.
+
+**Where it bites, and that is the versioned tier — correct.** Foundation docs are never drained; they are the destination. Rule 2 applies only to `planning/` decision docs, which is exactly where the PM said the constraint should be sharpest.
+
+### What this costs, honestly
+
+- **Rule 1: free.** One grep inside a checklist step that already exists.
+- **Rule 2: about an hour per ratified decision doc, and it is not new work.** Draining `decision-surfaces.md` is the distribution step the pipeline already owed — those 22 decisions have to reach specs and scenarios before anything can be built from them. Calling it overhead misreads it: it is deferred delivery, and the interest on it is that `build` currently cannot see a single decision made on 2026-09-03.
+- **The real risk is Rule 2 being skipped when busy**, which is how compaction rules usually die. Mitigation is the cheapest one available: a drift-check row in `orient` — `grep -l "status: ratified" planning/backlog/decision-*.md`, non-empty is a flag, not a gate. `orient` already runs at session start and already flags without blocking. **Two files are flagged today.**
+
+**Do not add a third rule.** Two is what gets followed.
+
+## 9. The version boundary — what actually gets re-derived
+
+The stronger claim: the global project set should be *genuinely different* from the current version set, with a deliberate rethink at each version boundary rather than inheritance by default.
+
+### What is not practical, said plainly
+
+**Rebuilding the versioned tier from scratch against the constitution at each boundary is not practical and should not be proposed.** It means re-deriving 80,000 words of system specs from `principles.md`. Nobody performs that twice; it gets abandoned mid-pass, leaving a half-rebuilt set that is strictly worse than an inherited one. And most of it *should* be inherited — the Item spine does not get re-derived because b1 shipped. Re-derivation for its own sake is how a doc set acquires a second contradictory layer, which is the failure this whole thread is about.
+
+### What is practical, and it is the step that would have caught today
+
+The re-derivation worth performing is over the **bets**, not the specs — and the durability scheme hands you the agenda for free. Every `Overturned by: evidence` line names the observation that would change it. That is not documentation; it is a checklist with the questions pre-written.
+
+> **The bet review.** At each version boundary, walk the entries in force in `PLATFORM-PATTERNS.md` and `DEVELOPMENT-PATTERNS.md` — **33 today**, 17 and 16 — and ask one question of each: *you said X would change this. Did X happen?*
+>
+> Three outcomes, one line each: **reaffirm** (re-date it), **revise** (edit the entry), **retire** (pull it, with a line in the version's release record saying what replaced it).
+
+Thirty-three yes/no questions against a written falsifier is one session. That is the whole difference between a re-derivation someone performs and one someone intends to.
+
+**The tell worth watching for.** A bet that survives two consecutive boundaries without its falsifier ever having been *checkable* is mis-filed. Either the observation was written unobservably — rewrite it — or the statement is a commitment wearing a bet's clothes, and it should be promoted with a proper commitment sentence in a `layer: why` doc. That single rule keeps the register honest in both directions: the census cap stops commitments inflating, the two-boundary tell stops them hiding.
+
+**It plugs into machinery that already exists.** `CLAUDE.md` already specifies shipped-version cuts — `{owning-dir}/archive/vN-{slug}/RELEASE.md` plus one line in `planning/RELEASES.md`. The bet review's output is a section of that RELEASE.md. No new artifact.
+
+### Does this deliver "genuinely different sets"? Partly — and here is the precise version
+
+After a bet review, `product/foundation/` is **unchanged**, by design, and the pattern docs carry a fresh per-entry verdict and date. The two tiers become visibly different in the one way that matters to a reader:
+
+> **Constitutional dates move only by memo. Versioned dates move at every boundary.**
+
+A reader hitting a statement dated three versions ago in a pattern doc knows something is wrong — it should have been reaffirmed or retired. A reader hitting a foundation commitment dated 2026-05 knows nothing is wrong; that is what a commitment looks like. **The date becomes the signal**, and it is generated by a step someone actually performs rather than asserted by a filing convention.
+
+What the PM cannot have is a from-scratch re-derivation. What he gets instead is a versioned tier where nothing stays in force without being re-affirmed against a written falsifier — which is the same guarantee, obtained at a cost someone will pay twice.
+
+## 10. What ratifying this costs
 
 **To adopt:** three sentences replacing the *"implicitly carries reversibility"* paragraph in `DECISION-PATTERNS.md` § Architect for reversibility, and one line added to checklist 1 in `process-checklists.md`.
 
@@ -185,8 +286,10 @@ Proposed replacement text:
 
 > Every decision carries one line: `Overturned by: evidence — <the observation that would change this>` or `Overturned by: memo — reverses <commitment>, <doc> § <section>`. Evidence is the default; naming the falsifier is the work, and failing to name one is the signal that the statement is a commitment rather than a bet. A State-tagged `Intent (Ratified …)` line is reserved for the memo shape — a bet does not get one, and a commitment cannot be reversed except by a memo that strikes its State tag in place and lists every decision citing it.
 
-**Ongoing cost:** one line per decision. No new directory, no tiers, no promotion process, no migration.
+**Ongoing cost:** one line per decision, one grep at ratify time, and a drain session per ratified decision doc (§ 8). No new directory, no tiers, no promotion process, no migration.
 
 **One-time backfill, optional and worth doing:** `decision-surfaces.md` keeps 4 State-tagged Intents and loses 18. That single edit restores the census to something a reader can trust, and it is the cheapest way to test whether the scheme changes how the doc reads.
+
+**One `orient` drift row** — `grep -l "status: ratified" planning/backlog/decision-*.md`, non-empty is a flag. Two files today.
 
 **Three commitment sentences to author on ratification** — the Online-warning honesty commitment and the coarse-location commitment into `policy.md`, and the no-scarce-namespace commitment into `people-first.md`. The fourth extends an existing Intent in `item.md` rather than adding one.
