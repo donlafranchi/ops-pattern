@@ -150,7 +150,7 @@ Implicit fifth via "Other": leave unratified. If chosen, flag in the JOURNAL clo
 
 **Run checklist 1 first — [`playbooks/process-checklists.md`](../../playbooks/process-checklists.md) § 1. Ratifying a decision.** Six items, all commands rather than judgment calls. Two of them are the reason this checklist exists, and neither existed before 2026-09-04:
 
-- **List in-flight tickets on the affected surface.** `grep -l "<surface>" development/tickets/*.md`. Every hit is stale as of this ratification. Give each one a disposition **in this session** — pause, re-scope, or accept-and-note. Do not leave it for `build` to discover.
+- **List in-flight tickets on the affected surface.** `grep -l "<surface>" development/tickets/*.md | xargs grep -L -iE '^\*\*Status:\*\* *(Done|Complete)'` — the trailing filter drops tickets already marked Done/Complete. Every surviving hit is stale as of this ratification. Give each one a disposition **in this session** — pause, re-scope, or accept-and-note. Do not leave it for `build` to discover.
 - **List approved scenarios on the affected surface.** The same grep across `planning/next/` and `planning/now/`. Same dispositions.
 
 **Why this is the central question.** Nothing in the pipeline asked what a decision *invalidated*. On 2026-09-03 the Explore tab was ratified for retirement at 10:17 with ticket T116 open against it; T116 merged three hours later, building an inline list/map toggle onto a surface that had already been retired. The same morning a distance filter shipped at 09:16 and distance left the product at 15:33. Both were visible to a `grep -l`. Neither was run, because no step asked.

@@ -12,7 +12,7 @@
 
 ## Inputs you read
 - `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario you're ticketing)
-- `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) — **required, not conditional**; Gate C at step 3b stops ticketing when it is absent (substrate tickets exempt). The architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured as pattern-doc entries in `playbooks/`.
+- `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) — **required for scenario-driven tickets**; Gate C at step 3b stops ticketing when it is absent. Decision-lane tickets have no F-number and satisfy Gate C via checklist 4 instead; substrate tickets are exempt and must say so. The architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured as pattern-doc entries in `playbooks/`.
 - `development/tickets/` and `development/tickets/done/` (to assign the next T-number and learn what already exists)
 - The project's root `CLAUDE.md` (for stack/path facts)
 - The relevant `product/systems/{name}.md` — **only** the "Data model implications" section, for forward-looking schema columns to include even if their feature ships later
@@ -31,13 +31,32 @@
    - `Intent: ...` (no parenthetical tag) or no `Intent` line → **unratified. Gate B fails.**
    - On Gate B failure, **stop**. Do not draft the ticket. Surface the list of unratified absolutes (`file:line` + bullet text) and route to `weigh`. After ratification, re-enter at step 3.
    - Rationale: by the time tickets are written, every absolute the code will encode must already carry PM-approved Intent. The cheapest place to catch an unearned absolute is *before* a ticket asks the build agent to write the constraint that enforces it.
-3b. **Gate C — review present.** Run `ls planning/next/review-F{NNN}.md planning/now/review-F{NNN}.md 2>/dev/null`. A file in either lane passes the gate.
-   - **No file → stop. Do not draft tickets.** Route to `review` and re-enter at step 3b once the review lands.
-   - Substrate tickets (`Scenario: substrate`) are exempt — they bind to a system-spec section, not to a scenario, and have no F-number to review. State the exemption in the ticket's Notes rather than leaving the gate silently unrun.
-   - This gate is an `ls`, not a judgment call. Do not read the review to decide whether it "counts"; its existence is the gate.
-   - Rationale: F044 and F045 both reached `ticketed` with no review — and because `AGENTS.md` puts the M3 accessibility gate *inside* `review`, skipping the review silently skipped M3 too. One missing file cost two gates. Nothing downstream re-checks this, so it has to hold here.
+3b. **Gate C — review present, or checklist 4 fired.** The gate asks one question: *did the reviewing function run on this work?* A ticket answers it one of three ways, and its `Scenario:` field decides which — not your judgment.
+
+   **(a) Scenario-driven** — `Scenario:` names a scenario file. Run:
+
+   ```
+   ls planning/next/review-F{NNN}.md planning/now/review-F{NNN}.md 2>/dev/null
+   ```
+
+   A file in either lane passes. **No file → stop, do not draft tickets.** Route to `review`; re-enter at 3b when it lands.
+
+   **(b) Decision-driven** — `Scenario: decision` (see Decision lane below). There is no F-number, so there is no filename to look for and the `ls` in (a) is **unrunnable, not failed**. The gate here is that **checklist 4 fires and its two design gates are named in the ticket.** Run checklist 4's trigger:
+
+   ```
+   git diff --name-only main | grep -E '^src/(app|components)/'
+   ```
+
+   Returns anything — or an existing component lands on a route that did not previously render it, or receives a new data shape → **checklist 4 is mandatory on this ticket.** `design:design-critique` and `design:accessibility-review` (M3) are the review this work gets; name both in the ticket, and record M3's verdict the same way a `review-F{NNN}.md` would. Returns nothing *and* neither other trigger fires → the work has no Member-visible surface, so it is substrate, not decision. Re-file under (c) and change the `Scenario:` field.
+
+   **(c) Substrate** — `Scenario: substrate`. No user-facing surface exists, so there is nothing for `review` or M3 to look at. Exempt — but **state the exemption in the ticket's Notes.** An unstated exemption is indistinguishable from a forgotten gate.
+
+   **Every branch ends in a command.** Do not read a review to decide whether it "counts." Do not decide whether a surface "really" needs design attention. The `Scenario:` field selects the branch; the branch names the command.
+
+   **Why (b) exists — and why it is not a loophole.** As first written on 2026-09-04, Gate C was only branch (a). T118 (the Item card media block) came from a ratified PM design decision rather than a scenario, so it had no F-number and no review file could ever exist for it — and it was not substrate either, since substrate is *defined* as having no user-facing surface and T118 changed a card every Member sees. The gate was unrunnable. T118 recorded that in the ticket and in `DEVIATIONS.md` instead of quietly ticking the box, which is the only reason it is being fixed now rather than becoming the first waiver everyone cites. **A gate nobody can run is how gates get waived** — that is the failure this whole amendment set exists to stop, so an unrunnable branch is a defect in the gate, not an exemption for the work. Branch (b) is deliberately *stricter* than a review file in one respect: it makes M3 mandatory and explicit on decision-driven surface work, where before the missing F-number silently took M3 with it.
+
 4. **For each unit, write a ticket** using `templates/ticket.md`:
-   - **Scenario:** path to the approved scenario — OR `substrate` (see Substrate lane below).
+   - **Scenario:** path to the approved scenario — OR `decision` (see Decision lane below) — OR `substrate` (see Substrate lane below). This field selects the Gate C branch, so set it before step 3b.
    - **Status:** Open.
    - **Bundle:** copy from the scenario.
    - **Serves:** one-line lineage to a north-star loop and the canonical example. If you can't fill this in, the scenario is missing context — escalate to `scope`.
@@ -65,9 +84,37 @@ Substrate-ticket header differs from a scenario-driven ticket on three fields on
 
 **Gate B still applies to substrate tickets.** Schema and RLS are the canonical Category-2 code surface — if any absolute the substrate will encode lacks a Ratified/Deferred Intent tag, stop and route to `weigh`.
 
-**Substrate is not an escape hatch for skipping scenarios.** If a user-facing surface exists, write a scenario. The substrate lane is for the floor *under* surfaces, not a back door around the planner.
+**Substrate is not an escape hatch for skipping scenarios.** If a user-facing surface exists, write a scenario — or, when the work is the direct application of a ratified PM decision, use the **Decision lane** below. The substrate lane is for the floor *under* surfaces, not a back door around the planner. The test is literal: if a Member can see the change, it is not substrate.
 
 **TRACE.md substrate column.** Substrate tickets do not get F-numbers but are still tracked — in `planning/TRACE.md`, log substrate tickets in the dedicated substrate table (an `S-` group by spec section or phase), so schema work has the same visibility as feature work.
+
+## Decision lane (no-scenario tickets that DO have a surface)
+
+The sibling of the substrate lane, and the other half of the no-F-number case. Use when a ticket originates in a **ratified PM decision** — a `playbooks/PLATFORM-PATTERNS.md` / `DEVELOPMENT-PATTERNS.md` entry, or a `planning/*/decision-{slug}.md` — rather than in a scenario, **and it changes something a Member sees.**
+
+The distinction from substrate is the surface, and it is the whole point:
+
+| | Substrate lane | Decision lane |
+|---|---|---|
+| `Scenario:` field | `substrate` | `decision` |
+| Member-visible surface | none | **yes** |
+| Bound to | a system-spec section | the ratified decision (pattern entry or `decision-{slug}.md`) |
+| Gate C branch | (c) — exempt, exemption stated | **(b) — checklist 4 mandatory** |
+| M3 accessibility | n/a | **required, named in the ticket** |
+
+Header fields differ from a scenario-driven ticket on three:
+
+- **Scenario:** `decision` — followed by a pointer to the ratified decision and its ratification date.
+- **Serves:** name the decision **and** the spec section it changed (e.g. `product/ui/design-language.md § Card media block`) **and** the loop it serves. All three must resolve to something real; an unfillable lineage field stops the ticket, same as anywhere else.
+- **Acceptance Criteria:** mirror the decision's own language. Drift is a `DEVIATIONS.md` entry.
+
+**Gate B still applies.** A ratified decision is exactly where new absolutes appear — if any absolute the ticket will encode in code lacks a State-tagged Intent, stop and route to `weigh`. T118 found two untagged absolutes this way and got them tagged before drafting.
+
+**Gate C is not softened here, it is redirected.** Checklist 4 fires, `design:design-critique` and `design:accessibility-review` both run, and both are named in the ticket. A decision-lane ticket that skips checklist 4 has skipped its review — the same failure as a scenario-driven ticket with no `review-F{NNN}.md`, and it stops the same way.
+
+**The decision lane is not an escape hatch for skipping scenarios.** If the work is a *feature* — a coherent unit of Member-facing behaviour with a Given/When/Then — write a scenario and take branch (a). The decision lane is for work whose whole content is "apply this ratified decision to the surface it governs," where a scenario would restate the decision and add nothing. When in doubt, write the scenario; it is the cheaper mistake.
+
+**Tracking.** Decision-lane tickets get no F-number. Log them in `planning/TRACE.md` against the decision they serve, so decision-driven work has the same visibility as feature work — the same treatment substrate gets in its `S-` table.
 
 ## Ticket sizing
 
