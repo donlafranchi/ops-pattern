@@ -1,10 +1,10 @@
 ---
 purpose: Scenario — Explore is absorbed into Home. One browse surface at `/`, server-ranked, carrying Explore's search, filters, map and URL state. Two-tab nav plus create.
 layer: how
-status: backlog
+status: next
 ---
 
-# F054: A newcomer browses one surface instead of two
+# F059: A newcomer browses one surface instead of two
 
 **Bundle:** b1 (SocialUs v1)
 **Sub-bundle:** post-`b1.4` — v1 finishing list, not a themed slice. The `b1.0`–`b1.6` sequence in [`bundle-1-themes.md`](../now/bundle-1-themes.md) predates the v1 rescope and has no slot for this; the bundle's workstream list is the live sequencer.
@@ -13,7 +13,7 @@ status: backlog
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → `discoverable_items` (via `locality_feed_items`) → browse. No new table, one function migration.
 **Spec contract:** [`decision-surfaces.md`](decision-surfaces.md) § The two-tab model · § Feed ranking · § Distance is out · § Metro is the vantage point · § What the shipped Explore code carries into the merge; [`community-platform.md`](../../product/ui/community-platform.md) § T1 Home + § T1 Explore
-**Status:** backlog — **Gate A not clear.** Two unratified absolutes below.
+**Status:** next — **reviewed** ([`review-F059.md`](./review-F059.md), REVISE 2026-09-04, revision applied same day). **Gate A clear** (both cited absolutes ratified 2026-09-04; see below).
 
 ---
 
@@ -37,7 +37,8 @@ The old `/explore` bookmark on their phone still works. It lands them on the sam
 
 - **Entry point:** `/` — the merged browse surface. It is what the Home tab opens and what `/explore` redirects to.
 - **Primary action:** narrowing what's on screen — search, kind pills, filter sheet, place switcher.
-- **Interaction:** the shipped Explore chrome, unchanged in appearance: sticky search row with filter icon, removable active-filter chips, seven kind pills anchored above the nav, inline List/Map toggle, filter bottom sheet.
+- **Interaction:** the shipped Explore chrome, carried across without redesign: sticky search row with filter icon, removable active-filter chips, seven kind pills anchored above the nav, inline List/Map toggle, filter bottom sheet.
+  **Carried with a known, accepted violation — say it plainly rather than calling the port neutral.** `ExploreSearchBar` is `sticky top-0`, and `design-language.md` principle 9 reads *"All primary controls anchor to the bottom of the viewport… **No top-anchored toolbars or search fields.**"* Porting the row to `/` relocates that violation from a secondary tab onto the surface every visitor lands on. It is accepted **for one release**, because the follow-on chrome scenario is the remedy and rebuilding the chrome twice costs more than carrying it once. It gets a DEVIATIONS entry naming principle 9 at the ticket that lands the port. See [`review-F059.md`](./review-F059.md) § The finding.
 - **Completion:** an Item card tapped through to its page, with the browse state restored on back.
 - **Discovery:** unchanged — this scenario moves where browsing lives, not what is browsable.
 
@@ -102,6 +103,16 @@ Implicit: no event rows, no writes, no new table, no RLS change.
 **When** they switch the place switcher to Midtown
 **Then** the new results start at the top. _Why: `useScrollRestoration` is keyed to the literal string `'explore'` and guards restoration behind a `useRef` that is never reset, so one key covers every place and the restore fires at most once per mount. On a surface that has both a switcher and restoration, that combination lands a Member at Oak Park's scroll depth inside Midtown's results. The key must carry the place, and the once-only guard must reset when the key changes._
 
+### The vantage point is a metro, and so is the switcher
+
+**Given** the newcomer opens the browse surface
+**When** the feed resolves what to show
+**Then** the results are the Items inside the active **metro**, and the switcher's entries are metros — not the twelve arbitrary neighborhoods it lists today. _Why: `decision-surfaces.md` § Metro is the vantage point, as amended 2026-09-04 — v1 filters at metro grain. This is not a configuration change: `places.kind` has no metro value (migration `017`), so the feed read moves to the `metro_polygons` overlay (migration `031`) and `ScopePicker`'s options come from it. Shipping the merge with the neighborhood-grain picker would put a control on the platform's main surface in a shape already ratified as wrong._
+
+**Given** a Member whose home falls outside every seeded metro
+**When** the feed resolves
+**Then** they get a named, non-empty fallback rather than a blank surface. _Why: `members.home_metro_id` is null outside every seeded CSA — migration `031` documents this as the rural fallback, and F031's radius answer to it is out of v1 with distance removed. Metro-as-vantage-point currently has no answer for a rural Member, and the merge is the first surface where that shows._
+
 ### The old address still works
 
 **Given** a bookmark or an internal link to `/explore?kind=gathering&schedule=weekend`
@@ -131,28 +142,33 @@ Implicit: no event rows, no writes, no new table, no RLS change.
 ## Out of Scope
 
 - **The new chrome.** A search box above the nav, a filter button at its right edge, and a floating map button replacing the inline toggle. **This is the immediate follow-on and it reverses T114's pill row and T116's inline toggle** — the merge lands first so the chrome is rebuilt once, not twice. It needs its own scenario and its own `review`.
-- **The ranking rewrite.** Metro vantage point, hoods-first bands, "nothing excluded, Online last" — v1 workstream 8, not this. This scenario adopts `locality_feed_items` as the ranking authority *as it behaves today* and extends only its projection. See § Known contradiction below.
+  **Reframed by this review, and it changes how the follow-on gets argued:** moving search to the bottom is not a taste reversal of shipped work. It is `design-language.md` principle 9 being restored. T115 shipped the top-anchored row citing `design-research-thesis.md` §5, and F045 — the scenario that chose between the thesis and the DLS — had no review, so nothing ever reconciled them. The follow-on is the design language winning a conflict it should never have lost.
+- **Hood bands and the wider hierarchy.** Hoods-first ranking inside the metro, the neighborhood→city→county→state ladder, "Online ranks last" — all v2. v1 is metro grain and nothing finer. **The metro vantage point itself is in scope** — see § v1 filters by metro.
 - **Server-side filtering.** Category, schedule and search still refine a fetched page. At v1 inventory the page is the corpus; the ceiling is recorded, not built against.
 - **What the `+` opens.** `decision-surfaces.md` § Open questions 2 is unresolved. This scenario puts the button in the nav pointing at the existing create entry (`/you/sell`); the composer sheet is a separate piece of work.
 - **The You rebuild** — v1 explicitly defers it beyond create-and-manage.
 - **Persisting the list/map view across sessions** (b2, per F044).
 
-## Known contradiction — flagged, not resolved here
+## v1 filters by metro — and that is a scope change to this scenario
 
-`locality_feed_items` **excludes**: `where di.nearest_location_geography is not null and st_intersects(di.nearest_location_geography, p.geography)`. Anything without a location geography, and anything outside the place polygon, is absent from the feed entirely.
+**PM directive, 2026-09-04:** *"We are filtering by metro now."*
 
-`decision-surfaces.md` § Feed ranking ratified the opposite — *"This is a ranking rule, not a filter rule… Nothing is excluded from the catalog for being far away or for being Online."*
+The draft of this scenario flagged what looked like a regression: `locality_feed_items` excludes (`where nearest_location_geography is not null and st_intersects(…, p.geography)`) while Explore reads the index with no such test, so the merged surface would show strictly fewer rows than Explore does today — contradicting `decision-surfaces.md` § Feed ranking's *"a ranking rule, not a filter rule."*
 
-The shipped function contradicts the ratified rule today, on Home, before this merge touches anything. Merging does not create the contradiction and this scenario does not fix it — that is workstream 8's ranking rewrite. It is recorded here because the merge is the moment the contradiction becomes *visible*: today a Member who wants the excluded rows can go to Explore, which reads the MV directly with no polygon test. After the merge there is nowhere else to look, so the merged surface will show strictly fewer items than Explore does now.
+**That is no longer a contradiction, because the rule moved.** For v1 the feed **filters** to the active metro; items outside it are absent, not ranked last. The rank-never-filter entry is demoted from a standing commitment to a versioned bet, with a revisit trigger — `decision-surfaces.md` § Feed ranking → "Amended 2026-09-04," and the worked reasoning in `decision-durability-register.md` § 9b.
 
-**This is a real product regression in v1 unless workstream 8 lands with or before the merge, or the polygon test is relaxed as part of it.** Sized in the review.
+**What that costs this scenario, and it is the expensive part.** Filtering by metro is not a setting on the shipped function. `locality_feed_items` takes a `places.id` and intersects `places.geography`, and **`places.kind` has no metro value** — migration `017` constrains it to `region / state / county / city / neighborhood`. Metro lives in a separate overlay table, `metro_polygons` (migration `031`), with its own geography and one approximate seeded Sacramento CSA.
 
-## Gate A — two unratified absolutes
+So the merged surface needs a **metro-grain vantage point** — a feed read against `metro_polygons`, a switcher whose entries are metros, and a resolution chain that lands on a metro rather than on a neighborhood. That is v1 workstream 8, and it is a **hard dependency of this scenario rather than a neighbour of it**: the merge ships the place switcher, and a switcher that still lists twelve arbitrary neighborhoods is a control shipping in a shape already ratified as wrong.
 
-Both are in `product/ui/community-platform.md` § T1, both are encoded by this scenario, and neither carries a State-tagged `Intent` line. Per rebuild rule 11, this scenario cannot advance to `next/` until `weigh` walks them.
+**Consequence to expect and not mistake for a bug:** after the merge, browsing shows Sacramento-metro Items only. At current seed density that may be visibly fewer rows than `/explore` shows today. That is the intended v1 behaviour.
 
-1. **`community-platform.md:70`** — *"Browse at `/explore` **without authentication** — no redirect, no signup wall."* Encoded by the first acceptance criterion. The merge is precisely where an anonymous-browse commitment written against an auth-blind route meets a server-rendered auth-aware one.
-2. **`community-platform.md:64`** — *"Sort = recency + locality scope. **No personalization algorithm at T1**; simple time + scope."* Encoded by the ranking-authority criterion — and already drifted, since `locality_feed_items` boosts rows matching the Member's interest tags, which is a personalization signal by any ordinary reading.
+## Gate A — cleared 2026-09-04
+
+Both absolutes this scenario encodes were untagged when it was drafted. `weigh` walked them with the PM on 2026-09-04; both now carry State-tagged `Intent` lines in `product/ui/community-platform.md`.
+
+1. **Anonymous browse** — ratified as written, and widened slightly: *no redirect, no signup wall, **no gated or truncated result set***. The truncation clause was added because it is the form the commitment would most plausibly break in without anyone deciding to break it.
+2. **Ranking** — ratified in corrected form. "No personalization algorithm at T1" is replaced by *locality + recency, with the Member's own declared interest tags as a boost; no behavioural, engagement-derived, or inferred-from-browsing ranking.* The original had already drifted — `locality_feed_items` has boosted on `member_interests` since T087.
 
 ## Capabilities unlocked
 

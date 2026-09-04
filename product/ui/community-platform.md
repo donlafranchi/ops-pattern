@@ -61,13 +61,15 @@ The labels in the nav stay simple ("Home" / "Explore" / "You") because every soc
 - **Featured Seller of the week** — curated.
 - **Followed-Member float** — content from Members the viewer follows surfaces above general locality content.
 
-Sort = recency + locality scope. No personalization algorithm at T1; simple time + scope.
+Sort = recency + locality scope, with the Member's own **declared interest tags** as a boost. **No behavioural, engagement-derived, or inferred-from-browsing ranking.**
+Intent (Ratified 2026-09-04): This replaces "No personalization algorithm at T1," which was untagged and had already drifted — `locality_feed_items` has boosted rows matching `member_interests` since T087, and that is personalization by any ordinary reading. The refusal worth keeping is the one about *engagement optimization*, not about a Member's own stated interests: a boost the Member typed themselves is legible, editable, and turns off when they edit it, where a score derived from what they lingered on is none of those things. Ratified at merge scope (F054) because the merged browse surface is where the ranking authority gets picked. Overturned by: evidence — the tag boost measurably crowds out locality.
 
 **The locality-aware-but-not-Location-scoped property is structural:** the feed surfaces Items declared by Members whose `home_location_id` is in the viewer's locality, plus Items attached to Locations in the viewer's locality, plus Items from followed Members regardless of location. There is no surface that lets anyone address "everyone in West Sac" — the accountable-participation commitment in policy.md is honored by absence.
 
 **Explore (Locality Browse).** Folded in from the prior `capabilities/locality-browse.md` on 2026-05-22.
 
-- Browse at `/explore` **without authentication** — no redirect, no signup wall.
+- Browse **without authentication** — no redirect, no signup wall, no gated or truncated result set.
+  Intent (Ratified 2026-09-04): The landing surface has to be readable by someone who has never signed up, because the platform's first job is to show a stranger that their neighbourhood is already on it. A wall in front of an empty-looking catalog converts nobody and costs the only demonstration the product has. Ratified at merge scope (F054): this bullet was written against `/explore`, an auth-blind route, and the merge moves browsing onto `/`, which is server-rendered behind an auth read — the merge is precisely where this commitment either survives or breaks silently. The signup banner stays a banner, above the results, never in front of them. Overturned by: evidence — anonymous browse is shown to suppress rather than seed signup.
 - Proximity ordering against the `discoverable_items` materialized view — base tables never queried on the anonymous read path. *Retired 2026-09-03:* the read-time `ST_DWithin` computation is superseded by the stored place hierarchy, and distance is out of the product entirely (see § Distance is out below); the MV read path itself stands.
 - Searchable across Items, Members, Locations, and (at b2) Groups.
 - Filters at b1: kind (gathering / product / service / wonder / offer / ask — shipped as the seven-pill row `All · Events · Products · Services · Ideas · Offers · Asks`, T114), category (multi-select), schedule (any / this week / this weekend / recurring). *Distance (1/5/10/25 mi) removed 2026-09-03 — see § Distance is out below; this is a deliberate scope removal of shipped T115 work, not a defect.*

@@ -65,7 +65,23 @@ Skip `planning-filter` when you're writing a single scenario for a known feature
 
 ## Scenario naming
 
-- **Feature numbers** are sequential, never reused: F001, F002, ... F0NN. Check `planning/backlog/`, `planning/next/`, and `planning/now/` for the highest number.
+- **Feature numbers** are sequential, never reused: F001, F002, ... F0NN. **Take the number from the ledger, not from the lanes:**
+
+  ```
+  ls planning/stage-ledger/F*.md | sed 's/.*\/F//;s/\.md//' | sort -n | tail -1
+  ```
+
+  The next number is that + 1. Belt-and-braces, run the lane scan too and take the higher of the two, since a scenario drafted seconds ago may not have been stamped yet:
+
+  ```
+  ls planning/{backlog,next,now,done}/scenario-F*.md planning/done/*/scenario-F*.md 2>/dev/null
+  ```
+
+  **Why the ledger is the authority.** Scenarios move — `backlog/` → `next/` → `now/` → `done/`, and a closed one lands in a dated subdirectory (`planning/done/YYYY-MM-DD-{slug}/`). A scan of three lanes misses every number that has already shipped. **`planning/stage-ledger/` is the one place an F-number persists regardless of lane**, because every pipeline skill stamps it and nothing ever removes a row.
+
+  **This rule previously named only `backlog/`, `next/` and `now/`, and that gap produced a real collision on 2026-09-04**: two sessions running concurrently both drafted F054, because the first had already archived its scenario to `planning/done/` — a lane the rule did not name — while its ledger row sat in plain sight. Both sessions followed the rule correctly. The recovery cost was a renumber across a scenario, a review, five tickets, a journal entry and two decision docs. **Two sessions following the rule must not be able to collide**; reading the ledger is what makes that true.
+
+  **Same latent bug on the T-number side, not yet bitten.** `ticket` step 1 scans `development/tickets/` and `development/tickets/done/`, but `CLAUDE.md` § File and directory naming says `done/` wraps to `done/vN/` on a shipped-version cut. After the first version cut, that scan starts missing every shipped ticket. Fix it when the cut happens, or now — it is the identical failure one directory deeper.
 - **Filename:** `scenario-F{NNN}-{persona}-{verb}-{object}.md` — verb is the *user's* verb, not the system's.
   - Good: `scenario-F018-brian-declares-run-club.md`
   - Bad: `scenario-F018-item-composer.md` (feature-shaped — leaks the data primitive)

@@ -308,3 +308,16 @@ Proposed replacement text:
 **One `orient` drift row** — `grep -l "status: ratified" planning/backlog/decision-*.md`, non-empty is a flag. Two files today.
 
 **Three commitment sentences to author on ratification** — the Online-warning honesty commitment and the coarse-location commitment into `policy.md`, and the no-scarce-namespace commitment into `people-first.md`. The fourth extends an existing Intent in `item.md` rather than adding one.
+
+## 9b. PM directive, 2026-09-04 — a worked demotion, and the shape to repeat
+
+Raised at F059 (Home/Explore merge) scope, and recorded here because it is the first time the scheme was *used* rather than argued about.
+
+**What happened.** `decision-surfaces.md` § Feed ranking carried a ratified, State-tagged, indefinite-sounding commitment — *"This is a ranking rule, not a filter rule… Nothing is excluded from the catalog for being far away."* Scoping the merge found that the shipped feed function does the opposite, and asked whether to fix the code or the doc. The PM's answer was neither: *"We are filtering by metro now. These are the kind of decisions that need to be removed from global decisions and entered into this version's decision matrix."*
+
+**Why it is the right call, in this scheme's own terms.** Rank-over-filter is falsifiable by observation, reversible in one migration, and contingent on inventory density — three of the register's own bet markers. It read constitutional only because it was written in absolute grammar and given a Ratified tag. That is § 2's inflated-marker problem exactly, and it produced a real cost: a scenario spent a gate cycle treating a bet as a commitment it had to either honour or formally overturn.
+
+**The shape to repeat.** When a ratified entry turns out to be a bet, do not memo it and do not silently contradict it. Amend it in place with three things — *what this version actually does*, *that the entry is demoted to the versioned tier*, and *the revisit trigger that would bring it back*. The reasoning stays on the page; only its force changes. Worked example: `decision-surfaces.md` § Feed ranking → "Amended 2026-09-04."
+
+**Standing consequence.** Absolute grammar plus a Ratified tag is not sufficient evidence that something is constitutional. The census cap (§ 8) counts entries; nothing yet counts entries whose *durability class* was never actually chosen. Ratifying this register is what closes that.
+

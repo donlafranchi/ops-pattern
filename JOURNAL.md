@@ -14,6 +14,36 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-04 — Read the old vendor code before deleting it, and it paid for itself twice
+
+**The retired vendor surface is not waste — it is design work already done for the same job.** Reading it before the deletes found four things worth copying and two worth deliberately refusing, and it changed the plan in three places.
+
+**The biggest find: shared links currently show nothing.** The old vendor page put the cover photo into the link preview. **That code exists in exactly two files in the whole app, and both are being deleted.** Every page the new product ships — every listing, every shop, every person — renders as a bare grey text row when someone texts it. Since the way this platform spreads is one person sending another a link, **the link preview is a better reason to build photo upload than the feed card is**, and it is a small addition on three files.
+
+**Two fields the rebuild dropped without noticing:** the one-line tagline (the old form required it and used it in four places; the new model left only a paragraph box that no card can display), and the profile-completeness checklist — which is the only thing in either product that ever prompted anyone to add a photo in the first place.
+
+**Two things deliberately not carried, for the same reason.** The old product graded every business on a six-tier scale from independent to private-equity-owned and coloured its map pin accordingly — the platform judging a person from data they never wrote, which is exactly what we've committed not to do. And the old sign-up form *required a street address and pinned it on a public map* — which for a home baker is their home. That is the same harm as the photo GPS problem, arriving through the form instead of the camera. Finding both in one afternoon was not a coincidence.
+
+**On the You page: the read that it's mostly fine is right, and the old code agrees.** It already worked out whether someone was a producer and showed the recruitment invitation only if they weren't — it just put it at the bottom of the page instead of making it the page. So this is a modification, not a rebuild: about a day and a half instead of three or four. That gave the month back roughly two days, which moves the honest count from five-or-six of ten to **six, with group events likely a seventh for free** — its blocker was a missing route that now falls out of the You work.
+
+**One open question for the PM:** nothing in the app asks a producer what category their thing is, so everything a real person creates is uncategorised forever — while the browse screen ships a category filter over exactly that. Carrying the old category picker is about half a day. Either carry it or drop the filter, but shipping a filter over an empty dimension is the one option to avoid.
+
+**Pointers:** [`planning/backlog/audit-vendor-prior-art.md`](planning/backlog/audit-vendor-prior-art.md) (§ 4 is the category question, § 6 re-times the deletes) · revised [`planning/backlog/decision-photo-upload.md`](planning/backlog/decision-photo-upload.md) § 7 · F057 and T125 rescoped · [`planning/now/bundle-1.md`](planning/now/bundle-1.md) § Schedule risk. Commit `{pending}`.
+
+---
+
+## 2026-09-04 — Scoped photo upload and the sign-up-to-shop journey end to end, and found that the month does not fit
+
+**People can now be scoped to do the whole thing themselves — sign up, open a shop, put pictures on what they sell, say what they stand for, and see it in the feed.** Nothing of that exists today except the parts nobody can reach: there is no photo upload anywhere in the app, no way to edit anything about yourself after signup, and the only door to opening a shop sits on a page that still asks whether you are a business owner and reads four database tables that no longer exist.
+
+**Two things came out of it the PM should act on before anything gets built.** The moderation answer for user photos — "the operator handles it via the report path" — is the right answer, and it is currently false: there is no report path and no way to remove a photograph short of hand-editing the database. **The small, cheap report feature has become a precondition for the big new one.** And three commitments need ratifying before a line of code: that uploaded photos never carry the GPS coordinates of the kitchen they were taken in, that nothing gets published that cannot be taken down, and that a producer's values statement is only ever written by the producer. Each is an hour; each blocks days.
+
+**On what leaves the month:** the recommendation to push the vendor cleanup deletions past launch is right — they are 51 files nobody sees — but it buys one or two days against nine to twelve days of new work, so it is not enough on its own. **The better cut is to split the Home/Explore merge in half:** keep the rebuild of the You page, which the new journey walks straight through, and defer folding Explore into Home, which reverses three things shipped in the last two days. Honest read: five or six of ten workstreams by the end of September.
+
+**Pointers:** [`planning/backlog/decision-photo-upload.md`](planning/backlog/decision-photo-upload.md) (the checklist run on the scope change, the cost and privacy shape, and § 7 for the cut analysis) · scenarios F055–F058 and [`planning/backlog/review-F055-F058-self-serve-producer.md`](planning/backlog/review-F055-F058-self-serve-producer.md) · tickets T120–T126 · [`planning/now/bundle-1.md`](planning/now/bundle-1.md) § What ships in v1 (workstream 10) and § Schedule risk. Commit `{pending}`.
+
+---
+
 ## 2026-09-04 — Fixed the broken item links: 11 of 11 now open, and the 5 that can't were taken off the surface
 
 **Every link a member can tap now works.** Nine of sixteen seeded items used to open a 404. Four were the items filed under a business or a club — the most credible things on the feed — and they now resolve at their real place-scoped addresses. The other five are the kinds the app cannot yet display; rather than leave them linking to nothing, they are withheld from every browse surface until they are real. Verified on production, not just locally: eleven links, eleven 200s.
@@ -26,7 +56,35 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 **Known and deliberate:** the feed is now eleven items rather than sixteen. Eleven that work beat sixteen where five lie, and content density is its own workstream. The four withheld kinds are not one job — Ideas is close, Offers and Asks are a matched pair worth doing together, and Initiative is a project with a state machine, not a kind. All four need a reply mechanism that does not exist for any kind yet, which is the real reason to keep them together.
 
-→ playbooks/PLATFORM-PATTERNS.md § canonical Item URLs + § browsable kinds; planning/done/2026-09-04-F054-canonical-item-urls/; development/deviations/T119.md; planning/stage-ledger/F054.md. Web commits: d4f9d11, bed1e2d (pushed, deployed). Production migration 037 applied by hand.
+→ playbooks/PLATFORM-PATTERNS.md § canonical Item URLs + § browsable kinds; planning/done/2026-09-04-F059-canonical-item-urls/; development/deviations/T119.md; planning/stage-ledger/F059.md. Web commits: d4f9d11, bed1e2d (pushed, deployed). Production migration 037 applied by hand.
+
+---
+
+## 2026-09-04 — Second gate failure of the day, and it's the same one as the first: a gate whose command can't run gets ticked by eye
+
+Seven tickets (T120–T126) were written against scenarios still sitting in `planning/backlog/`, and all seven tick Gate C by pointing at a review the gate's own command cannot find — it is in `backlog/`, under a combined `review-F055-F058-*.md` name the convention has no slot for. Gate C did not fail to fire. **It would have stopped the work correctly had anyone run it**; instead it was answered from the page by a reader who could see a review and concluded one existed. True, and substantively wrong — the review had not been run on approved scenarios and did not certify what Gate C exists to certify.
+
+**The finding is the pattern, not the tickets.** This is the third instance today of one root cause: T118 hit an unrunnable Gate C this morning and recorded it honestly, which is why branch (b) got added; T120–T126 hit an unrunnable Gate C this afternoon and ticked it; and F059's review hit the mirror image — a Gate-A-blocked scenario needs a review that, by the naming convention, has nowhere legal to live. Instances 2 and 3 are the same hole from opposite sides, and both sessions invented an exit, because the process has none. **The T118 amendment fixed one unrunnable branch; it did not fix "unrunnable" as a category.** The one-line amendment argued for: a checklist item whose command cannot be run is neither passed nor N/A — it is *unrunnable*, and that is a stop.
+
+**The tickets are salvageable and their content is good** — prior-art pointers into the vendor surface before it is deleted, a release gate binding the photo composer's deploy to the takedown path, an honestly-labelled Gate B deviation. What they need is re-grounding, not redrafting: `weigh` on two absolutes (EXIF/GPS stripping, values never-sourced), the F056 EXTEND on `groups.md`, then four scenarios advance to `next/` and one path line changes per ticket. Steps two through six are minutes; the `weigh` is the schedule, and it is owed anyway — Gate B is already holding five of the seven. **T125 is the live exposure**: the only one with no other blocker, so the only one a build agent could pick up against an unapproved scenario.
+
+Also fixed today, properly rather than by recovery: **two sessions running concurrently could both draft the same F-number.** `scope`'s numbering rule scanned three lanes and not `planning/done/`, so a scenario that had already shipped was invisible to it — which is exactly how F054 got claimed twice this afternoon. The rule now reads the stage ledger, the one place an F-number persists regardless of lane. The identical bug is latent on the T-number side once `tickets/done/` starts wrapping into `done/vN/`.
+
+→ planning/backlog/audit-gate-c-unrunnable.md (full trace, affected list, disposition — five PM calls); skills/scope/workflow.md § Scenario naming; planning/stage-ledger/F059.md § F-number collision.
+
+---
+
+## 2026-09-04 — Took the Home/Explore merge through the full pipeline, and the review caught the design language losing an argument nobody refereed
+
+The merge is scoped, reviewed and ticketed — the first significant piece to run the amended process end to end, and **the first of the four browse-surface scenarios to get a review document at all.** That gate is what F044 and F045 skipped, and running it immediately paid: the shipped Explore search row is `sticky top-0`, and `design-language.md` principle 9 says in as many words *"No top-anchored toolbars or search fields."* T115 shipped it citing the research thesis; F045 had no review, so nothing ever put the thesis and the design language in the same room. **The consequence for the PM's already-requested chrome change is that it is not a taste reversal of shipped work — it is the design language being restored**, which is a much stronger footing to schedule it on.
+
+**Two absolutes were ratified to unblock Gate A.** Anonymous browse ("no redirect, no signup wall") was ratified as written and widened to cover a truncated result set — the form it would most plausibly break in without anyone deciding to. "No personalization algorithm at T1" was ratified in corrected form: it had already drifted, since the feed has boosted on the Member's declared interest tags since T087, and the refusal worth keeping is about engagement-derived ranking, not about interests a Member typed themselves.
+
+**The scheme got used rather than argued about.** Asked whether to fix the code or the doc where the shipped feed function excludes rows against a ratified "rank, never filter" commitment, the PM did neither: v1 filters by metro, and that class of decision moves out of the standing set into the version's decision matrix. The entry is demoted to a bet with a revisit trigger, its reasoning intact. **That decision has a price the scoping surfaced:** `places.kind` has no metro value and metro is a separate overlay table, so "filter by metro" is a second SQL function against a different table — which makes the metro vantage point a hard dependency of the merge rather than a neighbouring workstream, and is most of why the estimate moved.
+
+**Honest schedule read: the merge is unlikely to land by end of September, and it is already third on the bundle's own cut list.** Five tickets, two of them migrations, against a month that also holds the vendor retirement, producer profiles, onboarding and the report path — with several of those already ticketed and blocked on gates.
+
+→ planning/next/scenario-F059-newcomer-browses-one-surface.md + review-F059.md (REVISE, revision applied); development/tickets/T127–T131; product/ui/community-platform.md § T1 (two Intent lines); planning/backlog/decision-surfaces.md § Feed ranking (amended); planning/backlog/decision-durability-register.md § 9b; planning/stage-ledger/F059.md.
 
 ---
 
