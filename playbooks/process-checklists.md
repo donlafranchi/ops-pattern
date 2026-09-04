@@ -6,7 +6,7 @@ status: active
 
 # Process checklists
 
-Four checklists. Each fires on an **observable fact**, not a judgment call. Run the one that matches the work in front of you; ignore the rest.
+Five checklists. Each fires on an **observable fact**, not a judgment call. Run the one that matches the work in front of you; ignore the rest.
 
 ## Design rules these follow
 
@@ -68,6 +68,19 @@ That last pair is the T117 case: no new component, no new page, and a rebuilt su
 - [ ] **The DLS recipe named in the ticket actually governs what shipped.** If it drifted, that is a deviation.
 - [ ] **One line in the DEVIATIONS entry about appearance.** "No appearance change" is valid only if the screenshot says so. *(T115 and T117 logged thirteen deviations between them — hex validation, pin colour, scroll restoration — and not one about what the screen looks like, because nothing asked.)*
 
+## 5. Reacting to the deployed app — the PM has looked at it and wants it changed
+
+**Fires when:** a change request's evidence is a screen. "This looks worse," "we want image-rich cards," "put the search box above the nav," "go back to how it was." The tell is that the request cites something seen, not a scenario, a ticket, or a spec line — and no scenario or ticket exists for it yet.
+
+This runs **before** `scope`, not instead of it. Its whole job is to make sure the scenario that gets written describes a real defect and a real fix. On 2026-09-03 the first instinct — the PM's and mine both — was to start building; the card diagnosis then showed the premise was largely wrong.
+
+- [ ] **Pin what was actually on screen.** `cd web && git log origin/main..main --oneline`. Non-empty → the PM was not looking at HEAD; name the gap before diagnosing anything. Record the URL, the viewport, and whether signed in. *(Today this returns two commits — the QR removal and a gitignore — so "what's deployed" and "what's on this Mac" were different screens.)*
+- [ ] **Reproduce it and screenshot it.** Same URL, same viewport, attached to the request doc. A request with no screenshot is a memory, not an observation, and memories of one's own product are unreliable in a specific direction: they remember the demo.
+- [ ] **Separate the complaint from the proposed remedy, and write the complaint first.** What is on screen that shouldn't be, or absent that should be. The PM's remedy is a hypothesis about the cause and gets checked like one. *(Today's remedy — richer cards — assumed a richer card had regressed. `grep -n "photo_url" web/supabase/seeds/*.sql` returns one line, an `item_products` insert with `array[]::text[]` in every row: no seeded Item has ever had a photo. There was nothing to restore.)*
+- [ ] **If the request is "go back to how it was," name the commit.** `git log --oneline -- <surface path>` and identify the state being remembered. No such state → say so plainly and in writing: this is new design, not a restoration, and it gets scoped as new design. *(The remembered good design was a recruitment grid with no real inventory behind it. Restoring it would have restored the emptiness with it.)*
+- [ ] **List what the request reverses or relocates.** `grep -rln "<surface or component>" development/tickets/*.md planning/next/*.md planning/now/*.md`. Every hit is shipped or approved work this request contradicts; give each a disposition in this session. *(Today: T114's kind-filter pill row and T116's inline list/map toggle are reversed outright; T115's filter sheet is relocated. All three merged within the previous 48 hours.)*
+- [ ] **Check the request against `product/ui/design-language.md`, and quote the line.** Where they conflict, the DLS holds until a decision says otherwise — taste that overrides the design language is a decision doc, not a ticket. *(Today: an always-present image placeholder against DLS principles 3 and 5 and the no-photo card recipe — "no tinted backgrounds, no colored badges, no decorative emoji circles." Both positions are defensible. Nothing in the process made them meet.)*
+
 ---
 
 ## Deliberately not written
@@ -75,3 +88,4 @@ That last pair is the T117 case: no new component, no new page, and a rebuilt su
 - **A scenario-writing checklist.** `scope` worked on 2026-09-03. F048–F053 are well-anchored and the two blocked ones are correctly marked blocked. Nothing went wrong; no gate earned.
 - **An audit checklist.** The vendor/market audit found two live bugs — a dead query firing app-wide and a distance-origin defect with no visible symptom. Audits are already doing the thing the rest of the pipeline needs more of. Adding process here would slow down the part that works.
 - **A retirement checklist.** A retirement *is* a decision — checklist 1 covers it, and its second item is the whole point. Executing the deletion is covered by build's close-out reconciliation. Two checklists for one activity is how checklists die.
+- **A "did the PM like it" step inside `build`.** Checklist 5 fires on the PM's reaction; it does not solicit one. Build's job ends at a pushed surface and a line saying what to open (checklist 3). Asking the build agent to also ask for an opinion turns every ticket into a review meeting.
