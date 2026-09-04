@@ -1,5 +1,5 @@
 ---
-purpose: Decision — the producer values declaration, its permanent sourcing constraint, and the recommended consumer-response mechanic. Carries the one absolute that needs `weigh` before any ticket encodes it.
+purpose: Decision — the producer values declaration, its permanent sourcing constraint, the deferral of support/oppose, and the general report path that ships in v1 instead. Carries the one absolute that needs `weigh` before any ticket encodes it.
 layer: how
 status: backlog
 ---
@@ -28,19 +28,43 @@ The declaration exists because v1's positioning focuses the *audience* — progr
 
 **Action required before any ticket:** `weigh` walks this statement and lands the State-tagged Intent in `policy.md`. Rebuild rule 11 Gate B stops ticketing until it does.
 
-## 3. Consumer response — recommended, pending PM confirmation
+## 3. Consumer response — resolved 2026-09-04: both buttons deferred, a report path ships instead
 
-**Not ratified.** The PM proposed two buttons: support and oppose. The recommendation put to him instead:
+**Support and oppose are both deferred. Deferred, not rejected.**
 
-> **Support is public. Opposition is private.** One button to back a producer, and a report path that routes to the operator rather than to a public counter.
+A voting mechanic only means something once there are enough buyers and producers for the signal to carry information, and bad actors do not arrive before there is an audience worth targeting. Building voting mechanics for a platform with sixteen items is premature on both counts — the signal would be noise and the abuse it defends against has no reason to exist yet. The name itself also does a fair amount of the filtering work at this stage.
 
-**Why.** A public oppose control on a small local business that has just declared a political position is a brigading vector. With few ratings — which is every producer on a v1-scale platform — a handful of coordinated clicks buries someone, and the platform has no density to dilute it and no moderation staff to adjudicate it. The same coordination against a public support counter merely inflates it; against a public oppose counter it destroys a livelihood. The asymmetry in harm justifies the asymmetry in the control.
+The earlier recommendation — support public, opposition private — stands as the *shape* to return to when the mechanic is built. Its reasoning is unchanged and worth keeping: a public oppose control on a small local business with few ratings is a brigading vector, where the same coordination against a support counter merely inflates it. That asymmetry in harm is what justifies the asymmetry in the control, and it will still be true at density.
 
-Routing opposition to the operator keeps the signal — genuine complaints still arrive, and they arrive somewhere a human can weigh them — without turning it into a public scoreboard anyone can pile onto.
+The count sub-question travels with the deferral. It is not open work today.
 
-**Open sub-question:** does the support signal display a count at all? [`../../product/ui/design-language.md`](../../product/ui/design-language.md) Principle 4 keeps badges and metadata off photo cards, and the surface-calm posture rules against numeric engagement badges. A count is the obvious design and the one most at odds with the design language. Options: no count; a coarse band; count visible only to the producer. Unresolved — decide before the profile surface is ticketed.
+*Overturned by: evidence — producer or buyer density reaches a point where members are asking how to signal backing, or the first coordinated-abuse case arrives.*
 
-*Overturned by: evidence — support signals go unused at v1 density, or producers report that a private report path leaves genuine complaints invisible.*
+### What v1 gets instead: a general report path
+
+Not a values feature. Not political. A way for any member to tell the operator that something needs looking at, in any context.
+
+**Minimal scope:**
+
+- A discreet report affordance on Items and on producer profiles.
+- **No public counter, no visible state.** Nothing the reported party or any other member can see.
+- Routes to the operator — a real destination, not a queue nobody reads.
+- **Free text with a light reason, not a fixed taxonomy.** At this stage the operator learns more from what people actually write than from categories guessed in advance. The taxonomy, if one is ever warranted, gets derived from the free text rather than invented ahead of it.
+
+**Why this is worth building now when the voting mechanic is not.** The two look like the same feature deferred at different rates; they are not.
+
+1. **There is currently no channel at all for a member to tell the operator anything.** That gap exists from the first user, not the thousandth. It does not scale into existence the way a voting signal does — it is fully present at zero density, and the cost of not having it is that the first person with something to say has nowhere to say it.
+2. **It closes a hole already flagged.** [`decision-business-identity-impersonation.md`](decision-business-identity-impersonation.md) established that local name scoping prevents squatting but **not** impersonation, and named a claim-or-verification path as needed and unscoped. Its own closing line asks for exactly this: *make sure the report path exists and someone actually watches it* — because the first impersonation will happen before any of that is designed, and the only bad outcome is having nowhere for it to go. This is that path's front door.
+
+One small feature — a link, a form, and a destination — covers bad actors, impersonation, and general feedback.
+
+### The operating condition — not a nicety
+
+> **A report channel nobody answers is worse than no report channel.** It teaches members that telling the operator anything is pointless, and that lesson is expensive to unlearn.
+
+**This is an operating commitment from the PM, not an engineering task.** Before the affordance ships, two things must exist: a real destination that a human reads, and a rough response commitment — a stated turnaround the operator intends to keep, however informal. Neither is code. Both are ship conditions.
+
+Treat this as a gate on workstream 9, not as documentation of a risk.
 
 ## 4. What this does not decide
 
@@ -50,7 +74,7 @@ Routing opposition to the operator keeps the signal — genuine complaints still
 
 ## 5. Next steps
 
-1. PM confirms or overrides the support-public / opposition-private recommendation (§ 3).
-2. PM decides the count sub-question (§ 3).
-3. `weigh` lands the § 2 commitment in `policy.md`.
-4. `scope` writes the producer-minimal-profile scenario; `ticket` follows.
+1. **PM names the report destination and the rough response commitment** (§ 3). Ship condition for workstream 9, not a follow-up.
+2. `weigh` lands the § 2 commitment in `policy.md`.
+3. `scope` writes the producer-minimal-profile scenario and the report-path scenario; `ticket` follows.
+4. Revisit support/oppose when the § 3 falsifier fires — not before.

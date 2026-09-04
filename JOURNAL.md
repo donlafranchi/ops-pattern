@@ -14,6 +14,20 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 ---
 
+## 2026-09-04 — Settled the support/oppose question by deferring both, and put a plain report path in v1 instead
+
+**Support and oppose are deferred, not rejected.** A voting mechanic only carries information once there are enough buyers and producers for the signal to mean something, and bad actors don't turn up before there's an audience worth targeting — building voting mechanics for a platform with sixteen items is premature on both counts. The name does much of the filtering work at this stage anyway. The support-public / opposition-private shape stands as what to return to when density arrives; the "does the support signal show a count" question travels with the deferral and is no longer open work.
+
+**What v1 gets instead is a general report path** — workstream 9, and not a values feature: a discreet report affordance on Items and producer profiles, no public counter and no visible state, routing to the operator, free text with a light reason rather than a taxonomy guessed in advance. It earns its place now where the voting mechanic doesn't for two reasons. There is currently no channel at all for a member to tell the operator anything, and that gap is fully present at the first user rather than the thousandth. And it is the front door to the claim/verification path the business-identity work flagged as needed and unscoped — that doc's own closing line asks for exactly this. One small feature covers bad actors, impersonation, and general feedback.
+
+**One condition, recorded as a gate rather than a nicety: a report channel nobody answers is worse than none**, because it teaches members that telling you is pointless. A real destination and a rough response commitment have to exist before it ships. That's an operating commitment from the PM, not an engineering task, and it's the only blocker on the list that isn't code.
+
+**Schedule read updated rather than left alone.** Deferring the voting mechanic removed a workstream and the report path put one back — nine now, and the date didn't get easier. The report path is a link, a form, and a destination, but against the scenario / review / accessibility gates it's three to four days end to end, so it went into the risk read rather than being treated as free. Cut order loses its old first item and now starts at replacing real-producer recruitment with a fixed seed set. Expect four to five of nine; the report path should be one of them, because it's the only item that gets harder to add later rather than easier.
+
+→ planning/backlog/decision-producer-values-declaration.md § 3 (rewritten, no longer pending); planning/now/bundle-1.md § Positioning + workstream 9 + § Schedule risk; planning/backlog/decision-business-identity-impersonation.md (closing note answered).
+
+---
+
 ## 2026-09-04 — Named v1: who we market to, what ships by the end of the month, and the honest read that it doesn't all fit
 
 The b1 bundle is now the **SocialUs v1** scope, rewritten rather than appended to. Two things landed together. **Positioning:** v1 markets to progressive-leaning locals in one metro, and the platform mechanic stays open to everyone — nobody is barred or removed for what they declare. The reason is not politeness, it is that a values badge only carries information if it can vary; a uniformly one-sided platform makes its own badge dead weight and the support signal meaningless. *Excluding* was considered and rejected: a membership policy needs vetting, appeals, and moderation the project cannot staff, and political affiliation is protected under public-accommodation law in several states and cities. Positioning sits in the versioned tier and is expected to change.
