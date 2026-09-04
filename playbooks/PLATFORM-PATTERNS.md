@@ -105,6 +105,26 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 
 ---
 
+### An Item's canonical URL is its Group place-path when filed, its Member path when not
+
+**Decision.** Every Item has exactly one canonical URL. An Item filed under a Group resolves at `/p/[…place]/g/[group-slug]/[kind-seg]/[title-slug]-[id8]`, where the place path is derived live from the Group's anchor Location; an Item with no Group filing resolves at `/m/[handle]/[kind-seg]/[title-slug]-[id8]`. The **`id8` fragment is the durable key** — the human-readable slug segments are addressing decoration and no resolver reads them. Group and place names may change, collide, or be re-scoped without breaking a shared link. *(Ratified 2026-09-04)*
+
+**Intent.** Links get shared and cannot be recalled, so the identifier underneath a canonical URL has to outlive every name in it. Two forces make the names unreliable: business identity is scoped to a hood and a metro rather than globally, so display names are expected to collide; and places get renamed and re-parented as the hierarchy is corrected. Putting the durable identity in an opaque id fragment lets both name layers stay human, mutable, and non-unique while every previously-shared link keeps resolving. Deriving the place path live rather than denormalizing it means a place rename corrects itself on the next render instead of staling into a stored column. The known debt this defers, deliberately: `groups.slug` still carries a global `UNIQUE` constraint, which contradicts local name scoping. That constraint is not load-bearing for URL permanence — the item's `id8` already is — so it is left standing until local scoping actually lands, at which point the Group segment gains an `id8` the same way Items have one and bare-slug lookups become a fallback. *(Deferred until local name scoping ships in schema; review by 2026-12-31)*
+
+**Touches.** `web/src/lib/feed/item-url.ts`
+
+---
+
+### Browse surfaces link only Item kinds that have a detail page
+
+**Decision.** A kind with no detail page is not rendered on any browse surface — not the feed, not Explore, not the map, not a Member page, not a venue page. It is filtered at the read helper, from one shared list of browsable kinds, and its rows stay in the database untouched. At v1 the browsable set is `product`, `service`, `gathering`; `ask`, `offer`, `wonder`, and `initiative` are withheld. *(Ratified 2026-09-04)*
+
+**Intent.** The two ways to handle a kind that isn't built are a broken link and a page that says nothing, and they fail differently. A broken link reads as *unfinished* — annoying, and honest. A dead-end page reads as *this is what the feature is* — and for the withheld kinds specifically it misrepresents the product, because an Ask and an Offer exist to be answered and the response substrate has no handler for any kind yet. A page showing "Folding table to borrow" with no way to say "I have one" teaches the Member that telling anyone anything here is pointless, which is the same failure the report path exists to avoid. Withholding is also the cheaper reversal: it is one entry in one list, whereas a placeholder page mints shareable URLs whose shape changes when the real page lands. The cost is accepted and named — the seeded feed drops from sixteen Items to eleven, and content density is a separate workstream, not something to solve by showing things that don't work.
+
+**Touches.** `web/src/lib/feed/item-url.ts`
+
+---
+
 ### Split Member↔geography into three purpose-owned substrates
 
 **Decision.** Retire `member_location_affinities` and its six-kind enum; replace with three substrates each carrying its right unit, lifecycle, and RLS posture — `member_business_jurisdictions` (seller locality, public, ZIP-grain with attestation ladder), `member_place_interests` (community awareness, private, Place-shaped, primary_home plus up-to-5 secondary), `member_saved_searches` (follow-as-subscription, private, labeled filter set). Add `items.made_at_place_id` for Item-level provenance ("Locally Made" badge as sibling to jurisdiction's "Locally Owned"). Private substrates are owner-only at the row level.
