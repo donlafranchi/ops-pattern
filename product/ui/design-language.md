@@ -128,11 +128,45 @@ Listings tagged `pe-corporate` carry `data-extractive="true"`, which applies `gr
 - Hover: bg `--color-surface`.
 
 ### Card
-- Bg white, no border, no shadow at rest. Image uses `--radius-md` corners.
-- Title 15px/600. Subtitle 14px/400 muted. Optional price 14px/600.
+
+**Amended 2026-09-04 (Decision A — `planning/backlog/decision-item-card-media.md`).** Two bullets of the previous recipe are retired and are marked in place below; do not cite them. The change: there is no longer a separate "no-photo card." There is **one card with an always-present media block** in one of two states.
+
+- Bg white, `1px --color-border` hairline at rest, no shadow at rest. Image and card use `--radius-md` corners.
+  - ~~Bg white, no border, no shadow at rest.~~ **Superseded 2026-09-04.** The no-border rule assumed a photo supplying the card's edge. A card that may have no photo needs the hairline to read as an object — and Principle 6 prefers hairlines anyway.
+- Title 15px/600. Subtitle 14px/400 muted. Meta line 13px/400 muted. Optional price 14px/600.
 - Hover: `--shadow-md` + slight scale.
 - **Photo cards: no overlays.** No pills, badges, tier markers, or any colored element over the image. Heart/save icon is the only overlay (white stroke, dark fill, shadow — same as Airbnb). All metadata goes below the image in the text zone.
-- **No-photo cards:** white background with `1px --color-border`, editorial layout. Uppercase category label in 11px/600 `--color-fg-muted`, large title, meta line. Optional thin accent line (2px `--color-brand`) as a subtle brand mark. No tinted backgrounds, no colored badges, no decorative emoji circles.
+- ~~**No-photo cards:** white background with `1px --color-border`, editorial layout … No tinted backgrounds, no colored badges, no decorative emoji circles.~~ **Superseded 2026-09-04** by § Card media block. The *colour and decoration* prohibition in that bullet survives and constrains the placeholder; the *editorial-layout* clause does not.
+
+#### Card media block
+
+The media block **always renders**, at a fixed 4:3 ratio, whether or not the entity has an image. It is the first thing in the card and it is what gives a grid of cards a constant shape.
+
+Intent (Ratified 2026-09-04): A card whose height depends on per-row data gives the grid a ragged rhythm that reads as breakage rather than as variety, and photo coverage will be partial for a long time. A constant holder is legible at zero coverage and at fifty percent; a conditional one is legible only at a hundred. Reversible — the placeholder is one branch in one component.
+
+**State 1 — image present.** `object-cover`, fills the block, no overlays (Principle 4 unchanged).
+
+**State 2 — no image: the kind field.** A neutral field, not a picture and not pretending to be one.
+- Background `--color-surface` (`#F7F7F7`). This is the token's documented purpose — *"hover states, text-forward card backgrounds, empty states."* A media block with nothing in it is an empty state. It is not a tint, and Principle 3 is not in tension with it.
+- Centered: the kind's line glyph, 28px, 1.5px stroke, `--color-fg-muted`. Nothing else — no text in the field, no circle behind the glyph, no accent line.
+- Measured contrast `--color-fg-muted` on `--color-surface` is **4.56:1** — clears AA for text and clears the 3:1 bar for graphical objects. Do not lighten either token in this pairing without re-measuring.
+- **No colour, ever.** No per-kind palette, no accent fill, no emoji. A seven-colour kind ramp would violate Principle 1; emoji render as full-colour platform art the DLS does not control. This is the surviving clause of the retired no-photo bullet and it is the binding constraint on this recipe.
+
+**Kind glyphs.** `lucide-react` (already a dependency). The mapping is fixed here so no surface picks its own:
+
+| `items.kind` | UI label | Glyph |
+|---|---|---|
+| `gathering` | Event | `CalendarDays` |
+| `product` | Product | `Package` |
+| `service` | Service | `Handshake` |
+| `wonder` | Idea | `Lightbulb` |
+| `offer` | Offer | `Gift` |
+| `ask` | Ask | `HandHeart` |
+| `initiative` | Initiative | `Flag` |
+
+**The kind label is text, not a chip.** Uppercase, 11px/600, `0.08em` tracking, `--color-fg-muted`, first line of the text zone — the editorial label treatment the retired no-photo bullet already specified, now used on every card in both media states. It replaces the pill-shaped kind chip: `.chip` carries `px-3.5 py-2 text-sm` and renders ~32px tall, which on a 2-column mobile card is a heavier element than the title it sits above. A chip is an interactive affordance; the kind is not interactive on a card.
+
+**The card fills its grid cell.** Full height, text zone growing to absorb the difference, so rows stay flush no matter how many lines a title wraps to. **The card specifies no width and no column count** — `ItemFeedCard` already renders in three grids at three different column counts (`LocalityFeed` 2/3, `VenuePublicPage` 2/3, `ExplorePage` 2/3/4) and the merged Home surface may use a fourth. Width is the grid's business.
 
 ### Horizontal card scroll
 A single-row, snap-scrolling strip of compact cards for an at-a-glance summary that links onward to a full page. First consumer: the `/you` "Following" summary (F042 / T108); use it for any "here's a peek, see all →" surface.
