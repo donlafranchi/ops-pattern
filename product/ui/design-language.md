@@ -287,7 +287,7 @@ Business and vendor profile pages render the primary action (Support / Follow) s
 On Explore, the search bar IS the primary CTA. No competing button. Keeps the surface calm.
 
 ### 7. Trust microcopy adjacent to primary CTAs
-Place a friction-remover line directly under or next to a primary CTA: "Free, takes 2 minutes" / "No fees, ever" / "You keep every customer." Airbnb pairs CTAs with trust phrases like "Free cancellation."
+Place a friction-remover line directly under or next to a primary CTA. **It states what is true right now, in the present tense, and makes no commitment about the future** — "Listing costs nothing," "About 90 seconds." *(Revised 2026-09-07: the previous examples were "No fees, ever" and "You keep every customer" — both promises nobody made. A recipe that generates promise language generates it on every surface that follows the recipe, which is how "forever" ended up in three places from one line here. Removed rather than softened.)*
 
 ### 8. Auth modal vs auth route
 Use a modal for in-context auth gating (Follow, Support, Save). Use the full `/auth/login` route only for cold starts (clicking Sign in from nav). Modals preserve the user's place; routes lose it.

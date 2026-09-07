@@ -97,4 +97,4 @@ WCAG (Web Content Accessibility Guidelines) AA is a readability standard requiri
 ## Sources
 
 - Airbnb mobile screenshot, June 2026 (captured by PM)
-- Prior analysis: [`card-feed-design-proposals.md`](card-feed-design-proposals.md)
+- Prior analysis: [`card-feed-design-proposals.md`](../archive/ui/card-feed-design-proposals.md)

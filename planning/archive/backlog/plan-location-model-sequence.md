@@ -7,7 +7,7 @@ status: draft
 
 # Location model — sequence, bundle, and what's blocked
 
-Companion to `scenario-F048` … `scenario-F053` and `review-F048-F053-location-model.md`. Source decisions: [`decision-surfaces.md`](decision-surfaces.md).
+Companion to `scenario-F048` … `scenario-F053` and `review-F048-F053-location-model.md`. Source decisions: [`decision-surfaces.md`](../../backlog/decision-surfaces.md).
 
 ---
 
@@ -93,7 +93,7 @@ The write path and the merge can run in parallel. That is the main scheduling wi
 
 ---
 
-> **v1 scope ratified 2026-09-04 — metro-level location only.** Hoods and the wider hierarchy rework are out of v1 ([`../now/bundle-1.md`](../now/bundle-1.md) § What defers). That confirms the recommendation below and tightens it: **F048 (distance removal) is in v1**; the hood half of **F049** is out, leaving only metro selection at signup; **F050, F051, F052, F053 and S-location-hierarchy are out of v1.**
+> **v1 scope ratified 2026-09-04 — metro-level location only.** Hoods and the wider hierarchy rework are out of v1 ([`../now/bundle-1.md`](../../now/bundle-1.md) § What defers). That confirms the recommendation below and tightens it: **F048 (distance removal) is in v1**; the hood half of **F049** is out, leaving only metro selection at signup; **F050, F051, F052, F053 and S-location-hierarchy are out of v1.**
 
 ## Bundle recommendation — mostly b2, and one thing that *shrinks* b1
 

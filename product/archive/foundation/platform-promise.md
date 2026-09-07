@@ -7,6 +7,8 @@ owns:
   - public-commitments
 ---
 
+> **ARCHIVED 2026-09-07 — withdrawn, not superseded.** The commitments on this page were written into the repo without the PM's consent and do not bind. The three promises that do are at [`../../foundation/promises.md`](../../foundation/promises.md). **Nothing is published — the app is not launched**, so this is a correction to the record, not a retraction to anyone. What gets published, and when, is the PM's call.
+
 # The Platform Promise
 
 The commitments that govern every product, pricing, and growth decision. When the platform's interest conflicts with a member's interest, the member wins.
@@ -17,7 +19,7 @@ A member platform built to strengthen the communities who build it with us. We c
 
 Our loyalty is to our members — the makers, growers, sellers, buyers, and communities who partner with us. Not to shareholders, not to investors, not to anyone whose interests aren't aligned with the people who make the platform worth using.
 
-See [`member-journey.md`](../needs/member-journey.md) for the platform's structural arc and [`use-cases.md`](../needs/use-cases.md) for the real situations this commitment is being held against. (Producer-specific framing in this doc is pending re-anchor on Members per [`planning/rebuild-plan.md`](../../_attic/2026-05-28-rebuild-plan/rebuild-plan.md) Phase 6.)
+See [`member-journey.md`](../../needs/member-journey.md) for the platform's structural arc and [`use-cases.md`](../../needs/use-cases.md) for the real situations this commitment is being held against. (Producer-specific framing in this doc is pending re-anchor on Members per [`planning/rebuild-plan.md`](../../../_attic/2026-05-28-rebuild-plan/rebuild-plan.md) Phase 6.)
 
 ## What We Promise
 
@@ -55,7 +57,7 @@ Producers — makers, growers, ranchers, bakers, fermenters, hosts, and any smal
 
 **Your growth is the metric.** When we measure ourselves, the question is not "how many users do we have" but "are the producers in our communities thriving more this year than last." If they aren't, we're not doing the work.
 
-The systems backing this promise — the founder dashboard, bulletins, follower analytics, profile health, peer benchmarks, weekly digest, and what comes after — are documented in [systems/producer-tools.md](../systems/producer-tools.md) (the dashboard and analytics surface) and [systems/producer-tools.md](../systems/producer-tools.md) (the broadcast-to-followers surface).
+The systems backing this promise — the founder dashboard, bulletins, follower analytics, profile health, peer benchmarks, weekly digest, and what comes after — are documented in [systems/producer-tools.md](../../systems/producer-tools.md) (the dashboard and analytics surface) and [systems/producer-tools.md](../../systems/producer-tools.md) (the broadcast-to-followers surface).
 
 ## Our Promise to Aspiring Producers
 

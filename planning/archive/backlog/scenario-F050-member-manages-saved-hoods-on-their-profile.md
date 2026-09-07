@@ -11,7 +11,7 @@ status: draft
 **Sub-bundle:** n/a at b1 — this is new profile surface plus a substrate call, and nothing in the b1 checklist requires it.
 **Work-map item:** No existing checklist row. If the PM elevates this into b1, the checklist needs a "Your hoods" line under *What newcomers can do*; do not ship it against an absent row.
 **Loops:** 3 (Land here), 8 (Follow what you love)
-**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — the member who lives in Oak Park and works in Folsom, whose life is genuinely in two hoods.
+**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — the member who lives in Oak Park and works in Folsom, whose life is genuinely in two hoods.
 **Primitive shape:** Person → a set of Places at neighborhood grain. **Not** a Person↔Location affinity table — `location.md` § Member records that the six-kind `member_location_affinities` substrate is retired.
 **Spec contract:** `community-platform.md` § The field is required, and pre-filled from the Member's saved hoods (Ratified 2026-09-03); `decision-surfaces.md` § A Member has a set of saved hoods, and they pre-fill creation
 **Status:** backlog

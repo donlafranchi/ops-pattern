@@ -9,7 +9,7 @@ status: active
 
 > **100k-foot view.** One sentence per system. Scan top-to-bottom to verify everything fits together. If a line conflicts with another line, something is misaligned.
 >
-> Read alongside [`../CLAUDE.md`](../CLAUDE.md) (router), [`TRACE.md`](TRACE.md) (feature lineage), [`../REGISTRY.md`](../REGISTRY.md) (doc catalog), [`../AGENTS.md`](../AGENTS.md) (pipeline), [`../JOURNAL.md`](../JOURNAL.md) (current state), [`../playbooks/PLATFORM-PATTERNS.md`](../playbooks/PLATFORM-PATTERNS.md) + [`../playbooks/DEVELOPMENT-PATTERNS.md`](../playbooks/DEVELOPMENT-PATTERNS.md) (decisions in force).
+> Read alongside [`../CLAUDE.md`](../CLAUDE.md) (router), [`TRACE.md`](TRACE.md) (feature lineage), [`../REGISTRY.md`](../REGISTRY.md) (doc catalog), [`../AGENTS.md`](../AGENTS.md) (pipeline), [`../JOURNAL.md`](../planning/archive/JOURNAL.md) (current state), [`../playbooks/PLATFORM-PATTERNS.md`](../playbooks/PLATFORM-PATTERNS.md) + [`../playbooks/DEVELOPMENT-PATTERNS.md`](../playbooks/DEVELOPMENT-PATTERNS.md) (decisions in force).
 
 ## Mission
 
@@ -22,7 +22,7 @@ The constitution and the policy filter — what the platform refuses, what it co
 - **[`principles.md`](foundation/principles.md)** — the constitution; the single "Never," the central premise, P1–P8 first principles, the People-First Principle, the binary Decision Test, categorical failures, monetization hypothesis, metrics baseline, privacy/security baseline.
 - **[`community-health-rubric.md`](foundation/community-health-rubric.md)** — the structured measuring stick; 5 sections of platform-decision rubric (Healthy Community Attributes / Member Journey / Peer Pressure / Ownership Arc / Platform as Enabler) grounded in Dunbar / Ostrom / Putnam / Oldenburg / ICA / Cleveland Model / Mondragon. Score every decision against the checklists.
 - **[`policy.md`](foundation/policy.md)** — the three-filter test (helpful? harmless? abuse-resistant?), opt-out default, and accountable-participation commitments.
-- **[`platform-promise.md`](foundation/platform-promise.md)** — what the platform commits to and refuses to do, in plain language for the thesis page.
+- **[`promises.md`](foundation/promises.md)** — the three promises that bind, ratified 2026-09-07. *(The earlier `platform-promise.md` is withdrawn and archived — it made commitments the PM never consented to and was never published.)* — what the platform commits to and refuses to do, in plain language for the thesis page.
 - **[`primitives.md`](foundation/primitives.md)** — the data spine: Person · Item · Location · Group; everything the platform does is one of these acting on another.
 
 ## Needs — WHAT we serve (5 docs)
@@ -59,7 +59,7 @@ Who the platform serves, what they want, how they move through it.
 
 - **[`ui/design-language.md`](ui/design-language.md)** — DLS tokens, six principles (one accent · hairlines · photography · whitespace · one typeface · bottom-anchored thumb-reachable), surface patterns per page type.
 - **[`../planning/now/bundle-1.md`](../planning/now/bundle-1.md)** — the MVP scope; what ships at b1, what defers to b2/b3, what's reserved at the schema layer.
-- **[`../planning/now/bundle-1-themes.md`](../planning/now/bundle-1-themes.md)** (sub-bundle sequencer) + **[`../planning/now/bundle-1-checklist.md`](../planning/now/bundle-1-checklist.md)** (one-page MVP scoreboard) — what's left, at a glance.
+- **[`../planning/now/bundle-1-themes.md`](../planning/archive/now/bundle-1-themes.md)** (sub-bundle sequencer) + **[`../planning/now/bundle-1-checklist.md`](../planning/now/bundle-1-checklist.md)** (one-page MVP scoreboard) — what's left, at a glance.
 - **[`../planning/rebuild-plan.md`](../_attic/2026-05-28-rebuild-plan/rebuild-plan.md)** — clean-slate rebuild plan; four phases (0=floor, 1=schema, 2=core surfaces, 3=index+thesis).
 - **[`../playbooks/PLATFORM-PATTERNS.md`](../playbooks/PLATFORM-PATTERNS.md)** + **[`../playbooks/DEVELOPMENT-PATTERNS.md`](../playbooks/DEVELOPMENT-PATTERNS.md)** — decisions in force (what the platform IS / refuses; how we build).
 - **[`../AGENTS.md`](../AGENTS.md)** — agent pipeline (product → plan → review → eval → ticket → build → eval); firewalls, gates, escalation contacts.

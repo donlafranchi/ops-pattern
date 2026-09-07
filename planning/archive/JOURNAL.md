@@ -1,8 +1,10 @@
 ---
 purpose: Session log — one plain-English headline + pointer per entry. Never the load-bearing copy of any decision or fact.
 layer: how
-status: active
+status: archived
 ---
+
+> **Archived 2026-09-07.** This is the record of *what happened and when*, kept as history. It is no longer the record of what is true — that is [`../../STATUS.md`](../../STATUS.md), which is overwritten rather than appended. Decisions live in [`../DECISIONS.md`](../DECISIONS.md); constraints in [`../../product/foundation/settled.md`](../../product/foundation/settled.md).
 
 # JOURNAL.md
 
@@ -11,6 +13,88 @@ One block per session, newest at top. Each entry leads with a **one-sentence pla
 Headline test: a reader returning after three weeks should know from the headline alone whether to open the pointer or skip past. If the headline only makes sense to someone with full project context loaded, rewrite it.
 
 Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30 entries archived at [`planning/done/2026-05-30-journal-pre-cleanup/`](planning/done/2026-05-30-journal-pre-cleanup/).
+
+---
+
+## 2026-09-07 — Cleanup pass: 26 files archived, 84 flagged for a ruling, and the doc catalog turns out to be broken
+
+**Twenty-six files moved to `product/archive/` and `planning/archive/`, structure preserved, nothing deleted.** The clusters were cleaner than expected: four superseded planning-spine docs (the b1 north star, the sub-theme sequencer, the surface sequence, the retired spec-patch tally), five retired mechanics, the five hoods-and-hierarchy scenarios, the impact-transparency trio, four design-process deliverables, and two absorbed audits. **The impact-transparency set is the one worth noting** — it was built to replace the ownership tier, and the ownership tier was refused as a platform-assigned judgment about a person. The successor inherits the defect it was meant to fix.
+
+**Eighty-four files went to UNSURE, which is a lot, and deliberately so.** Two clusters are most of it: twenty spec-patch records from June, and twenty-two exploration docs. **On exploration the honest answer is that `product/exploration/` is already the archive for ideas** — it's named for it, nothing on-path cites it, and moving it into another folder called archive would destroy the one signal it carries, which is that these are live ideas rather than dead ones. It was left alone on purpose.
+
+**One cluster could not be archived and it is the one most obviously dead.** The Explore-into-Home merge is on the launch cut list, but it lives in `next/`, and the rule says never archive from `next/`. It stays until it is sent back to `backlog/` first.
+
+**The find that outlasts this pass: `REGISTRY.md` cannot open a fifth of what it catalogues.** Eleven of its links point at scenarios archived to `done/` months ago. That is pre-existing and untouched by this cleanup — but a catalog with dead entries is worse than no catalog, and it is the first thing a new reader is told to open. Total pre-existing breakage across the repo is 144 links; the cooperative-engine exploration set alone carries 27 that never resolved at all, from a copy-paste depth error.
+
+**Zero broken links were introduced.** All 41 inbound references to moved files were rewritten, and the archived files' own outbound links were repaired to their new depth so the archive reads correctly from inside.
+
+→ [`planning/CLEANUP.md`](../CLEANUP.md) (three buckets, grouped by theme, one question per cluster); `planning/archive/`; `product/archive/`; `CLAUDE.md` § Project Facts + authoritative-docs table (three rows repointed). Commit `{pending}`.
+
+---
+
+## 2026-09-07 — Settled what the platform calls people: one noun, and verbs for everything else
+
+**The recommendation is to not add the second word.** "Consumer" was already out; "supporter" was the candidate; the answer is that no umbrella noun for either side should exist. **A pair of identity nouns installs a two-class system in the vocabulary, and then every surface has to decide which class the reader is in** — which is the class system arriving through the copy deck instead of the schema. The platforms that named both sides are two-class by economics. This one's bet is that the same person does both.
+
+**The count is what settles it.** Before adding anything, the vocabulary already held one identity noun in the schema, four functional roles, and five ungoverned labels for the same human — Person, Producer, Seller, Maker, Consumer. A pair would have made seven words for one thing. **And the pair implies somewhere to store the answer, which this project has already tried and retired**: `members.maker_mode_enabled` is still sitting in the table, written by nothing, with its event type still in five CHECK constraints, while the naming conventions say in as many words that no such toggle exists. Dropping it is an hour and it is not urgent — but the next person to read the schema will reasonably conclude maker mode is a feature.
+
+**So: one identity noun — *member*, lowercase and nearly invisible, *you* in address, *people* in the third person — and the specific verb for everything else.** Make, sell, host, offer, ask, wonder on one side; show up, back, follow, save, count me in on the other. Functional roles stay but stay small: *host* of this gathering, *owner* of this Page, never a profile-level identity. **"Creator" survives as a feeling rather than a badge**, which also resolves a live conflict — the design north stars already say "neighbours, not strangers or creators."
+
+**The attendance-is-authorship line was tested and half of it broke.** It holds for gatherings, where a run club with one person is a person running, and it holds for ideas, where "I'd be in" is what converts a wonder into a plan. **It breaks for goods, and badly — buying a loaf does not co-author the loaf**, and saying so is faintly insulting to the baker. A principle that is true two-thirds of the time and flattering the rest is a slogan, and it gets quoted back in the case where it's wrong. The narrower version kept instead: **the unit of value is not the thing, it is the turnout.** An Item with no response is not a smaller success — for a gathering it is not an event at all. That gets the whole benefit without asserting a symmetry that collapses. And the two-class problem doesn't need dissolving by redefinition; it dissolves by the product never asking which class you're in.
+
+**Two absolutes landed as pattern entries, both PM-ratified directly rather than through `weigh`** — recorded on the entries themselves so the shortcut stays visible. No legal or tax language ever reaches a person: entity type, state of formation and formation date stay in the schema as facts a Group may record, and no surface may ever ask or show them. And the one-noun rule above. **Nothing renames** — no table, no column, no migration required by any of it.
+
+**The entry-point scenario is written**, using the "what are you starting?" framing and keeping the noun out of the interface wherever the entity's own name can carry it. It sits in `backlog/` and needs a review before it can advance — the rule exists because two scenarios skipped that gate this month.
+
+→ [`product/foundation/role-language.md`](../../product/foundation/role-language.md) (the settled answer, the seven rules, the actual copy strings, the pressure-test, and the violations list); [`playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) § No legal or tax language reaches a person + § One identity noun for a person; [`planning/backlog/scenario-F060-someone-starts-something-without-opening-a-shop.md`](../backlog/scenario-F060-someone-starts-something-without-opening-a-shop.md); `planning/stage-ledger/F060.md`. Commit `{pending}`.
+
+---
+
+## 2026-09-07 — "Business" turned out to be a label almost everywhere, and one line of one handler is what forces every host to open a shop
+
+**The question was whether a producer is locked into creating a business. The answer is no, and the lock is smaller than anyone assumed.** Nothing in row-level security branches on a Group being a business. Neither feed function does. Browse filters on the *item's* kind, not the group's. Follow is kind-agnostic. Place-scoped URL derivation is kind-agnostic. **The card's brand label already falls back to the Group's own name** — that was fixed three days ago when Group-filed events were unbroken.
+
+**Four places genuinely branch, and only one of them is the blocker.** The item-create handler requires that any Group an item is filed under be a business, and that the caller own it — so a run club cannot have a gathering filed under it at all, and the error is an authorization failure rather than anything a person could act on. **That is one clause in one query.** The other three are real but smaller: a non-business Group has no public page (the resolver filters to businesses, so a run club 404s); products and services filed under a non-business Group 404 the same way, while gatherings already resolve correctly; and the standing badge asks non-business Groups for a `steward` role while group creation assigns founders `owner`, so the founder of a run club silently gets no badge. **None of it needs a migration** — the kind column already carries six values and the neutral ones are already there.
+
+**The spec has said so all along, and the build diverged from it.** `groups.md` states in as many words that a Member without a business Group sees the universal composer — gathering, wonder, ask, offer — and that the walkthrough is triggered only by the Sell verb. The shipped product built the business path and never built the other one. **So the entity fork is a conformance fix, not a design change**, which is a much cheaper thing to argue about.
+
+**One finding that changes where the shop-editor columns land.** The tagline, image and where-they'll-be-next fields were scoped onto the business child table. If the entity is neutral, they belong on the Group spine instead, so a run club can have a picture and a one-liner too. The editor ticket's migration is unwritten, so this is a redirection rather than rework — but it stops being free the moment that migration lands.
+
+**Also settled today:** the You producer-state scenario moved to the approved lane with its dispositions as acceptance criteria, its review split out of the combined four-scenario document so it sits in its scenario's lane, and its four inbound citations repointed. And the free-text schedule field is now recorded with its buy-back priced: **every producer who writes the sentence at launch re-enters it by hand when structure arrives**, because a sentence does not parse into a schedule.
+
+→ [`planning/next/scenario-F057-*.md`](planning/next/) + [`planning/next/review-F057.md`](../next/review-F057.md) (approved, split, buildable); [`planning/DECISIONS.md`](../DECISIONS.md) § where they'll be next (buy-back cost); `planning/stage-ledger/F057.md`. **Awaiting the PM's call on the entity's UI name before the entry-point scenario is written.** Commit `{pending}`.
+
+---
+
+## 2026-09-07 — Four decisions cleared the upload work, and the dead producer page turns out to need no new tables at all
+
+**Two of the four decisions were unblocking rather than product calls, and both were cheap.** Parking the report policy — a table and a form, no response commitment, no moderation flow — removed the operating promise that was sitting in front of nine days of photo work, so `weigh` on the two upload absolutes proceeds. Making seed content synthetic and display-only removed the one risk in the plan with no engineering recovery path. **Each carries a cost that has to be stated rather than absorbed:** a report now gets no acknowledgement, so the copy must not imply one, and nothing shipped in the eight weeks can be read as evidence that real people will post. The values declaration is confirmed cut; the never-sourced constraint survives the cut, and no schema added meanwhile may carry a source or import column.
+
+**"Where they'll be next" was delegated and went to the fastest option: one free-text line, 140 characters, on the shop editor.** It rides the migration already adding the shop tagline and image, so the marginal cost is one column and one input. Structured recurring scheduling is deferred — a sentence answers *where do I find you this week*, and a recurrence editor is days of work for the same answer. Accepted honestly: it is not queryable, not on the map, and goes stale silently.
+
+**The dead producer page needed diagnosis more than it needed a scenario — it already had one.** Fixing `/you` is *someone who isn't selling yet finds the way in*, reviewed PROCEED three days ago and already ticketed; it is the one significant ticket blocked on nothing. What it lacked was the table-by-table call, now added. **The result is create nothing, repurpose one, remove six.** The only read worth keeping is the shop-existence check, and it repurposes onto the active business-Group membership query the sell index already runs. The other six — email preferences, saved businesses, followed vendors, vendor categories, markets, market schedules — govern behaviours that either no longer exist or are already served by the shipped follow substrate. **The finding underneath: the page was never missing data. It was reading the previous product's copy of it.**
+
+**One precondition before any of it builds:** the scenario is in `backlog/`, and the build agent cannot read `backlog/`. It moves to `next/` on approval of the dispositions — that firewall is load-bearing and has been ticked by eye twice this month.
+
+**Held deliberately:** the second track — forking the sell index into one producer entry point where hosting needs no shop — is not written yet. It is the change the whole repositioning rests on, and it waits on the dispositions above being approved rather than being drafted alongside them.
+
+→ [`planning/DECISIONS.md`](../DECISIONS.md) (new — four launch-tier decisions with costs and revisit triggers); [`planning/backlog/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md`](../next/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) § Table disposition; [`planning/now/initiative-launch.md`](../now/initiative-launch.md) § The two build tracks; `planning/stage-ledger/F057.md`. Commit `{pending}`.
+
+---
+
+## 2026-09-07 — Repositioned v1 from a marketplace to a local discovery app, moved the date to 30 October, and cut the scope to three things
+
+**The product is where you find out what's happening around you and who's doing it — buy, sell, trade, and gather — and the build currently reads as a marketplace with events bolted on.** The sharpest finding, verified in the code rather than inferred: **a gathering cannot exist without a shop.** The only route to the gathering composer is `/you/sell`, behind an active business-Group membership, so someone hosting a run club must first walk through Sell and open a shop. The ratified `+` create button points at the same door. The schema is innocent — `items.group_id` is nullable and the member-filed gathering page already exists — so the fix is a create path, not a data model. Six other marketplace-only signals are listed with their evidence, including the public front door at `/join` that opens with "For vendors" and the build target that literally reads "Producer Marketplace."
+
+**The second finding is that requirement one is dead in production right now.** `/you` — the only door to becoming a producer — queries seven tables that do not exist. Confirmed against the live database, not just the migration set: `businesses`, `user_preferences`, `supports`, `follows`, `vendor_categories`, `markets`, `market_vendors`. The fix is already ticketed and is the one significant ticket blocked on nothing.
+
+**Scope is now three requirements** — sign up without fumbling, get a profile worth finding, be findable by browse, search and map — and everything else leaves. **Two cuts will be argued with.** The Explore-into-Home merge goes (five tickets, two migrations, reverses three tickets merged in September, serves none of the three); the create button it was carrying survives as a small standalone piece on the existing three tabs. And the **producer values declaration goes**, which is the plan's most contestable line: it is the sharpest edge of the positioning, and it serves none of the three requirements, needs `weigh` on a permanent constraint, and as free text does no discovery work at launch.
+
+**Three gaps have no scenario, no ticket and no scope**: a way to host a gathering that isn't the Sell door; a way to browse *people* rather than listings (browse indexes Items, the map plots Items, there is no producer index at all); and "where they'll be next," which sits in requirement two with nothing behind it. Those three are the new work in the eight weeks; the rest is unblocking what's already written.
+
+**Two hours of PM decisions gate nine days of engineering, and they belong in week one:** `weigh` on the two upload absolutes, and naming a real destination for the report path. Everything downstream of photos waits on them.
+
+→ [`planning/now/initiative-launch.md`](../now/initiative-launch.md) (positioning evidence table, verified-vs-assumed current state, gap list, cut list with costs, the four fortnights, the five checks, eight PM questions); [`planning/now/bundle-1.md`](../now/bundle-1.md) (banner — scope and date superseded). No code written; no tickets written. Commit `{pending}`.
 
 ---
 
@@ -28,7 +112,7 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 **One open question for the PM:** nothing in the app asks a producer what category their thing is, so everything a real person creates is uncategorised forever — while the browse screen ships a category filter over exactly that. Carrying the old category picker is about half a day. Either carry it or drop the filter, but shipping a filter over an empty dimension is the one option to avoid.
 
-**Pointers:** [`planning/backlog/audit-vendor-prior-art.md`](planning/backlog/audit-vendor-prior-art.md) (§ 4 is the category question, § 6 re-times the deletes) · revised [`planning/backlog/decision-photo-upload.md`](planning/backlog/decision-photo-upload.md) § 7 · F057 and T125 rescoped · [`planning/now/bundle-1.md`](planning/now/bundle-1.md) § Schedule risk. Commit `{pending}`.
+**Pointers:** [`planning/backlog/audit-vendor-prior-art.md`](../backlog/audit-vendor-prior-art.md) (§ 4 is the category question, § 6 re-times the deletes) · revised [`planning/backlog/decision-photo-upload.md`](../backlog/decision-photo-upload.md) § 7 · F057 and T125 rescoped · [`planning/now/bundle-1.md`](../now/bundle-1.md) § Schedule risk. Commit `{pending}`.
 
 ---
 
@@ -40,7 +124,7 @@ Rotation: anything older than 30 days moves to a monthly archive. Pre-2026-05-30
 
 **On what leaves the month:** the recommendation to push the vendor cleanup deletions past launch is right — they are 51 files nobody sees — but it buys one or two days against nine to twelve days of new work, so it is not enough on its own. **The better cut is to split the Home/Explore merge in half:** keep the rebuild of the You page, which the new journey walks straight through, and defer folding Explore into Home, which reverses three things shipped in the last two days. Honest read: five or six of ten workstreams by the end of September.
 
-**Pointers:** [`planning/backlog/decision-photo-upload.md`](planning/backlog/decision-photo-upload.md) (the checklist run on the scope change, the cost and privacy shape, and § 7 for the cut analysis) · scenarios F055–F058 and [`planning/backlog/review-F055-F058-self-serve-producer.md`](planning/backlog/review-F055-F058-self-serve-producer.md) · tickets T120–T126 · [`planning/now/bundle-1.md`](planning/now/bundle-1.md) § What ships in v1 (workstream 10) and § Schedule risk. Commit `{pending}`.
+**Pointers:** [`planning/backlog/decision-photo-upload.md`](../backlog/decision-photo-upload.md) (the checklist run on the scope change, the cost and privacy shape, and § 7 for the cut analysis) · scenarios F055–F058 and [`planning/backlog/review-F055-F058-self-serve-producer.md`](../backlog/review-F055-F058-self-serve-producer.md) · tickets T120–T126 · [`planning/now/bundle-1.md`](../now/bundle-1.md) § What ships in v1 (workstream 10) and § Schedule risk. Commit `{pending}`.
 
 ---
 
@@ -210,7 +294,7 @@ The newcomer-signup feature's eval (anon locality feed, empty-state widen, email
 
 **Forward note:** the recovery procedure is now a runbook — read it before touching a wedged local eval env instead of reaching for a reset again. The pre-warm-the-dev-server tip lives there too (cold compile vs the 5s eval timeout).
 
-→ [`operations/RUNBOOK.md`](operations/RUNBOOK.md) § Recover the local eval environment; `planning/STAGE-LEDGER.md` F030 row (`done`); `web` @ 07b35a0 (merge), T090 @ ea503b4.
+→ [`operations/RUNBOOK.md`](../../operations/RUNBOOK.md) § Recover the local eval environment; `planning/STAGE-LEDGER.md` F030 row (`done`); `web` @ 07b35a0 (merge), T090 @ ea503b4.
 
 ---
 

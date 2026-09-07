@@ -9,7 +9,7 @@ status: blocked
 
 **Bundle:** b2 recommended
 **Loops:** 3 (Land here)
-**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places)
+**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places)
 **Spec contract:** `community-platform.md` § Metro is the feed's vantage point, § So the switcher is a *metro* switcher
 **Status:** **blocked** — not a draft. Do not promote; do not ticket.
 

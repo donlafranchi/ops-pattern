@@ -7,7 +7,7 @@ status: proposal
 
 # Card & Feed Design Proposals
 
-> **Status: proposals, not canon.** This document is a set of changes to *test*, not rules in force. Nothing here is ratified into [`design-language.md`](design-language.md). Each proposal is a hypothesis to validate against mockups before any of it earns a place in the style guide. When a proposal is validated, fold the resulting rule into `design-language.md` and strike it here; until then, treat these as candidate directions only.
+> **Status: proposals, not canon.** This document is a set of changes to *test*, not rules in force. Nothing here is ratified into [`design-language.md`](../../ui/design-language.md). Each proposal is a hypothesis to validate against mockups before any of it earns a place in the style guide. When a proposal is validated, fold the resulting rule into `design-language.md` and strike it here; until then, treat these as candidate directions only.
 
 These proposals come from comparing the b1 pistachio mockup (`mockup-mobile-b1-pistachio.html`) against Airbnb's current mobile design system. The question driving them: **why does our feed feel image-first when we want it to feel content-first?**
 

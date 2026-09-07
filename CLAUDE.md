@@ -9,7 +9,11 @@ status: active
 > Canonical name and identity: [`PROJECT.md`](PROJECT.md).
 >
 > Solo founder. Re-architecture in flight. Process lives in skills, not nested CLAUDE.md files.
-> First time in this repo? Read this file end-to-end, then [`product/MAP.md`](product/MAP.md) (100k-foot architecture map — one sentence per system), then [`product/TRACE.md`](product/TRACE.md) (feature lineage), then [`REGISTRY.md`](REGISTRY.md) (doc catalog), then [`AGENTS.md`](AGENTS.md), then [`JOURNAL.md`](JOURNAL.md).
+> **Start here, every session: [`STATUS.md`](STATUS.md)** — one screen, always current, overwritten rather than appended. It answers "where are we" and nothing else.
+>
+> First time in this repo? Read `STATUS.md`, then this file end-to-end, then [`product/foundation/settled.md`](product/foundation/settled.md) (the thirteen decisions that constrain everything else), then [`product/MAP.md`](product/MAP.md) (100k-foot architecture map), then [`product/TRACE.md`](product/TRACE.md) (feature lineage), then [`REGISTRY.md`](REGISTRY.md) (doc catalog), then [`AGENTS.md`](AGENTS.md).
+>
+> *The reverse-chronological session log that used to sit here is at [`planning/archive/JOURNAL.md`](planning/archive/JOURNAL.md). It remains the record of what happened and when; it is no longer the record of what is true.*
 
 ## Project Facts
 
@@ -18,7 +22,7 @@ status: active
 - **Repo structure:** Two-repo, **both pushed to GitHub.** Parent `community/` (product, planning, development docs) pushes to `origin` → `donlafranchi/ops-pattern`. `web/` is a separate git repo pushing to `donlafranchi/socialus-web`, and **pushing `web` `main` deploys to production via Vercel.** The parent has no deploy attached, so pushing it is free and should happen at the end of every working session — an unpushed decision exists only on this Mac. **Both remotes are public** — treat every parent-repo doc as publishable; nothing here is private by virtue of being "planning." The repos are *separate*, never *local*: never cross-commit, and never let "separate" get restated as "local-only."
 - **App path:** `./web`
 - **Active bundle:** [`planning/now/bundle-1.md`](planning/now/bundle-1.md) — Primitives MVP. One-page scoreboard: [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md).
-- **Active Phase 2 plan:** none ratified; surface sequence in [`planning/now/plan-b1-surface-sequence.md`](planning/now/plan-b1-surface-sequence.md). Draft scenarios live in [`planning/backlog/`](planning/backlog/).
+- **Active plan:** [`planning/now/initiative-launch.md`](planning/now/initiative-launch.md) — the launch plan, three requirements, 2026-10-30. *Superseded 2026-09-07: the F-numbered surface sequence, archived to [`planning/archive/now/plan-b1-surface-sequence.md`](planning/archive/now/plan-b1-surface-sequence.md).* Draft scenarios live in [`planning/backlog/`](planning/backlog/); the cleanup pass over both directories is [`planning/CLEANUP.md`](planning/CLEANUP.md).
 - **Phase 3 plan:** not yet drafted.
 - **Decisions home:** [`playbooks/PLATFORM-PATTERNS.md`](playbooks/PLATFORM-PATTERNS.md) (what the platform IS or refuses to be) and [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) (how we build). Each entry: Decision (one sentence), Intent (short paragraph), Touches (one file). New decisions land directly as pattern-doc entries. The `memo` skill writes a memo only when a prior decision needs to be reversed. Format conventions in [`playbooks/writing-docs.md`](playbooks/writing-docs.md) § Pattern-doc entry.
 
@@ -113,7 +117,7 @@ The one preserved firewall: `build` reads `next/` + `now/` and **cannot** read `
 
 ### Anti-sprawl rules
 
-1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `JOURNAL.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
+1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `STATUS.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). *(`JOURNAL.md` left this set on 2026-09-07 — replaced by `STATUS.md`, archived to `planning/archive/JOURNAL.md`.)* Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
 2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `tidy` enforces. Bundle files additionally carry the kind suffix in the filename — together with `status`, they replace dir-based state tracking. Pattern + lifecycle in [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Track bundles by filename kind suffix + status frontmatter.
 3. **One doc, one home.** If a new doc would overlap 70%+ with an existing one, fold it in rather than stand it up. `doc-home-finder` recommends.
 4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally. Shipped-version archives prefix the slug with `vN-`: `planning/done/v1-primitives/`.
@@ -220,7 +224,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`playbooks/writing-docs.md`](playbooks/writing-docs.md) | How to write any doc in the repo — where things live, style rules, anti-patterns, templates (capability spec / pattern entry / JOURNAL entry). |
 | [`playbooks/repo-tidying.md`](playbooks/repo-tidying.md) | What `tidy` looks for — ten findings, each with a trigger and a disposition. |
 | [`planning/STAGE-LEDGER.md`](planning/STAGE-LEDGER.md) | The pipeline stage tracker — one row per F-number + substrate group; stamped by each pipeline skill as the work moves through. Read at session start (router does this). |
-| [`planning/SPEC-PATCHES.md`](planning/SPEC-PATCHES.md) | **Retired 2026-06-19.** Type A fixes applied inline; Type B decisions filed as `decision-*` stubs in `planning/backlog/`. Build now classifies deviations at the point of creation — see `skills/build/workflow.md` § flag-for-spec-revision. |
+| [`planning/archive/SPEC-PATCHES.md`](planning/archive/SPEC-PATCHES.md) | **Retired 2026-06-19; archived 2026-09-07.** The twenty individual patch files stay at `planning/spec-patches/` pending a PM ruling ([`CLEANUP.md`](planning/CLEANUP.md) § 1). Type A fixes applied inline; Type B decisions filed as `decision-*` stubs in `planning/backlog/`. Build now classifies deviations at the point of creation — see `skills/build/workflow.md` § flag-for-spec-revision. |
 | [`planning/AGENT-BOUNDS.md`](planning/AGENT-BOUNDS.md) | The three-layer agent-bounds doc (Intent / Bounds / Casebook) + agent-response discipline. Read when deciding whether to escalate to PM or decide alone. |
 | [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |
 | [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |
@@ -239,7 +243,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/systems/payments.md`](product/systems/payments.md) | Anything money-movement-shaped — Member→Member, Member→Group, Member→external-identified-recipient commerce; closed-loop ledger + ACH via chartered partner at b2; card on-ramp with friction; stablecoin path gated at T3; the wealth-circulation rubric (fees / float / rail-ownership / lock-in) as the selection process; zero platform transaction fees on Member commerce; platform never custodies for itself. The rail that honors the `bounded_purchase` Delegation scope. |
 | [`planning/now/bundle-1.md`](planning/now/bundle-1.md) | What ships in the rebuild MVP and what defers |
 | [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md) | The MVP scoreboard — glance at this on Monday morning to know what's left. Human terms, one page. |
-| [`planning/now/bundle-1-themes.md`](planning/now/bundle-1-themes.md) | Sub-bundle sequencer — slices each bundle into 1–2-week sub-themes (`b1.0`–`b1.6`, `b2.0`–`b2.6`, `b3.0`–`b3.5`). Read whenever choosing what ships next. Spans b1/b2/b3. |
+| [`planning/archive/now/bundle-1-themes.md`](planning/archive/now/bundle-1-themes.md) | Sub-bundle sequencer, b1/b2/b3. **Archived 2026-09-07 — superseded by the launch plan's four fortnights.** Read the launch plan instead when choosing what ships next. |
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
 | [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
 | [`product/foundation/community-health-rubric.md`](product/foundation/community-health-rubric.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |

@@ -214,3 +214,25 @@ Each entry follows the pattern-doc shape: Decision (one sentence), Intent (one s
 The counter-argument was raised and is not dismissed: **QR is the bridge to the physical world.** For a neighbours product, a card on a noticeboard or a flyer at a market stall reaches people who would never find the listing online, whereas phone-to-phone sharing only ever reaches people who already know a Member — it grows the network along existing ties and never across the gap to a stranger walking past. That argument is sound, and it is exactly why producer-generated business QR stays open rather than being refused. What it does not justify is the platform generating codes *for Items*, at scale, on a permanent-URL promise the platform has to keep. Scoped to a business — one durable subject, one owner who chose to print it, one artifact they control — the durability burden sits with the producer who made the card, not with every URL in the system.
 
 **Touches.** `product/capabilities/qr-onboarding.md`
+
+---
+
+### No legal or tax language reaches a person
+
+**Decision.** Entity type (`group_businesses.legal_entity_kind` — llc / sole_prop / partnership / other), state of formation, and formation date are **never surfaced in any user-facing copy, form, badge, profile, or export.** No UI collects them, none displays them, and no future surface may. Beyond those three columns, no user-facing string uses legal or tax-authority language of any kind: no *sole proprietorship*, no *EIN* or *TIN*, no *DBA*, no *incorporate*, no *register your business*, no *1099*, no *tax*, no *legal entity*. The columns stay in the schema as an off-platform fact a Group may record; they are storage, not a surface.
+
+**Intent.** *(Ratified 2026-09-07 — PM ratified directly at scope, not via `weigh`; the entry is landed on that ratification and the interactive walk was not run.)* The platform's central bet is that an ordinary person — someone who bakes, someone who convenes a run on Tuesdays, someone who trades records — steps forward without first having to decide they are a business. Legal and tax vocabulary is the single fastest way to make that person close the tab: it converts *"I made a thing"* into *"I may have an obligation I don't understand,"* and it does so before they have received any value. **The harm is not regulatory, it is a chilling effect at the exact moment the platform is trying to lower activation energy**, and it lands hardest on the people the platform most wants — the informal, the first-time, the not-yet-sure. `groups.md` already refuses to *perform* legally-binding acts; this pattern is the copy-layer companion to that refusal, and it is stricter: the platform will not perform them and will not talk as though it might. The columns survive because a Group that *is* an LLC may record that fact about the world — recording is not the same as asking, and nothing may ask.
+
+**Test for future proposals.** Would reading this string make someone wonder whether they need an accountant? If yes, it does not ship.
+
+**Touches.** `product/foundation/role-language.md`
+
+---
+
+### One identity noun for a person; everything else is a verb
+
+**Decision.** The platform has exactly one identity noun for a human — **member**, lowercase, near-invisible in the interface, with **you** in direct address and **people** in the third person. There is no second identity noun and no pair: no *creator*/*supporter*, no *consumer*, no *customer*, no umbrella noun for either side of the exchange. What someone is doing is named with the specific verb — *make, sell, host, offer, ask, wonder* on one side; *show up, back, follow, save, count me in* on the other. Functional roles (`owner`, `staff`, `steward`, `host`, `founder`) stay, scoped to one Group or one gathering, lowercase and contextual — never rendered as a profile-level identity. **No role is ever stored**; every role derives from state.
+
+**Intent.** *(Ratified 2026-09-07 — PM ratified directly at scope, not via `weigh`.)* A pair of identity nouns installs a two-class system in the vocabulary, and every surface then has to decide which class the reader is in — which is the class system arriving through the copy deck instead of the schema. The platforms that named both sides (YouTube, Patreon, Substack) are two-class by economics; this one's hypothesis is that the same person does both and that moving between is the point. A pair also implies somewhere to store the answer, and **the project has already made and retired that mistake** — `members.maker_mode_enabled` is its fossil, still in the table, written by nothing. *Creator* is deliberately kept as a feeling the product produces rather than a badge it hands out, consistent with the shipped north star *"neighbours, not strangers or creators."* Full reasoning, the copy strings, the seven rules, and the "attendance is authorship" pressure-test: [`product/foundation/role-language.md`](../product/foundation/role-language.md).
+
+**Touches.** `product/foundation/role-language.md`

@@ -203,3 +203,12 @@ Want detail? Say "expand."
 ```
 
 Withhold file lists, per-step trace, and git output until PM says "expand."
+
+---
+
+## Session-end gate check (added 2026-09-07)
+
+Run `bash scripts/gate-conformance.sh` as the last step of any session that moved a scenario, wrote a ticket, or closed one.
+
+**It reports and blocks; it never advances anything.** A non-zero exit is a stop: either fix the chain, or record why it is acceptable as a deviation. **Do not tick it by eye** — the check exists because the read-firewall was ticked by eye twice in one month, and a gate whose command nobody runs is not a gate.
+

@@ -189,3 +189,23 @@ Things we learned by getting them wrong. Each is a default-to-avoid, named.
 - **Absolutist phrasing in specs.** "Never," "always," "must" in spec text led agents to over-fit on wording. Fix: every absolute carries a State-tagged Intent line, or it's softened to a default-with-named-exceptions.
 - **One-stage-many-skills sprawl.** Four separate skills for "decide" let workflows drift. Fix: collapse into one skill with sub-routines preserved as workflow steps.
 - **Half-completed big plans.** Items piled up in mixed states inside monolithic plan docs; "what's left" required re-reading the whole doc. Fix: atomize per the pattern above; `tidy` § sweep-docs surfaces violators.
+
+---
+
+### State lives in one overwritten file, not in an append-only log
+
+**Decision.** `STATUS.md` at repo root is the single answer to "where are we." It is **overwritten in place, never appended**, always describes the present, and is capped at **one screen**. Four sections in order: what's true right now · in flight (with the one thing blocking each) · waiting on the PM (with what each blocks) · next. Anything with a different lifespan lives elsewhere — decisions in `planning/DECISIONS.md`, constraints in `product/foundation/settled.md`, build detail in `BUILD-LOG.md`. The reverse-chronological session log it replaced is archived at `planning/archive/JOURNAL.md` and stays readable as history.
+
+**Intent.** *(Ratified 2026-09-07.)* A log is the wrong instrument for a question about the present. The archived journal answered "what happened" well and "what is true now" badly: six entries dated the same day, three of them revising each other, so a reader had to diff history to learn the current state — and it mixed four things with four different lifespans (what happened, what's true, what was decided, what's next) in every entry. **The one-screen cap is the enforcement mechanism, not a style note**: a file that no longer fits contains something that has stopped being current, and the cure is to cut that line rather than to scroll. Git preserves every prior version, so overwriting loses nothing; `git log -p STATUS.md` is the history the append-only file was trying to be. **Any proposal to add a dated section, an entry, or an "archive" heading to `STATUS.md` is a proposal to turn it back into a log — refuse it.**
+
+**Touches.** `STATUS.md`
+
+---
+
+### Thirteen decisions constrain the rest; everything else is a version-tier call
+
+**Decision.** `product/foundation/settled.md` holds the foundation set — the decisions that rule out whole classes of future choices. **A statement earns a place only if it rules something out**, and each entry states the decision, at most one line of why, and what it forbids. Everything else routes elsewhere: dated calls scoped to a release go to `planning/DECISIONS.md`, craft rules to `product/ui/design-language.md`, public commitments to `product/foundation/platform-promise.md`. Contradictions and unratified claims are listed **below the line** in the same file and are never cited as settled.
+
+**Intent.** *(Ratified 2026-09-07.)* 179 statements across the foundation and playbook docs read as settled; thirteen were. The rest were tactical calls that had not yet expired, or the same principle said three ways at three different times, and the volume made the genuinely binding ones unfindable — a constitution nobody can hold in their head does not constrain anything. **The "what it rules out" line is the load-bearing part**: a foundation decision is useful later only when it tells someone what not to build, and a statement that cannot produce that line was never a constraint. Note the standing exposure recorded in that file: **almost none of the inherited set carries a State tag**, which by this repo's own rule makes it unratified de-facto — the thirteen are stated at the confidence the source docs used, and that confidence is inherited rather than earned until the PM rules.
+
+**Touches.** `product/foundation/settled.md`

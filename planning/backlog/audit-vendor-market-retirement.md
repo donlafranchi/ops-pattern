@@ -289,6 +289,10 @@ Where does `/join` point? Constraints and the durability problem in § 3.4; chec
 `you/page.tsx` and `BottomNav.tsx`. Three tabs to two, Explore folds into Home, persistent create **+**. Keep `SellCta` and `FollowingSummary`; add listings, groups, drafts, responses.
 *Why second:* `/you` is what keeps `MarketSelector`, `VendorCard`, `RecruitmentGrid`, and `MarketContext` reachable — nothing in Phase 4 is safely deletable until this lands. **This is the phase that needs `scope` + `review`.** It touches two shipped scenarios (F036, F042), both nav components, and the primary information architecture. It is a feature, not a cleanup, and it is where the effort in this project actually sits.
 
+> **Re-timed 2026-09-04. Phases 3–5 are gated on T126, not on a date.** The retired code is **prior art for the producer journey** — see [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md). Four things are being copied out of it: the OpenGraph block in `/vendors/[slug]/page.tsx`, the tagline field and counter in `register-vendor/page.tsx`, the listing-health checklist in `/you/vendor/page.tsx`, and `RecruitmentGrid.tsx`'s card design. **Do not delete any of those until T125 and T126 have merged.** Git preserves them either way; convenient beats recoverable while you are designing against them. The one carve-out that runs now is the `/following` redirect (T125) — a redirect deletes nothing.
+>
+> **Phase 2 is also re-scoped, from a rebuild to a modification** — `/you` already computed `{!hasVendor && <RecruitmentGrid />}`; the condition was right and the placement was wrong. See F057 / T125.
+
 **Phase 3 — prune the three shared files (3 files, no deletions)**
 `slugify.ts` (remove `uniqueSlug`) → `types.ts` (keep `OwnershipTier`) → `tests/map-config.test.ts`.
 *Why third:* after Phases 1–2 nothing live needs the dead exports, and the typecheck passes at every step.

@@ -23,11 +23,11 @@ A public, static page at `/why` that states the platform's thesis: the problem i
   - [`product/foundation/principles.md`](../../product/foundation/principles.md) — the constitution; "what good looks like."
   - [`product/needs/member-journey.md`](../../product/needs/member-journey.md) — the 13 loops; "the path."
   - [`product/needs/use-cases.md`](../../product/needs/use-cases.md) — situations the platform exists to serve.
-  - [`product/foundation/platform-promise.md`](../../product/foundation/platform-promise.md) — public-voice commitments (if this doc exists at the time of writing).
+  - [`product/foundation/platform-promise.md`](../../product/archive/foundation/platform-promise.md) — public-voice commitments (if this doc exists at the time of writing).
 - Section shape:
   - **The squeeze.** Plain-language description of the problem (market consolidation, attention economy, the loss of locally rooted commerce + community).
   - **The antidote.** People-first, place-anchored, no advertising, no ranking of people.
-  - **What we commit to.** The non-negotiables — no platform fees on Member commerce, no Location-scoped messaging (accountable-participation), no ratings of people, no sale of attention. (Source of record for these commitments: [`product/foundation/platform-promise.md`](../../product/foundation/platform-promise.md).)
+  - **What we commit to.** The non-negotiables — no platform fees on Member commerce, no Location-scoped messaging (accountable-participation), no ratings of people, no sale of attention. (Source of record for these commitments: [`product/foundation/platform-promise.md`](../../product/archive/foundation/platform-promise.md).)
   - **What we refuse to do.** A short list — sells ads, ranks people, custodies money for itself, treats business as more important than the people doing the work.
   - **How to step forward.** Sign up, declare something, join a Group, host a gathering. Each verb links to the relevant surface.
 - Anti-pattern: long manifesto-style prose. Keep each section short and scannable. The thesis is the floor; the platform is the demonstration.

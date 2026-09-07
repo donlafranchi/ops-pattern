@@ -76,7 +76,7 @@ A patch may be rescinded if the spec is right and the deviation should revert. I
 
 ## Migration provenance
 
-- Legacy monolith: [`../SPEC-PATCHES.md`](../SPEC-PATCHES.md) — retains "Open" entries through the migration cutover (2026-06-03); landed entries (checked boxes) remain there as historical record.
+- Legacy monolith: [`../SPEC-PATCHES.md`](../archive/SPEC-PATCHES.md) — retains "Open" entries through the migration cutover (2026-06-03); landed entries (checked boxes) remain there as historical record.
 - New files in this dir were migrated 2026-06-03 from the legacy "Open" list. Each open entry becomes one file with its original filed-date and caught-by ticket preserved.
 
 ## Maintenance

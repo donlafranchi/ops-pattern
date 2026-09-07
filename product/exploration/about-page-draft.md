@@ -72,11 +72,11 @@ These aren't slogans. They're structural commitments — encoded in how the plat
 
 **Competition is good — rigged markets aren't.** We're pro-free-market and pro-competition. What we're against is consolidation that strips communities of choice, visibility, and ownership. The answer isn't less capitalism. It's better capitalism — the kind where more people have a real shot at building something.
 
-**Ownership belongs in the community.** Over time, we want to help communities own things together — businesses, land, shared resources. Not as an abstraction. As a practice, the way Americans have always done it: barn-raisings, granges, co-ops, mutual aid societies. We're building the digital scaffolding for that tradition.
+**We are not an extractive platform.** Not Amazon, not Airbnb, not another large app moving wealth out of a place. We're the opposite of that.
 
-**You will never pay for visibility.** No sponsored placement, no pay-to-rank, no auction for the top of the feed. Discovery is honest. Ranking reflects quality and proximity, not ad spend. That's how trust works, and trust is the only currency that matters here.
+**Every decision is weighed on whether it helps the people using it, not just the product.** If it only helps us, it doesn't happen.
 
-**Your data is yours.** Followers, contact lists, engagement history — yours. Exportable, portable, never sold. If you outgrow us, you take your audience with you.
+> *Three paragraphs were cut here on 2026-09-07 — community ownership of the platform, never paying for visibility, and data portability guarantees. All three were commitments nobody had agreed to. The only promises this page may make are the three in [`../foundation/promises.md`](../foundation/promises.md), and the surplus promise stays out until its definition is settled. Do not restore the cut lines in softened form; a hedged promise is still a promise.*
 
 ---
 

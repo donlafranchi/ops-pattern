@@ -7,7 +7,7 @@ status: exploration
 
 # Community-Earned Market Unlock
 
-**Status:** Exploration. Precursor to [Rising Tide](rising-tide-civic-pride.md) — this doc covers how markets open; Rising Tide covers what happens after.
+**Status:** Exploration. Precursor to [Rising Tide](../../exploration/rising-tide-civic-pride.md) — this doc covers how markets open; Rising Tide covers what happens after.
 
 ## The concept
 

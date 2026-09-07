@@ -6,7 +6,7 @@ status: backlog
 
 # Decision: the producer values declaration and how consumers respond to it
 
-**Raised by:** the v1 positioning ratification, 2026-09-04. Scope context: [`../now/bundle-1.md`](../now/bundle-1.md) § Positioning.
+**Raised by:** the v1 positioning ratification, 2026-09-04. Scope context: [`../now/bundle-1.md`](../../now/bundle-1.md) § Positioning.
 **Type:** B — a real architectural decision.
 **Blocks:** v1 workstream 5 (producer minimal profile). Gate B applies — the absolute in § 2 must be ratified by `weigh` before a ticket is drafted.
 
@@ -24,7 +24,7 @@ The declaration exists because v1's positioning focuses the *audience* — progr
 
 **Why it is permanent rather than a v1 choice.** Items carry locations. A producer with a live Item is a person the platform can place on a map at a known time. A political label attached to that person by the platform — however accurate the source — turns the profile into a targeting record, and the accuracy of the source makes it worse rather than better. Self-declaration is the entire difference between a values badge and a doxxing vector.
 
-**This is a commitment, not a bet.** No observation would justify reversing it; reversing it means deciding to be a different kind of platform. Under the durability scheme it takes `Overturned by: memo` and a State-tagged `Intent`, and it belongs in [`../../product/foundation/policy.md`](../../product/foundation/policy.md), beside the accountable-participation and coarse-location commitments it rhymes with.
+**This is a commitment, not a bet.** No observation would justify reversing it; reversing it means deciding to be a different kind of platform. Under the durability scheme it takes `Overturned by: memo` and a State-tagged `Intent`, and it belongs in [`../../product/foundation/policy.md`](../../../product/foundation/policy.md), beside the accountable-participation and coarse-location commitments it rhymes with.
 
 **Action required before any ticket:** `weigh` walks this statement and lands the State-tagged Intent in `policy.md`. Rebuild rule 11 Gate B stops ticketing until it does.
 
@@ -54,7 +54,7 @@ Not a values feature. Not political. A way for any member to tell the operator t
 **Why this is worth building now when the voting mechanic is not.** The two look like the same feature deferred at different rates; they are not.
 
 1. **There is currently no channel at all for a member to tell the operator anything.** That gap exists from the first user, not the thousandth. It does not scale into existence the way a voting signal does — it is fully present at zero density, and the cost of not having it is that the first person with something to say has nowhere to say it.
-2. **It closes a hole already flagged.** [`decision-business-identity-impersonation.md`](decision-business-identity-impersonation.md) established that local name scoping prevents squatting but **not** impersonation, and named a claim-or-verification path as needed and unscoped. Its own closing line asks for exactly this: *make sure the report path exists and someone actually watches it* — because the first impersonation will happen before any of that is designed, and the only bad outcome is having nowhere for it to go. This is that path's front door.
+2. **It closes a hole already flagged.** [`decision-business-identity-impersonation.md`](../../backlog/decision-business-identity-impersonation.md) established that local name scoping prevents squatting but **not** impersonation, and named a claim-or-verification path as needed and unscoped. Its own closing line asks for exactly this: *make sure the report path exists and someone actually watches it* — because the first impersonation will happen before any of that is designed, and the only bad outcome is having nowhere for it to go. This is that path's front door.
 
 One small feature — a link, a form, and a destination — covers bad actors, impersonation, and general feedback.
 
@@ -68,7 +68,7 @@ Treat this as a gate on workstream 9, not as documentation of a risk.
 
 ## 4. What this does not decide
 
-- The declaration's shape — free text, a fixed set, or tags. Undecided. **Recommendation on the table:** [`audit-producer-signup-comparables.md`](audit-producer-signup-comparables.md) § 4 argues for free text — every comparable uses a fixed set because fixed sets filter, but a fixed set requires the platform to author the list of politics a producer may claim, which is a cousin of the harm § 2 prevents. Awaiting PM.
+- The declaration's shape — free text, a fixed set, or tags. Undecided. **Recommendation on the table:** [`audit-producer-signup-comparables.md`](../../backlog/audit-producer-signup-comparables.md) § 4 argues for free text — every comparable uses a fixed set because fixed sets filter, but a fixed set requires the platform to author the list of politics a producer may claim, which is a cousin of the harm § 2 prevents. Awaiting PM.
 - Whether the declaration is visible to logged-out visitors.
 - Whether a Group (kind='business') carries a declaration separately from the Member who owns it.
 

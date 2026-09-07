@@ -65,7 +65,7 @@ The assistant never holds the credential it acts under. The action layer ([`acti
 
 The Assistant Context is the Member's property. It is fully exportable (one-click `/you/data` action), fully deletable (one-click purge with cascade through the action layer), never trained on, never input to recommendation surfaces, never visible to other Members or their assistants without explicit per-section opt-in sharing.
 
-Skill subscriptions are equally Member-owned. The platform-curated catalog is free forever; Group/peer/federation Skills default to off-platform payment with no platform cut. The opt-in platform-mediated payment (capped 5–10%) is the Member's choice for each Skill they install, not a default.
+Skill subscriptions are equally Member-owned. The platform-curated catalog carries no charge; Group/peer/federation Skills default to off-platform payment with no platform cut. The opt-in platform-mediated payment (capped 5–10%) is the Member's choice for each Skill they install, not a default.
 
 This is the relational realization of `principles.md`'s refusal of the surveillance-and-ranking model. The Member's context is theirs, not the platform's product.
 

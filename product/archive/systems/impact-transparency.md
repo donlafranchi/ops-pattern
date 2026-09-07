@@ -13,9 +13,9 @@ status: draft
 
 **North stars served:** Loop 9 (Find a local pro) — the discovery surface that helps Members choose where to spend. Loop 8 (Follow what you love) — the standing relationship with aligned producers. Family 4 (Pooling) — the case for building alternatives becomes concrete when Members can see why.
 
-**Does NOT gate b1.** The b1 build ships without impact scores. The existing locally-owned badge (per [`business-jurisdiction.md`](business-jurisdiction.md)) continues to operate at b1 and becomes one input to the Impact Transparency score at b2.
+**Does NOT gate b1.** The b1 build ships without impact scores. The existing locally-owned badge (per [`business-jurisdiction.md`](../../systems/business-jurisdiction.md)) continues to operate at b1 and becomes one input to the Impact Transparency score at b2.
 
-**Companion specs:** [`impact-diagnostic.md`](../foundation/impact-diagnostic.md) (the diagnostic this system operationalizes) · [`business-jurisdiction.md`](business-jurisdiction.md) (locality signal becomes one input) · [`groups.md`](groups.md) (kind='business' Group surface consumes the score) · [`design-language.md`](../ui/design-language.md) (DLS section this system replaces) · [`principles.md`](../foundation/principles.md) (people-first, no extraction) · [`policy.md`](../foundation/policy.md) (data-sourcing posture)
+**Companion specs:** [`impact-diagnostic.md`](../../foundation/impact-diagnostic.md) (the diagnostic this system operationalizes) · [`business-jurisdiction.md`](../../systems/business-jurisdiction.md) (locality signal becomes one input) · [`groups.md`](../../systems/groups.md) (kind='business' Group surface consumes the score) · [`design-language.md`](../../ui/design-language.md) (DLS section this system replaces) · [`principles.md`](../../foundation/principles.md) (people-first, no extraction) · [`policy.md`](../../foundation/policy.md) (data-sourcing posture)
 
 **Retires:** The "Ownership tier spectrum" section in `design-language.md` (the 6-tier green-to-gray ramp and the `data-extractive` grayscale treatment). Replacement visual treatment defined in this spec's DLS section.
 
@@ -33,7 +33,7 @@ The two layers reinforce each other. When both point the same direction, confide
 
 The platform does not try to score every entity. It starts with the worst offenders — organizations whose public record shows clear patterns of societal harm — and the clear alternatives. The middle is left unscored until the signal quality earns it.
 
-This is the operational expression of the anti-extraction diagnostic (see [`impact-diagnostic.md`](../foundation/impact-diagnostic.md)): its five markers become queryable data rather than abstract categories.
+This is the operational expression of the anti-extraction diagnostic (see [`impact-diagnostic.md`](../../foundation/impact-diagnostic.md)): its five markers become queryable data rather than abstract categories.
 
 ### What this system is not
 
@@ -200,7 +200,7 @@ The alternatives pattern also works for entities the platform has indexed from p
 
 ## How Locality Becomes One Input
 
-The existing locality verification ladder (per [`business-jurisdiction.md`](business-jurisdiction.md)) does not retire. It becomes one positive signal feeding the impact score, weighted by verification tier:
+The existing locality verification ladder (per [`business-jurisdiction.md`](../../systems/business-jurisdiction.md)) does not retire. It becomes one positive signal feeding the impact score, weighted by verification tier:
 
 | Jurisdiction tier | Impact signal weight | Rationale |
 |---|---|---|
@@ -361,13 +361,13 @@ Per `product/foundation/policy.md`. This system touches data sharing and visibil
 ## What this means for existing commitments
 
 ### People-first principle
-Impact Transparency strengthens the people-first stance (owned by [`../foundation/people-first.md`](../foundation/people-first.md)) by shifting the judgment from business *structure* (local vs. corporate) to business *behavior* (helps the many vs. helps the few): a locally owned business that lobbies against worker protections is not people-first just because it's local, and the impact score catches what locality alone misses.
+Impact Transparency strengthens the people-first stance (owned by [`../foundation/people-first.md`](../../foundation/people-first.md)) by shifting the judgment from business *structure* (local vs. corporate) to business *behavior* (helps the many vs. helps the few): a locally owned business that lobbies against worker protections is not people-first just because it's local, and the impact score catches what locality alone misses.
 
 ### Anti-extraction diagnostic
-Impact Transparency turns the five markers of extraction (owned by [`../foundation/impact-diagnostic.md`](../foundation/impact-diagnostic.md)) from a conceptual framework into a data pipeline by mapping each to a queryable signal: profit-grows-with-customer-cost → PE ownership + MLR-pattern signals; repair/durability suppressed → right-to-repair opposition signals; artificial switching costs → antitrust enforcement signals; captured information asymmetry → pricing-transparency signals; captured regulatory environment → lobbying-spend signals.
+Impact Transparency turns the five markers of extraction (owned by [`../foundation/impact-diagnostic.md`](../../foundation/impact-diagnostic.md)) from a conceptual framework into a data pipeline by mapping each to a queryable signal: profit-grows-with-customer-cost → PE ownership + MLR-pattern signals; repair/durability suppressed → right-to-repair opposition signals; artificial switching costs → antitrust enforcement signals; captured information asymmetry → pricing-transparency signals; captured regulatory environment → lobbying-spend signals.
 
 ### Wealth circulation absolute
-The scoring system's core axis — helps the many vs. helps the few — makes concrete the platform's single categorical "Never" (wealth circulation over extraction, owned by [`../foundation/principles.md`](../foundation/principles.md); operational rule in [`../../playbooks/DECISION-PATTERNS.md`](../../playbooks/DECISION-PATTERNS.md)): wealth-circulating entities (cooperatives, credit unions, locally owned reinvesting businesses) score high; wealth-extracting entities (PE rollups, regulatory-capture lobbyers) score low.
+The scoring system's core axis — helps the many vs. helps the few — makes concrete the platform's single categorical "Never" (wealth circulation over extraction, owned by [`../foundation/principles.md`](../../foundation/principles.md); operational rule in [`../../playbooks/DECISION-PATTERNS.md`](../../../playbooks/DECISION-PATTERNS.md)): wealth-circulating entities (cooperatives, credit unions, locally owned reinvesting businesses) score high; wealth-extracting entities (PE rollups, regulatory-capture lobbyers) score low.
 
 ### The locally-owned badge
 Unchanged at b1. At b2+, the locality signal from `business-jurisdiction.md` feeds the impact score as one positive input. The badge itself persists as a standalone surface — a kind='business' Group can simultaneously display "Locally owned (verified)" and "Impact: Beneficial (4/5)." The two signals reinforce rather than replace each other.

@@ -9,7 +9,7 @@ status: exploration
 
 > **Status:** Exploration, not spec. Probes a use case that pushes against the platform's accountable-participation commitment ([`policy.md`](../foundation/policy.md) § The accountable-participation commitments; [`location.md`](../systems/location.md) § Not a complaint surface). The question is whether there is a structural shape that captures the genuine community-rallying value of "my pet is missing" without giving the platform a freeform posting affordance that becomes a vector for rants, scams, and harassment.
 
-> **Relationship to other docs:** Sits next to [`accountability.md`](accountability.md) (structured concern reports) and [`vetting-and-vouching.md`](vetting-and-vouching.md) (structured knowledge contributions) in the broader pattern: *when neighbors need to act collectively about something with a real cost of abuse, the answer is always a tightly scoped Item kind, never a freeform post.* This doc asks whether that pattern stretches to lost pets, and if so, how far.
+> **Relationship to other docs:** Sits next to [`accountability.md`](../archive/exploration/accountability.md) (structured concern reports) and [`vetting-and-vouching.md`](vetting-and-vouching.md) (structured knowledge contributions) in the broader pattern: *when neighbors need to act collectively about something with a real cost of abuse, the answer is always a tightly scoped Item kind, never a freeform post.* This doc asks whether that pattern stretches to lost pets, and if so, how far.
 
 ---
 
@@ -243,7 +243,7 @@ A useful frame: **"missing pet" is to "lost pet" as "Initiative" is to "complain
 | [`location.md`](../systems/location.md) | Locality scoping is the firewall. Last-seen Location, place-hierarchy-driven scope, the doxxing-prevention default on home addresses. |
 | [`policy.md`](../foundation/policy.md) | This exploration pushes against the accountable-participation commitments. It is only acceptable if the structural firewall (Item kind, schema, scope, expiry) is strong enough to keep this from becoming the wedge that opens the platform to general posting. |
 | [`groups.md`](../systems/groups.md) | Shape B (Group-mediated) would lean on kind='interest' Groups. Shape A does not — the surface is platform-wide within the locality scope, not Group-gated. |
-| [`accountability.md`](accountability.md) | Sibling pattern: structured concern reports, not freeform reviews. Same shape, different content. |
+| [`accountability.md`](../archive/exploration/accountability.md) | Sibling pattern: structured concern reports, not freeform reviews. Same shape, different content. |
 | [`vetting-and-vouching.md`](vetting-and-vouching.md) | Sibling pattern: structured knowledge contributions with tier/category/sentiment, not freeform comments. Same shape, different content. |
 | [`agent-assistance.md`](../systems/agent-assistance.md) | Agent surface: a Member's assistant could create the Missing Pet Item on their behalf with a single instruction ("Mochi is missing, last seen this morning, post the alert"). The action-layer scoped capabilities apply. |
 

@@ -9,7 +9,7 @@ status: backlog
 **Raised by:** PM, 2026-09-04. *"What a producer can do in v1, and no more: be found, say a little about themselves, claim a values badge, list what they sell, say where to find them."*
 **Mode:** read only. Research + proposal. Nothing ratified here.
 **Method:** public documentation and help-centre material for Etsy, Airbnb, Faire, Google Business Profile, Nextdoor, Substack, Bandcamp, Shopify, LocalHarvest/USDA market directories. Cross-read against our own retired vendor surface ([`audit-vendor-prior-art.md`](audit-vendor-prior-art.md)).
-**Feeds:** [F055](scenario-F055-producer-puts-a-photo-on-what-they-sell.md) · [F056](scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md) · [F057](scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) · [`decision-producer-values-declaration.md`](decision-producer-values-declaration.md) § 4 (answers the open shape question)
+**Feeds:** [F055](scenario-F055-producer-puts-a-photo-on-what-they-sell.md) · [F056](scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md) · [F057](../next/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) · [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 4 (answers the open shape question)
 
 > **The headline.** Every product that gates publishing behind a photo gates it on the **listing**, never on the **seller profile**. Every product lets a thin profile go live and nags afterwards. And our own retired one-page vendor form beat all ten comparables on time-to-live. **The v1 boundary is not a new design — it is the old form's speed, the item-level photo prompt, and a five-box checklist, and nothing else.**
 
@@ -93,13 +93,13 @@ Ordered by strength of agreement. Agreement is the signal; disagreement is noted
 - Their value comes from being **filterable** — a tag nobody can search by does very little work.
 - **B Corp is the counter-example and the boundary marker.** The moment a badge is verified it needs a certifying body, an appeals path, and a revocation path. We are not building that.
 
-**What this means for ours — and it answers [`decision-producer-values-declaration.md`](decision-producer-values-declaration.md) § 4.**
+**What this means for ours — and it answers [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 4.**
 
 That decision left the shape open: *free text, a fixed set, or tags.* The comparables all use a **fixed set**, because fixed sets filter. **Recommend free text anyway, for v1, for a reason that does not apply to Faire or Etsy:**
 
 > A fixed set requires the platform to author the list of values a producer may claim. For *handmade* and *woman-owned* that list is commercially neutral. For a **political** declaration it is the platform deciding which politics are on the menu — which is a cousin of the harm the never-sourced constraint exists to prevent. Free text keeps the platform out of authoring the vocabulary.
 
-**Accept the cost explicitly: free text is not filterable, so the values declaration does no discovery work in v1.** It is a thing you read on a profile, not a thing you search by. That is the correct trade at sixteen items, and a tag layer can be derived later from what producers actually write — the same derive-don't-invent move [`decision-producer-values-declaration.md`](decision-producer-values-declaration.md) § 3 already made for the report taxonomy.
+**Accept the cost explicitly: free text is not filterable, so the values declaration does no discovery work in v1.** It is a thing you read on a profile, not a thing you search by. That is the correct trade at sixteen items, and a tag layer can be derived later from what producers actually write — the same derive-don't-invent move [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 3 already made for the report taxonomy.
 
 **Carry from Faire regardless of shape:** publish a short definition line next to the field, and place the claim in the **editor, not the create flow**.
 
@@ -146,7 +146,7 @@ Steps from "I want to sell" to something a stranger can load.
 
 ### 6.2 Step sequence
 
-1. **You → Start something → Sell something.** The become-a-producer action. No toggle, no column — the producer state is derived from shop existence, exactly as [F057](scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) specs it.
+1. **You → Start something → Sell something.** The become-a-producer action. No toggle, no column — the producer state is derived from shop existence, exactly as [F057](../next/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) specs it.
 2. **The existing five-step walkthrough, plus tagline on step 1.** Name and tagline are one question — *what is it called and what is it* — and belong on one screen.
 3. **Publish. The shop is live** with a name, a tagline, and a metro. No photo, no values, no links, no verification.
 4. **You now shows the shop row** with *Edit shop* and *Add a product · service · gathering*.
@@ -200,5 +200,5 @@ Full extraction is in [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md). 
 ## 8. Open questions for the PM
 
 1. **Category — buy the half-day, or drop the F045 facet?** § 6.3. This one needs an answer either way; shipping neither is the only wrong option.
-2. **Values shape — ratify free text?** § 4 answers [`decision-producer-values-declaration.md`](decision-producer-values-declaration.md) § 4 with a reason. `weigh` still owns the § 2 absolute.
+2. **Values shape — ratify free text?** § 4 answers [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 4 with a reason. `weigh` still owns the § 2 absolute.
 3. **Tagline required or optional at step 1?** The retired form required it and every comparable asks for it. Proposed above as strongly-prompted-but-optional, on the publish-is-cheap principle. Requiring it is defensible.

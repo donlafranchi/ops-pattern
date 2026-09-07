@@ -17,7 +17,7 @@ status: active
 
 **Where we diverge — flagged, not resolved:**
 
-- **Our accent is not their accent.** Pistachio is low-saturation and doesn't register the way a high-chroma red does. [`design-evolution-report.md`](design-evolution-report.md) concluded "used liberally, but only on white." [`card-feed-design-proposals.md`](card-feed-design-proposals.md) §6 concludes the opposite — cut to two roles, because eight green touchpoints read as haze. **Two active docs, opposite instructions, same question.** → `weigh`.
+- **Our accent is not their accent.** Pistachio is low-saturation and doesn't register the way a high-chroma red does. [`design-evolution-report.md`](../archive/ui/design-evolution-report.md) concluded "used liberally, but only on white." [`card-feed-design-proposals.md`](../archive/ui/card-feed-design-proposals.md) §6 concludes the opposite — cut to two roles, because eight green touchpoints read as haze. **Two active docs, opposite instructions, same question.** → `weigh`.
 - **Our cards carry a hairline; Airbnb's don't.** Ratified 2026-09-04. Airbnb can let whitespace alone separate cards because every card has a photo supplying its own edge. Ours may not — see §5.
 - **Bottom-anchored controls.** Principle 9 follows Maps, not Airbnb's top search pill. Where they disagree, Principle 9 wins; it was ratified against user feedback, not inherited.
 - **No 2025-era Airbnb.** The super-app redesign's 3D icons, depth, and spring physics are already ruled out. We take the 2015–2023 discipline, not the exuberance.

@@ -9,7 +9,7 @@ status: blocked
 
 **Bundle:** b2 recommended
 **Loops:** 3 (Land here), 4 (Gather regularly), 7 (Make and be found)
-**Canonical example:** [C1](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love), [C2](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places)
+**Canonical example:** [C1](../../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love), [C2](../../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places)
 **Spec contract:** `community-platform.md` § Ranking, § Location resolution, § Metro is the feed's vantage point
 **Status:** **blocked** — not a draft. Do not promote; do not ticket.
 

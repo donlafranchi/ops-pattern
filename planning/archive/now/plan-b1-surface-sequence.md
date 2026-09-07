@@ -7,16 +7,16 @@ status: queued
 
 # b1 surface build — remaining work
 
-> Triaged from `_inbox/b1-primitives-sequence.md` on 2026-05-30. Historical record at [`planning/done/2026-05-30-b1-primitives-sequence/RETIRED.md`](../done/2026-05-30-b1-primitives-sequence/RETIRED.md).
+> Triaged from `_inbox/b1-primitives-sequence.md` on 2026-05-30. Historical record at [`planning/done/2026-05-30-b1-primitives-sequence/RETIRED.md`](../../done/2026-06-01-planning-reorg/RETIRED.md).
 >
 > All Phase 0 + Phase 1 substrate is complete (T041–T064). What follows is the user-surface work for b1 plus three substrate gates that must land before specific scenarios open.
 
 ## Anchors
 
 - Scenarios: 14 drafts in [`planning/backlog/`](../backlog/) (F030–F043). None approved.
-- Stage tracker: [`planning/STAGE-LEDGER.md`](../STAGE-LEDGER.md).
-- Scoping doc (still load-bearing): [`planning/now/bundle-1.md`](bundle-1.md).
-- Use-case source of truth: [`product/needs/use-cases.md`](../../product/needs/use-cases.md).
+- Stage tracker: [`planning/STAGE-LEDGER.md`](../../STAGE-LEDGER.md).
+- Scoping doc (still load-bearing): [`planning/now/bundle-1.md`](../../now/bundle-1.md).
+- Use-case source of truth: [`product/needs/use-cases.md`](../../../product/needs/use-cases.md).
 
 ## Substrate gates — block specific scenarios
 

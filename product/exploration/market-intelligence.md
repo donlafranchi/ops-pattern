@@ -36,7 +36,7 @@ Because this system collects behavior platform-wide, the privacy and anti-extrac
 
 - Anonymized, aggregated signals only — never individual consumer data; a k-anonymity floor (consistent with [`agent-assistance.md`](../systems/agent-assistance.md)).
 - No demographic targeting of individuals. "Similar communities" is judged at the community / locality level, not by profiling people.
-- No pay-to-rank, no selling discovery — Market Intelligence informs producers, it never sells visibility (per [`principles.md`](../foundation/principles.md)).
+- Market Intelligence informs producers; it does not rank or price visibility. *(Revised 2026-09-07 — the never-sells-visibility absolute was removed; paid placement is gated on member benefit, not banned.)* (per [`principles.md`](../foundation/principles.md)).
 - Circulating wealth, not extracting it — the intelligence goes to the small producer to help them compete; the platform does not hoard it or resell it.
 
 ## Substrate already in the plan

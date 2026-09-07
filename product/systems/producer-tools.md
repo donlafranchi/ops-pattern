@@ -7,7 +7,7 @@ status: active
 
 # System: Producer Tools
 
-**Purpose:** Two surfaces that together back the producer recruitment pitch ("we'll help you compete with bigger players") and the platform-promise commitment in [`../foundation/platform-promise.md`](../foundation/platform-promise.md). **Bulletin** is the Substack-light broadcast surface that turns a follow from a save-for-later into a subscription to a relationship. **Growth** is the founder dashboard that gives Members operating in producer capacity the kind of business intelligence that big chains take for granted — followers, engagement, what's working, what to do next — tuned for relationship economics, not funnel economics.
+**Purpose:** Two surfaces that together back the producer recruitment pitch ("we'll help you compete with bigger players") and the platform-promise commitment in [`../foundation/platform-promise.md`](../archive/foundation/platform-promise.md). **Bulletin** is the Substack-light broadcast surface that turns a follow from a save-for-later into a subscription to a relationship. **Growth** is the founder dashboard that gives Members operating in producer capacity the kind of business intelligence that big chains take for granted — followers, engagement, what's working, what to do next — tuned for relationship economics, not funnel economics.
 
 **Bundles:** b2 (Bulletin T1 + Growth T1 — founder dashboard), b3 (Bulletin T2 + Growth T2 — engagement insights), beyond b3 (Bulletin T3 + Growth T3 — competitive intelligence). No b1 surface; the follow substrate (`member_follows`) and event log (per [`action-layer.md`](action-layer.md)) land at b1 so every action is already captured by the time the surfaces ship.
 

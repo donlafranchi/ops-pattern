@@ -7,9 +7,9 @@ status: active
 
 # Bundle Themes
 
-**Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`bundle-1.md`](bundle-1.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`bundle-1-checklist.md`](bundle-1-checklist.md) (the one-page MVP scoreboard).
+**Status:** Drafted 2026-05-18 — pending PM review. The sequencing layer above [`bundle-1.md`](../../now/bundle-1.md). Slices each bundle into release-sized sub-themes so the team ships every 1–2 weeks rather than all-at-once. Companion to [`bundle-1-checklist.md`](../../now/bundle-1-checklist.md) (the one-page MVP scoreboard).
 
-**Depends on:** `b1-primitives-plan.md`, `member-journey.md`, `primitives.md`, `use-cases.md`, `principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../product/systems/stewardships.md).
+**Depends on:** `b1-primitives-plan.md`, `member-journey.md`, `primitives.md`, `use-cases.md`, `principles.md` Part 6 (metrics), `groups.md`, `member.md`, `location.md`, `item.md`, `discovery.md`, [`../../product/systems/stewardships.md`](../../../product/systems/stewardships.md).
 
 **What this doc does.** `b1-primitives-plan.md` defines what ships in bundle 1 in primitive and cluster terms. This doc takes that scope and *sequences* it — what ships first, what second, what depends on what, and what each release is tested against. The unit of release is a **sub-bundle**, decimal-numbered (`b1.0`, `b1.1`, …). Each sub-bundle is small enough to ship in 1–2 weeks, demoable on its own, and metered against canonical examples.
 
@@ -221,7 +221,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 ### b1.6 — Stewardships *(the care floor — the smallest ownership step)*
 
-**What ships:** per [`stewardships.md`](../../product/systems/stewardships.md) in full.
+**What ships:** per [`stewardships.md`](../../../product/systems/stewardships.md) in full.
 
 - `group_stewardships` child table on Groups (one row per Group declaring itself a stewardship)
 - Seven curated templates with on-platform starter copy and links to canonical external playbooks: tool library, seed library, repair café, Little Free Library, Little Free Pantry, community fridge, mutual aid pod / buying club
@@ -235,7 +235,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 **Loops advanced:** Loop 12 (Steward what we built) — full. Loop 11 (Pool resources) — partial; the *care* dimension of pooling ships; capital pooling defers to b3.
 
-**Metrics — per [`stewardships.md`](../../product/systems/stewardships.md) § Metrics:**
+**Metrics — per [`stewardships.md`](../../../product/systems/stewardships.md) § Metrics:**
 - Stewardships declared per 1000 Members per month
 - % of stewardships still active at day 30 / 90 / 180 / 365
 - Median active stewards per stewardship over time
@@ -252,7 +252,7 @@ A schema decision that must be made before any public URL exists, because it con
 
 ### b2.0 — Producer Bulletin T1
 
-Per [`producer-tools.md`](../../product/systems/producer-tools.md). Member-authored broadcast to followers (Substack-light). The payoff for a b1.4 follow. **Canonical examples served:** #2, #3, #4 (Ferrari, dip vendor, food truck — their followers now hear from them). **Loops:** 5 (Subscribe), 7 (Recur), 8 (Follow).
+Per [`producer-tools.md`](../../../product/systems/producer-tools.md). Member-authored broadcast to followers (Substack-light). The payoff for a b1.4 follow. **Canonical examples served:** #2, #3, #4 (Ferrari, dip vendor, food truck — their followers now hear from them). **Loops:** 5 (Subscribe), 7 (Recur), 8 (Follow).
 
 ### b2.1 — Offer / Ask
 
@@ -268,11 +268,11 @@ What the platform does NOT do at b2.2: form the entity, hold money, draft bylaws
 
 ### b2.3 — Locality verification Tier 1
 
-Per [`business-jurisdiction.md`](../../product/systems/business-jurisdiction.md). SOS-verified local owner badge. Tier 0 ships at b1.2; Tier 1 SOS lookup ships here. The "Verified local owner" badge in the discovery index.
+Per [`business-jurisdiction.md`](../../../product/systems/business-jurisdiction.md). SOS-verified local owner badge. Tier 0 ships at b1.2; Tier 1 SOS lookup ships here. The "Verified local owner" badge in the discovery index.
 
 ### b2.4 — Producer Growth Dashboard T1
 
-Per [`producer-tools.md`](../../product/systems/producer-tools.md) T1. Followers, profile health, activity. The BI dashboard backing the producer recruitment pitch.
+Per [`producer-tools.md`](../../../product/systems/producer-tools.md) T1. Followers, profile health, activity. The BI dashboard backing the producer recruitment pitch.
 
 ### b2.5 — Follow streams + notifications
 
@@ -387,7 +387,7 @@ b1.1 (Groups people can join)
 
 ## Comments
 
-This document is the sequencing layer that the build pipeline reads when deciding what to work on next. `bundle-1.md` answers *what's in scope for the MVP*; this doc answers *what ships next within that scope*; [`bundle-1-checklist.md`](bundle-1-checklist.md) answers *what's left, at a glance*. Together the three give the planning tier a sufficient view: scope from primitives, sequence from themes, menu from work-map.
+This document is the sequencing layer that the build pipeline reads when deciding what to work on next. `bundle-1.md` answers *what's in scope for the MVP*; this doc answers *what ships next within that scope*; [`bundle-1-checklist.md`](../../now/bundle-1-checklist.md) answers *what's left, at a glance*. Together the three give the planning tier a sufficient view: scope from primitives, sequence from themes, menu from work-map.
 
 The decision to slice b1 into seven sub-bundles (b1.0 through b1.6, plus the cross-cutting b1.x) is the structural commitment to *shipping often*. It is what makes the difference between a six-month b1 release that lands as one giant motion and a seven-stage rollout where the team learns from real users at every step. The smaller the slice, the faster the loop between "we built it" and "we know if it works." Per `principles.md` Part 1 — lightweight, performant, evolvable — the slicing posture honors P1 at the release level, not just the feature level.
 

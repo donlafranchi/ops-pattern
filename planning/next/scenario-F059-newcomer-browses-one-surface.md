@@ -7,12 +7,12 @@ status: next
 # F059: A newcomer browses one surface instead of two
 
 **Bundle:** b1 (SocialUs v1)
-**Sub-bundle:** post-`b1.4` — v1 finishing list, not a themed slice. The `b1.0`–`b1.6` sequence in [`bundle-1-themes.md`](../now/bundle-1-themes.md) predates the v1 rescope and has no slot for this; the bundle's workstream list is the live sequencer.
+**Sub-bundle:** post-`b1.4` — v1 finishing list, not a themed slice. The `b1.0`–`b1.6` sequence in [`bundle-1-themes.md`](../archive/now/bundle-1-themes.md) predates the v1 rescope and has no slot for this; the bundle's workstream list is the live sequencer.
 **Work-map item:** [`bundle-1.md`](../now/bundle-1.md) § What ships in v1 → **workstream 4, "Home/Explore merge."** No `bundle-1-checklist.md` row exists yet — the checklist's own v1 note says the eight remaining workstreams live in the bundle "until they are scoped into scenarios." This is that scoping; the checklist gains a row when this advances.
 **Loops:** 1 (Land here), 3 (Find what's near), 7 (Make and be found — discovery side)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → `discoverable_items` (via `locality_feed_items`) → browse. No new table, one function migration.
-**Spec contract:** [`decision-surfaces.md`](decision-surfaces.md) § The two-tab model · § Feed ranking · § Distance is out · § Metro is the vantage point · § What the shipped Explore code carries into the merge; [`community-platform.md`](../../product/ui/community-platform.md) § T1 Home + § T1 Explore
+**Spec contract:** [`decision-surfaces.md`](../backlog/decision-surfaces.md) § The two-tab model · § Feed ranking · § Distance is out · § Metro is the vantage point · § What the shipped Explore code carries into the merge; [`community-platform.md`](../../product/ui/community-platform.md) § T1 Home + § T1 Explore
 **Status:** next — **reviewed** ([`review-F059.md`](./review-F059.md), REVISE 2026-09-04, revision applied same day). **Gate A clear** (both cited absolutes ratified 2026-09-04; see below).
 
 ---

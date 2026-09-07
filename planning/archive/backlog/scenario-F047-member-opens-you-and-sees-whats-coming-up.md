@@ -10,7 +10,7 @@ status: backlog
 **Sub-bundle:** integration-test prep (post b1.4 — rearchitects the You tab around the return-visit loop)
 **Work-map item:** Extends the checked "See everything they follow" item (F042). The current F042 surface shows a list of followed entities; F047 replaces the You tab's dominant content with a feed of *upcoming content from* those entities plus RSVP'd events. Suggest updating the checklist with a "You tab shows what's coming up from follows + RSVPs" line.
 **Loops:** 8 (Follow what you love — this is the primary return-visit loop), 3 (Land here — personalized locality), 4 (Gather regularly — return attendance)
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → `member_follows` + `item_responses` + `member_saved_searches` + `member_interests` → upcoming Items (no schema change — reads from existing b1 substrate)
 **Spec contract:** design-research-thesis.md §2 (You — "My stuff"), §6 (Create lives on /you), appendix (You checklist); community-platform.md § You T1
 **Status:** backlog

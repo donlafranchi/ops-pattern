@@ -216,7 +216,7 @@ Recorded because the new surfaces are shipped and green, and re-litigating them 
 
 | Artifact | Change |
 |---|---|
-| [F057](scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) | Rewritten as a **modification behind a become-a-producer action**, not a rebuild. Recruitment grid becomes the pre-producer state. |
+| [F057](../next/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) | Rewritten as a **modification behind a become-a-producer action**, not a rebuild. Recruitment grid becomes the pre-producer state. |
 | [T125](../../development/tickets/T125-you-gains-a-producer-state.md) | Rescoped to match. Materially smaller. |
 | [F056](scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md) / [T126](../../development/tickets/T126-edit-shop-image-and-values.md) | Gain the **tagline** field and the **listing-health checklist**. |
 | [F055](scenario-F055-producer-puts-a-photo-on-what-they-sell.md) / [T121](../../development/tickets/T121-product-composer-photo-field.md) | Gain the **OpenGraph image** criterion — the highest-leverage consumer of the uploaded photo. |

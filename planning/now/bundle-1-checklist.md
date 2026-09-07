@@ -9,7 +9,7 @@ status: active
 
 > **What "shipped" means here.** A row is checked when the user-facing feature works end-to-end, tests pass, and the code is merged to main. Foundation rows check when the underlying tables, handlers, and migrations are in place. Items in build are marked `~`.
 >
-> **Companions.** Narrative + non-negotiables in [`mvp-goal.md`](mvp-goal.md). Per-feature stage detail in [`../STAGE-LEDGER.md`](../STAGE-LEDGER.md). Approval sequence in [`plan-b1-surface-sequence.md`](plan-b1-surface-sequence.md).
+> **Companions.** Narrative + non-negotiables in [`mvp-goal.md`](../archive/now/mvp-goal.md). Per-feature stage detail in [`../STAGE-LEDGER.md`](../STAGE-LEDGER.md). Approval sequence in [`plan-b1-surface-sequence.md`](../archive/now/plan-b1-surface-sequence.md).
 
 > **v1 scope ratified 2026-09-04.** [`bundle-1.md`](bundle-1.md) now carries the ratified scope, positioning, and end-of-September deadline. Two rows below are affected: *Adjust how wide their "near me" reach is* (F031) is **out** — v1 is metro-level only, and with distance removed there is no width to adjust; the integration-test rows now gate on the v1 workstream list rather than F030–F043. The eight remaining v1 workstreams are tracked in the bundle until they are scoped into scenarios.
 
@@ -72,6 +72,6 @@ Ordinary people will step forward where they live, and their neighbors will show
 
 - Not a ticket tracker — see [`../STAGE-LEDGER.md`](../STAGE-LEDGER.md) for per-feature stage detail.
 - Not a scoping doc — see [`bundle-1.md`](bundle-1.md) for what's in / out.
-- Not the build sequence — see [`plan-b1-surface-sequence.md`](plan-b1-surface-sequence.md) for dependency order.
+- Not the build sequence — see [`plan-b1-surface-sequence.md`](../archive/now/plan-b1-surface-sequence.md) for dependency order.
 
 This is the one page to glance at on Monday morning to know what's left.

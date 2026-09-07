@@ -78,7 +78,7 @@ This principle is what makes the rest of the architecture make sense.
 
 > **Intent.** Reviews surface mistreatment; social capital surfaces good treatment. The two together are the platform's peer-pressure mechanism for good behavior. Without the positive pole, the system becomes a complaint surface (Yelp's failure mode); without the negative pole, the system has no accountability. Both, paired, are how the platform encourages the relational behaviors that make community work and discourages meanness without becoming punitive.
 
-**No pay-for-visibility.** A person should not have to pay to be findable in their own community. We do not sell discovery to producers. Revenue flows from buyers, sponsors, and federation partners (see [`monetization.md`](monetization.md)).
+**Paid visibility passes the member-benefit gate or it doesn't ship.** *Revised 2026-09-07 — this was previously stated as an absolute ("no pay-for-visibility"), which nobody had agreed to. Withdrawn; see [`promises.md`](promises.md).* Selling discovery is not banned by fiat. Any specific paid-placement or advertising mechanic must first show who it benefits on the member side and what the member gives up, per promise 2.
 
 **No engagement-optimized feed.** People do not need an algorithm to want to find each other. The locality-first index is enough. Engagement optimization is what consumes humans for advertiser revenue; we are doing the opposite.
 

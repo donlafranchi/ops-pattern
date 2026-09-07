@@ -56,7 +56,7 @@ Desktop: the same four zones render as a left sidebar nav. The bottom bar disapp
 
 The feed shows time-stamped Items scoped by the viewer's locality — events, ideas, seller updates, followed-member floats. No algorithm at b1; sort is recency + locality scope. This is the "open the app and see what's happening" surface.
 
-**Why this shape:** The feed is locality-aware but not Location-scoped — it surfaces Items from Members whose home is nearby, plus Items at nearby Locations, plus Items from followed Members regardless of location. This is structurally different from an anonymous neighborhood feed: there is no surface that addresses "everyone in West Sac" — the accountable-participation commitment (see [`../foundation/policy.md`](../foundation/policy.md)) is honored by absence. The feed is calm by design: no infinite scroll, no red notification badges. Pagination at 20 with "Show more" — the viewer decides when to see more, not an algorithm.
+**Why this shape:** The feed is locality-aware but not Location-scoped — it surfaces Items from Members whose home is nearby, plus Items at nearby Locations, plus Items from followed Members regardless of location. This is structurally different from an anonymous neighborhood feed: there is no surface that addresses "everyone in West Sac" — the accountable-participation commitment (see [`../foundation/policy.md`](../../foundation/policy.md)) is honored by absence. The feed is calm by design: no infinite scroll, no red notification badges. Pagination at 20 with "Show more" — the viewer decides when to see more, not an algorithm.
 
 ### Explore
 
@@ -86,19 +86,19 @@ One structural template, varying by kind. Quiet header (no hero image at b1), ti
 
 A Person's public page at `/m/[handle]`. Name, photo, locality, bio, and a list of their Items. When the Member has ≥1 business Group or product/service Items, selling affordances surface (their shop, their products). Follow button is the primary CTA.
 
-**Why this shape:** The Member page is the anchor primitive's public face. The handle is the one intentionally global namespace — it survives relocation. Selling affordances appear conditionally, not in a separate "shop page" — the people-first principle in page form (businesses are expressed as Groups people belong to, never first-class actors; see [`../foundation/people-first.md`](../foundation/people-first.md) and [`../foundation/primitives.md`](../foundation/primitives.md)).
+**Why this shape:** The Member page is the anchor primitive's public face. The handle is the one intentionally global namespace — it survives relocation. Selling affordances appear conditionally, not in a separate "shop page" — the people-first principle in page form (businesses are expressed as Groups people belong to, never first-class actors; see [`../foundation/people-first.md`](../../foundation/people-first.md) and [`../foundation/primitives.md`](../../foundation/primitives.md)).
 
 ### Group page (6 kinds)
 
 A Group's public page. Header: Group name, kind label, anchor Location (if any), member count. Content: Items posted by the Group, member list (role-visible). For kind='business' Groups, the page is the "Shop" — it shows the business's products/services, the Locally Owned badge (if claimed), and the owner banner (role-gated management strip).
 
-**Why this shape:** the page exists because people chose to form a unit — Groups are emergent, never auto-assigned (see [`../foundation/primitives.md`](../foundation/primitives.md) § Group). The Shop variant of kind='business' is where producer identity lives in the UI, but it's structurally a Group page with business affordances, not a separate entity — the "no Business entity" principle in page form. The owner banner (management widgets above the public content) means the owner always sees the real public page — no separate "manage" view that drifts from what visitors see.
+**Why this shape:** the page exists because people chose to form a unit — Groups are emergent, never auto-assigned (see [`../foundation/primitives.md`](../../foundation/primitives.md) § Group). The Shop variant of kind='business' is where producer identity lives in the UI, but it's structurally a Group page with business affordances, not a separate entity — the "no Business entity" principle in page form. The owner banner (management widgets above the public content) means the owner always sees the real public page — no separate "manage" view that drifts from what visitors see.
 
 ### Venue page
 
 A Location's public page. Hero image, venue name, address with distance, "Follow this venue" as primary CTA, "Host something here" as secondary. Sections: what's happening here (the venue's own Items), what's happening nearby (expandable), about.
 
-**Why this shape:** The venue page is the physical-place primitive's public face. Follow is primary because most venue-page visitors are consuming (Loop 8 — Follow what you love). Host is secondary because most visitors aren't organizers. No reviews, no ratings — the venue's value is shown through what happens there, not through star scores (the no-ranking-of-people corollary in [`../foundation/people-first.md`](../foundation/people-first.md), applied to places).
+**Why this shape:** The venue page is the physical-place primitive's public face. Follow is primary because most venue-page visitors are consuming (Loop 8 — Follow what you love). Host is secondary because most visitors aren't organizers. No reviews, no ratings — the venue's value is shown through what happens there, not through star scores (the no-ranking-of-people corollary in [`../foundation/people-first.md`](../../foundation/people-first.md), applied to places).
 
 ### Thesis page
 
@@ -120,7 +120,7 @@ Unified view of everything the Member follows — people, Groups, venues — in 
 
 ### QR card — removed 2026-09-03
 
-The platform generates no QR codes. Sharing is phone to phone: a link, copied or sent. Producer-generated QR for a *business* (not an Item) stays open as an unscoped future producer tool on the You surface — see [`../capabilities/qr-onboarding.md`](../capabilities/qr-onboarding.md) and `playbooks/PLATFORM-PATTERNS.md` § *No platform-generated QR codes*. A hashtag-style handle was raised as an alternative shareable identifier and is undecided.
+The platform generates no QR codes. Sharing is phone to phone: a link, copied or sent. Producer-generated QR for a *business* (not an Item) stays open as an unscoped future producer tool on the You surface — see [`../capabilities/qr-onboarding.md`](../../capabilities/qr-onboarding.md) and `playbooks/PLATFORM-PATTERNS.md` § *No platform-generated QR codes*. A hashtag-style handle was raised as an alternative shareable identifier and is undecided.
 
 ---
 

@@ -7,17 +7,17 @@ status: active
 
 # MVP Goal — b1 Primitives
 
-> **Scope superseded 2026-09-04.** [`bundle-1.md`](bundle-1.md) now carries the ratified v1 scope, positioning, and deadline (end of September 2026). Where this file and the bundle disagree about *what ships*, the bundle wins. What survives here is the narrative — what the MVP is for, what "done" means as a shape, and the non-negotiables. The per-surface lists below are historical and marked where v1 changed them.
+> **Scope superseded 2026-09-04.** [`bundle-1.md`](../../now/bundle-1.md) now carries the ratified v1 scope, positioning, and deadline (end of September 2026). Where this file and the bundle disagree about *what ships*, the bundle wins. What survives here is the narrative — what the MVP is for, what "done" means as a shape, and the non-negotiables. The per-surface lists below are historical and marked where v1 changed them.
 >
 > Build order: [`plan-b1-surface-sequence.md`](plan-b1-surface-sequence.md).
 
 ## What the MVP is
 
-The smallest expression of the platform that proves the central hypothesis: **ordinary people will step forward where they live, and their neighbors will show up for them.** A coordination layer for a place, built on the four primitives ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md)). b1 ships the four primitives at their T1 scope plus the locality-first surfaces that let a newcomer find what's near them and a producer become findable. It is not the platform; it is the version of the platform that can teach us whether the platform is right.
+The smallest expression of the platform that proves the central hypothesis: **ordinary people will step forward where they live, and their neighbors will show up for them.** A coordination layer for a place, built on the four primitives ([`../../product/foundation/primitives.md`](../../../product/foundation/primitives.md)). b1 ships the four primitives at their T1 scope plus the locality-first surfaces that let a newcomer find what's near them and a producer become findable. It is not the platform; it is the version of the platform that can teach us whether the platform is right.
 
 ## What "done" looks like
 
-~~b1 is done when all 14 user-surface scenarios (F030–F043) are shipped and green~~ — **superseded.** v1 is done when the eight workstreams in [`bundle-1.md`](bundle-1.md) § What ships in v1 are shipped and green. The exit criteria below still describe the shape of done, with two corrections noted inline:
+~~b1 is done when all 14 user-surface scenarios (F030–F043) are shipped and green~~ — **superseded.** v1 is done when the eight workstreams in [`bundle-1.md`](../../now/bundle-1.md) § What ships in v1 are shipped and green. The exit criteria below still describe the shape of done, with two corrections noted inline:
 
 - **Both journeys complete without getting stuck** (F043, the integration test): (1) signup → profile → locality → feed → host a gathering at a venue → land on a shareable public page; (2) signup → Sell → business Group → list a product → public page. The "<90 seconds" figure is a working smell, not a contract.
 - **A no-login visitor** can browse the locality-first index and reach any public Item / Member / Group / Venue page.
@@ -33,7 +33,7 @@ The smallest expression of the platform that proves the central hypothesis: **or
 - **Person→Item composers** with Location attachment and (where relevant) schedule.
 - **Item response surfaces** (Follow / Save / RSVP / "I'd be in"), stored uniformly in `item_responses`.
 - **Tier 0 self-attested locality badges** (Locally Owned; Locally Made deferred).
-- **Producer values declaration** on the producer profile — self-declared only, never sourced or inferred (see [`bundle-1.md`](bundle-1.md) § Positioning).
+- **Producer values declaration** on the producer profile — self-declared only, never sourced or inferred (see [`bundle-1.md`](../../now/bundle-1.md) § Positioning).
 - ~~**Item-level QR card** affordance (F041)~~ — removed 2026-09-03; no platform-generated QR codes.
 - **The thesis page** — names the squeeze, the antidote, and the platform's commitments.
 
@@ -54,7 +54,7 @@ The smallest expression of the platform that proves the central hypothesis: **or
 
 ## Current build status
 
-**Stale as written; do not read it as current.** The per-surface state lives in one place — [`bundle-1-checklist.md`](bundle-1-checklist.md). Summary as of 2026-09-04: all substrate is built and merged, and the producer, gatherer, and newcomer surfaces (F030, F032–F038, F040, F042) are shipped with evals green. F039 is deferred, F041 was shipped and then removed, and F031 is superseded by v1's metro-only scope. What remains is the eight-workstream v1 list in [`bundle-1.md`](bundle-1.md).
+**Stale as written; do not read it as current.** The per-surface state lives in one place — [`bundle-1-checklist.md`](../../now/bundle-1-checklist.md). Summary as of 2026-09-04: all substrate is built and merged, and the producer, gatherer, and newcomer surfaces (F030, F032–F038, F040, F042) are shipped with evals green. F039 is deferred, F041 was shipped and then removed, and F031 is superseded by v1's metro-only scope. What remains is the eight-workstream v1 list in [`bundle-1.md`](../../now/bundle-1.md).
 
 ## The sequence to get there
 
@@ -69,8 +69,8 @@ When F036 fully lands, reconcile or retire the historical sub-bundle slicings (`
 
 ## Non-negotiables — every PR upholds
 
-1. **The four primitives hold** — Person declares Item at Location; other Persons respond; People form Groups ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md)). Code reads like the grammar.
-2. **No Business entity** — no `business_name` column on Members ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md) § Why no Business entity).
-3. **Groups are emergent, optional, never auto-assigned** ([`../../product/foundation/primitives.md`](../../product/foundation/primitives.md) § Group).
+1. **The four primitives hold** — Person declares Item at Location; other Persons respond; People form Groups ([`../../product/foundation/primitives.md`](../../../product/foundation/primitives.md)). Code reads like the grammar.
+2. **No Business entity** — no `business_name` column on Members ([`../../product/foundation/primitives.md`](../../../product/foundation/primitives.md) § Why no Business entity).
+3. **Groups are emergent, optional, never auto-assigned** ([`../../product/foundation/primitives.md`](../../../product/foundation/primitives.md) § Group).
 
 Deviations from these escalate to the PM, not to the data model.

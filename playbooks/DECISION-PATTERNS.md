@@ -111,3 +111,13 @@ Absolutes without a State tag are unratified de-facto and block the pipeline. Th
 *Tiebreaker 2 (platform health):* Friction at 30 days might reduce adoption to the point the feature can't sustain itself.
 *Tiebreaker 3 (data protection):* 30 days minimizes the window of compromise.
 *Resolution:* Two tiebreakers favor 30 days; one favors 90. PM picks 30 with the reversibility hook of "configurable later if adoption signal demands."
+
+---
+
+## The member-benefit gate
+
+**Every decision record, scenario, and pattern entry carries one line: who benefits — member and product — and what does the member give up?**
+
+This is promise 2 made operational ([`../product/foundation/promises.md`](../product/foundation/promises.md)). It is a gate, not a prompt for reassuring copy. **A decision that cannot fill in the member half has failed it**, and the correct response is to change the decision, not to improve the sentence. "It funds the platform," "it improves retention," and "it helps us grow" are all the product half stated twice.
+
+**Owed and not yet done:** the line belongs in the decision-log format, the scenario template, and `weigh`'s close-out. Until it is in all three, this is a convention rather than a gate — say so rather than claiming coverage.

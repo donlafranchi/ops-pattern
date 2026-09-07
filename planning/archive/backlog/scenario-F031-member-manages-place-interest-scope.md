@@ -9,7 +9,7 @@ status: draft
 
 **Bundle:** b1
 **Loops:** 1 (Find your people), 3 (Land here), 4 (Gather regularly), 8 (Follow what you love)
-**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — the Oak-Park-resident-who-works-in-Folsom situation. At b1 this resolves automatically: both Oak Park and Folsom are inside the Sacramento-Roseville CSA, so the metro-scoped feed shows both without manual secondary-place management.
+**Canonical example:** [C2 — A member organizes awareness across multiple Places](../../../product/needs/use-cases.md#c2-a-member-organizes-awareness-across-multiple-places) — the Oak-Park-resident-who-works-in-Folsom situation. At b1 this resolves automatically: both Oak Park and Folsom are inside the Sacramento-Roseville CSA, so the metro-scoped feed shows both without manual secondary-place management.
 **Primitive shape:** Person → `members.home_metro_id` → `metro_polygons.geography` → feed `ST_Intersects` against discoverable Items.
 **Status:** backlog (trimmed from the original 6-criteria scope to metro-only for b1)
 **Replaces:** F029 (archived 2026-05-28). Supersedes the original F031 draft which included secondary places, granularity controls, and metro opt-in toggle — all deferred to b2.
