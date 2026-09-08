@@ -15,6 +15,10 @@ status: next
 **Spec contract:** [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 3 (*What v1 gets instead: a general report path*) · [`decision-photo-upload.md`](decision-photo-upload.md) §§ 4 (A2), 5.1 · [`decision-business-identity-impersonation.md`](decision-business-identity-impersonation.md)
 **Status:** next — **approved 2026-09-07.** Gate B cleared: both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature.
 
+> **The dependency moved on 2026-09-07 and got sooner.** Item photos are deferred; **Page photos ship first**, in [F061](scenario-F061-someone-creates-a-page-worth-showing-people.md). The takedown commitment is unchanged, so **no photograph of any kind is accepted in production until this report path is live.**
+>
+> **Boundary:** this scenario owns the **report path** (the control, the sheet, the table, the operator's route) and photo removal on **Items**. **F061 owns photo removal on Pages** — different table, different event log. F061 adds no reporting surface of its own. Bucket is `media`, not `item-media`. See [`review-F058.md`](review-F058.md).
+
 ## Why this is a dependency, not a companion
 
 `bundle-1.md` calls the report path *"the smallest item here and the only one whose absence has no workaround."* Both halves are still true. What changed on 2026-09-04 is that its absence now blocks something else.

@@ -65,6 +65,14 @@ echo "## Check 2: no open ticket references an unapproved scenario"
 c2=0
 for t in development/tickets/T*.md; do
   [ -e "$t" ] || continue
+  # A ticket explicitly marked DEFERRED is one the PM has held. Its scenario is
+  # SUPPOSED to be out of the approved lanes — that pairing is the deferral, not
+  # a firewall breach. Report it, don't block on it: a false alarm repeated every
+  # run is how a real one gets skimmed past. (Added 2026-09-07, F055 deferral.)
+  if grep -qE '^\*\*Status:\*\*.*DEFERRED' "$t" 2>/dev/null; then
+    warn "$(basename "$t") is DEFERRED — its scenario is out of the approved lanes by design"; c2=1
+    continue
+  fi
   # Scenario: lines that point at a planning path, plus bare F-numbers on a Scenario: line.
   refs=$(grep -iE '^\*\*Scenario:' "$t" 2>/dev/null | grep -oE 'F[0-9]{3}' | sort -u)
   for f in $refs; do

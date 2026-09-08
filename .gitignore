@@ -17,3 +17,5 @@ supabase/snippets/
 
 # Playwright run output
 test-results/
+web-t*/
+web-*/

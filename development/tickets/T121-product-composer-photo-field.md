@@ -1,7 +1,11 @@
 # T121: The product composer gets a photo field, end to end to the card
 
-**Scenario:** `planning/next/scenario-F055-producer-puts-a-photo-on-what-they-sell.md`
-**Status:** Open — **BLOCKED, Gate B (via T120). Not buildable.**
+**Scenario:** `planning/backlog/scenario-F055-producer-puts-a-photo-on-what-they-sell.md` — **DEFERRED with its scenario.**
+**Status:** **DEFERRED 2026-09-07.** Not open, not blocked — held by PM ruling.
+
+> **Deferred with its scenario.** Pages get photos now, Items get photos later. The scenario returned to `planning/backlog/`, so this ticket points outside the approved lanes **by design** — the gate check reports it as a deferred pair, not as a firewall breach. **Do not start.**
+>
+> **The substrate this depended on is no longer blocked** — T120 re-bound to F061 and is buildable. When this resumes, the bucket (renamed `media`), the upload module, the metadata strip and the picker recipe all already exist, and what remains is a composer field.
 **Bundle:** b1 (v1 workstream 10)
 **Depends on:** T120 (upload primitive), and the image-picker DLS recipe (review binding note 4)
 **Prior art:** [`planning/backlog/audit-vendor-prior-art.md`](../../planning/backlog/audit-vendor-prior-art.md) § 2.2 — the OG block. Read `src/app/vendors/[slug]/page.tsx` before writing it.

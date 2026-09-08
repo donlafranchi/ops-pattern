@@ -375,6 +375,43 @@ When the viewer is an owner-role Member of the entity they're looking at (a Shop
 
 **Accessibility.** The banner carries `role="region"` with `aria-label="Owner tools"`. The `<details>` toggle communicates expanded/collapsed state. Action links inside meet the 44px touch-target minimum.
 
+### Image picker (single photo, optional)
+
+*Added 2026-09-07. Owed since the photo scope change; written before any image work starts because three separate surfaces were about to invent it three times.*
+
+The shape for "attach one photograph to the thing you are making." **One recipe, every caller** — the composer's Page photo, the editor's replacement control, and Item photos when they arrive.
+
+**Shape.**
+- An empty field is a wide tappable area, `--radius-md`, 1px `--color-border`, `--color-surface` fill, reading **Add a photo** with a muted line beneath: *"Optional. One photo."* Aspect ratio matches wherever the image will render — 1:1 for a Page, 4:3 for an Item.
+- Tapping opens the **operating system's own picker**. No custom file browser, no drag-and-drop target as the primary path, no camera control of our own.
+- While the image is being prepared it renders in place at 60% opacity with a determinate progress indicator over it. **The Member never sees a file name, a byte size, a format, or a percentage** — those are our problem, not theirs.
+- A filled field shows the image cropped to its final shape with a single **Replace** control in the corner and **Remove** behind it.
+- **No gallery, no ordering, no carousel, no cropping UI.** One photo, centre-cropped.
+
+**Failure copy.** Four distinct messages, never a raw error: too large, wrong kind of file, the network dropped, and this browser can't do it. Each says what to try next. **A failed upload never blocks submitting the form** — the field returns to empty and the Member continues.
+
+**Accessibility.** The field is a real button with an accessible name (*"Add a photo"* / *"Replace photo"*), not a styled `<div>`. Progress is announced politely. Replace and Remove are separately reachable and each meets the 44px minimum. The rendered image carries alt text derived from what it's attached to (*"Photo of {Page name}"*), never an empty alt.
+
+### Default Page art (no photograph set)
+
+*Added 2026-09-07. At launch nearly every Page will have no photo, so this is not an empty state — it is the platform's ordinary appearance on day one.*
+
+**What it is.** A generated mark derived from the Page's own identifier: a soft two-stop gradient with the first letter of the Page name centred on it.
+
+**Shape.**
+- **Deterministic.** The Page id hashes to an index into a fixed set of gradient pairs. **The same Page always renders the same art** — across reloads, across devices, across visitors. Nothing random, nothing time-based, nothing that reshuffles.
+- **Six pairs, drawn from the neutral and reserved ramp values** — `--pistachio-100`/`--pistachio-300`, and five muted non-brand pairs at similar lightness. **Low saturation throughout.** The art sits behind a Page's name and must never compete with it, and a wall of browse cards must not look like a paint chart.
+- The letter is `--color-fg` at 40% opacity, in the display face, optically centred, sized to about a third of the tile's short edge. **One letter** — never two, never an emoji, never an icon that implies a category.
+- Fills the same frame a photograph would, at whatever aspect that surface uses. **Never letterboxed, never bordered differently from a real photo's frame.**
+
+**It must read as a placeholder, not as a picture.** Flat gradient and a letterform, no texture, no illustration, no depiction of a place. This is the constraint the recipe exists to hold: *(Intent — Ratified 2026-09-07, [`../systems/groups.md`](../systems/groups.md) § A photo, or art that admits it isn't one)* placeholder art handsome enough to pass for a photograph both misrepresents the place and removes the reason to add a real one.
+
+**Owner affordance.** To a Member who can edit the Page, and only to them, the art carries a quiet **Add a photo** overlay — text link weight, bottom-left, not a button. **Every other viewer sees the art alone**, with nothing marking it as missing. A Page without a photograph is not presented to the public as incomplete.
+
+**No stock photography.** Not now and not as a later upgrade. It depicts somewhere that isn't there, it needs licensing and storage, and every Page in a category ends up wearing the same three faces.
+
+**Accessibility.** Decorative — `alt=""` and `aria-hidden`, because the Page name is already adjacent and announcing a colour is noise. The owner's Add-a-photo overlay is a real link with its own accessible name. Contrast of the letter against either gradient stop clears 3:1 so it stays legible rather than becoming a texture. *(That ratio is the standard's floor for large text and graphical objects — enough that the letter reads as a letter to someone with low vision.)*
+
 ### Other surfaces (cross-reference)
 
 - **Member page (`/m/[handle]`)** — the Member's public page (per [`../systems/member.md`](../systems/member.md)); when the Member has ≥1 active kind='business' Group membership OR any kind='product'/'service' Item, the page surfaces selling-tool affordances. Header layout follows the same pattern: hero image → name → tagline → primary CTA below the header (label varies by Member context — *"Drop something now"* for irregular Sellers, etc.). The kind='business' Group page (`/g/[slug]`) follows the same pattern with Group identity as the header anchor (per [`../systems/groups.md`](../systems/groups.md)).

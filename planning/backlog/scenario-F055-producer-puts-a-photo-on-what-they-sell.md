@@ -13,7 +13,11 @@ status: next
 **Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → Group(kind='business') → Item(kind='product' | 'service' | 'gathering') with one attached image. **No new entity. No shell entity.** The image is a column on the Item, not a thing of its own.
 **Spec contract:** [`decision-photo-upload.md`](decision-photo-upload.md) §§ 4, 5, 6 · [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 2.2 (the OG-image carry) · [`design-language.md`](../../product/ui/design-language.md) § Card media block · [`item.md`](../../product/systems/item.md) § Per-kind typed columns ("Embedded media") · [`action-layer.md`](../../product/systems/action-layer.md) § Same-transaction row+event invariant
-**Status:** next — **approved 2026-09-07.** Gate B cleared: both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature.
+**Status:** backlog — **approved, then deferred 2026-09-07.** Gate B cleared: both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature.
+
+> **DEFERRED 2026-09-07 by PM ruling: Pages get photos now, Items get photos later.** Returned to the draft lane because lane membership is the state and the build agent may start anything in the approved lane. **Nothing here is withdrawn** — the reasoning and the acceptance criteria stand.
+>
+> **The storage bucket and the upload module have moved to [F061](../next/scenario-F061-someone-creates-a-page-worth-showing-people.md)**, which now consumes them first. **The bucket is renamed `media`; every mention of `item-media` below is stale.** When this scenario resumes, the substrate already exists and what remains is a photo field on three composers that already exist — roughly half a day. See [`review-F055.md`](review-F055.md).
 
 ## The Person
 

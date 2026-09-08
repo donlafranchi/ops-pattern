@@ -20,14 +20,16 @@ SocialUs is a local discovery app — buy, sell, trade, and gather — launching
 
 ## In flight
 
+- **A Page worth showing people** — the current stretch, and the one being judged by Don creating his own Page: a real address *or* a neighbourhood, one category, a photo, and generated art on every Page that has none. **Approved and in the build lane, nothing blocking.** Scenario and review: [`planning/next/`](planning/next/) F061.
 - **Fixing the dead producer page** — approved, ticketed, buildable today. Create nothing, reuse one query, remove six dead reads. *Blocked on nothing.*
-- **The producer entry point** — `/you/sell` forks into `/you/create`, which asks *what are you starting?* and lets people host without opening a shop. **Blocked on: a review, which needs Don's go-ahead.**
-- **Photo upload, link previews, and the report path** — scoped and ticketed. **Blocked on: `weigh` running on two commitments — stripping location data out of uploaded photos, and having a takedown path before the first upload.** Two hours of work; nine days sit behind it.
+- **The producer entry point** — `/you/sell` forks into `/you/create`, letting people host without opening a shop. Reviewed and ticketed.
+- **The report path and image takedown** — approved. **No photograph is accepted in production until this is live**, so it runs alongside the Page work rather than after it.
+- **Item photos** — **deferred.** The Page is the unit that carries a face. The upload substrate moved to the Page work; when Items resume it is a composer field, about half a day.
 - **Repo cleanup** — 26 files archived, 84 flagged for a ruling. *Done; awaiting rulings.*
 
 ## Waiting on Don
 
-- **Go-ahead to review the producer entry point.** Blocks the entire host-without-a-shop track — the change the repositioning rests on.
+- **The Page composer is now six steps** — name, address, category, photo, about, review — against a launch requirement of *minimal fumbling*. Three are new and each earns its place, but nobody has judged them as a set. **Not blocking: the first tickets are substrate.** Options in the F061 review.
 - **The 84 cleanup rulings**, in [`planning/CLEANUP.md`](planning/CLEANUP.md). The two that block work: whether the spec-patch backlog gets drained, and whether two launch-adjacent decisions (profile edits needing an update handler, the accent colour failing contrast) get promoted into the plan.
 - **Whether "members share in what they help build" means profit or ownership.** It decides whether that candidate competes with the surplus promise for the same money or draws on something else entirely — the single clarification that most changes the shape of the promise set.
 - **Promise 1 — what "surplus goes back to the community" actually means.** Who decides the number, over what period, and what returning it looks like. Three options in [`product/foundation/promises.md`](product/foundation/promises.md); **the promise stays out of user-facing copy until this is picked.**

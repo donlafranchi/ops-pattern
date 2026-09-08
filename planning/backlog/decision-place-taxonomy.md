@@ -6,6 +6,10 @@ status: partly-ruled
 
 # Decision — the minimum place vocabulary, and what the venue relationship costs
 
+> **RULED 2026-09-07: appearances cannot overlap in time.** A Page cannot be in two places at once; an overlapping appearance is refused at creation, naming the conflicting one. Sequential appearances on the same day are ordinary. **Two design consequences for whenever this work is built:** appearance rows must carry a real time range (not schedule detail in loose JSON) or the rule cannot be enforced by a database exclusion constraint, and `btree_gist` must be enabled — the schema currently has only `vector` and `postgis`. **The handler checks first so the refusal reads like a sentence; the constraint is what makes it true.** Full reasoning in [`../next/review-F061.md`](../next/review-F061.md) § Fourth addendum; the model lives in [`groups.md`](../../product/systems/groups.md) § Where a Page appears is resolved, not stored.
+>
+> **Also settled there:** an appearance **replaces an area anchor and adds to an address anchor.** A truck in a neighbourhood moves to the market; a bakery with premises is at both.
+
 > **RULED 2026-09-07: the half-day shape is approved — item-level appearances, auto-approved.** Queued for build. **Auto-approval is now justified on its merits, not its price** — see [`../../product/foundation/promises.md`](../../product/foundation/promises.md) § How good faith is enforced. Vendor cards on the venue page are **sequenced after the profile editor**, not folded into the half-day; pricing below.
 
 **Raised:** 2026-09-07. The PM's ruling that **each business location is its own Page** (a two-location bakery is two Pages), that **an itinerant creator is found through the Pages of the places they appear at**, and that **the vocabulary is collapsing three genuinely different things**.

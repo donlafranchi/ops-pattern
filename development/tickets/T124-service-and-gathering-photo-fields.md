@@ -1,7 +1,11 @@
 # T124: Service and gathering composers get the same photo field
 
-**Scenario:** `planning/next/scenario-F055-producer-puts-a-photo-on-what-they-sell.md`
-**Status:** Open — **BLOCKED, Gate B (via T120).**
+**Scenario:** `planning/backlog/scenario-F055-producer-puts-a-photo-on-what-they-sell.md` — **DEFERRED with its scenario.**
+**Status:** **DEFERRED 2026-09-07.** Not open, not blocked — held by PM ruling.
+
+> **Deferred with its scenario.** Pages get photos now, Items get photos later. The scenario returned to `planning/backlog/`, so this ticket points outside the approved lanes **by design** — the gate check reports it as a deferred pair, not as a firewall breach. **Do not start.**
+>
+> **The substrate this depended on is no longer blocked** — T120 re-bound to F061 and is buildable. When this resumes, the bucket (renamed `media`), the upload module, the metadata strip and the picker recipe all already exist, and what remains is a composer field.
 **Bundle:** b1 (v1 workstream 10)
 **Depends on:** T121
 

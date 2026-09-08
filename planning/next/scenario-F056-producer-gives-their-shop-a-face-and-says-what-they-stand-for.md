@@ -1,7 +1,7 @@
 ---
 purpose: Scenario — a producer edits their shop after creating it: a shop image, a public description, and a self-declared values statement. Introduces the first producer-side edit surface and the two update handlers the action layer is missing.
 layer: how
-status: backlog
+status: next
 ---
 
 # F056: A producer gives their shop a face and says what they stand for
@@ -13,7 +13,11 @@ status: backlog
 **Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → Group(kind='business') with an image and a self-authored values statement. **No shell entity** — the values statement is a column on `group_businesses`, a child of a Group of people, not a property of a corporate record.
 **Spec contract:** [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) §§ 2.1, 2.3 (tagline + listing health) · [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) §§ 2, 4 · [`decision-photo-upload.md`](decision-photo-upload.md) §§ 3, 6 · [`groups.md`](../../product/systems/groups.md) § kind='business' · [`bundle-1.md`](../now/bundle-1.md) § Positioning
-**Status:** backlog — **moved back from `next/` 2026-09-07, same day it rode there.** Gate B is clear (both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature) but Gate A is not: the review's EXTEND — `groups.md` owes a § Editing an active business Group — is still open. It advanced alongside F055 and F058 by mistake, not by ruling; F055 and F058 had no EXTEND and correctly stay in `next/`. Returns to `next/` once the Groups spec section lands.
+> **Boundary with [F061 — creating a Page worth showing people](scenario-F061-someone-creates-a-page-worth-showing-people.md), set 2026-09-07.** **F061 owns creation; this scenario owns editing something already live.** F061 ships the photo column, the storage bucket, the upload module and the image-picker recipe; **this scenario consumes all four and adds nothing storage-shaped.** The category is likewise created at F061 and edited here. The line to hold: *save is publish* applies here and only here, because there is nothing published yet at creation time.
+>
+> **Two things below are stale.** The **values statement is cut** (PM ruling 2026-09-07) — remove it from the field list, the copy and the acceptance criteria. The **shop image column is `groups.photo_url` on the spine**, created by F061, not a new `group_businesses.image_url`; a Page of any kind carries a face, not only a business one.
+
+**Status:** next — **Gate A now clears, 2026-09-07.** Both gates are satisfied: Gate B by the two ratified upload absolutes (`policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature), and **Gate A by the EXTEND being discharged — `groups.md` § Editing an active Page is written.** It was correctly returned to `backlog/` earlier the same day when it rode to `next/` with that EXTEND still open; this move is the one the gate actually permits.
 
 ## The Person
 

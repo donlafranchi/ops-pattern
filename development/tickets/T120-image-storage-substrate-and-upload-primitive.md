@@ -1,39 +1,45 @@
 # T120: Image storage substrate and the upload primitive
 
-**Scenario:** `planning/next/scenario-F055-producer-puts-a-photo-on-what-they-sell.md` — **substrate portion.** No user-visible surface ships in this ticket.
-**Status:** Open — **BLOCKED, Gate B. Not buildable.**
+**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md` — **substrate portion.** No user-visible surface ships in this ticket.
+**Status:** Open — **UNBLOCKED 2026-09-07. Buildable.**
+
+> **Re-bound 2026-09-07.** This ticket was written under the Item-photo scenario, which is now deferred — **Pages get photos first**, so the substrate lands with them. Gate B has since cleared: both upload absolutes carry State-tagged Intent in `policy.md` § Uploaded images. Gate C is satisfied by `planning/next/review-F061.md` (PROCEED).
+>
+> **Two changes to the scope below, both from F061 review binding note 1:**
+> 1. **The bucket is `media`, not `item-media`.** It now serves Pages first and Items later; a name that says "item" would mislead every future reader. The bucket does not exist yet, so this is free now and expensive later.
+> 2. **The path prefix and every policy stay exactly as written** — member id first, which is what makes the write policy expressible.
+>
+> Everything else below stands unchanged, including the byte-level metadata test and the storage-API rejection test.
 **Bundle:** b1 (v1 workstream 10)
 **Depends on:** nothing
-**Blocks:** T121, T122, T124, T126
+**Blocks:** T145 (Page photo step + takedown), and later T126 (F056's shop-image editor) when it builds.
 
 **Serves:**
-- **Loop:** 7 (Buy close) — a listing that cannot carry a picture of the thing is a discovery failure before it is an aesthetic one. T118 shipped the card; this is what fills it.
+- **Loop:** 9 (Make a living locally), 7 (Buy close) — a Page with no face is a discovery failure before it is an aesthetic one. Pages are now the first consumer of this substrate; Items (T118's card) are the second, deferred.
 - **Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
-- **Primitive shape:** Person → Item, with an image as a column on the Item. **No new entity. No shell entity.**
+- **Primitive shape:** Person → Page, with an image as a column on the Page. **No new entity. No shell entity.**
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`. Verdict PROCEED on F055 with five binding notes; notes 1, 2 and 3 are binding on *this* ticket.
-- [ ] **Gate B — ratified absolutes. ⛔ NOT CLEAR. THIS TICKET IS NOT BUILDABLE.**
-  This ticket encodes **A1** in code:
-  > *"An uploaded image is stripped of its embedded metadata before it is stored. The platform never stores or serves an image carrying the GPS coordinates of the person who took it."*
-  `decision-photo-upload.md` § 4 carries it as `Intent (NEEDS WEIGH)`. Per rebuild rule 11 Gate B, **ticketing stops until `weigh` lands a State-tagged Intent in `product/foundation/policy.md`.** Drafted anyway, at PM request, so the full planning tier landed in one pass — **recorded as a deliberate Gate B deviation, not a waiver.** Do not start this ticket until the tag exists.
-- [x] **All three `Serves` lines resolve.** Loop 7 in `member-journey.md`; P1 in `use-cases.md`; the primitive shape adds no entity.
-- [x] **Cited spec last-changed dates.** `product/systems/item.md` — `Thu Sep 3 17:13:47 2026 -0700`. `product/systems/action-layer.md` — `Sun Jun 21 18:27:51 2026 -0700`. `product/foundation/policy.md` — `Tue Sep 1 08:27:03 2026 -0700` (**will change when `weigh` lands A1 — re-check before building**).
-- [x] **Governing DLS recipe.** **None needed — this ticket renders nothing.** The picker's recipe is a precondition of T121, not of this ticket (review binding note 4).
+- [x] **Gate C — review present.** `planning/next/review-F061.md`. Verdict PROCEED, six binding notes; notes 1 (bucket naming), 2 (byte-level EXIF test) and 3 (bucket-rejection test) are binding on *this* ticket.
+- [x] **Gate B — clear.** `policy.md:143` (metadata stripped, Ratified 2026-09-07), `policy.md:151` (takedown before first upload, Ratified 2026-09-07). Both landed the same session this ticket was unblocked.
+- [x] **All three `Serves` lines resolve.** Loop 9 in `member-journey.md`; P1 in `use-cases.md`; the primitive shape adds no entity.
+- [x] **Cited spec last-changed dates.** `product/systems/groups.md` — updated 2026-09-07 (§ *A photo, or art that admits it isn't one*). `product/foundation/policy.md` — updated 2026-09-07 (§ Uploaded images, both absolutes ratified).
+- [x] **Governing DLS recipe.** **None needed — this ticket renders nothing.** The picker's recipe (`design-language.md` § Image picker) is a precondition of T145, not of this ticket.
 
 ## What changes
 
 Three things, none of them visible.
 
-1. **A storage bucket and its policies.** `supabase/config.toml` currently has `[storage] enabled = true` with the bucket block commented out, and no migration creates a bucket. Add `item-media`: public read, `file_size_limit = 5MB`, `allowed_mime_types = ['image/webp']`.
+1. **A storage bucket and its policies.** `supabase/config.toml` currently has `[storage] enabled = true` with the bucket block commented out, and no migration creates a bucket. Add `media`: public read, `file_size_limit = 5MB`, `allowed_mime_types = ['image/webp']`.
+   _Why `media`, not `item-media`: F061 review binding note 1 — Pages are the first consumer now, Items the deferred second; a name that says "item" misleads every future reader, and the bucket doesn't exist yet so renaming is free._
 2. **RLS on `storage.objects`** for that bucket: public SELECT; INSERT/UPDATE/DELETE only where `(storage.foldername(name))[1] = auth.uid()::text`.
-3. **One upload module**, `src/lib/media/upload-image.ts`, plus its tests: take a `File`, downscale via canvas to a 1600px max edge, re-encode WebP, upload to `item-media` under `{member_id}/{uuid}.webp`, return the public URL. Plus `deleteImage(url)`.
+3. **One upload module**, `src/lib/media/upload-image.ts`, plus its tests: take a `File`, downscale via canvas to a 1600px max edge, re-encode WebP, upload to `media` under `{member_id}/{uuid}.webp`, return the public URL. Plus `deleteImage(url)`.
 
 ## Acceptance Criteria
 
-- [ ] Migration `0NN_item_media_bucket.sql` creates the `item-media` bucket with `public = true`, `file_size_limit` 5 MB, `allowed_mime_types = ['image/webp']`. `supabase/config.toml` mirrors it for local dev.
-- [ ] Three policies on `storage.objects` scoped to `bucket_id = 'item-media'`: SELECT to `anon` + `authenticated`; INSERT, UPDATE and DELETE to `authenticated` where the first path segment equals `auth.uid()::text`.
+- [ ] Migration `0NN_media_bucket.sql` creates the `media` bucket with `public = true`, `file_size_limit` 5 MB, `allowed_mime_types = ['image/webp']`. `supabase/config.toml` mirrors it for local dev.
+- [ ] Three policies on `storage.objects` scoped to `bucket_id = 'media'`: SELECT to `anon` + `authenticated`; INSERT, UPDATE and DELETE to `authenticated` where the first path segment equals `auth.uid()::text`.
 - [ ] `src/lib/media/upload-image.ts` exports `uploadImage(file, memberId)` → `{ url }` and `deleteImage(url)`. **One module. Every caller uses it** — review binding note 1: a second upload path is how the EXIF guarantee holds in one place and not the other.
 - [ ] Resize: longest edge ≤ 1600px, aspect preserved, **no upscaling** of images already smaller.
 - [ ] Encode: `canvas.toBlob(..., 'image/webp', 0.82)`. Quality is a named constant, not a literal at the call site.
@@ -46,7 +52,7 @@ Three things, none of them visible.
 
 ## Workflow gates
 
-- [ ] **Gate B** — see above. **Blocks the start of this ticket.**
+- [x] **Gate B** — clear (see above). No longer blocks.
 - [ ] **M2 `engineering:code-review`** before commit.
 - [ ] **M3** — does not fire. `git diff --name-only main | grep -E '^src/(app|components)/'` returns nothing: this ticket touches `src/lib/`, `supabase/migrations/` and `supabase/config.toml` only. **Stated, not waived.**
 - [ ] **M4 `engineering:deploy-checklist`** — fires. New migration.

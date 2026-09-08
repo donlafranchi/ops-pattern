@@ -142,6 +142,179 @@ When a Group enters dormancy, `groups.dormant_at = now()` and `groups.dissolves_
 
 > **Intent (Ratified 2026-05-31):** The platform deliberately does not track business-Group lifecycle beyond explicit owner action. Auto-dormancy and founder-only revival were modeling that the platform isn't equipped to do — adjudicating whether an off-platform business is "really" dormant requires signals the platform doesn't have (sales records, legal filings, owner intent) and creates surface area for the platform to mis-handle. The simpler shape: business Groups exist as long as ≥1 owner is on the membership; surfacing is the discovery algorithm's job, not lifecycle machinery's; explicit dissolve is the only dissolution path. **Member-anchored social capital** (per the next bullet, ratified 2026-05-12) still holds: a Member's accumulated recognition travels with them across any Group they hold membership in, so the "what happens to reputation when an owner leaves" question is answered at the Member level, not the Group lifecycle level.
 
+## Editing an active Page
+
+*Added 2026-09-07. This section is the EXTEND the self-serve producer review owed, and it is what the Page-editor work waits on. Written against the code, not against intent — where the two differ, the difference is named.*
+
+**A Page is created once and edited many times.** Creation ships (the five-step walkthrough); editing does not exist. **Every field set during creation is currently permanent**, which is the gap this section closes.
+
+### Who may edit
+
+**The Member holding the Page's managing role.** That is `owner` on a `kind='business'` Page and `steward` on every other kind — the branch already implemented as `managingRoleForKind(kind)`, landed when the founder-role divergence was fixed.
+
+**The editor calls that same function rather than hardcoding a role.** The draft-update handler was found hardcoding `owner` for every kind, which locked non-business founders out of their own in-flight work; it was corrected at the same time. **Repeating that mistake in a second handler is the specific thing this paragraph exists to prevent.**
+
+Staff-role members of a business Page **may not edit the Page itself**. They can post Items on its behalf; changing what the Page *is* stays with the managing role.
+
+### What is editable, and what is not
+
+**Editable on an active Page:**
+
+| Field | Where it lives | Note |
+|---|---|---|
+| Display name | business child row, mirrored on the spine | See § The slug does not follow the name |
+| About / description | business child row | Collected at walkthrough step 3 |
+| Tagline | **`groups` spine** | New column; ≤120 chars |
+| Image | **`groups` spine** | New column; one image, no gallery |
+| Where they'll be next | **`groups` spine** | New column; one free-text line, ≤140 chars |
+| Anchor Venue | spine `anchor_location_id` | Changing it changes the public address — see below |
+
+**The three new columns land on the `groups` spine, not on the business child row** *(redirected 2026-09-07)*. A run club deserves a face and a one-liner as much as a bakery does, and putting them on the child row would have made them business-only by construction.
+
+**Not editable, and the list matters more than the editable one:**
+
+- **The slug.** Never, by any path. See below.
+- **The Page's kind.** Already covered by § No kind transitions — a person who wants a different kind creates a second Page.
+- **The lifecycle state.** Ending a Page is `group.dissolve`, a separate deliberate act, not a field on an edit form.
+- **The founder.** A historical record of who created the row, not a setting.
+- **Membership and roles.** Managed by the join / role-change / remove verbs, not by editing the Page.
+- **The locality claim.** Its own act with its own evidence, on its own surface.
+- **Anything legal or tax-shaped.** The entity-type, formation-state and formation-date columns exist as storage for facts a Member may record elsewhere. **No editor surfaces them, no form collects them, and no copy anywhere refers to them.**
+
+### The slug does not follow the name
+
+**Renaming a Page changes what it is called. It does not change where it lives.**
+
+A slug is a public address. People text links to each other — that is how this platform spreads — and **an address that silently moves when someone fixes a typo breaks every link already shared, with no error and no redirect.** The name is display; the address is infrastructure. They are set together once and diverge from then on.
+
+**What the code does today, stated precisely so nobody designs around a bug that isn't there:**
+
+- The draft-update handler **does** re-derive the slug on every name change — and it **refuses outright on any row that is not a draft.** So an active Page cannot be renamed at all today, and the re-derivation only ever runs while a Page is still hidden behind draft visibility.
+- **This is therefore not a live bug.** It is a correct behaviour in the only state it can currently reach. **The trap is the editor**: the obvious implementation extends that handler to active rows, and doing so would carry the re-derivation across with it.
+- **The editor writes the name and leaves the slug untouched.** Not "regenerates and compares" — never reads it.
+
+*A rename that genuinely needs a new address is a redirect problem, not an edit problem, and there is no redirect substrate. Deferred; not a launch concern.*
+
+**Changing the anchor Venue is the one edit that does move the public address**, because the place path derives from it. That is unavoidable and should be surfaced to the Member as a consequence rather than performed silently.
+
+### Edits emit an event, like every other write
+
+**One `group_events` row per edit, written in the same transaction as the update** — the row-plus-event invariant every other write in the system already follows. The event carries the acting Member and, where relevant, the delegation it acted under, matching the shape of the existing group events rather than inventing a new one.
+
+**The event records that a Page was edited and by whom.** It is an audit record, not a change feed, and nothing renders it.
+
+### There is no draft state for an active Page
+
+**Edits publish immediately.** A Page that is live stays live while it is edited; there is no pending-review state, no preview, and no second copy of the row.
+
+This is deliberate rather than merely cheap: a draft state for edits means two versions of a public address, a decision about which one strangers see, and a way to abandon one — none of which earns its place for a form with six fields. **Save is publish, and the form should say so plainly rather than implying a review step.**
+
+*(The `draft` lifecycle state is the composer's in-flight state during creation. It is not an editing mode and must not be reused as one.)*
+
+### Out of scope, named rather than assumed
+
+**The editor serves one requirement: a Page worth finding — links, a bio, what they sell, where to find them.** Everything else is deferred:
+
+- Multiple images, cropping, reordering.
+- A values statement *(cut 2026-09-07)*.
+- Analytics, follower counts, or any dashboard.
+- Editing another Member's Page, however senior the editor.
+- Bulk edits across the several Pages one Member may hold.
+
+## What a Page carries at creation
+
+*Added 2026-09-07. The Page is the unit of discovery — it is what browse is made of, what the map pins, and what search matches. This section is the identity a Page must have by the time it is first published for any of that to work.*
+
+Three fields, all set in the composer, all on the Page rather than on anything filed under it.
+
+### A real place, at the precision its owner chooses
+
+**A Page says where it is in one of two ways: a street address, or a neighbourhood.** Both are real answers. Neither is a fallback for the other.
+
+> **Intent (Ratified 2026-09-07).** A Page that pins somewhere its founder did not choose is worse than a Page with no pin at all — it is a confident wrong answer, and the person it misrepresents is the one who gets asked about it. **What is refused is a fabricated coordinate: no default, no city centroid, no placeholder, no code path that invents a location because none was given.** A Member declining to give a street address is not the same thing and is never treated as one — **the platform refuses to guess, not to accommodate.**
+
+**Address mode.** The founder types an address; the coordinates are derived from it. Nothing asks a Member for a latitude. If the address cannot be resolved, the step refuses and says so rather than storing something approximate.
+
+**Neighbourhood mode.** The founder picks a neighbourhood from the Places tree, which already carries `kind='neighborhood'` rows with polygons. The Page's point is placed **inside that polygon, derived from the Page's own identifier**, and no street address is stored, rendered, or derivable.
+
+> **Intent (Ratified 2026-09-07).** [`../foundation/policy.md`](../foundation/policy.md) already separates a locality *claim* from a street address so that a person is not required to publish where they live in order to take part. **Neighbourhood mode is that separation made usable at the point where it matters** — the moment someone is asked where they are. Two kinds of Member need it and neither is an edge case: the person working from home who will not put their home on a public map, and the Page with no fixed location at all. **A platform that only accepts street addresses selects against both.**
+
+**The scattered point is derived, never random.** The same Page resolves to the same point forever — across reloads, devices and viewers. *(Same reasoning as default art: a pin that moves tells a visitor the page is untrustworthy, and a pin that moves cannot be recognised or returned to.)* **Points are drawn toward the interior of the polygon** rather than uniformly across its bounding box, so a Page does not land in a river or across a boundary while its neighbourhood outline is still approximate.
+
+**Neighbourhood mode changes what is shown, not what works.** The Place, and therefore the metro, still resolve from the point, because both resolutions are geographic. **A Page in neighbourhood mode appears at Venues exactly as any other Page does** — an appearance is a relationship to someone else's Location and has never depended on having an address of one's own. *(The itinerant Page is the case this most obviously serves.)*
+
+### Where a Page appears is resolved, not stored
+
+**A Page's placement is derived at read time from a precedence, not read from a column. A placement is either a point or an area** — the distinction is part of the answer, not a rendering detail.
+
+1. **Active appearances at Venues win, and are always points.** A Page appearing at one or more Venues right now shows at each of those Venues' real addresses, for as long as the appearance lasts.
+2. **Otherwise, its own anchor** — **a point** if it gave a street address, **an area** if it gave a neighbourhood.
+
+> **Intent (Ratified 2026-09-07).** **A point asserts that something is at a place. Nothing that isn't there should make that assertion.** A shop is at its address every day. A class or a club with nothing scheduled is not anywhere in particular — **it is *of* an area, not *at* a place** — and a pin dropped for it tells a passer-by that if they go there they will find something, which is false.
+>
+> **So the area is not only the privacy fallback; for a group with nothing scheduled it is the honest answer.** The point returns the moment there is an actual intention to meet: a gathering at a venue, for its duration, and then back to the area.
+>
+> This gives the map the same distinction the feed carries: **areas read as *who is around*, points read as *what is on and where*.** Delivered geometrically rather than through a filter the Member has to find.
+
+**One consequence worth stating: the derived point inside a neighbourhood polygon narrows to a single job — the Member who has a real address and will not publish it.** A Page that is genuinely area-shaped needs no scattered point at all; its Place and metro resolve from the neighbourhood directly, because the neighbourhood is a Place.
+
+> **Intent (Ratified 2026-09-07).** A stall at a market on Saturday *is* at the market on Saturday, and the map that says otherwise is wrong in the way that costs a seller a customer. **But the same Page must not have to publish a home address to be somewhere the rest of the week.** Resolving position rather than storing it is what lets both be true at once — and it means **a real address is only ever shown for a place that is open to the public and belongs to whoever hosts it.** A Page's own address is never revealed by an appearance.
+
+**Consequences that follow from resolving rather than storing, and are the reason to do it this way:**
+
+- **An appearance ending needs no cleanup.** The pin returns to the neighbourhood because the appearance stopped satisfying the time window — **the same mechanism that drops a gathering from the feed once it's over.** No job, no expiry sweep, no stale row.
+- **Appearances cannot overlap in time.** A Page cannot be in two places at once, and an overlapping appearance is refused when it is created. **Sequential appearances on the same day are ordinary** — a truck at one market in the morning and another in the afternoon.
+
+  > **Intent (Ratified 2026-09-07).** A Page is a person or people, and people are in one place at a time. **Letting the data say otherwise makes the map assert something false about someone**, and there is no honest reading of two simultaneous appearances that a viewer could act on. *(This retires an earlier assumption that a Page could show at two locations at once. That came from the previous model, where a producer's individual **Items** could sit at several pickup points — Items were the unit. Under the current model Pages are the unit and individual products are not, so **the case it was written for no longer exists.** An inherited assumption retired, not a live decision reversed.)*
+
+- **How an appearance interacts with the anchor depends on the anchor's type**, and this is the one line to remember:
+
+  **An appearance replaces an area. It adds to an address.**
+
+  A truck whose anchor is a neighbourhood is at the market and *not* in its neighbourhood — it moved. **A bakery with premises is at its shop *and* at the market — the shop did not go anywhere**, and removing it from the map on a Saturday would send people to a door that is open. So a Page has at most two placements: its own address if it has one, plus at most one active appearance.
+- **Position cannot be materialized ahead of time.** Anything that caches a Page's point goes stale the moment an appearance starts or ends. **Resolution belongs in the query, beside the time filters that already exist there.**
+
+**A Page always says where it currently resolves to, on its own public surface, to everyone.** *(Intent — Ratified 2026-09-07: it is already public by virtue of being on the map, so hiding it from the page would conceal it only from the person most affected. **Nobody should ever be surprised by where they are pinned.**)*
+
+### One category, from a fixed list
+
+**A Page declares exactly one category, chosen at creation from a vocabulary the platform maintains.** Twelve terms at launch:
+
+Food & Drink · Growing · Home & Body · Textiles & Craft · Wood, Metal & Repair · Art & Music · Classes & Workshops · Sport & Outdoors · Community & Mutual Aid · Music & Nightlife · Family & Kids · Faith & Culture
+
+**The category lives in its own indexed column on the spine.** Not in `metadata`, which is unused and stays that way — a field that browse filters and search matches is not a JSON bag.
+
+**Broad buckets, not leaf nodes.** The list is meant to hold a whole neighbourhood's worth of activity in twelve terms and to grow from evidence rather than from anticipation.
+
+#### Other, and why the escape hatch is the instrument
+
+**A thirteenth choice — *Other* — takes free text, and that text goes to its own table.**
+
+The text is **captured, not promoted.** It does not create a browsable category, does not appear as a filter, and does not join the vocabulary. It renders on the Page as the words its owner chose, and search matches it.
+
+> **Intent (Ratified 2026-09-07).** The earlier position was that an escape hatch *hides* the signal that a vocabulary is wrong — people take the easy exit and the list never gets corrected. The reverse is true when the exit is instrumented: an empty *Other* table says the twelve terms fit, and forty rows saying the same thing say precisely which term is missing and how badly. **The escape hatch is how the vocabulary earns its next term.** Excluding it would leave the platform guessing.
+>
+> The vocabulary stays curated because promotion is a deliberate act — someone reads the table and adds a term. **What is refused is the automatic path: no volume of identical entries promotes itself into the list.**
+
+**No admin screen.** The table is indexed on a normalized copy of the text; grouping and counting it is the surface.
+
+### A photo, or art that admits it isn't one
+
+**A Page may carry one photo, set at creation.** Optional — a Page with no photo is a complete Page.
+
+**When there is no photo, the Page shows generated art derived from its own identifier**: a colour pair and a mark, stable for the life of the Page.
+
+> **Intent (Ratified 2026-09-07).** At launch nearly every Page will have no photograph, so the placeholder is not an edge case — **it is what the platform looks like on its first day.** Two things follow. It must be *deterministic*, because art that reshuffles on reload tells a visitor the page is unstable. And it must be *visibly not a photograph*, because a placeholder handsome enough to pass for one both misrepresents the place and removes the reason to add a real picture. **Stock photography is refused on both counts** — it depicts somewhere that isn't there, and every Page in a category ends up wearing the same three faces.
+
+**A Page photo is subject to the same two commitments as any uploaded image** — metadata stripped before storage, and a takedown path that exists before the first upload is accepted ([`../foundation/policy.md`](../foundation/policy.md) § Uploaded images). **One bucket and one upload path for the whole platform**, so those commitments hold in one place rather than in each caller.
+
+### What creation-time does not decide
+
+- **Editing any of these afterwards is the editor's job**, above — same fields, same column, different surface, and *save is publish* applies there and not here.
+- **Photos on Items** are deferred. The Page is the unit that carries a face; a product does not need one to be found.
+- **Categories on Items** are not this. `item_tags` is keyed by Item and cannot carry a Page's category.
+- **No verification of any kind.** A category is a claim its owner makes, like every other field on a Page. *(Intent — Ratified 2026-09-07: trust here is the members', not the platform's. See [`../foundation/promises.md`](../foundation/promises.md) § How good faith is enforced.)*
+
 ## No kind transitions
 
 Groups do not change kind. If a Member pivots — a Run Club's organizers decide to formalize as a registered LLC, a bakery decides to convert to a non-commercial baking-class series — they end the current Group and create a new one of the new kind. This is simpler than maintaining a transition machinery with role-mapping rules and audit semantics for every kind pair. Items lose their `group_id` when the source Group dissolves; the Member can re-file Items under the new Group at their discretion.
