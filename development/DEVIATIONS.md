@@ -917,3 +917,29 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 **M2 code review** found one issue — `overflow-hidden` duplicated from `.card`. Removed before commit, as rebuild rule 3 requires.
 
 **No other deviations.** The unconditional media block, the seven-glyph mapping, the colourless placeholder, the chip's replacement by an editorial label, the hairline, the fill-height behaviour, the absence of any width or column-count assumption, and the untouched chrome all match the ticket AC.
+
+---
+
+## 2026-09-08 — T140 (migration drift check, detection half)
+
+### T140: `-o json` does not work on `supabase migration list` in the installed CLI
+
+**What:** The ticket's own idiom (matching `gate-conformance.sh`) implied plain-text parsing was a style choice; `-o json` was tried first as the more robust option. Against this project's real linked remote, the installed CLI (v2.90.0) silently ignored the `-o json` flag on `migration list` and printed the same plain-text `Local | Remote | Time (UTC)` table it prints by default. `scripts/migration-conformance.sh` parses that table's text.
+
+**Why:** Not an assumption — verified directly. The worktree was linked to the real project (`supabase link --project-ref khghdkdsicoeafyuvewl`, a read-only association) specifically to observe real output rather than guess at a schema. `-o json` is a documented global flag on other `supabase` subcommands; it not doing anything here is either a CLI limitation on this subcommand or a version gap (an update to v2.117.0 is available and untested). Table-text parsing is inherently more fragile than JSON to future CLI formatting changes — the script's header comment records this and the parsing is written to fail toward "cannot verify" (warn, exit 0) rather than a false "clean" if the format ever shifts.
+
+**Disposition:** accepted-as-is. Revisit if a CLI upgrade is ever taken — check whether `-o json` works before assuming the text-parsing path still applies.
+
+### T140: migration 038 is already applied to the remote project — contrary to the ticket's premise
+
+**What:** Both the original ticket text and the PM's ticketing-session instructions stated migration 038 was "currently outstanding." Running `scripts/migration-conformance.sh` against the real linked remote (same link used above) shows **038 already present in both the Local and Remote columns** — every migration 001–038 (003 does not exist, by design) matches. The script correctly reports clean.
+
+**Why:** Not a script defect — verified by hand with `supabase migration list` directly, independent of the script, same result. Something pushed 038 to production between the PM's last check and this session. The most likely explanation is the concurrent Cowork session flagged earlier this session (its uncommitted changes were visible in `git status` in the parent repo when the F061 lane move was attempted) — but this is inference, not confirmed.
+
+**Disposition:** flag-for-spec-revision.
+**Type:** A (upstream authoring error — the premise was stale, not wrong when written).
+**Route:** PM should confirm who/what pushed 038 and correct any doc still citing it as outstanding (T140's own ticket text is the one instance found).
+
+### No other deviations
+
+The script's scope matches the ticket exactly: detection only, never applies; shells `supabase migration list`; parses local-present/remote-absent; degrades to a warning (never a false "clean") when the CLI is missing, the project isn't linked, or the output can't be parsed; wired into `orient`'s drift checklist and `close`'s session-end step; `db:push` added to `web/package.json`. Two findings from the mandatory `engineering:code-review` pass (M2) were fixed before commit, not deferred — see the script's own git history for the pre-fix version if needed. `development/DEVIATIONS.md` is now 950+ lines with no rotation pointer, which `orient`'s own drift checklist (Audit E2) already flags; not fixed here, out of this ticket's scope.
