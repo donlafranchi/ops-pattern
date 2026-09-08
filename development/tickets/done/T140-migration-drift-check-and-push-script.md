@@ -1,7 +1,7 @@
 # T140: A migration that is written but not applied stops being invisible
 
 **Scenario:** substrate — no user-facing surface.
-**Status:** Open
+**Status:** Complete
 **Bundle:** launch (`planning/now/initiative-launch.md`) — **infrastructure, runs alongside launch work, not instead of it.**
 **Depends on:** none. Blocks nothing.
 
@@ -40,14 +40,14 @@ A `scripts/migration-conformance.sh` that answers one question: **does remote ma
 
 ## Acceptance Criteria
 
-- [ ] `scripts/migration-conformance.sh` exists, is executable, exits non-zero when any local migration is absent remotely, and names each gap.
-- [ ] It **degrades honestly** when the CLI is missing or the project is not linked: warn and exit zero, never fail silently and never claim clean.
-- [ ] It **never** invokes `db push`, `psql`, or any statement that writes.
-- [ ] `npm run db:push` runs the documented CLI path from the repo root.
-- [ ] The `orient` drift checklist gains a row for it, next to the gate-check row.
-- [ ] The `close` workflow's session-end step runs it alongside the gate check.
-- [ ] The ticket template carries the migration-applied gate.
-- [ ] Running it today reports clean, given 036 and 037 have been pushed.
+- [x] `scripts/migration-conformance.sh` exists, is executable, exits non-zero when any local migration is absent remotely, and names each gap.
+- [x] It **degrades honestly** when the CLI is missing or the project is not linked: warn and exit zero, never fail silently and never claim clean. Also degrades honestly on unparseable output, and (added during M2 review) on a local migration file that never appears in the CLI's output at all — see Completion notes.
+- [x] It **never** invokes `db push`, `psql`, or any statement that writes. Verified by reading the final script: the only external call is `supabase migration list`.
+- [x] `npm run db:push` runs the documented CLI path — from `web/`, not the repo root. See Completion notes for the deviation.
+- [x] The `orient` drift checklist gains a row for it, next to the gate-check row.
+- [x] The `close` workflow's session-end step runs it alongside the gate check.
+- [x] The ticket template carries the migration-applied gate.
+- [x] Running it today reports clean — **and 038 is included in that clean, not just 036/037.** See Completion notes; this contradicts the ticket's premise and is logged in DEVIATIONS.
 
 ## Explicitly out of scope
 
@@ -64,8 +64,19 @@ A `scripts/migration-conformance.sh` that answers one question: **does remote ma
 
 ## Workflow gates
 
-- [ ] **M2 — `engineering:code-review`** before commit.
-- [ ] **M3** — N/A, no surface.
-- [ ] **M4** — N/A, adds no migration.
-- [ ] **Migration applied to production** — N/A.
-- [ ] **DEVIATIONS.md entry** at close.
+- [x] **M2 — `engineering:code-review`** before commit. Two findings (no cross-check that every local migration file produced a row at all; the row-regex incidentally matched the header line). Both fixed before commit.
+- [x] **M3** — N/A, no surface.
+- [x] **M4** — N/A, adds no migration.
+- [x] **Migration applied to production** — N/A, this ticket adds no migration.
+- [x] **DEVIATIONS.md entry** at close.
+
+## Notes — added at close
+
+- **`-o json` does not work** on `supabase migration list` in the installed CLI (v2.90.0) — verified against the real linked remote, not assumed. Ignored the flag, printed the same plain-text table. The script parses that table's text; see DEVIATIONS for the full note and the honest-degrade rationale.
+- **`db:push` lives in `web/package.json`, not a repo-root one** — the parent repo has no `package.json`. `"db:push": "supabase db push"` (no `cd web` prefix needed, since `npm run` already executes from wherever the `package.json` sits).
+- **Migration 038 is already applied to the remote**, contrary to this ticket's own "given 036 and 037 have been pushed" framing and the PM's stated premise going into this ticket. Verified directly against the real linked project, independent of the script. Logged in DEVIATIONS as flag-for-spec-revision / Type A — the PM should confirm who pushed it.
+
+## Completion
+
+Date: 2026-09-08
+Commit: `b132d79` (parent repo — script, hooks, ticket close-out, DEVIATIONS entry) + `17e2aa1` (web repo — `db:push` in package.json) + `2d33eec` (web repo — BUILD-LOG entry)

@@ -212,3 +212,9 @@ Run `bash scripts/gate-conformance.sh` as the last step of any session that move
 
 **It reports and blocks; it never advances anything.** A non-zero exit is a stop: either fix the chain, or record why it is acceptable as a deviation. **Do not tick it by eye** — the check exists because the read-firewall was ticked by eye twice in one month, and a gate whose command nobody runs is not a gate.
 
+## Session-end migration check (added 2026-09-08, T140)
+
+Run `bash scripts/migration-conformance.sh` alongside the gate check, as the last step of any session that merged a ticket carrying a migration.
+
+**Same posture as the gate check: reports and blocks, never applies.** A non-zero exit names each migration that is written locally but not yet on the remote project — push it with `npm run db:push` (from `web/`) after reviewing what it does, or record why it is deliberately deferred. A CLI-missing or not-linked environment is reported as "unknown," never as "clean" — do not treat a warning-only exit as proof nothing is outstanding.
+
