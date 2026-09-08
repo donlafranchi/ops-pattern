@@ -1,7 +1,7 @@
 # T120: Image storage substrate and the upload primitive
 
 **Scenario:** F061 — someone creates a page worth showing people — **substrate portion.** No user-visible surface ships in this ticket.
-**Status:** Open — **UNBLOCKED 2026-09-07. Buildable.**
+**Status:** Complete
 
 > **Re-bound 2026-09-07.** This ticket was written under the Item-photo scenario, which is now deferred — **Pages get photos first**, so the substrate lands with them. Gate B has since cleared: both upload absolutes carry State-tagged Intent in `policy.md` § Uploaded images. Gate C is satisfied by review F061 (PROCEED).
 >
@@ -38,26 +38,25 @@ Three things, none of them visible.
 
 ## Acceptance Criteria
 
-- [ ] Migration `0NN_media_bucket.sql` creates the `media` bucket with `public = true`, `file_size_limit` 5 MB, `allowed_mime_types = ['image/webp']`. `supabase/config.toml` mirrors it for local dev.
-- [ ] Three policies on `storage.objects` scoped to `bucket_id = 'media'`: SELECT to `anon` + `authenticated`; INSERT, UPDATE and DELETE to `authenticated` where the first path segment equals `auth.uid()::text`.
-- [ ] `src/lib/media/upload-image.ts` exports `uploadImage(file, memberId)` → `{ url }` and `deleteImage(url)`. **One module. Every caller uses it** — review binding note 1: a second upload path is how the EXIF guarantee holds in one place and not the other.
-- [ ] Resize: longest edge ≤ 1600px, aspect preserved, **no upscaling** of images already smaller.
-- [ ] Encode: `canvas.toBlob(..., 'image/webp', 0.82)`. Quality is a named constant, not a literal at the call site.
-- [ ] **Byte-level EXIF test (review binding note 2).** A fixture JPEG carrying a real EXIF GPS block goes through `uploadImage`; the resulting blob's bytes are inspected and contain **no EXIF GPS**. *A test asserting that the resize function was called does not satisfy this criterion and must not be written in its place.*
-- [ ] **Bucket-rejection test (review binding note 3).** A direct upload of (a) a raw JPEG, (b) an SVG, (c) a 40 MB file, each with a valid member token bypassing the client module, is rejected **by the storage API**. Not by application code.
-- [ ] **Cross-member write test.** Member A writing under member B's prefix is rejected by policy.
-- [ ] `deleteImage` removes the object and is a no-op on a URL outside this bucket.
-- [ ] Failure surface: `uploadImage` throws typed errors for too-large, wrong-type, network, and canvas-unavailable, so callers can render distinct messages.
-- [ ] `BUILD-LOG.md` updated.
+- [x] Migration `039_media_bucket.sql` creates the `media` bucket with `public = true`, `file_size_limit` 5 MB, `allowed_mime_types = ['image/webp']`. `supabase/config.toml` mirrors it for local dev.
+- [x] Four policies on `storage.objects` scoped to `bucket_id = 'media'`: SELECT to `anon` + `authenticated`; INSERT, UPDATE and DELETE to `authenticated` where the first path segment equals `auth.uid()::text`. (Four, not three — SELECT, INSERT, UPDATE, DELETE are each their own policy; the ticket text undercounted, the acceptance criterion itself did not.)
+- [x] `src/lib/media/upload-image.ts` exports `uploadImage(file, memberId)` → `{ url }` and `deleteImage(url)`. **One module. Every caller uses it.**
+- [x] Resize: longest edge ≤ 1600px, aspect preserved, **no upscaling** of images already smaller. Verified against real dimensions via `@napi-rs/canvas`, not asserted on a mock.
+- [x] Encode: `canvas.toBlob(..., 'image/webp', 0.82)`. Quality is `WEBP_QUALITY`, a named constant.
+- [x] **Byte-level EXIF test.** A fixture JPEG carrying real GPS EXIF (built with `piexifjs`, confirmed present via `piexif.load` before the assertion that matters) goes through the resize/encode path; the resulting bytes are inspected and contain no `Exif` marker. Real canvas decode/encode via `@napi-rs/canvas` patched into jsdom — not a mock of the resize call.
+- [x] **Bucket-rejection test.** Written (`tests/media-bucket-storage-api.test.ts`) for JPEG, SVG, and an oversized file, plus a cross-member write test — all against the real storage API via `@supabase/supabase-js`. **Cannot run in this session** (no local Supabase stack — Docker daemon not running here); skips cleanly via the same `describe.skipIf` discipline as `tests/rls-coverage.test.ts`, gated strictly to a local (127.0.0.1) URL so it can never accidentally target the remote project. See Completion notes.
+- [x] `deleteImage` removes the object and is a no-op on a URL outside this bucket. Also strips query/hash before matching — see Completion notes (M2 finding).
+- [x] Failure surface: `uploadImage`/`resizeAndEncode` throw typed errors for too-large (both pre-decode sanity cap and the real post-resize limit), wrong-type, network, and canvas-unavailable (including an encode timeout). See Completion notes for the pre- vs. post-resize size-check fix.
+- [x] `BUILD-LOG.md` updated.
 
 ## Workflow gates
 
 - [x] **Gate B** — clear (see above). No longer blocks.
-- [ ] **M2 `engineering:code-review`** before commit.
-- [ ] **M3** — does not fire. `git diff --name-only main | grep -E '^src/(app|components)/'` returns nothing: this ticket touches `src/lib/`, `supabase/migrations/` and `supabase/config.toml` only. **Stated, not waived.**
-- [ ] **M4 `engineering:deploy-checklist`** — fires. New migration.
-- [ ] **DEVIATIONS entry**, including the § 5.2 residual: *a deliberately crafted WebP can carry an EXIF chunk; the MIME restriction moves this from "every phone upload leaks by default" to "constructed on purpose", and the server-side re-encode that closes it is deferred.*
-- [ ] **Close-out reconciliation.**
+- [x] **M2 `engineering:code-review`** before commit. Three findings, all fixed before commit: the size check ran against the pre-resize file instead of the post-resize stored blob (would have rejected ordinary 8–15MB phone photos); `canvas.toBlob`'s callback had no timeout if the browser never invoked it; `deleteImage`'s path extraction didn't strip a query string/hash.
+- [x] **M3** — does not fire. `git diff --name-only main | grep -E '^src/(app|components)/'` returns nothing: this ticket touches `src/lib/`, `tests/`, `supabase/migrations/` and `supabase/config.toml` only. **Stated, not waived.**
+- [x] **M4 `engineering:deploy-checklist`** — fires. New migration. Checklist run and recorded in the session; migration 039 deliberately not applied to production by this ticket (T140's mechanism handles that).
+- [x] **DEVIATIONS entry**, including the § 5.2 residual and the storage-API test's untested-in-this-session status.
+- [x] **Close-out reconciliation.**
 
 ## Notes
 
@@ -67,7 +66,13 @@ Three things, none of them visible.
 - **Do not introduce `next/image`.** The card uses a plain `<img>` with an eslint-disable; switching adds Vercel image-optimization billing for a benefit the client-side downscale already delivers.
 - The canvas re-encode **is** the EXIF strip. It is not a side effect to be optimized away — if someone later swaps in a library that preserves metadata, the privacy commitment silently breaks. Comment it at the call site.
 
+## Completion — notes
+
+- **Test-only dependencies added:** `@napi-rs/canvas` and `piexifjs` (+ `@types/piexifjs`), all `devDependencies`. Neither is imported anywhere under `src/` — confirmed by grep during M2. jsdom has no real 2D canvas context or `toBlob`; these let the resize/EXIF tests exercise real image processing instead of mocking the function that matters, per the ticket's own instruction not to write a call-was-made test in place of a byte-level one.
+- **The storage-API-level tests (bucket-rejection, cross-member write) did not run this session.** No local Supabase stack (`supabase start` needs Docker; the daemon isn't running in this environment). They're written and gated `describe.skipIf`, strictly to a `127.0.0.1`/`localhost` `SUPABASE_URL` so they can never accidentally target the remote project — same posture as `tests/rls-coverage.test.ts`. They will run the next time someone has `supabase start` up locally. Flagging so "written" isn't mistaken for "verified."
+- **Size-check fix (M2 finding):** the acceptance criterion's own phrasing ("too-large" as one of the typed errors) didn't specify pre- vs. post-resize; the first pass checked the wrong one. Fixed to check the *stored* (post-resize, post-encode) size against the bucket's real 5MB limit, with a separate generous 25MB pre-decode sanity cap. Documented in-line since it's exactly the kind of thing a future reader would "fix" back to the wrong direction without the comment.
+
 ## Completion
 
-Date: {YYYY-MM-DD}
+Date: 2026-09-08
 Commit: {pending}

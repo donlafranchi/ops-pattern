@@ -943,3 +943,30 @@ Per [F036-review.md § PM disposition](../planning/now/review-F036.md):
 ### No other deviations
 
 The script's scope matches the ticket exactly: detection only, never applies; shells `supabase migration list`; parses local-present/remote-absent; degrades to a warning (never a false "clean") when the CLI is missing, the project isn't linked, or the output can't be parsed; wired into `orient`'s drift checklist and `close`'s session-end step; `db:push` added to `web/package.json`. Two findings from the mandatory `engineering:code-review` pass (M2) were fixed before commit, not deferred — see the script's own git history for the pre-fix version if needed. `development/DEVIATIONS.md` is now 950+ lines with no rotation pointer, which `orient`'s own drift checklist (Audit E2) already flags; not fixed here, out of this ticket's scope.
+
+---
+
+## 2026-09-08 — T120 (image storage substrate and the upload primitive)
+
+### T120: size check ran pre-resize instead of post-resize (M2 finding, fixed before commit)
+
+**What:** The first pass of `resizeAndEncode`/`uploadImage` in `src/lib/media/upload-image.ts` rejected uploads over 5MB by checking the *original* `File.size`, before resize/re-encode. The ticket's acceptance criterion just says "too-large" is one of the typed errors and doesn't distinguish pre- vs. post-resize.
+
+**Why:** The bucket's real `file_size_limit` (`039_media_bucket.sql`) applies to the *stored* object — the resized, WebP-re-encoded blob — not the original upload. An ordinary phone photo is routinely 8–15MB straight off the camera and resizes to well under 1MB after the 1600px-max-edge / WebP-quality-0.82 pipeline. Checking the original size would have rejected the overwhelming majority of real-world uploads this module exists to accept. Caught in the mandatory M2 `engineering:code-review` pass before commit.
+
+**Disposition:** accepted-as-is (fixed in the same commit — see `MAX_STORED_BYTES` checked on the post-encode blob, `MAX_SOURCE_BYTES` as a separate generous pre-decode sanity cap).
+**Type:** n/a — caught and fixed before commit, not a shipped divergence.
+
+### T120: the bucket-rejection and cross-member-write tests did not run this session
+
+**What:** `tests/media-bucket-storage-api.test.ts` covers exactly what F061 review binding note 3 requires — a raw JPEG, an SVG, an oversized file, and a cross-member write, each rejected **by the storage API**, not application code. It's written and gated `describe.skipIf`, but no local Supabase stack was available in this session (Docker daemon not running), so it skipped rather than ran.
+
+**Why:** These tests write real objects and create real auth users via the admin API — the project's own convention (`tests/rls-coverage.test.ts`, `scripts/bootstrap-eval-helpers.ts`) is that write/auth-bound tests must be local-only, never pointed at the remote project. The gate here (`SUPABASE_URL` must resolve to `127.0.0.1`/`localhost`) follows that same discipline. It could not be satisfied in this sandbox.
+
+**Disposition:** flag-for-spec-revision.
+**Type:** B (real architectural decision — this project has no CI and no live-Postgres test environment in the agent sandbox, so any storage-API-level test can only ever be write-once, run-later).
+**Route:** decision stub at `planning/backlog/decision-local-only-test-verification.md` — should the PM run `supabase start` locally at least once before this ticket (and future storage/RLS-bound tickets) is treated as fully verified, or is "written, gated, unverified-in-this-session" an acceptable terminal state for agent-built tickets going forward? Not decided here.
+
+### No other deviations
+
+Everything else matches the ticket: `media` bucket (not `item-media`), four `storage.objects` policies scoped correctly, `uploadImage`/`deleteImage` as the one upload/delete path, resize to a 1600px max edge with no upscaling, WebP re-encode at a named quality constant, byte-level EXIF-strip test against a real fixture (built with `piexifjs`, confirmed to carry GPS before the strip is asserted, verified via real canvas decode/encode through `@napi-rs/canvas` rather than a mock), `deleteImage` no-op on a foreign URL. Two further M2 findings — no timeout on `canvas.toBlob`'s callback, and `deleteImage`'s path extraction not stripping a query string/hash — were also fixed before commit. `@napi-rs/canvas` and `piexifjs` are `devDependencies` only, confirmed unimported under `src/`.
