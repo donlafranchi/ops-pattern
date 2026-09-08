@@ -53,4 +53,4 @@ One migration. Nothing else.
 ## Completion
 
 Date: 2026-09-08
-Commit: {pending}
+Commit: `b324a7c` (web repo — migration, test) + `b47b634` (parent repo — ticket close-out, DEVIATIONS)
