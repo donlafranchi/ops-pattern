@@ -79,4 +79,4 @@ A `scripts/migration-conformance.sh` that answers one question: **does remote ma
 ## Completion
 
 Date: 2026-09-08
-Commit: {pending}
+Commit: `b132d79` (parent repo — script, hooks, ticket close-out, DEVIATIONS entry) + `17e2aa1` (web repo — `db:push` in package.json) + `2d33eec` (web repo — BUILD-LOG entry)
