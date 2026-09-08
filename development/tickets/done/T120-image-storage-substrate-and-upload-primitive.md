@@ -75,4 +75,4 @@ Three things, none of them visible.
 ## Completion
 
 Date: 2026-09-08
-Commit: {pending}
+Commit: `808af85` (web repo — bucket, upload module, tests, BUILD-LOG) + `92eb801` (parent repo — ticket close-out, DEVIATIONS, decision stub; committed directly to `main`, see DEVIATIONS) + `af39afe` (parent repo — deviation note)
