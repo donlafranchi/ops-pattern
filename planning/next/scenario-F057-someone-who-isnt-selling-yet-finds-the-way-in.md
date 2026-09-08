@@ -29,7 +29,7 @@ Devon signed up ten minutes ago because a neighbour sent a link. He makes hot sa
 
 He taps it. He picks *Sell something*. The shop walkthrough opens — the same five steps that already ship.
 
-**Devon, ten minutes later.** He is a producer now. **You looks different, because he did something.** Where the invitation was, there is a shop row: *Devon's Hot Sauce*, **Edit shop**, and **Add a product · Add a service · Host a gathering**. Below it, **Your listings**. His following and his settings are exactly where they were.
+**Devon, ten minutes later.** He is a producer now. **You looks different, because he did something.** Where the invitation was, there are shop rows — one per Page he holds, starting with *Devon's Hot Sauce*: **Edit shop**, and **Add a product · Add a service · Host a gathering**. Below it, **Your listings**. His following and his settings are exactly where they were.
 
 **Rae, who has no interest in selling.** She taps You and sees what she follows and her settings, and one quiet invitation below it that she scrolls past. **Nothing asks her to be a business.**
 
