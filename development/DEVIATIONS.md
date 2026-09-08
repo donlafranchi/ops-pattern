@@ -970,3 +970,12 @@ The script's scope matches the ticket exactly: detection only, never applies; sh
 ### No other deviations
 
 Everything else matches the ticket: `media` bucket (not `item-media`), four `storage.objects` policies scoped correctly, `uploadImage`/`deleteImage` as the one upload/delete path, resize to a 1600px max edge with no upscaling, WebP re-encode at a named quality constant, byte-level EXIF-strip test against a real fixture (built with `piexifjs`, confirmed to carry GPS before the strip is asserted, verified via real canvas decode/encode through `@napi-rs/canvas` rather than a mock), `deleteImage` no-op on a foreign URL. Two further M2 findings — no timeout on `canvas.toBlob`'s callback, and `deleteImage`'s path extraction not stripping a query string/hash — were also fixed before commit. `@napi-rs/canvas` and `piexifjs` are `devDependencies` only, confirmed unimported under `src/`.
+
+### T120: parent-repo close-out committed directly to `main`, not a `t120` branch/worktree
+
+**What:** Only `../web-t120` was created for this ticket. The parent-repo work (ticket close-out, this `DEVIATIONS.md` entry, the decision stub) was written and committed directly against `/Users/don/Projects/community` on `main` — no `../community-t120` worktree existed, so there was no branch to commit it to.
+
+**Why:** Oversight — T120's acceptance criteria are entirely web-repo (migration, `src/lib/`, tests), so a parent worktree wasn't set up at session start the way it was for T140 (which genuinely spanned both repos). The parent-repo close-out work still needed to land somewhere, and by the time that became apparent the commit had already gone to `main` before the gap was noticed.
+
+**Disposition:** accepted-as-is. The change itself is documentation-only (ticket status, a deviations entry, a decision stub) with no code and no deploy risk, and the parent repo carries no deploy attachment — but the process gap is real and worth naming rather than quietly absorbing, since the whole point of the branch-per-ticket rule is that it shouldn't depend on a human noticing after the fact.
+**Type:** n/a — process deviation, not a spec deviation.
