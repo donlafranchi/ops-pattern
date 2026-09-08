@@ -1,6 +1,6 @@
 # T147: Six steps, a resume that actually resumes, and saying so
 
-**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md`
+**Scenario:** F061 — someone creates a page worth showing people
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** T142 (address/neighbourhood step), T144 (category step), T145 (photo step), T146 (default art, so the review step has something honest to preview). **Blocks:** nothing — last ticket in the F061 stretch.
@@ -12,7 +12,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F061.md`. PROCEED. The review routed a step-count question to the PM as non-blocking; **the PM has since ruled: ship six, do not fold or defer any of them** (option A of the review's three, the recommended one).
+- [x] **Gate C — review present.** review F061. PROCEED. The review routed a step-count question to the PM as non-blocking; **the PM has since ruled: ship six, do not fold or defer any of them** (option A of the review's three, the recommended one).
 - [x] **Gate B — clear.** No new absolute; this ticket sequences T142/T144/T145's steps and fixes a defect in the shipped composer recipe's resume mechanism (`design-language.md` § Multi-step composer, "Resume detection").
 - [x] **All three `Serves` lines resolve.**
 

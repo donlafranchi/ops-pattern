@@ -1,6 +1,6 @@
 # T135: Browse drops past gatherings and carries the Page's own name
 
-**Scenario:** `planning/now/scenario-F060-someone-starts-something-without-opening-a-shop.md` (bundled fix — PM-approved directly alongside F060's ticket set, same session, 2026-09-07; not derived from F060's own Given/When/Then, riding the same "a Page renders correctly wherever it's read" concern as T134)
+**Scenario:** F060 — someone starts something without opening a shop (bundled fix — PM-approved directly alongside F060's ticket set, same session, 2026-09-07; not derived from F060's own Given/When/Then, riding the same "a Page renders correctly wherever it's read" concern as T134)
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`), track A
 **Depends on:** none

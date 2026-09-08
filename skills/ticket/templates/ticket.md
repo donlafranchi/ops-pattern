@@ -1,6 +1,8 @@
 # T{NNN}: {Ticket Title}
 
-**Scenario:** `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`)
+**Scenario:** F{NNN} — {plain-English title} *(or `substrate — no user-facing surface`)*
+
+> **Cite the number, never the path.** Lanes change by design — a scenario moves `backlog/` → `next/` → `now/` → `done/` as it progresses, and every path written into a ticket is stale the moment it advances. The number is stable for the life of the work; the gate check matches on it. **Same rule for reviews: `review F{NNN}`, not a path.**
 **Status:** Open / In Progress / Complete
 **Bundle:** b1 / b2 / b3
 **Depends on:** T{NNN} (omit if none)

@@ -1,6 +1,6 @@
 # T142: The location step stops inventing a coordinate
 
-**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md`
+**Scenario:** F061 — someone creates a page worth showing people
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** nothing. **Blocks:** T143, T147.
@@ -12,7 +12,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F061.md`. PROCEED.
+- [x] **Gate C — review present.** review F061. PROCEED.
 - [x] **Gate B — clear.** `groups.md:234` (address-or-neighbourhood, Ratified 2026-09-07), `groups.md:240` (neighbourhood mode, Ratified 2026-09-07), `groups.md:242` (deterministic scattered point, Ratified 2026-09-07).
 - [x] **All three `Serves` lines resolve.**
 - [x] **Cited spec.** `product/systems/groups.md` §§ *A real place, at the precision its owner chooses* (line 230+). `product/foundation/policy.md` § locality-vs-address separation (referenced, not re-cited).

@@ -1,6 +1,6 @@
 # T122: The operator can remove a photo
 
-**Scenario:** `planning/next/scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md` — the takedown half.
+**Scenario:** F058 — a member reports an image and the operator takes it down — the takedown half.
 **Status:** Open — **BLOCKED, Gate B. Not buildable.**
 **Bundle:** b1 (v1 workstreams 9 + 10)
 **Depends on:** T120

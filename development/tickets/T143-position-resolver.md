@@ -1,6 +1,6 @@
 # T143: Where a Page appears is resolved, not stored
 
-**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md`
+**Scenario:** F061 — someone creates a page worth showing people
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** T142 (needs real address/neighbourhood Locations to resolve against). **Blocks:** T147 (the "where you are now" line ships as part of the composer's review/publish surface and the public Page).
@@ -12,7 +12,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F061.md`. PROCEED, binding notes 9 and 10 govern this ticket directly.
+- [x] **Gate C — review present.** review F061. PROCEED, binding notes 9 and 10 govern this ticket directly.
 - [x] **Gate B — clear.** `groups.md:253` (point-vs-area assertion, Ratified), `groups.md:261` (address never revealed by appearance, Ratified), `groups.md:268` (no simultaneous placements, Ratified), `groups.md:277` (always shown publicly, Ratified).
 - [x] **All three `Serves` lines resolve.**
 - [x] **Cited spec.** `product/systems/groups.md` § *Where a Page appears is resolved, not stored* (line 246+).

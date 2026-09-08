@@ -1,6 +1,6 @@
 # T121: The product composer gets a photo field, end to end to the card
 
-**Scenario:** `planning/backlog/scenario-F055-producer-puts-a-photo-on-what-they-sell.md` — **DEFERRED with its scenario.**
+**Scenario:** F055 — producer puts a photo on what they sell — **DEFERRED with its scenario.**
 **Status:** **DEFERRED 2026-09-07.** Not open, not blocked — held by PM ruling.
 
 > **Deferred with its scenario.** Pages get photos now, Items get photos later. The scenario returned to `planning/backlog/`, so this ticket points outside the approved lanes **by design** — the gate check reports it as a deferred pair, not as a firewall breach. **Do not start.**

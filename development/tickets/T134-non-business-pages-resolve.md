@@ -1,6 +1,6 @@
 # T134: A non-business Page resolves everywhere it's looked up
 
-**Scenario:** `planning/now/scenario-F060-someone-starts-something-without-opening-a-shop.md`
+**Scenario:** F060 — someone starts something without opening a shop
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`), track A
 **Depends on:** none (independent of T132/T133 — these are read paths, not the authorization clause)

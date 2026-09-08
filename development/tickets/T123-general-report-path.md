@@ -1,6 +1,6 @@
 # T123: A member can tell the operator something
 
-**Scenario:** `planning/next/scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md` — the report half.
+**Scenario:** F058 — a member reports an image and the operator takes it down — the report half.
 **Status:** Open — **BLOCKED on a PM operating decision.** Not a Gate B block.
 **Bundle:** b1 (v1 workstream 9)
 **Depends on:** nothing in code

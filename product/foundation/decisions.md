@@ -1,19 +1,31 @@
 ---
-id: why-settled
-purpose: The thirteen decisions that constrain every future decision. Everything else is a version-tier call, a craft rule, or a promise — and lives elsewhere.
+id: why-decisions
+purpose: The decisions that constrain every future decision — one line each, and what each rules out. One of the three durable documents.
 layer: why
 status: active
 owns:
   - foundation-decision-set
 ---
 
-# Settled
+# Decisions
 
-> **What earns a place here:** a decision that rules out a whole class of future choices, and that we would have to argue about again if it weren't written down. Everything else is a log entry ([`../../planning/DECISIONS.md`](../../planning/DECISIONS.md)), a craft rule ([`../ui/design-language.md`](../ui/design-language.md)), or one of the three public promises ([`promises.md`](promises.md)).
+> **One of three durable documents.** The other two are **the model** ([`primitives.md`](primitives.md) — the nouns, and what each deliberately does not have) and **the status** ([`../../STATUS.md`](../../STATUS.md) — what is true right now, one screen, overwritten). **Everything else in this repo either has a lifecycle or is a liability.**
 >
-> **179 statements across the foundation and playbook docs read as settled. Thirteen of them actually are.** The rest are not deleted — they are reclassified, and the originals stand where they were.
+> ### The principle
 >
-> **Format:** the decision, one line of why if the why is load-bearing, then what it rules out. **The last line is the point.** A foundation decision earns its place by telling someone what not to build.
+> **The code is the source of truth for how the system works. Git is the history.** A document that duplicates either is a liability, because it goes stale silently and someone believes it.
+>
+> **The evidence is 2026-09-07.** The docs said farmers markets existed when they had been retired. They said Explore browses members when it indexes items only. They said the standing badge was paused when it was one query away from switching on. **Every question that mattered that day was answered by reading the code**, and the documents that claimed to answer them cost time before they were disbelieved.
+>
+> So the rule for anything written here: **if the code can answer it, do not write it down.** A decision is worth writing because the code cannot tell you *why* it is the way it is, or what was rejected. That is what this file holds and the only thing it holds.
+>
+> ### What earns a place
+>
+> **A decision that rules out a whole class of future choices, and that we would have to argue about again if it weren't written down.** Everything else is a dated log entry ([`../../planning/DECISIONS.md`](../../planning/DECISIONS.md), where new rulings land before they are distilled up to here), a craft rule ([`../ui/design-language.md`](../ui/design-language.md)), or one of the three public promises ([`promises.md`](promises.md)).
+>
+> **179 statements across the foundation and playbook docs read as settled. Seventeen of them actually are.** The rest are not deleted — they are reclassified, and the originals stand where they were.
+>
+> **Format:** the decision, one line of why if the why is load-bearing, then what it rules out. **The last line is the point.** A decision earns its place by telling someone what not to build.
 >
 > **Open contradictions and never-ratified claims are at the bottom. They are not settled and are not listed above the line.**
 
@@ -96,6 +108,24 @@ An exit-aligned owner and a member-aligned platform want different things, and t
 Discretionary hours and adequacy margin must both rise. Anything outside the app we cannot honestly measure, so we do not claim it.
 
 **Rules out:** claimed local-economic-impact figures, multiplier effects, community-health scores presented as measurement, and any growth number treated as the goal rather than an indicator.
+
+## 15. The platform is the technology layer, never the bank
+
+*Lifted 2026-09-07 from the payments spec before it was archived — this was the only place it was written down.* A chartered partner holds money on members' behalf; the platform holds none for itself.
+
+**Rules out:** the platform as deposit-taker for member balances, card numbers stored anywhere on our side, and any rail chosen on speed or cost alone without scoring where the fees end up.
+
+## 16. What an assistant knows belongs to the member, and it never holds the keys
+
+*Lifted 2026-09-07 from the agent-assistance spec before it was archived.* The context a member builds is theirs — exportable, deletable, never trained on. And the assistant never holds the credential it acts under; the capability is minted per turn and applied at the network edge, so it never enters the agent's context.
+
+**Rules out:** training on member context, surfacing it to recommendation systems, showing it to other members or their assistants without explicit per-section opt-in, and any design where a long-lived credential sits inside an agent's reach.
+
+## 17. A point asserts presence; nothing absent may make that assertion
+
+*Ratified 2026-09-07. Mechanics in [`../systems/groups.md`](../systems/groups.md) § Where a Page appears is resolved, not stored.* A shop is at its address every day. A club with nothing scheduled is *of* an area, not *at* a place. Position is resolved at read time, never stored.
+
+**Rules out:** a pin for anything that isn't there, a cached or materialized position, a Page in two places at once, and revealing a private address because a public appearance happened.
 
 ---
 

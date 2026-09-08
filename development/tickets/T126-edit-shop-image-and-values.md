@@ -1,6 +1,6 @@
 # T126: Edit shop — image, description, and the values declaration
 
-**Scenario:** `planning/next/scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md`
+**Scenario:** F056 — producer gives their shop a face and says what they stand for
 **Status:** Open — **BLOCKED, Gate B (two absolutes) and the F056 EXTEND.**
 **Bundle:** b1 (v1 workstreams 5 + 10)
 **Depends on:** T120 (upload primitive), T125 (the shop row this hangs off)

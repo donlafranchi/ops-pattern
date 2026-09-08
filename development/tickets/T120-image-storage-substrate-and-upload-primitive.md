@@ -1,9 +1,9 @@
 # T120: Image storage substrate and the upload primitive
 
-**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md` — **substrate portion.** No user-visible surface ships in this ticket.
+**Scenario:** F061 — someone creates a page worth showing people — **substrate portion.** No user-visible surface ships in this ticket.
 **Status:** Open — **UNBLOCKED 2026-09-07. Buildable.**
 
-> **Re-bound 2026-09-07.** This ticket was written under the Item-photo scenario, which is now deferred — **Pages get photos first**, so the substrate lands with them. Gate B has since cleared: both upload absolutes carry State-tagged Intent in `policy.md` § Uploaded images. Gate C is satisfied by `planning/next/review-F061.md` (PROCEED).
+> **Re-bound 2026-09-07.** This ticket was written under the Item-photo scenario, which is now deferred — **Pages get photos first**, so the substrate lands with them. Gate B has since cleared: both upload absolutes carry State-tagged Intent in `policy.md` § Uploaded images. Gate C is satisfied by review F061 (PROCEED).
 >
 > **Two changes to the scope below, both from F061 review binding note 1:**
 > 1. **The bucket is `media`, not `item-media`.** It now serves Pages first and Items later; a name that says "item" would mislead every future reader. The bucket does not exist yet, so this is free now and expensive later.
@@ -21,7 +21,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F061.md`. Verdict PROCEED, six binding notes; notes 1 (bucket naming), 2 (byte-level EXIF test) and 3 (bucket-rejection test) are binding on *this* ticket.
+- [x] **Gate C — review present.** review F061. Verdict PROCEED, six binding notes; notes 1 (bucket naming), 2 (byte-level EXIF test) and 3 (bucket-rejection test) are binding on *this* ticket.
 - [x] **Gate B — clear.** `policy.md:143` (metadata stripped, Ratified 2026-09-07), `policy.md:151` (takedown before first upload, Ratified 2026-09-07). Both landed the same session this ticket was unblocked.
 - [x] **All three `Serves` lines resolve.** Loop 9 in `member-journey.md`; P1 in `use-cases.md`; the primitive shape adds no entity.
 - [x] **Cited spec last-changed dates.** `product/systems/groups.md` — updated 2026-09-07 (§ *A photo, or art that admits it isn't one*). `product/foundation/policy.md` — updated 2026-09-07 (§ Uploaded images, both absolutes ratified).

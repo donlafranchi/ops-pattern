@@ -34,7 +34,7 @@
 
 ## Notes
 
-**Why this is first and separate.** F059 adopts `locality_feed_items` as the merged surface's read path, but the function projects thirteen columns and Explore's controls need three it does not carry — `description` (free-text search), `starts_at` (the week/weekend schedule filter), `nearest_location_geography` (map pins). Until this lands, "port Explore onto Home's ranking" silently ships a surface whose search, schedule filter and map are all dead. See `planning/next/review-F059.md` § Condition A.
+**Why this is first and separate.** F059 adopts `locality_feed_items` as the merged surface's read path, but the function projects thirteen columns and Explore's controls need three it does not carry — `description` (free-text search), `starts_at` (the week/weekend schedule filter), `nearest_location_geography` (map pins). Until this lands, "port Explore onto Home's ranking" silently ships a surface whose search, schedule filter and map are all dead. See review F059 § Condition A.
 
 Every column already exists on `discoverable_items` (migrations `016` → `034` → `036`) — this is projection only, no view rebuild, no index change. That is why it is cheap and why it must not be folded into the port ticket, where a migration would make the merge un-revertable in one step.
 

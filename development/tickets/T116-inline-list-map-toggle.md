@@ -1,6 +1,6 @@
 # T116: Inline list/map toggle on Explore
 
-**Scenario:** `planning/next/scenario-F044-newcomer-toggles-list-map-via-floating-pill.md`
+**Scenario:** F044 — newcomer toggles list map via floating pill
 **Status:** Done
 **Bundle:** b1
 **Depends on:** T114

@@ -1,6 +1,6 @@
 # T113: Scroll-to-hide bottom nav behavior
 
-**Scenario:** `planning/next/scenario-F046-member-scrolls-and-nav-hides.md`
+**Scenario:** F046 — member scrolls and nav hides
 **Status:** Done
 **Bundle:** b1
 **Depends on:** T112

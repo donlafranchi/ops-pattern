@@ -1,6 +1,6 @@
 # T146: Art on every Page from the first day
 
-**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md`
+**Scenario:** F061 — someone creates a page worth showing people
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** T141 (`groups.photo_url` column, to key off null). Soft-sequenced after T145 for integration, not a hard dependency. **Blocks:** T147.
@@ -12,7 +12,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F061.md`. PROCEED. Binding note 6: build this early enough in the stretch to be looked at, not on the last day — this ticket is sequenced accordingly (before T147 closes out the composer).
+- [x] **Gate C — review present.** review F061. PROCEED. Binding note 6: build this early enough in the stretch to be looked at, not on the last day — this ticket is sequenced accordingly (before T147 closes out the composer).
 - [x] **Gate B — clear.** `groups.md:307` (deterministic, visibly-not-a-photograph, Ratified 2026-09-07).
 - [x] **All three `Serves` lines resolve.**
 - [x] **Governing DLS recipe — already written.** `design-language.md` § *Default Page art* (line 395+). Build to this recipe; do not redesign it in the ticket.

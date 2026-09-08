@@ -76,7 +76,7 @@ Both failure modes look like the agent doing its job. Both are caught by the sam
 
 **Tool:** Cowork. **Model:** Sonnet.
 
-**Reads:** root `CLAUDE.md`, `STATUS.md`, `product/foundation/settled.md`, `planning/now/initiative-launch.md`, `planning/DECISIONS.md`, `planning/STAGE-LEDGER.md`, `planning/backlog/`, `planning/next/`, `planning/now/`, `planning/done/`, `web/BUILD-LOG.md`.
+**Reads:** root `CLAUDE.md`, `STATUS.md`, `product/foundation/decisions.md`, `planning/now/initiative-launch.md`, `planning/DECISIONS.md`, `planning/STAGE-LEDGER.md`, `planning/backlog/`, `planning/next/`, `planning/now/`, `planning/done/`, `web/BUILD-LOG.md`.
 
 **Task:** Session-start orientation. Read state. Run the drift checklist (stale citations, empty `scenarios/` with live ticket refs, oversize DEVIATIONS, `{pending}` commit hashes, stalled SPEC-PATCHES, superseded-memo citations, stalled STAGE-LEDGER rows). Prune JOURNAL if it's heavy. Re-tag the work map if a sub-bundle closed since last session. Name the next decision. Does not act on it.
 
@@ -190,7 +190,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 > Bridge between Cowork strategy and Claude Code execution. Translates `_inbox/` plans and parked decisions into ratify-and-execute stubs in `planning/backlog/`. Closes the gap that left multi-item plans stalling in `_inbox/` because no skill knew how to decompose them.
 
-**Reads:** `_inbox/{name}.md` (the target file), `_inbox/README.md`, `REGISTRY.md`, root `CLAUDE.md` (file-naming table), `planning/backlog/` (for slug collisions + sequence).
+**Reads:** `_inbox/{name}.md` (the target file), `_inbox/README.md`, root `CLAUDE.md` (file-naming table), `planning/backlog/` (for slug collisions + sequence).
 
 **Writes:** `planning/backlog/{slug}.md` (flat) or `planning/backlog/{plan-slug}/*.md` (grouped) + index `README.md`; archives parent plan to `_attic/YYYY-MM-DD-{parent-slug}/`; one `JOURNAL.md` paragraph.
 
@@ -351,7 +351,7 @@ Format: `T###: short title` — one line, no body, no co-author tag.
 Where:
 - Web/app changes → `web/` repo.
 - Pipeline/spec/docs in this project → parent repo.
-- Pipeline-doc changes (CLAUDE.md, AGENTS.md, MAP, TRACE, REGISTRY, skill workflows) → parent repo with `docs(pipeline): …` — no T-number.
+- Pipeline-doc changes (CLAUDE.md, AGENTS.md, skill workflows) → parent repo with `docs(pipeline): …` — no T-number.
 
 Never cross-commit (no staging files from both repos in one commit).
 

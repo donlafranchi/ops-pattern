@@ -1,6 +1,6 @@
 # T130: The browse surface keeps its URL, its scroll, and its old address
 
-**Scenario:** `planning/next/scenario-F059-newcomer-browses-one-surface.md`
+**Scenario:** F059 — newcomer browses one surface
 **Status:** Open
 **Bundle:** b1 (SocialUs v1), workstream 4
 **Depends on:** T129

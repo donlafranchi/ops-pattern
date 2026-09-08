@@ -1,6 +1,6 @@
 # T139: `/you/create` — the single producer entry point
 
-**Scenario:** `planning/now/scenario-F060-someone-starts-something-without-opening-a-shop.md`
+**Scenario:** F060 — someone starts something without opening a shop
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`), track A
 **Depends on:** T132 (founder role by kind), T133 (item-create drops the business gate) — both already shipped. Does not depend on T134–T136.

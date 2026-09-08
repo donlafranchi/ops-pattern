@@ -1,6 +1,6 @@
 # T144: One category, chosen at creation
 
-**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md`
+**Scenario:** F061 — someone creates a page worth showing people
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** T141 (column + capture table). **Blocks:** T147 (composer step sequencing).
@@ -12,7 +12,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F061.md`. PROCEED.
+- [x] **Gate C — review present.** review F061. PROCEED.
 - [x] **Gate B — clear.** `groups.md:295` (Other/escape-hatch, Ratified), `groups.md:316` (no verification, Ratified).
 - [x] **All three `Serves` lines resolve.**
 - [x] **Cited spec.** `product/systems/groups.md` § *One category, from a fixed list* (line 279+).

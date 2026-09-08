@@ -1,6 +1,6 @@
 # T145: A photo, optional, at creation — and a way to take it down
 
-**Scenario:** `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md`
+**Scenario:** F061 — someone creates a page worth showing people
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** T120 (storage substrate and upload primitive), T141 (`groups.photo_url` column and event types). **Blocks:** T147. **Release gate:** see below — production deploy waits on T123.
@@ -12,7 +12,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/next/review-F061.md`. PROCEED.
+- [x] **Gate C — review present.** review F061. PROCEED.
 - [x] **Gate B — clear.** `policy.md:143` (metadata stripped, Ratified 2026-09-07), `policy.md:151` (takedown path before first upload, Ratified 2026-09-07), `groups.md:309` (Page photo subject to both, Ratified).
 - [x] **All three `Serves` lines resolve.**
 - [x] **Governing DLS recipe.** `design-language.md` § *Image picker* — "One recipe, every caller — the composer's Page photo, the editor's replacement control, and Item photos when they arrive." Used unmodified, 1:1 aspect.

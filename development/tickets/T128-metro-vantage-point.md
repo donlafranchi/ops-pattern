@@ -33,7 +33,7 @@
 
 ## Notes
 
-**This is not a parameter change and the sizing depends on knowing that.** `locality_feed_items` intersects `places.geography`, and `places.kind` is constrained to `region / state / county / city / neighborhood` (migration `017`) — **there is no metro value in the enum.** Metro is a separate overlay table with its own polygon (migration `031`, one approximate Sacramento CSA at `seed_method='approx_bbox'`). So metro-grain filtering is a second function against a different table, not a configured call of the first. See `planning/next/review-F059.md` § Condition B.
+**This is not a parameter change and the sizing depends on knowing that.** `locality_feed_items` intersects `places.geography`, and `places.kind` is constrained to `region / state / county / city / neighborhood` (migration `017`) — **there is no metro value in the enum.** Metro is a separate overlay table with its own polygon (migration `031`, one approximate Sacramento CSA at `seed_method='approx_bbox'`). So metro-grain filtering is a second function against a different table, not a configured call of the first. See review F059 § Condition B.
 
 **`locality_feed_items` stays.** Do not delete or repoint it — the venue page and other place-grain reads still use place grain. This ticket adds a metro path alongside it; F059’s surface consumes the metro one.
 

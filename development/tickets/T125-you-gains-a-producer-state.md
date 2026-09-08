@@ -1,6 +1,6 @@
 # T125: You gains a producer state, and the invitation becomes its pre-producer state
 
-**Scenario:** `planning/next/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md`
+**Scenario:** F057 — someone who isnt selling yet finds the way in
 **Status:** Open
 **Bundle:** b1 (v1 workstream 4 — the You half)
 **Depends on:** nothing

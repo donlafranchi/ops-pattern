@@ -1,6 +1,6 @@
 # T115: Filter icon, bottom sheet, and active-filter chips on Explore
 
-**Scenario:** `planning/next/scenario-F045-newcomer-filters-explore-via-icon-and-bottom-sheet.md`
+**Scenario:** F045 — newcomer filters explore via icon and bottom sheet
 **Status:** Done
 **Bundle:** b1
 **Depends on:** T114

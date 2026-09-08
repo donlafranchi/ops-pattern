@@ -8,7 +8,9 @@
 >
 > **Nothing is published.** The app is not launched; every user-facing string in the repo is a draft. Nothing here has been said to anyone, and what gets published is the PM's call.
 >
-> **If a line doesn't answer "where are we," it belongs somewhere else.** Decisions → [`planning/DECISIONS.md`](planning/DECISIONS.md). Constraints → [`product/foundation/settled.md`](product/foundation/settled.md). Build detail → [`BUILD-LOG.md`](BUILD-LOG.md). The narrative log this file replaced → [`planning/archive/JOURNAL.md`](planning/archive/JOURNAL.md).
+> **One of three durable documents**, with [`product/foundation/decisions.md`](product/foundation/decisions.md) (what's ruled out, and why) and [`product/foundation/primitives.md`](product/foundation/primitives.md) (the nouns, and what each deliberately does not have). **Everything else either has a lifecycle or is a liability** — the code is the source of truth for how the system works, and git is the history.
+>
+> **If a line doesn't answer "where are we," it belongs somewhere else.** New rulings → [`planning/DECISIONS.md`](planning/DECISIONS.md) (the dated log, where they land before being distilled up). Build detail → [`BUILD-LOG.md`](BUILD-LOG.md). The narrative log this file replaced → [`planning/archive/JOURNAL.md`](planning/archive/JOURNAL.md).
 
 ---
 
@@ -33,7 +35,7 @@ SocialUs is a local discovery app — buy, sell, trade, and gather — launching
 - **The 84 cleanup rulings**, in [`planning/CLEANUP.md`](planning/CLEANUP.md). The two that block work: whether the spec-patch backlog gets drained, and whether two launch-adjacent decisions (profile edits needing an update handler, the accent colour failing contrast) get promoted into the plan.
 - **Whether "members share in what they help build" means profit or ownership.** It decides whether that candidate competes with the surplus promise for the same money or draws on something else entirely — the single clarification that most changes the shape of the promise set.
 - **Promise 1 — what "surplus goes back to the community" actually means.** Who decides the number, over what period, and what returning it looks like. Three options in [`product/foundation/promises.md`](product/foundation/promises.md); **the promise stays out of user-facing copy until this is picked.**
-- **Two contradictions and one never-ratified claim left** in [`product/foundation/settled.md`](product/foundation/settled.md) — the creator-framing conflict, the top-anchored search row, and the flourishing thresholds.
+- **Two contradictions and one never-ratified claim left** in [`product/foundation/decisions.md`](product/foundation/decisions.md) — the creator-framing conflict, the top-anchored search row, and the flourishing thresholds.
 - **Four launch scope questions** in [`planning/now/initiative-launch.md`](planning/now/initiative-launch.md): one metro or anywhere; confirm the Explore-into-Home merge stays cut; drop the category filter or buy the half-day; and whether the date is 30 October or early November.
 
 ## Next

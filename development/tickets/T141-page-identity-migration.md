@@ -1,6 +1,6 @@
 # T141: One migration for category, photo column, and the new event types
 
-**Scenario:** substrate — no user-facing surface. Backs `planning/next/scenario-F061-someone-creates-a-page-worth-showing-people.md`.
+**Scenario:** substrate — no user-facing surface. Backs F061 — someone creates a page worth showing people.
 **Status:** Open
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** nothing. **Blocks:** T144, T145.
@@ -15,7 +15,7 @@
 - [x] **Gate B — clear.** Every absolute this migration's shape encodes is State-tagged: `groups.md:279` (category, Ratified 2026-09-07), `groups.md:301` (photo, Ratified 2026-09-07). Neither the vocabulary nor the free-text table is enforced in the schema — see below.
 - [x] **All Serves lines resolve.**
 - [x] **Cited spec last-changed dates.** `product/systems/groups.md` — current as of this session (§ *What a Page carries at creation* and § *Editing an active Page* both added 2026-09-07).
-- [x] **Review binding note 5** (`planning/next/review-F061.md`): *"Fold them into one migration... three separate hand-pushes across two scenarios is three chances to forget one."* This ticket is that fold.
+- [x] **Review binding note 5** (review F061): *"Fold them into one migration... three separate hand-pushes across two scenarios is three chances to forget one."* This ticket is that fold.
 
 ## What changes
 

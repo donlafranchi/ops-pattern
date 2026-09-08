@@ -11,7 +11,9 @@ status: active
 > Solo founder. Re-architecture in flight. Process lives in skills, not nested CLAUDE.md files.
 > **Start here, every session: [`STATUS.md`](STATUS.md)** — one screen, always current, overwritten rather than appended. It answers "where are we" and nothing else.
 >
-> First time in this repo? Read `STATUS.md`, then this file end-to-end, then [`product/foundation/settled.md`](product/foundation/settled.md) (the thirteen decisions that constrain everything else), then [`product/MAP.md`](product/MAP.md) (100k-foot architecture map), then [`product/TRACE.md`](product/TRACE.md) (feature lineage), then [`REGISTRY.md`](REGISTRY.md) (doc catalog), then [`AGENTS.md`](AGENTS.md).
+> First time in this repo? **Three documents, in this order:** [`STATUS.md`](STATUS.md) (what's true now), [`product/foundation/decisions.md`](product/foundation/decisions.md) (what's ruled out, and why), [`product/foundation/primitives.md`](product/foundation/primitives.md) (the nouns, and what each deliberately does not have). Then this file end-to-end, then [`AGENTS.md`](AGENTS.md) for the pipeline.
+>
+> **The code is the source of truth for how the system works. Git is the history.** A doc that duplicates either goes stale silently and someone believes it — which is what happened on 2026-09-07, when the docs claimed markets existed that had been retired, said Explore browses members when it indexes items, and called a badge paused that was one query from switching on. **If the code can answer it, read the code.** The architecture map, the feature-lineage table and the doc catalogue were archived that day for exactly this reason.
 >
 > *The reverse-chronological session log that used to sit here is at [`planning/archive/JOURNAL.md`](planning/archive/JOURNAL.md). It remains the record of what happened and when; it is no longer the record of what is true.*
 
@@ -67,7 +69,7 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 1. **Schema names are durable.** Don't rename `gathering` → `event` or `wonder` → `idea` in code; the URL and UI layers handle the translation. Same with `member_self_record` → "Assistant Context." This isolates schema migrations from naming evolution.
 2. **"Declare" is the spec/conceptual verb only.** "Person declares Item" is correct in `primitives.md`, `member-journey.md`, and system specs. UI never says "declare an item" — UI uses the kind-specific verb (Host, Sell, Offer, Wonder, Ask, Lead).
 3. **No umbrella word for Items in UI copy.** "Item" is the database term. In the UI, always use the specific kind: Event, Product, Service, Idea, Offer, Ask, Initiative. The Explore tab can use kind-specific filter copy ("Browse events," "Browse what's for sale") rather than "Browse items."
-4. **"Seller" is the generic UI term for a Member offering goods or services.** It applies whenever a Member has ≥1 active kind='business' Group membership or has posted an `items.kind='product'` / `'service'` row. There is no `maker_mode_enabled` toggle — selling tools surface from Group/Item state. **"Producer"** is preferred in the agricultural and food context — used in `producer-tools.md` and `platform-promise.md`. **"Maker"** survives only as a UI label when the Member specifically self-identifies as such (craftspeople, artisans); it is not a default role.
+4. **"Seller" is the generic UI term for a Member offering goods or services.** It applies whenever a Member has ≥1 active kind='business' Group membership or has posted an `items.kind='product'` / `'service'` row. There is no `maker_mode_enabled` toggle — selling tools surface from Group/Item state. **"Producer"** is preferred in the agricultural and food context — used in the producer-facing copy. **"Maker"** survives only as a UI label when the Member specifically self-identifies as such (craftspeople, artisans); it is not a default role.
 5. **Loop names stay conceptual.** Loop 2 is "Wonder," Loop 4 is "Gather regularly." Loop names are durable spec language; they don't migrate to the new UI labels.
 6. **URLs are place-scoped.** Every public URL except the Member page nests under a variable-depth place path — `/p/[…ancestor place slugs]/[place slug]`. Groups append `/g/[slug]`, Locations append `/l/[slug]`. Items take the resource segment (`/e/`, `/p/`, `/s/`, `/i/`, `/o/`, `/a/`, `/initiative/`) appended to either their Group's place path (`/p/[…place]/g/[group-slug]/p/[slug]`) or — for Items not filed under a Group — the owner's Member path (`/m/[handle]/p/[slug]`). The Member page (`/m/[handle]`) is the one intentionally global namespace: the handle is the auth identity and must survive relocation. Outer `/p/` (place) and inner `/p/` (product) are positionally unambiguous. Places are platform-curated — there is no Member-facing create surface for a `places` row; the UI label "Place" belongs to `places`, while a specific Location is a "Venue."
 
@@ -117,7 +119,7 @@ The one preserved firewall: `build` reads `next/` + `now/` and **cannot** read `
 
 ### Anti-sprawl rules
 
-1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `STATUS.md`, `MAP.md` (if at root), `TRACE.md` (if at root), `REGISTRY.md`, `BUILD-LOG.md` (symlink). *(`JOURNAL.md` left this set on 2026-09-07 — replaced by `STATUS.md`, archived to `planning/archive/JOURNAL.md`.)* Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
+1. **No root drops.** The only `.md` / `.html` files allowed at repo root are the load-bearing set: `CLAUDE.md`, `AGENTS.md`, `STATUS.md`, `PROJECT.md`, `BUILD-LOG.md` (symlink). *(`JOURNAL.md` left this set on 2026-09-07, replaced by `STATUS.md`; `REGISTRY.md`, `MAP.md` and `TRACE.md` left it the same day — a catalogue of documents goes stale faster than the documents it catalogues.)* Anything else belongs in `_inbox/` until `doc-home-finder` files it. Drift check flags violations.
 2. **Every doc carries frontmatter** (`purpose` / `layer` / `status`) except the load-bearing root set and the symlink. `tidy` enforces. Bundle files additionally carry the kind suffix in the filename — together with `status`, they replace dir-based state tracking. Pattern + lifecycle in [`playbooks/DEVELOPMENT-PATTERNS.md`](playbooks/DEVELOPMENT-PATTERNS.md) § Track bundles by filename kind suffix + status frontmatter.
 3. **One doc, one home.** If a new doc would overlap 70%+ with an existing one, fold it in rather than stand it up. `doc-home-finder` recommends.
 4. **Dated archives use ISO date prefix** (`YYYY-MM-DD-{slug}`). Never `MM-DD` or `YYYY-MM`. Sorts naturally. Shipped-version archives prefix the slug with `vN-`: `planning/done/v1-primitives/`.
@@ -214,9 +216,6 @@ Read before working in the named area. The pipeline skills already know to read 
 
 | Doc | Use when |
 |---|---|
-| [`product/MAP.md`](product/MAP.md) | Anytime you need the 100k-foot view — one sentence per system, alignment-check list at the bottom |
-| [`product/TRACE.md`](product/TRACE.md) | Trace any ticket back to its need — feature lineage table |
-| [`REGISTRY.md`](REGISTRY.md) | What docs exist and what each one does — the catalog |
 | [`AGENTS.md`](AGENTS.md) | Anything pipeline — read/write firewalls, gates, escalation |
 | [`playbooks/DECISION-PATTERNS.md`](playbooks/DECISION-PATTERNS.md) | How to make calls — the default, the lexicographic tiebreaker (member safety → platform health → data protection → mutual benefit reversible), the one absolute (wealth circulation over extraction). Read before any close-call decision. |
 | [`playbooks/PLATFORM-PATTERNS.md`](playbooks/PLATFORM-PATTERNS.md) | What the platform IS or refuses to be — URL shape, primitives, agent-assistance commitments, policy framework, locality default, accountable-participation framing. Decisions live in force as pattern-doc entries. Read first when looking up "is there a decision about X?" |
@@ -229,7 +228,6 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |
 | [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |
 | [`product/foundation/principles.md`](product/foundation/principles.md) | Anything that risks treating a business as more important than the people doing the work |
-| [`product/systems/agent-assistance.md`](product/systems/agent-assistance.md) | Anything agent-shaped — the umbrella for Delegation / Assistant Context / Skills |
 | [`product/needs/use-cases.md`](product/needs/use-cases.md) | Real situations the platform exists to serve. The working test-case set for any feature. |
 | [`product/needs/producer-roadmap.md`](product/needs/producer-roadmap.md) | Producer/seller capabilities organized by business function — Now (Phase 2) / Later / Won't per category. Read by `scope` before writing any producer-facing scenario; the Won't bullets are PM-ratified scope boundaries. Every scenario's `## Capabilities unlocked` section traces here. |
 | [`product/foundation/policy.md`](product/foundation/policy.md) | Any surface touching data sharing, monetary flow, or visibility |
@@ -238,9 +236,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/systems/member.md`](product/systems/member.md) | Anything Person-shaped. The anchor primitive of the platform. Includes multi-Location affinities (`member_location_affinities`), DM substrate, taste profile. |
 | [`product/systems/location.md`](product/systems/location.md) | Anything place-shaped — permanent / recurring-temporary / area Locations, multi-Location belonging, Location-follow, the Concerts-in-the-Park surface. **The accountable-participation commitment** (no Location-scoped messaging or feeds) is encoded here and in `policy.md`. |
 | [`product/systems/action-layer.md`](product/systems/action-layer.md) | Anything write-shaped or runtime-trust-shaped — the action handler contract, same-transaction row+event invariant, scope catalog, scoped capability vending, credential injection at the network edge, confirmation-gate enforcement, Skill sandbox. Read when designing how agents transact on Members' behalf or when adding any new write capability. |
-| [`product/systems/producer-tools.md`](product/systems/producer-tools.md) | Two surfaces in one spec — **Bulletin** (Member-authored broadcast to followers; optional kind='business' Group branding; in-app + email delivery; T2/T3 rich composition + scheduling + segmentation) and **Growth** (founder dashboard — followers/activity/profile-health, peer benchmarks, weekly digest, T3 competitive intelligence). Backs the producer recruitment pitch and the platform-promise commitment. |
 | [`product/systems/business-jurisdiction.md`](product/systems/business-jurisdiction.md) | Anything locality-claim-shaped for kind='business' Groups — the three-tier verification ladder (Tier 0 self-attested ZIP → Tier 1 SOS-verified → Tier 2 document-uploaded), `member_business_jurisdictions` substrate, the `public.zip_is_proximal_to_location()` derivation path, the public "Claimed / Verified / Documented local owner" badge. The doxxing-prevention design choice (locality ≠ address) lives here. |
-| [`product/systems/payments.md`](product/systems/payments.md) | Anything money-movement-shaped — Member→Member, Member→Group, Member→external-identified-recipient commerce; closed-loop ledger + ACH via chartered partner at b2; card on-ramp with friction; stablecoin path gated at T3; the wealth-circulation rubric (fees / float / rail-ownership / lock-in) as the selection process; zero platform transaction fees on Member commerce; platform never custodies for itself. The rail that honors the `bounded_purchase` Delegation scope. |
 | [`planning/now/bundle-1.md`](planning/now/bundle-1.md) | What ships in the rebuild MVP and what defers |
 | [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md) | The MVP scoreboard — glance at this on Monday morning to know what's left. Human terms, one page. |
 | [`planning/archive/now/bundle-1-themes.md`](planning/archive/now/bundle-1-themes.md) | Sub-bundle sequencer, b1/b2/b3. **Archived 2026-09-07 — superseded by the launch plan's four fortnights.** Read the launch plan instead when choosing what ships next. |
@@ -249,12 +245,10 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`product/foundation/community-health-rubric.md`](product/foundation/community-health-rubric.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
 | [`product/foundation/principles.md`](product/foundation/principles.md) | The constitution — P1–P8 first principles + the People-First Principle + the Decision Test + categorical failures + metrics baseline + privacy/security baseline + monetization hypothesis. Binary pass/fail filter for every proposal. |
 | [`standards/`](standards/) | Cross-cutting build qualities — safety, security, accessibility, performance, responsiveness. |
-| [`REGISTRY.md`](REGISTRY.md) | Catalog of every narrative doc with its purpose + status, grouped by why / what / how layer. Generated from front-matter. |
-| [`product/TRACE.md`](product/TRACE.md) | Feature lineage — every capability traced from human need to ticket. Companion to MAP. |
 
 **Retired specs** live under `_attic/`. Do not cite as live — use the current docs in `product/foundation/`, `product/needs/`, `product/systems/`, `product/ui/`.
 
-**Agent-assistance b1 scope.** [`product/systems/agent-assistance.md`](product/systems/agent-assistance.md) — b1 ships substrate only (`delegations`, `member_self_records`, `skill_subscriptions`, `skills`, `skill_versions` tables; `/you/data` export + purge; audit fields on every event row). The b2+ surfaces (assistant chat panel, Skill catalog at `/skills`, Assistant Context editor) do not gate b1.
+**Agent-assistance b1 scope.** *(Spec archived 2026-09-07; the commitment is decision 16 in `decisions.md`.)* b1 ships substrate only (`delegations`, `member_self_records`, `skill_subscriptions`, `skills`, `skill_versions` tables; `/you/data` export + purge; audit fields on every event row). The b2+ surfaces (assistant chat panel, Skill catalog at `/skills`, Assistant Context editor) do not gate b1.
 
 > **`groups.md` IS b1** — full surface ships at b1, including all six kinds (place / interest / practice / event_anchored / family / business). Standing-tier gate is defined in `groups.md`: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group.
 
@@ -292,7 +286,7 @@ The `clearlock` exists because Cowork's sandbox can leave `.git/index.lock` file
 - Working in `product/`, `planning/`, `development/`, `skills/` → parent repo.
 - Never cross-commit.
 
-**Pipeline-doc changes** (this file, AGENTS.md, MAP.md, TRACE.md, REGISTRY.md, skill workflows) commit with `docs(pipeline): {what}` — no T-number.
+**Pipeline-doc changes** (this file, AGENTS.md, skill workflows) commit with `docs(pipeline): {what}` — no T-number.
 
 ## Report shape
 

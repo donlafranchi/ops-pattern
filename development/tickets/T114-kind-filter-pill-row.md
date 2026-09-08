@@ -1,6 +1,6 @@
 # T114: Kind-filter pill row on Explore
 
-**Scenario:** `planning/next/scenario-F045-newcomer-filters-explore-via-icon-and-bottom-sheet.md`
+**Scenario:** F045 — newcomer filters explore via icon and bottom sheet
 **Status:** Done
 **Bundle:** b1
 **Depends on:** T113
