@@ -1,6 +1,6 @@
 # T122: The operator can remove a photo
 
-**Scenario:** `planning/backlog/scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md` — the takedown half.
+**Scenario:** `planning/next/scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md` — the takedown half.
 **Status:** Open — **BLOCKED, Gate B. Not buildable.**
 **Bundle:** b1 (v1 workstreams 9 + 10)
 **Depends on:** T120
@@ -13,7 +13,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/backlog/review-F055-F058-self-serve-producer.md`. PROCEED on F058.
+- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`. PROCEED on F058.
 - [ ] **Gate B — ⛔ NOT CLEAR.** This ticket **is** the code encoding of **A2**:
   > *"The platform never serves an image it cannot take down. A takedown path exists before the first upload is accepted."*
   `decision-photo-upload.md` § 4, `Intent (NEEDS WEIGH)`. Route to `weigh`. Same deliberate-deviation record as T120.

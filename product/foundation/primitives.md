@@ -74,6 +74,65 @@ A Group without Members ceases to exist (enters dormancy after the inactivity wi
 
 See [`groups.md`](../systems/groups.md) for the full system spec. Public-facing copy may use "community," "circle," "team," or "shop" interchangeably depending on Group kind.
 
+## Page — the canonical definition
+
+*(Ratified 2026-09-07 by the PM. The UI name for a `groups` row. This is the line every other doc is checked against.)*
+
+**A Page is the person or people behind the listing. Page is *who*. Item is *what*.**
+
+- **A Page holds many Items and dates over time**, and carries identity, a name, a face and followers. **An Item is one thing offered or one occasion.**
+- **One-time things are Items. Long-duration things are Pages.** A one-time event is an Item with a date, filed under a Page. **No Page is ever created for a single occasion.**
+- **Pages have varying lifespans** — a business runs for years, a season of selling runs for months and is then retired. **People create them sequentially, not simultaneously**, and most hold one at a time.
+- **A Page may sell, host, or both**, and needs no business record to do either. The business record is a claim about the Page, not a permission ([`promises.md`](promises.md) and the entry-point scenario).
+
+**Why the line is drawn here.** For a one-time event the two collapse — one occasion, nothing outlasting it — and the temptation is to let a Page be a single event. **Refused: browse and the map would index Pages that are really listings, and a follower graph on ephemeral Pages is worthless.** Following something that ends next Tuesday buys nothing.
+
+**Two consequences that follow directly.**
+
+- **Long-lived things appear on the map, and the map's unit is the Page.** Search sourdough and see the bakers, not individual loaves.
+
+- **One Page is one place.** A two-location bakery is two Pages. *(Ratified 2026-09-07 — this is why the map needs no grouping: pins are one-per-Page by construction. The grouping work was stopped unstarted.)*
+
+- **A Page with no fixed place of its own is found through the places it appears at.** A food truck or a market vendor is discovered via the venue's Page, not pinned at an address it does not have. *(The vocabulary for this is the open taxonomy decision.)*
+
+  > **The intent behind the surface, in the PM's words: *we would like people to find themselves on a map.*** This is why the map matters — not as a feature but as the reason the rest of it is worth building. A person who makes something in a place should be able to open the app and see themselves there, and a neighbour should be able to find them the same way. **Every decision about the map is checked against that sentence.**
+- **Anything in the past does not appear. Time-based and automatic, with no manual cleanup.** Mechanically: an Item with a date drops off once that date passes; **an Item with no date — a product, a service — never drops off**; a gathering with no date at all does not surface, because nothing can tell whether it has happened.
+
+## The nouns — what each one has, and what it deliberately does not
+
+**This document is the model: what things *are*. Its companion is [`../ui/community-platform.md`](../ui/community-platform.md), which is the surfaces: where things *show*.** Keep them apart. **Conflating the two is how this project's worst failures happened** — the Sell door being the only create path was a surface decision that silently became a model decision, and nobody noticed because one document would have described both.
+
+**One naming rule, learned the hard way.** *Page* is the entity — the person or people behind the listing. **A screen is a *surface*.** Compound forms that name a screen for a specific noun — *the Item page*, *the venue page* — are kept as-is: they cannot be misread as the entity, and renaming them would ripple across dozens of docs for no gain. **Bare "page" meaning screen is the one that misleads, and it is gone.**
+
+**The "does not have" column is the load-bearing one.** Nearly every problem found on 2026-09-07 was something quietly acquiring a property it was never meant to have: selling acquiring business-ness, a Page acquiring a permanent kind, a role acquiring a badge.
+
+| Noun | What it is | What it has | **What it deliberately does not have** |
+|---|---|---|---|
+| **Member** | One real human, one account | A handle, a name, a bio, follows, privacy settings | **No type, no tier, no account kind, no stored role.** No badge the platform awards. No rating, score or label it did not write itself. |
+| **Page** | The person or people behind the listing | A name, a description, Items, followers, optionally a Venue, optionally a business claim | **No permanent kind that gates anything.** No permission granted by its business record. **No Page for a single occasion.** No conversion into another Page — you make a second one. |
+| **Item** | One thing offered, or one occasion | A kind, a title, a description, a Page, a Location attachment, optionally a date, optionally a photo | **No independent existence off a Page.** No response counter shown to its author. **No date on a product** — a thing for sale is not an occasion. |
+| **Surface** *(not a noun in the model — listed to keep it out)* | A screen: Home, Explore, You, a Venue's public view | A job, and one question it answers | **Not an entity.** Nothing is stored about it. **Never call a screen a Page** — that word is the person or people behind the listing, and the two were conflated until 2026-09-07. Screens are *surfaces*; they live in [`../ui/community-platform.md`](../ui/community-platform.md). |
+| **Venue** | A physical place, which may host other people's Items | An address, a kind (permanent / recurring-temporary / area), its own public page, followers | **No owner by default.** No requirement that a Page have one — an itinerant Page has none and is found through the Venues it appears at. |
+
+### The rules that hold this together — settled 2026-09-07
+
+- **A Page is *who*. An Item is *what*.**
+- **One-time things are Items with dates. Long-lived things are Pages.**
+- **Each business location is its own Page.** A two-location bakery is two Pages — which is also why the map needs no grouping.
+- **Nothing gates selling.** Listing something is not a business activity. **The business record is a claim, not a permission** — it grants nothing a Page without one lacks, and friction attaches to it because a claim is what a large business would want to fake.
+- **A locality claim gates one thing** — a badge — and sits on top of the business claim rather than replacing it.
+- **Findability follows what you have published**, not who you are. Publish nothing and you are not surfaceable; that is a safety default, not a setting.
+
+### Where the build and the model disagree — recorded, not smoothed over
+
+*Accurate as of 2026-09-07. These are gaps, not intentions written as if they shipped.*
+
+- **Four reads still require a Page to be a business** — item creation, the product and service resolvers, and the venue's owning-Page lookup. Ticketed.
+- **The venue page shows only its own Page's Items**; a visiting Page's attachment is stored and not read. Ticketed.
+- **The browse index applies no time filter**, so past occasions still appear there and on the map. Ticketed.
+- **A Page has no image and no editor** — the fields exist and nothing writes them.
+- **Conversation attaches to nothing.** There is no message, thread or comment anywhere. *"A Page is where conversations happen"* is a direction, not a property.
+
 ## Why no Business entity
 
 The data model deliberately does not include a Business entity, an Organization entity, or any corporate shell as a separate primitive between Persons and the things they declare. The closest construct is a kind='business' Group, which is itself a Group of Members — not a corporate record. This is structural, not an oversight:

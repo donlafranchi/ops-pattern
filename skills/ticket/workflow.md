@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario), `development/tickets/` and `done/` (for next T-number), `product/systems/{name}.md` (Data model implications section only), root `CLAUDE.md` |
+| **Reads** | `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario), `development/deviations/` + `development/tickets/` + `done/` (for next T-number — ledger first, lanes as a belt-and-braces check), `product/systems/{name}.md` (Data model implications section only), root `CLAUDE.md` |
 | **Writes** | `development/tickets/T{NNN}-{slug}.md`; moves scenario (+ review) from `planning/next/` → `planning/now/` on PM approval |
 | **Templates** | `templates/ticket.md` |
 | **Does NOT read** | `planning/backlog/`, `web/` (code), eval test files, `product/foundation/` |
@@ -13,7 +13,7 @@
 ## Inputs you read
 - `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario you're ticketing)
 - `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) — **required for scenario-driven tickets**; Gate C at step 3b stops ticketing when it is absent. Decision-lane tickets have no F-number and satisfy Gate C via checklist 4 instead; substrate tickets are exempt and must say so. The architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured as pattern-doc entries in `playbooks/`.
-- `development/tickets/` and `development/tickets/done/` (to assign the next T-number and learn what already exists)
+- `development/deviations/T*.md` (the ticket-number ledger — persists regardless of lane) plus `development/tickets/` and `development/tickets/done/` (belt-and-braces lane scan) to assign the next T-number and learn what already exists
 - The project's root `CLAUDE.md` (for stack/path facts)
 - The relevant `product/systems/{name}.md` — **only** the "Data model implications" section, for forward-looking schema columns to include even if their feature ships later
 
@@ -24,7 +24,23 @@
 
 ## Workflow
 
-1. **Pick the next T-number.** Highest existing across `development/tickets/` and `development/tickets/done/` + 1.
+1. **Pick the next T-number. Take it from the ledger, not from the lanes:**
+
+   ```
+   ls development/deviations/T*.md | sed 's/.*\/T//;s/\.md//' | sort -n | tail -1
+   ```
+
+   The next number is that + 1. Belt-and-braces, run the lane scan too and take the higher of the two, since a ticket written seconds ago may not have closed yet:
+
+   ```
+   ls development/tickets/T*.md development/tickets/done/T*.md development/tickets/done/v*/T*.md 2>/dev/null
+   ```
+
+   **Why the ledger is the authority.** Tickets move — `development/tickets/` → `development/tickets/done/` → (after a shipped-version cut) `development/tickets/done/v{N}/`. A scan of the live lanes misses every ticket a version cut has already archived. `development/deviations/T{NNN}.md` is the one place a ticket number persists regardless of lane, because rule 6 makes a DEVIATIONS entry mandatory at the close of every ticket — even a one-line "no deviations" — and nothing ever moves or deletes that file once written.
+
+   **This rule previously named only the two live lanes, and that gap produced a real collision on 2026-09-07**: two sessions running concurrently both minted T138 — one for the migration-drift-check ticket, one for the standing-badge removal ticket — because both scanned the same two directories at the same moment and neither could see the other's not-yet-committed file. The collision was caught only because the badge-removal T138 was already merged with a deviations entry filed under its number; the other ticket was renumbered. **The identical failure this fixes was flagged on the scenario side on 2026-09-04** (`skills/scope/workflow.md`) with an explicit note that the ticket side carried the same latent bug and was left unfixed pending a real collision. This is that fix, three days later than it should have landed.
+
+   A ledger scan narrows the collision window but does not close it for two sessions writing in the same instant — nothing filesystem-based can, short of a shared allocator. What it does close is the far larger and more common gap: a scan that silently stops seeing shipped tickets the moment the first version-cut archives them, which is a guaranteed miss, not a race.
 2. **Re-read the scenario.** Identify each distinct unit of work — a schema migration, an API endpoint, a UI component, a notification path, a cron job. Map them to one ticket each, or group small ones.
 3. **Gate B — Ratified-Intent pre-flight.** Before drafting any ticket, scan every spec section the tickets will *encode in code* (schema constraints, RLS policies, action-handler refusals, UI affordance removals — anything where a Category-2 absolute becomes literal code) for absolute-language statements. For each match, check the co-located line:
    - `Intent (Ratified YYYY-MM-DD): ...` or `Intent (Deferred until {trigger}; review by {horizon}): ...` → terminal state. Pass; capture the pointer in the ticket's Notes as "Encodes ratified absolute: `{file}:{line}`".

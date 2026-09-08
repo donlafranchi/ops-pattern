@@ -1,6 +1,6 @@
 # T121: The product composer gets a photo field, end to end to the card
 
-**Scenario:** `planning/backlog/scenario-F055-producer-puts-a-photo-on-what-they-sell.md`
+**Scenario:** `planning/next/scenario-F055-producer-puts-a-photo-on-what-they-sell.md`
 **Status:** Open — **BLOCKED, Gate B (via T120). Not buildable.**
 **Bundle:** b1 (v1 workstream 10)
 **Depends on:** T120 (upload primitive), and the image-picker DLS recipe (review binding note 4)
@@ -17,7 +17,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/backlog/review-F055-F058-self-serve-producer.md`. PROCEED on F055; binding notes 1, 2, 4 apply here.
+- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`. PROCEED on F055; binding notes 1, 2, 4 apply here.
 - [ ] **Gate B — ⛔ NOT CLEAR** via T120's A1. Same deviation record. Do not start until the State tag lands in `policy.md`.
 - [x] **All three `Serves` lines resolve.**
 - [x] **Cited spec last-changed dates.** `product/ui/design-language.md` — `Fri Sep 4 02:16:26 2026 -0700` (**will change when the picker recipe lands — re-check**). `product/systems/item.md` — `Thu Sep 3 17:13:47 2026 -0700`.

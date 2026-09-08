@@ -210,7 +210,7 @@ Verdicts: **PROCEED** (continue to ticket + test), **REVISE** (back to scope), *
 
 > Was previously Both; now Claude Code only. Reasoning: tickets are immediately handed to `build`, and Claude Code owns the repo and git operations. No round-trip back to Cowork.
 
-**Reads:** `planning/next/` + `planning/now/` (approved scenarios only), `review-F{NNN}.md` in the scenario's lane if it exists, `development/tickets/` and `done/` (for next T-number), `product/systems/{relevant}.md` ("Data model implications" only).
+**Reads:** `planning/next/` + `planning/now/` (approved scenarios only), `review-F{NNN}.md` in the scenario's lane if it exists, `development/deviations/T*.md` (the ticket-number ledger, checked first — see `skills/ticket/workflow.md` § Pick the next T-number) plus `development/tickets/` and `done/` (belt-and-braces), `product/systems/{relevant}.md` ("Data model implications" only).
 
 **Writes:** `development/tickets/`.
 

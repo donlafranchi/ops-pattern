@@ -38,4 +38,4 @@
 
 **Neither fix is a rewrite.** The scenario's own audit confirms: the schema imposes no limit, the sell index already iterates rather than assuming one, no switch-context surface exists, no notifications exist. This ticket closes the two reads that hadn't caught up, not a redesign of the Sell entry point.
 
-**Not in scope:** building `/you/create`, the three-way question, or any new route — those are the scenario's own centerpiece surface and are explicitly not part of this ticket batch (PM scope call, 2026-09-07). This ticket only fixes the two existing reads named above. Aggregating messages or activity across a person's several Pages is parked (scenario § Parked) — do not build it here.
+**Not in scope:** building `/you/create` or the two-way "what are you starting?" question (`Both` was dropped 2026-09-07 — it's two answers, not three) — that's the scenario's own centerpiece surface, ticketed separately as **T139**, not part of this ticket. This ticket only fixes the two existing reads named above. Aggregating messages or activity across a person's several Pages is parked (scenario § Parked) — do not build it here.

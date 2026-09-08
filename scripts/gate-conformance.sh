@@ -12,6 +12,20 @@
 #
 # Written 2026-09-07 after the read-firewall was ticked by eye twice in one
 # month. Same idiom as harness-conformance.sh on purpose — one house style.
+#
+# Known gap, found 2026-09-07 (F056): none of the three checks catches an
+# approved scenario sitting in next/ or now/ with an OPEN EXTEND from its own
+# review. Check 1 only asks "does a review file exist"; Check 2 only asks
+# "is the ticket's scenario in an approved lane." A scenario can satisfy both
+# while its review still says EXTEND unmet, and nothing here reads the
+# review's verdict. F056 rode from backlog/ to next/ alongside F055 and F058
+# on 2026-09-04's combined review (PROCEED on F055/F058, EXTEND on F056) and
+# nothing caught the mismatch until a PM re-read on 2026-09-07. Related: Check
+# 3's fnum() takes the FIRST F-number in a combined review's filename
+# (review-F055-F058-*.md -> F055), so a combined review is only ever compared
+# against one of the scenarios it covers — a second scenario stranded in a
+# different lane from the review would not be flagged either. Not fixed here;
+# recorded so the next pass on this script starts from a known list.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 

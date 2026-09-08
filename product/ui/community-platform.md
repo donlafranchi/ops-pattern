@@ -1,13 +1,19 @@
 ---
 id: what-community-platform
-purpose: Home / Explore / You three-page consumer architecture.
+purpose: Home / Explore / You — the three-surface consumer architecture.
 layer: what
 status: active
 ---
 
+> **This is the surfaces document — where things show. Its companion is [`../foundation/primitives.md`](../foundation/primitives.md), which is the model — what things are.** They are deliberately separate: conflating them is how the Sell door became the only create path, a surface decision that silently became a model decision.
+>
+> **Word collision, flagged 2026-09-07 and not yet fixed.** This document calls Home / Explore / You *"pages."* **"Page" is now the ratified name of an entity — the person or people behind a listing.** Everything here that says *page* meaning *screen* should read **surface**. Left in place rather than swept, because a rename touches the whole file and the model ruling is hours old.
+>
+> **Two things below are out of date with the build:** Explore is described as browsing *Items / Members / Locations / Groups* — **it indexes Items only**, and no member, group or venue browse exists. And the three-tab shape here is what launch ships, because the two-tab merge is cut.
+
 # Product: Community Platform (Home, Explore, You)
 
-**One-line description:** The three-page consumer architecture — Home is the locality-aware activity feed, Explore is the searchable catalog, You is your identity and (if you operate in producer capacity) your producer panel.
+**One-line description:** The three-surface consumer architecture — Home is the locality-aware activity feed, Explore is the searchable catalog, You is your identity and (if you operate in producer capacity) your producer panel.
 
 **Hypothesis:** People feel plugged into their community when they open an app and see what's happening near them — not when they have to search. A locality-aware feed (anchored on Items declared by Members, not on Location-scoped messaging) is the surface that turns one-time discovery into a habit. Members operating in producer capacity get the same surface inverted: a place to broadcast to their followers and a panel that shows who's listening. **This explicitly is not an anonymous complaint feed** — see the accountable-participation commitment in [`../foundation/policy.md`](../foundation/policy.md). Locality drives *what shows up*; no surface routes messages by Location.
 
@@ -17,9 +23,9 @@ status: active
 
 ---
 
-## Page roles (architectural decision)
+## Surface roles (architectural decision)
 
-| Page | Job | Mental model | Primary inspiration |
+| Surface | Job | Mental model | Primary inspiration |
 |---|---|---|---|
 | **Home** | Locality-aware activity feed of time-stamped Items | "Open the app to see what's happening this week" | Reddit local subs / Instagram local discovery — without the location-locked complaint surface |
 | **Explore** | Browse the full catalog — search, filter, map across Items / Members / Locations / Groups | "I'm looking for a thing" | Airbnb search results |
@@ -81,7 +87,7 @@ Intent (Ratified 2026-09-04): This replaces "No personalization algorithm at T1,
 - Back navigation restores scroll and filter state.
 - The static rails currently on Home (category grid, Sellers-near-you, markets-near-you) **move to Explore as the empty state** so Home stays feed-first.
 
-**Explore — deferred:** Personalized / algorithmic ranking (b2); saved searches (b2); full-screen map as a primary route (map is a toggle, not a separate page).
+**Explore — deferred:** Personalized / algorithmic ranking (b2); saved searches (b2); full-screen map as a primary route (map is a toggle, not a separate surface).
 
 **Ranking — distance bands, nothing excluded (Ratified 2026-09-03).** Items rank by distance band — nearest first, each successive band lower, online / non-physical Items last. This is a **ranking** rule, not a filter rule: distant Items and Items with no Location are present in the results, ordered below local ones. Intent: proximity should drive order, not presence — at launch density a feed that hides rows reads as a dead platform, and a sort key stays retunable where a filter that never returned the row is invisible and un-undoable. Full entry, the implied-but-unratified "Online" question, and the unresolved polygon-boundary / distance-falloff tension: [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Feed ranking.
 *Retired 2026-09-03:* this bullet previously deferred the opposite — "Items with no Location (do not appear in the proximity index; keyword-search path at b2)." Superseded by the ranking decision above.
@@ -118,7 +124,7 @@ Intent (Ratified 2026-09-04): This replaces "No personalization algorithm at T1,
 
 **You:** Single tab in MVP (everyone is a Member; selling-tool affordances appear conditionally):
 
-- **Locality control** (the same control surfaces on locality-dependent pages too). *Corrected 2026-09-03:* this previously said "change `home_location_id`." That column is dead — never populated, never read (migration `031` header). The live path is the Member's `primary_home` `member_place_interests` row, which drives `members.home_metro_id` via `resolve_home_metro()`. *Superseded 2026-09-03:* a Member's saved **hoods** live on their profile and are edited there — see § Location is entered at creation above. This bullet's label also goes inconsistent under the "hood" copy decision; listed, not yet rewritten.
+- **Locality control** (the same control appears on locality-dependent surfaces too). *Corrected 2026-09-03:* this previously said "change `home_location_id`." That column is dead — never populated, never read (migration `031` header). The live path is the Member's `primary_home` `member_place_interests` row, which drives `members.home_metro_id` via `resolve_home_metro()`. *Superseded 2026-09-03:* a Member's saved **hoods** live on their profile and are edited there — see § Location is entered at creation above. This bullet's label also goes inconsistent under the "hood" copy decision; listed, not yet rewritten.
 - **Followed Members section** (replaces `/following` route).
 - **Multi-Location affinities surface** (b2 — the Member's `lives` / `works` / `plays` / `visits` / `follows` / `liked` Locations, per [`../systems/member.md`](../systems/member.md)).
 - **Recently viewed.**

@@ -1,7 +1,7 @@
 ---
 purpose: Scenario — the moderation answer that arrives with photo upload. A member reports something; the operator can actually remove an image. Extends v1 workstream 9 rather than replacing it, and is a hard precondition for F055.
 layer: how
-status: backlog
+status: next
 ---
 
 # F058: A member reports an image, and the operator can actually take it down
@@ -13,7 +13,7 @@ status: backlog
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) — the ordinary browsing member is who encounters this.
 **Primitive shape:** Person → report → operator. **No new primitive.** A report is a message to the operator, not a declaration and not a vote.
 **Spec contract:** [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 3 (*What v1 gets instead: a general report path*) · [`decision-photo-upload.md`](decision-photo-upload.md) §§ 4 (A2), 5.1 · [`decision-business-identity-impersonation.md`](decision-business-identity-impersonation.md)
-**Status:** backlog — **blocked on a PM operating decision** (§ Assumptions), and **blocking F055**
+**Status:** next — **approved 2026-09-07.** Gate B cleared: both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature.
 
 ## Why this is a dependency, not a companion
 

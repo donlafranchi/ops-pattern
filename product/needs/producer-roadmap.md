@@ -35,7 +35,7 @@ status: active
 - Saved-search surface — members subscribe to filters like "new products in Oak Park" and get notified (b2)
 
 **Won't:**
-- Paid placement or advertising in feed or search results. The awareness feed ranks by locality + interest match, not by payment. Per `principles.md` — the platform never sells attention.
+- Paid placement or advertising in feed or search results — **out of scope by strong default, not by ban** *(revised 2026-09-07)*. The awareness feed ranks by locality + interest match, not by payment. [`../foundation/promises.md`](../foundation/promises.md) § Guideline 1: visibility is not for sale unless a specific mechanic clears the member-benefit gate and the reason is recorded. **No such mechanic is scoped, so this stays a Won't for launch.**
 - Generic global directory listing. Every surface is locality-first. A producer without a Place anchor has no feed presence by design.
 
 ---

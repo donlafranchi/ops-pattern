@@ -15,7 +15,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/backlog/review-F055-F058-self-serve-producer.md`. PROCEED on F057.
+- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`. PROCEED on F057.
 - [x] **Gate B — clear.** `decision-surfaces.md` § *You is not the account page* carries `Intent (Ratified 2026-09-03)`.
 - [x] **All three `Serves` lines resolve.**
 - [x] **Cited spec last-changed dates.** `product/foundation/principles.md` and `product/ui/design-language.md` — `Fri Sep 4 02:16:26 2026 -0700`.

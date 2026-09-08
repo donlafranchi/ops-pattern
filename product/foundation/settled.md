@@ -33,7 +33,7 @@ The one thing we will not do is take value from people without serving them in r
 
 ## 3. Paid visibility is not banned — it has to pass the member-benefit gate
 
-*Revised 2026-09-07. The absolute "nobody ever pays for visibility" was withdrawn; nobody had agreed to it. See [`promises.md`](promises.md).*
+*Revised twice on 2026-09-07. The absolute "nobody ever pays for visibility" was withdrawn — nobody had agreed to it. The material then landed as [`promises.md`](promises.md) § **Guideline 1**: visibility is not for sale **by default**, departed from only with a recorded reason that clears the member-benefit gate. **A guideline, not a ban** — the PM wanted wiggle room, not a prohibition.*
 
 **Rules out:** shipping any paid-placement or advertising mechanic without first showing who it benefits on the member side and what the member gives up. An answer of "it funds the platform" is the product half, not the member half, and fails.
 
@@ -48,6 +48,8 @@ Ranking may use where you are and what you said you like. It may never use what 
 Only what a person wrote about themselves appears as a claim about them.
 
 **Rules out:** star ratings, reviews, reputation scores, trust levels, ownership tiers, impact scores, and any attribute inferred or imported from an outside dataset.
+
+*Applied 2026-09-07: the **"Active in the community" badge is removed.** A badge derived from holding a role is the platform telling people who counts — the same shape as the ownership tier it already refuses. **No replacement.** Activity could be counted from real activity if a signal were ever wanted; none was asked for, and adding one would re-cross this line from the other side.*
 
 ## 6. One word for a person; every role is derived, never stored
 
@@ -83,7 +85,13 @@ An exit-aligned owner and a member-aligned platform want different things, and t
 
 **Rules out:** priced rounds, anything convertible into them, and any revenue plan that only works at venture scale.
 
-## 13. Measure what happens inside the app; the north star is time and money together
+## 13. A Page is who; an Item is what
+
+*Ratified 2026-09-07. Full definition in [`primitives.md`](primitives.md) § Page.*
+
+**Rules out:** creating a Page for a single occasion, a browse surface or map that indexes Pages and listings as if they were the same unit, and a follower graph attached to anything ephemeral.
+
+## 14. Measure what happens inside the app; the north star is time and money together
 
 Discretionary hours and adequacy margin must both rise. Anything outside the app we cannot honestly measure, so we do not claim it.
 

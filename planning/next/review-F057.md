@@ -12,7 +12,7 @@ status: next
 **Bundle:** launch ([`../now/initiative-launch.md`](../now/initiative-launch.md))
 **Verdict:** **PROCEED.**
 
-> **Why this file exists.** The original review was one document covering F055–F058. F057 advanced to `next/` on 2026-09-07 while its three siblings stayed in `backlog/` behind Gate B, and the naming convention puts a review in the same lane as its scenario. This is the F057 portion, extracted verbatim in substance. **The parent review remains authoritative for F055, F056 and F058** and for the shared reasoning — storage substrate, the upload pipeline, the EXIF argument, the reports lineage: [`../backlog/review-F055-F058-self-serve-producer.md`](../backlog/review-F055-F058-self-serve-producer.md).
+> **Why this file exists.** The original review was one document covering F055–F058. F057 advanced to `next/` on 2026-09-07 while its three siblings stayed in `backlog/` behind Gate B, and the naming convention puts a review in the same lane as its scenario. This is the F057 portion, extracted verbatim in substance. **The parent review remains authoritative for F055, F056 and F058** and for the shared reasoning — storage substrate, the upload pipeline, the EXIF argument, the reports lineage: [`../next/review-F055-F058-self-serve-producer.md`](../next/review-F055-F058-self-serve-producer.md).
 
 ## Verdict
 

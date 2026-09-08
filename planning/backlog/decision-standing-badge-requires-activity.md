@@ -1,10 +1,14 @@
 ---
 purpose: Decision awaiting PM ruling — does the standing badge require real activity, or does holding the right role alone earn it? Surfaced as a promise collision by T132's role-vocabulary fix, not new scope.
 layer: how
-status: backlog
+status: done
 ---
 
 # Decision — does "Active in the community" require activity?
+
+> **RULED 2026-09-07: neither. The badge is removed.** Not paused, not redesigned by adding an activity requirement — **gone.** The question this document asks is moot, because the badge itself is refused.
+>
+> **Ratified under promise 3 as a foundation matter, not a scope cut.** A badge derived from a role is the platform telling people who counts — the same shape as ownership tiers and sourced values badges, both already refused. **No replacement is to be built:** no activity counter, no interaction count, no "active since." A real signal *would* come from actual activity if one were ever wanted; none was asked for, and this stays consistent with the standing decision not to put a response counter on a person's own work.
 
 **Raised:** 2026-09-07, during T132 (founder membership role branches by Group kind). Not new scope — T132 fixed a bug (every Group founder was incorrectly assigned `role='owner'`); this decision is about a pre-existing badge whose correct behavior T132's fix exposed for the first time.
 

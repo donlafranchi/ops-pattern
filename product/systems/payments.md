@@ -54,7 +54,7 @@ Every choice in this spec is downstream of that commitment. Custody, rails, fees
 **Rules out (current scope; not categorical refusals — the single "Never" is the extraction-vs-circulation commitment at §1):**
 
 - Platform acting as the deposit bank for Member balances — that role lives at the chartered partner. The platform is the technology layer, not a deposit-taking institution. This refuses the deposit-bank *role*; it does not refuse the platform-as-operating-entity holding funds for its own operations or custodying for specific mission-aligned use cases (see §1 Intent).
-- Extractive fee shapes on Member commerce — pay-to-be-visible, pay-to-rank, tiering that excludes lower-volume Members, volume-punishing percentages, or any fee whose revenue compounds out to external shareholders. See §9.
+- Extractive fee shapes on Member commerce — tiering that excludes lower-volume Members, volume-punishing percentages, or any fee whose revenue compounds out to external shareholders. See §9. **Pay-to-be-visible and pay-to-rank moved 2026-09-07 from refusal to strong default** — [`../foundation/promises.md`](../foundation/promises.md) § Guideline 1: visibility is not for sale, departed from only with a recorded reason that clears the member-benefit gate. Not a ban.
 - Hidden routing of money to undisclosed recipients — every recipient is identified clearly to the buyer before the transaction closes.
   **Intent:** Refuses opacity, not complexity — multi-party splits, escrow stages, and partner handoffs are fine as long as the buyer sees the ultimate destination before clearing. The failure mode is ad-network / hidden-fee opacity where money routes through unnamed intermediaries. Disclosure is what keeps the buyer's wealth-circulation choice meaningful.
 - Payments to recipients who fail the wealth-circulation rubric without explicit Member knowledge — the platform can't refuse a Member's choice, but it always surfaces who the money goes to.
@@ -270,9 +270,9 @@ What makes the platform structurally different isn't the absence of fees — it'
 
 **What's explicitly excluded from the platform's revenue model:**
 
-- Extractive transaction-fee shapes on Member commerce (per §9 test) — pay-to-rank, pay-to-be-visible, exclusionary tiering, fee revenue compounding to external shareholders.
+- Extractive transaction-fee shapes on Member commerce (per §9 test) — exclusionary tiering, fee revenue compounding to external shareholders. *(Pay-to-rank and pay-to-be-visible are now Guideline 1, not exclusions — see below.)*
 - Fees on closed-loop balance funding, holding, or redemption (the partner's cost is the partner's cost, but the platform doesn't mark it up).
-- Visibility fees, ranking fees, promoted listings — categorically excluded (fail §9 prong 1: gates access). The revenue refusals and their rationale are owned by [`../foundation/monetization.md`](../foundation/monetization.md); the categorical "Never" by [`../foundation/principles.md`](../foundation/principles.md).
+- Visibility fees, ranking fees, promoted listings — **strong default against, not categorically excluded** *(revised 2026-09-07; the categorical version was withdrawn as an absolute nobody had agreed to)*. Governed by [`../foundation/promises.md`](../foundation/promises.md) § Guideline 1: not for sale by default; a specific mechanic may depart with a recorded reason that clears the member-benefit gate. Fee *shape* rationale still owned by [`../foundation/monetization.md`](../foundation/monetization.md).
 - Data sales — categorically excluded (fail §9 prong 5: revenue must route back to communities, not external buyers). Rationale in [`../foundation/monetization.md`](../foundation/monetization.md).
 
 ---

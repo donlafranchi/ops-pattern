@@ -1,7 +1,7 @@
 ---
 purpose: Review — F055–F058, the self-serve producer journey and photo upload. Verdict PROCEED with five binding notes and one EXTEND. The gate F044 and F045 both skipped.
 layer: how
-status: backlog
+status: next
 ---
 
 # Review — F055–F058: the self-serve producer journey

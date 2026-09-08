@@ -166,7 +166,7 @@ Workstream 4 is two halves: **(a)** fold Explore into Home and retire the tab; *
 - **A separate "become a producer" toggle or opt-in row.** Creating a shop **is** the act. A second switch in front of it is a step that teaches nothing.
 - **`ownership_tier`, ownership badges, the extractiveness ramp.** [`audit-vendor-prior-art.md`](../backlog/audit-vendor-prior-art.md) § 3.1 — the previous thesis, deliberately left.
 - **Producer analytics.** `producer-tools.md` § Growth, b2.
-- **Member profile editing.** Gap, recorded in [F056](../backlog/scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md).
+- **Member profile editing.** Gap, recorded in [F056](../next/scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md).
 - **Drafts and responses sections.** Part of the full You definition; not v1.
 
 ## Capabilities unlocked

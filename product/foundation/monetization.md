@@ -44,8 +44,7 @@ The platform needs several of these operating from early on. Reliance on any sin
 - **Engagement-shaped ad injection.** Ads optimized for click-through, dwell time, behavioral targeting, or attention-capture.
 - **Venture capital funding.** VC alignment with exit is misaligned with the platform's purpose; VC pressure on growth metrics creates structural pressure toward engagement-optimization failure modes. Revenue must come from product use.
 - **Data sales or licensing.** Member data is not a product.
-- **Charging the small operator before they succeed.** Any vendor-fee structure that taxes a struggling operator violates the mandate.
-- **Subscriptions disguised as gates** that prevent core community participation. Members must be able to participate meaningfully without paying.
+- **Pricing out the small or the unsuccessful.** People can participate meaningfully without paying; **fees follow success and never gate entry.** A small creator pays meaningfully only once they have found success. *(Merged 2026-09-07 from two entries that said the same thing from two directions — "charging the small operator before they succeed" and "subscriptions disguised as gates." Now [`promises.md`](promises.md) § Guideline 2 — a strong default with a recorded-reason escape, not a refusal.)*
 - **Over-reliance on a single revenue line.** Structural vulnerability; multi-source diversification is the discipline. Any plan that puts > 50–60% of revenue through a single line should trigger re-evaluation.
 
 ---
@@ -61,3 +60,31 @@ The platform needs several of these operating from early on. Reliance on any sin
 - What threshold of single-source-concentration triggers the multi-source-discipline re-evaluation?
 
 These questions must be answered before launch. The principles in [`principles.md`](principles.md) do not specify the answer; they constrain it.
+
+---
+
+## Non-equity revenue paths — reworked 2026-09-07
+
+**Premise, now firm: there is no equity round.** No outside shareholders (see [`promises.md`](promises.md) § Candidate B). Revenue has to carry the platform from early on, and the PM's steer is that the model is **closer to a union than a company** — it funds itself from the people who belong to it and earns that by delivering them something they could not get alone.
+
+**Both guidelines apply to every line below.** Visibility is not for sale by default (Guideline 1), and **fees follow success and never gate entry** (Guideline 2) — which rules out any line that charges before someone has earned. That second constraint is the binding one: it removes most of the obvious early revenue and is the reason this is hard.
+
+### Lines that fit the union shape
+
+- **Member dues, voluntary and tiered.** The union's own model. Paid by people who value the thing, not extracted from people who need it. **Passes both guidelines** — nobody is gated, nobody pays before benefiting.
+- **Success-based producer fees.** A share above a floor, or a flat fee once a producer clears a revenue threshold. **This is Guideline 2 stated as a business model** rather than as a refusal, which is what makes it the most defensible line on the list.
+- **Services to members that are worth paying for.** Bookkeeping, insurance pooling, legal templates, shared kitchen or equipment access, bulk purchasing. **The union's actual product.** Members pay because it is cheaper together, and the platform's cut is the coordination it performed.
+- **Collective bargaining as a service.** Negotiating rates with payment processors, suppliers, insurers on behalf of the membership, and keeping a defined share of what the negotiation saves. **Revenue that only exists because the members are organized** — which is the purest form of the model.
+- **Community and institutional sponsorship.** A local credit union, a municipality, a foundation funding a place's presence on the platform. **Constrained by Guideline 1** — sponsorship may not buy ranking, and a sponsor who wants placement is refused rather than accommodated.
+
+### Lines that do not fit, and why
+
+- **Anything charged at signup or before a first sale.** Fails Guideline 2 outright.
+- **Paid placement as a primary line.** Available only as a recorded departure from Guideline 1, which makes it a poor thing to build a plan on.
+- **Data sales or licensing.** Fails promise 3.
+- **Any single line above 50–60% of revenue.** The existing diversification discipline, unchanged, and it bites harder without equity as a buffer.
+
+### The honest problem this creates
+
+**Every line that passes Guideline 2 pays late.** Dues need members who already value the platform, success fees need producers who have already succeeded, member services need enough members to be worth negotiating for. **The model is sound at scale and thin at the beginning**, and no equity round means the beginning has to be funded some other way — grants, revenue from adjacent work, or a long runway. **Naming that now rather than discovering it in month four.**
+

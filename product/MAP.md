@@ -53,7 +53,7 @@ Who the platform serves, what they want, how they move through it.
 
 ## Surfaces — the consumer product
 
-- **[`community-platform.md`](ui/community-platform.md)** — Home / Explore / You three-page consumer architecture; the surfaces a Member sees.
+- **[`community-platform.md`](ui/community-platform.md)** — Home / Explore / You — the three-surface consumer architecture; the surfaces a Member sees.
 
 ## UI + operations + process
 

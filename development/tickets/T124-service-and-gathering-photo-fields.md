@@ -1,6 +1,6 @@
 # T124: Service and gathering composers get the same photo field
 
-**Scenario:** `planning/backlog/scenario-F055-producer-puts-a-photo-on-what-they-sell.md`
+**Scenario:** `planning/next/scenario-F055-producer-puts-a-photo-on-what-they-sell.md`
 **Status:** Open — **BLOCKED, Gate B (via T120).**
 **Bundle:** b1 (v1 workstream 10)
 **Depends on:** T121
@@ -12,7 +12,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/backlog/review-F055-F058-self-serve-producer.md`.
+- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`.
 - [ ] **Gate B — ⛔ NOT CLEAR** via T120's A1.
 - [x] **All three `Serves` lines resolve.**
 - [x] **Cited spec last-changed date.** `product/systems/item.md` — `Thu Sep 3 17:13:47 2026 -0700`.

@@ -1,6 +1,6 @@
 # T126: Edit shop — image, description, and the values declaration
 
-**Scenario:** `planning/backlog/scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md`
+**Scenario:** `planning/next/scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md`
 **Status:** Open — **BLOCKED, Gate B (two absolutes) and the F056 EXTEND.**
 **Bundle:** b1 (v1 workstreams 5 + 10)
 **Depends on:** T120 (upload primitive), T125 (the shop row this hangs off)
@@ -13,7 +13,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/backlog/review-F055-F058-self-serve-producer.md`. **Verdict on F056 is EXTEND, not PROCEED** — see below.
+- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`. **Verdict on F056 is EXTEND, not PROCEED** — see below.
 - [ ] **Gate B — ⛔ NOT CLEAR. Two absolutes.**
   1. **A1** (EXIF/GPS), via the shared upload primitive. `decision-photo-upload.md` § 4.
   2. **The never-sourced constraint:** *"A values declaration is written by the Member it describes. The platform never sources it, never infers it, and never attaches it from voter registration records, donation databases, purchased consumer files, inferred affinity, or any other external dataset."* `decision-producer-values-declaration.md` § 2 — flagged there since 2026-09-04 as requiring `weigh` before any ticket encodes the field, and it has not run. **This ticket is that ticket.**

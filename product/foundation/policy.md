@@ -132,6 +132,40 @@ The specific UX (where the "Wonder how to fix this" CTA appears, what proportion
 
 The b1 substrate respects all three commitments by the absence of any contrary surface. The DM substrate (`member_threads`, `member_thread_participants`, `member_messages` per `member.md`) is constrained at b1 to same-Community only, and threads carry no Location reference. The Item response surface (per `item.md`) and the Member follow surface (per `member.md`) are the only Member-to-Member content paths at b1; both are item-or-group scoped. No Location-scoped feed exists at b1. The push-back-on-complaint-only mechanic is reserved at b1 (the Item response `response_kind` enum can be extended at b2 with a `downvote` or `solution_paired` flag, or a parallel mechanic introduced; this section reserves the design space without locking in implementation).
 
+## Uploaded images — two ratified absolutes
+
+*Ratified 2026-09-07 by the PM directly, through `weigh`. These are the two Gate B absolutes that were blocking the photo and Page-editor work.*
+
+### An uploaded image is stripped of its embedded metadata before it is stored
+
+**The platform never stores or serves an image carrying the GPS coordinates of the person who took it.**
+
+> **Intent (Ratified 2026-09-07):** Three facts that are individually harmless combine into a doxxing vector. Phone photos carry GPS. **Producers frequently work from home** — a home baker, a candlemaker, someone sewing in a spare room. And Item locations are already published. An image taken in the kitchen and uploaded to a public listing therefore publishes the maker's home address in a field nobody looks at and nobody consented to.
+>
+> **The same reasoning is already ratified twice in this project, in the same shape.** The locality-versus-address separation exists so a safety-conscious owner can claim a place without exposing a street address, with stalking named as the reason. And the findability rule ratified the same evening — a person who has published nothing is not discoverable — rests on the identical argument. **This is the third application of one commitment, not a new one.**
+>
+> Enforcement is structural, not procedural: the client re-encodes, and the storage bucket accepts one image format so the re-encode is the only way in. **The residual — a deliberately crafted file can still carry a metadata chunk — is recorded rather than claimed away.**
+
+### Nothing is published that cannot be taken down
+
+**A takedown path exists before the first upload is accepted.**
+
+> **Intent (Ratified 2026-09-07) — operational, not ethical, and deliberately so.** **Serving an image with no way to remove it is an unbounded liability with no recovery path.** Whatever arrives — a mistake, a wrong file, something that should never have been public — the platform must be able to make it stop. That is an operations argument and it is recorded as one.
+>
+> **The ethical framing was offered and explicitly rejected.** This is not a promise to anyone and must not be presented as one. It is a constraint the platform accepts about its own capabilities.
+
+### The values-statement sourcing constraint — dropped as moot, not ratified
+
+A third absolute sat on this gate: *a values statement is never sourced or inferred.* **It is dropped rather than ratified, because the feature it governed was cut on 2026-09-07.** Nothing encodes it, so there is nothing to gate. **The constraint itself survives in the promises doc** — if a values statement ever ships, it is self-declared only, and no schema added meanwhile may carry a source or import column.
+
+## The report path — parked policy, recorded as such
+
+> **Intent (Ratified 2026-09-07):** Reports **write to a table and nothing else.** No response commitment, no service-level promise, no moderation queue, no operator destination named. The path exists because there is otherwise no channel at all for a member to tell the operator anything — a gap present at the first user, not the thousandth.
+>
+> **The binding constraint is on the copy.** The form must not say or imply that anyone will look. No *"we'll look into it,"* no *"thanks, we're on it,"* no acknowledgement screen that implies review. **A member who reports something gets no acknowledgement and no visible outcome**, and the interface must be honest about that rather than reassuring.
+>
+> **The takedown handler still ships**, on the operational grounds above. That is a constraint on the platform, not a promise to the reporter, and the two must not be conflated in copy or in spec.
+
 ## Decisions encoded here
 
 This file is the live home for the following architectural decision. See [`../../playbooks/PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) for the cross-cutting register; this entire document *is* the long-form ratification of the policy-posture decision below.

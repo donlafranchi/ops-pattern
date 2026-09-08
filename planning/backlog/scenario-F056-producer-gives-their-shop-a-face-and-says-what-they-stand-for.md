@@ -13,7 +13,7 @@ status: backlog
 **Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → Group(kind='business') with an image and a self-authored values statement. **No shell entity** — the values statement is a column on `group_businesses`, a child of a Group of people, not a property of a corporate record.
 **Spec contract:** [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) §§ 2.1, 2.3 (tagline + listing health) · [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) §§ 2, 4 · [`decision-photo-upload.md`](decision-photo-upload.md) §§ 3, 6 · [`groups.md`](../../product/systems/groups.md) § kind='business' · [`bundle-1.md`](../now/bundle-1.md) § Positioning
-**Status:** backlog — **Gate B blocks ticketing until `weigh` lands the never-sourced absolute** ([`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 2) **and A1** ([`decision-photo-upload.md`](decision-photo-upload.md) § 4)
+**Status:** backlog — **moved back from `next/` 2026-09-07, same day it rode there.** Gate B is clear (both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature) but Gate A is not: the review's EXTEND — `groups.md` owes a § Editing an active business Group — is still open. It advanced alongside F055 and F058 by mistake, not by ruling; F055 and F058 had no EXTEND and correctly stay in `next/`. Returns to `next/` once the Groups spec section lands.
 
 ## The Person
 

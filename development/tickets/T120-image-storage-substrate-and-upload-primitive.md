@@ -1,6 +1,6 @@
 # T120: Image storage substrate and the upload primitive
 
-**Scenario:** `planning/backlog/scenario-F055-producer-puts-a-photo-on-what-they-sell.md` — **substrate portion.** No user-visible surface ships in this ticket.
+**Scenario:** `planning/next/scenario-F055-producer-puts-a-photo-on-what-they-sell.md` — **substrate portion.** No user-visible surface ships in this ticket.
 **Status:** Open — **BLOCKED, Gate B. Not buildable.**
 **Bundle:** b1 (v1 workstream 10)
 **Depends on:** nothing
@@ -13,7 +13,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/backlog/review-F055-F058-self-serve-producer.md`. Verdict PROCEED on F055 with five binding notes; notes 1, 2 and 3 are binding on *this* ticket.
+- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`. Verdict PROCEED on F055 with five binding notes; notes 1, 2 and 3 are binding on *this* ticket.
 - [ ] **Gate B — ratified absolutes. ⛔ NOT CLEAR. THIS TICKET IS NOT BUILDABLE.**
   This ticket encodes **A1** in code:
   > *"An uploaded image is stripped of its embedded metadata before it is stored. The platform never stores or serves an image carrying the GPS coordinates of the person who took it."*

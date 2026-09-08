@@ -1,6 +1,6 @@
 # T123: A member can tell the operator something
 
-**Scenario:** `planning/backlog/scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md` — the report half.
+**Scenario:** `planning/next/scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md` — the report half.
 **Status:** Open — **BLOCKED on a PM operating decision.** Not a Gate B block.
 **Bundle:** b1 (v1 workstream 9)
 **Depends on:** nothing in code
@@ -21,7 +21,7 @@
 
 ## Checklist 2 — writing tickets
 
-- [x] **Gate C — review present.** `planning/backlog/review-F055-F058-self-serve-producer.md`. PROCEED on F058; **binding note 5 applies to this ticket specifically.**
+- [x] **Gate C — review present.** `planning/next/review-F055-F058-self-serve-producer.md`. PROCEED on F058; **binding note 5 applies to this ticket specifically.**
 - [x] **Gate B — clear.** No unratified absolute is encoded here. The shape (free text, no public counter, routes to a person) is already ratified in `decision-producer-values-declaration.md` § 3.
 - [x] **All three `Serves` lines resolve.**
 - [x] **Cited spec last-changed dates.** `product/foundation/policy.md` — `Tue Sep 1 08:27:03 2026 -0700`.
