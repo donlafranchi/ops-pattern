@@ -1045,3 +1045,29 @@ M3 accessibility review: (1) suggestion buttons and the mode-toggle links were u
 ### No other deviations
 
 `src/app/you/sell/actions.ts`'s `sellCreateLocationAction` input type change is a compile-time-enforced discriminated union (no caller can omit both address and neighbourhood) plus a runtime refusal for any caller that bypasses the type — matching the acceptance criterion that the deleted constant is "deleted, not made conditional." `sellListNeighborhoodsAction` added alongside it, unauthenticated (read-only reference data). `AddProductButton.tsx`, `AddServiceButton.tsx`, and `SellCta.tsx` needed no changes beyond type-checking — all three already pass `createLocation`/the action straight through without reshaping its input. All three composers' existing test suites were extended (not just type-checked) with a real address-selection flow through the new drawer fields; `SellWalkthrough.test.tsx`'s one pre-existing test that exercised the old label-only save was updated to the new required flow rather than left to silently pass against stale behavior.
+
+---
+
+## 2026-09-08 — T143 (where a Page appears is resolved, not stored)
+
+### T143: fixed forward into T142 — the resolved address text was never persisted
+
+**What:** `sellCreateLocationAction` (T142) computed `resolvedAddressText` from the geocoder for the UI's confirmation line and then discarded it — nothing wrote it to the `locations` row. T143 needs this text to render "where you are now" for an address-mode Location, and it didn't exist anywhere to read.
+
+**Why:** A gap in T142, not a new requirement — the acceptance criterion T142 shipped ("the resolved address... is exposed as text beside the map thumbnail") was about the composer's confirmation UI in the moment of creation, and nobody carried that same text forward into storage for later read. Fixed by writing it into `locations.description` — an existing, nullable, currently-unused column — on the address branch only (neighbourhood-mode rows get `description: null`, matching that mode having no street address to show).
+
+**Disposition:** accepted-as-is (fixed in the same commit, not deferred).
+**Type:** A (upstream authoring error — T142 should have closed this loop itself; it's an omission, not an open design question).
+
+### T143: the resolver uses a second credential path inside an otherwise single-path function
+
+**What:** `resolveShop()` is Supabase-client-shaped throughout (session-bound, RLS-respecting) except for the one line that now calls `resolvePagePlacements`, which is pg-pool-shaped (the action-layer's `withTransaction`, RLS-bypassing).
+
+**Why:** Extracting lng/lat from a `geography(Point,4326)` column needs raw `st_x`/`st_y` SQL, which isn't exposed through PostgREST's `.select()` — the same reason `sellActivateAction`'s place-path resolution and `resolveLocationCoords` (service composer) already reach for the pg pool instead of the Supabase client. The ticket's own scope ("No schema, no migration, no cache") ruled out the alternative — a SQL-side RPC mirroring `place_for_coords`, which would have kept `resolve-shop.ts` single-path but requires a new Postgres function (DDL, a migration). No actual access-control change results: `locations` already carries a public-read RLS policy, so the pg pool bypassing RLS here reaches data that was already public-read by design.
+
+**Disposition:** accepted-as-is.
+**Type:** n/a — a scope-driven tradeoff named in the ticket's own notes ("Do not simplify... that shortcut is exactly what binding notes 9 and 10 exist to prevent"), not a divergence from it.
+
+### No other deviations
+
+The resolver matches the ticket exactly otherwise: a single list-returning function, one placement today (the anchor), the appearance precedence branch present and structurally unreachable (not deleted, not commented out), no column/cache/materialized view storing position, the return-type contract asserted via `@ts-expect-error` (verified to be a genuine type error via `tsc --noEmit`, not an unused suppression). `resolveShop`'s existing test suite was extended (the one pre-existing full-object `.toEqual` assertion updated for the new `placements` field, plus a new test asserting the resolver's output flows through) rather than left to pass against a now-incomplete return shape.
