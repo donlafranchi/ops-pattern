@@ -30,7 +30,7 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 | Who | Owns | Never |
 |---|---|---|
 | Don | rulings, judgment, domain knowledge — may open Issues in `socialus-web` directly | reads more than STATUS + ROADMAP unless he asks |
-| Cowork — `plan` `review` `sync` | this repo: scenarios, STATUS, ROADMAP, HANDOFF, DECISIONS; may open Issues in `socialus-web` | commits code to `socialus-web` |
+| Cowork — `plan` `review` `sync` `trim` | this repo: scenarios, STATUS, ROADMAP, HANDOFF, DECISIONS, `product/`; may open Issues in `socialus-web` | commits code to `socialus-web`; hand-edits `README.md` |
 | Code — `ticket` `build` | `socialus-web`: architecture notes, issues, code, PRs | writes to this repo |
 
 Code is the architect. Any ticket touching schema, RLS, or routes starts with a ≤20-line architecture note in the Issue. Cowork reviews it in a comment. Don sees it only if they disagree.

@@ -16,7 +16,8 @@ Read before proposing any change to structure or process. Each lesson names the 
 10. **Nothing put work in front of Don.** Seventeen commits between pushes; five days of UI landed wrong at once. Push after every merge; a preview link beats an audit.
 11. **What agents need is grep-able; what Don needs is one screen.** STATUS.md worked from day one because it is overwritten and short. Everything that appended, grew.
 12. **Retired work is prior art, not a mistake.** The vendor model's analytics answered a question that came back in September. Git keeps it; the tree doesn't have to. — *writing-docs 2026-09-08*
-13. **The principle arrived before the structure.** "Code is truth, three durable documents, everything else is a liability" was written 2026-09-07. This revamp is that principle applied, not a new idea.
+13. **A pattern done by hand once is a pattern done differently next time.** The 2026-09-09 session classified work against PIPELINE.md, split an oversized scenario, folded reviews into the scenario's own frontmatter, trimmed `product/` to why-only, and regenerated README.md — all improvised, none written into a skill. The next session had no way to repeat any of it. — *skills sweep 2026-09-09*
+14. **The principle arrived before the structure.** "Code is truth, three durable documents, everything else is a liability" was written 2026-09-07. This revamp is that principle applied, not a new idea.
 
 ## Guardrails for the next change
 
