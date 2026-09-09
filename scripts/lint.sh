@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # Fails on: missing `status` in planning/, any root .md outside the eight, any
-# link to a path that doesn't exist. Run from the repo root. STATUS.md is
-# exempt from the link check — it is overwritten by hand each session and
-# not edited by this pass; see LESSONS.md.
+# link to a path that doesn't exist. Run from the repo root.
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -32,8 +30,8 @@ for f in *.md; do
   esac
 done
 
-# 3. Every relative markdown link in root docs (except STATUS.md) and
-#    planning/*.md resolves to a file that exists.
+# 3. Every relative markdown link in root docs and planning/*.md resolves
+#    to a file that exists.
 check_links() {
   local f="$1"
   local dir
@@ -52,7 +50,7 @@ check_links() {
   done
 }
 
-for f in CLAUDE.md RULES.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md planning/*.md; do
+for f in CLAUDE.md RULES.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md planning/*.md; do
   [ -f "$f" ] || continue
   out="$(check_links "$f")"
   if [ -n "$out" ]; then

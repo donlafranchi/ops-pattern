@@ -6,7 +6,7 @@
 >
 > **Nothing is published.** Every user-facing string in the repo is a draft; what gets published is the PM's call.
 >
-> **One of three durable documents**, with [`decisions.md`](product/foundation/decisions.md) (what's ruled out, and why) and [`nouns.md`](product/foundation/nouns.md) (the nouns). Everything else has a lifecycle or is a liability. **New rulings** land in [`planning/DECISIONS.md`](planning/DECISIONS.md); **build detail** in [`BUILD-LOG.md`](BUILD-LOG.md).
+> **One of three durable documents**, with [`DECISIONS.md`](DECISIONS.md) (what's ruled out, and why) and [`nouns.md`](product/foundation/nouns.md) (the nouns). Everything else has a lifecycle or is a liability. **New rulings** land in [`DECISIONS.md`](DECISIONS.md); **build detail** lives as Issues and PRs in `socialus-web`.
 
 ---
 
@@ -19,7 +19,7 @@ SocialUs is a local discovery app — buy, sell, trade, and gather — launching
 ## In flight
 
 - **A Page worth showing people** — the current stretch, judged by Don creating his own Page: a real address *or* a neighbourhood, one category, a photo, generated art on every Page without one. **In build, seven tickets, nothing blocking.**
-- **The launch plan was rebuilt 2026-09-08** after a day of decisions superseded it. **~26.5 days of work against ~37 available — it fits, with about 28% slack.** First on the cut list is bulletins. [`planning/now/initiative-launch.md`](planning/now/initiative-launch.md).
+- **The launch plan was rebuilt 2026-09-08** after a day of decisions superseded it. **~26.5 days of work against ~37 available — it fits, with about 28% slack.** First on the cut list is bulletins. [`ROADMAP.md`](ROADMAP.md).
 - **Fixing the dead producer page** — approved, ticketed, buildable today. Create nothing, reuse one query, remove six dead reads. *Blocked on nothing.*
 - **The producer entry point** — `/you/sell` forks into `/you/create`, letting people host without opening a shop. Reviewed and ticketed.
 - **The report path and image takedown** — approved. **No photograph is accepted in production until this is live**, so it runs alongside the Page work rather than after it.
@@ -35,10 +35,10 @@ SocialUs is a local discovery app — buy, sell, trade, and gather — launching
 ## Waiting on Don
 
 - **The Page composer is now six steps** — name, address, category, photo, about, review — against a launch requirement of *minimal fumbling*. Three are new and each earns its place, but nobody has judged them as a set. **Not blocking: the first tickets are substrate.** Options in the F061 review.
-- **The 84 cleanup rulings** in [`planning/CLEANUP.md`](planning/CLEANUP.md), and the unsure list from the doc consolidation. Neither blocks build.
+- **The 84 cleanup rulings** and the unsure list from the doc consolidation — folded into this revamp; nothing outstanding blocks build.
 - **Whether "members share in what they help build" means profit or ownership.** It decides whether that candidate competes with the surplus promise for the same money or draws on something else entirely — the single clarification that most changes the shape of the promise set.
 - **Promise 1 — what "surplus goes back to the community" actually means.** Who decides the number, over what period, and what returning it looks like. Three options in [`product/foundation/promises.md`](product/foundation/promises.md); **the promise stays out of user-facing copy until this is picked.**
-- **Two contradictions and one never-ratified claim left** in [`product/foundation/decisions.md`](product/foundation/decisions.md) — the creator-framing conflict, the top-anchored search row, and the flourishing thresholds.
+- **Two contradictions and one never-ratified claim left** in [`DECISIONS.md`](DECISIONS.md) — the creator-framing conflict, the top-anchored search row, and the flourishing thresholds.
 - **Whether the follows simplification and bulletins are scheduled.** Both are written and reviewed, deliberately sitting in the draft lane. **3.75 days for the pair**; bulletins is first on the cut list.
 
 ## Next — the four fortnights, in one line each
@@ -48,4 +48,4 @@ SocialUs is a local discovery app — buy, sell, trade, and gather — launching
 3. **People can respond, and producers can reach them** — RSVP, follows, bulletins.
 4. **The product explains itself** — onboarding, empty states, and whatever the dogfood loop surfaces.
 
-Detail, days and the cut list: [`planning/now/initiative-launch.md`](planning/now/initiative-launch.md).
+Detail, days and the cut list: [`ROADMAP.md`](ROADMAP.md).

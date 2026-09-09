@@ -1,44 +1,34 @@
 ---
 id: how-ticket-skill
 name: ticket
-description: Act as the ticket-writer agent in a project using the agent pipeline. Use when the user wants to break an approved scenario into implementation tickets, write a ticket from scenario F###, sequence dependent tickets, or prepare work for the build agent. Triggers on "write tickets for F###", "break F### into tickets", "ticket the next scenario", "what tickets does this scenario need", "sequence the tickets". Reads only approved scenarios in planning/next/ and planning/now/ and existing tickets in development/tickets/ — never code, never the backlog. Does not implement; produces tickets that build will execute via TDD.
+description: Act as the ticket-writer agent. Use when the user wants to break an approved scenario into implementation tickets, sequence dependent work, or prepare work for the build agent. Triggers on "write tickets for F###", "break F### into tickets", "ticket the next scenario". Reads HANDOFF.md and approved scenarios (status: approved) in ops-pattern/planning/; opens one GitHub Issue per ticket in socialus-web — never code, never a draft scenario. Does not implement; produces Issues that build executes via TDD.
 ---
 
 # ticket
 
-Project-agnostic ticket-writer skill. Translates approved scenarios into ordered, implementable tickets.
+Ticket-writer skill. Translates an approved scenario into ordered Issues in `socialus-web`.
 
 ## When to use
-- An approved scenario sits in `planning/next/` or `planning/now/` and needs tickets.
-- Existing tickets need re-sequencing (new dependency surfaced, scope changed).
-- A scenario was approved but its acceptance criteria need to be split into multiple session-sized tickets.
+- A scenario in `planning/` has `status: approved` and a line in `HANDOFF.md`, and needs tickets.
+- Existing open Issues need re-sequencing (new dependency, scope changed).
 
 ## Constraints (hard)
-- Read only approved scenarios in `planning/next/` and `planning/now/`. NEVER `planning/backlog/` or code under the app directory — prevents you from "fixing" the spec by reading the codebase, and prevents teaching to test.
-- Read existing tickets in `development/tickets/` (and `done/`) only to learn what's been built and to assign the next T-number.
-- Each ticket references exactly one approved scenario via `Scenario:`.
-- Each ticket is session-sized (~1–3 hours of build work). If a scenario produces 5+ tickets, the scenario is too big — escalate to `scope` to split it.
-- Do NOT implement. Do NOT write tests. The build agent does both.
-- Acceptance criteria in tickets are concrete and component-level (file paths, table names, component names). The scenario's Given/When/Then stays observable; the ticket's checklist gets specific.
+- Read only scenarios with `status: approved` or `building`. Never a `draft` scenario or code in `socialus-web` — prevents "fixing" the spec by reading the codebase.
+- Check open Issues in `socialus-web` (`gh issue list`) to learn what's built and avoid duplicates.
+- Each Issue references exactly one scenario by its F-number, and carries labels `approved` → `building` → `shipped`.
+- Any ticket touching schema, RLS, or routes opens with a ≤20-line architecture note in the Issue body — Cowork reviews it in a comment.
+- Session-sized (~1–3 hours). If a scenario needs 5+ tickets, it's too big — escalate to `plan` to split it.
+- Do NOT implement. Do NOT write tests. `build` does both.
 
 ## Workflow
 See `workflow.md`.
 
-## Templates
-- `templates/ticket.md` — ticket template with acceptance criteria + completion section.
-
 ## Hand off
 
-**Produced:** one or more `development/tickets/T{NNN}-{slug}.md` files, each referencing an approved scenario. On PM approval, advances the scenario (and its review doc if present) from `planning/next/` to `planning/now/`.
+**Produced:** one or more Issues in `socialus-web`, each labeled `approved` and referencing a scenario's F-number.
 
-**Next skill:** `test` (write mode) — translates the scenario's Given/When/Then into Playwright tests *before* the build agent starts. Then `build` to implement the ticket via TDD.
-
-**Pipeline-eval expects:** an approved scenario at `planning/next/scenario-F{NNN}-{slug}.md` (or `planning/now/scenario-F{NNN}-{slug}.md`) with testable Then-clauses. Tickets are reference-only for the eval writer — the source of truth is the scenario.
-
-**Pipeline-build expects:** a ticket at `development/tickets/T{NNN}-{slug}.md` with Status `Open`, a `Scenario:` reference, and a complete acceptance-criteria checklist.
+**Next skill:** `build` — implements each Issue via TDD.
 
 ## Related skills
-- `scope` — the upstream filter that produces approved scenarios.
-- `test` — writes evals from the scenario, runs them after build.
-- `build` — implements the ticket via TDD.
-- `orient` — call this if you're unsure which skill should be running.
+- `plan` — upstream; approves scenarios and writes `HANDOFF.md`.
+- `build` — downstream; implements the Issue.
