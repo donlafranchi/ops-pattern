@@ -12,6 +12,50 @@ status: active
 
 ---
 
+## 2026-09-09 — The Page is the message board, and bulletins is increment one
+
+**Decision.** The message-board proposal is **ratified as written**. The table is **`page_posts`, not `bulletins`**. The three first-migration columns land in the **first** migration, not a later one: the nullable **`parent_post_id`** self-reference, a real **`author_member_id`**, and **`kind`** (`'bulletin'` only at launch). Responses go to `page_post_responses` with a nullable `option_id`.
+
+**Intent — the PM's words.** *"I never want to have to do a migration and a rewrite."* The three columns cost nothing today and are the difference between the board being an **increment** and being a **rewrite**. `parent_post_id` is the load-bearing one: a reply is a post with a parent, so adding it later is a migration *plus* a rewrite of every read path that assumed a flat list. `author_member_id` keeps the schema from encoding *the author is the owner*, so member-posting later relaxes a check rather than adding a column. `kind` avoids a hand-applied CHECK-constraint change on production.
+
+**What this does not authorise.** **Only the shape is ratified, not the schedule.** Bulletins remains where the 2026-09-08 scope cut left it — in scope, audience **members** not followers, 2 days, unticketed. Replies and member-authored posts stay behind their own gates: **increment two needs no new decision, increment three needs the operator concept**, which does not exist anywhere in the code.
+
+**Touches.** [`backlog/decision-page-as-message-board.md`](backlog/decision-page-as-message-board.md) (marked ruled) · the bulletins scenario [F066] and its review, both held in `backlog/` · `now/initiative-launch-scope-cut.md` § IN.
+
+---
+
+## 2026-09-09 — Browse: rewrite the existing scenario around Pages, don't open a second one
+
+**Decision.** The approved Item-based browse scenario — *a newcomer browses one surface instead of two* [F059], in `planning/next/` — is **rewritten around Pages**. **No new F-number is opened.** The rewrite itself is not authorised by this entry; this records the routing call only.
+
+**Intent — the PM's words.** *"So we don't have two items."* Two scenarios describing the same surface is how the surface ends up with two owners, and this repo has already paid for that once — F059 was drafted as F054 while another session held F054, and the wrong-numbered copy survived a commit. One concept, one number, one file.
+
+**What it costs, stated plainly.** F059 was reviewed (REVISE, revision applied), ticketed [T127–T131] and Gate-C-passed against the **Item** model. Rewriting it invalidates parts of that work rather than adding to it: the five tickets were written against `discoverable_items` and the feed RPC's projection, and **a scenario in `next/` is one `build` may pick up.** Until the rewrite lands, F059 reads as approved and buildable while describing a model that was superseded on 7 September.
+
+**Immediate consequence — not yet actioned.** F059 in `next/` carries no banner saying a rewrite is pending. **Recommended: a status banner on the scenario before any session picks it up.** Flagged to the PM, not written, because writes this session were scoped to the decision log.
+
+**Touches.** [`stage-ledger/F059.md`](stage-ledger/F059.md) (stamped) · `next/scenario-F059-newcomer-browses-one-surface.md` · `next/review-F059.md` · tickets T127–T131 · `now/initiative-launch.md` § Fortnight 2.
+
+---
+
+## 2026-09-09 — A Page's address is a public location, and the copy has to say so
+
+**Decision.** A Page gets a **street address if it has a specific location, or a neighbourhood if it does not.** The qualifier, recorded verbatim at the PM's instruction:
+
+> **We mean a PUBLIC location, not a home address. We won't stop someone entering a home address, but it is shown to anyone who views the Page — it does not stay private.**
+
+**Intent.** The choice is between being findable and being private, and it is the Member's to make — the platform does not adjudicate which addresses are safe to publish, and it does not silently withhold one that was entered. **What it owes instead is that nobody is surprised.** An address field that reads as a form field, filled in by someone assuming an address is administrative data, publishes a home to strangers on the strength of a wrong assumption the interface created.
+
+**The copy consequence, which is a build requirement and not a note.** **The address field needs wording that makes public visibility unmistakable before anyone types into it** — at the point of entry, not in a confirmation afterwards and not in a settings page. The neighbourhood alternative must be visible in the same moment, so the choice is legible as a choice.
+
+**Standing rule, recorded here and not yet a pattern entry.** **No legal or tax language in any user-facing string, ever.** The PM states this as standing rather than launch-tier, which means it belongs in [`../playbooks/PLATFORM-PATTERNS.md`](../playbooks/PLATFORM-PATTERNS.md) — and rebuild rule 9 requires `weigh` before any new pattern entry lands. **Recorded here so it is not lost; it needs `weigh` to reach its proper home.** In the meantime it binds: warning copy on the address field says what is public, not what is lawful.
+
+**What is still open.** This settles what a Page's address *is*; it does not settle which composers ask for it. The non-business Page creation flow collects no location at all today — see the stub below.
+
+**Touches.** [`backlog/decision-non-business-page-address-step.md`](backlog/decision-non-business-page-address-step.md) (marked ruled on the address-shape question) · the shipped location step [T142] and `<LocationPlaceFields>` · the create entry point [T139] · `now/initiative-launch.md` § Fortnight 1.
+
+---
+
 ## 2026-09-07 — Reports: park the policy, keep the table
 
 **Decision.** Reports write to a table at launch. **No response SLA, no moderation flow, no operator queue, no destination commitment.**
@@ -187,13 +231,13 @@ status: active
 
 **Intent.** *(Ratified 2026-09-07 by the PM.)* For a one-time event a Page and a listing collapse into the same thing, and letting a Page *be* a single event would make browse and the map index Pages that are really listings. **A follower graph on ephemeral Pages is worthless** — following something that ends next Tuesday buys nothing.
 
-**Landed in the foundation set** — `primitives.md` § Page is the canonical definition and every other doc gets checked against it.
+**Landed in the foundation set** — `nouns.md` § Page is the canonical definition and every other doc gets checked against it.
 
 **What "in the past" means mechanically.** An Item with a date drops off once the date passes. **An Item with no date — a product, a service — never drops off.** A gathering with no date at all does not surface, because nothing can tell whether it has happened. **This rule is already implemented** in the three feed functions; it is **not** applied on the browse path, which reads the index directly — so past gatherings currently appear in Explore and on the map. One predicate, about an hour.
 
 **Retirement is in scope and is a day.** The substrate exists and five read paths already behave correctly — row-level security, the browse index, the public URL, path derivation, and the following list. **Missing: the dissolve handler and a control to call it.**
 
-**Touches.** `product/foundation/primitives.md` § Page (new canonical definition) · `product/foundation/settled.md` § 13 · `planning/next/scenario-F060-*` · `planning/backlog/decision-page-vs-listing.md` (ruled)
+**Touches.** `product/foundation/nouns.md` § Page (new canonical definition) · `product/foundation/settled.md` § 13 · `planning/next/scenario-F060-*` · `planning/backlog/decision-page-vs-listing.md` (ruled)
 
 ---
 
@@ -216,7 +260,7 @@ status: active
 - **Past-dated Items drop out of the grouping automatically**, because the grouping runs over the already-filtered array. **A Page whose only Item was last weekend's market has no Items, so no group, so no pin.** Exactly the intended behaviour.
 - **An Item with no date never drops out** — a product or a service has no date to pass.
 
-**Touches.** `product/foundation/primitives.md` § Page (map unit + the intent sentence) · the browse read path (time filter, one predicate) · the map component (group-by-Page-per-location, popup as a list) · the browse select list (`group_name`)
+**Touches.** `product/foundation/nouns.md` § Page (map unit + the intent sentence) · the browse read path (time filter, one predicate) · the map component (group-by-Page-per-location, popup as a list) · the browse select list (`group_name`)
 
 ---
 
@@ -234,7 +278,7 @@ status: active
 
 **Price, and the schedule flag.** **Item-level appearances, auto-approved: half a day** — one read-function change plus venues in the composer's location step. **Owner approval: plus 1–2 days**, and no notification path of any kind exists. **Page-level appearances independent of Items: plus 1–2 days of genuine new modelling.** Full shape 3–5 days. **This is the first real scope addition of the session and it lands in week one of eight; the half-day fits, 3–5 days does not without something leaving.** The honest candidate to drop is the shop editor's free-text *where they'll be next* line, which appearances make redundant — close to even in days, strictly better in outcome.
 
-**Touches.** `product/foundation/primitives.md` § Page · `planning/backlog/decision-place-taxonomy.md` (new, awaiting ruling) · the map grouping work, stopped
+**Touches.** `product/foundation/nouns.md` § Page · `planning/backlog/decision-place-taxonomy.md` (new, awaiting ruling) · the map grouping work, stopped
 
 ---
 

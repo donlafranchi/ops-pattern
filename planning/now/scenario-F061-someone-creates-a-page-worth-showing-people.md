@@ -10,7 +10,7 @@ status: backlog
 **Loops:** 9 (Make a living locally), 7 (Buy close), 4 (Gather regularly) — a Page is the unit all three are found through
 **Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → Page (`groups`), with an anchor Location, a category, and an image. **No new entity.** Two columns on the spine, one capture table, one bucket.
-**Spec contract:** [`groups.md`](../../product/systems/groups.md) § What a Page carries at creation · [`policy.md`](../../product/foundation/policy.md) § Uploaded images · [`design-language.md`](../../product/ui/design-language.md) §§ Image picker, Default Page art, Multi-step composer · [`action-layer.md`](../../product/systems/action-layer.md) § Same-transaction row+event invariant · [`primitives.md`](../../product/foundation/primitives.md) § Page
+**Spec contract:** [`groups.md`](../../product/systems/groups.md) § What a Page carries at creation · [`policy.md`](../../product/foundation/policy.md) § Uploaded images · [`design-language.md`](../../product/ui/design-language.md) §§ Image picker, Default Page art, Multi-step composer · [`action-layer.md`](../../product/systems/action-layer.md) § Same-transaction row+event invariant · [`nouns.md`](../../product/foundation/nouns.md) § Page
 **Status:** backlog
 
 ## The acceptance frame

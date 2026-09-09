@@ -9,7 +9,7 @@ owns:
 
 # Decisions
 
-> **One of three durable documents.** The other two are **the model** ([`primitives.md`](primitives.md) — the nouns, and what each deliberately does not have) and **the status** ([`../../STATUS.md`](../../STATUS.md) — what is true right now, one screen, overwritten). **Everything else in this repo either has a lifecycle or is a liability.**
+> **One of three durable documents.** The other two are **the model** ([`nouns.md`](nouns.md) — the nouns, and what each deliberately does not have) and **the status** ([`../../STATUS.md`](../../STATUS.md) — what is true right now, one screen, overwritten). **Everything else in this repo either has a lifecycle or is a liability.**
 >
 > ### The principle
 >
@@ -99,7 +99,7 @@ An exit-aligned owner and a member-aligned platform want different things, and t
 
 ## 13. A Page is who; an Item is what
 
-*Ratified 2026-09-07. Full definition in [`primitives.md`](primitives.md) § Page.*
+*Ratified 2026-09-07. Full definition in [`nouns.md`](nouns.md) § Page.*
 
 **Rules out:** creating a Page for a single occasion, a browse surface or map that indexes Pages and listings as if they were the same unit, and a follower graph attached to anything ephemeral.
 

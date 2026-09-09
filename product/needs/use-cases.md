@@ -11,7 +11,7 @@ status: active
 
 ## Member roles (folded from former `people.md`, 2026-05-30)
 
-Three roles. Every person on the platform is a **Member**; **Producer** and **Convener** are roles a Member takes on (role-as-verb, per [`../foundation/primitives.md`](../foundation/primitives.md)). A role earns its own section only by needing a distinct set of tools and functionality.
+Three roles. Every person on the platform is a **Member**; **Producer** and **Convener** are roles a Member takes on (role-as-verb, per [`../foundation/nouns.md`](../foundation/nouns.md)). A role earns its own section only by needing a distinct set of tools and functionality.
 
 - **Member** — anyone on the platform. Search, browse, discover; join Groups, attend gatherings, buy goods and services; like, follow, share, pledge; ask for help and offer it. *Types to design for:* newcomer · long-settled neighbor · follower · supporter/backer · affinity-seeker · idea-floater · help-seeker · giver · service-seeker · event-goer · browser/lurker · homebound/limited-mobility · caregiver · anonymous guest · young Member.
 - **Producer** — a Member who offers goods or services. Spectrum: full professional → casual maker / informal teacher → unpaid steward. UI labels (Seller, Producer, Maker) vary per [`../../CLAUDE.md`](../../CLAUDE.md); the role is one role. *Types to design for:* farmer/grower/rancher · fisher · baker/cook/food-maker · food-truck operator · craftsperson/artisan · trades pro · professional-service provider · care provider · repair/fix-it · informal maker · informal teacher · steward (unpaid; see [`../systems/stewardships.md`](../systems/stewardships.md)) · intermittent/seasonal · home-based · multi-location · partnership/co-owned.
@@ -19,7 +19,7 @@ Three roles. Every person on the platform is a **Member**; **Producer** and **Co
 
 The type lists are living — add a type the moment a real use case surfaces one. The point is coverage, not taxonomy. *Who the platform does not serve* (corporate-shell franchise, rollup-acquirer, engagement-optimizer) is in [`../foundation/principles.md`](../foundation/principles.md) Part 2.
 
-**Status:** Foundational reference. The working set of real-world situations the platform exists to serve. Read alongside [`member-journey.md`](member-journey.md), [`../foundation/primitives.md`](../foundation/primitives.md), and [`../foundation/principles.md`](../foundation/principles.md).
+**Status:** Foundational reference. The working set of real-world situations the platform exists to serve. Read alongside [`member-journey.md`](member-journey.md), [`../foundation/nouns.md`](../foundation/nouns.md), and [`../foundation/principles.md`](../foundation/principles.md).
 
 ## What this is
 
@@ -31,7 +31,7 @@ Concrete situations — drawn from West Sacramento, East Sacramento, and the sur
 - **Designing a feature?** Find the case it would help. The "Distinct functionality this case requires" line names what your design must enable.
 - **Scoping a release?** MVP cases ship at b1. Cases tagged *Deferred (b2+)* are not yet in scope but their problem statements are. Cases tagged *Deferred (far horizon)* are out of scope for the foreseeable bundle plan; their problem statements stay in the canon so we don't forget them.
 
-Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](member-journey.md)) and the primitive shape they take (per [`../foundation/primitives.md`](../foundation/primitives.md)).
+Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](member-journey.md)) and the primitive shape they take (per [`../foundation/nouns.md`](../foundation/nouns.md)).
 
 **Status taxonomy:**
 - **MVP** — ships at b1, fully.
@@ -205,7 +205,7 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 - Affinity-first Group discovery surface — showing a member "here are Groups you'd probably like to join" before any gathering exists inside them.
 - Discoverability for kind='interest' Groups with no anchored Location and no recurring Item.
 - Soft-membership inference (geographic suggestion when a member sets their home Location).
-- The "Groups cannot be auto-assigned" boundary holds — geography is suggestion, the choice is the member's (per [`../foundation/primitives.md`](../foundation/primitives.md) § Group).
+- The "Groups cannot be auto-assigned" boundary holds — geography is suggestion, the choice is the member's (per [`../foundation/nouns.md`](../foundation/nouns.md) § Group).
 
 **Deferral statement:** affinity-first Group discovery is not yet designed. The case stress-tests the "Groups cannot be auto-assigned" commitment in [`../systems/groups.md`](../systems/groups.md) — the polygon "Sacramento women aged 25–40" is not this Group; the Group is the women who said *we are this group*. Deferred until affinity-first discovery is designed without violating that boundary.
 
@@ -421,7 +421,7 @@ Cases are tagged with the loop(s) they exercise (per [`member-journey.md`](membe
 - Tipping-point flow — how interest above a threshold converts a Wonder into an actual Gathering or Initiative.
 - Response handling when interest is below threshold — does the Wonder expire, accumulate, hand off?
 
-**Deferral statement:** the Wonder Item kind exists in [`../foundation/primitives.md`](../foundation/primitives.md) but the signaling mechanic, threshold logic, and tipping-point conversion are not yet designed. Deferred until the Wonder → response → tipping-point flow is designed.
+**Deferral statement:** the Wonder Item kind exists in [`../foundation/nouns.md`](../foundation/nouns.md) but the signaling mechanic, threshold logic, and tipping-point conversion are not yet designed. Deferred until the Wonder → response → tipping-point flow is designed.
 
 ---
 

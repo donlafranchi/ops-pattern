@@ -126,7 +126,7 @@ kind='product' Items carry an optional **product-provenance claim** — the plat
 
 **Required at MVP — retrofit is the failure mode.**
 
-The mental model in `primitives.md` is one Item primitive with a `kind` enum. The physical schema is **shared spine + kind-specific child tables.** This is a deliberate divergence between the conceptual primitive and the storage layer. Reasons: a single table forces JSONB for all kind-specific fields (weak typing, indexing pain, no FK constraints from kind-specific child rows), while four independent tables fragment the locality index (UNION across four tables on every cross-kind read) and complicate Wonder→Gathering conversions. Spine + child gives strong typing and per-kind indexing without sacrificing the cross-kind locality query that drives Loop 3.
+The mental model in `nouns.md` is one Item primitive with a `kind` enum. The physical schema is **shared spine + kind-specific child tables.** This is a deliberate divergence between the conceptual primitive and the storage layer. Reasons: a single table forces JSONB for all kind-specific fields (weak typing, indexing pain, no FK constraints from kind-specific child rows), while four independent tables fragment the locality index (UNION across four tables on every cross-kind read) and complicate Wonder→Gathering conversions. Spine + child gives strong typing and per-kind indexing without sacrificing the cross-kind locality query that drives Loop 3.
 
 **The spine — `items`** (one row per Item, all kinds):
 - `id`, `member_id` (FK to Person), `kind` (enum: `product`, `service`, `gathering`, `wonder`; `offer`, `ask`, `initiative` reserved at MVP). **No `cooperative_cohort` value** — cooperative-style coordination is deferred until real-world need + explicit user prioritization.
@@ -276,7 +276,7 @@ The deliberate use of `metadata` JSONB per Item is what lets the schema flex acr
 
 The forward commitment to natural-language search via vector embeddings at T3 is what protects the platform from devolving into a tags-only experience. As the volume of Items grows, structured filters become insufficient — people want to ask *"who near me sells eggs from happy chickens"* and get an answer. The MVP doesn't build this, but it reserves the column, the parallel table pattern, and the description-writing posture that makes embedding work later. Skipping these reservations at MVP is the failure mode the entire data-model section is designed to prevent.
 
-Finally: no Business entity (see [`../foundation/primitives.md`](../foundation/primitives.md) § Why no Business entity). For Items, this means a Person's Items belong to that Person, and a cooperative's Items are owned by the cooperative-Community with collaborator Members in `item_collaborators` (T2) — no shell entity between Persons and the things they make. That absence is what keeps the data model honest about who is actually doing the work in any community.
+Finally: no Business entity (see [`../foundation/nouns.md`](../foundation/nouns.md) § Why no Business entity). For Items, this means a Person's Items belong to that Person, and a cooperative's Items are owned by the cooperative-Community with collaborator Members in `item_collaborators` (T2) — no shell entity between Persons and the things they make. That absence is what keeps the data model honest about who is actually doing the work in any community.
 
 ## Decisions encoded here
 

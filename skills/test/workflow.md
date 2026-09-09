@@ -42,7 +42,7 @@ Every test you write carries its **why** alongside its **what**. The test's `nam
 >
 > *With:*
 > ```ts
-> // Why: timezone is the venue's, not the viewer's — verifies F018 Then-clause #3 against the design intent in primitives.md, not just the literal text. If the rendered date drifts to the viewer's tz, this test must fail (and a future agent must NOT silently update the expected string to match — escalate to scope).
+> // Why: timezone is the venue's, not the viewer's — verifies F018 Then-clause #3 against the design intent in nouns.md, not just the literal text. If the rendered date drifts to the viewer's tz, this test must fail (and a future agent must NOT silently update the expected string to match — escalate to scope).
 > await expect(page.getByText('Thursday, May 14, 6:00 PM')).toBeVisible();
 > ```
 

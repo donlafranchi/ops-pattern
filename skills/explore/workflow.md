@@ -20,7 +20,7 @@
 | `product/systems/` | Tiered technical system specs (T1/T2/T3). |
 | `product/templates/` | Workflow/intake templates (e.g., `idea-intake.md`) used by upstream chats. |
 | `product/specs/` | Full platform specs (vision, not MVP-bound). |
-| `product/ui/` | UI inventory, design language, visual patterns, and consumer-facing surface descriptions (e.g., `community-platform.md` covers Home / Explore / You). |
+| `product/ui/` | UI inventory, design language, visual patterns, and consumer-facing surface descriptions (e.g., `surfaces.md` covers Home / Explore / You). |
 
 ## Workflow
 

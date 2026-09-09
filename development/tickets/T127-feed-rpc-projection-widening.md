@@ -6,7 +6,7 @@
 **Depends on:** none
 
 **Serves:**
-- **Spec contract:** `product/ui/community-platform.md` § T1 Explore (filters, search, map toggle) — the section that becomes the merged surface's spec. `public.locality_feed_items` is the read path F059 adopts; this ticket is the floor under it.
+- **Spec contract:** `product/ui/surfaces.md` § T1 Explore (filters, search, map toggle) — the section that becomes the merged surface's spec. `public.locality_feed_items` is the read path F059 adopts; this ticket is the floor under it.
 - **Loop:** 3 (Land here) — the feed read that answers "what's happening near me this week." Search and the schedule filter are how a newcomer narrows it, and neither can run today.
 - **Primitive shape:** Person → `discoverable_items` → browse. No shell entity; `metro_polygons` and `places` are reference geography, not owners.
 
@@ -43,4 +43,4 @@ Every column already exists on `discoverable_items` (migrations `016` → `034` 
 **Careful with `filterBrowsable` (T119).** The RPC applies `p_limit` *before* the browsable-kind filter, so a page can come back short. T119 accepted this at b1 volumes and logged it. Do not silently change it here — it is a known, recorded deviation and this ticket is not its fix.
 
 **Gate B — encodes ratified absolutes:**
-- `product/ui/community-platform.md` § T1 — ordering is locality + recency with declared-interest-tag boost, no behavioural ranking (Ratified 2026-09-04). This function's `order by` is that statement in code.
+- `product/ui/surfaces.md` § T1 — ordering is locality + recency with declared-interest-tag boost, no behavioural ranking (Ratified 2026-09-04). This function's `order by` is that statement in code.

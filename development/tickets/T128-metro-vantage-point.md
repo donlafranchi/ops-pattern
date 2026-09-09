@@ -6,7 +6,7 @@
 **Depends on:** T127
 
 **Serves:**
-- **Spec contract:** `product/ui/community-platform.md` § T1 → "Metro is the feed's vantage point" (Ratified 2026-09-03); `planning/backlog/decision-surfaces.md` § Metro is the vantage point, as amended 2026-09-04 ("v1 filters by metro").
+- **Spec contract:** `product/ui/surfaces.md` § T1 → "Metro is the feed's vantage point" (Ratified 2026-09-03); `planning/backlog/decision-surfaces.md` § Metro is the vantage point, as amended 2026-09-04 ("v1 filters by metro").
 - **Loop:** 3 (Land here) — the loop's pain point is a newcomer wanting "what's happening within walking distance this week." Metro is the grain at which that question has enough inventory to answer at all; `discovery.md` already ratified metro as the default feed depth (memo-0026).
 - **Primitive shape:** Person → `metro_polygons` (reference geography) → `discoverable_items` → browse. No shell entity.
 
@@ -42,5 +42,5 @@
 **The rural hole is real and this ticket only papers it.** `members.home_metro_id` is null outside every seeded CSA (migration `031`, documented as the rural fallback), F031's radius answer is out of v1 with distance removed, and **there is exactly one seeded metro.** The default-metro constant keeps the surface non-blank; it does not make the feed relevant to someone in another state. That is a known v1 limitation of a one-metro launch, not a defect to solve here — record it in DEVIATIONS and leave it.
 
 **Gate B — encodes ratified absolutes:**
-- `product/ui/community-platform.md` § T1 — "the feed is scoped to one metro at a time," "no cross-metro union feed" (Ratified 2026-09-03).
+- `product/ui/surfaces.md` § T1 — "the feed is scoped to one metro at a time," "no cross-metro union feed" (Ratified 2026-09-03).
 - `planning/backlog/decision-surfaces.md` § Feed ranking → Amended 2026-09-04 — v1 filters by metro; the "rank, never filter" entry is demoted to a versioned bet and is **not** encoded here.

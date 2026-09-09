@@ -189,7 +189,7 @@ Only write scenarios once the relevant system + capability exist. Scenarios live
 
 ## Comments
 
-{Design rationale, links to design-language.md / community-platform.md patterns referenced.}
+{Design rationale, links to design-language.md / surfaces.md patterns referenced.}
 ```
 
 ---

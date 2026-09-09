@@ -33,16 +33,16 @@
   _Why: zero-filter state = zero chrome. Maximum content density._
 - [x] Many active secondary filters: chip row wraps to a second line if needed (no horizontal scroll on chips).
 - [x] Filter state (kind + secondary) persists in URL query parameters. Navigating to a URL with filter params restores the filter state.
-  _Why: community-platform.md § Explore T1 — "filter state reflected in URL for shareable views."_
+  _Why: surfaces.md § Explore T1 — "filter state reflected in URL for shareable views."_
 - [x] Back navigation from an Item page restores previous filter state (kind pill + secondary filters) and scroll position.
-  _Why: community-platform.md § Explore T1 — "Back navigation restores scroll and filter state."_
+  _Why: surfaces.md § Explore T1 — "Back navigation restores scroll and filter state."_
 - [x] Accessibility: filter icon has `aria-label="Open filters"`; bottom sheet is a dialog with focus trap; chips have `aria-label="Remove [filter name] filter"`.
 - [x] Desktop viewport: filter icon stays in search bar; bottom sheet becomes a dropdown panel (or remains a sheet — build agent's discretion on the proportionate approach). Kind pills may render below the search row instead of at the bottom.
 - [x] BUILD-LOG.md updated.
 
 ## Notes
 
-The four filter types already exist per community-platform.md § Explore T1 (kind, category, distance, schedule). This ticket restructures WHERE they live, not what they filter. Existing filter query logic should be reused.
+The four filter types already exist per surfaces.md § Explore T1 (kind, category, distance, schedule). This ticket restructures WHERE they live, not what they filter. Existing filter query logic should be reused.
 
 The bottom sheet can use a library like `vaul` (Drawer component for React) or be hand-rolled with a fixed-position overlay + `transform: translateY` + touch-to-dismiss. Keep it simple — the sheet is a container, not a feature.
 

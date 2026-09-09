@@ -13,9 +13,9 @@ status: active
 >
 > **What this is, in the PM's words: [`product/foundation/what-this-is.md`](product/foundation/what-this-is.md)** — the canonical description, and the sentence every other description is checked against.
 >
-> **The verb × noun matrix: [`product/foundation/verbs.md`](product/foundation/verbs.md)** — what each verb may do to each noun, and what it deliberately may not. **The forbidden cells are the guard rails.**
+> **Three documents track what this app does and will do — not only what ships:** [`product/foundation/nouns.md`](product/foundation/nouns.md) (the nouns), [`product/foundation/verbs.md`](product/foundation/verbs.md) (the verb × noun matrix — **the forbidden cells are the guard rails**), [`product/ui/surfaces.md`](product/ui/surfaces.md) (the screens). **Postponed things are in them, labelled, not omitted.**
 >
-> First time in this repo? **Three documents, in this order:** [`STATUS.md`](STATUS.md) (what's true now), [`product/foundation/decisions.md`](product/foundation/decisions.md) (what's ruled out, and why), [`product/foundation/primitives.md`](product/foundation/primitives.md) (the nouns, and what each deliberately does not have). Then this file end-to-end, then [`AGENTS.md`](AGENTS.md) for the pipeline.
+> First time in this repo? **Three documents, in this order:** [`STATUS.md`](STATUS.md) (what's true now), [`product/foundation/decisions.md`](product/foundation/decisions.md) (what's ruled out, and why), [`product/foundation/nouns.md`](product/foundation/nouns.md) (the nouns, and what each deliberately does not have). Then this file end-to-end, then [`AGENTS.md`](AGENTS.md) for the pipeline.
 >
 > **The code is the source of truth for how the system works. Git is the history.** A doc that duplicates either goes stale silently and someone believes it — which is what happened on 2026-09-07, when the docs claimed markets existed that had been retired, said Explore browses members when it indexes items, and called a badge paused that was one query from switching on. **If the code can answer it, read the code.** The architecture map, the feature-lineage table and the doc catalogue were archived that day for exactly this reason.
 >
@@ -38,7 +38,7 @@ Every feature must serve at least one of the 13 loops. Source: [`product/needs/m
 
 ## The Primitives
 
-Source: [`product/foundation/primitives.md`](product/foundation/primitives.md). Three core + one optional.
+Source: [`product/foundation/nouns.md`](product/foundation/nouns.md). Three core + one optional.
 
 - **Person (Member)** — a real human. Holds verbs (makes, services, convenes, follows, pledges). Role-as-verb, not role-as-identity. See [`product/systems/member.md`](product/systems/member.md).
 - **Item** — anything declared (product, service, gathering, wonder, offer, ask, initiative). One schema, varying by `kind`. See [`product/systems/item.md`](product/systems/item.md).
@@ -71,7 +71,7 @@ The platform uses a three-layer naming pattern. Each layer has a distinct purpos
 ### Rules
 
 1. **Schema names are durable.** Don't rename `gathering` → `event` or `wonder` → `idea` in code; the URL and UI layers handle the translation. Same with `member_self_record` → "Assistant Context." This isolates schema migrations from naming evolution.
-2. **"Declare" is the spec/conceptual verb only.** "Person declares Item" is correct in `primitives.md`, `member-journey.md`, and system specs. UI never says "declare an item" — UI uses the kind-specific verb (Host, Sell, Offer, Wonder, Ask, Lead).
+2. **"Declare" is the spec/conceptual verb only.** "Person declares Item" is correct in `nouns.md`, `member-journey.md`, and system specs. UI never says "declare an item" — UI uses the kind-specific verb (Host, Sell, Offer, Wonder, Ask, Lead).
 3. **No umbrella word for Items in UI copy.** "Item" is the database term. In the UI, always use the specific kind: Event, Product, Service, Idea, Offer, Ask, Initiative. The Explore tab can use kind-specific filter copy ("Browse events," "Browse what's for sale") rather than "Browse items."
 4. **"Seller" is the generic UI term for a Member offering goods or services.** It applies whenever a Member has ≥1 active kind='business' Group membership or has posted an `items.kind='product'` / `'service'` row. There is no `maker_mode_enabled` toggle — selling tools surface from Group/Item state. **"Producer"** is preferred in the agricultural and food context — used in the producer-facing copy. **"Maker"** survives only as a UI label when the Member specifically self-identifies as such (craftspeople, artisans); it is not a default role.
 5. **Loop names stay conceptual.** Loop 2 is "Wonder," Loop 4 is "Gather regularly." Loop names are durable spec language; they don't migrate to the new UI labels.
@@ -230,11 +230,12 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/archive/SPEC-PATCHES.md`](planning/archive/SPEC-PATCHES.md) | **Retired 2026-06-19; archived 2026-09-07.** The twenty individual patch files stay at `planning/spec-patches/` pending a PM ruling ([`CLEANUP.md`](planning/CLEANUP.md) § 1). Type A fixes applied inline; Type B decisions filed as `decision-*` stubs in `planning/backlog/`. Build now classifies deviations at the point of creation — see `skills/build/workflow.md` § flag-for-spec-revision. |
 | [`planning/AGENT-BOUNDS.md`](planning/AGENT-BOUNDS.md) | The three-layer agent-bounds doc (Intent / Bounds / Casebook) + agent-response discipline. Read when deciding whether to escalate to PM or decide alone. |
 | [`product/needs/member-journey.md`](product/needs/member-journey.md) | North-star check — does this serve a loop? |
-| [`product/foundation/primitives.md`](product/foundation/primitives.md) | Data-model fit — Person / Item / Location |
+| [`product/foundation/nouns.md`](product/foundation/nouns.md) | Data-model fit — every noun the product has or will have, live and postponed, and what each deliberately does not have |
 | [`product/foundation/principles.md`](product/foundation/principles.md) | Anything that risks treating a business as more important than the people doing the work |
 | [`product/needs/use-cases.md`](product/needs/use-cases.md) | Real situations the platform exists to serve. The working test-case set for any feature. |
 | [`product/needs/producer-roadmap.md`](product/needs/producer-roadmap.md) | Producer/seller capabilities organized by business function — Now (Phase 2) / Later / Won't per category. Read by `scope` before writing any producer-facing scenario; the Won't bullets are PM-ratified scope boundaries. Every scenario's `## Capabilities unlocked` section traces here. |
 | [`product/foundation/policy.md`](product/foundation/policy.md) | Any surface touching data sharing, monetary flow, or visibility |
+| [`product/foundation/messaging-problem.md`](product/foundation/messaging-problem.md) | **Anything that lets one member's words reach another** — announcements, replies, member-initiated posts, direct messages, discussion. The standing statement of why messaging is the surface most likely to break the platform, the reachability ladder each increment climbs, the mitigation option set, and what the first migration must carry. **Read before designing any of the five rungs, not after.** |
 | [`product/systems/item.md`](product/systems/item.md) | Any feature that creates or surfaces a thing-being-declared |
 | [`product/systems/groups.md`](product/systems/groups.md) | Anything Group-shaped — Groups, joining, role-per-kind, member lists, addressable scopes, business-Group operating, partnership/co-owner shape. Any feature that risks auto-assigning Members to a Group. |
 | [`product/systems/member.md`](product/systems/member.md) | Anything Person-shaped. The anchor primitive of the platform. Includes multi-Location affinities (`member_location_affinities`), DM substrate, taste profile. |
@@ -245,7 +246,7 @@ Read before working in the named area. The pipeline skills already know to read 
 | [`planning/now/bundle-1-checklist.md`](planning/now/bundle-1-checklist.md) | The MVP scoreboard — glance at this on Monday morning to know what's left. Human terms, one page. |
 | [`planning/archive/now/bundle-1-themes.md`](planning/archive/now/bundle-1-themes.md) | Sub-bundle sequencer, b1/b2/b3. **Archived 2026-09-07 — superseded by the launch plan's four fortnights.** Read the launch plan instead when choosing what ships next. |
 | [`product/ui/design-language.md`](product/ui/design-language.md) | Any UI work — DLS tokens, components, CTA placement |
-| [`product/ui/community-platform.md`](product/ui/community-platform.md) | Home / Explore / You / feed / discovery |
+| [`product/ui/surfaces.md`](product/ui/surfaces.md) | Every screen — Home / Browse / You, each route's status, and the surfaces still to come. **A screen is a surface, never a Page** |
 | [`product/foundation/community-health-rubric.md`](product/foundation/community-health-rubric.md) | The structured measuring stick — score every platform decision against the 5 sections (healthy community attributes, member journey, peer pressure & self-regulation, ownership arc, platform as enabler). When picking *what good looks like*, this wins. |
 | [`product/foundation/principles.md`](product/foundation/principles.md) | The constitution — P1–P8 first principles + the People-First Principle + the Decision Test + categorical failures + metrics baseline + privacy/security baseline + monetization hypothesis. Binary pass/fail filter for every proposal. |
 | [`standards/`](standards/) | Cross-cutting build qualities — safety, security, accessibility, performance, responsiveness. |

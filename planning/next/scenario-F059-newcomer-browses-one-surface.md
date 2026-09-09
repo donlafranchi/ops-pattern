@@ -12,7 +12,7 @@ status: next
 **Loops:** 1 (Land here), 3 (Find what's near), 7 (Make and be found — discovery side)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → `discoverable_items` (via `locality_feed_items`) → browse. No new table, one function migration.
-**Spec contract:** [`decision-surfaces.md`](../backlog/decision-surfaces.md) § The two-tab model · § Feed ranking · § Distance is out · § Metro is the vantage point · § What the shipped Explore code carries into the merge; [`community-platform.md`](../../product/ui/community-platform.md) § T1 Home + § T1 Explore
+**Spec contract:** [`decision-surfaces.md`](../backlog/decision-surfaces.md) § The two-tab model · § Feed ranking · § Distance is out · § Metro is the vantage point · § What the shipped Explore code carries into the merge; [`surfaces.md`](../../product/ui/surfaces.md) § T1 Home + § T1 Explore
 **Status:** next — **reviewed** ([`review-F059.md`](./review-F059.md), REVISE 2026-09-04, revision applied same day). **Gate A clear** (both cited absolutes ratified 2026-09-04; see below).
 
 ---
@@ -59,7 +59,7 @@ Implicit: no event rows, no writes, no new table, no RLS change.
 
 **Given** a signed-out visitor opens `/`
 **When** the page renders
-**Then** they get the search row, the kind pills, the filter icon, the active-filter chips and the List/Map toggle — the whole Explore control set — over the locality-ranked feed, with no sign-in prompt blocking the results. _Why: `decision-surfaces.md` § The two-tab model — "Home absorbs Explore entirely… the controls are how a Member narrows, not a second place to go." The signed-out clause preserves `community-platform.md` § T1 Explore's anonymous-browse commitment, which the merge is the moment that either survives or silently breaks: Home is server-rendered behind an auth read and Explore is auth-blind._
+**Then** they get the search row, the kind pills, the filter icon, the active-filter chips and the List/Map toggle — the whole Explore control set — over the locality-ranked feed, with no sign-in prompt blocking the results. _Why: `decision-surfaces.md` § The two-tab model — "Home absorbs Explore entirely… the controls are how a Member narrows, not a second place to go." The signed-out clause preserves `surfaces.md` § T1 Explore's anonymous-browse commitment, which the merge is the moment that either survives or silently breaks: Home is server-rendered behind an auth read and Explore is auth-blind._
 
 ### The signup banner survives the merge
 
@@ -165,7 +165,7 @@ So the merged surface needs a **metro-grain vantage point** — a feed read agai
 
 ## Gate A — cleared 2026-09-04
 
-Both absolutes this scenario encodes were untagged when it was drafted. `weigh` walked them with the PM on 2026-09-04; both now carry State-tagged `Intent` lines in `product/ui/community-platform.md`.
+Both absolutes this scenario encodes were untagged when it was drafted. `weigh` walked them with the PM on 2026-09-04; both now carry State-tagged `Intent` lines in `product/ui/surfaces.md`.
 
 1. **Anonymous browse** — ratified as written, and widened slightly: *no redirect, no signup wall, **no gated or truncated result set***. The truncation clause was added because it is the form the commitment would most plausibly break in without anyone deciding to break it.
 2. **Ranking** — ratified in corrected form. "No personalization algorithm at T1" is replaced by *locality + recency, with the Member's own declared interest tags as a boost; no behavioural, engagement-derived, or inferred-from-browsing ranking.* The original had already drifted — `locality_feed_items` has boosted on `member_interests` since T087.

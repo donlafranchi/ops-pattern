@@ -28,7 +28,7 @@ The design check is where this stops. The scenario says the merged surface carri
 
 - **`product/systems/discovery.md`** — the community-awareness feed. The merge changes *where* the feed renders and *what grain* it is scoped at; it does not change candidate generation.
 - **`product/systems/location.md`** — the place hierarchy and the metro overlay. The vantage-point change is the whole of the architectural risk here.
-- **`product/ui/community-platform.md`** — the T1 Home and T1 Explore specs, both of which describe surfaces that stop existing separately.
+- **`product/ui/surfaces.md`** — the T1 Home and T1 Explore specs, both of which describe surfaces that stop existing separately.
 - **`product/systems/item.md`** — read-only, via `discoverable_items`. Untouched.
 
 ### Schema fit
@@ -77,7 +77,7 @@ The scenario is right that this is expensive, and the sizing deserves to be expl
 
 - `discovery.md` already ratified **metro as the default feed depth** (memo-0026, 2026-09-02). The merge is consistent with it and is in fact the first surface to honour it — the shipped feed resolves to neighborhood grain today.
 - `location.md` § What does not ship at b1 defers address normalization and geocoding. Untouched: this scenario reads stored geography, it does not resolve addresses.
-- `community-platform.md` § T1 Explore describes a surface that ceases to exist as a route. **It needs rewriting, not deleting** — its content is now the merged surface's spec. Flagged for `tidy`, not a blocker.
+- `surfaces.md` § T1 Explore describes a surface that ceases to exist as a route. **It needs rewriting, not deleting** — its content is now the merged surface's spec. Flagged for `tidy`, not a blocker.
 
 ### Architecture verdict
 
@@ -190,5 +190,5 @@ Two candidates for `playbooks/` entries. Both are PM calls, not review calls.
 **For `PLATFORM-PATTERNS.md`:**
 
 > **Decision:** The browse surface is readable signed-out, in full — no wall, no gate, no truncated result set.
-> **Intent:** Landed 2026-09-04 in `community-platform.md` § T1 with a State tag; recorded here because it is a platform-shaped commitment that will be re-encountered by every future surface, not a property of one page.
-> **Touches:** `product/ui/community-platform.md` § T1.
+> **Intent:** Landed 2026-09-04 in `surfaces.md` § T1 with a State tag; recorded here because it is a platform-shaped commitment that will be re-encountered by every future surface, not a property of one page.
+> **Touches:** `product/ui/surfaces.md` § T1.

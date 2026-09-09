@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Reads** | `product/foundation/*` (mandatory: `use-cases.md`, `member-journey.md`, `primitives.md`), `product/systems/`, `product/capabilities/`, `planning/now/bundle-{N}.md` (active bundle), `planning/now/bundle-{N}-themes.md` (mandatory — sub-bundle sequence), `planning/now/bundle-{N}-checklist.md` (mandatory — menu of 🟢/🟡/⚪ work for the active bundle) |
+| **Reads** | `product/foundation/*` (mandatory: `use-cases.md`, `member-journey.md`, `nouns.md`), `product/systems/`, `product/capabilities/`, `planning/now/bundle-{N}.md` (active bundle), `planning/now/bundle-{N}-themes.md` (mandatory — sub-bundle sequence), `planning/now/bundle-{N}-checklist.md` (mandatory — menu of 🟢/🟡/⚪ work for the active bundle) |
 | **Writes** | `planning/backlog/scenario-F{NNN}-{persona}-{verb}-{object}.md`, `planning/now/` (bundle artifacts). On PM approval, moves scenario from `backlog/` → `next/`. |
 | **Templates** | `templates/scenario.md` (user-story shape — required), `templates/bundle.md` |
 | **Does NOT read** | `web/` (code), `development/tickets/`. Reads `planning/next/` and `planning/now/` scenarios for reference only (writes to `next/` only via lane-advance move). |
@@ -36,7 +36,7 @@
 
 1. **`product/needs/use-cases.md`** — the working set of real situations the platform exists to serve. Every scenario must anchor here.
 2. **`product/needs/member-journey.md`** — the 13 loops. Every scenario must serve at least one.
-3. **`product/foundation/primitives.md`** — Person / Item / Location / (optional) Community. Every scenario must respect these primitives.
+3. **`product/foundation/nouns.md`** — Person / Item / Location / (optional) Community. Every scenario must respect these primitives.
 4. **`product/foundation/principles.md`** — the no-Business-entity / no-pay-for-visibility / no-engagement-feed / no-auto-Community rules. Every scenario must survive these four refusals. If the scenario asks the platform to treat a Business as more important than the people doing the work, reject before writing acceptance criteria.
 5. **`product/foundation/policy.md`** — three-filter test, opt-out default. Required reading before approving any scenario that touches privacy, monetary flow, data sharing, agent permissions, or visibility.
 6. **`planning/now/bundle-{N}.md`** — the current scope. Anything outside the active bundle is deferred, not denied.
@@ -128,7 +128,7 @@ Skip `planning-filter` when you're writing a single scenario for a known feature
 
 Every non-obvious Given/When/Then clause in a scenario carries its **why** alongside its **what**. Without the *why*, the eval-writer ends up testing the *literal wording* of the clause rather than the *design intent* the clause is approximating — and when the scenario gets revised, the test passes against text that no longer means what the project intends. Same discipline as Intent annotations on system specs (per the [archived intent audit](../../_attic/2026-05-19/planning/intent-audit-2026-05-12.md), live discipline in the clarify-absolutes / intent-check skills), applied here at the scenario stage.
 
-**Where to apply.** Any clause that encodes a design judgment, not just a mechanical assertion. *"Then the page loads"* is mechanical and obvious — no Why needed. *"Then a primary CTA labeled 'Host something here' is visible below the venue header"* encodes the verb-first composer commitment from `community-platform.md` (entry point is the venue, not `/new` with a kind picker) — needs a Why.
+**Where to apply.** Any clause that encodes a design judgment, not just a mechanical assertion. *"Then the page loads"* is mechanical and obvious — no Why needed. *"Then a primary CTA labeled 'Host something here' is visible below the venue header"* encodes the verb-first composer commitment from `surfaces.md` (entry point is the venue, not `/new` with a kind picker) — needs a Why.
 
 **Format.** Inline italic note immediately after the clause, prefixed `_Why: {one-sentence rationale, anchored to a foundation/system doc or canonical example}._`
 
@@ -138,7 +138,7 @@ Every non-obvious Given/When/Then clause in a scenario carries its **why** along
 > Then a primary CTA labeled "Host something here" is visible below the venue header.
 >
 > *With:*
-> Then a primary CTA labeled "Host something here" is visible below the venue header. _Why: verb-first composer commitment in `community-platform.md` — the entry point is the venue, not `/new` with a kind picker. Eval should verify the CTA originates on the venue page, not just that the label text appears._
+> Then a primary CTA labeled "Host something here" is visible below the venue header. _Why: verb-first composer commitment in `surfaces.md` — the entry point is the venue, not `/new` with a kind picker. Eval should verify the CTA originates on the venue page, not just that the label text appears._
 
 **Verification.** Before handing the scenario to the PM, walk every Then-clause (and any non-obvious Given/When clause). For each one that encodes a design choice, confirm it carries a `Why:` line. If a clause is non-obvious and you can't write the Why in one sentence, the scenario is under-specified — escalate to `explore` for the missing rationale rather than guessing.
 

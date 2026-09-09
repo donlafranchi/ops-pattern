@@ -37,7 +37,7 @@
 ## Completion
 
 Date: 2026-09-07
-Commit: {pending} (web)
+Commit: 473c590 (web) · merged to main via 1587cb7
 Tests: 49 vitest GREEN across the item-handler suites (`actions-t133.test.ts` new, 7 tests; t077 / t080 / t081 unchanged and green). tsc error count unchanged from main (3). eslint clean on touched files.
 Deviations: `development/deviations/T133.md` — the end-to-end criterion is covered by a mocked-transaction test here and by the F060 eval live.
 Gates: M2 Approve (no findings — one predicate, one message) · M4 N/A, no migration.

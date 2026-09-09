@@ -10,7 +10,7 @@ last_activity: 2026-09-03
 
 # S-location-hierarchy — geocode once, store a hierarchy
 
-**Spec contract:** community-platform.md § Location resolution — geocode once, store a hierarchy (Ratified 2026-09-03); decision-surfaces.md § Location resolution
+**Spec contract:** surfaces.md § Location resolution — geocode once, store a hierarchy (Ratified 2026-09-03); decision-surfaces.md § Location resolution
 **Substrate lane** per rebuild-phase rule 14 — no user-facing surface, binds to a spec section rather than a Given/When/Then.
 
 ## Scope

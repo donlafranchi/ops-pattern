@@ -40,7 +40,7 @@ The design risk is narrower and sharper: **one criterion in F051 will pass durin
 - `product/systems/places.md` — the `places` tree is the resolution target. Unchanged by these scenarios; consumed by all of them.
 - `product/systems/discovery.md` — § Community-awareness feed's metro default depth (memo-0026) is what F049's metro pick makes explicit rather than derived.
 - `product/systems/member.md` — the saved-hood set is new member state.
-- `product/ui/community-platform.md` — all six surfaces.
+- `product/ui/surfaces.md` — all six surfaces.
 
 ### Schema fit
 
@@ -71,7 +71,7 @@ The design risk is narrower and sharper: **one criterion in F051 will pass durin
 
 Every absolute these scenarios encode carries a State tag in `decision-surfaces.md`: location entry, Online-as-option and its warning, no-map-pin, copy-not-inheritance, hood-and-metro-at-signup, metro-as-vantage-point, distance-is-out, geocode-once. **Gate A passes.**
 
-**One finding, not a block.** The restatements in `community-platform.md` (§ Online is a location option, § Build note — this is a default not inheritance) carry the "Ratified 2026-09-03" marker in their headings but **no co-located `Intent (Ratified …)` line**. The ratification is real and dated at the decision doc; the spec restates the rule without the tag. Under a strict reading of rebuild rule 10 those bullets read as unratified in isolation. **Disposition: `tidy` DRY sweep** — replace the restatements with pointers, or add the co-located tags. Not a pipeline block; flagged so a later Gate B run on the same sections doesn't stop the ticket writer for something already settled.
+**One finding, not a block.** The restatements in `surfaces.md` (§ Online is a location option, § Build note — this is a default not inheritance) carry the "Ratified 2026-09-03" marker in their headings but **no co-located `Intent (Ratified …)` line**. The ratification is real and dated at the decision doc; the spec restates the rule without the tag. Under a strict reading of rebuild rule 10 those bullets read as unratified in isolation. **Disposition: `tidy` DRY sweep** — replace the restatements with pointers, or add the co-located tags. Not a pipeline block; flagged so a later Gate B run on the same sections doesn't stop the ticket writer for something already settled.
 
 ### Architecture verdict
 
@@ -109,7 +109,7 @@ Every absolute these scenarios encode carries a State tag in `decision-surfaces.
 
 **F051's copy-not-reference criterion.** Reading the member's current hood at render time is cheaper to write, looks identical on every screen, and stays identical until the member edits their profile. A test that creates an Item and asserts its location passes under both implementations.
 
-**The eval must mutate the profile and then re-read the Item, in that order.** F051 states this in the Why line; the review restates it because it is the single highest-value assertion in the cluster and the easiest to write uselessly. `community-platform.md` § Build note says it plainly — "copy the value, do not store a reference" — and adds the reason it needs saying: "however much cheaper it looks."
+**The eval must mutate the profile and then re-read the Item, in that order.** F051 states this in the Why line; the review restates it because it is the single highest-value assertion in the cluster and the easiest to write uselessly. `surfaces.md` § Build note says it plainly — "copy the value, do not store a reference" — and adds the reason it needs saying: "however much cheaper it looks."
 
 ### CTA placement and copy
 

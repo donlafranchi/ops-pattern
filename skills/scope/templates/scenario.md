@@ -5,7 +5,7 @@
 **Work-map item:** {The 🟢 / 🟡 line from `planning/now/bundle-{N}-checklist.md` this scenario realizes — e.g. "b1.3 → 🟢 Gathering composer"}
 **Loops:** {Loop number(s) from product/needs/member-journey.md}
 **Canonical example:** {name + link to product/needs/use-cases.md#section}
-**Primitive shape:** {Person → Item(kind=…) → Location(…), per product/foundation/primitives.md}
+**Primitive shape:** {Person → Item(kind=…) → Location(…), per product/foundation/nouns.md}
 **Status:** backlog
 
 > **Why this shape?** A scenario is a real person trying to accomplish a real thing. The data model is invisible to them. If a scenario reads as "the user opens `/new` and selects a kind from a picker," the data primitive has leaked into the UX and the ticket writer will build the wrong surface. Anchor on a real person doing a real thing — the surface, the data, and the absence of a wrong picker fall out of the story.

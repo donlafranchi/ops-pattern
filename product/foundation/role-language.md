@@ -10,7 +10,7 @@ owns:
 
 # Role Language
 
-> Companion to [`people-first.md`](people-first.md) and [`primitives.md`](primitives.md). Those settle what the platform *is*. This settles what it *calls the people on it* — and, more usefully, what it refuses to call them.
+> Companion to [`people-first.md`](people-first.md) and [`nouns.md`](nouns.md). Those settle what the platform *is*. This settles what it *calls the people on it* — and, more usefully, what it refuses to call them.
 >
 > **Scope: naming and philosophy. No table renames, no schema changes.** Where a recommendation here would imply one, it is named and priced in § What this costs rather than executed.
 

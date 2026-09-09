@@ -15,24 +15,30 @@ owns:
 >
 > **An index. The scenarios hold the detail.** One state per cell, plus a two-word reason where it matters.
 
-**● Built** · **○ Specced, unbuilt** · **✕ Deliberately forbidden** · **— Meaningless** · **⚠ Built with no rules written**
+**● Built** · **○ Specced or ruled, unbuilt — includes postponed, which is labelled in the cell** · **✕ Deliberately forbidden** · **— Meaningless** · **⚠ Built with no rules written**
 
-| | Person | Page | Gathering | Product / Service | Venue | Bulletin |
-|---|---|---|---|---|---|---|
-| **Create** | ● signup | ● | ● | ● | ⚠ fake coords | ○ F066 |
-| **Edit** | ○ no editor exists | ○ F056 · save is publish | ⚠ no handler | ⚠ no handler | ⚠ no handler | ✕ post is final |
-| **Publish** | — | ● activate | ● | ● | — | ● = posting |
-| **Retire** | ○ account delete | ○ handler missing | ⚠ **nobody has decided** | ⚠ **nobody has decided** | — | ✕ |
-| **Follow** | ● F032 | **= Join, by design** F042 | ✕ **not a concept** | ✕ **not a concept** | ● F042 · a saved search, **intended** | — |
-| **Respond** | — | — | ○ F063 · RSVP | ⚠ *interest* undecided | — | ○ F066 · one reaction |
-| **Join / leave** | — | ○ **rules exist, CTA never built** F035 | — | — | — | — |
-| **Save** | ⚠ homeless | ⚠ homeless | ⚠ homeless | ⚠ homeless | ⚠ homeless | — |
-| **Appear at** | — | ○ Page-level | ● item-level | ● item-level | — | — |
-| **Take down** | — | ○ F058 | ○ F058 | ○ F058 | — | ✕ |
-| **Signal** | — | — | — | — | — | — |
-| **Message** | ✕ **nothing exists** | ✕ | ✕ | ✕ | ✕ | ✕ |
+| | Person | Page | Gathering | Product / Service | Venue | Announcement *(bulletin)* | Idea *(postponed)* |
+|---|---|---|---|---|---|---|---|
+| **Create** | ● signup | ● | ● | ● | ⚠ fake coords | ○ F066 | ○ composer undesigned |
+| **Edit** | ○ no editor exists | ○ F056 · save is publish | ⚠ no handler | ⚠ no handler | ⚠ no handler | ✕ post is final | ○ |
+| **Publish** | — | ● activate | ● | ● | — | ● = posting | ○ |
+| **Retire** | ○ account delete | ○ handler missing | ⚠ **nobody has decided** | ⚠ **nobody has decided** | — | ✕ | ○ expires at 90 days |
+| **Follow** | ● F032 | **= Join, by design** F042 | ✕ **not a concept** | ✕ **not a concept** | ● F042 · a saved search, **intended** | — | — |
+| **Respond** | — | — | ○ F063 · RSVP | ⚠ *interest* undecided | — | ○ F066 · one reaction | ○ **= signal interest** |
+| **Join / leave** | — | ○ **rules exist, CTA never built** F035 | — | — | — | — | — |
+| **Save** | ⚠ homeless | ⚠ homeless | ⚠ homeless | ⚠ homeless | ⚠ homeless | — | — |
+| **Appear at** | — | ○ Page-level | ● item-level | ● item-level | — | — | — |
+| **Take down** | — | ○ F058 | ○ F058 | ○ F058 | — | ✕ | ○ |
+| **Signal** | — | — | — | — | — | — | — |
+| **Volunteer** | — | ○ **postponed** · a reply on the board | ○ **postponed** · needs the reply channel | — | — | — | — |
+| **Signal interest** | — | — | — | — | — | — | ○ **postponed** · mechanic undesigned — threshold, conversion |
+| **Message** | ○ **postponed** · DM · **no substrate at all** | ○ **postponed** · **inside a Page, ruled 2026-09-09** | ✕ | ✕ | ✕ | ○ **postponed** · reply = board increment one | ✕ |
 
-*Signal acts on a category or an unbuilt feature — neither is a noun in this model, which is why its row is empty and its table has no foreign key. Rules: F064.*
+*Signal acts on a category or an unbuilt feature — neither is a noun in this model, which is why its row is empty and its table has no foreign key. Rules: F064. **Signal interest is a different verb**: its subject is an Idea, which is a real row.*
+
+*The **Announcement** column was headed "Bulletin" until 2026-09-09. Schema is `page_posts`; `kind='bulletin'` is the first thing posted to the board. **Its audience is members, not followers** — re-scoped 2026-09-08, which is what removed its dependency on the follows work.*
+
+*The three **postponed** verbs are in the matrix rather than omitted from it, per the 2026-09-09 ruling that these documents track what the app will do and not only what ships.*
 
 ## The forbidden cells, with reasons
 
@@ -40,7 +46,7 @@ owns:
 - **Edit or delete a bulletin after posting.** A broadcast that can be rewritten after people read it is not a broadcast.
 - **Rename an active Page's slug.** The name may change; **the address does not follow it.** A public URL that moves is a broken link someone already shared.
 - **Overlapping appearances.** A Page cannot be in two places at once.
-- **Message anyone, about anything.** **No messages, threads or comments exist anywhere in the product.** Not a gap in this document — a hole in the product, and the reason volunteering has no reply channel.
+- **Message anyone, about anything — amended 2026-09-09.** The blanket refusal is replaced by the message-board ruling: **conversation is forbidden between people at large and available inside a Page you have joined.** That is the honest description of what this product is — **not an anonymous internet platform, a know-and-support-your-community platform.** **Still true today: no messages, threads or comments exist anywhere in the product**, which is why volunteering has no reply channel. **The difference is that this is now postponed with a settled shape rather than refused.** Ruling: [`../../planning/DECISIONS.md`](../../planning/DECISIONS.md) § 2026-09-09 — The Page is the message board. **Why the cell stays forbidden while the board is built, and what has to be true before each rung opens: [`messaging-problem.md`](messaging-problem.md).**
 - **A follow granting membership, role, read access, or satisfying any "is this person part of this Page" check.** Four refusals, three of which close latent access problems. *(F065.)*
 
 ## Who can see whom — 2026-09-08

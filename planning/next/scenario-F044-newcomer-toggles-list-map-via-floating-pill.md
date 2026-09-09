@@ -12,7 +12,7 @@ status: next
 **Loops:** 3 (Land here), 7 (Make and be found — discovery side)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → `discoverable_items` materialized view → browse (no schema change)
-**Spec contract:** design-research-thesis.md §5 (Explore wireframe — inline toggle), community-platform.md § Explore T1
+**Spec contract:** design-research-thesis.md §5 (Explore wireframe — inline toggle), surfaces.md § Explore T1
 **Status:** next
 
 ## The Person
@@ -47,7 +47,7 @@ No new data. This is a pure presentation-layer change.
 
 **Given** the Explore page is showing list results
 **When** the newcomer taps "Map" on the inline toggle
-**Then** the view transitions to the map (same result set as kind-color-coded pins), and the toggle state updates to reflect map is active. _Why: the same result set in two renderings is the existing spec (community-platform.md § Explore T1); only the toggle affordance changes._
+**Then** the view transitions to the map (same result set as kind-color-coded pins), and the toggle state updates to reflect map is active. _Why: the same result set in two renderings is the existing spec (surfaces.md § Explore T1); only the toggle affordance changes._
 
 ### Toggling back to list view
 
@@ -75,12 +75,12 @@ No new data. This is a pure presentation-layer change.
 
 ## Assumptions
 
-- The map view already exists (community-platform.md § Explore T1 confirms "Map toggle").
+- The map view already exists (surfaces.md § Explore T1 confirms "Map toggle").
 - The search bar is top-anchored and sticky (thesis §5). Kind-filter pills are bottom-anchored above the nav (thesis §5).
 
 ## Out of Scope
 
-- Full-screen map as a primary route (deferred per community-platform.md § Explore).
+- Full-screen map as a primary route (deferred per surfaces.md § Explore).
 - Persisting the toggle preference across sessions (b2).
 - Floating pill / FAB pattern (rejected per thesis — inline is the specified approach).
 

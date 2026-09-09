@@ -29,7 +29,7 @@
 - [x] Tapping "Map" transitions the view to the map (same result set as kind-color-coded pins). Toggle state updates to show Map as active.
 - [x] Tapping "List" transitions back to the scrollable card list. Toggle state updates.
 - [x] Transition between views: crossfade (CSS opacity transition), not a page navigation. No URL change — toggle is ephemeral session state.
-  _Why: the same result set in two renderings is the existing spec (community-platform.md § Explore T1); only the toggle affordance changes._
+  _Why: the same result set in two renderings is the existing spec (surfaces.md § Explore T1); only the toggle affordance changes._
 - [x] Selected view persists for the session (React state). Resets to List on next session.
 - [x] No results: toggle still renders (the map shows the search area even with no results).
 - [x] Desktop viewport: toggle renders inline, centered in the content column.
@@ -38,7 +38,7 @@
 
 ## Notes
 
-The map view already exists per community-platform.md § Explore T1 ("Map toggle: same result set rendered as kind-color-coded pins"). This ticket changes the toggle affordance, not the map implementation. Reuse the existing map component and its pin-rendering logic.
+The map view already exists per surfaces.md § Explore T1 ("Map toggle: same result set rendered as kind-color-coded pins"). This ticket changes the toggle affordance, not the map implementation. Reuse the existing map component and its pin-rendering logic.
 
 The toggle's position "after 3–5 cards" can be implemented as a React component rendered at a fixed index in the results list (e.g. after index 4). If results are fewer than that, render the toggle after the last card.
 

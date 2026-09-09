@@ -8,7 +8,7 @@
 
 **Serves:**
 - **Spec:** [`product/systems/item.md`](../../product/systems/item.md) § *Discoverable-items MV* — the MV is the public browse index; Explore is its primary consumer.
-- **Spec:** [`product/ui/community-platform.md`](../../product/ui/community-platform.md) § *Explore T1*.
+- **Spec:** [`product/ui/surfaces.md`](../../product/ui/surfaces.md) § *Explore T1*.
 - **Deviation resolved:** DEVIATIONS § T114 What (1) — "the kind pills filter a vendor list that has no `items.kind`, so every non-All pill resolves to zero rows." Type B, escalated to PM; this ticket is the answer.
 - **Loop:** 3 (Land here), 7 (Make and be found — discovery side).
 - **Primitive shape:** Person → `discoverable_items` materialized view → filtered browse. **No schema change.**

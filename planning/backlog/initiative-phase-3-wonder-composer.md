@@ -14,7 +14,7 @@ A composer for `items.kind='wonder'` — declaring an idea publicly to test inte
 ## Where it came from
 
 - Archived [`_attic/2026-05-28-rebuild-plan/rebuild-plan.md`](../../_attic/2026-05-28-rebuild-plan/rebuild-plan.md) Phase 3 — *"Wonder kind composer (no schedule, no Location required). Posts from `/explore` ('Wonder if…' composer) and from `/you`."*
-- [`use-cases.md` O4](../../product/needs/use-cases.md#o4-a-member-floats-an-idea-to-test-interest-before-committing-to-host) — Status: **Deferred (b2+)**. *"the Wonder Item kind exists in `primitives.md` but the signaling mechanic, threshold logic, and tipping-point conversion are not yet designed."*
+- [`use-cases.md` O4](../../product/needs/use-cases.md#o4-a-member-floats-an-idea-to-test-interest-before-committing-to-host) — Status: **Deferred (b2+)**. *"the Wonder Item kind exists in `nouns.md` but the signaling mechanic, threshold logic, and tipping-point conversion are not yet designed."*
 
 ## Status reconciliation
 

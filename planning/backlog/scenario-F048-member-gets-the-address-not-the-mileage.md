@@ -13,7 +13,7 @@ status: draft
 **Loops:** 3 (Land here), 4 (Gather regularly), 7 (Make and be found)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love); the hand-off beat is [O1 — A group meets at a regular time and place](../../product/needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) (Drake's Run Club).
 **Primitive shape:** Person → browse `discoverable_items` → Item(kind=gathering) → Location(permanent). No schema change; this removes read-time computation and one filter dimension.
-**Spec contract:** `community-platform.md` § Distance is out (Ratified 2026-09-03); `decision-surfaces.md` § Distance is out — the hierarchy is the only proximity concept
+**Spec contract:** `surfaces.md` § Distance is out (Ratified 2026-09-03); `decision-surfaces.md` § Distance is out — the hierarchy is the only proximity concept
 **Status:** backlog
 
 > **This is a deliberate removal of shipped work, not a defect being fixed.** T115 merged its distance filter on 2026-09-03 and this removes it. The ticket was built correctly to the spec that existed at the time. Say so in the ticket; do not write it up as a bug.
@@ -53,7 +53,7 @@ Implicit: no new events. `?distance=` and `?sort=nearest` stop being meaningful 
 
 **Given** a member browsing the feed, the Explore list, the map, or any Item detail page
 **When** any Item is rendered, with or without an attached Location
-**Then** no distance value renders — no "2.3 mi", no "within 5 miles", no proximity badge, no mile count in a card, a chip, a heading, or a tooltip. _Why: `community-platform.md` § Distance is out — "nothing in the product measures or displays miles." The eval should assert on the absence of a mile-unit pattern across rendered output, not on the removal of one specific component, because the number appears in several places and a component-scoped test would pass while a card still shows it._
+**Then** no distance value renders — no "2.3 mi", no "within 5 miles", no proximity badge, no mile count in a card, a chip, a heading, or a tooltip. _Why: `surfaces.md` § Distance is out — "nothing in the product measures or displays miles." The eval should assert on the absence of a mile-unit pattern across rendered output, not on the removal of one specific component, because the number appears in several places and a component-scoped test would pass while a card still shows it._
 
 ### The distance filter is gone, and an old link does not resurrect it
 
@@ -79,7 +79,7 @@ Implicit: no new events. `?distance=` and `?sort=nearest` stop being meaningful 
 
 **Given** an Item with an attached Location that has a street address, viewed on a touch device
 **When** the member taps the address
-**Then** the device's map application opens with that address as the destination. _Why: `community-platform.md` § Distance is out — "the address must be present and actionable on any Item that has one … that affordance is load-bearing; it is the only path to a distance answer." Removing distance without adding this leaves a hole where a real question used to get a bad answer; the eval must verify the hand-off fires, not merely that the address string is present._
+**Then** the device's map application opens with that address as the destination. _Why: `surfaces.md` § Distance is out — "the address must be present and actionable on any Item that has one … that affordance is load-bearing; it is the only path to a distance answer." Removing distance without adding this leaves a hole where a real question used to get a bad answer; the eval must verify the hand-off fires, not merely that the address string is present._
 
 ### The address is copyable on web
 

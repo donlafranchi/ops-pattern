@@ -12,7 +12,7 @@ status: next
 **Loops:** 3 (Land here), 7 (Make and be found — discovery side)
 **Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → `discoverable_items` materialized view → filtered browse (no schema change)
-**Spec contract:** design-research-thesis.md §5 (Explore — bottom pills, top-right search/filter), community-platform.md § Explore T1
+**Spec contract:** design-research-thesis.md §5 (Explore — bottom pills, top-right search/filter), surfaces.md § Explore T1
 **Status:** next
 
 ## The Person
@@ -38,7 +38,7 @@ The newcomer taps "Events" — results filter instantly to gatherings only. They
 
 ## Data Captured
 
-No new data. Filter parameters are the same as today (kind, category, distance, schedule per community-platform.md § Explore T1). The change is structural — kind moves from the bottom sheet to always-visible pills; the remaining filters stay in the sheet.
+No new data. Filter parameters are the same as today (kind, category, distance, schedule per surfaces.md § Explore T1). The change is structural — kind moves from the bottom sheet to always-visible pills; the remaining filters stay in the sheet.
 
 ## Acceptance Criteria
 
@@ -82,13 +82,13 @@ No new data. Filter parameters are the same as today (kind, category, distance, 
 
 **Given** the newcomer has applied kind and/or secondary filters
 **When** they copy or share the current URL
-**Then** the URL includes query parameters reflecting all active filters (kind + secondary), and navigating to that URL restores the same filter state. _Why: per community-platform.md § Explore T1 — "filter state reflected in URL for shareable views."_
+**Then** the URL includes query parameters reflecting all active filters (kind + secondary), and navigating to that URL restores the same filter state. _Why: per surfaces.md § Explore T1 — "filter state reflected in URL for shareable views."_
 
 ### Back navigation restores filters
 
 **Given** the newcomer has active filters, taps into an Item page, then navigates back
 **When** the Explore page re-renders
-**Then** the previous filter state (kind pill + secondary filters) and scroll position are restored. _Why: per community-platform.md § Explore T1 — "Back navigation restores scroll and filter state."_
+**Then** the previous filter state (kind pill + secondary filters) and scroll position are restored. _Why: per surfaces.md § Explore T1 — "Back navigation restores scroll and filter state."_
 
 ### Dot indicator on filter icon when secondary filters are active
 
@@ -106,13 +106,13 @@ No new data. Filter parameters are the same as today (kind, category, distance, 
 
 ## Assumptions
 
-- All four filter types already exist (community-platform.md § Explore T1 confirms kind, category, distance, schedule).
+- All four filter types already exist (surfaces.md § Explore T1 confirms kind, category, distance, schedule).
 - The search bar is top-anchored and sticky (thesis §5).
 - The bottom nav is 44px tall (thesis §2, updated 2026-09-02).
 
 ## Out of Scope
 
-- Saved searches / saved filter presets (b2 per community-platform.md).
+- Saved searches / saved filter presets (b2 per surfaces.md).
 - Additional filter types (e.g., price range, Group membership) — b2.
 - Filter count badge on the icon (the dot indicator is sufficient at b1).
 

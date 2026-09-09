@@ -56,8 +56,8 @@
 **Screenshot at 375×812 into the Completion section** (checklist 4), and one line in DEVIATIONS about appearance. "No appearance change" is only valid if the screenshot says so.
 
 **Gate B — encodes ratified absolutes:**
-- `product/ui/community-platform.md` § T1 — browse without authentication: no redirect, no signup wall, no gated or truncated result set (Ratified 2026-09-04).
-- `product/ui/community-platform.md` § T1 — locality + recency + declared-tag boost; no behavioural ranking (Ratified 2026-09-04).
+- `product/ui/surfaces.md` § T1 — browse without authentication: no redirect, no signup wall, no gated or truncated result set (Ratified 2026-09-04).
+- `product/ui/surfaces.md` § T1 — locality + recency + declared-tag boost; no behavioural ranking (Ratified 2026-09-04).
 - `planning/backlog/decision-surfaces.md` § Distance is out — nothing measures or displays miles (Ratified 2026-09-03).
 - `planning/backlog/decision-surfaces.md` § The two-tab model — Home absorbs Explore entirely (Ratified 2026-09-03).
 - **Not owed a tag:** `design-language.md` principle 9 carries no State tag, and `decision-durability-register.md` § 6 already classifies all nine DLS principles as bets rather than commitments. No ratification is outstanding; the deviation above is a bet knowingly not taken this release.

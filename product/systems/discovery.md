@@ -169,7 +169,7 @@ The thread connecting these tiers: search isn't just a *find* surface — it's t
 
 ## Integration Points
 
-- **Reads:** [`item.md`](item.md) (Item shape, kinds, `made_at_place_id` for Locally-Made surfaces), [`groups.md`](groups.md) (Group-scoped feeds in T3), [`location.md`](location.md) (locality scope, geography for proximity), [`places.md`](places.md) (Place hierarchy for community-awareness traversal), [`member.md`](member.md) (`member_place_interests`, `member_interests`, `member_saved_searches`, follower edges), [`../foundation/primitives.md`](../foundation/primitives.md) (verb edges as signal), [`../needs/member-journey.md`](../needs/member-journey.md) (loop families, adjacency), [`../foundation/principles.md`](../foundation/principles.md) (hard constraints).
+- **Reads:** [`item.md`](item.md) (Item shape, kinds, `made_at_place_id` for Locally-Made surfaces), [`groups.md`](groups.md) (Group-scoped feeds in T3), [`location.md`](location.md) (locality scope, geography for proximity), [`places.md`](places.md) (Place hierarchy for community-awareness traversal), [`member.md`](member.md) (`member_place_interests`, `member_interests`, `member_saved_searches`, follower edges), [`../foundation/nouns.md`](../foundation/nouns.md) (verb edges as signal), [`../needs/member-journey.md`](../needs/member-journey.md) (loop families, adjacency), [`../foundation/principles.md`](../foundation/principles.md) (hard constraints).
 - **Used by:** Home feed, Explore, search, Item detail "related," notifications, You page activity.
 - **Writes:** Ranking event log (training data for T2/T3).
 

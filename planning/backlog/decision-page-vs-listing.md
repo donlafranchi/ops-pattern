@@ -6,7 +6,7 @@ status: done
 
 # Decision — is a Page similar to a listing?
 
-> **RULED 2026-09-07: no.** A Page is the person or people behind the listing — Page is *who*, Item is *what*. One-time things are Items; long-duration things are Pages. Retirement is in scope and gets built. Canonical definition now lives at [`../../product/foundation/primitives.md`](../../product/foundation/primitives.md) § Page.
+> **RULED 2026-09-07: no.** A Page is the person or people behind the listing — Page is *who*, Item is *what*. One-time things are Items; long-duration things are Pages. Retirement is in scope and gets built. Canonical definition now lives at [`../../product/foundation/nouns.md`](../../product/foundation/nouns.md) § Page.
 
 **Raised:** 2026-09-07 by the PM, alongside the ruling that people create Pages **sequentially, not simultaneously**, that Pages have varying lifespans — a business for years, a season of selling for months, something short enough to exist only until a one-time event — and that a Page is an **organizing entity**: where conversations happen and items and dates get posted.
 

@@ -88,7 +88,7 @@
 
 - The project's design language doc (if it has one) — for any UI work.
 - The relevant `product/systems/{name}.md` — for any schema change. Read its "Data model implications" section and include forward-looking columns at MVP.
-- The project's surface file (e.g. `product/ui/community-platform.md`) — for page roles and capability tiers.
+- The project's surface file (e.g. `product/ui/surfaces.md`) — for page roles and capability tiers.
 
 ## When the deliverable is not code
 

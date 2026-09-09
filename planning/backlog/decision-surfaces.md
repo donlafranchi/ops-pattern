@@ -6,7 +6,7 @@ status: ratified
 
 # Decision: Surface Responsibilities — Home / + / You
 
-Two tabs and a create action. Canonical tab specs live in `product/ui/community-platform.md`; this doc names the problems in production, the fixes, and the You-tab redefinition.
+Two tabs and a create action. Canonical tab specs live in `product/ui/surfaces.md`; this doc names the problems in production, the fixes, and the You-tab redefinition.
 
 **Superseded 2026-09-03:** this doc previously specified a three-tab model (Home / Explore / You) in which Home was feed-only, Explore owned search and filtering, and You was the follow-graph payoff surface. All three claims are retired. The two-tab model below replaces them.
 
@@ -60,7 +60,7 @@ Two separate moves, both deliberate:
 
 **Consequence for the merge (F059).** No polygon-relaxation work lands in the merge. What does land is the vantage point moving to metro grain — today `locality_feed_items` intersects `places.geography`, and `places.kind` has no `metro` value at all (`check (kind in ('region','state','county','city','neighborhood'))`, migration `017`). Metro is a separate overlay, `metro_polygons` (migration `031`). So "filter by metro" is not a configuration of the shipped function; it is a second function against a different table, and it is a hard dependency of the merged surface rather than a nicety, because the merge ships the switcher and the switcher's entries are metros.
 
-**What this resolves.** The open question *"do Items with no Location appear?"* — one of the three blocking the Home/Explore merge. **Answer: yes, ranked last** — and, after the creation-entry decision, the state that question was asking about is now *Online*. `product/ui/community-platform.md` § T1 previously deferred it the other way ("Items with no Location — do not appear in the proximity index; keyword-search path at b2"). That line is retired and corrected in place; do not cite it.
+**What this resolves.** The open question *"do Items with no Location appear?"* — one of the three blocking the Home/Explore merge. **Answer: yes, ranked last** — and, after the creation-entry decision, the state that question was asking about is now *Online*. `product/ui/surfaces.md` § T1 previously deferred it the other way ("Items with no Location — do not appear in the proximity index; keyword-search path at b2"). That line is retired and corrected in place; do not cite it.
 
 ### The merged surface's two ranking authorities — MOSTLY RESOLVED BY DELETION
 
@@ -162,7 +162,7 @@ The place switcher on Home selects **a metro**, not a neighborhood. Hoods are **
 |---|---|
 | `web/src/components/feed/ScopePicker.tsx` | Selects a **neighborhood-level place** — options are `kind='neighborhood'` rows, and choosing one navigates to `/?place=<slug>`. Neighborhood-as-scope is exactly the model this decision replaces. |
 | `web/src/components/feed/LocalityFeed.tsx` | Resolves the feed's vantage point to a **single Place** (`resolveFeedPlace` from `primary_home`, `?place=`, or IP), then queries from it. The vantage point becomes the metro; the Place-level resolve becomes a ranking input. |
-| `product/ui/community-platform.md` § Explore | "Location prompt … geocoding autocomplete for city / neighborhood / zip" — entry-level copy that reads as scope selection. |
+| `product/ui/surfaces.md` § Explore | "Location prompt … geocoding autocomplete for city / neighborhood / zip" — entry-level copy that reads as scope selection. |
 | `product/ui/phase-0-ia-wireframes.md:78` | "Near-me reach control … how wide the locality scope extends" (F031) — a *width* control over locality, which a metro switcher is not. |
 | § A Member has a set of saved hoods (this doc) | Said the saved set should populate the switcher. Refined: the saved set populates the switcher **as the metros those hoods resolve to**, deduplicated — not as one entry per hood. |
 
@@ -406,9 +406,9 @@ Listed, **not rewritten** — the sweep waits on the open question above.
 |---|---|---|
 | `web/src/components/feed/ScopePicker.tsx:26` | `aria-label="Choose a locality"` | Shipped UI copy — the switcher this decision converges with |
 | `web/src/components/feed/LocalityFeed.tsx` | "Near {place}" heading; empty state "We couldn't detect your locality. Pick a Place to see what's nearby." | Shipped UI copy |
-| `product/ui/community-platform.md` § You | The "**Locality control**" bullet — the control's own label | Spec naming a UI label |
-| `product/ui/community-platform.md` § Explore | "geocoding autocomplete for city / neighborhood / zip" | Spec naming composer copy |
-| `product/ui/community-platform.md:10` | "Home is the locality-aware activity feed" | Description prose — borderline, arguably internal |
+| `product/ui/surfaces.md` § You | The "**Locality control**" bullet — the control's own label | Spec naming a UI label |
+| `product/ui/surfaces.md` § Explore | "geocoding autocomplete for city / neighborhood / zip" | Spec naming composer copy |
+| `product/ui/surfaces.md:10` | "Home is the locality-aware activity feed" | Description prose — borderline, arguably internal |
 | `product/ui/phase-0-ia-wireframes.md:78` | "Near-me reach control … how wide the locality scope extends" (F031's user-facing surface) | Spec naming a UI surface |
 | `product/ui/card-feed-design-proposals.md:82` | "the locality pill pin dot" | Design prose naming a component |
 | `CLAUDE.md` § Naming conventions | The UI-label column carries **Place** for `places` and **Venue** for `locations`. A neighborhood-kind Place surfaced to a Member as a "hood" is a distinction the table does not currently make. | The naming table itself — reconcile here first, since everything else cites it |

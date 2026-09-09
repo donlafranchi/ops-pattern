@@ -174,7 +174,7 @@ Written as one sentence, the mechanism inherits the commitment's weight and beco
 
 ### Genuinely ambiguous (2 of 24)
 
-- **"Create is first class."** The stated Intent is *"the platform's whole thesis is that Members declare things"* — which is `primitives.md`, a commitment. But the decision is about **nav placement**, and nav placement is falsifiable. Reading: bet, serving a commitment nobody proposes to reverse. If it were binding, no nav redesign could ever move the `+`, which is not what anyone means.
+- **"Create is first class."** The stated Intent is *"the platform's whole thesis is that Members declare things"* — which is `nouns.md`, a commitment. But the decision is about **nav placement**, and nav placement is falsifiable. Reading: bet, serving a commitment nobody proposes to reverse. If it were binding, no nav redesign could ever move the `+`, which is not what anyone means.
 - **"Picking a metro is an intentional act, not an ambient one."** Sits next to a genuine commitment — `discovery.md`'s refusal of a stored behavioural graph, and the "inferring hoods from behaviour" flag that explicitly defers to `weigh` and `policy.md`. But the decision as written is about *when the platform asks*, not about *what it stores*. Reading: bet. The commitment underneath is already written and already binding, which is why the flag correctly stopped rather than deciding.
 
 **Two ambiguous out of twenty-four, and both resolve on one reading.** That clears the PM's bar. The three splits are not ambiguity — they are the scheme finding seams that a single sentence was hiding.

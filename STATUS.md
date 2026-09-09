@@ -6,7 +6,7 @@
 >
 > **Nothing is published.** Every user-facing string in the repo is a draft; what gets published is the PM's call.
 >
-> **One of three durable documents**, with [`decisions.md`](product/foundation/decisions.md) (what's ruled out, and why) and [`primitives.md`](product/foundation/primitives.md) (the nouns). Everything else has a lifecycle or is a liability. **New rulings** land in [`planning/DECISIONS.md`](planning/DECISIONS.md); **build detail** in [`BUILD-LOG.md`](BUILD-LOG.md).
+> **One of three durable documents**, with [`decisions.md`](product/foundation/decisions.md) (what's ruled out, and why) and [`nouns.md`](product/foundation/nouns.md) (the nouns). Everything else has a lifecycle or is a liability. **New rulings** land in [`planning/DECISIONS.md`](planning/DECISIONS.md); **build detail** in [`BUILD-LOG.md`](BUILD-LOG.md).
 
 ---
 

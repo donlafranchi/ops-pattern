@@ -1,10 +1,18 @@
 ---
-purpose: Proposal — the Page as the message board. Whether bulletins is the first slice, what shape it must take, and the cheapest honest version of the board. Post-launch.
+purpose: Ruled — the Page as the message board. Bulletins is increment one; the table is page_posts and the first migration carries the parent reference. Board increments are post-launch.
 layer: how
-status: awaiting-ruling
+status: ruled
 ---
 
 # The Page as the message board
+
+> **RULED 2026-09-09 — ratified as written.** The table is **`page_posts`, not `bulletins`.** The nullable **`parent_post_id`**, the real **`author_member_id`** and the **`kind`** column all land in the **first** migration.
+>
+> **The PM's reasoning, in his words: *"I never want to have to do a migration and a rewrite."*** That is the whole of the ruling — the three columns are free today and are what makes the board an increment instead of a rewrite.
+>
+> **What is ratified is the shape, not the schedule.** Bulletins stays where the 2026-09-08 scope cut put it: in scope, **audience is members not followers**, 2 days, unticketed. **Increment two (members reply) needs no further decision. Increment three (members start posts) still needs the operator concept**, which does not exist anywhere in the code.
+>
+> Log entry: [`../DECISIONS.md`](../DECISIONS.md) § 2026-09-09 — The Page is the message board.
 
 **PM idea, 2026-09-08: coordination, messaging and polling happen on the Page rather than as separate direct-messaging infrastructure.**
 
@@ -80,3 +88,5 @@ status: awaiting-ruling
 **Post-launch. Not proposed for the 12.5 days of slack.** The whole purpose of this document is that **the three columns above cost nothing today and save a rewrite later.**
 
 **If bulletins ships with `page_posts`, a nullable parent, a real author column and a kind, then the board is an increment.** **If it ships as a `bulletins` table with an implied author and no parent, it is a rewrite.** That is the entire decision, and it is due before the migration is written — not before the feature is scheduled.
+
+> **Answered 2026-09-09: the first form.** `page_posts`, nullable parent, real author column, kind. **The ticket that writes the bulletins migration inherits this as a constraint, not a preference** — a migration that omits the parent reference is a deviation and should be escalated rather than shipped.

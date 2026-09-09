@@ -17,7 +17,7 @@ This is the same structural pattern the platform exists to counter: extractive i
 
 ## Why this belongs on this platform
 
-The platform's primitives (see [`primitives.md`](../foundation/primitives.md)) already model the relationships a local-stays surface needs — applied to stays:
+The platform's primitives (see [`nouns.md`](../foundation/nouns.md)) already model the relationships a local-stays surface needs — applied to stays:
 
 - **Person (Member)** — the host: a real human with a spare room, a guest house, or a home they travel away from sometimes. Hosting is a verb they hold, not a role-as-identity — the same person might also sell sourdough at the Saturday market and run a Run Club.
 
@@ -39,7 +39,7 @@ One listing per Person is frictionless. A second requires manual review and writ
 
 This is the load-bearing constraint. Everything else follows from it. If the platform makes it easy to operate at scale, the operators will come and the surface will reproduce Airbnb's failure mode. The friction is the feature.
 
-**Why this works structurally:** The Person primitive enforces "one real human" and the platform models no Business entity as a corporate shell (see [`../foundation/primitives.md`](../foundation/primitives.md)). A Person who holds two stay Items triggers a review; a third is refused. The same decision that blocks corporate shells blocks property portfolios here.
+**Why this works structurally:** The Person primitive enforces "one real human" and the platform models no Business entity as a corporate shell (see [`../foundation/nouns.md`](../foundation/nouns.md)). A Person who holds two stay Items triggers a review; a third is refused. The same decision that blocks corporate shells blocks property portfolios here.
 
 ### 2. Total cost transparency
 
