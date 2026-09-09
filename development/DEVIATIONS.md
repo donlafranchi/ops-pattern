@@ -997,3 +997,51 @@ Everything else matches the ticket: `media` bucket (not `item-media`), four `sto
 ### No other deviations
 
 The migration matches the ticket exactly otherwise: `groups.category` and `groups.photo_url` both nullable text with no CHECK/enum on category, `group_category_suggestions` with no status/promoted column, the `group_events_event_kind_check` constraint extended (drop-and-recreate, matching migration 023's own idiom) to add `group.photo_set`, `group.photo_removed`, `group.updated` while preserving all ten existing kinds, `values_statement`/`tagline` correctly absent (F056's, not this ticket's). M2 code review found no correctness defects. `supabase/config.toml` untouched, as expected for a pure-DDL migration with no new bucket or extension.
+
+---
+
+## 2026-09-08 — T142 (the location step stops inventing a coordinate)
+
+### T142: the neighbourhood-mode point is seeded by a fresh id, not "the Page's own id"
+
+**What:** The ticket's acceptance criteria say the neighbourhood-mode point is "derived deterministically from the Page's own id." The shipped implementation derives it from a freshly generated `crypto.randomUUID()` at Location-creation time instead.
+
+**Why:** `sellCreateLocationAction` — the one shared action behind the Sell walkthrough's anchor-Location step AND the Product/Service composers' pickup/center-Location steps — takes no Page or Group id in its input at all; it creates a generic `locations` row, not a Page-specific one. There was no Page id available to seed from. A fresh id per Location preserves what the requirement is actually protecting — determinism (the point is computed once and stored, never re-rolled) and no-coincidence (two different Locations in the same neighbourhood, whether for the same Page or different ones, don't land on the same point) — without needing a capability the action doesn't have.
+
+**Disposition:** flag-for-spec-revision.
+**Type:** A (upstream authoring error — the scenario/ticket assumed a single Page-anchor-creation flow; the real shared action serves three different Location-creation surfaces, only one of which is a Page's own anchor).
+**Route:** `tidy` should correct `groups.md` § *A real place, at the precision its owner chooses* and the F061 scenario to say "the Location's own id," not "the Page's own id" — the distinction matters once the same action creates pickup/service Locations that have nothing to do with a Page's identity.
+
+### T142: Gathering composer was not touched — it has no Location-creation step to update
+
+**What:** The ticket and F061 scenario both frame this as "the product, service, and gathering composers" gaining the new address/neighbourhood step. `GatheringComposer.tsx` was not modified.
+
+**Why:** Confirmed in code before writing anything: `GatheringComposer.tsx` has no location-picker step at all. A Location is pre-attached via a `defaultLocationId`/`defaultLocationLabel` prop, with an explicit existing comment: "Location is pre-attached from a prop... no picker step at b1." There is nothing in this composer that calls `sellCreateLocationAction` or any location-create path — the placeholder-coordinate problem this ticket fixes does not exist there today.
+
+**Disposition:** flag-for-spec-revision.
+**Type:** A (upstream authoring error — "four composers" should have been "three"; easy to have assumed symmetry across composers without checking).
+**Route:** `tidy` corrects the "four composers" wording in T142's own ticket text and in the F061 scenario's acceptance criteria to "three."
+
+### T142: the Page-kind address/neighbourhood branch (non-business kinds see only the neighbourhood question) is not built
+
+**What:** F061's acceptance criteria include: "A Page whose kind implies no fixed premises... sees only the neighbourhood question — no address field renders at all." Nothing was built for this branch.
+
+**Why:** There is no composer today that collects a Page's own address for a non-business kind. The Sell walkthrough (where the new address/neighbourhood step landed) only ever creates `kind='business'` Groups. The non-business Page-creation flow is T139's `/you/create`, which explicitly does not collect an address at all — T139's own scope note says the business-claim surface (ZIP, ownership, ) is "a separate, later, deliberate act... not built here." There is no real surface to attach this branch to yet.
+
+**Disposition:** flag-for-spec-revision.
+**Type:** B (real architectural decision — this isn't a typo to correct, it's a genuine forward-dependency on whichever future ticket gives non-business Pages their own address-collection surface).
+**Route:** decision stub at `planning/backlog/decision-non-business-page-address-step.md` — when a non-business Page creation flow grows an address/location step, it should reuse `<LocationPlaceFields>` and default to (or force) neighbourhood mode per this criterion. Not actionable until that surface exists.
+
+### T142: M2 found and fixed one real bug; M3 found two gaps, one fixed
+
+**What:** M2 code review: the debounced `geocode()` call in `LocationPlaceFields.tsx` had no cancellation on unmount — closing the drawer mid-search would update state on an unmounted component. Fixed with a mounted-ref guard before commit.
+
+M3 accessibility review: (1) suggestion buttons and the mode-toggle links were under the 44px touch-target minimum — fixed before commit. (2) The address combobox has no arrow-key navigation or `aria-activedescendant` — functional via Tab, but not the full ARIA 1.2 combobox pattern — not fixed, logged below. (3) Colour contrast against the live rendered DOM was not measured — no browser available in this session.
+
+**Disposition:** flag-for-spec-revision (items 2 and 3 only; item 1 was fixed, not a ticket-close deviation).
+**Type:** B (real architectural decision — a full combobox keyboard pattern is a real scope decision, not a typo).
+**Route:** decision stub at `planning/backlog/decision-location-combobox-keyboard-nav.md` covering both open items — whether arrow-key/aria-activedescendant is worth adding now versus when `design-language.md` gets its first real combobox recipe (none exists yet; this component was built ahead of one), and a note that contrast should be checked against a live render before this ships past the dogfood test.
+
+### No other deviations
+
+`src/app/you/sell/actions.ts`'s `sellCreateLocationAction` input type change is a compile-time-enforced discriminated union (no caller can omit both address and neighbourhood) plus a runtime refusal for any caller that bypasses the type — matching the acceptance criterion that the deleted constant is "deleted, not made conditional." `sellListNeighborhoodsAction` added alongside it, unauthenticated (read-only reference data). `AddProductButton.tsx`, `AddServiceButton.tsx`, and `SellCta.tsx` needed no changes beyond type-checking — all three already pass `createLocation`/the action straight through without reshaping its input. All three composers' existing test suites were extended (not just type-checked) with a real address-selection flow through the new drawer fields; `SellWalkthrough.test.tsx`'s one pre-existing test that exercised the old label-only save was updated to the new required flow rather than left to silently pass against stale behavior.
