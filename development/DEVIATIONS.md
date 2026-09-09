@@ -1071,3 +1071,49 @@ M3 accessibility review: (1) suggestion buttons and the mode-toggle links were u
 ### No other deviations
 
 The resolver matches the ticket exactly otherwise: a single list-returning function, one placement today (the anchor), the appearance precedence branch present and structurally unreachable (not deleted, not commented out), no column/cache/materialized view storing position, the return-type contract asserted via `@ts-expect-error` (verified to be a genuine type error via `tsc --noEmit`, not an unused suppression). `resolveShop`'s existing test suite was extended (the one pre-existing full-object `.toEqual` assertion updated for the new `placements` field, plus a new test asserting the resolver's output flows through) rather than left to pass against a now-incomplete return shape.
+
+---
+
+## 2026-09-08 — T144 (one category, chosen at creation)
+
+### T144: category is held in composer state only, never progressively persisted — resume loses the selection
+
+**What:** `category`/`categoryOtherText` are NOT patched via `group.update_draft`. They exist only in `SellWalkthroughState` (React state) from the moment the Category step is completed until the final "Create my shop" tap, which sends them to `group.activate` directly. A Member who abandons the draft mid-session and resumes later starts the Category step over from nothing.
+
+**Why:** The ticket's own acceptance criteria require the write to happen "in the same transaction as the Page's publish write" — twice, for both the fixed-term and free-text cases. Taken literally (and it reads as deliberate, not incidental), this rules out progressive persistence: if category were saved step-by-step like `anchorLocationId`/`about`, a Member switching between "Something else" (typed, then abandoned) and a fixed term partway through drafting would leave a `group_category_suggestions` row from the discarded choice — exactly the "abandoned-choice garbage row" problem the deferred-to-publish design avoids. The resume cost is real but small (one step's worth of re-selection, not re-entry of the whole walkthrough) and wasn't named as acceptable anywhere in the ticket — recording it here rather than assuming it was considered.
+
+**Disposition:** accepted-as-is.
+**Type:** n/a — a direct, literal reading of the ticket's own wording, not a divergence from it.
+
+### T144: fixed forward into T141 — group_category_suggestions' RLS didn't anticipate a public read
+
+**What:** T141 scoped `group_category_suggestions` SELECT to the author or the Group's founder. T144 needs the "Something else" free text shown to **any** viewer of the public Shop page (review's own language: "renders on the Page as the Member's own words," matching the fixed-category case's public visibility). Fixed by reading the text through the action-layer pg pool (`resolvePageCategoryOtherText`, `src/lib/groups/resolve-page-category.ts`) rather than the Supabase client `resolveShop()` otherwise uses everywhere else.
+
+**Why:** T141's own reasoning for the restrictive policy ("nobody else has a reason to read raw free text a stranger typed") didn't anticipate the public-display requirement T144 turned out to have — the same kind of gap T141 itself flagged as a builder's-judgment call needing a future pass (`tidy` route already filed). Rather than widen the RLS policy (a new migration, ruled out by this ticket's own "M4 — no migration"), this reuses the exact fix-forward shape T143 already established for the position resolver: a pg-pool read for data that's conceptually public but whose RLS, as currently written, doesn't expose it to `anon`.
+
+**Disposition:** flag-for-spec-revision.
+**Type:** A (upstream authoring error — T141's policy scope was a guess that turned out wrong once the actual consumer was built; not a new architectural question).
+**Route:** `tidy` should fold this into the same `groups.md` § Other pass already queued from T141 (author-or-founder read, author-only write, no promoted/status column) — correcting "author-or-founder" to "public" for SELECT specifically, since write stays restricted.
+
+### T144: a real bug caught during build — "Something else" selection inferred from text emptiness
+
+**What:** The first implementation of `CategoryStep` determined whether "Something else" was the active selection by checking `state.category === null && state.categoryOtherText !== ''`. Clearing the free-text field (typing then deleting everything) made `categoryOtherText === ''`, which silently deselected the radio and collapsed the reveal — an ordinary editing action produced a confusing UI state.
+
+**Why:** Caught in the same build pass, not a separate M2 review cycle — widened `SellWalkthroughState.category`'s type to `PageCategory | 'other' | null` so "is Something else selected" is an explicit, independent state value rather than inferred from a different field's contents.
+
+**Disposition:** accepted-as-is (fixed before commit).
+**Type:** n/a — caught and fixed in the same pass, not a shipped divergence.
+
+### T144: "the Page's card wherever cards render Pages" has no implementation target
+
+**What:** The acceptance criterion "The chosen category... renders on the public Page and on the Page's card wherever cards render Pages" only has a real target for the first half. No Page/Shop card component exists anywhere in `src/components/` — confirmed by search, not assumed. Category renders on `ShopPublicPage.tsx` only.
+
+**Why:** Same shape as T142's Gathering-composer finding — the scenario and ticket were written assuming a browse/card surface for Pages that hasn't been built yet (browse/cards exist today only for Items, via `ItemFeedCard`).
+
+**Disposition:** flag-for-spec-revision.
+**Type:** A (upstream authoring error — the scenario assumed a shipped surface).
+**Route:** `tidy` should correct the acceptance-criteria wording in the F061 scenario to name only the public Page surface, pending whichever future ticket ships a Page/Shop card component.
+
+### No other deviations
+
+Everything else matches the ticket: the twelve-term vocabulary as a named TypeScript constant (not a schema constraint), native radio inputs satisfying the accessibility binding note without a custom widget, the Something-else reveal inside `role="status"`, whitespace-only free text rejected both client- and server-side, no row written to `group_category_suggestions` for the fixed-term case, the free text rendering with no platform chrome around it. `SellWalkthrough.test.tsx`'s resume tests and step-count assertions were updated for the new six-step shape (not left passing against a stale five-step expectation), and `ProductComposer`/`ServiceComposer` needed no changes — category is Sell-walkthrough-only, since it's a Page-level (not Item-level) attribute.
