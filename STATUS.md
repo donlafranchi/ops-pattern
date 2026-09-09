@@ -1,45 +1,51 @@
 # STATUS
 
-**Where the project is, right now. 2026-09-07.**
+**Where the project is, right now. 2026-09-08.**
 
-> **This file is overwritten, never appended.** It always describes the present. Git holds every previous version, so nothing is lost by rewriting it in place — `git log -p STATUS.md` is the history.
+> **Overwritten, never appended — `git log -p STATUS.md` is the history. Hard limit: one screen**; if it stops fitting, something has stopped being current, so cut rather than scroll.
 >
-> **Hard limit: one screen.** The limit is the mechanism, not a style note. If this file stops fitting, something in it has stopped being current — cut that thing rather than scrolling.
+> **Nothing is published.** Every user-facing string in the repo is a draft; what gets published is the PM's call.
 >
-> **Nothing is published.** The app is not launched; every user-facing string in the repo is a draft. Nothing here has been said to anyone, and what gets published is the PM's call.
->
-> **One of three durable documents**, with [`product/foundation/decisions.md`](product/foundation/decisions.md) (what's ruled out, and why) and [`product/foundation/primitives.md`](product/foundation/primitives.md) (the nouns, and what each deliberately does not have). **Everything else either has a lifecycle or is a liability** — the code is the source of truth for how the system works, and git is the history.
->
-> **If a line doesn't answer "where are we," it belongs somewhere else.** New rulings → [`planning/DECISIONS.md`](planning/DECISIONS.md) (the dated log, where they land before being distilled up). Build detail → [`BUILD-LOG.md`](BUILD-LOG.md). The narrative log this file replaced → [`planning/archive/JOURNAL.md`](planning/archive/JOURNAL.md).
+> **One of three durable documents**, with [`decisions.md`](product/foundation/decisions.md) (what's ruled out, and why) and [`primitives.md`](product/foundation/primitives.md) (the nouns). Everything else has a lifecycle or is a liability. **New rulings** land in [`planning/DECISIONS.md`](planning/DECISIONS.md); **build detail** in [`BUILD-LOG.md`](BUILD-LOG.md).
 
 ---
 
 ## What's true right now
 
-SocialUs is a local discovery app — buy, sell, trade, and gather — launching **30 October** to one metro. The substrate is finished and the consumer half works: anyone can browse a feed and a map of what's nearby, search it, filter it, open any listing, and follow a person, a shop or a venue. Producers can create a shop through a five-step walkthrough and list products, services and gatherings under it, each with a public page that resolves at a real address. There are 16 items, 11 people and 3 groups in the database, all seeded.
+SocialUs is a local discovery app — buy, sell, trade, and gather — launching **30 October** to one metro. The substrate is finished. Anyone can browse a feed and a map, search it, and open any listing. Producers can create a shop through a five-step walkthrough and list products, services and gatherings under it. There are 16 items, 11 people and 3 groups, all seeded.
 
-**Two things are badly wrong and both are the launch.** The page a producer lands on after signing up queries seven database tables that do not exist, so it renders empty — the door to becoming a producer is dead. And a gathering cannot be created without first opening a shop, which makes the whole product read as a marketplace with events bolted on. Nothing anywhere carries a photo, and no shared link shows a preview.
+**The model changed on 7 September and the build is catching up.** **Pages are the unit of discovery, not products** — browse is Pages and gatherings, a Page declares its categories, and photos belong to Pages. The producer entry point is still dead and a gathering still requires opening a shop first, which is the marketplace-only defect the launch exists to correct. Nothing carries a photo and no shared link shows a preview.
 
 ## In flight
 
-- **A Page worth showing people** — the current stretch, and the one being judged by Don creating his own Page: a real address *or* a neighbourhood, one category, a photo, and generated art on every Page that has none. **Approved and in the build lane, nothing blocking.** Scenario and review: [`planning/next/`](planning/next/) F061.
+- **A Page worth showing people** — the current stretch, judged by Don creating his own Page: a real address *or* a neighbourhood, one category, a photo, generated art on every Page without one. **In build, seven tickets, nothing blocking.**
+- **The launch plan was rebuilt 2026-09-08** after a day of decisions superseded it. **~26.5 days of work against ~37 available — it fits, with about 28% slack.** First on the cut list is bulletins. [`planning/now/initiative-launch.md`](planning/now/initiative-launch.md).
 - **Fixing the dead producer page** — approved, ticketed, buildable today. Create nothing, reuse one query, remove six dead reads. *Blocked on nothing.*
 - **The producer entry point** — `/you/sell` forks into `/you/create`, letting people host without opening a shop. Reviewed and ticketed.
 - **The report path and image takedown** — approved. **No photograph is accepted in production until this is live**, so it runs alongside the Page work rather than after it.
 - **Item photos** — **deferred.** The Page is the unit that carries a face. The upload substrate moved to the Page work; when Items resume it is a composer field, about half a day.
-- **Repo cleanup** — 26 files archived, 84 flagged for a ruling. *Done; awaiting rulings.*
+
+## Known broken — shipped code, not missing features
+
+- **Nobody can say they're coming to a gathering.** The response table has four readers and no writer.
+- **Browse offers a sort that orders by a column that is always zero.** The control works; the ordering does nothing.
+- **Following a business Page would tell the app you own a shop** — a routing check filters kind and lifecycle but not role. Live today.
+- **Storage access rules are unverified** — the tests exist and have never run. Not known-broken; known-unchecked.
 
 ## Waiting on Don
 
 - **The Page composer is now six steps** — name, address, category, photo, about, review — against a launch requirement of *minimal fumbling*. Three are new and each earns its place, but nobody has judged them as a set. **Not blocking: the first tickets are substrate.** Options in the F061 review.
-- **The 84 cleanup rulings**, in [`planning/CLEANUP.md`](planning/CLEANUP.md). The two that block work: whether the spec-patch backlog gets drained, and whether two launch-adjacent decisions (profile edits needing an update handler, the accent colour failing contrast) get promoted into the plan.
+- **The 84 cleanup rulings** in [`planning/CLEANUP.md`](planning/CLEANUP.md), and the unsure list from the doc consolidation. Neither blocks build.
 - **Whether "members share in what they help build" means profit or ownership.** It decides whether that candidate competes with the surplus promise for the same money or draws on something else entirely — the single clarification that most changes the shape of the promise set.
 - **Promise 1 — what "surplus goes back to the community" actually means.** Who decides the number, over what period, and what returning it looks like. Three options in [`product/foundation/promises.md`](product/foundation/promises.md); **the promise stays out of user-facing copy until this is picked.**
 - **Two contradictions and one never-ratified claim left** in [`product/foundation/decisions.md`](product/foundation/decisions.md) — the creator-framing conflict, the top-anchored search row, and the flourishing thresholds.
-- **Four launch scope questions** in [`planning/now/initiative-launch.md`](planning/now/initiative-launch.md): one metro or anywhere; confirm the Explore-into-Home merge stays cut; drop the category filter or buy the half-day; and whether the date is 30 October or early November.
+- **Whether the follows simplification and bulletins are scheduled.** Both are written and reviewed, deliberately sitting in the draft lane. **3.75 days for the pair**; bulletins is first on the cut list.
 
-## Next
+## Next — the four fortnights, in one line each
 
-1. **Profiles worth finding** — a shop editor and a member profile editor: image, tagline, bio, links, hours, where they'll be next. Nothing is editable today; every field set at signup is permanent.
-2. **A way to browse people** — browse and search producers and organizers, and put them on the map. Today browse indexes listings only, so a stranger cannot answer *who is here*.
-3. **Teaching the product** — onboarding, empty states, and the copy pass. A person currently finishes signup without ever being told what the platform is for.
+1. **A producer can make a Page worth showing someone** — real address or neighbourhood, a category, a photo. *(Gated on Don making his own.)*
+2. **A stranger can find that producer** — search, and browse rebuilt around Pages and gatherings.
+3. **People can respond, and producers can reach them** — RSVP, follows, bulletins.
+4. **The product explains itself** — onboarding, empty states, and whatever the dogfood loop surfaces.
+
+Detail, days and the cut list: [`planning/now/initiative-launch.md`](planning/now/initiative-launch.md).

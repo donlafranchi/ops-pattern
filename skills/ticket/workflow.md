@@ -10,6 +10,27 @@
 | **Does NOT read** | `planning/backlog/`, `web/` (code), eval test files, `product/foundation/` |
 | **Hands to** | `build` (to implement) — `test` (write mode) runs in parallel from the scenario |
 
+
+## When a scenario is necessary — the granularity test
+
+**Ratified 2026-09-08.** *A scenario is necessary when a noun performs a verb.*
+
+**In practice that means one of two things:**
+
+- **A person acting on behalf of a Page** — creating it, editing it, publishing under it, posting from it.
+- **A consumer or supporter doing something** — finding, responding, following, signalling.
+
+**This is why the verb × noun matrix has cells and the scenarios have stories.** A filled cell that anyone can act in wants a scenario. **The matrix is the index of what needs one; this is the test for whether a given piece of work is a cell.**
+
+**What does not need a scenario:**
+
+- **Substrate** — schema, RLS, indexes, handler scaffolding with no surface, test helpers. **No noun performs a verb.** The literal test stands: *if a Member can see the change, it is not substrate.*
+- **Applying a ratified decision to a surface it governs**, where a scenario would restate the decision and add nothing — the **Decision lane**, which is stricter than substrate, not looser: checklist 4 fires and M3 is mandatory.
+
+**Why this rule exists.** On 2026-09-07 two tickets were written straight from clear PM rulings, labelled `substrate`, and shipped surfaces members tap — their own accessibility lines contradicted their headers. **A clear ruling is not an approved scenario.** The rule names the difference so the question is answered before the ticket, not after.
+
+**When in doubt, write the scenario. It is the cheaper mistake.**
+
 ## Inputs you read
 - `planning/next/scenario-F{NNN}-{slug}.md` or `planning/now/scenario-F{NNN}-{slug}.md` (the approved scenario you're ticketing)
 - `review-F{NNN}.md` in the scenario's lane (`planning/next/` or `planning/now/`) — **required for scenario-driven tickets**; Gate C at step 3b stops ticketing when it is absent. Decision-lane tickets have no F-number and satisfy Gate C via checklist 4 instead; substrate tickets are exempt and must say so. The architecture + design pre-flight from `review`. The review tells you which existing components to reuse, which gaps to flag, and any decisions captured as pattern-doc entries in `playbooks/`.

@@ -32,7 +32,17 @@ Replace it. **Requirements, not a draft — the wording is the deliverable and s
 - **Under about 155 characters**, so it renders whole in a search result and a link preview rather than truncating mid-clause.
 - Present tense, plain words, no marketing cadence.
 
-**A starting point, not a final answer:** *"Find what's for sale and what's happening near you. Buy, sell, trade and gather with people in your own community."* — 118 characters. **Run it past `design:ux-copy` before committing; this is the one string worth a second opinion.**
+**Use this. It is the PM's own wording, condensed from the elevator speech in [`what-this-is.md`](../../product/foundation/what-this-is.md):**
+
+> **Find and support the people near you. Meet your neighbors, trade what you make, volunteer where it's needed, and share an idea before you build it.**
+
+**150 characters.** *Find and support the people near you* is kept verbatim — it is the line the PM wrote and it does the work.
+
+**Do not rewrite it to a spec.** My earlier drafted placeholder — *"Find what's for sale and what's happening near you…"* — **is withdrawn**: it led with commerce, which is the exact defect this ticket exists to fix. **The PM's phrasing beats a written-to-spec approximation and it is not a starting point, it is the string.**
+
+**One honesty check the build should be aware of, not act on:** *volunteer* names something the product cannot yet do — there is no volunteering verb or composer, only an onboarding interest tag. *Share an idea before you build it* is real and specced but **its composer is deferred to b2+.** **Both stay in the description**: it describes what the platform is for, which is the job of a description, and the PM wrote it knowing the build state. **Recorded so nobody "fixes" the copy to match the current build.**
+
+**`design:ux-copy` still runs** — on the condensation, not on the intent. If it wants to change *what the sentence says*, that is a PM question, not a copy edit.
 
 ### 2. Sweep every other metadata surface
 

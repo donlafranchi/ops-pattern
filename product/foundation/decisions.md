@@ -127,6 +127,24 @@ Discretionary hours and adequacy margin must both rise. Anything outside the app
 
 **Rules out:** a pin for anything that isn't there, a cached or materialized position, a Page in two places at once, and revealing a private address because a public appearance happened.
 
+## 18. Demand is measured before it is built — including our own
+
+*Ratified 2026-09-07, after the same shape turned up in three unrelated places in one day.*
+
+**When we don't know whether people want a thing, we ask and count. We do not guess, and we do not build first to find out.**
+
+Three instances, and they are the same mechanism at three scales:
+
+- **A member picks *Other* on the category list and types their own words.** The text is captured and counted; **the vocabulary grows from real demand rather than from anticipation.**
+- **A member taps a not-yet-built feature.** The tap is captured and counted; **the roadmap moves on evidence rather than on the founder's read.**
+- **A member floats an idea and neighbours say they'd be in.** The interest is captured and counted; **something gets made because people wanted it, not because someone gambled.**
+
+**The last one is the product. The first two are the platform holding itself to the same standard it asks of members.** That symmetry is the point: a platform that tells people *test your idea before you build it* while building on hunches is telling them one thing and doing another.
+
+**Rules out:** shipping a category vocabulary, a roadmap item, or a feature on the strength of an argument when a counter would have settled it; automatic promotion of any signal into a commitment *(a count is evidence, not a decision — promotion stays a deliberate human act)*; and **any signal-collecting affordance that implies a date, a plan, or a commitment in exchange for the tap.**
+
+**One mechanical rule the three share, learned the hard way:** **a signal is unique per person, enforced by a constraint.** A count that measures taps rather than people measures nothing. *(`item_responses` shipped without that constraint, which is one reason its counts could never have been trusted.)*
+
 ---
 
 ## Contradictions — two foundation statements that disagree. Not resolved here.

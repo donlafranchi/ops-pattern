@@ -11,6 +11,10 @@ status: active
 > Solo founder. Re-architecture in flight. Process lives in skills, not nested CLAUDE.md files.
 > **Start here, every session: [`STATUS.md`](STATUS.md)** — one screen, always current, overwritten rather than appended. It answers "where are we" and nothing else.
 >
+> **What this is, in the PM's words: [`product/foundation/what-this-is.md`](product/foundation/what-this-is.md)** — the canonical description, and the sentence every other description is checked against.
+>
+> **The verb × noun matrix: [`product/foundation/verbs.md`](product/foundation/verbs.md)** — what each verb may do to each noun, and what it deliberately may not. **The forbidden cells are the guard rails.**
+>
 > First time in this repo? **Three documents, in this order:** [`STATUS.md`](STATUS.md) (what's true now), [`product/foundation/decisions.md`](product/foundation/decisions.md) (what's ruled out, and why), [`product/foundation/primitives.md`](product/foundation/primitives.md) (the nouns, and what each deliberately does not have). Then this file end-to-end, then [`AGENTS.md`](AGENTS.md) for the pipeline.
 >
 > **The code is the source of truth for how the system works. Git is the history.** A doc that duplicates either goes stale silently and someone believes it — which is what happened on 2026-09-07, when the docs claimed markets existed that had been retired, said Explore browses members when it indexes items, and called a badge paused that was one query from switching on. **If the code can answer it, read the code.** The architecture map, the feature-lineage table and the doc catalogue were archived that day for exactly this reason.

@@ -49,6 +49,18 @@ If a doc doesn't fit one of these, the doc is wrong before its content is.
 
 **No "Touches:" link farms.** If a decision genuinely touches one file, name it. Beyond that, the reader navigates from the capability.
 
+## Writing about work that was built and then changed
+
+**Do not describe retired or superseded work as discredited.** *(PM, 2026-09-08: "just because we built things before and pivoted doesn't make them wrong, they perhaps were just the wrong shape or not fully formed.")*
+
+**The accurate framing is almost always an earlier shape of the same intent.** The retired vendor model is the clearest case: its analytics stored who and displayed how many, which is close to where the current view-tracking question is landing. **Describing it as a dead end loses a design answer that was already reached once.**
+
+**Words to avoid:** *stale, dead, wrong, abandoned, discredited, mistake* — when the thing was a deliberate build that a later decision moved past.
+
+**Words that carry the same information honestly:** *earlier shape · superseded by · not fully formed · the model changed underneath it · prior art.*
+
+**Two things this protects.** The obvious one: prior art gets read instead of dismissed, and the review notes already require reading it before rebuilding. The less obvious one: **a repo that calls its own history wrong teaches whoever reads it that changing your mind is a failure** — which is the opposite of how this project has actually worked.
+
 ## Anti-patterns
 
 Ten patterns describe most ways docs decay. The first six are tidying patterns — places where signal got drowned. The last four are writing patterns — habits that produce the decay.
