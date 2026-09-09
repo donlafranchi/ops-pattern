@@ -1,7 +1,7 @@
 # T141: One migration for category, photo column, and the new event types
 
 **Scenario:** substrate — no user-facing surface. Backs F061 — someone creates a page worth showing people.
-**Status:** Open
+**Status:** Complete
 **Bundle:** launch (`planning/now/initiative-launch.md`)
 **Depends on:** nothing. **Blocks:** T144, T145.
 
@@ -23,29 +23,34 @@ One migration. Nothing else.
 
 ## Acceptance Criteria
 
-- [ ] `groups.category text`, nullable, with a plain btree index. **No `CHECK`, no enum.**
+- [x] `groups.category text`, nullable, with a plain btree index. **No `CHECK`, no enum.**
   _Why: review binding note 2 — the twelve-term vocabulary will grow to thirteen and beyond; encoding it as a database constraint makes every vocabulary change a migration, and migrations are currently applied to production by hand. The vocabulary lives as a named constant in the action handler (T144), validated there. Nullable because Pages created before this exist and are not backfilled; the handler, not the column, is what makes the field required at publish (review binding note 3)._
-- [ ] `group_category_suggestions`: `id uuid pk`, `group_id` fk → `groups`, `member_id` fk → `members`, `raw_text text`, `normalized_text text`, `created_at timestamptz default now()`. Index on `normalized_text`.
+- [x] `group_category_suggestions`: `id uuid pk`, `group_id` fk → `groups`, `member_id` fk → `members`, `raw_text text`, `normalized_text text`, `created_at timestamptz default now()`. Index on `normalized_text`.
   _Why: `groups.md` § *Other* — "the escape hatch is how the vocabulary earns its next term." No `status`, no `promoted` flag — promotion is a human reading the table, per the ratified Intent. Adding either column would quietly build the automatic-promotion path the Intent refuses._
-- [ ] `groups.photo_url text`, nullable.
-- [ ] `group_events` kind constraint gains three members: `group.photo_set`, `group.photo_removed`, `group.updated`. `group.updated` is not consumed by any ticket in this stretch — it is F056's (the editor), landing here per binding note 5 so the editor's later migration doesn't need its own hand-push.
-- [ ] Single migration file, e.g. `0NN_page_identity.sql`. `supabase/config.toml` needs no change (no new bucket, no new extension).
-- [ ] `BUILD-LOG.md` updated, noting this migration is **written, not yet applied to production** until the session-end push per the drift check (T140).
+- [x] `groups.photo_url text`, nullable.
+- [x] `group_events` kind constraint gains three members: `group.photo_set`, `group.photo_removed`, `group.updated`. `group.updated` is not consumed by any ticket in this stretch — it is F056's (the editor), landing here per binding note 5 so the editor's later migration doesn't need its own hand-push.
+- [x] Single migration file: `040_page_identity.sql`. `supabase/config.toml` needs no change (no new bucket, no new extension) — confirmed untouched.
+- [x] `BUILD-LOG.md` updated, noting this migration is **written, not yet applied to production** until the session-end push per the drift check (T140).
 
 ## Workflow gates
 
-- [ ] **M2 — `engineering:code-review`** before commit.
-- [ ] **M3** — N/A, no surface.
-- [ ] **M4 — `engineering:deploy-checklist`** — fires. New migration.
-- [ ] **Migration applied to production** — per T140's drift check, not this ticket. Do not hand-push from inside this ticket's close-out; the drift check is the mechanism now.
-- [ ] **DEVIATIONS.md entry** at close — even one line.
+- [x] **M2 — `engineering:code-review`** before commit. No blocking findings. Two builder's-judgment additions not spelled out by the ticket — see Completion notes.
+- [x] **M3** — N/A, no surface.
+- [x] **M4 — `engineering:deploy-checklist`** — fires. New migration. Checklist run and recorded in the session.
+- [x] **Migration applied to production** — per T140's drift check, not this ticket. Not hand-pushed from this close-out.
+- [x] **DEVIATIONS.md entry** at close — even one line.
 
 ## Notes
 
 - **Do not add `values_statement` or `tagline` here.** Those are F056's (the editor) and belong to its own migration cycle if F056 builds before this one ships — check `development/tickets/T126-edit-shop-image-and-values.md` before writing that migration to avoid a second `group_businesses`-vs-`groups` collision.
 - **`group.photo_removed` is used by both T145 (Page) and the existing `item.photo_removed`** (Item, T122) — different tables, same event vocabulary shape. Not a collision; `group_events` and `item_events` are separate partitioned tables.
 
+## Completion — notes
+
+- **RLS on `group_category_suggestions` was a Rule 3 requirement the ticket didn't spell out.** Every new public table needs `enable row level security` plus at least one policy (web/CLAUDE.md Rule 3). Added: INSERT restricted to `member_id = auth.uid()` (the authoring Member); SELECT restricted to the author or the Group's founder. No ticket or spec text named these, so they're a builder's default — see DEVIATIONS.
+- **`raw_text` carries a `check (length(raw_text) between 1 and 280)`.** 280 is borrowed from F056's unrelated values-statement field, not spec-mandated for this column anywhere. A reasonable default to block abuse (a text bomb via the free-text escape hatch), not a ratified number — see DEVIATIONS.
+
 ## Completion
 
-Date: {YYYY-MM-DD}
-Commit: {pending}
+Date: 2026-09-08
+Commit: `b324a7c` (web repo — migration, test) + `b47b634` (parent repo — ticket close-out, DEVIATIONS)

@@ -979,3 +979,21 @@ Everything else matches the ticket: `media` bucket (not `item-media`), four `sto
 
 **Disposition:** accepted-as-is. The change itself is documentation-only (ticket status, a deviations entry, a decision stub) with no code and no deploy risk, and the parent repo carries no deploy attachment — but the process gap is real and worth naming rather than quietly absorbing, since the whole point of the branch-per-ticket rule is that it shouldn't depend on a human noticing after the fact.
 **Type:** n/a — process deviation, not a spec deviation.
+
+---
+
+## 2026-09-08 — T141 (one migration for category, photo column, and the new event types)
+
+### T141: two builder's-judgment additions the ticket didn't specify
+
+**What:** `040_page_identity.sql` adds RLS policies on `group_category_suggestions` (INSERT restricted to the authoring Member, SELECT restricted to the author or the Group's founder) and a `check (length(raw_text) between 1 and 280)` constraint. Neither is named in the ticket's acceptance criteria or in `groups.md` § Other.
+
+**Why:** web/CLAUDE.md Rule 3 requires every new public table to ship RLS plus at least one policy — a hard CI rule, not optional, and the ticket's acceptance criteria listed the table's columns without addressing access control at all. The 280-char cap borrows the number from F056's unrelated `values_statement` field (a different ticket, a different column) purely as a reasonable default against an unbounded text bomb through the free-text escape hatch — no spec text anywhere sets a length for this specific field.
+
+**Disposition:** flag-for-spec-revision.
+**Type:** A (upstream authoring error — Rule 3 already governs this and the ticket simply didn't address it; not a new architectural question).
+**Route:** `tidy` should fold "author-or-founder read, author-only write, no promoted/status column" into `groups.md` § Other on its next pass over that section, and either ratify 280 as the row's length bound or replace it with a considered number.
+
+### No other deviations
+
+The migration matches the ticket exactly otherwise: `groups.category` and `groups.photo_url` both nullable text with no CHECK/enum on category, `group_category_suggestions` with no status/promoted column, the `group_events_event_kind_check` constraint extended (drop-and-recreate, matching migration 023's own idiom) to add `group.photo_set`, `group.photo_removed`, `group.updated` while preserving all ten existing kinds, `values_statement`/`tagline` correctly absent (F056's, not this ticket's). M2 code review found no correctness defects. `supabase/config.toml` untouched, as expected for a pure-DDL migration with no new bucket or extension.
