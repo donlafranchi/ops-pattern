@@ -77,4 +77,4 @@ The existing geocoder (already used by the retired vendor signup and the admin f
 ## Completion
 
 Date: 2026-09-08
-Commit: {pending}
+Commit: `4ce04eb` (web repo — component, action, composer wiring, tests) + `8b70362` (parent repo — ticket close-out, DEVIATIONS, decision stubs)
