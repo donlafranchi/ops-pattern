@@ -59,4 +59,4 @@ One function. No schema, no migration, no cache.
 ## Completion
 
 Date: 2026-09-08
-Commit: {pending}
+Commit: `f244852` (web repo — resolver, fix-forward to T142, ShopPublicPage wiring, tests) + `75e3b4c` (parent repo — ticket close-out, DEVIATIONS)
