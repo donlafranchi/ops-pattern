@@ -65,4 +65,4 @@ One composer step, one handler-side vocabulary constant, one capture-table write
 ## Completion
 
 Date: 2026-09-08
-Commit: {pending}
+Commit: `4fb87cf` (web repo — vocabulary, handler, composer step, resolvers, tests) + `1e2aaf4` (parent repo — ticket close-out, DEVIATIONS)
