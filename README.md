@@ -3,19 +3,21 @@
 # SocialUs — launch 2026-10-30, 50 days left
 
 ## Built
-- F044: Newcomer toggles between list and map via an inline toggle
-- F045: Newcomer filters Explore via icon, kind pills, and bottom sheet
-- F046: Member scrolls and the bottom navigation hides
+- F044: F044
+- F045: F045
+- F046: F046
 
 ## Building
-- F056: A producer gives their shop a face and says what they stand for
+- F056: A producer edits a shop that already exists
 - F057: Someone who isn't selling yet finds the way in
-- F058: A member reports an image, and the operator can actually take it down
-- F059: A newcomer browses one surface instead of two
+- F058: A member reports something, and the operator can take a photo down
+- F059: A newcomer browses one surface, of Pages and gatherings
 - F060: Someone starts something without opening a shop
-- F061: Someone creates a Page they'd actually show people
+- F061: Someone creates a Page worth showing people
 - F063: Someone says they're coming
 - F064: Someone asks for something that isn't built
+- F069: A non-business Page resolves everywhere, and holding several is ordinary
+- F070: Every Page has a face, even without a photo
 
 ## Next
 
@@ -44,4 +46,4 @@
 
 
 ## Deferred
-- F055: A producer puts a photo on the thing they're selling
+- F055: A producer puts a photo on what they're selling

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Fails on: missing `status` in planning/, any root .md outside the nine, any
-# link to a path that doesn't exist. Run from the repo root.
+# link to a path that doesn't exist, a scenario over 40 lines, or a scenario
+# section outside Story/Acceptance/Not this. Run from the repo root.
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -13,6 +14,23 @@ for f in planning/*.md; do
   [ -f "$f" ] || continue
   if ! grep -q '^status:' "$f"; then
     echo "lint: missing 'status:' frontmatter — $f"
+    fail=1
+  fi
+done
+
+# 1b. Every planning/scenario-*.md is <=40 lines and has only the three
+#     allowed sections (Story, Acceptance, Not this), in any subset.
+for f in planning/scenario-*.md; do
+  [ -f "$f" ] || continue
+  lines=$(wc -l < "$f" | tr -d ' ')
+  if [ "$lines" -gt 40 ]; then
+    echo "lint: scenario over 40 lines ($lines) — $f"
+    fail=1
+  fi
+  bad=$(grep -E '^## ' "$f" | grep -Ev '^## (Story|Acceptance|Not this)$')
+  if [ -n "$bad" ]; then
+    echo "lint: scenario has a section outside Story/Acceptance/Not this — $f"
+    echo "$bad" | sed 's/^/  /'
     fail=1
   fi
 done

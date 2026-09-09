@@ -10,10 +10,9 @@ days_left=$(( ( $(date -d 2026-10-30 +%s 2>/dev/null || date -j -f %Y-%m-%d 2026
 
 scenario_title() {
   local f="$1"
-  local file
-  file=$(ls planning/scenario-"$f"-*.md 2>/dev/null | head -1)
-  if [ -n "$file" ]; then
-    grep -m1 -E '^# ' "$file" | sed -E "s/^#\s*//; s/^${f}:\s*//"
+  local file="planning/scenario-$f.md"
+  if [ -f "$file" ]; then
+    grep -m1 -E '^title:' "$file" | sed -E 's/^title:\s*//'
   else
     echo "$f"
   fi

@@ -4,37 +4,34 @@
 
 | | |
 |---|---|
-| **Reads** | the approved scenario in `planning/` (`status: approved` or `building`), `product/systems/`, `product/ui/`, `product/foundation/` |
-| **Writes** | `review-F{NNN}.md` in `planning/`, alongside the scenario |
-| **Does NOT read** | code, a `draft` scenario |
+| **Reads** | the target scenario (any status), `product/systems/`, `product/ui/`, `product/foundation/` |
+| **Writes** | the scenario itself, in place (frontmatter only, on PROCEED) |
+| **Does NOT read** | code |
 | **Hands to** | `ticket` on PROCEED, `plan` on REVISE or EXTEND |
 
 ## When to invoke
 
-Any scenario introducing a new surface, component, event type, table/column, or cross-system interaction. Skip for a copy/CTA edit on an existing surface — go straight to `ticket`, and say the skip was taken and why.
+Any scenario introducing a new surface, component, event type, table/column, or cross-system interaction. Skip for anything that obviously fits an existing pattern.
 
-## Two checks, one document
+## Two checks, one pass
 
-**Architecture.** For each system touched: does it need columns/tables/events not in that system's "Data model implications"? Does it cross two systems cleanly? Does it foreclose a later tier? Does it introduce a shell entity that owns Items without being a Person or Group? Reference `product/systems/`, `product/foundation/nouns.md`, `product/foundation/principles.md`.
+**Architecture.** Does it need columns/tables/events not already described in the systems it touches? Does it cross two systems cleanly? Does it foreclose a later capability? Does it introduce a shell entity that owns Items without being a Person or Group? Reference `product/systems/`, `product/foundation/nouns.md`, `product/foundation/principles.md`.
 
-**Design.** Does the surface exist in the design language doc, or does it need a new entry? Are the components already named there? Does copy match `CLAUDE.md`'s language guidance? Are empty/loading/error states specified?
+**Design.** Does the surface fit the design language, or does it need a new entry there? Does copy match `CLAUDE.md`'s naming and language rules? Are empty/loading/error states implied by the Acceptance checks?
 
 ## Workflow
 
-1. Confirm the scenario has `status: approved` or `building`. If `draft`, stop — not yet `plan`'s call to review.
-2. Read the scenario and every system it references.
+1. Read the scenario in full — it's ≤40 lines.
+2. Read every system it touches.
 3. Read `product/ui/design-language.md`.
-4. Run both checks; capture findings.
-5. Write the verdict — **PROCEED**, **REVISE** (back to `plan`), or **EXTEND** (`plan` grows the spec first) — into `review-F{NNN}.md`, saved alongside the scenario in `planning/`.
-
-A scenario can get a partial verdict (PROCEED on architecture, REVISE on design). Use the more severe as the overall verdict.
+4. Decide: **PROCEED**, **REVISE**, or **EXTEND**.
+5. On PROCEED: edit the scenario's frontmatter — `status: approved`, `approved: <today> — <≤15-word note>`. If the review surfaced a real constraint, add one line to the scenario's Not this section, or a line to `DECISIONS.md` if it rules out something beyond this one scenario.
+6. On REVISE or EXTEND: leave the scenario as `draft`, report the verdict and why to `plan`.
 
 ## Hand off
 
-- **PROCEED** → `ticket` reads the scenario and this review together.
+- **PROCEED** → `ticket` reads the now-approved scenario.
 - **REVISE** / **EXTEND** → `plan`.
-
-Never block silently — always produce the document, even a PROCEED with no findings.
 
 ## Final report
 
