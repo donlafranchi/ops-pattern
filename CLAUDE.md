@@ -7,6 +7,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 1. `STATUS.md` — what is true now. One screen.
 2. `ROADMAP.md` — Now / Next / Later / Won't.
 3. `RULES.md` — the six absolutes and the test that admits a seventh. Everything else is a guideline; break one if you can say why.
+4. `PIPELINE.md` — the five kinds of work and how each moves.
 
 ## Where truth lives
 
@@ -28,8 +29,8 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 
 | Who | Owns | Never |
 |---|---|---|
-| Don | rulings, judgment, domain knowledge | reads more than STATUS + ROADMAP unless he asks |
-| Cowork — `plan` `review` `sync` | this repo: scenarios, STATUS, ROADMAP, HANDOFF, DECISIONS | writes to `socialus-web` |
+| Don | rulings, judgment, domain knowledge — may open Issues in `socialus-web` directly | reads more than STATUS + ROADMAP unless he asks |
+| Cowork — `plan` `review` `sync` | this repo: scenarios, STATUS, ROADMAP, HANDOFF, DECISIONS; may open Issues in `socialus-web` | commits code to `socialus-web` |
 | Code — `ticket` `build` | `socialus-web`: architecture notes, issues, code, PRs | writes to this repo |
 
 Code is the architect. Any ticket touching schema, RLS, or routes starts with a ≤20-line architecture note in the Issue. Cowork reviews it in a comment. Don sees it only if they disagree.
@@ -51,3 +52,7 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 ## Naming
 
 Schema names are durable; UI labels translate them. The table is in `product/foundation/nouns.md`. Language is pro-competition, for all Americans — see `product/foundation/what-this-is.md`.
+
+- **Issue title:** `F060 · T142 · plain name`. Bugs/changes/chores: `bug · plain name` (or `change ·`, `chore ·`), with `Scenario: F###|none` in the body.
+- **Branch:** `f060-t142-slug`. **Commit:** `F060/T142: what`. Bugs: `bug #nn: what`.
+- **Provenance is git:** `git log --grep F060` is everything built for that scenario. No registers.

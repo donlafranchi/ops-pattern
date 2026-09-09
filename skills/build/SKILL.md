@@ -17,6 +17,7 @@ Build-agent skill for `socialus-web`. Pure TDD execution.
 - Tests before code. Always.
 - Never roll back commits. Fix forward.
 - Escalate spec divergence — do not improvise; comment on the Issue and stop.
+- **A PR whose behavior differs from its scenario's Acceptance stops** — comment on the Issue asking for a scenario change first. Do not ship a different behavior than what was approved.
 - One Issue at a time. Branch per ticket, worktree per branch.
 - **You run the commit and the merge, each with PM permission** — same y/n pattern as before. Format: `T{NNN}: {Title}`.
 - Deviations from the Issue go in the **PR description**, not a separate file — even "no deviations."

@@ -21,8 +21,11 @@ Read before proposing any change to structure or process. Each lesson names the 
 ## Guardrails for the next change
 
 - Name the failure, with a dated example, before proposing the fix. No fixes for imagined failures.
-- One structural change per quarter, in one session, with a git tag before.
+- Small process fixes any time, with a named failure. Reorganising the tree is rare: one session, git tag first.
 - Prefer deleting a doc to adding a rule. Prefer a status field to a directory. Prefer a check against code to a check against a doc.
 - New absolute → a dated failure a guideline did not prevent, filed under one of the four harms in RULES.md.
 - If Don had to do something at the Mac, that's a bug in the process.
 - Every change lands here first as a lesson, then in the structure.
+
+14. **One kind of work is not enough.** Bugs, UX changes and process fixes were forced through the scenario pipeline or fell outside it. — *2026-09-10*
+15. **A rule with no hook is a wish.** Every guideline names the skill, lint, or Action that fires it. — *2026-09-10*

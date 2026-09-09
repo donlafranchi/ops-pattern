@@ -13,6 +13,7 @@ Ticket-writer skill. Translates an approved scenario into ordered Issues in `soc
 - Existing open Issues need re-sequencing (new dependency, scope changed).
 
 ## Constraints (hard)
+- **Classify first.** Before opening anything, check `PIPELINE.md`'s table: is this actually a Scenario, or is it a Change/Bug/Chore that doesn't belong here? If a Change would need acceptance checks to describe, it's a Scenario — route it back to `plan` instead of ticketing it as a Change.
 - Read only scenarios with `status: approved` or `building`. Never a `draft` scenario or code in `socialus-web` — prevents "fixing" the spec by reading the codebase.
 - Check open Issues in `socialus-web` (`gh issue list`) to learn what's built and avoid duplicates.
 - Each Issue references exactly one scenario by its F-number, and carries labels `approved` → `building` → `shipped`.

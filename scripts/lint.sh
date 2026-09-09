@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fails on: missing `status` in planning/, any root .md outside the eight, any
+# Fails on: missing `status` in planning/, any root .md outside the nine, any
 # link to a path that doesn't exist. Run from the repo root.
 set -uo pipefail
 
@@ -17,14 +17,15 @@ for f in planning/*.md; do
   fi
 done
 
-# 2. Root .md files are only the eight named in CLAUDE.md's target tree.
-allowed="CLAUDE.md RULES.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md"
+# 2. Root .md files are only the nine listed here, plus README.md (generated
+#    by scripts/view.sh — never hand-edited, so it's not link-checked below).
+allowed="CLAUDE.md RULES.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md PIPELINE.md README.md"
 for f in *.md; do
   [ -f "$f" ] || continue
   case " $allowed " in
     *" $f "*) ;;
     *)
-      echo "lint: root .md outside the eight — $f"
+      echo "lint: root .md outside the nine (+ generated README.md) — $f"
       fail=1
       ;;
   esac
@@ -50,7 +51,7 @@ check_links() {
   done
 }
 
-for f in CLAUDE.md RULES.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md planning/*.md; do
+for f in CLAUDE.md RULES.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md PIPELINE.md planning/*.md; do
   [ -f "$f" ] || continue
   out="$(check_links "$f")"
   if [ -n "$out" ]; then
