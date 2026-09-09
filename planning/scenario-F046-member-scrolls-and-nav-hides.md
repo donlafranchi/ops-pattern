@@ -10,7 +10,7 @@ status: approved
 **Sub-bundle:** integration-test prep (post b1.4 — polish pass on all tab surfaces)
 **Work-map item:** No direct checklist entry — serves the unchecked integration test by maximizing content viewport across all tabs. Suggest adding a "Scroll-to-hide nav" line to the checklist.
 **Loops:** 3 (Land here), 7 (Make and be found — discovery side), 8 (Follow what you love — feed browsing)
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → any scrollable content surface (no schema change)
 **Spec contract:** design-research-thesis.md §2 (nav visual treatment), §8 (PWA safe areas), §9 #4 ("the nav bar is furniture")
 **Status:** next

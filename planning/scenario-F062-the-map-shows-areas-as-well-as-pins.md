@@ -6,10 +6,10 @@ status: draft
 
 # F062: The map shows areas as well as pins
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 4 (Gather regularly), 1 (Find your people)
-**Primitive shape:** no new entity. A render path for a placement type [F061](../next/scenario-F061-someone-creates-a-page-worth-showing-people.md) already produces.
-**Spec contract:** [`groups.md`](../../product/systems/groups.md) § Where a Page appears is resolved, not stored · [`design-language.md`](../../product/ui/design-language.md) — **owes an area recipe before build**
+**Primitive shape:** no new entity. A render path for a placement type [F061](scenario-F061-someone-creates-a-page-worth-showing-people.md) already produces.
+**Spec contract:** [`groups.md`](../product/systems/groups.md) § Where a Page appears is resolved, not stored · [`design-language.md`](../product/ui/design-language.md) — **owes an area recipe before build**
 **Status:** backlog — **split out of F061 by review addendum 3, 2026-09-07.**
 
 ## Why this is its own scenario

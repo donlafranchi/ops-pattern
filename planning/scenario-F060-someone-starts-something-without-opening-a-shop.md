@@ -6,16 +6,16 @@ status: building
 
 # F060: Someone starts something without opening a shop
 
-**Bundle:** launch ([`../now/initiative-launch.md`](../now/initiative-launch.md)) — track A
+**Bundle:** launch ([`../now/initiative-launch.md`](../ROADMAP.md)) — track A
 **Loops:** 1 (Gather), 2 (Declare something), 7 (Make and be found)
-**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services), and the run-club case it does not cover
+**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services), and the run-club case it does not cover
 **Primitive shape:** Person → Group (any kind) → Item. **No new entity, no new table, no new kind value.**
-**Spec contract:** [`groups.md`](../../product/systems/groups.md) § Standing tier + § Casual vs ongoing commercial · [`role-language.md`](../../product/foundation/role-language.md) · [`PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) § No legal or tax language reaches a person
+**Spec contract:** [`groups.md`](../product/systems/groups.md) § Standing tier + § Casual vs ongoing commercial · [`role-language.md`](../product/foundation/role-language.md) · `PLATFORM-PATTERNS.md` § No legal or tax language reaches a person
 **Depends on:** [F057](scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) — this scenario decides where F057's create path goes; F057 must not decide it.
-**Open against this scenario:** whether a one-time event is a Page or an Item with a date — [`../backlog/decision-page-vs-listing.md`](../backlog/decision-page-vs-listing.md). **Unresolved; must not be ticketed until it is ruled.** *(The "Both" question was ruled 2026-09-07 — dropped; the scenario reflects it.)*
+**Open against this scenario:** whether a one-time event is a Page or an Item with a date — `../backlog/decision-page-vs-listing.md`. **Unresolved; must not be ticketed until it is ruled.** *(The "Both" question was ruled 2026-09-07 — dropped; the scenario reflects it.)*
 **Status:** next — reviewed 2026-09-07, **PROCEED with one EXTEND** ([`review-F060.md`](review-F060.md)). The EXTEND blocks only the ticket that writes a Group kind value or the spine columns.
 
-> **This is a conformance fix, not a design change.** [`groups.md`](../../product/systems/groups.md) already states that a Member without a business Group sees the universal composer — gathering, wonder, ask, offer — and that the shop walkthrough is triggered only by the Sell verb. The build shipped the business path and never built the other one. What follows restores what the spec already says.
+> **This is a conformance fix, not a design change.** [`groups.md`](../product/systems/groups.md) already states that a Member without a business Group sees the universal composer — gathering, wonder, ask, offer — and that the shop walkthrough is triggered only by the Sell verb. The build shipped the business path and never built the other one. What follows restores what the spec already says.
 
 ## The Person
 
@@ -101,7 +101,7 @@ Verified in code and against the production database, 2026-09-07.
 
 **Given** `/you/create`
 **When** it renders
-**Then** the first question is *"What are you starting?"* with three answers, and **no question anywhere in the flow asks the Member to classify themselves as a business, a seller, a vendor, or a producer.** _Why: [`role-language.md`](../../product/foundation/role-language.md) rule 1. Asking someone to self-classify before they have done anything is the pigeonhole, and it is the reason the run-club organizer leaves._
+**Then** the first question is *"What are you starting?"* with three answers, and **no question anywhere in the flow asks the Member to classify themselves as a business, a seller, a vendor, or a producer.** _Why: [`role-language.md`](../product/foundation/role-language.md) rule 1. Asking someone to self-classify before they have done anything is the pigeonhole, and it is the reason the run-club organizer leaves._
 
 ### The entity's own name carries it
 
@@ -113,7 +113,7 @@ Verified in code and against the production database, 2026-09-07.
 
 **Given** the whole of `/you/create` and the composers behind it
 **When** every string is read
-**Then** none of them contains *sole proprietorship*, *LLC*, *EIN*, *DBA*, *incorporate*, *register your business*, *legal entity*, *formation*, or *tax*, and **no form field collects entity type, state of formation, or formation date.** _Why: [`PLATFORM-PATTERNS.md`](../../playbooks/PLATFORM-PATTERNS.md) § No legal or tax language reaches a person (Ratified 2026-09-07). The harm is a chilling effect at the exact moment the platform is lowering activation energy._
+**Then** none of them contains *sole proprietorship*, *LLC*, *EIN*, *DBA*, *incorporate*, *register your business*, *legal entity*, *formation*, or *tax*, and **no form field collects entity type, state of formation, or formation date.** _Why: `PLATFORM-PATTERNS.md` § No legal or tax language reaches a person (Ratified 2026-09-07). The harm is a chilling effect at the exact moment the platform is lowering activation energy._
 
 ### A non-business Page is a real page
 

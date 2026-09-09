@@ -8,7 +8,7 @@ status: building
 
 **Scenario:** [`scenario-F060-someone-starts-something-without-opening-a-shop.md`](scenario-F060-someone-starts-something-without-opening-a-shop.md)
 **Reviewer:** `review` · 2026-09-07
-**Bundle:** launch ([`../now/initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`../now/initiative-launch.md`](../ROADMAP.md))
 **Verdict:** **PROCEED.** *(Amended 2026-09-07: the EXTEND is discharged and the standing-badge note is paused — see § Amendments.)*
 
 ---

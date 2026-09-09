@@ -6,11 +6,11 @@ status: approved
 
 # F063: Someone says they're coming
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 4 (Gather regularly), 8 (Follow what you love)
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → response → Item. **No new table, no new entity, no new event type** — all three already exist and are unused.
-**Spec contract:** [`item.md`](../../product/systems/item.md) § Responses · [`action-layer.md`](../../product/systems/action-layer.md) § Same-transaction row+event invariant · [`decisions.md`](../../product/foundation/decisions.md) § 18
+**Spec contract:** [`item.md`](../product/systems/item.md) § Responses · [`action-layer.md`](../product/systems/action-layer.md) § Same-transaction row+event invariant · [`decisions.md`](../DECISIONS.md) § 18
 **Status:** next — approved 2026-09-07.
 
 ## The Person
@@ -68,7 +68,7 @@ Her friend, not signed in, taps the same control. He's asked to sign in, and **w
 **Given** the same member responding twice — double tap, retry, two tabs
 **When** the second write arrives
 **Then** it is refused **by the unique constraint, not by application code**, and the count is unchanged.
-*Why: application-side de-duplication fails exactly when it matters — concurrently. See [`decisions.md`](../../product/foundation/decisions.md) § 18.*
+*Why: application-side de-duplication fails exactly when it matters — concurrently. See [`decisions.md`](../DECISIONS.md) § 18.*
 
 **Given** a signed-out visitor
 **When** they tap

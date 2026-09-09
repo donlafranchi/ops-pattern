@@ -7,7 +7,7 @@ status: draft
 
 # F048–F053 review — the location model
 
-**Scenarios:** [F048](scenario-F048-member-gets-the-address-not-the-mileage.md), [F049](scenario-F049-newcomer-picks-a-hood-and-a-metro-at-signup.md), [F050](../archive/backlog/scenario-F050-member-manages-saved-hoods-on-their-profile.md), [F051](../archive/backlog/scenario-F051-member-sets-an-items-location-while-creating-it.md), [F052 (blocked)](../archive/backlog/scenario-F052-BLOCKED-feed-ranks-by-hood-then-metro.md), [F053 (blocked)](../archive/backlog/scenario-F053-BLOCKED-member-switches-metro.md)
+**Scenarios:** [F048](scenario-F048-member-gets-the-address-not-the-mileage.md), [F049](scenario-F049-newcomer-picks-a-hood-and-a-metro-at-signup.md), F050, F051, F052 (blocked), F053 (blocked)
 **Reviewer:** `review`
 **Date:** 2026-09-03
 **Bundle:** b1 (F048, F049) / b2 (F050, F051, F052, F053) — see `plan-location-model-sequence.md`

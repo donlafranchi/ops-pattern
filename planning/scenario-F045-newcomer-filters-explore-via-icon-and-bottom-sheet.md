@@ -10,7 +10,7 @@ status: approved
 **Sub-bundle:** integration-test prep (post b1.4 — polish pass on shipped Explore surface)
 **Work-map item:** No direct checklist entry — serves the unchecked integration test ("A newcomer can complete the full journey… without getting stuck") by de-cluttering the Explore default view. Suggest adding a "Explore density parity with Home" line to the checklist.
 **Loops:** 3 (Land here), 7 (Make and be found — discovery side)
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → `discoverable_items` materialized view → filtered browse (no schema change)
 **Spec contract:** design-research-thesis.md §5 (Explore — bottom pills, top-right search/filter), surfaces.md § Explore T1
 **Status:** next

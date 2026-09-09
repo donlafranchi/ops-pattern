@@ -10,11 +10,11 @@ status: draft
 >
 > **It also has a hard dependency: [F065](scenario-F065-someone-follows-something.md).** The audience for a bulletin is *who follows this Page*, and **that has no substrate at all today** — not fragmented, absent. **This cannot be built first at any price.**
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 8 (Follow what you love), 9 (Make a living locally)
-**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
+**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Page → bulletin → its followers' feeds. **Not an Item.**
-**Spec contract:** [`decision-bulletins.md`](decision-bulletins.md) · [`decision-one-follows-table.md`](decision-one-follows-table.md)
+**Spec contract:** `decision-bulletins.md` · `decision-one-follows-table.md`
 **Status:** backlog — **written and reviewed 2026-09-07; held pending scheduling.**
 
 ## The verb's rules
@@ -56,7 +56,7 @@ status: draft
 - An announcement takes **a like** — *"noticed."*
 - Something with a date or a place takes **"I'll be there."**
 
-**Author-defined options are a poll, and a poll needs an options table, a composer step and a results surface.** *(That is the [message-board](decision-page-as-message-board.md) increment, and the response row already carries the nullable option column that makes it an extension.)*
+**Author-defined options are a poll, and a poll needs an options table, a composer step and a results surface.** *(That is the message-board increment, and the response row already carries the nullable option column that makes it an extension.)*
 
 **So: fixed now, author-defined later, same substrate.** **The cost of fixed is one column on the response row; the cost of author-defined is a table and a step.**
 
@@ -92,7 +92,7 @@ Maya taps the reaction on her own bulletin out of curiosity. It counts once, lik
 
 **Everything else stays as scoped.** The audience is members, the handler restricts posting to the managing role, replies are unreachable, and the read path returns a flat list. **The board relaxes rules; it does not restructure data.**
 
-*(Table names above amended 2026-09-08 to make the Page-as-message-board an extension. See [`decision-page-as-message-board.md`](decision-page-as-message-board.md).)*
+*(Table names above amended 2026-09-08 to make the Page-as-message-board an extension. See `decision-page-as-message-board.md`.)*
 
 **Reactions do not reuse the item response table.** It has a foreign key to items and a bulletin is not an item. **Same pattern, different table** — the handler shape, the control, the count-not-taps discipline and the accessibility work all copy across, which is why the increment is small and why this is not an argument for making bulletins Items.
 

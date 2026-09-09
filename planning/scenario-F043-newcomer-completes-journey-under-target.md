@@ -9,12 +9,12 @@ status: draft
 
 **Bundle:** b1
 **Loops:** Cross-cutting integration — Loops 1 / 3 / 7 / 9 / 4 (the full Phase 2 surface set).
-**Canonical example:** Cross-cutting — exercises [O1](../../product/needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) (gathering host path) and [P1](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) (producer sell path).
+**Canonical example:** Cross-cutting — exercises [O1](../product/needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) (gathering host path) and [P1](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) (producer sell path).
 **Primitive shape:** End-to-end across `members`, `member_place_interests`, `member_interests`, `groups`, `group_memberships`, `items`, `item_locations`, `item_gatherings`, `item_products`, all underlying action handlers + events.
 **Status:** backlog
 **New scenario** — no existing F-number. Integration test of every scenario from F030–F040; depends on all of them.
 
-> **Working target note.** The "~90 seconds" framing is the working test target carried forward from `rebuild-plan.md` Phase 2 exit. Per [`_attic/2026-05-30-kanban-done-batch/reorg-05-soft-target-arbitrary-metrics.md`](../../_attic/2026-05-30-kanban-done-batch/reorg-05-soft-target-arbitrary-metrics.md), the specific 90-second number is a soft target (no user testing yet). Treat as a *qualitative test* — "the new Member can complete the full journey without getting stuck or abandoning" — with 90 seconds as the working numeric proxy. If real user testing later moves the number to 60 / 120 / 180, the qualitative spirit holds.
+> **Working target note.** The "~90 seconds" framing is the working test target carried forward from `rebuild-plan.md` Phase 2 exit. Per `_attic/2026-05-30-kanban-done-batch/reorg-05-soft-target-arbitrary-metrics.md`, the specific 90-second number is a soft target (no user testing yet). Treat as a *qualitative test* — "the new Member can complete the full journey without getting stuck or abandoning" — with 90 seconds as the working numeric proxy. If real user testing later moves the number to 60 / 120 / 180, the qualitative spirit holds.
 
 ## The Person
 

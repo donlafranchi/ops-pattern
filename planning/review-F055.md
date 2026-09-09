@@ -10,7 +10,7 @@ status: draft
 **Reviewer:** `review` (2026-09-04) · **split to its own lane 2026-09-07**
 **Verdict:** **PROCEED** — **but the scenario is deferred and is not buildable next.**
 
-> **Why this file exists.** The original review was one document covering F055–F058. F055 returned to the draft lane on 2026-09-07 when the PM deferred Item photos; a review travels with its scenario. **The parent review remains authoritative for F056 and for the shared reasoning** — storage substrate, the upload pipeline, the metadata argument: [`../next/review-F055-F058-self-serve-producer.md`](../next/review-F055-F058-self-serve-producer.md).
+> **Why this file exists.** The original review was one document covering F055–F058. F055 returned to the draft lane on 2026-09-07 when the PM deferred Item photos; a review travels with its scenario. **The parent review remains authoritative for F056 and for the shared reasoning** — storage substrate, the upload pipeline, the metadata argument: [`../next/review-F055-F058-self-serve-producer.md`](review-F055-F058-self-serve-producer.md).
 
 ## Deferral — 2026-09-07
 
@@ -20,7 +20,7 @@ status: draft
 
 ## What moved out of it
 
-**The storage bucket and the upload module are no longer F055's.** They are [F061](../next/scenario-F061-someone-creates-a-page-worth-showing-people.md) § Data captured, because Pages now consume them first.
+**The storage bucket and the upload module are no longer F055's.** They are [F061](scenario-F061-someone-creates-a-page-worth-showing-people.md) § Data captured, because Pages now consume them first.
 
 **This makes F055 cheaper, not more expensive.** When it resumes, the bucket, the policies, the upload module, the metadata strip and the picker recipe all exist. What remains is a photo field on three composers that already exist — roughly half a day.
 

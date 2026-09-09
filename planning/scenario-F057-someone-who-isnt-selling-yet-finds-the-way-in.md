@@ -8,11 +8,11 @@ status: approved
 
 **Bundle:** b1 (SocialUs v1)
 **Sub-bundle:** v1 workstream 4 — **the You half, as a modification.** See § Scope boundary.
-**Work-map item:** [`bundle-1.md`](../now/bundle-1.md) § What ships in v1 — workstream 4, and [`audit-vendor-market-retirement.md`](../backlog/audit-vendor-market-retirement.md) § 7 Phase 2. **Prior art: [`audit-vendor-prior-art.md`](../backlog/audit-vendor-prior-art.md) §§ 2.4, 2.5, 3.1.**
+**Work-map item:** `bundle-1.md` § What ships in v1 — workstream 4, and `audit-vendor-market-retirement.md` § 7 Phase 2. **Prior art: `audit-vendor-prior-art.md` §§ 2.4, 2.5, 3.1.**
 **Loops:** 2 (Declare something), 7 (Make and be found), 9 (Make a living locally)
-**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
+**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → (their own Groups and Items). **No new entity, no new table, no new column.**
-**Spec contract:** [`decision-surfaces.md`](../backlog/decision-surfaces.md) § *You is not the account page* · [`audit-vendor-prior-art.md`](../backlog/audit-vendor-prior-art.md) · [`principles.md`](../../product/foundation/principles.md) § People-First Principle
+**Spec contract:** `decision-surfaces.md` § *You is not the account page* · `audit-vendor-prior-art.md` · [`principles.md`](../product/foundation/principles.md) § People-First Principle
 **Status:** next — **approved 2026-09-07** (PM approved the six removals and the one repurpose in § Table disposition). Review: [`review-F057.md`](review-F057.md).
 
 > **Revised 2026-09-04 after the PM's read that You is largely fine as-is.** The earlier version of this scenario scoped a rebuild. That was wrong on two counts: it treated a working page as broken, and it put producer machinery in front of every Member whether or not they had asked for it. **Becoming a producer is a deliberate act, and the producer surface lives behind it.**
@@ -57,7 +57,7 @@ He taps it. He picks *Sell something*. The shop walkthrough opens — the same f
 
 ### Relationship to workstream 4
 
-Workstream 4 is two halves: **(a)** fold Explore into Home and retire the tab; **(b)** the You change. **This is (b).** [`decision-photo-upload.md`](../backlog/decision-photo-upload.md) § 7 recommends deferring (a) — it reverses three tickets merged inside 48 hours and strands F044/F045. **The nav stays at three tabs for v1** and the persistent **+** defers with the fold. If the PM keeps the full merge, only the create entry point moves.
+Workstream 4 is two halves: **(a)** fold Explore into Home and retire the tab; **(b)** the You change. **This is (b).** `decision-photo-upload.md` § 7 recommends deferring (a) — it reverses three tickets merged inside 48 hours and strands F044/F045. **The nav stays at three tabs for v1** and the persistent **+** defers with the fold. If the PM keeps the full merge, only the create entry point moves.
 
 ## Table disposition — the seven dead reads
 
@@ -99,7 +99,7 @@ Workstream 4 is two halves: **(a)** fold Explore into Home and retire the tab; *
 
 **Given** the same Member
 **When** the page renders
-**Then** the recruitment surface occupies the page's second half as its own state — **not** appended below a stack of other sections. _Why: [`audit-vendor-prior-art.md`](../backlog/audit-vendor-prior-art.md) § 2.4. The old code already computed the right condition (`!hasVendor`) and rendered the result in the wrong place. This corrects the placement and keeps the design._
+**Then** the recruitment surface occupies the page's second half as its own state — **not** appended below a stack of other sections. _Why: `audit-vendor-prior-art.md` § 2.4. The old code already computed the right condition (`!hasVendor`) and rendered the result in the wrong place. This corrects the placement and keeps the design._
 
 ### The invitation reads as opportunity, not as absence
 
@@ -149,14 +149,14 @@ Workstream 4 is two halves: **(a)** fold Explore into Home and retire the tab; *
 - **Several shops** — one row each. `/you/sell` already handles it.
 - **Follows things, creates nothing** — Following renders, pre-producer invitation renders. Both true at once.
 - **A producer who dissolves their only shop** — reverts to pre-producer. Not a v1 path (no dissolve surface), but the condition is derived rather than stored, so it falls out correctly.
-- **`hasVendor` / "Switch to vendor mode"** — removed with the dead query behind it, which also fixes the live defect where *"List your business →"* shows to **every** signed-in Member because the suppression query fails ([`audit-vendor-market-retirement.md`](../backlog/audit-vendor-market-retirement.md) § 1.3).
+- **`hasVendor` / "Switch to vendor mode"** — removed with the dead query behind it, which also fixes the live defect where *"List your business →"* shows to **every** signed-in Member because the suppression query fails (`audit-vendor-market-retirement.md` § 1.3).
 - **Accessibility** — M3 fires. Headings in order; the start control a real button with an accessible name; the two page states must each be coherent to a screen reader rather than one being the other with things hidden.
 
 ## Assumptions
 
 - `SellCta` / `SellWalkthrough` shipped and green (F036). **Verified.**
 - `FollowingSummary` shipped (T108) and self-omits when empty. **Verified.**
-- `RecruitmentGrid` is on disk and readable as reference. **Verified — and it must not be deleted before this ships** ([`audit-vendor-prior-art.md`](../backlog/audit-vendor-prior-art.md) § 6).
+- `RecruitmentGrid` is on disk and readable as reference. **Verified — and it must not be deleted before this ships** (`audit-vendor-prior-art.md` § 6).
 - Nav stays at three tabs for v1.
 
 ## Out of Scope
@@ -164,9 +164,9 @@ Workstream 4 is two halves: **(a)** fold Explore into Home and retire the tab; *
 - **The Explore→Home fold and the persistent nav +.** Half (a).
 - **Deleting the vendor-era files.** Gated on T126 now, not on a date. The `/following` redirect is the one carve-out.
 - **A separate "become a producer" toggle or opt-in row.** Creating a shop **is** the act. A second switch in front of it is a step that teaches nothing.
-- **`ownership_tier`, ownership badges, the extractiveness ramp.** [`audit-vendor-prior-art.md`](../backlog/audit-vendor-prior-art.md) § 3.1 — the previous thesis, deliberately left.
+- **`ownership_tier`, ownership badges, the extractiveness ramp.** `audit-vendor-prior-art.md` § 3.1 — the previous thesis, deliberately left.
 - **Producer analytics.** `producer-tools.md` § Growth, b2.
-- **Member profile editing.** Gap, recorded in [F056](../next/scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md).
+- **Member profile editing.** Gap, recorded in [F056](scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md).
 - **Drafts and responses sections.** Part of the full You definition; not v1.
 
 ## Capabilities unlocked

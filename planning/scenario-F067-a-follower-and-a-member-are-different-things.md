@@ -8,10 +8,10 @@ status: draft
 
 > **Written, not scheduled.** Draft lane means unscheduled, not unfinished.
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 8 (Follow what you love), 1 (Find your people)
 **Primitive shape:** Person → relationship → Page. **One row, one new column.**
-**Spec contract:** [`groups.md`](../../product/systems/groups.md) § Roles per kind · F035 § Join CTA · [`decision-one-follows-table.md`](decision-one-follows-table.md)
+**Spec contract:** [`groups.md`](../product/systems/groups.md) § Roles per kind · F035 § Join CTA · `decision-one-follows-table.md`
 **Status:** backlog.
 
 ## The PM's instruction, and it is the whole scenario

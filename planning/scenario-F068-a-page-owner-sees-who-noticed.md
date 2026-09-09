@@ -8,10 +8,10 @@ status: draft
 
 > **Written, not scheduled. One product decision inside it is the PM's and is not resolved here — see § Counts or names.**
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 9 (Make a living locally)
 **Primitive shape:** viewer → Page or post. **New capture; nothing counts anything today.**
-**Spec contract:** [`promises.md`](../../product/foundation/promises.md) · [`decisions.md`](../../product/foundation/decisions.md) §§ 4, 5
+**Spec contract:** [`promises.md`](../product/foundation/promises.md) · [`decisions.md`](../DECISIONS.md) §§ 4, 5
 **Status:** backlog.
 
 ## Confirmed: nothing counts views today

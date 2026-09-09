@@ -8,16 +8,16 @@ status: draft
 
 **Bundle:** b1 (SocialUs v1)
 **Sub-bundle:** v1 workstream 10 — photo upload (added 2026-09-04)
-**Work-map item:** [`bundle-1.md`](../now/bundle-1.md) § What ships in v1 — workstream 10. Also completes workstream 3 (card fix and populated content): T118 shipped a card whose media block has never once rendered a photo, because no photo can exist.
+**Work-map item:** `bundle-1.md` § What ships in v1 — workstream 10. Also completes workstream 3 (card fix and populated content): T118 shipped a card whose media block has never once rendered a photo, because no photo can exist.
 **Loops:** 7 (Buy close), 9 (Make a living locally)
-**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
+**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → Group(kind='business') → Item(kind='product' | 'service' | 'gathering') with one attached image. **No new entity. No shell entity.** The image is a column on the Item, not a thing of its own.
-**Spec contract:** [`decision-photo-upload.md`](decision-photo-upload.md) §§ 4, 5, 6 · [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 2.2 (the OG-image carry) · [`design-language.md`](../../product/ui/design-language.md) § Card media block · [`item.md`](../../product/systems/item.md) § Per-kind typed columns ("Embedded media") · [`action-layer.md`](../../product/systems/action-layer.md) § Same-transaction row+event invariant
+**Spec contract:** `decision-photo-upload.md` §§ 4, 5, 6 · `audit-vendor-prior-art.md` § 2.2 (the OG-image carry) · [`design-language.md`](../product/ui/design-language.md) § Card media block · [`item.md`](../product/systems/item.md) § Per-kind typed columns ("Embedded media") · [`action-layer.md`](../product/systems/action-layer.md) § Same-transaction row+event invariant
 **Status:** backlog — **approved, then deferred 2026-09-07.** Gate B cleared: both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature.
 
 > **DEFERRED 2026-09-07 by PM ruling: Pages get photos now, Items get photos later.** Returned to the draft lane because lane membership is the state and the build agent may start anything in the approved lane. **Nothing here is withdrawn** — the reasoning and the acceptance criteria stand.
 >
-> **The storage bucket and the upload module have moved to [F061](../next/scenario-F061-someone-creates-a-page-worth-showing-people.md)**, which now consumes them first. **The bucket is renamed `media`; every mention of `item-media` below is stale.** When this scenario resumes, the substrate already exists and what remains is a photo field on three composers that already exist — roughly half a day. See [`review-F055.md`](review-F055.md).
+> **The storage bucket and the upload module have moved to [F061](scenario-F061-someone-creates-a-page-worth-showing-people.md)**, which now consumes them first. **The bucket is renamed `media`; every mention of `item-media` below is stale.** When this scenario resumes, the substrate already exists and what remains is a photo field on three composers that already exist — roughly half a day. See [`review-F055.md`](review-F055.md).
 
 ## The Person
 
@@ -72,7 +72,7 @@ Her product page opens with the photo at the top. She taps Home. Her loaf is in 
 
 **Given** a producer uploads a photo taken on a phone with location services enabled — the default
 **When** the object is fetched back from storage and its bytes inspected
-**Then** it contains no EXIF GPS data. _Why: **A1**, [`decision-photo-upload.md`](decision-photo-upload.md) § 4. Producers on this platform may be operating from home, and every Item carries a location the platform already publishes. A photo that also carries the exact coordinates of the kitchen turns a listing into an address. This criterion is tested against real bytes, not against the intent of the code._
+**Then** it contains no EXIF GPS data. _Why: **A1**, `decision-photo-upload.md` § 4. Producers on this platform may be operating from home, and every Item carries a location the platform already publishes. A photo that also carries the exact coordinates of the kitchen turns a listing into an address. This criterion is tested against real bytes, not against the intent of the code._
 
 ### The bucket refuses anything that is not a WebP under 5 MB
 
@@ -96,7 +96,7 @@ Her product page opens with the photo at the top. She taps Home. Her loaf is in 
 
 **Given** an Item with a photo
 **When** its URL is pasted into iMessage, WhatsApp, Signal, or Slack
-**Then** the preview shows the photo, the title, and a one-line description. _Why: **this is the highest-leverage consumer of an uploaded photo and the one nobody has noticed is missing.** `openGraph` appears in exactly two files in the whole application — `/vendors/[slug]` and `/business/[slug]` — and both are in the delete list. Every page the new model ships has a title and a description and **no OpenGraph block and no image at all**, so every shared link currently renders as a bare grey text row. The platform's own stated sharing model is *phone to phone: a link, copied or sent*. The old vendor page did this correctly and the pattern is on disk ([`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 2.2). Cost: a `generateMetadata` addition on three route files reading a column this scenario populates._
+**Then** the preview shows the photo, the title, and a one-line description. _Why: **this is the highest-leverage consumer of an uploaded photo and the one nobody has noticed is missing.** `openGraph` appears in exactly two files in the whole application — `/vendors/[slug]` and `/business/[slug]` — and both are in the delete list. Every page the new model ships has a title and a description and **no OpenGraph block and no image at all**, so every shared link currently renders as a bare grey text row. The platform's own stated sharing model is *phone to phone: a link, copied or sent*. The old vendor page did this correctly and the pattern is on disk (`audit-vendor-prior-art.md` § 2.2). Cost: a `generateMetadata` addition on three route files reading a column this scenario populates._
 
 ### Replacing a photo deletes the one it replaced
 
@@ -133,7 +133,7 @@ Her product page opens with the photo at the top. She taps Home. Her loaf is in 
 - `items.photo_url` exists and is already coalesced into `discoverable_items` (migration `036`). **Verified, not assumed.**
 - The card renders a photo when one is present (T118, shipped). **Verified.**
 - The composers are `MultiStepComposer`-based with an async `onAdvance` per step, so an upload can be awaited inside an existing step without new composer machinery. **Verified.**
-- `next/image` is **not** used and will not be introduced (see [`decision-photo-upload.md`](decision-photo-upload.md) § 5.6).
+- `next/image` is **not** used and will not be introduced (see `decision-photo-upload.md` § 5.6).
 
 ## Out of Scope
 

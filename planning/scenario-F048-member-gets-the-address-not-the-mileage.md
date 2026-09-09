@@ -11,7 +11,7 @@ status: draft
 **Sub-bundle:** b1.x-adjacent — a cross-cutting removal that lands before the Home/Explore merge. Not a new theme; it *shrinks* the surface every later theme inherits.
 **Work-map item:** Retires the last unchecked producer/newcomer row — "Adjust how wide their 'near me' reach is — *backlog (F031)*". The reach control was a radius control; with distance out there is no width to adjust. This scenario closes that row by deletion rather than by building it.
 **Loops:** 3 (Land here), 4 (Gather regularly), 7 (Make and be found)
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love); the hand-off beat is [O1 — A group meets at a regular time and place](../../product/needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) (Drake's Run Club).
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love); the hand-off beat is [O1 — A group meets at a regular time and place](../product/needs/use-cases.md#o1-a-group-meets-at-a-regular-time-and-place) (Drake's Run Club).
 **Primitive shape:** Person → browse `discoverable_items` → Item(kind=gathering) → Location(permanent). No schema change; this removes read-time computation and one filter dimension.
 **Spec contract:** `surfaces.md` § Distance is out (Ratified 2026-09-03); `decision-surfaces.md` § Distance is out — the hierarchy is the only proximity concept
 **Status:** backlog

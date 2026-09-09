@@ -8,11 +8,11 @@ status: approved
 
 **Bundle:** b1 (SocialUs v1)
 **Sub-bundle:** v1 workstream 5 (producer minimal profile) + workstream 10 (photo upload, second consumer)
-**Work-map item:** [`bundle-1.md`](../now/bundle-1.md) § What ships in v1 — workstream 5, *"Producer minimal profile, including the values declaration."*
+**Work-map item:** `bundle-1.md` § What ships in v1 — workstream 5, *"Producer minimal profile, including the values declaration."*
 **Loops:** 7 (Buy close), 9 (Make a living locally), 8 (Follow what you love — the shop page is the follow target)
-**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
+**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → Group(kind='business') with an image and a self-authored values statement. **No shell entity** — the values statement is a column on `group_businesses`, a child of a Group of people, not a property of a corporate record.
-**Spec contract:** [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) §§ 2.1, 2.3 (tagline + listing health) · [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) §§ 2, 4 · [`decision-photo-upload.md`](decision-photo-upload.md) §§ 3, 6 · [`groups.md`](../../product/systems/groups.md) § kind='business' · [`bundle-1.md`](../now/bundle-1.md) § Positioning
+**Spec contract:** `audit-vendor-prior-art.md` §§ 2.1, 2.3 (tagline + listing health) · `decision-producer-values-declaration.md` §§ 2, 4 · `decision-photo-upload.md` §§ 3, 6 · [`groups.md`](../product/systems/groups.md) § kind='business' · `bundle-1.md` § Positioning
 > **Boundary with [F061 — creating a Page worth showing people](scenario-F061-someone-creates-a-page-worth-showing-people.md), set 2026-09-07.** **F061 owns creation; this scenario owns editing something already live.** F061 ships the photo column, the storage bucket, the upload module and the image-picker recipe; **this scenario consumes all four and adds nothing storage-shaped.** The category is likewise created at F061 and edited here. The line to hold: *save is publish* applies here and only here, because there is nothing published yet at creation time.
 >
 > **Two things below are stale.** The **values statement is cut** (PM ruling 2026-09-07) — remove it from the field list, the copy and the acceptance criteria. The **shop image column is `groups.photo_url` on the spine**, created by F061, not a new `group_businesses.image_url`; a Page of any kind carries a face, not only a business one.
@@ -42,7 +42,7 @@ Her public shop page now leads with the image, her name, the About paragraph, an
 
 ## Surfaces
 
-- **Entry point:** `/you` → the shop row → **Edit shop**. *(The producer surface on `/you` is [F057](../next/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md); this scenario assumes the row exists and adds the control to it.)*
+- **Entry point:** `/you` → the shop row → **Edit shop**. *(The producer surface on `/you` is [F057](scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md); this scenario assumes the row exists and adds the control to it.)*
 - **Primary action:** edit four fields, save once.
 - **Interaction:** a plain form. **Not** a multi-step composer — this is editing something that already exists, and a walkthrough is the wrong shape for revision.
 - **Completion:** save writes through the action layer and returns to `/you` with the change visible on the public shop page.
@@ -54,7 +54,7 @@ Her public shop page now leads with the image, her name, the About paragraph, an
 |---|---|---|
 | Shop image URL | **new** `group_businesses.image_url text` | Object in `item-media`, path `{member_id}/{uuid}.webp`. Same bucket, same policies as F055 — one bucket, not two. |
 | Values statement | **new** `group_businesses.values_statement text` | Free text, ≤280 chars, nullable. **No source column, no provenance column, no import path** — there is nowhere to record an external origin because there is never one. |
-| **Tagline** | **new** `group_businesses.tagline text` (≤120) | **Carried from the retired vendor model** ([`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 2.1), where it was required and drove the card subtitle, the profile subhead, the meta description, and the OG description. The new model has no equivalent — `public_description` is an untruncated textarea whose placeholder invites a paragraph, and **a card cannot render a paragraph and neither can a link preview.** |
+| **Tagline** | **new** `group_businesses.tagline text` (≤120) | **Carried from the retired vendor model** (`audit-vendor-prior-art.md` § 2.1), where it was required and drove the card subtitle, the profile subhead, the meta description, and the OG description. The new model has no equivalent — `public_description` is an untruncated textarea whose placeholder invites a paragraph, and **a card cannot render a paragraph and neither can a link preview.** |
 | Public description | `group_businesses.public_description` (exists) | Currently write-once at walkthrough step 3. This scenario makes it editable. |
 | Shop name | `group_businesses.display_name` / `groups.name` (exist) | Editable. Slug does **not** re-derive on rename — see Edge Cases. |
 
@@ -72,7 +72,7 @@ Her public shop page now leads with the image, her name, the About paragraph, an
 
 **Given** a save
 **When** the write executes
-**Then** it runs through a named `group.update_business` handler emitting a `group_events` row in the same transaction, with `acting_member_id` set. _Why: [`action-layer.md`](../../product/systems/action-layer.md) — the action layer is the only write surface, and this is a Group state change, not a profile preference. `bundle-1.md` § Non-negotiable data-model commitments lists the same-transaction row+event invariant as binding on every ticket._
+**Then** it runs through a named `group.update_business` handler emitting a `group_events` row in the same transaction, with `acting_member_id` set. _Why: [`action-layer.md`](../product/systems/action-layer.md) — the action layer is the only write surface, and this is a Group state change, not a profile preference. `bundle-1.md` § Non-negotiable data-model commitments lists the same-transaction row+event invariant as binding on every ticket._
 
 ### Only an owner can edit
 
@@ -84,7 +84,7 @@ Her public shop page now leads with the image, her name, the About paragraph, an
 
 **Given** the shipped schema and handler
 **When** anything attempts to populate `values_statement`
-**Then** the only path is the owning Member's own editor: the column has no companion source or provenance field, the handler accepts no third-party or import parameter, and no seed, migration, backfill, or scheduled job writes it. _Why: the ratified constraint ([`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 2) is that the platform never sources, infers, or attaches a values label from voter records, donation databases, purchased files, or inferred affinity. **The way to keep a commitment like this is to build a system in which the other thing is not expressible** — a column with nowhere to record a source is a stronger guarantee than a rule saying not to use one. Items carry locations; a label the Member did not write, attached to a person the platform can place on a map, is a targeting record._
+**Then** the only path is the owning Member's own editor: the column has no companion source or provenance field, the handler accepts no third-party or import parameter, and no seed, migration, backfill, or scheduled job writes it. _Why: the ratified constraint (`decision-producer-values-declaration.md` § 2) is that the platform never sources, infers, or attaches a values label from voter records, donation databases, purchased files, or inferred affinity. **The way to keep a commitment like this is to build a system in which the other thing is not expressible** — a column with nowhere to record a source is a stronger guarantee than a rule saying not to use one. Items carry locations; a label the Member did not write, attached to a person the platform can place on a map, is a targeting record._
 
 ### The statement renders as the producer's words
 
@@ -108,13 +108,13 @@ Her public shop page now leads with the image, her name, the About paragraph, an
 
 **Given** the editor
 **When** a producer fills it in
-**Then** a ≤120-character tagline is captured with a live counter, and it — not the long description — is what renders on the shop card, the profile subhead, and the shared-link preview. _Why: [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 2.1. The retired registration form required this field and used it in four places; the rebuild dropped it and left only a paragraph field, which no card and no link preview can use. **One small field fixes the card, the profile, and every share.**_
+**Then** a ≤120-character tagline is captured with a live counter, and it — not the long description — is what renders on the shop card, the profile subhead, and the shared-link preview. _Why: `audit-vendor-prior-art.md` § 2.1. The retired registration form required this field and used it in four places; the rebuild dropped it and left only a paragraph field, which no card and no link preview can use. **One small field fixes the card, the profile, and every share.**_
 
 ### The producer is told what their shop is still missing
 
 **Given** a producer viewing their own shop
 **When** any of photo, tagline, description, values statement, or a published listing is absent
-**Then** a short checklist shows which, each item linking to the surface that fixes it. _Why: **this is the mechanism that gets a photo uploaded at all.** A field nobody is prompted to fill is a field most people skip, and an always-present media block that quietly falls back to a glyph gives the platform no way to ask. The retired producer dashboard solved this with exactly five binary checks and a repair link each ([`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 2.3). **Five booleans and five links — not a dashboard**; the analytics half of that surface is `producer-tools.md` § Growth and stays b2._
+**Then** a short checklist shows which, each item linking to the surface that fixes it. _Why: **this is the mechanism that gets a photo uploaded at all.** A field nobody is prompted to fill is a field most people skip, and an always-present media block that quietly falls back to a glyph gives the platform no way to ask. The retired producer dashboard solved this with exactly five binary checks and a repair link each (`audit-vendor-prior-art.md` § 2.3). **Five booleans and five links — not a dashboard**; the analytics half of that surface is `producer-tools.md` § Growth and stays b2._
 
 ### Every field is optional and an empty shop still works
 
@@ -142,12 +142,12 @@ Her public shop page now leads with the image, her name, the About paragraph, an
 
 - **Member profile editing** (`display_name`, `bio`, `avatar_url` on `/m/[handle]`). A real gap — the audit named it, and "Edit profile" on the Member page currently links to `/you`, which has no editor. It is a *second* editor with a *third* update handler, and the v1 journey is the producer journey. **Cut deliberately, recorded as a gap, not forgotten.**
 - **A fixed values vocabulary, tags, or a picker.** Free text only. The taxonomy, if ever warranted, gets derived from what people write.
-- **Any consumer response to the declaration** — support, oppose, counts, endorsements. Deferred, not rejected ([`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 3).
+- **Any consumer response to the declaration** — support, oppose, counts, endorsements. Deferred, not rejected (`decision-producer-values-declaration.md` § 3).
 - **Whether the declaration is visible to logged-out visitors.** This scenario renders it publicly, matching the rest of the shop page. If the PM wants it gated, that is a decision, not an implementation detail.
 - **Verification of anything in the statement.** Tier 1 and Tier 2 are out of v1 and this field is not on that ladder at all.
 - **Cropping UI.** Square `object-cover` centre-crop.
 - **Producer analytics** — followers, profile views, sparklines, week-over-week. The retired dashboard bundled these with the listing-health checklist; **only the checklist carries.** `producer-tools.md` § Growth, b2.
-- **`ownership_tier` and ownership badges.** [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 3.1 — a platform-assigned judgment computed from data the business did not write. It is the inverse of a self-declared values statement and must not travel beside it.
+- **`ownership_tier` and ownership badges.** `audit-vendor-prior-art.md` § 3.1 — a platform-assigned judgment computed from data the business did not write. It is the inverse of a self-declared values statement and must not travel beside it.
 
 ## Capabilities unlocked
 

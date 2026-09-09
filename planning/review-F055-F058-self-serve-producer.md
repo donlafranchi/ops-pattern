@@ -6,15 +6,15 @@ status: approved
 
 # Review — F055–F058: the self-serve producer journey
 
-**Scenarios:** [F055](scenario-F055-producer-puts-a-photo-on-what-they-sell.md) · [F056](scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md) · [F057](../next/scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) · [F058](scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md)
-**Decision doc:** [`decision-photo-upload.md`](decision-photo-upload.md)
-**Prior art:** [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) — **revised this review; see § Prior-art pass.**
+**Scenarios:** [F055](scenario-F055-producer-puts-a-photo-on-what-they-sell.md) · [F056](scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md) · [F057](scenario-F057-someone-who-isnt-selling-yet-finds-the-way-in.md) · [F058](scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md)
+**Decision doc:** `decision-photo-upload.md`
+**Prior art:** `audit-vendor-prior-art.md` — **revised this review; see § Prior-art pass.**
 **Reviewer:** `review`
 **Date:** 2026-09-04
 **Bundle:** b1 (SocialUs v1)
 **Verdict:** **PROCEED on F055, F057, F058. EXTEND on F056.** **Seven** binding notes; two hard blockers named.
 
-> **F057 split out 2026-09-07.** F057 advanced to `next/` while F055, F056 and F058 stayed in `backlog/` behind Gate B, and a review lives in its scenario's lane. Its portion now lives at [`../next/review-F057.md`](../next/review-F057.md). **This file remains authoritative for F055, F056 and F058**, and for the shared reasoning all four rest on.
+> **F057 split out 2026-09-07.** F057 advanced to `next/` while F055, F056 and F058 stayed in `backlog/` behind Gate B, and a review lives in its scenario's lane. Its portion now lives at [`../next/review-F057.md`](review-F057.md). **This file remains authoritative for F055, F056 and F058**, and for the shared reasoning all four rest on.
 
 > **Revised 2026-09-04** after a prior-art pass over the retired vendor surface and the PM's read that You is a modification rather than a rebuild. Two binding notes added (6 and 7); F057's risk profile dropped materially; the design verdict is unchanged.
 
@@ -43,12 +43,12 @@ The four scenarios fit the existing systems better than expected, because most o
 
 | System | What this scope reaches |
 |---|---|
-| [`item.md`](../../product/systems/item.md) | § *Per-kind typed columns* ("Embedded media") — the spec anticipates images; migration `036` built the column; nothing has ever written it. |
-| [`groups.md`](../../product/systems/groups.md) | `kind='business'` and `group_businesses`. **Two new columns and the first post-activation write.** See EXTEND below. |
-| [`action-layer.md`](../../product/systems/action-layer.md) | Three new handlers. Same-transaction row+event invariant applies to all three. **First operator-privileged write in the project.** |
-| [`policy.md`](../../product/foundation/policy.md) | Two new commitments belong here (A1, and the never-sourced constraint), beside the coarse-location and accountable-participation commitments they rhyme with. |
-| [`principles.md`](../../product/foundation/principles.md) | People-First Principle — F057 is the correction of its most visible current violation. |
-| [`design-language.md`](../../product/ui/design-language.md) | **No recipe exists for an image-picker field.** See binding note 4. |
+| [`item.md`](../product/systems/item.md) | § *Per-kind typed columns* ("Embedded media") — the spec anticipates images; migration `036` built the column; nothing has ever written it. |
+| [`groups.md`](../product/systems/groups.md) | `kind='business'` and `group_businesses`. **Two new columns and the first post-activation write.** See EXTEND below. |
+| [`action-layer.md`](../product/systems/action-layer.md) | Three new handlers. Same-transaction row+event invariant applies to all three. **First operator-privileged write in the project.** |
+| [`policy.md`](../product/foundation/policy.md) | Two new commitments belong here (A1, and the never-sourced constraint), beside the coarse-location and accountable-participation commitments they rhyme with. |
+| [`principles.md`](../product/foundation/principles.md) | People-First Principle — F057 is the correction of its most visible current violation. |
+| [`design-language.md`](../product/ui/design-language.md) | **No recipe exists for an image-picker field.** See binding note 4. |
 
 ### Schema fit
 
@@ -131,7 +131,7 @@ The PM's premise is right: vendor and producer are the same concept at different
 
 **3. It confirmed the PM's You read, with evidence.** `/you` already computed `{!hasVendor && <RecruitmentGrid />}`. **The condition was right and the placement was wrong** — recruitment was stapled under the saved/following/settings stack rather than being the page's pre-producer state. F057 is therefore a modification, not a rebuild, and T125 shrank accordingly.
 
-**4. It found a live gap.** No composer collects a category, so `items.category` is null on every producer-created Item, while Explore's category facet derives its options from the returned rows and F045 ships a category multi-select over it. **The shipped filter narrows a dimension only seed data populates.** [`audit-vendor-prior-art.md`](audit-vendor-prior-art.md) § 4 recommends carrying the old eight-slug taxonomy and its tile picker (~half a day); **this review does not fold it into any scenario** — it is a fifth thing in an over-subscribed month and it is the PM's call. **If it is declined, F045 must lose its category facet** rather than ship a filter over an empty dimension.
+**4. It found a live gap.** No composer collects a category, so `items.category` is null on every producer-created Item, while Explore's category facet derives its options from the returned rows and F045 ships a category multi-select over it. **The shipped filter narrows a dimension only seed data populates.** `audit-vendor-prior-art.md` § 4 recommends carrying the old eight-slug taxonomy and its tile picker (~half a day); **this review does not fold it into any scenario** — it is a fifth thing in an over-subscribed month and it is the PM's call. **If it is declined, F045 must lose its category facet** rather than ship a filter over an empty dimension.
 
 **What the pass explicitly refused to carry**, and the reason matters more than the list: `ownership_tier` and its badge — six tiers from `independent` to `pe-corporate`, driving pin colour and a `data-extractive` attribute. **That is the platform grading a person's business from data the business did not write**, which is the exact shape the never-sourced values constraint forbids. It must not ship beside a self-declared values statement. Likewise the required geocoded **street address**: the old form asked a home baker for their home address and pinned it publicly — **the same harm A1 addresses, arriving through the form instead of through the photo's EXIF block.** Finding those two beside each other is not a coincidence; they are one mistake at two layers.
 

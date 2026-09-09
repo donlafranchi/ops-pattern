@@ -6,11 +6,11 @@ status: building
 
 # F061: Someone creates a Page they'd actually show people
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 9 (Make a living locally), 7 (Buy close), 4 (Gather regularly) — a Page is the unit all three are found through
-**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
+**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services)
 **Primitive shape:** Person → Page (`groups`), with an anchor Location, a category, and an image. **No new entity.** Two columns on the spine, one capture table, one bucket.
-**Spec contract:** [`groups.md`](../../product/systems/groups.md) § What a Page carries at creation · [`policy.md`](../../product/foundation/policy.md) § Uploaded images · [`design-language.md`](../../product/ui/design-language.md) §§ Image picker, Default Page art, Multi-step composer · [`action-layer.md`](../../product/systems/action-layer.md) § Same-transaction row+event invariant · [`nouns.md`](../../product/foundation/nouns.md) § Page
+**Spec contract:** [`groups.md`](../product/systems/groups.md) § What a Page carries at creation · [`policy.md`](../product/foundation/policy.md) § Uploaded images · [`design-language.md`](../product/ui/design-language.md) §§ Image picker, Default Page art, Multi-step composer · [`action-layer.md`](../product/systems/action-layer.md) § Same-transaction row+event invariant · [`nouns.md`](../product/foundation/nouns.md) § Page
 **Status:** backlog
 
 ## The acceptance frame
@@ -258,9 +258,9 @@ His Page opens at its own address, with the photograph at the top, his name, the
 
 | Neighbour | Owns | This scenario |
 |---|---|---|
-| **[F056 — a producer gives their shop a face](../next/scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md)** | **Editing a Page that is already live** — the edit surface, the update handler, replacing the photo, changing the category later. Save is publish there. | **Creation only.** F061 ships the columns, the bucket, the upload module and the picker; **F056 consumes all four and adds nothing storage-shaped.** |
-| **[F055 — a producer puts a photo on what they sell](../next/scenario-F055-producer-puts-a-photo-on-what-they-sell.md)** | Photos on **Items**. **Deferred 2026-09-07** — the Page is the unit that carries a face. | The bucket and upload module **move here**, because they now land with Pages first. When F055 resumes, the substrate already exists and it is a composer field. |
-| **[F058 — a member reports an image](../next/scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md)** | The **report path**, and photo removal on **Items**. | Photo removal on **Pages**. F058's report path is a **hard precondition** — the takedown commitment must hold before the first upload is accepted, and that is F058's, not this one's. |
+| **[F056 — a producer gives their shop a face](scenario-F056-producer-gives-their-shop-a-face-and-says-what-they-stand-for.md)** | **Editing a Page that is already live** — the edit surface, the update handler, replacing the photo, changing the category later. Save is publish there. | **Creation only.** F061 ships the columns, the bucket, the upload module and the picker; **F056 consumes all four and adds nothing storage-shaped.** |
+| **[F055 — a producer puts a photo on what they sell](scenario-F055-producer-puts-a-photo-on-what-they-sell.md)** | Photos on **Items**. **Deferred 2026-09-07** — the Page is the unit that carries a face. | The bucket and upload module **move here**, because they now land with Pages first. When F055 resumes, the substrate already exists and it is a composer field. |
+| **[F058 — a member reports an image](scenario-F058-a-member-reports-an-image-and-the-operator-takes-it-down.md)** | The **report path**, and photo removal on **Items**. | Photo removal on **Pages**. F058's report path is a **hard precondition** — the takedown commitment must hold before the first upload is accepted, and that is F058's, not this one's. |
 
 | **Appearances at Venues** *(not yet scenarioed)* | The **appearance itself** — attaching a Page to someone else's Venue, with dates, and reading it back on the Venue's page. | **The resolver that an appearance will override.** F061 ships it with one rule and the higher-precedence branch left open. **F061 does not depend on appearances existing** — see the review. |
 

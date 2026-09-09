@@ -8,11 +8,11 @@ status: approved
 
 **Bundle:** b1 (SocialUs v1)
 **Sub-bundle:** v1 workstream 9 (general report path) + workstream 10 (photo upload)
-**Work-map item:** [`bundle-1.md`](../now/bundle-1.md) § What ships in v1 — workstream 9. **This scenario states what upload adds to it and why it can no longer slip.**
+**Work-map item:** `bundle-1.md` § What ships in v1 — workstream 9. **This scenario states what upload adds to it and why it can no longer slip.**
 **Loops:** 11 (Steward what we built) — the community-health side; a place people can report to is part of what makes a place liveable.
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) — the ordinary browsing member is who encounters this.
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) — the ordinary browsing member is who encounters this.
 **Primitive shape:** Person → report → operator. **No new primitive.** A report is a message to the operator, not a declaration and not a vote.
-**Spec contract:** [`decision-producer-values-declaration.md`](../archive/backlog/decision-producer-values-declaration.md) § 3 (*What v1 gets instead: a general report path*) · [`decision-photo-upload.md`](decision-photo-upload.md) §§ 4 (A2), 5.1 · [`decision-business-identity-impersonation.md`](decision-business-identity-impersonation.md)
+**Spec contract:** `decision-producer-values-declaration.md` § 3 (*What v1 gets instead: a general report path*) · `decision-photo-upload.md` §§ 4 (A2), 5.1 · `decision-business-identity-impersonation.md`
 **Status:** next — **approved 2026-09-07.** Gate B cleared: both upload absolutes ratified in `policy.md` § Uploaded images; the values-sourcing absolute dropped as moot with the feature.
 
 > **The dependency moved on 2026-09-07 and got sooner.** Item photos are deferred; **Page photos ship first**, in [F061](scenario-F061-someone-creates-a-page-worth-showing-people.md). The takedown commitment is unchanged, so **no photograph of any kind is accepted in production until this report path is live.**
@@ -25,7 +25,7 @@ status: approved
 
 **A public local application that accepts member-uploaded images will eventually receive one that should not be there.** The answer *"the operator handles it via the report path"* is a legitimate answer for a solo operator, and it is the answer this scenario adopts. But it is only true if the operator **can** — and today they cannot. There is no report path, no `item.update`, no `item.delete`, no storage delete, and no admin surface. Removing one photograph currently means connecting to Postgres by hand and then to the storage API by hand.
 
-> **A2 ([`decision-photo-upload.md`](decision-photo-upload.md) § 4): the platform never serves an image it cannot take down. A takedown path exists before the first upload is accepted.**
+> **A2 (`decision-photo-upload.md` § 4): the platform never serves an image it cannot take down. A takedown path exists before the first upload is accepted.**
 
 **F055 cannot ship before this does.** That is the single largest consequence of the scope change and it should be stated before anything else about the schedule.
 
@@ -70,7 +70,7 @@ The operator gets it wherever reports go. They open the listing on their phone, 
 
 **Given** a signed-in member on an Item page or a producer shop page
 **When** they open the **⋯** menu
-**Then** a report affordance is present, opens a free-text form, and sends. _Why: there is currently **no channel at all** for a member to tell the operator anything. That gap exists from the first user, not the thousandth, and it does not scale into existence the way a voting signal does. It is also the front door to the impersonation path that [`decision-business-identity-impersonation.md`](decision-business-identity-impersonation.md) flagged as needed and unscoped._
+**Then** a report affordance is present, opens a free-text form, and sends. _Why: there is currently **no channel at all** for a member to tell the operator anything. That gap exists from the first user, not the thousandth, and it does not scale into existence the way a voting signal does. It is also the front door to the impersonation path that `decision-business-identity-impersonation.md` flagged as needed and unscoped._
 
 ### A report changes nothing anyone can see
 
@@ -100,7 +100,7 @@ The operator gets it wherever reports go. They open the listing on their phone, 
 
 **Given** a photo removal
 **When** it completes
-**Then** an `item_events` row records it with `acting_member_id` set to the operator. _Why: same-transaction row+event is binding on every write ([`bundle-1.md`](../now/bundle-1.md) § Non-negotiable data-model commitments), and a moderation action is exactly the kind of write that has to be reconstructable later._
+**Then** an `item_events` row records it with `acting_member_id` set to the operator. _Why: same-transaction row+event is binding on every write (`bundle-1.md` § Non-negotiable data-model commitments), and a moderation action is exactly the kind of write that has to be reconstructable later._
 
 ## Edge Cases
 
@@ -108,7 +108,7 @@ The operator gets it wherever reports go. They open the listing on their phone, 
 - **Repeat reports of the same thing** — stored as separate rows. No dedupe, no counter. The operator sees three messages and draws the obvious conclusion.
 - **Report volume** — at v1 density this is a handful of rows. No queue UI, no triage, no assignment.
 - **Removing a photo from an Item whose producer then re-uploads it** — nothing prevents this in v1. The escalation (suspend the Item, suspend the Member) does not exist and is not v1. **Stated as a known limit, not solved.**
-- **A soft-deleted Item's image** — the file stays publicly fetchable at its URL ([`decision-photo-upload.md`](decision-photo-upload.md) § 5.4). **Removal via this path deletes the object; deleting the listing does not.** These behave differently and the copy must not imply otherwise.
+- **A soft-deleted Item's image** — the file stays publicly fetchable at its URL (`decision-photo-upload.md` § 5.4). **Removal via this path deletes the object; deleting the listing does not.** These behave differently and the copy must not imply otherwise.
 - **Accessibility** — M3 fires: a new form and a new menu. The **⋯** needs a real accessible name (*"More options"*), the sheet needs focus management and an escape, and the confirmation needs a live region.
 
 ## Assumptions

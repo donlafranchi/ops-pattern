@@ -8,11 +8,11 @@ status: draft
 
 > **Written and reviewed, deliberately not advanced.** The guard rails for this verb are settled; **the build is not authorised.** This scenario sits in the draft lane because **lane membership is the state and an approved scenario is one the build agent may pick up.** It is not unfinished — it is unscheduled. **Move it to `next/` when the PM schedules the work, not before.**
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 8 (Follow what you love), 1 (Find your people)
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love)
 **Primitive shape:** Person → follows → Person | Page | Venue. **One new table replacing three substrates.**
-**Spec contract:** [`decision-one-follows-table.md`](decision-one-follows-table.md) · [`member.md`](../../product/systems/member.md) § Follows · [`groups.md`](../../product/systems/groups.md) § Roles per kind
+**Spec contract:** `decision-one-follows-table.md` · [`member.md`](../product/systems/member.md) § Follows · [`groups.md`](../product/systems/groups.md) § Roles per kind
 **Status:** backlog — **written and reviewed 2026-09-07; held pending scheduling.**
 
 ## The verb's rules

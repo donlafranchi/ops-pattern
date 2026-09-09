@@ -17,7 +17,7 @@ status: approved
 
 **This scenario was a hard precondition of Item photos. It is now a hard precondition of Page photos**, which ship first.
 
-The commitment is unchanged: *the platform never serves an image it cannot take down, and a takedown path exists before the first upload is accepted* ([`policy.md`](../../product/foundation/policy.md) § Uploaded images, ratified 2026-09-07).
+The commitment is unchanged: *the platform never serves an image it cannot take down, and a takedown path exists before the first upload is accepted* ([`policy.md`](../product/foundation/policy.md) § Uploaded images, ratified 2026-09-07).
 
 **So this scenario got more urgent, not less.** The first upload the platform accepts is now a Page photograph, and it arrives in the same stretch as [F061](scenario-F061-someone-creates-a-page-worth-showing-people.md).
 

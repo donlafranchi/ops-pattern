@@ -11,7 +11,7 @@ status: draft
 **Sub-bundle:** b1.0 (Show up & be seen) — extends the shipped signup flow (F030) rather than adding a theme.
 **Work-map item:** "Sign up and land in a populated feed" — currently checked. This scenario changes *how* the feed gets populated: from a single derived place to an explicit hood + metro pair.
 **Loops:** 3 (Land here)
-**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) — the newcomer to Sacramento who sets Oak Park and immediately sees things nearby.
+**Canonical example:** [C1 — A member searches for what's nearby and follows what they love](../product/needs/use-cases.md#c1-a-member-searches-for-whats-nearby-and-follows-what-they-love) — the newcomer to Sacramento who sets Oak Park and immediately sees things nearby.
 **Primitive shape:** Person → `member_place_interests`(`primary_home`, `place_id` at neighborhood grain) + an explicitly-picked metro → feed vantage point.
 **Spec contract:** `surfaces.md` § The Member picks a hood *and* a metro at signup (Ratified 2026-09-03); `decision-surfaces.md` § Location is entered at creation → The Member picks a hood and a metro at signup; `discovery.md` § Community-awareness feed (metro default depth, memo-0026)
 **Status:** backlog — **one beat blocked.** The rural / no-metro path has no ratified answer; see § Blocked beat.

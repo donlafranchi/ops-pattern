@@ -8,7 +8,7 @@ status: building
 
 **Scenario:** [`scenario-F061-someone-creates-a-page-worth-showing-people.md`](scenario-F061-someone-creates-a-page-worth-showing-people.md)
 **Reviewer:** `review` — 2026-09-07
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Verdict:** **PROCEED**, with six binding notes. **One question for the PM that does not block ticketing.**
 
 ## Gates

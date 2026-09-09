@@ -6,11 +6,11 @@ status: approved
 
 # F064: Someone asks for something that isn't built
 
-**Bundle:** launch ([`initiative-launch.md`](../now/initiative-launch.md))
+**Bundle:** launch ([`initiative-launch.md`](../ROADMAP.md))
 **Loops:** 2 (Wonder) — the platform doing the thing it asks members to do: put it out there and see who wants it.
-**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) — the category half is reached inside creating a Page.
+**Canonical example:** [P1 — A producer creates a profile and lists their products or services](../product/needs/use-cases.md#p1-a-producer-creates-a-profile-and-lists-their-products-or-services) — the category half is reached inside creating a Page.
 **Primitive shape:** Person → a want, about something that has no row. **One new table, deliberately without a foreign key.**
-**Spec contract:** [`decisions.md`](../../product/foundation/decisions.md) § 18 · [`groups.md`](../../product/systems/groups.md) § Other, and why the escape hatch is the instrument · [`promises.md`](../../product/foundation/promises.md)
+**Spec contract:** [`decisions.md`](../DECISIONS.md) § 18 · [`groups.md`](../product/systems/groups.md) § Other, and why the escape hatch is the instrument · [`promises.md`](../product/foundation/promises.md)
 **Status:** next — approved 2026-09-07.
 
 ## The Person
@@ -44,7 +44,7 @@ He taps it again out of habit. Nothing changes — **the platform already knows 
 
 **One table — `demand_signals`:** who, a subject kind (`category` or `feature`), a subject key, the member's own words where they typed some, and when. Indexed on the key. **Unique per member per subject.**
 
-**The subject key is deliberately not a foreign key.** The thing being asked for does not exist as a row — that is the entire point of the mechanism, and a text key is honest here rather than lossy. *(This is the one place that trade is correct; where the subject does exist — a gathering, a Page — the foreign key is used. See [`decision-a-general-signals-table.md`](../backlog/decision-a-general-signals-table.md).)*
+**The subject key is deliberately not a foreign key.** The thing being asked for does not exist as a row — that is the entire point of the mechanism, and a text key is honest here rather than lossy. *(This is the one place that trade is correct; where the subject does exist — a gathering, a Page — the foreign key is used. See `decision-a-general-signals-table.md`.)*
 
 **This table absorbs the category capture.** One table, one migration, two subject kinds.
 
@@ -55,7 +55,7 @@ He taps it again out of habit. Nothing changes — **the platform already knows 
 **Then** a signal is written **in the same transaction as the Page**, carrying their words.
 **And** the words render on their Page and are matchable by search.
 **And** no browsable category, filter, or vocabulary entry is created.
-*Why: promotion is a deliberate human act. No volume of identical entries promotes itself — [`groups.md`](../../product/systems/groups.md) § Other.*
+*Why: promotion is a deliberate human act. No volume of identical entries promotes itself — [`groups.md`](../product/systems/groups.md) § Other.*
 
 **Given** a member tapping a not-yet-built option
 **When** the tap lands
@@ -74,7 +74,7 @@ He taps it again out of habit. Nothing changes — **the platform already knows 
 **Given** any string this scenario puts in front of a member
 **When** it is reviewed
 **Then** **none implies a date, a plan, a commitment, or a position in a queue.**
-**And** it is checked against [`promises.md`](../../product/foundation/promises.md), not merely proofread.
+**And** it is checked against [`promises.md`](../product/foundation/promises.md), not merely proofread.
 *Why: "coming soon" is a promise-shaped roadmap claim, and promise-shaped claims were swept out of this repo on 2026-09-07. One must not walk back in through an empty state.*
 
 **Given** a member who has signalled
