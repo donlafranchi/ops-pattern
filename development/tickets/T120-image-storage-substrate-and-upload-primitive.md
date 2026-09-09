@@ -1,7 +1,15 @@
 # T120: Image storage substrate and the upload primitive
 
 **Scenario:** F061 — someone creates a page worth showing people — **substrate portion.** No user-visible surface ships in this ticket.
-**Status:** Complete
+**Status:** **BUILT, UNVERIFIED — not complete.** Reopened 2026-09-07 by PM ruling.
+
+> **What is unverified: whether one member can read, overwrite, or delete another member's uploaded files.**
+>
+> The storage-API rejection tests and the cross-member RLS test were written and have never executed — the sandbox had no local Supabase, so they skipped and the run reported green. **The ticket closed with the box ticked and nothing checked.**
+>
+> **This ticket may be built on, merged, and depended upon. The photo work continues on top of it.** It **cannot be marked complete** until those tests have actually run and passed against a real instance — see T151 § Setup list.
+>
+> **Once T150 lands, this state stops being able to hide:** the run goes red until something verifies it.
 
 > **Re-bound 2026-09-07.** This ticket was written under the Item-photo scenario, which is now deferred — **Pages get photos first**, so the substrate lands with them. Gate B has since cleared: both upload absolutes carry State-tagged Intent in `policy.md` § Uploaded images. Gate C is satisfied by review F061 (PROCEED).
 >
