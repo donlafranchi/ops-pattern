@@ -26,6 +26,7 @@ Read before proposing any change to structure or process. Each lesson names the 
 - New absolute → a dated failure a guideline did not prevent, filed under one of the four harms in RULES.md.
 - If Don had to do something at the Mac, that's a bug in the process.
 - Every change lands here first as a lesson, then in the structure.
+- A standard exists when lint or CI checks it, not before.
 
 14. **One kind of work is not enough.** Bugs, UX changes and process fixes were forced through the scenario pipeline or fell outside it. — *2026-09-10*
 15. **A rule with no hook is a wish.** Every guideline names the skill, lint, or Action that fires it. — *2026-09-10*

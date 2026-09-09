@@ -4,6 +4,7 @@ One dated line per ruling, newest first. Append only — never edit a past line;
 
 ## Product & platform
 
+- **2026-09-10 — Bottom-anchored controls vs. the shipped top-anchored search row: resolved by what shipped.** The top-anchored row (`design-research-thesis.md`, now deleted) stays as a stated, accepted violation for one release (F059); it reverts when the browse-chrome rework lands. Not a standing exception to the bottom-anchor rule.
 - **2026-09-10 — Page-view counts to the owner (F068) will eventually show first names/nicknames, not stay counts-only forever.** Ships counts-only at launch; naming is a later increment on the same capture, using the existing free-text `display_name` field — no new column.
 - **2026-09-10 — A member outside every seeded metro (F049) picks their metro from a short list of nearby candidates, rather than a coarse rural fallback or a silent null.** E.g. a Truckee resident sees both Reno and Sacramento and picks. Exact selection mechanism (ZIP-distance, state filter, map) is unresolved — decide at ticket time. Rules out: seeding coarser rural metro polygons, and defaulting a rural member to a null or city/county-only vantage point.
 - **2026-09-10 — Atomic scenarios replace the long-form scenario/review format; reviews are folded into the scenario's `approved:` line and deleted.** `planning/*.md` is capped at 40 lines, three sections (Story, Acceptance, Not this). Full history of every retired scenario/review lives in git, tag `archive-2026-09` and every commit since.
@@ -58,9 +59,9 @@ One dated line per ruling, newest first. Append only — never edit a past line;
 - **`public.members.id = auth.users.id`, and the post-signup trigger is the only path to a Member row.** No admin create-user surface, no seed-script bypass.
 - **The data layer was rebuilt clean-slate on Person/Item/Location/Group** — no dual-write, no backfill, no rollback window; justified only because `web/` had no live users or data at the time.
 
-## Contradictions and open questions (not settled)
+## Open — Don rules
 
-- **"Neighbours, not strangers or creators" vs. "everyone who posts is a creator."** Unresolved — is the north star's refusal scoped to the word only, or the aspiration too?
-- **The flourishing thresholds (40 discretionary hours, 1.5× adequacy margin)** — presented as targets in one doc, as the north star's definition elsewhere. Still open.
-- **Whether "members share in what they help build" means profit or ownership** — decides whether it competes with the surplus promise for the same dollar or draws on something else entirely.
-- **Promise 1 ("surplus returns to the community")** — who decides the number, over what period, what returning it looks like. Stays out of user-facing copy until picked.
+- **"Neighbours, not strangers or creators" vs. "everyone who posts is a creator."** A) the north star's refusal is scoped to the word "creator" as a label only — the feeling is fine, just don't call anyone a creator. B) it bars the aspiration too — no reach chrome, no creator-shaped feature, ever. *No recommendation — genuinely a values call.*
+- **The flourishing thresholds (40 discretionary hours/week, 1.5× adequacy margin).** A) adopt as the literal north-star targets everywhere. B) keep them illustrative only; drop the specific numbers from anywhere they read as a commitment. *Recommend A — they're already used as targets in one doc; B just leaves the inconsistency standing.*
+- **Whether "members share in what they help build" means profit or ownership.** A) profit-sharing — competes with the surplus-to-community promise for the same dollar. B) ownership — draws on something else entirely, doesn't compete. C) park indefinitely; don't ratify either candidate. *No recommendation — this is the one clarification that most changes the shape of the promise set.*
+- **Promise 1 — what "surplus returns to the community" actually means.** A) a fixed percentage, decided annually by the founder. B) a member vote or board process decides the number and the mechanism. C) stays internal-only indefinitely; never published as a specific commitment. *Recommend C for now — nothing forces a decision before launch, and a vague public promise is worse than a deferred one.*

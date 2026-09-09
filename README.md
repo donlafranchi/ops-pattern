@@ -43,6 +43,16 @@
 - Structured recurring-location scheduling — priced v2 buy-back for the free-text "where they'll be next" line.
 - Paid visibility / advertising mechanic — gated on passing the member-benefit test; not designed.
 - Cooperative coordination tooling (voting, distributions) — waits on documented demand.
+- LLM-enhanced natural-language search ("sourdough near me Saturday") and SEO-structured public pages.
+- Saved-search subscriptions ("notify me: new products in Oak Park").
+- Richer service-listing fields (appointment availability, scope of work), item lifecycle states (draft/paused/archived), stock indicators, bundled items.
+- Community-attested (Tier 1) and document-verified (Tier 2) locality/provenance badges — Tier 0 self-attestation is all that ships at launch.
+- Follow-stream notifications, item-level customer inquiry, follower-list management for a producer.
+- Producer growth dashboard, weekly digest email, peer benchmarks.
+- Hours-of-operation display, multi-location/ambulatory-route management, sub-venue support (e.g. "Drake's barn" under Drake's).
+- On-platform payments — closed-loop ledger + ACH via a chartered partner, zero platform transaction fees on member commerce (the wealth-circulation rubric), a stablecoin path long-horizon.
+- Treatment-review surface (reviews the treatment, never the person) and member references.
+- Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
 
 
 ## Deferred

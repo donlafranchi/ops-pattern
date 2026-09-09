@@ -1,670 +1,74 @@
 ---
 id: what-groups
-purpose: Self-selected sets of People organized to do things together.
+purpose: Self-selected sets of people organized to do things together — why it's people, never a corporate shape.
 layer: what
 status: active
 ---
 
-# System: Group
+# Groups (Pages)
 
-**Status:** Active. Ratified by PM; the Group-consolidation decision is the load-bearing one.
+A Group is a set of people organized around something — shared place, interest, practice, event, household, or commercial operation. The shape varies with the something; that it's *people, not a person* never does. The platform models no Business entity: a Group cannot sign, own, be delegated to, or outlive its last member, and money flows are visible and accountable to identified people, never to a shell. This is the structural refusal that lets the platform represent how people actually organize — partnerships of equals, families, sole proprietors — without forcing the corporate costume US law would otherwise impose.
 
-**Purpose:** Establish Group as the platform's primitive for *people organized to do things together on the platform* — a single spine + child architecture mirroring [`item.md`](item.md)'s pattern. The platform's grammar becomes: **People form Groups to do things using Items, attached to Locations.** Some Groups affiliate — a Run Club, school parents, a family. Some Groups operate — Maya's bakery, a partnership, an auto shop. All are people, never persons.
+**The platform drives on-platform verbs and records off-platform facts — it never performs a legally-binding act.** A Group operating as an LLC can declare that fact and the platform mirrors it; the platform doesn't file the paperwork, execute a binding governance vote, or sign a regulated agreement on anyone's behalf. This is why cooperative coordination (voting, distributions, treasury) stays out of scope — co-owning and voting are off-platform verbs the platform isn't equipped to adjudicate (no escrow, no legal weight, no fraud recourse), and modeling them would make the platform the record-of-truth for acts it can't authenticate or unwind. `kind='business'` Groups with multiple owner-role memberships already carry the cooperative *shape*; the governance tooling waits for documented real-world demand, most likely arriving as a federation handoff rather than a schema patch.
 
-**Bundles:** b1 (T1 — affiliate kinds + business kind, full surface).
+## Six kinds, two verb families
 
-**Companion specs:** [`nouns.md`](../foundation/nouns.md) · [`item.md`](item.md) · [`member.md`](member.md) · [`location.md`](location.md) · [`policy.md`](../foundation/policy.md)
+**Affiliate** (community kinds — `place`, `interest`, `practice`, `event_anchored`, `family`): members gather, share, follow, attend, host. **Operate** (`business`): members make, sell, serve, host commercially. A sole proprietor is a business Group of one; the platform doesn't differentiate by member count, because the question a business Group exists to answer — *is this local, does it support my community, should I support it* — has the same answer whether one owner or three. Forcing self-categorization by count would impose a costume the people-first stance refuses.
 
-**Retires (ratification 2026-05-10, archived 2026-05-11):** [`community.md`](../../_attic/2026-05-19/product-systems/community.md) · [`member-operations.md`](../../_attic/2026-05-19/product-systems/member-operations.md) · [`cooperative.md`](../../_attic/2026-05-19/product-systems/cooperative.md). Predecessors now live in `_attic/2026-05-19/product-systems/`; do not cite as live — use this spec.
+## Ownership is membership — nothing else
 
-**Cooperative coordination — deferred until real-world need:** Cooperative-style coordination in the app (voting, distributions, governance mechanics) is deferred until real cooperative operations create a clear need for in-app tools and the user explicitly prioritizes building them (see [`nouns.md`](../foundation/nouns.md)). When that need arrives, the architecture is open to extension: `kind='business'` Groups with multiple owner-role memberships are the foundation, and child tables or additional kinds can be added without disturbing the spine. Schema reservations (no `cooperative_cohort` Item kind, no `cooperatives` table, no `cooperative_*_events` table) stand as current-scope — revisitable when the need emerges.
+Every business Group has ≥1 active `owner` membership; owners are co-equal on member-management and dissolution, staff can post on the Group's behalf but can't manage the roster or dissolve it. Adding someone to the membership row **is** the access grant; removing it **is** the revoke — there is no separate concept of "operating owner," "handoff," or "succession" anywhere in the schema. If owners disagree, that's a conversation between them, not platform machinery. The Locally-Owned badge is OR-aggregated across all active owners — one local owner is sufficient evidence, because a partnership with one local and two non-local owners is still locally-owned in the way that matters for a support decision; requiring unanimity would lose the partnership case, and privileging a founder specifically would break the moment ownership transfers.
 
-**North stars served:** Family 1 (Gather) and Family 2 (Share) by affiliate kinds. Family 3 (Trade) by business kind, plus by no-Group one-off sales.
+**Locality is computed at query time, never stored** — a stored flag would represent locality as of whenever it was last computed, and every jurisdiction change (an owner's ZIP update, an owner leaving) would need a recompute trigger; a missed trigger lies. Computing fresh eliminates that whole class of staleness by construction. Multi-location operations need multiple Groups (Bob's two franchises are two Groups, each tested independently against its own anchor) — there's no single "is this business local" answer once a business has more than one location.
 
-> Map to numbered north stars from `product/foundation/north-stars.md` before scenario approval.
+## No kind transitions — dissolve and recreate instead
 
----
+A Group never changes kind. A run club that wants to formalize as an LLC ends the old Group and starts a new one; items re-file at the member's discretion, and a self-reported founding date lets the new Group claim continuity without the platform having to verify or enforce a lineage link. This is simpler than maintaining transition machinery (role-mapping per kind pair, audit semantics) for a case that's undemonstrated at this scale — the door stays open to revisit if a specific harmful case ever argues for in-place transitions, particularly once a Group has accumulated enough infrastructure and customer base that dissolve-and-recreate becomes genuinely costly.
 
-## What a Group is
+**Reputation travels with the person, not the Group.** Whatever recognition a member has earned follows them across every Group they've held membership in, founder or participant alike — Group-anchored reputation would let trust be sold without the conduct that earned it, and a hybrid (transfer with a conduct commitment) needs adjudication machinery the platform doesn't have.
 
-A Group is a set of People organized around something on the platform. The "something" varies — shared place, shared interest, shared practice, shared event, shared household, shared commercial operation. The shape varies with the something. The fact that it is **people, not a person**, does not.
+## What a business Group persists through
 
-A Group is people, not a corporate person — the platform models no Business entity (see [`nouns.md`](../foundation/nouns.md) § Why no Business entity). Concretely for Groups: Items always belong to Members; money flows are **visible and accountable** to identified recipients (Members, Groups of Members, or identified external recipients like a Girl Scouts troop or community fund) per [`payments.md`](payments.md); a Group cannot sign, own, be delegated to, or outlive its last Member.
+**No auto-dormancy, no auto-dissolution, ever** — a business Group exists as long as ≥1 active owner does. Inactivity only ever affects *surfacing* (a discovery-layer demotion, per `discovery.md`), never lifecycle state, never a public "inactive" label. Adjudicating whether an off-platform business is "really" dormant needs signals the platform doesn't have (sales records, owner intent); separating *does it exist* (membership) from *does anyone see it in promoted surfaces* (discovery) keeps the platform from mis-handling a call it can't make well. Community-kind Groups keep an ordinary 90-day dormancy-then-dissolution window with unlimited member-initiated extension — life gets messy and the platform shouldn't force busywork over it.
 
-The Group primitive lets the platform represent how people actually organize — partnerships of equals, families, run clubs, neighborhood associations, sole proprietors — without modeling them as the corporate shells US law would impose.
+## What a Page carries at creation, and why each piece is shaped the way it is
 
-## What the platform drives versus what it records
+**Location: an address or a neighbourhood, never a guessed fallback.** A Page that pins somewhere its founder didn't choose is worse than one with no pin — it's a confident wrong answer, and the misrepresented person is the one who gets asked about it. No code path may invent a coordinate; an unresolvable address refuses loudly rather than defaulting to something approximate. Neighbourhood mode exists because a platform that only accepts street addresses selects against exactly the members who most need to participate without publishing where they live — a home-based business, an itinerant seller. The derived point inside a neighbourhood polygon is deterministic (the same Page always resolves to the same point) and drawn toward the polygon's interior, never uniformly across its bounding box, so an approximate outline doesn't drop someone in a river.
 
-A structural commitment, parallel to the no-personhood guarantees:
+**Position is resolved at read time, never stored.** A point asserts something is at a place; a club with nothing scheduled isn't anywhere in particular, so its Page shows as an area, not a pin — the same distinction the feed already carries (areas read as *who's around*, pins read as *what's on and where*), delivered geometrically. An active appearance at a Venue takes precedence and is always a point, for exactly as long as the appearance lasts, then falls back to the anchor with no cleanup step — the same mechanism that drops a finished gathering from the feed. Appearances can't overlap in time; a Page is people, and people are in one place at a time. An appearance *replaces* an area anchor (the truck moved) but *adds to* an address anchor (the bakery's shop didn't go anywhere just because there's also a market stall today).
 
-- **The platform drives on-platform verbs.** Affiliating, operating, posting, gathering, following, selling, hosting — these happen *here*, with the platform as their record and surface.
-- **The platform may record off-platform facts.** A Group operating as an LLC can declare that fact — `group_businesses.legal_entity_kind = 'llc'` — and the platform mirrors it. The platform doesn't drive the LLC formation; it acknowledges it.
-- **The platform records facts and facilitates transactions; it does not perform legally-binding business or governance operations.** Action handlers reject any write that would simulate the platform *executing* an off-platform legal act — filing paperwork on behalf of an entity, committing a binding governance vote, signing a regulated agreement. Money movement is different: the platform is the rail for transactions between people and organizations (per [`payments.md`](payments.md)), not the legal principal of those transactions. Off-platform facts arrive as Member-recorded statements about the world, not as platform-driven processes.
+**One category from a maintained list of twelve, plus a real escape hatch.** The "Other" option's free text is captured, never auto-promoted into the vocabulary — a category with forty identical "Other" entries tells the operator exactly which term is missing, which is the entire value of not forcing a fit. Promotion is always a deliberate human act reading the table, never a volume threshold that fires on its own.
 
-  > **Intent:** Legally-binding operations regarding business or governance — entity filings, binding cooperative votes, regulated agreement signing, tax-authority-recognized acts — carry legal ramifications the platform isn't equipped to handle (securities law, operating-agreement enforcement, jurisdictional dispute resolution, fraud recourse). Taking them on would make the platform the legal record-of-truth for actions it can't authenticate, dispute, or unwind. Money flow is structurally different: the platform *facilitates* transactions between identified parties (the rail role per `payments.md`); it doesn't *act as* their legal principal. The deferral on legally-binding org operations is **long, not categorical** — revisit only when the platform's relationship to legal-weight operations is clarified through a federation partner or chartered entity. Test for future proposals: does this entangle the platform in legally-binding business or governance acts? If yes, defer for a very long time.
+**A photo, or art that admits it isn't one.** Nearly every Page has no photo on day one, so the placeholder is the platform's actual appearance, not an edge case — it must be deterministic (the same art every load) and visibly not a photograph, because a placeholder handsome enough to pass for one both misrepresents the place and removes the reason to ever add a real photo. Stock photography is refused outright for the same reason twice over.
 
-This commitment is what keeps the deferred cooperative-coordination pattern out of the spec for now. Co-owning, voting, distributing are off-platform verbs. The platform isn't ready to mirror them; until the relationship is clarified, they're not modeled.
+**No verification of any kind on any of this.** A category, a location, a photo — each is a claim its owner makes, the same way every other field on a Page is. Trust here is the members', not the platform's.
 
-## On-platform verbs
+## Selling tools have no toggle
 
-**Affiliate** — community kinds (place, interest, practice, event_anchored, family). Members gather, share, follow, attend, host.
+There is no maker-mode flag. Selling tools surface from Group and Item state alone: a member with an active business Group has the full toolset surfaced ambiently; a member without one sees the universal composer, and tapping Sell for the first time is what triggers the business-Group walkthrough. To stop selling, end the owner membership — there's no separate off switch. **Seller** is the generic term; **Producer** is preferred in food/ag contexts; **Maker** survives only where someone specifically self-identifies that way.
 
-**Operate** — business kind. Members make, sell, serve, host commercially, work.
+## Editing an active Page — save is publish
 
-That's the verb set. Six kinds. Two verb-families. The kinds are defined by what people *do* in them.
+The Page's managing role (owner on a business Page, steward on every other kind) can edit name, description, tagline, image, and the "where they'll be next" line — never the slug, the kind, the lifecycle state, or the founder record. **The slug never follows a name change**, deliberately: people text each other links, and an address that silently moves when someone fixes a typo breaks every link already shared with no redirect. There's no draft state for an edit — it publishes immediately, because a pending-review copy of a public address earns nothing for a six-field form. Legal or tax-shaped fields (entity type, formation date) may exist as storage for an off-platform fact, but no editor surfaces them and no copy refers to them.
 
-## Group kinds
+## Business identity is local, not global
 
-**Community kinds** — affiliate verbs:
+Business names are scoped to a hood or metro — there's no global namespace and no platform-wide handle, so two businesses in different hoods may share a name. This removes the incentive for name-hoarding rather than policing it (a name claimed somewhere you don't operate reaches nobody). A global handle was considered and rejected — it rebuilds exactly the namespace-contention problem local scoping exists to avoid, and pulls against the neighbours-not-strangers shape of the product. What local scoping does *not* solve is impersonation within a hood (someone opening a second "Joe's Pizza" in Joe's own neighbourhood) — a verification path for that is unscoped; the business-jurisdiction ladder answers "is this owner local," not "is this the real one."
 
-- `place` — anchored to a geographic Location, oriented to where members live or spend time. *West Sac school parents.*
-- `interest` — affinity-based, optional Location anchor. *Sacramento sourdough exchange.*
-- `practice` — recurring vocation or shared craft. *Sacramento dog walkers.*
-- `event_anchored` — born from a recurring Gathering Item, references it. *Folsom Thursday Run Club.*
-- `family` — a household or extended family, typically `discoverability='private'`.
+## No-personhood guarantees, enforced at two layers
 
-**Business kind** — operate verbs:
+Schema: every Item has a non-null owning Member — Items are never headless, corporate-only, or filed by someone who isn't operating the Group they're filed under. Groups can't hold Delegations (only a Member can consent, and only a Member has a context to withdraw one from) — Group-coordination agents are platform-curated and invoked under an operator's own Delegation, not Member-invented, because letting members grant Group-scoped authority to agents they built themselves leaves the rest of the Group unprotected against a badly-scoped one. Action layer: no write may construct a corporate-shell-shaped relationship by composing otherwise-legal operations — Item-to-Group ownership, Group-to-Group ownership, or any proxy pattern that ends with a non-human entity as the accountable party.
 
-- `business` — one or more Members operating commercially together. At least one Member holds the structural-responsibility role of `owner`. Other Members may operate alongside (additional `owner` memberships for partnerships) or under direction (`staff`). Sole proprietors are kind='business' Groups of one. The platform does not differentiate by Member count — a Group of one and a Group of three render the same shape; the vendor describes themselves as they want.
+## Public-face attribution
 
-  > **Intent:** Business Groups exist to let Members answer one question: *is this local to my community; does this entity support my community; should I support it?* Member count is not a signal toward that question — a 1-owner sole-prop and a 3-owner partnership give Members the same information about locality and community support. Forcing the vendor to self-categorize by count would impose a costume (sole-prop vs. partnership) the people-first stance refuses (per [`../foundation/principles.md`](../foundation/principles.md) and the role-as-verb commitment); the vendor describes themselves through their display name, description, and owner-role memberships. Test for future proposals: does this differentiation help a Member decide "is this local / does it support my community"? If no, the differentiation is extra; don't add it.
-  >
-  > **Forward-looking watchpoints** (not b1; flagged for design when they matter): (1) a locally-owned business acquired by private equity or outside capital — the locality signal has gone stale; the platform should eventually surface that transition rather than letting the Group present as locally-owned indefinitely. (2) Complex or opaque ownership (many out-of-state owners, layered entities) that makes the locality answer unreliable — the platform needs a mechanism to surface "locality unclear" rather than defaulting to "ownership unknown = treat as local." Both are failure modes of the locality answer the platform exists to provide.
-
-The kind enum is extensible. Future candidates if real cases warrant: `nonprofit`, `mutual_aid`, `worker_collective` — not in scope at b1.
-
-## What a Group-filed Item is credited to
-
-An Item filed under a Group is credited to the Group, not to the Member who authored it. For a
-`kind='business'` Group that is the business's display name (`group_businesses.display_name`,
-denormalized onto `items.brand_label` at create time so the Item page renders without a join).
-For every other kind the credit is the Group's own `name` — *"Hosted by Repair Cafe Regulars."*
-
-The distinction matters because `brand_label` exists only for business Groups, and the Item
-resolvers originally treated its absence as "this Item has no Group," which made every Item filed
-under an `event_anchored`, `interest`, `place`, or `practice` Group unresolvable. Event-anchored
-Groups are exactly the case the spec contemplates above — a Group born from a recurring Gathering
-Item — so the omission bit the kind of Group the spec was most explicit about. See
-`development/deviations/T119.md` § Deviation 3.
-
-## Roles per kind
-
-| Kind | Valid roles |
-|---|---|
-| `place`, `interest`, `practice`, `event_anchored`, `family` | `member`, `steward` |
-| `business` | `owner`, `member` |
-
-The `member` role is shared across kinds with kind-contextual meaning: in affiliate kinds it means "affiliated with this group"; in Business it means "works in this operation under the operating owner." The action layer enforces kind-specific validity; the same string carries different semantics depending on the Group's kind.
-
-Structural rules:
-
-- Every kind='business' Group has ≥1 active membership with role='owner'.
-- **Owners are co-equal on member-management and dissolution; staff post on behalf.** Every kind='business' Group can have multiple `role='owner'` memberships and multiple `role='staff'` memberships. Owners may add, remove, and re-role other members (via `group.member_join` / `group.role_change` / `group.member_remove`), edit Group surfaces (display_name, public_description, anchor_location), and dissolve the Group (`group.dissolve`). Staff have producer-tool access — they can post Items on the Group's behalf and edit Items they author — but cannot manage the membership roster or dissolve the Group. `groups.founder_member_id` records who created the Group (a historical label); it does not confer ongoing authority.
-  **Intent (Ratified 2026-05-31):** The platform's job is to give the Group's people producer tools and to record who did what (every event row carries `acting_member_id`). It is not to model business ownership transfers, succession, or governance — those are off-platform concerns the platform isn't equipped to adjudicate (no escrow, no legal weight, no fraud recourse). Owner co-equality on member-management + dissolution matches how small operations actually run; staff-as-poster matches the bakery-with-helpers / shop-with-employees shape. Adding a Member to the Group is the only access-granting verb; there is no concept of "operating owner," "operator handoff," or "succession" in the schema. If owners disagree on a member-management decision, the resolution is the conversation between them, not platform machinery.
-- **Locally-Owned label: any current owner is local → badge applies.** The `public.zip_is_proximal_to_location()` proximity computation for the Locally-Owned badge surfaces when ANY active `role='owner'` member has a Tier 0/1/2 `member_business_jurisdictions` row proximizing the Group's anchor Location. Aggregation is OR across owners; no per-Group designated source, no requirement that all owners be local.
-  **Intent (Ratified 2026-05-31):** The Locally-Owned promise answers a single Member question: *does this entity have local-community ownership stake*. One local owner is sufficient evidence — a partnership with one local + two non-local owners is still locally-owned in the way that matters for community-support decisions. Requiring unanimity would lose the partnership case; restricting to the founder would lose the post-founder-transition case. The OR-across-owners rule is the simplest honest answer.
-- Communities require no leadership role; if all stewards leave, the Group becomes dormant per the lifecycle rules.
-
-A Member can hold any role across multiple Groups simultaneously.
-
-**Forward-looking — permissions decomposition.** Roles at b1 are fixed bundles of permissions, enforced in the action layer rather than by check constraint. A future direction (not b1) is decomposing roles into a permissions table — `group_role_permissions(kind, role, permission)` for the role-default bundle, plus optional `group_member_permissions(group_id, member_id, permission)` for per-Member overrides. This would allow custom roles like *manager* or *kitchen lead*, and granular per-Member adjustments (the long-trusted staff Member granted Item-edit rights), without expanding the role enum or migrating existing rows. The change is purely additive: the `role` column stays; new permission tables join on it. Flagged as open question for when real custom-role cases surface.
-
-## Selling, with or without a Group
-
-Not every commercial transaction requires a Group. Three modes at b1, one forward-looking mode for later.
-
-**One-off sale** — A Member posts a product Item with no Group. Photo, description, price, location. Item lifecycle: `active → fulfilled` (or `withdrawn`). The garage-sale shape, the single-loaf-of-sourdough shape, the I-don't-know-if-I'm-doing-this-again shape. `items.group_id = null`. No selling-tool surface beyond the composer; no standing tier.
-
-**Ongoing commercial** — A Member operates through a kind='business' Group. Items have `group_id` set. The Group page is the storefront. Standing tier, agent context, full selling-tool surfaces (the surfaces follow Group membership, not a Member-level mode).
-
-**Selling on behalf of others (future, not b1)** — A Member sells things owned by other Members. Garage-sale-for-someone-else, estate-sale-for-a-neighbor, kid-selling-mom's-art. Probably warrants its own Item kind (`kind='consignment'`) with separate seller-Member and owner-Member fields. Flag for forward design; don't model now.
-
-The composer's pivotal question, at the moment of commercial Item creation: **"Is this a one-time sale, or part of something you're planning to keep doing?"** Default for new Members and Members without an active `kind='business'` Group is **no, one-time** — the casual workflow lands the Item with no Group and no business tools. Answer "yes, recurring" triggers the `kind='business'` Group walkthrough. For Members with an active business-Group membership, the default flips to **yes, recurring** — their commerce is anchored to the Group by default. Most people posting one thing for sale aren't starting a business; the platform shouldn't make them feel like they are. There is no "Become a Maker" framing — the walkthrough is structural Group setup, not a mode-flip. The "business user" vs. "non-business user" distinction is derived from active business-Group membership; no stored `is_business_user` flag exists (per the 2026-05-12 Maker-mode-retirement amendment — selling tools surface from Group/Item state, not from a toggle).
-
-This honors how people actually start. Maya selling a single loaf at the church bake sale is one Item with no Group. Maya deciding she wants to do this regularly creates a Group at that moment. The Group is the *commitment* surface; the Item is always available without it.
-
-> **Intent (Ratified 2026-05-31):** The b1 design uses Member self-declaration as the trigger between casual and commercial workflows — never behavioral observation. The composer's "recurring sale?" question + the option to create a `kind='business'` Group are the only paths from casual to business; the platform never silently transitions a Member based on their sales cadence. **Self-declaration is always preferential to observation until the platform reaches critical mass and has enough data to find real patterns** — until then, behavioral pattern detection is lossy (false positives on people clearing a closet) and invasive (tracking patterns to push commerce onto Members who didn't ask). Both workflows are subject to good-faith conduct; persistent bad-actor behavior can revoke the affordance per a future moderation policy (see open questions). **Forward-looking — large-scale sellers:** this is the small-scale-seller workflow. Vendors at higher volume should eventually get robust tools (inventory management, barcode scanning, point-of-sale integration) — T2/T3+ work; flag for future design. Test for future proposals: does this make a Member commerce decision *for* them based on platform observation? If yes, refuse — self-declaration is the b1 trigger. Does it make first commerce feel like starting a business? If yes, refuse — that's the costume people-first refuses.
-
-## Lifecycle per kind
-
-**Universal dormancy timing.** All kinds use a **90-day dormancy window** before dissolution, with **member-extension** available. Life gets messy; the platform should accommodate that without forcing busywork or dissolving Groups whose people are temporarily occupied.
-
-When a Group enters dormancy, `groups.dormant_at = now()` and `groups.dissolves_at = now() + interval '90 days'` are set in the same transaction. The Group becomes invisible in promoted surfaces and search defaults. Founder and any remaining members are notified. At any point during dormancy, anyone with an active or recent membership in the Group (or the founder, if not a current member) can call `group.extend_dormancy`, pushing `dissolves_at` out by another 90 days. No cap on extensions — trust the participants. If `dissolves_at` is reached without revival, the Group dissolves; Items lose `group_id`; memberships archive.
-
-**Triggers per kind:**
-
-- **Community kinds** (place, interest, practice, event_anchored, family): Group enters dormancy when zero `explicit` memberships have existed for 90 days (the long inactivity tail), or when the last steward leaves a Group with no other active stewards.
-- **Business kind:** **No auto-dormancy and no auto-dissolution.** kind='business' Groups persist as long as ≥1 active `role='owner'` membership exists. Inactivity affects *surfacing* — the discovery algorithm (per [`discovery.md`](discovery.md)) demotes inactive business Groups in promoted surfaces and search defaults — but never auto-dormant or auto-dissolve. The only dissolution path is explicit `group.dissolve` called by an owner. If the last owner-role membership ends with no remaining owners, the Group enters the structural-broken state until either an existing staff member is promoted to owner by some platform-level recovery action (out of scope at b1; flag as edge case) or until an owner re-joins — this is a rare failure mode given owners can add other owners, and the recommended pre-departure action is "add another owner first."
-
-**Off-platform legal entity persistence.** When `group_businesses.legal_entity_kind` is non-null (the Group reflects a real-world LLC, partnership filing, etc.), the Group persists indefinitely; the platform makes no inference about the legal entity's continued existence. Dissolution is recorded via explicit `group.dissolve`, ideally when the off-platform entity is itself dissolved.
-
-**Revival.** While dormant (community kinds only), a Group can be revived by `group.revive`, which clears `dormant_at` and `dissolves_at` and restores visibility. Revival authority lives with active or recent (within 12 months) members. kind='business' Groups do not enter dormancy and therefore do not have a revival concept; an owner who left and wants to come back simply re-joins via `group.member_join` (any current owner adds them, or the structural-broken-state recovery applies if no owners remain).
-
-> **Intent (Ratified 2026-05-31):** The platform deliberately does not track business-Group lifecycle beyond explicit owner action. Auto-dormancy and founder-only revival were modeling that the platform isn't equipped to do — adjudicating whether an off-platform business is "really" dormant requires signals the platform doesn't have (sales records, legal filings, owner intent) and creates surface area for the platform to mis-handle. The simpler shape: business Groups exist as long as ≥1 owner is on the membership; surfacing is the discovery algorithm's job, not lifecycle machinery's; explicit dissolve is the only dissolution path. **Member-anchored social capital** (per the next bullet, ratified 2026-05-12) still holds: a Member's accumulated recognition travels with them across any Group they hold membership in, so the "what happens to reputation when an owner leaves" question is answered at the Member level, not the Group lifecycle level.
-
-## Editing an active Page
-
-*Added 2026-09-07. This section is the EXTEND the self-serve producer review owed, and it is what the Page-editor work waits on. Written against the code, not against intent — where the two differ, the difference is named.*
-
-**A Page is created once and edited many times.** Creation ships (the five-step walkthrough); editing does not exist. **Every field set during creation is currently permanent**, which is the gap this section closes.
-
-### Who may edit
-
-**The Member holding the Page's managing role.** That is `owner` on a `kind='business'` Page and `steward` on every other kind — the branch already implemented as `managingRoleForKind(kind)`, landed when the founder-role divergence was fixed.
-
-**The editor calls that same function rather than hardcoding a role.** The draft-update handler was found hardcoding `owner` for every kind, which locked non-business founders out of their own in-flight work; it was corrected at the same time. **Repeating that mistake in a second handler is the specific thing this paragraph exists to prevent.**
-
-Staff-role members of a business Page **may not edit the Page itself**. They can post Items on its behalf; changing what the Page *is* stays with the managing role.
-
-### What is editable, and what is not
-
-**Editable on an active Page:**
-
-| Field | Where it lives | Note |
-|---|---|---|
-| Display name | business child row, mirrored on the spine | See § The slug does not follow the name |
-| About / description | business child row | Collected at walkthrough step 3 |
-| Tagline | **`groups` spine** | New column; ≤120 chars |
-| Image | **`groups` spine** | New column; one image, no gallery |
-| Where they'll be next | **`groups` spine** | New column; one free-text line, ≤140 chars |
-| Anchor Venue | spine `anchor_location_id` | Changing it changes the public address — see below |
-
-**The three new columns land on the `groups` spine, not on the business child row** *(redirected 2026-09-07)*. A run club deserves a face and a one-liner as much as a bakery does, and putting them on the child row would have made them business-only by construction.
-
-**Not editable, and the list matters more than the editable one:**
-
-- **The slug.** Never, by any path. See below.
-- **The Page's kind.** Already covered by § No kind transitions — a person who wants a different kind creates a second Page.
-- **The lifecycle state.** Ending a Page is `group.dissolve`, a separate deliberate act, not a field on an edit form.
-- **The founder.** A historical record of who created the row, not a setting.
-- **Membership and roles.** Managed by the join / role-change / remove verbs, not by editing the Page.
-- **The locality claim.** Its own act with its own evidence, on its own surface.
-- **Anything legal or tax-shaped.** The entity-type, formation-state and formation-date columns exist as storage for facts a Member may record elsewhere. **No editor surfaces them, no form collects them, and no copy anywhere refers to them.**
-
-### The slug does not follow the name
-
-**Renaming a Page changes what it is called. It does not change where it lives.**
-
-A slug is a public address. People text links to each other — that is how this platform spreads — and **an address that silently moves when someone fixes a typo breaks every link already shared, with no error and no redirect.** The name is display; the address is infrastructure. They are set together once and diverge from then on.
-
-**What the code does today, stated precisely so nobody designs around a bug that isn't there:**
-
-- The draft-update handler **does** re-derive the slug on every name change — and it **refuses outright on any row that is not a draft.** So an active Page cannot be renamed at all today, and the re-derivation only ever runs while a Page is still hidden behind draft visibility.
-- **This is therefore not a live bug.** It is a correct behaviour in the only state it can currently reach. **The trap is the editor**: the obvious implementation extends that handler to active rows, and doing so would carry the re-derivation across with it.
-- **The editor writes the name and leaves the slug untouched.** Not "regenerates and compares" — never reads it.
-
-*A rename that genuinely needs a new address is a redirect problem, not an edit problem, and there is no redirect substrate. Deferred; not a launch concern.*
-
-**Changing the anchor Venue is the one edit that does move the public address**, because the place path derives from it. That is unavoidable and should be surfaced to the Member as a consequence rather than performed silently.
-
-### Edits emit an event, like every other write
-
-**One `group_events` row per edit, written in the same transaction as the update** — the row-plus-event invariant every other write in the system already follows. The event carries the acting Member and, where relevant, the delegation it acted under, matching the shape of the existing group events rather than inventing a new one.
-
-**The event records that a Page was edited and by whom.** It is an audit record, not a change feed, and nothing renders it.
-
-### There is no draft state for an active Page
-
-**Edits publish immediately.** A Page that is live stays live while it is edited; there is no pending-review state, no preview, and no second copy of the row.
-
-This is deliberate rather than merely cheap: a draft state for edits means two versions of a public address, a decision about which one strangers see, and a way to abandon one — none of which earns its place for a form with six fields. **Save is publish, and the form should say so plainly rather than implying a review step.**
-
-*(The `draft` lifecycle state is the composer's in-flight state during creation. It is not an editing mode and must not be reused as one.)*
-
-### Out of scope, named rather than assumed
-
-**The editor serves one requirement: a Page worth finding — links, a bio, what they sell, where to find them.** Everything else is deferred:
-
-- Multiple images, cropping, reordering.
-- A values statement *(cut 2026-09-07)*.
-- Analytics, follower counts, or any dashboard.
-- Editing another Member's Page, however senior the editor.
-- Bulk edits across the several Pages one Member may hold.
-
-## What a Page carries at creation
-
-*Added 2026-09-07. The Page is the unit of discovery — it is what browse is made of, what the map pins, and what search matches. This section is the identity a Page must have by the time it is first published for any of that to work.*
-
-Three fields, all set in the composer, all on the Page rather than on anything filed under it.
-
-### A real place, at the precision its owner chooses
-
-**A Page says where it is in one of two ways: a street address, or a neighbourhood.** Both are real answers. Neither is a fallback for the other.
-
-> **Intent (Ratified 2026-09-07).** A Page that pins somewhere its founder did not choose is worse than a Page with no pin at all — it is a confident wrong answer, and the person it misrepresents is the one who gets asked about it. **What is refused is a fabricated coordinate: no default, no city centroid, no placeholder, no code path that invents a location because none was given.** A Member declining to give a street address is not the same thing and is never treated as one — **the platform refuses to guess, not to accommodate.**
-
-**Address mode.** The founder types an address; the coordinates are derived from it. Nothing asks a Member for a latitude. If the address cannot be resolved, the step refuses and says so rather than storing something approximate.
-
-**Neighbourhood mode.** The founder picks a neighbourhood from the Places tree, which already carries `kind='neighborhood'` rows with polygons. The Page's point is placed **inside that polygon, derived from the Page's own identifier**, and no street address is stored, rendered, or derivable.
-
-> **Intent (Ratified 2026-09-07).** [`../foundation/policy.md`](../foundation/policy.md) already separates a locality *claim* from a street address so that a person is not required to publish where they live in order to take part. **Neighbourhood mode is that separation made usable at the point where it matters** — the moment someone is asked where they are. Two kinds of Member need it and neither is an edge case: the person working from home who will not put their home on a public map, and the Page with no fixed location at all. **A platform that only accepts street addresses selects against both.**
-
-**The scattered point is derived, never random.** The same Page resolves to the same point forever — across reloads, devices and viewers. *(Same reasoning as default art: a pin that moves tells a visitor the page is untrustworthy, and a pin that moves cannot be recognised or returned to.)* **Points are drawn toward the interior of the polygon** rather than uniformly across its bounding box, so a Page does not land in a river or across a boundary while its neighbourhood outline is still approximate.
-
-**Neighbourhood mode changes what is shown, not what works.** The Place, and therefore the metro, still resolve from the point, because both resolutions are geographic. **A Page in neighbourhood mode appears at Venues exactly as any other Page does** — an appearance is a relationship to someone else's Location and has never depended on having an address of one's own. *(The itinerant Page is the case this most obviously serves.)*
-
-### Where a Page appears is resolved, not stored
-
-**A Page's placement is derived at read time from a precedence, not read from a column. A placement is either a point or an area** — the distinction is part of the answer, not a rendering detail.
-
-1. **Active appearances at Venues win, and are always points.** A Page appearing at one or more Venues right now shows at each of those Venues' real addresses, for as long as the appearance lasts.
-2. **Otherwise, its own anchor** — **a point** if it gave a street address, **an area** if it gave a neighbourhood.
-
-> **Intent (Ratified 2026-09-07).** **A point asserts that something is at a place. Nothing that isn't there should make that assertion.** A shop is at its address every day. A class or a club with nothing scheduled is not anywhere in particular — **it is *of* an area, not *at* a place** — and a pin dropped for it tells a passer-by that if they go there they will find something, which is false.
->
-> **So the area is not only the privacy fallback; for a group with nothing scheduled it is the honest answer.** The point returns the moment there is an actual intention to meet: a gathering at a venue, for its duration, and then back to the area.
->
-> This gives the map the same distinction the feed carries: **areas read as *who is around*, points read as *what is on and where*.** Delivered geometrically rather than through a filter the Member has to find.
-
-**One consequence worth stating: the derived point inside a neighbourhood polygon narrows to a single job — the Member who has a real address and will not publish it.** A Page that is genuinely area-shaped needs no scattered point at all; its Place and metro resolve from the neighbourhood directly, because the neighbourhood is a Place.
-
-> **Intent (Ratified 2026-09-07).** A stall at a market on Saturday *is* at the market on Saturday, and the map that says otherwise is wrong in the way that costs a seller a customer. **But the same Page must not have to publish a home address to be somewhere the rest of the week.** Resolving position rather than storing it is what lets both be true at once — and it means **a real address is only ever shown for a place that is open to the public and belongs to whoever hosts it.** A Page's own address is never revealed by an appearance.
-
-**Consequences that follow from resolving rather than storing, and are the reason to do it this way:**
-
-- **An appearance ending needs no cleanup.** The pin returns to the neighbourhood because the appearance stopped satisfying the time window — **the same mechanism that drops a gathering from the feed once it's over.** No job, no expiry sweep, no stale row.
-- **Appearances cannot overlap in time.** A Page cannot be in two places at once, and an overlapping appearance is refused when it is created. **Sequential appearances on the same day are ordinary** — a truck at one market in the morning and another in the afternoon.
-
-  > **Intent (Ratified 2026-09-07).** A Page is a person or people, and people are in one place at a time. **Letting the data say otherwise makes the map assert something false about someone**, and there is no honest reading of two simultaneous appearances that a viewer could act on. *(This retires an earlier assumption that a Page could show at two locations at once. That came from the previous model, where a producer's individual **Items** could sit at several pickup points — Items were the unit. Under the current model Pages are the unit and individual products are not, so **the case it was written for no longer exists.** An inherited assumption retired, not a live decision reversed.)*
-
-- **How an appearance interacts with the anchor depends on the anchor's type**, and this is the one line to remember:
-
-  **An appearance replaces an area. It adds to an address.**
-
-  A truck whose anchor is a neighbourhood is at the market and *not* in its neighbourhood — it moved. **A bakery with premises is at its shop *and* at the market — the shop did not go anywhere**, and removing it from the map on a Saturday would send people to a door that is open. So a Page has at most two placements: its own address if it has one, plus at most one active appearance.
-- **Position cannot be materialized ahead of time.** Anything that caches a Page's point goes stale the moment an appearance starts or ends. **Resolution belongs in the query, beside the time filters that already exist there.**
-
-**A Page always says where it currently resolves to, on its own public surface, to everyone.** *(Intent — Ratified 2026-09-07: it is already public by virtue of being on the map, so hiding it from the page would conceal it only from the person most affected. **Nobody should ever be surprised by where they are pinned.**)*
-
-### One category, from a fixed list
-
-**A Page declares exactly one category, chosen at creation from a vocabulary the platform maintains.** Twelve terms at launch:
-
-Food & Drink · Growing · Home & Body · Textiles & Craft · Wood, Metal & Repair · Art & Music · Classes & Workshops · Sport & Outdoors · Community & Mutual Aid · Music & Nightlife · Family & Kids · Faith & Culture
-
-**The category lives in its own indexed column on the spine.** Not in `metadata`, which is unused and stays that way — a field that browse filters and search matches is not a JSON bag.
-
-**Broad buckets, not leaf nodes.** The list is meant to hold a whole neighbourhood's worth of activity in twelve terms and to grow from evidence rather than from anticipation.
-
-#### Other, and why the escape hatch is the instrument
-
-**A thirteenth choice — *Other* — takes free text, and that text goes to its own table.**
-
-The text is **captured, not promoted.** It does not create a browsable category, does not appear as a filter, and does not join the vocabulary. It renders on the Page as the words its owner chose, and search matches it.
-
-> **Intent (Ratified 2026-09-07).** The earlier position was that an escape hatch *hides* the signal that a vocabulary is wrong — people take the easy exit and the list never gets corrected. The reverse is true when the exit is instrumented: an empty *Other* table says the twelve terms fit, and forty rows saying the same thing say precisely which term is missing and how badly. **The escape hatch is how the vocabulary earns its next term.** Excluding it would leave the platform guessing.
->
-> The vocabulary stays curated because promotion is a deliberate act — someone reads the table and adds a term. **What is refused is the automatic path: no volume of identical entries promotes itself into the list.**
-
-**No admin screen.** The table is indexed on a normalized copy of the text; grouping and counting it is the surface.
-
-### A photo, or art that admits it isn't one
-
-**A Page may carry one photo, set at creation.** Optional — a Page with no photo is a complete Page.
-
-**When there is no photo, the Page shows generated art derived from its own identifier**: a colour pair and a mark, stable for the life of the Page.
-
-> **Intent (Ratified 2026-09-07).** At launch nearly every Page will have no photograph, so the placeholder is not an edge case — **it is what the platform looks like on its first day.** Two things follow. It must be *deterministic*, because art that reshuffles on reload tells a visitor the page is unstable. And it must be *visibly not a photograph*, because a placeholder handsome enough to pass for one both misrepresents the place and removes the reason to add a real picture. **Stock photography is refused on both counts** — it depicts somewhere that isn't there, and every Page in a category ends up wearing the same three faces.
-
-**A Page photo is subject to the same two commitments as any uploaded image** — metadata stripped before storage, and a takedown path that exists before the first upload is accepted ([`../foundation/policy.md`](../foundation/policy.md) § Uploaded images). **One bucket and one upload path for the whole platform**, so those commitments hold in one place rather than in each caller.
-
-### What creation-time does not decide
-
-- **Editing any of these afterwards is the editor's job**, above — same fields, same column, different surface, and *save is publish* applies there and not here.
-- **Photos on Items** are deferred. The Page is the unit that carries a face; a product does not need one to be found.
-- **Categories on Items** are not this. `item_tags` is keyed by Item and cannot carry a Page's category.
-- **No verification of any kind.** A category is a claim its owner makes, like every other field on a Page. *(Intent — Ratified 2026-09-07: trust here is the members', not the platform's. See [`../foundation/promises.md`](../foundation/promises.md) § How good faith is enforced.)*
-
-## No kind transitions
-
-Groups do not change kind. If a Member pivots — a Run Club's organizers decide to formalize as a registered LLC, a bakery decides to convert to a non-commercial baking-class series — they end the current Group and create a new one of the new kind. This is simpler than maintaining a transition machinery with role-mapping rules and audit semantics for every kind pair. Items lose their `group_id` when the source Group dissolves; the Member can re-file Items under the new Group at their discretion.
-
-> **Intent:** The b1 floor — dissolve-and-recreate via `established_on` rather than in-place kind mutation — is **provisional, not categorical**. The reason for the b1 stance is complexity-and-scale: maintaining transition machinery (role-mapping rules per kind pair, audit semantics, RLS policy updates, downstream consumer defenses against unstable kind enums) is real cost, and at b1 scale the Member-benefit case for in-place transitions is undemonstrated. **Door left open** — at scale, with specific use cases that argue against recreation, kind transitions may warrant design. Two distinct shapes that may warrant the affordance when use cases clarify:
->
-> 1. **Operator-scale transitions** (small → large). A `kind='business'` Group operating at small scale (one founder, simple operation) growing into a multi-owner, complex operation. Mostly *within-kind* — still `kind='business'`; the open question is whether kind-level transitions are needed or whether existing within-kind affordances (multi-owner memberships, off-platform legal-entity declaration, role decomposition per the permissions-decomposition OQ) cover the case.
-> 2. **Non-income → income transitions** (community-kind → business-kind). A Run Club that decides to start selling apparel together; an interest Group whose members decide to formalize as a CSA together; a practice circle that begins charging for instruction. The community → business shape is the most concrete future use case; the inverse (business → community) is also conceivable but less obvious.
->
-> Until specific use cases argue for the affordance, recreation via `established_on` + Item re-filing is the b1 succession path. **Test for future proposals:** does this proposal name a specific use case where dissolve-and-recreate is materially harmful *and* within-kind affordances don't solve it? If yes, the kind-transition design space is worth entering. If no, recreation is the answer.
-
-**Items posted by departed Members stay filed under the Group.** When a Member ends their membership, any Items they previously posted with this Group's `group_id` keep that filing. The Items still belong to the Member (`items.member_id`), and the Member can edit or withdraw them at any time as their own Items, but the Group's record honors the historical commerce. This means the Group page may surface Items by ex-members; that's the honest history. Items only lose their `group_id` when the Group itself dissolves.
-
-**Continuity across pivots: the `established_on` field.** A Member starting a new Group that continues an earlier effort can self-report `established_on` to claim the historical date — Maya's new "Oak Park Sourdough" Group can carry `established_on = '2020-01-01'` even if `created_at` is much later. The platform doesn't verify this; it's the Member's claim, displayed honestly alongside the actual `created_at` if the user cares to see both. This gives the affordance of continuity without requiring schema-level Group-lineage links the platform would have to enforce and the Member would have to navigate.
-
-**Continuity of reputation: travels with the Member, not the Group.** Member-level reputation, ratings, endorsements, and accumulated social capital are anchored to the Member primitive — not the Group. When Maya's Oak Park Sourdough dissolves and she starts a new Group, whatever recognition she's accumulated as Maya travels with her. **This applies equally to founders and to participants** — any Member who has contributed good behavior, helped neighbors, or built trust accumulates social capital that follows them across Group endings. A future reputation/rating system will key on `members.id` rather than `groups.id`. Groups are commercial-shape coordination; reputation is a social-shape commitment from one Person to another.
-
-> **Intent:** Member-anchored social capital is the ratified b1 framing (PM 2026-05-12). The principle: *good behavior is rewarded by recognition that follows the person who did the good* — applies to founders and participants alike. The earlier "three-framings open" framing surfaced during the groups.md walk and resolved in favor of Member-anchored: Group-anchored / transferable reputation would let trust be sold without the conduct that earned it; Hybrid (transfer-with-conduct-commitment) introduces adjudication complexity the platform isn't equipped for at b1 (no conduct-monitoring infrastructure, no enforcement mechanism for inherited commitments). Member-anchored is the simplest framing that protects the reward mechanic. **Forward-looking — substantial-scale gate:** when a Group has accumulated significant infrastructure, customer base, product catalog, etc., dissolve-and-recreate may become materially harmful. At that scale the question of how Member-anchored social capital interacts with Group succession may re-open — does Member-anchored hold (and we live with the recreation cost), or does the substantial-Group case warrant a different framework? See OQ on substantial-scale gate. Until then, Member-anchored holds, founder-immutable holds, recreation-via-`established_on` is the succession path.
-
-## Standing-tier gate
-
-`member_has_standing_presence` view returns TRUE for a Member when:
-- They have ≥1 active membership in a kind='business' Group, **OR**
-- They have a `role='steward'` membership in any non-business Group.
-
-Replaces both `member.maker_signal` (deprecated) and the prior Operations-derived `member_has_standing_presence` (fully superseded by this spec). Assistant Context affordance prominence, agent context tier, and Skill subscription affordance read this view.
-
-A Member with only one-off sale Items has no standing tier — correctly.
-
-## Selling tools
-
-There is no Maker mode and no `members.maker_mode_enabled` toggle. Selling tools — product/service composers, storefront, seller dashboard, agent-assistance affordances — are present whenever the Member needs them, surfaced from Group / Item state:
-
-- A Member with ≥1 active kind='business' Group membership has the full selling toolset surfaced ambiently. No toggle to enable.
-- A Member without a kind='business' Group sees the universal composer (gathering, wonder, ask, offer). Tapping the **Sell** verb (per CLAUDE.md naming conventions) for the first time triggers the kind='business' Group walkthrough (`group.create` + `group.member_join`), after which the product composer opens.
-- To stop selling: end the owner-role membership in the business Group (per the Lifecycle rules — founder leaving puts the Group into 90-day dormancy). Items remain published per their own settings.
-- Per-membership profile-visibility (the `members.show_group_memberships` privacy toggle per `member.md`) hides the business affiliation from the public profile without affecting the Group itself. For a fully private selling presence, set the Group's `discoverability` to `unlisted` or `private`.
-
-**Vocabulary.** **Seller** is the generic term for a Member offering goods or services; **Producer** is preferred in agricultural / food contexts (already used in [`producer-tools.md`](producer-tools.md)). "Maker" survives only as a UI label for Members who specifically self-identify as such (craftspeople, artisans).
-
-## Spine + child data model
-
-Mirrors `item.md`'s pattern. One spine, kind-specific child tables for kinds that need extra structure.
-
-**The spine — `groups`:**
-
-```sql
-create table groups (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  slug text not null,
-  kind text not null check (kind in (
-    'place','interest','practice','event_anchored','family','business'
-  )),
-  anchor_location_id uuid references locations(id) on delete set null,
-  place_id uuid references places(id),  -- anchor Place; derived — see Place anchoring below
-  parent_group_id uuid references groups(id) on delete set null,
-  founder_member_id uuid not null references members(id),
-  description text not null,
-  discoverability text not null default 'listed'
-    check (discoverability in ('listed','unlisted','private')),
-  lifecycle_state text not null default 'active'
-    check (lifecycle_state in ('draft','active','dissolved')),
-    -- 'draft' = in-flight multi-step composer; not surfaced publicly. Promotes to 'active'
-    --   on final-step submit per the Multi-step composer recipe in ui/design-language.md.
-    -- 'active' = live and discoverable, subject to discoverability scope.
-    -- 'dissolved' = ended via explicit group.dissolve; dissolved_at set in same write.
-  metadata jsonb not null default '{}',
-  established_on date,             -- self-reported establishment date; nullable
-                                   -- defaults to created_at for display when null
-  created_at timestamptz not null default now(),
-  dormant_at timestamptz,           -- when entered dormancy (null otherwise)
-  dissolves_at timestamptz,         -- scheduled dissolution time during dormancy
-  dissolved_at timestamptz,
-  unique (place_id, slug)           -- per-Place slug namespace; replaces global unique on slug
-);
-
-create index idx_groups_anchor on groups (anchor_location_id) where dissolved_at is null;
-create index idx_groups_place on groups (place_id) where dissolved_at is null;
-create index idx_groups_parent on groups (parent_group_id) where dissolved_at is null;
-create index idx_groups_kind on groups (kind) where dissolved_at is null;
-create index idx_groups_lifecycle on groups (lifecycle_state) where dissolved_at is null;
-
--- Discovery / RLS rule: every public-facing query MUST filter `lifecycle_state = 'active'`.
--- 'draft' rows are visible only to their `founder_member_id` (and members the founder
--- added during the composer flow); enforced via RLS policy `groups_select_active_or_own_draft`.
-```
-
-**Kind-specific child table** (1:1 with `groups` where `groups.kind='business'`; FK = `group_id`):
-
-- `group_businesses` — `group_id` PK FK, `display_name` (the brand label — Maya's "Oak Park Sourdough"), `public_description` (storefront copy), `legal_entity_kind` (nullable enum: `llc`, `sole_prop`, `partnership`, `other`), `state_of_formation` (nullable), `formed_at` (nullable). No `ownership_locality` column — locality is derivable from owner Member Locations vs. the Group's `anchor_location_id` and computed at query time (see Locality and promotion).
-- `group_event_anchored` — `group_id` PK FK, `seeded_by_item_id` (FK to `items.id`, nullable). Promoted out of `metadata` JSONB because it's load-bearing for kind='event_anchored' Groups specifically. Leaves room to add more event-specific fields (recurrence reference, founding-event date) without spine churn.
-
-Community kinds other than `event_anchored` use the spine only; no child table.
-
-**Memberships — `group_memberships`:**
-
-```sql
-create table group_memberships (
-  group_id uuid not null references groups(id) on delete cascade,
-  member_id uuid not null references members(id) on delete cascade,
-  role text not null,  -- validated per-kind in the action layer
-  source text not null default 'explicit'
-    check (source in ('explicit','soft_via_follow','soft_via_attendance')),
-  joined_at timestamptz not null default now(),
-  left_at timestamptz,
-  confirmed_by_member_id uuid references members(id),
-  confirmed_at timestamptz,
-  primary key (group_id, member_id)
-);
-
-create index idx_memberships_member_active on group_memberships (member_id, group_id)
-  where left_at is null and source = 'explicit';
-create index idx_memberships_role on group_memberships (group_id, role)
-  where left_at is null;
-```
-
-Role validation per kind is enforced in the action layer, not by check constraint, because the valid set varies by `groups.kind`. The handler reads kind first, validates role, then writes.
-
-`source = 'soft_via_*'` is valid only for community kinds. The action layer rejects soft-source memberships for the business kind.
-
-**Item integration:**
-
-- `items.group_id` (nullable FK to `groups.id`) — replaces `items.community_id`. Set when the Item is filed under a Group; null for one-off sales and non-commercial Items.
-- `items.brand_label` retires. The brand label is `group_businesses.display_name` when `items.group_id` references a kind='business' Group.
-
-**Location integration (brand precedence):**
-
-- A kind='business' Group may anchor to a Location via `groups.anchor_location_id`. The Location renders the Group's storefront affordances on its public page.
-- Brand label precedence on the Location page: `group_businesses.display_name` (canonical when an anchored Group exists) wins over `locations.brand_label` (the Location-level fallback for places without a Group anchor — e.g., Drake's the bar). Per [`location.md`](location.md), `locations.brand_label` is denormalized to power resolve-up rendering when no Group is anchored; the Location page renderer must check Group first, then fall back.
-
-**Place anchoring.**
-
-- `groups.place_id` anchors every Group to a curated [`places`](places.md) row. It is **derived, not user-chosen**: a Group with an `anchor_location_id` inherits that Location's `place_id`; an anchorless Group falls back to the founder's home Location's place; a federation Group whose Members span multiple places anchors at the **smallest common ancestor** place. Stored as a column with a trigger that recomputes on `anchor_location_id` change (per the `places.md` working assumption — drift is bounded because Locations rarely move).
-- **Default anchor depth for kind='business' Groups: neighborhood when the neighborhood-place exists, city otherwise.** Granularity rolls up automatically; the founder is not asked to choose.
-- The canonical Group URL is place-scoped: `/p/[…place path]/g/[slug]`. Slug uniqueness is per-Place (`UNIQUE (place_id, slug)`) — an Oak Park, CA Group and an Oak Park, IL Group with the same slug do not collide. Items filed under a Group inherit the Group's place path for their own URLs.
-
-> **Business identity is local, not global (Ratified 2026-09-03).** Business names are scoped to a hood or metro. There is **no global namespace and no platform-wide handle**; two businesses in different hoods may share a name. Intent: name hoarding is a domain-name dynamic that only exists where one global namespace has exactly one winner — local scoping *removes the incentive* rather than policing it, since a name claimed in a hood you don't operate in reaches nobody. A hashtag-style global handle was **considered and rejected**: it rebuilds the global namespace and drags in verification, inactivity expiry (which § Lifecycle already refuses to adjudicate, Ratified 2026-05-31), and per-Member claim caps — and a global handle and a neighbours product pull in opposite directions. **What it does not solve: impersonation.** Someone can still create "Joe's Pizza" inside Joe's actual hood, and local scoping makes that the *only* attack worth running. A claim or verification path is still needed and is **unscoped**; `business-jurisdiction.md`'s tier ladder is the nearest substrate but answers "is this owner local?", not "is this the real one?" **Substrate gap:** the per-Place slug uniqueness above is spec, not shipped — `web/supabase/migrations/014_groups.sql` still carries a global `slug … unique` and has **no `place_id` column**. Full entry, and the three open questions (feed disambiguation, slug shape, multi-location identity): [`../../planning/backlog/decision-surfaces.md`](../../planning/backlog/decision-surfaces.md) § Business identity is local, not global.
-
-**Group-of-Group relationship.**
-
-A Group can be a *vendor / member / participant* of another Group — a many-to-many relationship distinct from Member↔Group memberships and distinct from the `parent_group_id` hierarchy column.
-
-```sql
-create table group_group_memberships (
-  parent_group_id uuid not null references groups(id) on delete cascade,
-  child_group_id  uuid not null references groups(id) on delete cascade,
-  role            text not null,   -- e.g. 'vendor', 'participant'; validated in the action layer
-  source          text not null default 'explicit',
-  joined_at       timestamptz not null default now(),
-  left_at         timestamptz,
-  primary key (parent_group_id, child_group_id)
-);
-```
-
-The food-truck-at-farmers-market pattern: a kind='business' Group (Adaeze's Kitchen) is a `vendor` in several kind='place' / kind='event_anchored' Groups (Oak Park Farmers Market, Davis Farmers Market) — one row per relationship. The child Group's public page can inherit event dates from each parent Group's attached Items. This relationship is independent of the place-anchor hierarchy: a Group anchored in Oak Park can vendor at a Group anchored in Davis; its URL stays at its own place anchor.
-
-**Event log entries (required at b1):** `group.created` (fires on draft creation), `group.activated` (fires on draft → active promotion via final-step composer submit), `group.member_joined`, `group.member_left`, `group.member_removed`, `group.role_changed`, `group.steward_transferred` (community kinds only), `group.dormant` (community kinds only), `group.dormancy_extended` (community kinds only), `group.revived` (community kinds only), `group.dissolved`. Append-only, partitioned monthly. Audit fields on every row.
-
-**Action handlers:** `group.create` (creates row with `lifecycle_state='draft'`), `group.activate` (promotes draft → active; final-step composer submit calls this), `group.update_draft` (owner-only; mutates an in-flight draft row's fields step-by-step per the Multi-step composer recipe), `group.member_join`, `group.member_leave`, `group.member_remove` (owner-only; for removing other members), `group.role_change` (owner-only; for promoting staff↔owner, etc.), `group.steward_transfer` (community kinds only), `group.confirm_membership` (b2 — for member confirmation in business kind), `group.extend_dormancy` (community kinds only), `group.revive` (community kinds only), `group.dissolve` (owner-only). The action layer enforces the structural rules:
-- ≥1 active owner for kind='business' Groups; the operating owner is the founder while their owner-role membership remains active.
-- Members control their own membership: writes to other Members' rows are rejected, except the operating owner of a kind='business' Group may end a member-role (staff) membership.
-- Routine functionality writes (display_name, public_description, member confirmations, dissolution) on a kind='business' Group require the operating owner.
-- `group.extend_dormancy` requires the caller to have an active or recent (within last 12 months) membership in the Group; pushes `dissolves_at` forward by 90 days; no cap on extensions. The founder retains no special authority post-leaving — their "recent membership" qualifies them like any other ex-member, but historical-founder-status alone does not.
-- `group.revive` for a dormant kind='business' Group can only be performed by the founder, by re-joining as owner. Other owners' presence does not unblock revival because operating-ownership is the founder's permanently. If the founder doesn't return within dormancy, dissolution is inevitable; remaining owners can extend the dormancy window but cannot continue the Group themselves — they form new Groups if they want to operate.
-
-## Locality and promotion
-
-The platform promotes locally owned and operated Business Groups. Locality is derivable, not stored — the `ownership_locality` enum approach was the wrong shape because "locality" is a property of *who owns this Group's location*, not a label on the Group itself.
-
-**The rule.** A kind='business' Group is locally owned and operated when **at least one owner Member holds a `member_business_jurisdictions` row whose ZIP passes the proximity test against the Group's `anchor_location_id`**. Proximity is computed by `public.zip_is_proximal_to_location()` (per [`business-jurisdiction.md`](business-jurisdiction.md)). The jurisdiction substrate is the **first signal** at b1 — the seller's own evidence-tiered declaration. A **second signal**, community-member corroboration (interaction reconnaissance), comes online at b2+ when the interaction graph reaches enough density to be meaningful; design lives in [`business-jurisdiction.md`](business-jurisdiction.md). Together the two signals are "peer pressure for the greater good": the badge tier reflects what *both* signals show. The prior `member_is_local_to_location()` function reading `lives`/`works` affinity rows is retired with the six-kind affinity table.
-
-**Access path.** The derivation reads `member_business_jurisdictions` through `public.zip_is_proximal_to_location(zip text, location_id uuid) returns boolean`. The jurisdiction substrate is *public* by design (see [`business-jurisdiction.md`](business-jurisdiction.md) RLS), so the test is a straightforward JOIN — no SECURITY DEFINER escape hatch needed. The substrate's evidence tier (Tier 0 self-attested → Tier 1 SOS-verified → Tier 2 document-uploaded) is *publicly visible* on the Group's surface as the "Claimed / Verified / Documented local owner" badge.
-
-```sql
--- Pseudocode for the locality test on a kind='business' Group.
--- b1: jurisdiction-only (first signal).
--- b2+: layer community-corroboration on top (second signal) — design in business-jurisdiction.md.
-select exists (
-  select 1
-  from group_memberships gm
-  join member_business_jurisdictions mbj
-    on mbj.member_id = gm.member_id
-    and mbj.group_id = gm.group_id
-  where gm.group_id = $group_id
-    and gm.role = 'owner'
-    and gm.ended_at is null
-    and mbj.removed_at is null
-    and public.zip_is_proximal_to_location(mbj.zip, $anchor_location_id)
-);
-```
-
-A set-returning variant for index-time bulk computation can land at T2+ if per-call cost becomes hot. The b2+ community-corroboration signal layers *on top of* this query rather than replacing it; the substrate split leaves room for the second signal to land as its own substrate without disturbing the first.
-
-**Computed at query time.** Locality is dynamic. If Maya owns Oak Park Sourdough (anchor: Oak Park) and her jurisdiction ZIP is in the Sacramento MSA, the Group is locally owned. If Maya updates her jurisdiction to a Phoenix ZIP, the Group is no longer locally owned — the wealth created here now flows out of the community. The platform recomputes locality on every jurisdiction change; no stored field to drift out of sync.
-
-> **Intent:** Locality is a *property of the current state of owner jurisdiction records*, not a stored fact about the Group. A stored `is_locally_owned` field would represent locality *as of the time it was computed* — and every jurisdiction change (Member updates ZIP, owner-Member added or removed, Tier 1 SOS-recheck demotes a dissolved LLC) would need to fire a re-compute trigger. Missed triggers leave the field stale; stale fields lie to consumers. Computing at query time eliminates the entire class of staleness bugs by construction: **the answer reflects the current state of the input data, always.**
->
-> **Important — staleness-free is not gaming-proof at Tier 0.** Dynamic computation guarantees the answer is current; it does not guarantee the *input* is honest. Tier 0 self-attested ZIPs are Member-declared and the platform cannot independently verify them; Tier 1 SOS-verified and Tier 2 document-uploaded ZIPs are evidence-tier-protected (per `business-jurisdiction.md`). The "always correct relative to the current state" guarantee is *narrower than locality integrity at Tier 0*; the public evidence tier (Claimed / Verified / Documented) is the platform's transparency answer. See OQ on locality verification + counter-gaming.
->
-> The cost of dynamic computation is per-query overhead — solvable through query-layer caching with explicit invalidation on jurisdiction change events, *not* through storing the answer on the Group row. **Test for future proposals:** does this proposal add a stored locality flag (or any other derived-from-state column that can drift)? If yes, refuse — the answer is "compute at query time, cache at the query layer if performance argues for it." Derived state belongs in functions, not columns.
-
-**Multi-location operations require multiple Groups.** Bob owning two McDonald's franchises is two separate Groups, each with Bob as an owner-role membership. The Citrus Heights Group has Bob's Citrus Heights Location near its anchor (locally owned). The Roseville Group does not (Bob's Citrus Heights Location is not in proximity to the Roseville anchor). The platform promotes the first, not the second. This is the franchise pattern: each operating location stands on its own ownership-locality test.
-
-**Promotion semantics** (b2+ surface): Groups passing the locality test get prominence in the locality-first index, surface in "locally owned" filters and badges, and rank higher in proximity-sorted browse. Groups failing the test still appear when explicitly searched but don't get promotional weight. The Buy Close north star is structural here: the platform's index makes the local-money-stays-local distinction visible.
-
-**Edge cases:**
-- Owner has no public Location set → the Group's locality is unknown for that owner; falls through to other owners (if any). If no owner has a Location, the Group is not promoted.
-- Group anchor is an `area` Location (a polygon, not a point) → proximity test runs against the area's representative point or boundary; spec'd at index time.
-- Multiple owners with different Locations → as long as ≥1 is in proximity, the test passes (the Group has at least one local owner).
-- Owner moves out of metro → recompute on next Location change; promotion drops.
-
-## Discoverability and visibility
-
-`listed` / `unlisted` / `private` per Group. Detailed UX deferred. Working defaults:
-
-- Community kinds: default `listed`, except `family` defaults `private`.
-- Business: default `listed` for ongoing commercial. (One-off sellers don't have a Group.)
-
-`listed` / `unlisted` / `private` semantics get fully spec'd when the storefront UX is designed.
-
-## No-personhood guarantees, encoded structurally
-
-Schema-level, not policy-level:
-
-- `items.member_id` is NOT NULL. Items always belong to Members. `items.group_id` is the optional filing surface only.
-
-  > **Intent:** `items.member_id NOT NULL` is the schema-level enforcement of the no-Business-entity commitment (see [`../foundation/nouns.md`](../foundation/nouns.md) § Why no Business entity). Every Item has a named human accountable for it — and that Member must be the one *operating* the Group the Item is filed under (or operating no Group, for one-off sales). `items.group_id` is the *filing surface* (where the Item sits commercially — under the bakery Group, under the Run Club, etc.); `items.member_id` is the *responsible operator* of that filing — the human whose social capital is on the line for the Item's existence. **What this rules out:** Items existing without a Member (orphaned, headless, corporate-only), and Items filed under a Group by a Member who isn't operating that Group. **What this rules in:** Group display branding on an Item via the Member-as-operator's chosen `group_id` filing, with the Member's identity (and accumulated social capital — Member-anchored per line 125) as the load-bearing accountability surface. **Test for future proposals:** does this proposal want to let Items have a `group_id` without a `member_id`, treat a Group as the primary owner of an Item, or let Members post Items under Groups they don't operate? If yes, refuse — that's reintroducing the impersonal-business-entity path through the back door. **Forward-looking — substantial-scale gate:** when appointment-based operator succession is designed (currently deferred), the question of how `items.member_id` behaves across an operator change (stays with original poster, or follows current operator?) is part of the deferred work. b1 is trivially safe because operator = founder = immutable; the question is real at scale.
-- No `group_assets` table at b1. The platform does not custody capital, hold title, or mirror financial flows for its own balance sheet. Money flows are visible and accountable to identified recipients (Members, Groups of Members, identified external recipients) per `payments.md`. Custody is at a chartered partner (CDFI / credit union / cooperative bank), never the platform. The "no `group_assets` table" decision is current-scope, not categorical — revisitable if cooperative-coordination needs emerge.
-- Groups cannot be the target of a Delegation. Only Members can grant or hold Delegations.
-
-  > **Intent:** Delegations are the substrate by which non-human actors (assistants, Skills, federation peers) act on a Member's behalf — and the trust commitment (per [`../systems/agent-assistance.md`](../systems/agent-assistance.md)) is fundamentally a *Person-level* commitment. Groups can't consent (no context window, no prompt-injection surface, no "I withdraw this" mechanism). Letting Groups grant or hold Delegations would force the platform to invent Group-consent machinery — who consents on behalf of the Group, by what quorum, under what dispute mechanism — every answer to which collapses back to "a specific Member." The schema makes it impossible by construction: only Members can be Delegation principals.
-  >
-  > **Group-coordination agents are valuable; the b1 path is platform-curated, not Member-invented.** Many Group-coordination use cases exist (calendar management for a `kind='business'` Group, scheduling for a recurring Gathering, member-onboarding flows, recurring-event coordination). Letting Members invent these agents themselves and grant them Group-scoped Delegations creates a substrate for harmful agents — poorly-scoped, malicious, or just badly-designed — that other Group Members have no protection against. **The path:** platform curates Group-coordination agents (same shape as platform-curated Skills per `agent-assistance.md`), and a Group's operator opts the Group into using them via the operator's own Delegation scoped to Group-coordination scopes. The Member is still the Delegation principal; the agent functionality is platform-built and reviewed. **Forward-looking:** if a future design surface lets Groups create operation-specific agents safely (with sufficient scoping, review, and protection for other Group Members), leave that open for discussion. See OQ on Group-coordination agents.
-  >
-  > **Test for future proposals:** does this proposal want Groups to grant/hold Delegations, or let Members create custom Group-scoped agents at b1? If yes, refuse — the answer is "use platform-curated Group-coordination agents, invoked under the operator's Delegation." Person-anchoring is the trust commitment; agent creation is platform-curated (at b1), not Member-invented.
-- Groups dissolve when their Members leave (community kinds, or business kinds without an off-platform legal entity) or when an off-platform legal entity is recorded as dissolved.
-- The action layer rejects any write attempting to set Item ownership to a Group, Group-to-Group ownership, or any other corporate-shell-shaped relationship.
-
-  > **Intent:** This is the action-layer enforcement counterpart to the `items.member_id NOT NULL` schema constraint above. Where the schema prevents the *column-shape* of corporate-shell ownership, the action layer prevents the *writes* that would skirt it — proxying ownership through a system-Member that represents a Group, constructing Group-to-Group ownership relations through metadata fields, or any other path that ends up with a non-human entity as the load-bearing accountability for an Item or a Group. Specifically refused: (a) writes setting Item ownership to a Group (collapses back to the schema constraint), (b) writes establishing Group-to-Group ownership (parent-Group / child-Group structures that mirror a corporate hierarchy), (c) any other write that constructs a corporate-shell-shaped relationship by combining individually-legal operations. **Test for future proposals:** does this proposal want to add a write path that effectively gives a Group ownership of Items or other Groups, even indirectly through metadata or proxy Members? If yes, refuse — the no-Business-entity commitment (see [`../foundation/nouns.md`](../foundation/nouns.md) § Why no Business entity) is enforced at both layers; the action layer is the runtime guardrail that catches the writes the schema can't see (composed-from-legal-parts attacks).
-
-## Public-face attribution (T095 Ratified 2026-06-03)
-
-A kind='business' Group is the **public face for commerce**; the Member-behind-the-Group is a separately gated personal identity. The separation: *the storefront is findable, the person behind the counter controls their own visibility.* This holds for every Group kind that can file Items — kind='business' is the canonical case, but the rule is general: any Group is public-by-default, and any Item filed under any Group attributes to the Group, not to the Member who filed it.
-
-**Item attribution reads from the Group.** Items filed under a Group surface "Sold by `<Group display_name>`" (services use "Offered by"; gatherings use "Hosted by") with a link to the Group page. The Group's display name comes from `group_businesses.display_name` (denormalized onto `items.brand_label` at composer time per `item.md`); the Group page URL is the place-scoped `/p/[…place]/g/[slug]`. Item resolvers do **not** embed the `members` row for Group-filed items — the Member-behind-the-Group is not the attribution target. The Item is still owned by the Member at the schema layer (`items.member_id NOT NULL` per the No-personhood guarantees above), and the Member's social capital is still on the line; what the public surface shows is the storefront, not the founder's handle.
-
-**Shop "Founded by" is gated by founder discoverability.** Every Group page surfaces a Member's display name + avatar in the "Founded by" line — that's the load-bearing person-anchoring this section's No-personhood guarantees require. The link to the founder's personal profile (`/m/[handle]`) is conditional on `member_privacy.is_discoverable` for the founder: link when `true`, plain text when `false`. The founder is always named; only the link is gated. A non-discoverable founder operates a publicly findable shop without exposing their personal profile. The conditional read goes through the `public.member_public_discoverability` projection view (per `member.md` § Attribution behavior); the base `member_privacy` row remains owner-only.
-
-**The separation principle in practice.**
-
-- **Group findable, person controls own visibility.** A Member who creates a `kind='business'` Group has their products listed under the Group name, but their personal `/m/[handle]` page stays under the post-T095 defaults (`profile_visibility = 'members_only'`, `is_discoverable = false`) until they opt in via the prompt-on-acquisition flow (per `member.md` § Prompt-on-acquisition).
-- **Selling publicly is consent to attribution; it is not consent to discoverability.** The Group surface displays the founder's name and avatar regardless of discoverability — that's the accountability surface. What discoverability gates is the *link* from the attribution to the founder's personal profile and the founder's appearance in person-search.
-- **Group is always public-by-default.** Groups carry their own `discoverability` enum (`listed` / `unlisted` / `private` per `groups.md` lifecycle); kind='business' Groups ship `listed` by default because commerce wants the stall findable. The Group-page render decision lives in the Group's RLS + the discoverability enum; it never reads the founder's `member_privacy`.
-- **Items inherit the Group's publicness, not the founder's.** A public item filed under a public Group is visible to anon regardless of whether the founder has opted into discoverability. The seller-privacy-vs-item-visibility loop is closed structurally rather than via RLS gymnastics — there is no path where the Member's discoverability default 404s the Item.
-
-> **Intent (Ratified 2026-06-03):** This is the resolution of the seller-privacy-vs-item-visibility loop that surfaced during T095. The original instinct — tighten `members_public_read` so anon only sees discoverable+public members — 404'd every public Item by a default-privacy seller (resolvers embedded `owner:members!member_id(...)` for attribution; withheld owner row → null → 404). The structural fix is to attribute Group-filed Items to the Group, which is always public-by-default. The Member-behind-the-Group is named (the founder), accountable (per the No-personhood guarantees), but not directly linked unless they've opted in to discoverability. **Test for future proposals:** does this proposal want to attribute Group-filed Items to the founder's personal handle rather than the Group, or 404 a Group-filed Item because the founder is not discoverable? If yes, refuse — that re-couples item visibility to member visibility and re-opens the loop.
+A business Group is the public face for commerce; the member behind it is a separately-gated personal identity. Items filed under a Group attribute to the Group ("Sold by ..."), never to the filing member's personal handle — the member is still named on the Group's "Founded by" line and still carries the accountability (their social capital is on the line), but the *link* to their personal profile is conditional on their own discoverability setting. This is deliberate: selling publicly is consent to attribution, not consent to personal discoverability, and a Group is always public-by-default so an Item's visibility never depends on whether its filer opted into being found.
 
 ## Policy posture
 
-Per [`policy.md`](../foundation/policy.md):
+Members are never auto-assigned to a Group by geography, follow graph, or attendance — joining is always explicit. The platform may *suggest* a candidate Group from soft signals, but a suggestion carries no addressability; a member becomes reachable through a Group only by actually joining it. This is the same accountable-participation refusal that shapes the rest of the platform, applied to Group membership specifically — auto-enrollment with addressability is the anonymous-complaint-feed pattern arriving through a different door.
 
-**Default:** Members are not auto-assigned to Groups. The platform never enrolls based on geography, follow graph, or attendance. Joining is always explicit; the platform may *suggest* a Group based on follows or attendance (`source='soft_via_follow'`, `'soft_via_attendance'`) but those are surface-level only and do not grant addressability.
+No algorithmic Group recommendation beyond geography and follow-graph, and no engagement-ranked Group discovery feed — both are refused as the engagement-optimization failure mode applied to Groups. Static, relationship-derived suggestions answer what a member actually asks ("what's near me," "what do people I know do"); a feed designed to keep someone scrolling through Groups is a different product.
 
-> **Intent (Ratified 2026-05-31):** The accountable-participation refusal at the policy layer (see [`policy.md`](../foundation/policy.md)). What's refused is *auto-enrollment with addressability* — putting Members into a Group-shaped constituency they can then be messaged in, without their explicit opt-in. **The carve-out — soft suggestions are fine** — because they don't grant addressability: the platform may surface a candidate Group (`source='soft_via_follow'` or `'soft_via_attendance'`); the Member converts it to addressable membership only by acting on it. The distinction lives in the `source` enum: `explicit` = opted in, addressability granted; `soft_via_*` = suggestion, addressability deferred until conversion. **Test for future proposals:** does it add a path that puts a Member into a Group's addressable roster without explicit opt-in? If yes, refuse. Does it merely *surface* a Group as a candidate (no addressability)? If yes, fine — that's the discovery utility the carve-out preserves.
+## What this rules out
 
-**Three-filter analysis:**
-1. *Helpful?* Yes — Groups give Members a way to recognize themselves as part of something larger, do work together, and let neighbors find them as units.
-2. *Harms others?* No — joining a Group makes the Member visible as part of it; it does not impose obligations on anyone else. `staff` declarations require owner confirmation (b2) to prevent false claims.
-3. *Abusable?* Limited surface area. Vectors: (a) false `staff` claims to ride on a Group's reputation — mitigated by confirmation flows; (b) public discovery of `family`-kind Groups exposing personal-life details — mitigated by `family` defaulting to `private`.
-
-## What does not ship at b1
-
-- Cooperative-style coordination (co-owning, voting, distributing) — deferred until real-world need (see [`nouns.md`](../foundation/nouns.md)); not in current scope. kind='business' Groups with multiple owner-role memberships cover the cooperative-shape use case for now.
-  **Intent:** Voting and distributions are *off-platform* verbs (securities law, operating agreements, distribution checks, tax handling). Modeling them in schema before the platform's relationship to those verbs is clear paints into a corner — once `cooperative_governance_votes` exists, the platform implicitly owns the question of whether the vote is legally binding, which it isn't equipped to answer. Multiple owner-role memberships are enough to surface the *shape* of cooperative coordination without surfacing the legal obligations. When real-world need arrives, the answer is most likely a federation handoff to a cooperative-services platform (Loop 13), not a schema patch.
-- **Private groups** — a group that chooses not to be publicly listed or readable. *(PM, 2026-09-08: "some groups could choose to be private groups." Captured, not scoped.)* **The substrate is already there**: `discoverability` carries `listed` / `unlisted` / `private`, and the read policies branch on it. **What is missing is a way for a group to choose, and a decision about what private means for its posts.**
-- **Private members** — a member who is in a group without appearing in its members list, for that group or for all of them. *(PM, 2026-09-08. Captured, not scoped.)* **Nothing supports this today.** It is a per-membership visibility flag, and it interacts with the members-see-each-other rule — **so it should be designed with that rule rather than bolted onto it.**
-- **Accept / decline for group membership** — a creator admitting or refusing a joiner. *(PM, 2026-09-08.)* **Implies a pending state on the relationship row; worth knowing when that column is designed, not worth building now.**
-- **Pruning a stale member** — a Page owner removing someone who never left. **A stale membership is a tolerated state, not a defect.** Today's rule is simply: you follow a group or you don't.
-- Stewardship rotation algorithms — b2.
-- Group feed / discussion surfaces — b2.
-- Confirmation flows for `member` claims in business kind — schema reserves `confirmed_by_member_id` / `confirmed_at`; surface at b2.
-- Locality promotion surface (badges, filters, ranking weight) — locality is computed at b1 for index purposes but the user-facing promotion UX ships at b2.
-- Algorithmic Group recommendations beyond geographic and follow-graph suggestion. We do not build a Group discovery feed.
-
-  > **Intent:** Two refusals, both targeting the engagement-optimization failure mode (see [`../foundation/principles.md`](../foundation/principles.md) Part 3 Categorical Failures):
-  >
-  > 1. **No algorithmic Group recommendations beyond geographic + follow-graph.** Static, locality-and-relationship-derived suggestions answer what Members actually ask ("what's near me / what do people I know participate in?"); engagement-ranked recommendations optimizing for click-through, attention capture, or time-on-feed are refused.
-  >
-  > 2. **No Group discovery feed.** The engagement-feed shape applied to Group recommendations — algorithmically ranked, designed to keep the Member scrolling. Distinct from the *Group feed / discussion surfaces* deferred to b2 (which are *within-Group communication*, a different shape).
-  >
-  > **Carve-out clarity:** geographic suggestion (Groups within locality) + follow-graph suggestion (Groups your follows participate in) = allowed. Engagement-ranked feed of Groups = refused. **Test for future proposals:** does it rank Groups by engagement-shaped signals (predicted click-through, dwell time, time-since-last-interaction, etc.)? If yes, refuse. Does it surface Groups via geographic or follow-graph signals? If yes, fine — that's the discovery utility the carve-out preserves.
-
-What ships at b1: the spine, the `group_businesses` child table (full), the membership table with role-per-kind validation, item integration (`items.group_id` rename + `brand_label` retirement), the standing-tier view, lifecycle / dormancy infrastructure, event log entries, action handlers.
-
-## Integration points
-
-- **Member** — Members hold zero or many Group memberships. Standing tier reads from `member_has_standing_presence`.
-- **Item** — Items optionally file under a Group via `items.group_id`. Items always belong to their Member, never to the Group.
-- **Location** — Groups optionally anchor to a Location. Members relate to Locations through Items they author, Groups they belong to, and `member_saved_searches` rows (the "follow this venue" subscription affordance). Subscriptions are not memberships; memberships are named, addressable, intentional. If you want a named, addressable set of People organized to do something at or about a Location, you need a Group anchored to it.
-
-  > **Intent:** Conflating Location-subscriptions with Group-memberships is the anonymous-complaint-feed pattern (geographic auto-inclusion creates a constituency the platform then has to moderate) — the same failure mode the auto-assignment refusal guards against, applied to the Location surface. Two records exist precisely because the distinction is load-bearing in the schema: `member_saved_searches` is multi-soft-asymmetric (a Member can subscribe to a venue's stream without anyone there knowing); `group_memberships` is named-addressable-intentional (joining a Group makes the Member visible as part of it). When a future proposal wants to "send a notification to everyone subscribed to a Location" or "let Location subscribers post in a feed," the answer is: that's Group surface, not Location surface — anchor a Group there. **Test for future proposals:** does this proposal want to treat a saved-search filter as if it were membership (addressable, listable, broadcast-targetable)? If yes, refuse — that's the anonymous-complaint-feed pattern entering through the Location door. Saved-searches are owner-only; memberships are addressable.
-- **Operation (retiring)** — Member Operations are absorbed into Group memberships. The remaining "personal commercial capacity" use case is covered by sole-prop Groups (a kind='business' Group of one with the Member as owner). The `member_operations` table retires once the migration completes.
-- **Delegation** (b2+) — `staff_edit_items` Delegation scope from Group owner to Group staff member.
-- **Action layer** — every Group write goes through a named handler.
-- **Event log** — every Group event row carries `acting_member_id` + `via_delegation_id`.
-
-## Open questions
-
-1. **One-off sale Item kind.** ~~The "one-time sale" path uses `kind='product'`. Does it warrant a separate kind (`kind='listing'` for one-offs)? Probably no — the lifecycle distinguishes them.~~ **Resolved 2026-05-12 — Option A.** Same `items.kind='product'` row covers both casual and commercial modes; the Member's `kind='business'` Group state distinguishes them, not the Item kind. The composer's "recurring sale?" question (per the Selling, with or without a Group section) is the self-declaration trigger. Forward-looking rename consideration: `kind='listing'` may be a more accurate name than `kind='product'` since it covers both garage-sale and commercial uses; not changed in this pass — a multi-file rename, not a schema migration, if ever pursued.
-2. **Social-capital framework.** ~~Member-level recognition (community-member rating, customer-happiness rating, endorsement graph) is anchored on the Member primitive and travels with the Member across Group endings.~~ ~~**Reframed 2026-05-12 — open.** The Member-anchored assertion is one of three framings under consideration; the others are Group-anchored / transferable and Hybrid (transfer-with-conduct-commitment).~~ **Resolved 2026-05-12 — Member-anchored.** PM ratified that social capital travels with the Member, not the Group — applies to founders and participants alike. Good behavior is rewarded by recognition that follows the person who did the good. The other two framings (Group-anchored / Hybrid) considered and refused: Group-anchored would let trust be sold without the conduct that earned it; Hybrid introduces adjudication complexity the platform isn't equipped for at b1. See line 125 Intent for the full reasoning. Schema commitment: any future ratings/endorsements table keys on `members.id`, not `groups.id`. Substantial-scale revisit is a separate OQ (see below).
-
-3. **Social capital at substantial-scale Groups.** ~~When (or whether) a business Group's accumulated social capital should transfer to a new owner — depends on the social-capital framework above.~~ **Reframed 2026-05-12** — the social-capital framework is settled (Member-anchored). The remaining open question is specifically: when a Group reaches substantial scale (significant accumulated infrastructure, customer base, product catalog, operational complexity), the dissolve-and-recreate path becomes materially harmful. At that scale, the question re-opens — does Member-anchored hold (and we live with the recreation cost), or does the substantial-scale case warrant a different model (Group-anchored with strong conduct-monitoring, or a Hybrid framework)? Not b1; flag for design when substantial-scale Groups exist on the platform. See the substantial-scale gate OQ below.
-
-4. **Substantial-scale gate for transfer / appointment / continuity design.** Transferability, appointment-based succession, and the social-capital-at-scale question (OQ #3) are all deferred until the platform sees Groups operating at substantial scale — Groups where dissolve-and-recreate would be materially harmful due to accumulated infrastructure, customer base, product catalog, operational complexity, etc. Until then, the b1 framings hold (founder-immutable operating-owner per line 78, founder-only revival per line 115, Member-anchored social capital per line 125, recreation-via-`established_on` for succession). Open: what threshold of size / complexity / accumulated value triggers the design work? Likely tied to observable metrics on the platform once it's running and has its first substantial Groups. Working answer: defer entirely until specific use cases surface; do not pre-design for hypothetical scale. Not b1; revisit at b2+ if the platform begins to see Groups at that scale.
-
-5. **Locality verification / counter-gaming.** Locality depends on `member_business_jurisdictions` records with a public evidence tier (Tier 0 self-attested → Tier 1 SOS-verified → Tier 2 document-uploaded). Tier 0 is fudge-able (a Member can self-attest any ZIP); Tiers 1 and 2 are evidence-protected. The public evidence-tier badge ("Claimed / Verified / Documented local owner") is the platform's transparency answer — Members see exactly how strong the locality claim is. **Asymmetric trade-off:** Tier 2 document upload helps the community of Members by protecting them from deceitful owners but imposes a privacy / friction cost on the owner being verified. **PM direction (2026-05-12, carried forward):** some form of **interaction reconnaissance** — neighbors who interact with a Group / Member provide implicit signals (proximity-based interaction patterns, vouching, dispute mechanisms) that can corroborate or challenge declared locality. Shifts the verification burden from "owner uploads documents" (high individual cost) to "community implicitly confirms" (low individual cost, distributed across many Members). Not b1; depends on critical-mass interaction data. Until then, Tier 0 is the input at b1, evidence-tier-publishing is the platform's transparency answer, and Tier 1/2 ship at b2+.
-
-6. **Group-coordination agents (platform-curated path).** Many Group-coordination use cases exist (calendar management, scheduling, member-onboarding, recurring-event coordination). The b1 path is platform-curated — the platform builds these agents centrally; a Group's operator opts the Group into using them via the operator's own Delegation. Open: what's the curation pipeline (who reviews, what scopes are available, how Groups discover and adopt)? Likely lives in `agent-assistance.md` (forward-looking, not b1) when that spec is built out. Member-invented Group-coordination agents are deferred — open whether a safe future design surface lets Groups create operation-specific agents themselves (with sufficient scoping, review, and protection for other Group Members). Both are future work; cross-references `agent-assistance.md` (forward-looking).
-
-7. **Selling on behalf of others.** When does this graduate from "future shape" to "ship it"? Likely when the first canonical example demands it. Not b1.
-
-8. **Behavioral pattern detection (post-critical-mass).** Self-declaration is the b1 trigger between casual and commercial workflows — the composer's "recurring sale?" question and the Member's choice to create a `kind='business'` Group are the only paths from casual to business. Open: at what platform scale does observed sales-pattern data (cadence, repeat customers, volume) become reliable enough to *suggest* (never auto-flip) Group creation to a Member showing consistent commerce behavior? Not before critical mass; the threshold itself is open. Until then, self-declaration is the only signal — behavioral observation is lossy without scale and invasive by default.
-
-9. **Robust moderation policy.** Several Intent lines in this spec reference "subject to good-faith conduct; moderation can revoke." The platform needs a substantive moderation policy spec eventually — triggers for revocation, surfaces affected (one-off sale affordance, business-Group standing, locality promotion, Delegations, agent context), who adjudicates, due process, appeal path. Not b1; flag for future system spec. Until it exists, "moderation can revoke" is a hand-wave at a policy that doesn't have a home.
-
-10. **Kind transitions.** Provisional b1 floor: no kind transitions; dissolve-and-recreate via `established_on`. Door left open for two specific shapes when use cases clarify: (1) **operator-scale transitions** (small → large; mostly within-kind, e.g., a small `kind='business'` Group growing into a complex multi-owner operation), (2) **non-income → income transitions** (community-kind → business-kind, e.g., Run Club starts selling apparel together; interest Group formalizes as a CSA). Open: are there other shapes worth designing for? What does the design look like — full in-place mutation (risky), wizard-driven dissolve-and-recreate-with-pre-filled-fields (safer middle path), or something else? Not b1; flag for design when specific use cases surface.
-
-11. **Naming.** "Group" reads naturally as the data-model term and pairs with the existing public-facing "group" copy. Stick with "Group" unless usability data argues otherwise. UX language adapts per kind ("my bakery," "the Run Club," "school parents") — kind-appropriate copy throughout.
-12. **Discoverability defaults.** `family` defaults `private`. Business default `listed` is right for ongoing commercial, but the platform may want `unlisted` for solo-prep-stage Groups. Defer the UX flow design.
-13. **Confirmation requirements.** Business `member` claims need owner confirmation to prevent false claims. b1 ships claim with `confirmed_at = null`; b2 ships the confirmation surface. Confirm before b2 design.
-14. **Locality proximity threshold.** Working answer: same metro / ~30-minute drive / "as the crow flies" distance. Concrete number TBD at index time — likely 25–50 miles for the Sacramento area. Confirm with first canonical examples.
-15. **Permissions decomposition.** Today roles are fixed bundles enforced in the action layer. Future direction: `group_role_permissions(kind, role, permission)` + `group_member_permissions(group_id, member_id, permission)` for per-Member overrides. Enables custom roles (manager, kitchen lead) and granular per-Member adjustments without role-enum churn. Not b1; flagged here so it isn't forgotten.
-
-## Comments
-
-The spine + child architecture is the key compromise. Communities don't need everything Businesses need (display name, legal entity attributes, ownership locality). One table forces JSONB for everything; many tables fragment cross-kind queries; spine + child gives strong typing per kind without sacrificing the cross-kind reads.
-
-The no-Business-entity commitment (see [`../foundation/nouns.md`](../foundation/nouns.md) § Why no Business entity) is encoded throughout this schema: Items always FK to Members, money flows stay visible and accountable to identified recipients per `payments.md`, Groups can't sign or own, and they dissolve when their people leave. This is what keeps the platform faithful to the people-first commitment when the schema gets stressed at scale.
-
-The on-platform-vs-off-platform line is the second structural commitment. The platform's verbs are what *happens here*. Off-platform legal coordination — cooperative governance, voting, distributions, securities filings — is a separate concern that the platform isn't yet ready to mirror. When Members express a clear need for in-app coordination tools, the spec can extend with new kinds, new child tables, and new event types without disturbing the affiliate / operate spine.
-
-The composer's "one-time, or ongoing?" question is the friction-asymmetric path that honors how people actually start. Most first-time sellers are not starting businesses. The platform that makes them feel like they are will turn them away. The platform that lets them sell their loaf, and offers — but does not impose — the path to a Group when they decide to keep doing it, will keep the door open without forcing a costume.
-
-The Group of one is the same shape as the partnership of three or the bakery-with-members. The platform does not differentiate by Member count. The granularity that matters for Buy Close is not how many people own the operation but where the money goes — and the locality test makes that visible structurally: an owner Member's current Location vs. the Group's anchor Location is the live signal of whether wealth created here stays here. When an owner moves away, the Group stops being locally owned, the platform stops promoting it, and the system honestly reflects what's happened: the wealth this operation generates now flows out of the community.
-
-## Decisions encoded here
-
-This spec is the live home for the Group-consolidation decision: spine + child architecture, six kinds at b1 — five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) + one operate (`business`). The standing-tier gate `member_has_standing_presence` is defined here: ≥1 active membership in kind='business' Group OR steward-role membership in any non-business Group.
-
-This spec *encodes* (but does not own) the Member↔Geography substrate split: the locality-promotion derivation in the **Locality and promotion** section reads `member_business_jurisdictions` via `public.zip_is_proximal_to_location()` as the first signal.
-
-This spec *encodes* (but does not own) the locality-scoped-URLs decision: the **Place anchoring** and **Group-of-Group relationship** sections carry the Group-side substrate — `groups.place_id`, per-Place slug uniqueness, the place-scoped URL form (`/p/[…place path]/g/[slug]`), and the `group_group_memberships` join table. The home docs for that decision are [`places.md`](places.md) and [`location.md`](location.md).
+Cooperative governance tooling before documented real-world demand. A stored locality flag of any kind — locality is a live derivation, never a column that can drift. Group-to-Group or Group-to-Item ownership through any composed write path. Auto-assignment to a Group's addressable roster without explicit opt-in. An engagement-ranked Group discovery feed.
