@@ -7,6 +7,8 @@ status: active
 
 # Discovery
 
+*Index of every product doc and its settled rules: [`../README.md`](../README.md).*
+
 One scoring core powers the home feed, Explore, search, related-items, and notification ranking — a graph + place + time engine, not a watch-time optimizer. Each engagement (RSVP, pledge, show-up, return) is heavy and meaningful; volume is local, not global, so the system has to rank well in low-data regimes and degrade gracefully for a new Member or a new Location.
 
 ## Hard constraints — load-bearing, not tuning knobs

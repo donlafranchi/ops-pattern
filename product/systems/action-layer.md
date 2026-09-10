@@ -7,6 +7,8 @@ status: active
 
 # Action layer
 
+*Index of every product doc and its settled rules: [`../README.md`](../README.md).*
+
 Every write to platform state — item creation, member edit, group lifecycle — goes through one named, validated handler that commits the data row and its event-log row in the same transaction. Web, mobile, the in-app assistant, the MCP server, and future federation peers are all thin clients over the same handlers — exactly one code path per write. Letting each caller implement its own write path produces drift; this is the structural refusal of that drift, and it's what makes agent assistance safe to expose at all: the action layer is what *honors* a Member's Delegation at runtime, not just what describes it.
 
 ## The six properties of the runtime trust substrate
