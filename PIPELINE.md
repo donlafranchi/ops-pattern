@@ -7,7 +7,7 @@ Five kinds of work. Each has its own path; only one goes through design. Everyth
 | **Scenario** | New feature or behavior a person experiences | Cowork, from IMAGINE or Don | Cowork approves the scenario; Don rules only on scope or a contested call | `planning/scenario-*.md` → Issues labeled `scenario` |
 | **Change** | UX/UI polish, copy, layout, a small tweak to existing behavior | Anyone | User-facing copy: Don (rule 4). Otherwise none | Issue labeled `change` |
 | **Bug** | Something built doesn't do what its scenario or the code intends | Anyone | None. `launch-blocking` label if it is | Issue labeled `bug` |
-| **Process** | A change to this repo's structure, skills, rules, or lint | Cowork or Don | Must name the failure with a dated example (`LESSONS.md`) | One commit here + a line in `LESSONS.md` |
+| **Process** | A change to this repo's structure, rules, or lint — or to a skill in `~/Projects/skills` | Cowork or Don | Must name the failure with a dated example (`LESSONS.md`) | One commit in the repo that owns the file + a line in `LESSONS.md` |
 | **Chore** | Dependencies, config, deploy, tooling — nothing a member sees | Code | None unless it touches production (rule 3) | Issue labeled `chore` |
 
 ## Paths

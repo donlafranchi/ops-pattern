@@ -18,6 +18,7 @@ Read before proposing any change to structure or process. Each lesson names the 
 12. **Retired work is prior art, not a mistake.** The vendor model's analytics answered a question that came back in September. Git keeps it; the tree doesn't have to. — *writing-docs 2026-09-08*
 13. **A pattern done by hand once is a pattern done differently next time.** The 2026-09-09 session classified work against PIPELINE.md, split an oversized scenario, folded reviews into the scenario's own frontmatter, trimmed `product/` to why-only, and regenerated README.md — all improvised, none written into a skill. The next session had no way to repeat any of it. — *skills sweep 2026-09-09*
 14. **The principle arrived before the structure.** "Code is truth, three durable documents, everything else is a liability" was written 2026-09-07. This revamp is that principle applied, not a new idea.
+15. **Skills that live nowhere load nowhere.** The six skills written 2026-09-09 sat in `ops-pattern/skills/`, which Claude Code does not read — it reads `.claude/skills/`. Meanwhile `~/.claude/skills/` held twelve symlinks into the retired `community` checkout, so every session in both repos loaded the retired pipeline (`orient`, `scope`, `weigh`, `atomize`, `tidy`) and none of the new one. Two of those links were already broken. Skills now live in `~/Projects/skills` and are symlinked per repo by `link.sh`. — *skills audit 2026-09-09*
 
 ## Guardrails for the next change
 
