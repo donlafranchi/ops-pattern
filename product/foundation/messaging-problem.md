@@ -17,6 +17,8 @@ Messaging widens in rungs — 0 (nothing exists today) → 1 (one manager announ
 
 Proximity, flag counts, message volume, standing, and account age are all computable. Whether something was *impolite* is not — a politeness classifier is the platform forming a judgment about a person's character, which the no-ranking commitment already refuses. Threats, illegal content, and child-safety are a different, existing flow with human review and must not be merged with ordinary vitriol-handling. The design principle this produces: put the weight on reachability, where code is reliable, and keep the after-the-fact machinery small enough for one person to carry.
 
+**A rung that sits outside the ladder entirely: a contact address in the body of a public announcement.** The RSVP ruling (2026-09-10) names this as the organizer's escape hatch — a thumbs up gives a headcount, and anyone needing more asks people to email a contact. That is a deliberate, useful pressure valve, and it is also a plain-text address on a public page: scrapeable, not revocable, and reaching the poster by a route none of the controls above touch. Minor rather than blocking — the organizer chose to publish it, which is the difference between this and being made reachable — but the ladder should not read as though it covers every way someone gets contacted, because it does not cover this one.
+
 **The single highest-value, cheapest control available: a block.** A member stops seeing another member — no operator, no threshold, no classifier, reversible, invisible to everyone else. It protects the blocker only, not the next victim, but it's the one control that requires the platform to form no opinion about anyone.
 
 ## What the first migration has to carry regardless of which controls ship

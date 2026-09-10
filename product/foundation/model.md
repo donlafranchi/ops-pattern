@@ -51,8 +51,19 @@ A scheduled function in the app, written in TypeScript, reviewed like any other 
 
 The reasoning generalises: **put logic where it can be tested and reviewed; put constraints where they cannot be bypassed.** Generating occurrences is logic — it belongs in the app. Cancellation state is a constraint — it belongs in the schema.
 
-## What this reopens
+## Saying you're coming
 
-Responding to an event was cut on the reasoning that occurrences of a recurring event did not exist as rows to respond to. They do now, so that reasoning is void.
+In Don's words: *"about RSVP it can be as simple as a thumbs up in the beginning. Just to give organizers an idea of headcount."*
 
-This does not put responding back in. It removes the argument that kept it out, and that needs a fresh decision rather than a silent reversal.
+A thumbs up sits on **an occurrence** — a post carrying a time. Thursday's run, not the run club, and not the Page.
+
+Its purpose is a headcount for the organizer. That is the whole of it:
+
+- It is not a social signal, and it is **not an input to ordering anywhere**. Visibility is not sold, and nothing is ranked by engagement — a count that moved a Page up the results would break both.
+- **Names, messaging attendees, capacity limits and waitlists are out.** An organizer who needs more than a number posts an announcement asking people to email a contact. Don named that escape hatch himself, and it is the reason the feature can stay this small.
+
+Two calls that shape it, recommended and awaiting confirmation: **a count only, no names, for launch** — whether a Page owner sees who noticed is a separate, deliberately deferred decision, and a list of names is that same question wearing a different hat. And **signed-in only** — anonymous browse stays, but a thumbs up needs an identity to count once, so an anonymous viewer sees the number and cannot add to it.
+
+## What this reopened
+
+Responding to an event was cut on the reasoning that occurrences of a recurring event did not exist as rows to respond to. They do now, so that reasoning was void — and the thumbs up above is what replaced it. Recorded because the cut was reversed by a decision, not by drift.
