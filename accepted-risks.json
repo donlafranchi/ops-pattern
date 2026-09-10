@@ -1,0 +1,101 @@
+{
+  "_": "Lint findings ruled acceptable. The ruling is the dated line in DECISIONS.md; this is the index that lets an advisor run be diffed against it. See PIPELINE.md § Accepted risk. Match is on cache_key when present, else (lint, object). cache_key is Supabase's stable per-finding key — paste it from an advisor export; null means the next run fills it.",
+  "entries": [
+    {
+      "cache_key": null,
+      "lint": "security_definer_view",
+      "object": "public.member_public_group_memberships",
+      "severity": "ERROR",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "Owner-privileges projection over group_memberships (RLS is owner/co-member only). The WHERE clause is the gate; the indirection is the privacy mechanism, not a defect.",
+      "revisit_if": "the view's WHERE clause changes, or it starts selecting a column beyond slug/name/kind",
+      "review_by": "2027-03-31"
+    },
+    {
+      "cache_key": null,
+      "lint": "security_definer_view",
+      "object": "public.member_public_has_published",
+      "severity": "ERROR",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "Owner-privileges projection exposing only member_id for Members who have published. Replaces an opt-in flag nobody was asked to set.",
+      "revisit_if": "it projects any column beyond member_id, or the published-ness test widens beyond active managing role / published Item",
+      "review_by": "2027-03-31"
+    },
+    {
+      "cache_key": null,
+      "lint": "security_definer_view",
+      "object": "public.member_public_discoverability",
+      "severity": "ERROR",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "Projects one boolean out of the owner-only member_privacy table. No other privacy column is reachable through it.",
+      "revisit_if": "it projects any column of member_privacy other than is_discoverable",
+      "review_by": "2027-03-31"
+    },
+    {
+      "cache_key": null,
+      "lint": "security_definer_view",
+      "object": "public.member_has_standing_presence",
+      "severity": "ERROR",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "Badge derivation granted to anon deliberately so the public Member page can render it for every viewer.",
+      "revisit_if": "the derivation starts reading a table with a member-private surface",
+      "review_by": "2027-03-31"
+    },
+    {
+      "cache_key": null,
+      "lint": "rls_disabled_in_public",
+      "object": "public.spatial_ref_sys",
+      "severity": "ERROR",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "PostGIS-owned, held by supabase_admin — the ALTER fails as postgres. Coordinate-system reference data, no privacy surface. Already allowlisted in tests/rls-coverage.test.ts.",
+      "revisit_if": "PostGIS ownership changes, or Supabase relocates the extension out of public",
+      "review_by": "2027-03-31"
+    },
+    {
+      "cache_key": null,
+      "lint": "function_search_path_mutable",
+      "object": "public.st_estimatedextent(text,text,text)",
+      "severity": "WARN",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "PostGIS-owned overload. Not ours to redefine.",
+      "revisit_if": "PostGIS ships these pinned upstream",
+      "review_by": "2027-03-31"
+    },
+    {
+      "cache_key": null,
+      "lint": "function_search_path_mutable",
+      "object": "public.st_estimatedextent(text,text)",
+      "severity": "WARN",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "PostGIS-owned overload. Not ours to redefine.",
+      "revisit_if": "PostGIS ships these pinned upstream",
+      "review_by": "2027-03-31"
+    },
+    {
+      "cache_key": null,
+      "lint": "function_search_path_mutable",
+      "object": "public.st_estimatedextent(text)",
+      "severity": "WARN",
+      "source": "supabase advisor / socialus-db",
+      "decision": "2026-09-09",
+      "evidence": "socialus-web#36",
+      "why": "PostGIS-owned overload. Not ours to redefine.",
+      "revisit_if": "PostGIS ships these pinned upstream",
+      "review_by": "2027-03-31"
+    }
+  ]
+}
