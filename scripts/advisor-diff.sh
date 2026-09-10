@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Diff a Supabase advisor export against accepted-risks.json.
+# Diff a Supabase advisor export against accepted-risks/ (one file per finding).
 # Prints only findings nobody has ruled on, plus any accepted entry whose
 # review_by has passed. Exits 1 if either list is non-empty.
 #
@@ -9,7 +9,7 @@ set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export ADVISOR="${1:-}"
-export REGISTER="$ROOT/accepted-risks.json"
+export REGISTER="$ROOT/accepted-risks"
 
 if [ -z "$ADVISOR" ] || [ ! -f "$ADVISOR" ]; then
   echo "usage: scripts/advisor-diff.sh <advisor-export.json>" >&2
@@ -19,7 +19,13 @@ fi
 python3 - <<'PY'
 import json, os, sys, datetime
 
-reg = json.load(open(os.environ["REGISTER"]))["entries"]
+import glob
+reg = []
+for path in sorted(glob.glob(os.path.join(os.environ["REGISTER"], "*.json"))):
+    with open(path) as fh:
+        reg.append(json.load(fh))
+if not reg:
+    print("advisor-diff: no entries in accepted-risks/ — every finding will read as unruled.", file=sys.stderr)
 raw = json.load(open(os.environ["ADVISOR"]))
 findings = raw.get("lints", raw) if isinstance(raw, dict) else raw
 

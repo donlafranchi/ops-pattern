@@ -34,9 +34,10 @@ A claim that something works is worth what the check behind it was worth. So say
 
 ## Accepted risk
 
-A lint finding ruled acceptable gets recorded once and stops being re-argued. The ruling is the dated line in `DECISIONS.md`; `accepted-risks.json` is the machine-readable index that lets an advisor run be diffed against it — `scripts/advisor-diff.sh` takes an advisor JSON export and prints only what isn't already ruled on.
+A lint finding ruled acceptable gets recorded once and stops being re-argued. The ruling is the dated line in `DECISIONS.md`; `accepted-risks/` holds one JSON file per finding so an advisor run can be diffed against it — `bash scripts/advisor-diff.sh <export.json>` prints only what isn't already ruled on, plus anything past review.
 
+- One file per finding, named for the finding (`<cache_key>.json`, else `<lint>__<object>.json`). Two agents ruling the same thing collide on the filename instead of writing two rulings.
 - An entry needs a `decision` (the `DECISIONS.md` date it points at), a `revisit_if` (the observable condition that reopens it), and a `review_by` date.
 - `revisit_if` is a fact about the world, not a feeling — "the view's WHERE clause changes", not "if we get worried".
-- A past `review_by` is reported by the diff script on every run. An entry nobody will re-argue is deleted, not renewed silently; renewing it is a new dated line.
-- This is the one register the repo keeps, and it earns it by being diffed rather than read (`CLAUDE.md` § Naming, lesson 2).
+- A past `review_by` is reported on every run. An entry nobody will re-argue is deleted, not renewed silently; renewing it is a new dated line.
+- Never derive a `cache_key` from the naming pattern. A key that looks right but never matches stops suppressing silently; `null` falls back to `(lint, object)` and keeps working.

@@ -1,0 +1,12 @@
+{
+  "cache_key": "security_definer_view_public_member_public_group_memberships",
+  "lint": "security_definer_view",
+  "object": "public.member_public_group_memberships",
+  "severity": "ERROR",
+  "source": "supabase advisor / socialus-db",
+  "decision": "2026-09-09",
+  "evidence": "socialus-web#36",
+  "why": "Owner-privileges projection over group_memberships (RLS is owner/co-member only). The WHERE clause is the gate; the indirection is the privacy mechanism, not a defect.",
+  "revisit_if": "the view's WHERE clause changes, or it starts selecting a column beyond slug/name/kind",
+  "review_by": "2027-03-31"
+}
