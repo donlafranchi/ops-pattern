@@ -31,7 +31,7 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 |---|---|---|
 | Don | rulings, judgment, domain knowledge — may open Issues in `socialus-web` directly | reads more than STATUS + ROADMAP unless he asks |
 | Cowork — `plan` `review` `sync` `trim` | this repo: scenarios, STATUS, ROADMAP, HANDOFF, DECISIONS, `product/`; may open Issues in `socialus-web` | commits code to `socialus-web`; hand-edits `README.md` |
-| Code — `ticket` `build` | `socialus-web`: architecture notes, issues, code, PRs | writes to this repo |
+| Code — `ticket` `build` | `socialus-web`: architecture notes, issues, code, PRs; **a PR against this repo, nothing more** | pushes or merges here |
 
 Code is the architect. Any ticket touching schema, RLS, or routes starts with a ≤20-line architecture note in the Issue. Cowork reviews it in a comment. Don sees it only if they disagree.
 
@@ -47,12 +47,23 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 
 - Cowork commits and pushes its own doc changes here. Message: `docs: what`.
 - Code commits in `socialus-web`, branch per ticket, asks before merge to main (it deploys).
+- Code reaches this repo by PR only — branch, PR, Cowork reviews and merges. No direct push, no self-merge.
 - Never cross-commit (guideline — the two-repo split enforces it). Never rewrite history (rule 3).
+
+## Sessions
+
+Two sessions in one working tree collide (lesson 9). Two rules, both cheap:
+
+- **Every session's cwd is its own worktree — never the repo root.** The one-session-per-cwd guard keys on cwd, so a repo root shared by two sessions wedges both. This holds for read-only sessions too: reading is what takes the lock.
+- **Worktrees live beside the repo, not inside it:** `../worktrees/{repo}/{branch}`. Inside the checkout, dozens of them make `.gitignore` load-bearing, bloat every tree walk, and leave stale metadata behind a crashed session (`git worktree prune`). Outside, the repo stays one repo.
+- **A session that isn't committing uses `git --no-optional-locks status`.** Plain `git status` writes `.git/index.lock` to refresh the index, and a sandboxed session can't always unlink it afterwards — the next session then finds a stale lock. The flag skips the write.
 
 ## Naming
 
 Schema names are durable; UI labels translate them. The table is in `product/foundation/nouns.md`. Language is pro-competition, for all Americans — see `product/foundation/what-this-is.md`.
 
 - **Issue title:** `F060 · T142 · plain name`. Bugs/changes/chores: `bug · plain name` (or `change ·`, `chore ·`), with `Scenario: F###|none` in the body.
-- **Branch:** `f060-t142-slug`. **Commit:** `F060/T142: what`. Bugs: `bug #nn: what`.
-- **Provenance is git:** `git log --grep F060` is everything built for that scenario. No registers.
+- **Branch:** `f060-t142-slug`. **Commit:** `F060/T142: what`.
+- **Bugs/changes/chores carry the Issue number, not a ticket number** — they have no `T###`. Branch `bug-36-slug`, commit `bug #36: what` (likewise `change-`/`chore-`). Process work has no Issue (`PIPELINE.md`), so it dates instead: branch `process-YYYY-MM-DD-slug`, commit `docs: what`. Every branch name carries something unique that needs no central counter — dozens of agents must be able to name a branch without asking anything.
+- **Provenance is git:** `git log --grep F060` is everything built for that scenario.
+- **No hand-maintained indexes.** A file a person reads to find out what is true goes stale between the moment it is written and the moment it is read, and then it lies — REGISTRY, MAP, TRACE, STAGE-LEDGER and JOURNAL all died of this (lesson 2). The test is *who reads it to be right*, not what format it is in: a file only a script compares is fine, because nothing believes it and drift shows up as diff noise on the next run. `accepted-risks/` is that — generated from advisor exports, read by `scripts/advisor-diff.sh`, never consulted to settle a question. `DECISIONS.md` settles questions.
