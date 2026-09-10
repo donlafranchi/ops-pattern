@@ -7,6 +7,8 @@ status: active
 
 # The verbs
 
+> **Superseded in part by [`model.md`](model.md) (2026-09-10).** Don restated the model directly: there are no Items, and a post carries a time or it doesn't. The conflicts below are known and unfixed — this document has not yet been reconciled. Where the two disagree, `model.md` is right.
+
 A verb is not one rule — it's a rule per noun it acts on. Following a Page, a person, and a venue are three different things. The forbidden column is the point: a verb list says what you can do, the matrix says what you can't and why — that's the discipline that stopped "selling" from quietly acquiring business-ness.
 
 **●** built · **○** specced or ruled, unbuilt (includes postponed) · **✕** deliberately forbidden · **—** meaningless

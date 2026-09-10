@@ -10,6 +10,8 @@ owns:
 
 # The surfaces
 
+> **Superseded in part by [`model.md`](../foundation/model.md) (2026-09-10).** Don restated the model directly: there are no Items, and a post carries a time or it doesn't. The conflicts below are known and unfixed — this document has not yet been reconciled. Where the two disagree, `model.md` is right.
+
 > **One of three tracking documents**, with [`../foundation/nouns.md`](../foundation/nouns.md) (what things are) and [`../foundation/verbs.md`](../foundation/verbs.md) (what may be done to each). **Together they track what this app does and will do — not only what ships on 30 October.**
 >
 > **A screen is never called a Page.** **Page is an entity** — the person or people behind a listing. **A screen is a surface.** The document this replaces broke that rule throughout and said so in its own banner. Compound forms that name a screen for a specific noun — *the Item page*, *the venue page* — are the one exception and are avoided here anyway.

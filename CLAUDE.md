@@ -15,7 +15,8 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **Why it is that way:** `DECISIONS.md`. One dated line per ruling. Append, never edit.
 - **What is decided but not built:** `planning/` scenarios with `status: approved`, and `ROADMAP.md`.
 - **What might be built someday:** `IMAGINE.md`. Nothing there is a commitment. Scenarios may not cite it.
-- **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code. If it doesn't, fix the doc in the same session you notice.
+- **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
+- **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
 
 If a directory isn't listed here, don't read it. Anything not in the tree is not current — git history is the archive (`git log`, tag `archive-2026-09`).
 
