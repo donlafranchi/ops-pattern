@@ -29,7 +29,9 @@ A Page has a street address if it has a specific location, and a neighbourhood i
 
 What a creator offers is described on their Page and in their posts. It is not a separately listed thing that browse indexes.
 
-Browse finds Pages, and it finds posts that carry a time. It does not index a catalogue of listings.
+Browse finds Pages, and it finds posts that carry a date and a place. In Don's words: *"You're right to include anything with a date and a location. We use a map to tell someone where to go."*
+
+A specific occurrence is its own result, not a filter applied to its Page — this Saturday's farmers market is the thing a finder gets back, at the place it happens. Browse does not index a catalogue of listings.
 
 ## One mechanism: posts
 
