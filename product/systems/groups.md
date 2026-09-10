@@ -43,9 +43,9 @@ A Group never changes kind. A run club that wants to formalize as an LLC ends th
 
 **No verification of any kind on any of this.** A category, a location, a photo — each is a claim its owner makes, the same way every other field on a Page is. Trust here is the members', not the platform's.
 
-## Selling tools have no toggle
+## What a business Group is called
 
-There is no maker-mode flag. Selling tools surface from Group and Item state alone: a member with an active business Group has the full toolset surfaced ambiently; a member without one sees the universal composer, and tapping Sell for the first time is what triggers the business-Group walkthrough. To stop selling, end the owner membership — there's no separate off switch. **Seller** is the generic term; **Producer** is preferred in food/ag contexts; **Maker** survives only where someone specifically self-identifies that way.
+**Seller** is the generic term; **Producer** is preferred in food/ag contexts; **Maker** survives only where someone specifically self-identifies that way. That selling tools surface from Group and Item state alone, with no maker-mode flag, is `creator.md` — a member with an active business Group has the full toolset surfaced ambiently.
 
 ## Editing an active Page — save is publish
 

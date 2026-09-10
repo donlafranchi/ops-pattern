@@ -21,7 +21,9 @@ Proximity, flag counts, message volume, standing, and account age are all comput
 
 ## What the first migration has to carry regardless of which controls ship
 
-A state column on every utterance (not a boolean — the platform must distinguish "the author removed it" from "it was removed"), a flag table keyed uniquely on (utterance, flagger) since distinct-flagger counts can't be reconstructed later, a block table even if nothing reads it yet, a real author reference, and indexed timestamps. No per-member derived score column of any kind — a column invites the feature it would compute.
+A state column on every utterance (not a boolean — the platform must distinguish "the author removed it" from "it was removed"), a flag table keyed uniquely on (utterance, flagger) since distinct-flagger counts can't be reconstructed later, a block table even if nothing reads it yet, a real author reference, and indexed timestamps. No per-member derived score column of any kind — a column invites the feature it would compute. No location column on the thread table, by the same no-Location-messaging commitment that shapes every other system.
+
+**The substrate lands at launch; no surface does.** The message tables exist so a later surface isn't a retrofit, but no UI ships, and the schema is constrained to same-Group threads only — relaxed later with an explicit opt-in for messages from outside a Member's Groups. That constraint is what keeps the moderation surface area at zero for a solo team while the schema is still landing, which is the only reason it's safe to land the tables before any of the controls above are decided. The tables hang off the Member; their shape is specified here, not in `../systems/member.md`.
 
 ## Open — Don rules
 

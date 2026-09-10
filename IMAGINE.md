@@ -16,6 +16,7 @@ Nothing here is a commitment. A heading and a few lines per idea, distilled from
 - **Reciprocity & goodwill.** Open question on how Offer/Ask exchanges track (or deliberately don't track) reciprocity between members.
 - **Recruitment plan.** A solo-founder playbook for hiring, once AI agents stop covering most of the build.
 - **Rising tide — civic pride.** A Place-level "community vitality" surface; unscoped design space, no decisions made.
+- **Social capital.** Recognition earned through participation — hosting, fulfilling, sharing, showing up — Member-owned and portable, never a ranking signal that changes what others see, always optionally surfaced. Standing intent only; the shape was never designed. Pulled out of `product/systems/member.md` 2026-09-09.
 - **Social integration.** How TikTok/Instagram/etc. could serve as distribution, credibility, or discovery channels into the platform. Not before b2 — needs feed, follows, and item surfaces first.
 - **Vetting & vouching.** A community-powered trust signal for producer claims — "can I trust what this producer says, and is there something better nearby" — distinct from a behavior/accountability rating.
 - **A scored community-health rubric.** A 0–3, five-section scoring instrument (Dunbar layers, Ostrom's commons governance, Oldenburg's third places, etc.) for periodically auditing platform decisions against community-health theory, as a complement to the binary Decision Test. Working defaults only — never load-bearing as written; whether it's actually used or purely aspirational was never confirmed.
