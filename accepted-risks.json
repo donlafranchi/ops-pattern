@@ -1,8 +1,9 @@
 {
-  "_": "Lint findings ruled acceptable. The ruling is the dated line in DECISIONS.md; this is the index that lets an advisor run be diffed against it. See PIPELINE.md § Accepted risk. Match is on cache_key when present, else (lint, object). cache_key is Supabase's stable per-finding key — paste it from an advisor export; null means the next run fills it.",
+  "_": "Lint findings ruled acceptable. The ruling is the dated line in DECISIONS.md; this is the index that lets an advisor run be diffed against it. See PIPELINE.md § Accepted risk. Match is on cache_key when present, else (lint, object). cache_key is Supabase's stable per-finding key — paste it verbatim from an advisor export, never derive it: a key that looks right but never matches stops suppressing silently, which is worse than null. null falls back to (lint, object) matching, which works.",
+  "_keyless": "Still awaiting a cache_key from an export that contains them: the three public.st_estimatedextent overloads. They were absent from the 2026-09-09 export. Next advisor run that reports them should fill these in and empty this note.",
   "entries": [
     {
-      "cache_key": null,
+      "cache_key": "security_definer_view_public_member_public_group_memberships",
       "lint": "security_definer_view",
       "object": "public.member_public_group_memberships",
       "severity": "ERROR",
@@ -14,7 +15,7 @@
       "review_by": "2027-03-31"
     },
     {
-      "cache_key": null,
+      "cache_key": "security_definer_view_public_member_public_has_published",
       "lint": "security_definer_view",
       "object": "public.member_public_has_published",
       "severity": "ERROR",
@@ -26,7 +27,7 @@
       "review_by": "2027-03-31"
     },
     {
-      "cache_key": null,
+      "cache_key": "security_definer_view_public_member_public_discoverability",
       "lint": "security_definer_view",
       "object": "public.member_public_discoverability",
       "severity": "ERROR",
@@ -38,7 +39,7 @@
       "review_by": "2027-03-31"
     },
     {
-      "cache_key": null,
+      "cache_key": "security_definer_view_public_member_has_standing_presence",
       "lint": "security_definer_view",
       "object": "public.member_has_standing_presence",
       "severity": "ERROR",
@@ -50,7 +51,7 @@
       "review_by": "2027-03-31"
     },
     {
-      "cache_key": null,
+      "cache_key": "rls_disabled_in_public_public_spatial_ref_sys",
       "lint": "rls_disabled_in_public",
       "object": "public.spatial_ref_sys",
       "severity": "ERROR",
@@ -71,7 +72,8 @@
       "evidence": "socialus-web#36",
       "why": "PostGIS-owned overload. Not ours to redefine.",
       "revisit_if": "PostGIS ships these pinned upstream",
-      "review_by": "2027-03-31"
+      "review_by": "2027-03-31",
+      "cache_key_note": "keyless — absent from the 2026-09-09 export; matched on (lint, object) until a run reports one. Do not derive it."
     },
     {
       "cache_key": null,
@@ -83,7 +85,8 @@
       "evidence": "socialus-web#36",
       "why": "PostGIS-owned overload. Not ours to redefine.",
       "revisit_if": "PostGIS ships these pinned upstream",
-      "review_by": "2027-03-31"
+      "review_by": "2027-03-31",
+      "cache_key_note": "keyless — absent from the 2026-09-09 export; matched on (lint, object) until a run reports one. Do not derive it."
     },
     {
       "cache_key": null,
@@ -95,7 +98,8 @@
       "evidence": "socialus-web#36",
       "why": "PostGIS-owned overload. Not ours to redefine.",
       "revisit_if": "PostGIS ships these pinned upstream",
-      "review_by": "2027-03-31"
+      "review_by": "2027-03-31",
+      "cache_key_note": "keyless — absent from the 2026-09-09 export; matched on (lint, object) until a run reports one. Do not derive it."
     }
   ]
 }
