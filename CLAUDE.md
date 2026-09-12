@@ -15,7 +15,18 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **Why it is that way:** `DECISIONS.md`. One dated line per ruling. Append, never edit.
 - **What is decided but not built:** `planning/` scenarios with `status: approved`, and `ROADMAP.md`.
 - **What might be built someday:** `IMAGINE.md`. Nothing there is a commitment. Scenarios may not cite it.
-- **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code. If it doesn't, fix the doc in the same session you notice.
+- **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
+- **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
+
+**A concept lives in exactly one place.** Two documents describing the same thing is how this repo has failed before, so routing it is a rule, not a preference:
+
+- **`product/` — nouns, verbs, surfaces — is the spine.** Every entry carries its own status, so one line holds both horizons: *"responses: thumbs up now, four states later."* **The future version of a thing is a status on its existing entry, never a second description somewhere else.**
+- **`IMAGINE.md` is a waiting room, not a parallel library.** It holds only ideas that do not yet have a noun, a verb, or a surface.
+- **When an idea acquires one, it moves into the spine and leaves `IMAGINE.md`.** Entries move out. They are never copied out — a copy is two descriptions, which is the thing this rule exists to prevent.
+
+**`product/systems/` is depth, not a competing status.** Systems docs describe *how* a concept works. **They never state whether it ships.** The spine owns status; systems own detail. That is why they are not a fourth tracking layer and why the one-place rule does not make them redundant — they are not a second answer to the same question, they are the answer to a different one. A systems doc that starts declaring what ships has drifted, and the fix is to move that sentence to the spine, not to delete the doc.
+
+**The test: does it have a shape — a noun, a verb, or a surface? Then the spine. If not, `IMAGINE.md`.** Worked example: *responses* have a noun and a verb, so the eventual four-state design is a status line on the response entry in `nouns.md`. *The Ticketmaster thesis* has none of the three — it is a claim about a market, not a shape — so it stays in `IMAGINE.md` until something about the product gives it one.
 
 If a directory isn't listed here, don't read it. Anything not in the tree is not current — git history is the archive (`git log`, tag `archive-2026-09`).
 

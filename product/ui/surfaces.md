@@ -1,6 +1,6 @@
 ---
 id: what-surfaces
-purpose: The surfaces — every screen the product has or will have, what each is for, and whether it works. Replaces community-platform.md.
+purpose: The surfaces — every screen the product has or will have, what each is for, and whether it works. Spine document: every entry carries its own status and holds both horizons, what ships now and what is intended later. The future version of a surface is a status on its entry here, never a second description elsewhere. Replaces community-platform.md.
 layer: what
 status: active
 owns:
@@ -9,6 +9,8 @@ owns:
 ---
 
 # The surfaces
+
+> **Superseded in part by [`model.md`](../foundation/model.md) (2026-09-10).** Don restated the model directly: there are no Items, and a post carries a time or it doesn't. The conflicts below are known and unfixed — this document has not yet been reconciled. Where the two disagree, `model.md` is right.
 
 > **One of three tracking documents**, with [`../foundation/nouns.md`](../foundation/nouns.md) (what things are) and [`../foundation/verbs.md`](../foundation/verbs.md) (what may be done to each). **Together they track what this app does and will do — not only what ships on 30 October.**
 >
@@ -107,6 +109,8 @@ Three tabs and a create action. **The two-tab merge is ruled and unbuilt**; the 
 | **Feed delivery of announcements** | ○ | The announcement arriving somewhere a member will see it | **The feed function takes no follow input.** This is the missing half, and it is larger than the composer. |
 | **Page board** | ○ | Replies under an announcement — the coordination half of a group | Board increment one. One level of reply, not a tree. |
 | **Join control** | ○ | The control that lets someone join a Group | **Nothing.** The rules are specced, the handler ships, the read paths exist. **Only the control is missing** — so today a member can re-join something they left and cannot join anything else. In scope, 0.75 day, unticketed. |
+| **Response control** | ○ | A member says they are coming to an occurrence — the tap itself | Nothing structural; the noun is ruled. **No occurrence exists to respond to** — the post mechanism is upstream of it. |
+| **Response list** | ○ | The organizer reads who is coming and who isn't — two lists, with names and faces | **`members.avatar_url` has no write path.** There is no avatar upload surface, so the list would render faceless. That work is upstream of this screen. |
 | **Idea composer** | ○ | Put a new thing to the neighbourhood and see who wants it before it exists | Mechanic undesigned — threshold, signalling, conversion. Substrate shipped. |
 | **Volunteering composer** | ○ | Offer and ask | A reply channel. **Tractable inside a group the moment the board ships; blocked across the neighbourhood.** |
 | **Direct messages** | ○ | One person writing to another | Everything. No substrate at all. |
@@ -125,9 +129,9 @@ Carried forward with their ratification intact. **These bind whatever the surfac
 
 > **Intent:** The landing surface has to be readable by someone who has never signed up, because the platform's first job is to show a stranger that their neighbourhood is already on it. A wall in front of an empty-looking catalog converts nobody and costs the only demonstration the product has. **The signup banner stays a banner, above the results, never in front of them.** Overturned by: evidence that anonymous browse suppresses rather than seeds signup.
 
-**No engagement-derived ranking.** *(Ratified 2026-09-04, in corrected form.)* Ordering is locality and recency, with the Member's **own declared interest tags** as a boost.
+**Ordering is locality and recency, with the Member's own declared interest tags as a boost — and may also carry genuine community response.** *(Amended 2026-09-12 on Don's instruction; see `DECISIONS.md`.)* What ordering may never carry is **payment**: nobody buys placement.
 
-> **Intent:** The refusal worth keeping is about *engagement optimization*, not about a Member's own stated interests. A boost the Member typed themselves is legible, editable, and turns off when they edit it; a score derived from what they lingered on is none of those things. Overturned by: evidence that the tag boost measurably crowds out locality.
+> **Removed from this entry, 2026-09-12:** the "No engagement-derived ranking" commitment that stood here. Don's ruling is that earned attention is the intended mechanism, not a loophole — *"if they're doing well in the community and the community loves them then we need to share that."* The provenance of the removed commitment is in the PR that removed it. What survives from it, and is not in dispute, is the foundation wording: ranking may use where you are and what you said you like; **it may never use what keeps you scrolling.**
 
 **Distance is out.** *(Ratified 2026-09-03.)* **Nothing in the product measures or displays miles.** No radius filter, no mile count, no distance sort. Ordering is hood → metro → wider → online. **How "how far is it" gets answered: hand off** — the address opens in the phone's map app on mobile and is copyable on web, because the map app knows the roads. **That affordance is load-bearing; it is the only path to a distance answer.**
 
