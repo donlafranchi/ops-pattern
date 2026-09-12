@@ -13,21 +13,135 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 
 **●** built · **○** specced or ruled, unbuilt (includes postponed) · **✕** deliberately forbidden · **—** meaningless
 
+### Index — the whole grid at a glance
+
+*The one thing a matrix did well. Detail is in the per-verb sections below; this is for orientation only, never for citing.*
+
 | | Person | Page | Gathering | Product / Service | Venue | Announcement | Idea |
 |---|---|---|---|---|---|---|---|
-| **Create** | ● signup | ● | ● | ● | ● | ○ | ○ composer undesigned |
-| **Edit** | ○ no editor yet | ● F056, save is publish | ○ | ○ | ○ | ✕ post is final | ○ |
-| **Publish** | — | ● activate | ● | ● | — | ● = posting | ○ |
-| **Retire** | ○ account delete | ○ | ○ | ○ | — | ✕ | ○ expires 90 days |
-| **Follow** | ● F032 | = Join, by design | ✕ not a concept | ✕ not a concept | ● a saved search | — | — |
-| **Respond** | — | — | ○ thumbs up now, four states later | ○ | — | ○ one reaction | ○ = signal interest |
-| **Join / leave** | — | ○ rules exist, CTA not yet built | — | — | — | — | — |
-| **Appear at** | — | ○ Page-level | ● item-level | ● item-level | — | — | — |
-| **Take down** | — | ○ F058 | ○ F058 | ○ F058 | — | ✕ | ○ |
-| **Volunteer** | — | ○ postponed, a reply on the board | ○ postponed, needs the reply channel | — | — | — | — |
-| **Message** | ○ postponed, no substrate | ○ postponed, inside a Page (ruled 2026-09-09) | ✕ | ✕ | ✕ | ○ reply = board increment one | ✕ |
+| **Create** | ● | ● | ● | ● | ● | ○ | ○ |
+| **Edit** | ○ | ● | ○ | ○ | ○ | ✕ | ○ |
+| **Publish** | — | ● | ● | ● | — | ● | ○ |
+| **Retire** | ○ | ○ | ○ | ○ | — | ✕ | ○ |
+| **Follow** | ● | = Join | ✕ | ✕ | ● | — | — |
+| **Respond** | — | — | ○ | ○ | — | ○ | ○ |
+| **Join / leave** | — | ○ | — | — | — | — | — |
+| **Appear at** | — | ○ | ● | ● | — | — | — |
+| **Take down** | — | ○ | ○ | ○ | — | ✕ | ○ |
+| **Volunteer** | — | ○ | ○ | — | — | — | — |
+| **Message** | ○ | ○ | ✕ | ✕ | ✕ | ○ | ✕ |
 
-*Signal acts on a category or an unbuilt feature — neither is a noun in this model, so it has no row and no foreign key (F064). Signal interest is a different verb: its subject is an Idea, a real row.*
+## Create
+
+- **Person** ● — signup.
+- **Page** ●
+- **Gathering** ●
+- **Product / Service** ●
+- **Venue** ●
+- **Announcement** ○
+- **Idea** ○ — composer undesigned.
+
+## Edit
+
+- **Person** ○ — no editor yet.
+- **Page** ● — F056; save is publish.
+- **Gathering** ○
+- **Product / Service** ○
+- **Venue** ○
+- **Announcement** ✕ — post is final.
+- **Idea** ○
+
+## Publish
+
+- **Person** — meaningless.
+- **Page** ● — activate.
+- **Gathering** ●
+- **Product / Service** ●
+- **Venue** — meaningless.
+- **Announcement** ● — publishing *is* posting.
+- **Idea** ○
+
+## Retire
+
+- **Person** ○ — account delete.
+- **Page** ○
+- **Gathering** ○
+- **Product / Service** ○
+- **Venue** — meaningless.
+- **Announcement** ✕
+- **Idea** ○ — expires 90 days.
+
+## Follow
+
+- **Person** ● — F032.
+- **Page** — **= Join, by design.** Following a Page and joining it are the same act.
+- **Gathering** ✕ — not a concept.
+- **Product / Service** ✕ — not a concept.
+- **Venue** ● — a saved search.
+- **Announcement** — meaningless.
+- **Idea** — meaningless.
+
+## Respond
+
+- **Person** — meaningless.
+- **Page** — meaningless.
+- **Gathering** ○ — thumbs up now, four states later.
+- **Product / Service** ○
+- **Venue** — meaningless.
+- **Announcement** ○ — one reaction.
+- **Idea** ○ — signalling interest.
+
+## Join / leave
+
+- **Person** — meaningless.
+- **Page** ○ — rules exist, CTA not yet built.
+- **Gathering** — meaningless.
+- **Product / Service** — meaningless.
+- **Venue** — meaningless.
+- **Announcement** — meaningless.
+- **Idea** — meaningless.
+
+## Appear at
+
+- **Person** — meaningless.
+- **Page** ○ — Page-level.
+- **Gathering** ● — item-level.
+- **Product / Service** ● — item-level.
+- **Venue** — meaningless.
+- **Announcement** — meaningless.
+- **Idea** — meaningless.
+
+## Take down
+
+- **Person** — meaningless.
+- **Page** ○ — F058.
+- **Gathering** ○ — F058.
+- **Product / Service** ○ — F058.
+- **Venue** — meaningless.
+- **Announcement** ✕
+- **Idea** ○
+
+## Volunteer
+
+- **Person** — meaningless.
+- **Page** ○ — postponed; a reply on the board.
+- **Gathering** ○ — postponed; needs the reply channel.
+- **Product / Service** — meaningless.
+- **Venue** — meaningless.
+- **Announcement** — meaningless.
+- **Idea** — meaningless.
+
+## Message
+
+- **Person** ○ — postponed, no substrate.
+- **Page** ○ — postponed; inside a Page *(ruled 2026-09-09)*.
+- **Gathering** ✕
+- **Product / Service** ✕
+- **Venue** ✕
+- **Announcement** ○ — reply = board increment one.
+- **Idea** ✕
+
+*Signal acts on a category or an unbuilt feature — neither is a noun in this model, so it has no entry and no foreign key (F064). Signal interest is a different verb: its subject is an Idea, a real row.*
 
 ## The forbidden cells, with reasons
 

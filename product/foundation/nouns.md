@@ -13,7 +13,19 @@ One of two tracking documents, with `verbs.md` (what may be done to each noun). 
 
 **Status vocabulary**, used identically in `verbs.md`: **●** live (schema + working surface). **◐** substrate only (table exists, nothing reads/writes it). **○** postponed — ruled in, not scheduled. **✕** refused — deliberately absent, the reason is the entry.
 
-**Two horizons on one entry:** `● now / ○ later` — what ships and what is intended, on the same line. A concept lives in exactly one place, so the later horizon is a status here, never a second description in `IMAGINE.md` or anywhere else.
+**Two horizons on one entry:** `● now / ○ later` — what ships and what is intended. A concept lives in exactly one place, so the later horizon is a status here, never a second description in `IMAGINE.md` or anywhere else.
+
+**Entry format.** One line when one line says it. When an entry has more to carry, it breaks into **labelled slots** — and the slot names are a closed set, which is what stops this file growing into prose again:
+
+| Slot | Holds |
+|---|---|
+| **Now** | what ships today |
+| **Later** | what it becomes, and why that is not an increment |
+| **Blocked** | the specific thing standing in the way |
+| **Trigger** | the observable fact that would move Later to Now |
+| **Never** | what the entry deliberately excludes |
+
+No other slot names. A thing that fits none of them is either detail for a systems doc or a line for `DECISIONS.md`.
 
 ## The spine
 
@@ -49,12 +61,21 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 
 ## The nouns that are coming — ruled in, not all scheduled
 
-- **Response** ● *now* / ○ *later* (2026-09-12) — a member says they are coming to an occurrence. **Now:** a thumbs up or nothing — presence or absence of a row, not a state column; the organizer sees two lists, names are shown, the public sees the count. **Blocked on `members.avatar_url`, which has no write path** — the list shows faces, and no member has one. **Later:** four states (coming · not coming · seen and undecided · declined), which is a state column replacing a row's existence — a migration and a rewrite of every read, not an increment. Trigger: an organizer saying the yes-list alone isn't enough to plan with.
+- **Response** `● now / ○ later` *(2026-09-12)* — a member says they are coming to an occurrence.
+  - **Now** — a thumbs up or nothing. Presence or absence of a row, not a state column. The organizer sees two lists; names are shown; the public sees the count.
+  - **Later** — four states: coming · not coming · seen and undecided · declined. A state column replacing a row's existence — a migration and a rewrite of every read, **not an increment**.
+  - **Blocked** — `members.avatar_url` has no write path. The list shows faces; no member has one.
+  - **Trigger** — an organizer saying the yes-list alone isn't enough to plan with.
 - **Announcement** ○ — a Page tells its followers and members what's upcoming. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. No edit/delete after posting; no inbox, no unread state.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
-- **Idea** (schema `wonder`) ○ — someone puts a new thing to the neighbourhood and others signal interest before it exists. Substrate shipped; the signalling/threshold/conversion mechanic is undesigned. The most distinctive thing in the positioning and the hardest deferral on the list.
-- **Volunteering** (schema `offer`/`ask`) ○ — kinds exist, no composer; blocked by the missing reply channel, not by the composer.
+- **Idea** `○` *(schema `wonder`)* — someone puts a new thing to the neighbourhood and others signal interest before it exists.
+  - **Now** — substrate only.
+  - **Blocked** — the signalling / threshold / conversion mechanic is undesigned.
+  - *The most distinctive thing in the positioning, and the hardest deferral on the list.*
+- **Volunteering** `○` *(schema `offer`/`ask`)* — offering help, or asking for it.
+  - **Now** — kinds exist, no composer.
+  - **Blocked** — the missing reply channel, not the composer.
 - **Appearance** ○ — a Page at a Venue for a bounded time. Cannot overlap in time, refused at creation.
 - **Operator** ○ — whoever can remove someone else's content. Nothing exists yet — no role, no flag, no check.
 - **Poll** ○ — `page_posts.kind='poll'` + `page_post_options`. Deliberately separate substrate from demand signals: a poll option is a row with a foreign key; a demand signal's subject has none, by design.

@@ -11,7 +11,8 @@ Stated by Don, 2026-09-10. Where any other document disagrees with this one, thi
 
 ## Two kinds of people
 
-**Creators** make Pages about what they do and where they are. **Finders** search — by terms, or by map and date — within their metro.
+- **Creators** make Pages about what they do and where they are.
+- **Finders** search — by terms, or by map and date — within their metro.
 
 A creator offers something of value: something to buy, join, visit, or learn about.
 
@@ -28,9 +29,22 @@ Two things fall straight out of the test, without needing their own rule:
 - **Venues are Pages.** A venue is long-lived and hosts many things over time, so it needs more than one of everything. It was previously a separate noun; it isn't.
 - **A single occasion is not a Page.** One meetup needs one of everything. It is a post with a time.
 
-A Page carries who they are, what they're about, what they offer, where they'll be, and how to find them. Creators post pictures and edit all of it.
+**A Page carries:**
 
-A Page has a street address if it has a specific location, and a neighbourhood if it doesn't — either way it is findable by area on the map. The location is public. Never a home address; if someone enters one anyway, it is shown publicly.
+- who they are
+- what they're about
+- what they offer
+- where they'll be
+- how to find them
+
+Creators post pictures and edit all of it.
+
+**Location:**
+
+- A **street address** if it has a specific location.
+- A **neighbourhood** if it doesn't.
+- Either way, findable by area on the map.
+- **The location is public.** Never a home address — and if someone enters one anyway, it is shown publicly.
 
 **A post can carry its own address**, separate from its Page's. A Page appears where its Page-level location says, and a post appears where the post says — which is how an itinerant Page's event reaches the map at the place it actually happens.
 
@@ -57,9 +71,11 @@ A specific occurrence is its own result, not a filter applied to its Page — th
 
 ## One mechanism: posts
 
-A post on a Page with no start and end time is an **announcement**. The same post with a start and end time is an **event**. One table, one composer.
-
-Followers and members receive it either way. The map and date search read the ones that carry times — that is how an event reaches a map.
+- A post with **no** start and end time is an **announcement**.
+- The same post **with** a start and end time is an **event**.
+- One table, one composer.
+- Followers and members receive it either way.
+- The map and date search read the ones that carry times — that is how an event reaches a map.
 
 ## Recurring events
 
