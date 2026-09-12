@@ -44,7 +44,7 @@ Three tabs and a create action. **The two-tab merge is ruled and unbuilt**; the 
 
 **Browse is being rewritten around Pages** *(ruled 2026-09-09 — the existing scenario is rewritten, not replaced)*. Today it indexes Items only.
 
-**What browse indexes is Pages and posts** *(ruled 2026-09-12)* — flat, not only posts carrying a date and a place. The narrower phrasing was a statement about the map, which still holds there. `../foundation/model.md` § There are no Items.
+**What browse indexes is everything the platform holds** *(ruled 2026-09-12)* — Pages and posts, flat, with posts as an instance rather than a separate rule. `../foundation/model.md` § Browse is everything.
 
 **The rewrite carries a second constraint** *(ruled 2026-09-12)*: **zero filter pills on the results surface.** Filtering lives in a filter surface — `design-language.md` principle 10, which is where the rule is stated and the only place it is stated. **What replaces the pill row is not chosen**; a research pass is running. Anything specifying a replacement shape before that lands is ahead of the ruling.
 
@@ -128,6 +128,8 @@ Three tabs and a create action. **The two-tab merge is ruled and unbuilt**; the 
 ## Commitments that live on these surfaces
 
 Carried forward with their ratification intact. **These bind whatever the surfaces become.**
+
+**Browse is everything.** *(Ratified 2026-09-12.)* Browse is the universal surface and carries everything the platform holds. **The default is inclusion; anything excluded needs a reason, recorded.** Stated in [`../foundation/model.md`](../foundation/model.md) § Browse is everything, which is its one home. What remains open is how a mixed result list reads and orders — never what may enter it.
 
 **Anonymous browse — no signup wall.** *(Ratified 2026-09-04.)* Browsing works without authentication: no redirect, no wall, **no gated or truncated result set.**
 

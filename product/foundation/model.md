@@ -65,11 +65,21 @@ Both are required. With no snapping and no guard in the data, they are the guard
 
 What a creator offers is described on their Page and in their posts. It is not a separately listed thing that browse indexes.
 
-**Browse finds Pages, and it finds posts.** Flat — not only the dated ones, not only the ones with a place. *(Ruled 2026-09-12.)*
+A specific occurrence is its own result, not a filter applied to its Page — this Saturday's farmers market is the thing a finder gets back, at the place it happens. Browse indexes Pages and posts, not a catalogue of listings.
 
-This widens an earlier line that said browse finds "posts that carry a date and a place." That phrasing came from Don on the map: *"You're right to include anything with a date and a location. We use a map to tell someone where to go."* **That is a statement about what reaches the map, and it still holds there** — a post needs a place to be a pin and a time to be an event. It was read as a filter on browse, which it never was.
+## Browse is everything
 
-A specific occurrence is its own result, not a filter applied to its Page — this Saturday's farmers market is the thing a finder gets back, at the place it happens. Browse does not index a catalogue of listings.
+In Don's words (2026-09-12): **"browse is everything, why wouldn't it be all kinds of things?"**
+
+Browse is the universal surface. It carries everything the platform holds.
+
+**The default is inclusion.** Anything excluded needs a reason, recorded. Inclusion needs no justification — that is the direction of the burden, and it is the whole of the principle. A thing is in browse because it exists; a thing is out of browse because someone wrote down why.
+
+Good reasons exist and are not weakened by this. A member who has not opted into discoverability is not in search — that is consent, and it is recorded. A draft is not published, so there is nothing to carry. What the principle forbids is the unrecorded exclusion: a thing kept out of browse because an earlier model had no room for it, or because nobody asked.
+
+**Posts appearing in browse is an instance of this, not a separate rule.** Flat — not only the dated ones, not only the ones with a place. An earlier line said browse finds "posts that carry a date and a place"; that came from Don speaking about the map — *"You're right to include anything with a date and a location. We use a map to tell someone where to go."* **It still holds for the map**, where a post needs a place to be a pin and a time to be an event. It was read as a filter on browse, which it never was.
+
+**What this does not settle.** Browse carrying everything makes a result list a mixture — a Page, an event next Saturday, an undated *"50% off today"*. **How that list reads and how it orders is open.** What is not open, and is not to be reopened, is what may enter it.
 
 ## One mechanism: posts
 
