@@ -33,7 +33,11 @@ owns:
 
 ## Surface roles
 
-Three tabs and a create action. **The two-tab merge is ruled and unbuilt**; the navigation ships three.
+Three tabs and a create action.
+
+**The two-tab merge — Home absorbing Explore entirely — is contradicted by Don's statement of 2026-09-12** that Home and Browse have distinct jobs (`../foundation/model.md` § Why Home and Browse both exist). The merge was ratified 2026-09-03 on the reasoning that ambient browsing and intentional searching are the same posture over the same cards; **the ruling says they are not**, and gives each surface a job the other cannot do.
+
+**The navigation ships three, which is what the table below describes, and what the ruling implies.** Reconciling this formally — including whether the two-tab ratification is withdrawn or amended — is **Cowork's, not recorded here**. What is recorded: the merge's premise no longer holds, and F059 is built on it.
 
 | Slot | Job | The question it answers |
 |---|---|---|
@@ -43,6 +47,8 @@ Three tabs and a create action. **The two-tab merge is ruled and unbuilt**; the 
 | **+** | Create | *I want to put something up.* |
 
 **Browse is being rewritten around Pages** *(ruled 2026-09-09 — the existing scenario is rewritten, not replaced)*. Today it indexes Items only.
+
+**Home and Browse are two surfaces with two jobs** *(ruled 2026-09-12)*: **Browse is complete and not ranked by the member's interests; Home is personal.** The second exists so a member's interests are not buried in the first. `../foundation/model.md` § Why Home and Browse both exist, its one home — including the hard line that *personalized* means declared interests and place, never engagement.
 
 **What browse indexes is everything the platform holds** *(ruled 2026-09-12)* — Pages and posts, flat, with posts as an instance rather than a separate rule. `../foundation/model.md` § Browse is everything.
 

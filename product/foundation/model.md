@@ -81,6 +81,27 @@ Good reasons exist and are not weakened by this. A member who has not opted into
 
 **What this does not settle.** Browse carrying everything makes a result list a mixture — a Page, an event next Saturday, an undated *"50% off today"*. **How that list reads and how it orders is open.** What is not open, and is not to be reopened, is what may enter it.
 
+## Why Home and Browse both exist
+
+In Don's words (2026-09-12): **"Browse is everything, Home is personalized so items the member's personal interests don't get buried in browse."**
+
+**Two surfaces, two jobs, and the second is the reason the first can afford to be complete.**
+
+- **Browse is complete.** Everything the platform holds, findable. **Not ranked by the member's interests** — completeness is its job, and interest-ranking a complete surface is how a member stops trusting that it is complete.
+- **Home is personal.** What this member cares about, surfaced so it is not lost in the completeness. The personalization exists **because** browse is exhaustive: without it, a member's own interests are a handful of rows in everything.
+
+Neither can do the other's job. A complete surface that quietly favours your interests is not complete; a personal surface that shows everything is not personal. **This is the reason both exist**, and until now nothing stated it.
+
+### Personalized means interests, not engagement
+
+**A hard distinction, because one word covers two things and only one of them is allowed.**
+
+- **Allowed — and the whole point:** the member's own **declared interests**, and where they are. Home surfaces what they said they care about, near them. That is personalization on facts the member volunteered about themselves.
+- **Allowed:** genuine community response. Earned attention is the intended mechanism *(2026-09-12)* — a baker the neighbourhood turns up for should rise.
+- **Never:** what keeps someone scrolling. No watch-time, no dwell-time, no engagement objective. And never payment — nobody buys placement.
+
+**"Home is personalized" is not licence for a feed algorithm.** It is licence for exactly one thing: showing a member what they told the platform they like, where they are. Anything reading behaviour back at them is a different product and is refused elsewhere in this tree.
+
 ## One mechanism: posts
 
 - A post with **no** start and end time is an **announcement**.
