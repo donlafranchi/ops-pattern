@@ -20,11 +20,13 @@ owns:
 
 ## Why this exists
 
-Regular people are getting squeezed from every direction — wages flat, costs up, local economies drained by platforms that take more than they give. SocialUs is the alternative: buy, sell, trade, meet, and organize with your neighbors without getting bled dry doing it.
+Regular people are getting squeezed from every direction — wages flat, costs up, local economies drained by platforms that take more than they give. SocialUs is the alternative: buy, sell, trade, meet, and organize with your neighbors without getting bled dry doing it. Not Amazon. Not Etsy. Not Airbnb. Not another app moving wealth out of a place.
 
-We measure success one way — **Member Flourishing**: more time to live (hours not eaten by work, commute, caregiving) and more money to live (income above the cost of getting by). Both have to rise, or a proposal doesn't ship.
+**North star: help regular people earn a decent living and afford to live well.**
 
-The one thing refused, categorically: **extraction** — taking value from people without giving something back. Not Amazon. Not Airbnb. Not another app moving wealth out of a place.
+We track that as **Member Flourishing**: more time to live (hours not eaten by work, commute, caregiving) and more money to live (income above the cost of getting by). Both have to rise, or a proposal doesn't ship.
+
+The one thing refused, categorically: **extraction** — taking value from people without giving something back.
 
 ## The promises
 
