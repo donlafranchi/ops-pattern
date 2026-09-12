@@ -32,6 +32,37 @@ A claim that something works is worth what the check behind it was worth. So say
 - **Unverified work opens as a draft PR**, with the missing check named at the top of the body and what would clear it. Ready-for-review means the check ran.
 - "Tests pass" from a laptop is `unit tests only` until CI says otherwise. There is no test workflow yet — see `LESSONS.md` 19.
 
+## Who checks what
+
+**Agents own whether a change is correct. Don owns whether it is right.** Correct is testable — it compiles, the tests pass, the migration applies, the rule is enforced. Right is a judgment about the product, and no test has an opinion about it.
+
+Don does not read code, and nothing should ever ask him to. What he looks at is the running app on the preview link.
+
+**He looks when the change:**
+
+- alters anything a person sees or does — a screen, a control, copy, an image, an empty state
+- adds a capability for the first time, rather than extending one that already exists
+- touches privacy, money, or public visibility (the address-is-public copy is the type case)
+- has an acceptance criterion containing a judgment word — *clear*, *easy*, *minimal fumbling*. Those are the words only he can score
+- came back with a deviation, or a judgment call the agent had to make on his behalf
+
+**He does not look at:** migrations with no visible effect, tests, refactors, docs, infrastructure, dependency bumps.
+
+### The mechanism
+
+Every PR opens with one of exactly two things, before anything else in the body:
+
+1. **"Don doesn't need to look."** — and one line saying why not.
+2. **The preview link, three numbered steps, and what he should expect to see.** Label the PR `needs-don`.
+
+The steps are written for someone holding a phone who has not read the ticket: *"Open the link, tap Create, choose Business."* Not *"navigate to the composer route."* No file paths, no function names, no ticket numbers, no jargon.
+
+**If a change cannot be described that way, that is a signal it needs his eyes more, not less.** Say so in the PR and label it anyway — an agent that cannot explain a change in three plain steps has found something worth his attention, not an excuse to skip him.
+
+### When he merges without looking
+
+Nothing blocks it, and nothing should — his plan has no protection rules, and a gate he can't bypass on his own repo is worse than the problem. Instead the `needs-don` label **stays on after merge**, so `is:merged label:needs-don` is the list of things that shipped without his eyes. It is a list to review, not an alarm.
+
 ## Accepted risk
 
 A lint finding ruled acceptable gets recorded once and stops being re-argued. The ruling is the dated line in `DECISIONS.md`; `accepted-risks/` holds one JSON file per finding so an advisor run can be diffed against it — `bash scripts/advisor-diff.sh <export.json>` prints only what isn't already ruled on, plus anything past review.
