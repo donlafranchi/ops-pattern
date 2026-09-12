@@ -77,7 +77,7 @@ The reasoning generalises: **put logic where it can be tested and reviewed; put 
 
 ## Responding to an event
 
-**A thumbs up, or nothing.** There is no declined state and no seen-and-undecided state — those were Don painting the bigger picture, not a spec, and they are not what ships. The bigger picture is kept, dated and attributed, in [`IMAGINE.md`](../../IMAGINE.md) § The four response states — alongside his thesis about what RSVPs have to do with Ticketmaster.
+**A thumbs up, or nothing.** There is no declined state and no seen-and-undecided state — those were Don painting the bigger picture, not a spec, and they are not what ships. The eventual four-state shape is recorded as the *later* horizon on the Response entry in [`nouns.md`](nouns.md) — one entry, both horizons.
 
 **The organizer sees two lists:** who thumbed up, and who didn't. That is presence or absence of a row, not a state column — a member has responded, or they have not.
 

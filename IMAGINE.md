@@ -16,6 +16,9 @@ Every entry added from 2026-09-12 carries three things:
 
 ## Ideas
 
+*Every entry below was distilled from `product/exploration/` on **2026-09-09** (commits `b75cfbb`, `66ddc9b`, `c4226d0`) — dated by the distillation, not by when each idea was first had, which git does not record per-entry. None predates the house rules above, so none is retro-fitted with a trigger; each stays until someone gives it a shape or retires it.*
+
+
 
 - **Affinity-derived Group suggestions.** Surface emergent Group suggestions from Member taste-overlap on Items — without crossing the auto-assignment refusal. Needs Saves at real density and a mature discovery-overlap index first; earliest plausible b2+.
 - **Apple platform integration.** What a native iOS build would want to use from Apple's platform strategy (Sign in with Apple, App Clips, widgets, etc.) versus what the web MVP already covers.
@@ -40,18 +43,6 @@ Every entry added from 2026-09-12 carries three things:
 ---
 
 ## Added under the house rules
-
-### The four response states
-
-*Don, 2026-09-12. Analysis by agent, same day.*
-
-The eventual shape of responding to an event: **coming · not coming · seen and undecided · declined.** The organizer sees all four.
-
-**This release ships a thumbs up or nothing** — presence or absence of a row, two lists, no state column. That is not a staging post toward the four; it is what was ruled, and the four are the bigger picture Don was painting when he described it. If they are built, they are a state column replacing a row's existence, which is a migration and a rewrite of every read.
-
-*Analysis:* "not coming" and "declined" were stated separately and may be the same state, or may distinguish an active no from never answering. Nobody has needed to tell them apart yet, which is itself the argument for not building them.
-
-**What would make this real:** an organizer saying the yes-list alone isn't enough to plan with — most likely someone running a capacity-limited thing, which is also the trigger for the ticketing thesis below.
 
 ### Ticketing, and what RSVPs have to do with Ticketmaster
 

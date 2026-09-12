@@ -18,6 +18,14 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
 - **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
 
+**A concept lives in exactly one place.** Two documents describing the same thing is how this repo has failed before, so routing it is a rule, not a preference:
+
+- **`product/` — nouns, verbs, surfaces — is the spine.** Every entry carries its own status, so one line holds both horizons: *"responses: thumbs up now, four states later."* **The future version of a thing is a status on its existing entry, never a second description somewhere else.**
+- **`IMAGINE.md` is a waiting room, not a parallel library.** It holds only ideas that do not yet have a noun, a verb, or a surface.
+- **When an idea acquires one, it moves into the spine and leaves `IMAGINE.md`.** Entries move out. They are never copied out — a copy is two descriptions, which is the thing this rule exists to prevent.
+
+**The test: does it have a shape — a noun, a verb, or a surface? Then the spine. If not, `IMAGINE.md`.** Worked example: *responses* have a noun and a verb, so the eventual four-state design is a status line on the response entry in `nouns.md`. *The Ticketmaster thesis* has none of the three — it is a claim about a market, not a shape — so it stays in `IMAGINE.md` until something about the product gives it one.
+
 If a directory isn't listed here, don't read it. Anything not in the tree is not current — git history is the archive (`git log`, tag `archive-2026-09`).
 
 ## State
