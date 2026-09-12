@@ -85,14 +85,15 @@ Not a thumbs up. A **response with a state**, one per member per occurrence.
 
 **Names and small profile photos are shown**, especially for meetups and group things. Seeing who is going is much of why someone decides to go.
 
-### The distinction this corrects
+### What "don't sell visibility" actually forbids
 
-An earlier version of this document said a response must not be "a social signal" and must not feed ordering, and treated both as the same commitment. They are not.
+In Don's words (2026-09-12): *"Don't sell visibility means we don't sell visibility to corporations businesses whatever — they haven't earned it. If they're doing well in the community and the community loves them then we need to share that. This is peer pressure for good."*
 
-- **Showing a count on an event is fine.** It is information a person uses to decide.
-- **Ordering browse results by that count is what the commitments forbid** — visibility is not sold, and nothing is ranked by engagement.
+**The prohibition is on money buying placement. That is the whole of it.**
 
-Only the second is prohibited. The first was my conflation, not a ruling.
+Genuine community response driving what surfaces is not a loophole in that rule — **it is the intended mechanism.** Earned attention is the product working as designed. A baker the neighbourhood turns up for should rise, and the platform's job is to carry that signal, not to flatten it in the name of fairness.
+
+This has been recorded wrongly twice, both times by an agent narrowing the rule further than Don ever stated it. The first version said a response count must not be "a social signal." The second said displaying a count was fine but ordering by it was forbidden. **The second half of that is also wrong**, and is corrected here: response may drive ordering. What may not is a payment.
 
 ### What it needs
 
