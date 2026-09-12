@@ -24,4 +24,4 @@
 
 Six is a result, not a cap. A new rule needs a dated failure that a guideline demonstrably didn't prevent, and must name which of the four harms it falls under. If it can't, it's a guideline.
 
-The product's one value absolute — wealth circulates in the community, the platform never extracts it — lives in `product/foundation/principles.md`, not here.
+The product's one value absolute — wealth circulates in the community, the platform never extracts it — lives in `product/foundation/goals.md`, not here.

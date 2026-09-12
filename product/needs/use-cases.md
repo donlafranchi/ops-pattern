@@ -11,7 +11,7 @@ Real situations, drawn from Sacramento and the surrounding region, that the plat
 
 ## Roles — not account types, activities a Member takes on
 
-**Member** — anyone: searches, browses, joins, follows, asks for help, offers it. **Producer** — a Member offering goods or services, spectrum from full professional to casual maker to unpaid steward; UI labels (Seller/Producer/Maker) vary, the role is one role. **Convener** — a Member who creates and runs a Group around a shared interest; coordination tools, not selling tools. Who the platform does *not* serve (corporate-shell franchise, rollup-acquirer, engagement-optimizer) is in `principles.md`.
+**Member** — anyone: searches, browses, joins, follows, asks for help, offers it. **Producer** — a Member offering goods or services, spectrum from full professional to casual maker to unpaid steward; UI labels (Seller/Producer/Maker) vary, the role is one role. **Convener** — a Member who creates and runs a Group around a shared interest; coordination tools, not selling tools. Who the platform does *not* serve (corporate-shell franchise, rollup-acquirer, engagement-optimizer) is in `goals.md`.
 
 ## Consumer cases
 

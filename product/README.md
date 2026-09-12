@@ -13,9 +13,9 @@ One line per doc, then the settled rules with no rationale attached — read the
 
 ## Why — foundation/
 
-**`foundation/principles.md`** — the constitution.
+**`foundation/goals.md`** — the mission and the ratified promises (merges the former `principles.md` + `promises.md`, 2026-09-12).
 - Everything serves people; measured as Member Flourishing: time to live + money to live, both must rise.
-- Every proposal passes one test: does it net-move both up?
+- Six promises: surplus returns to community, member-benefit-first, non-extractive, no outside capital / not a traditional corporation, member-owned, keeps only what it needs to run.
 - The one absolute refusal: extraction — value taken from people without serving them back.
 
 **`foundation/people-first.md`** — why there's no Business entity.
@@ -145,6 +145,6 @@ Marked for the review pass. Nothing below has been acted on.
 
 1. **Verify every bullet against its source doc.** This index was written from a content plan, not derived from the files. Treat each bullet as a claim to check, not a citation.
 2. **`planning/backlog/` does not exist.** Neither `audit-route-inventory.md` nor `decision-surfaces.md` is in the tree, and `ui/surfaces.md` carries three dead links to them. Decide: restore from git history, or drop the citations and fold what's still needed into `surfaces.md`.
-3. **Seven docs sit in `product/` but not in this index** — `foundation/what-this-is.md`, `foundation/promises.md`, `foundation/metrics.md`, `foundation/monetization.md`, `foundation/impact-diagnostic.md`, `systems/places.md`, `ui/design-language.md`. Add or deliberately exclude each.
+3. **Six docs sit in `product/` but not in this index** — `foundation/what-this-is.md`, `foundation/metrics.md`, `foundation/monetization.md`, `foundation/impact-diagnostic.md`, `systems/places.md`, `ui/design-language.md`. Add or deliberately exclude each. (`foundation/promises.md` merged into `goals.md`, 2026-09-12, which is now indexed above.)
 4. **Cooperative and federation material is the too-complex-for-now block.** The settled *refusals* stay as index bullets — no Business entity, cooperative governance refused as a feature, federation-not-absorption as the ceiling. The speculative build-out is `foundation/impact-diagnostic.md`'s pool/form/federate stack and its sector-by-sector cooperative plans; `IMAGINE.md` already carries that as **The cooperative engine (5 sketches)**, so it needs no new entry — only a decision on whether the doc stays in `product/`. Deleting anything from `product/` runs through the yes/no pause in `skills/trim/`.
 5. **`systems/member.md`'s split has landed** (commit `c4226d0`): `creator.md` holds selling, standing presence, and archive; the DM shape moved to `foundation/messaging-problem.md`; Social capital moved to `IMAGINE.md`. The bullets above already reflect the post-split file.

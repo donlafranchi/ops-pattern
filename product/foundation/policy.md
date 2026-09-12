@@ -3,6 +3,7 @@ id: why-policy
 purpose: The three-filter test every privacy/revenue/data-sharing decision passes through, and the opt-out default.
 layer: why
 status: active
+last-updated: 2026-09-12
 ---
 
 # Policy framework
@@ -30,3 +31,11 @@ The platform pushes back on complaint-only content by offering — never forcing
 ## What this rules in and out
 
 Rules in: opt-in cross-member sharing with granular scope, opt-in aggregate analysis, capped recurring-payment delegations. Rules out: any default-on sharing, any silent expansion of an existing opt-in, any "the ToS covers it" rationalization, any policy whose safety depends on nobody acting in bad faith.
+
+## How good faith is enforced
+
+*(Moved here from `promises.md`, 2026-09-12.)*
+
+By community and peer pressure, not platform policing. This is a know-and-support-your-community platform, not an anonymous one — a vendor who claims to be somewhere they aren't is seen by their own followers, and the social cost lands immediately without the platform doing anything. That's why appearances are auto-approved rather than gatekept: an approval queue treats a false claim as something the platform must prevent, and where the claimant's neighbours can see the claim, prevention is work the community does better and faster.
+
+**Open tension:** letting people flag bad-faith behavior is one step from a reputation system, and reviews/ratings/reputation scores are permanently refused (`goals.md`, promise 3 — no ranking a person). Community accountability needs the community to be able to say something; how that works without becoming a rating economy is unanswered. Not a launch problem — nothing at launch lets a member say anything public about another member — but the first proposal that looks like a solution will look like a rating.

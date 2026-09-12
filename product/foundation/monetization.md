@@ -3,6 +3,7 @@ id: why-monetization
 purpose: How the platform earns, and why — multi-source, no VC, fees follow success.
 layer: why
 status: active
+last-updated: 2026-09-12
 ---
 
 # Monetization

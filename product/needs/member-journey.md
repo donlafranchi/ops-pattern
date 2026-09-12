@@ -39,7 +39,7 @@ The substance of the platform — where participation becomes local economic str
 
 ### Family 4 — Pooling (community ownership)
 
-Members become stakeholders; capital is pooled, businesses founded, resources shared. Ownership concentration is the squeeze; collective ownership is the answer (the wealth-circulation absolute lives in `principles.md`).
+Members become stakeholders; capital is pooled, businesses founded, resources shared. Ownership concentration is the squeeze; collective ownership is the answer (the wealth-circulation absolute lives in `goals.md`).
 
 10. **Start something.** An idea that would grow the community's capacity. Surface: an Initiative — Encouragement signals interest, Pledge signals commitment.
 11. **Pool resources.** Members combine capital for something no household could acquire alone — land, a building, a workshop's tools. Surface: structured pledges accumulating against a target, handing off to partner CDFIs for the actual transaction.

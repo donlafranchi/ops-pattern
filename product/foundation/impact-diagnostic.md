@@ -12,7 +12,7 @@ owns:
 
 # Impact Diagnostic — Benefits the Few vs the Many
 
-> Companion to [`principles.md`](principles.md). The constitution names *wealth circulation over wealth extraction* as the single thing the platform holds to. This doc is the diagnostic for assessing impact: how to recognize when an organization's benefits flow to the few at the expense of the many, and the toolkit of Member-aligned treatments the platform can scaffold in response. The point isn't to be against any industry — it's to see clearly who a given arrangement serves, and to scaffold alternatives where the answer is "the few."
+> Companion to [`goals.md`](goals.md). The constitution names *wealth circulation over wealth extraction* as the single thing the platform holds to. This doc is the diagnostic for assessing impact: how to recognize when an organization's benefits flow to the few at the expense of the many, and the toolkit of Member-aligned treatments the platform can scaffold in response. The point isn't to be against any industry — it's to see clearly who a given arrangement serves, and to scaffold alternatives where the answer is "the few."
 
 ---
 
@@ -70,4 +70,4 @@ The same pattern with different surfaces.
 
 The platform is infrastructure, not parent company. It scaffolds the formation of Member-aligned alternatives; it does not become one. Three stacked layers — *pool* (conditional commitment mechanics), *form* (templated cooperative incorporation per state and sector), *federate* (shared back-office, joint negotiation) — let Vienna-scale outcomes emerge from thousands of small Member-owned entities federated together, rather than from a single subsidiary holding company.
 
-See [`principles.md`](principles.md) for the constitutional framing. The single commitment (wealth circulation over wealth extraction) operates as the destination test; this doc operationalizes how to assess whether an arrangement benefits the few or the many, and how to respond. All treatments are expressed as defaults — laws change, technology changes, conditions change. Patterns expressed as defaults adapt; categorical refusals lock the platform to today's stance.
+See [`goals.md`](goals.md) for the constitutional framing. The single commitment (wealth circulation over wealth extraction) operates as the destination test; this doc operationalizes how to assess whether an arrangement benefits the few or the many, and how to respond. All treatments are expressed as defaults — laws change, technology changes, conditions change. Patterns expressed as defaults adapt; categorical refusals lock the platform to today's stance.

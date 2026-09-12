@@ -27,7 +27,7 @@ A local discovery and community-building platform — the organizing backbone fo
 
 ## What this settles, by being said out loud
 
-It's not a marketplace — meeting, volunteering, and floating an idea sit alongside buying and selling, in that order. The audience is named by disposition, not demographic — "people who care about each other and the place they live," not a segment or an age or an income. The invitation is participatory — "help shape the future" asks people to build the thing, not use it. "Decent, caring people" is the trust model in three words, and matches how good faith is actually enforced: community and peer pressure, not platform arbitration (`promises.md` § How good faith is enforced).
+It's not a marketplace — meeting, volunteering, and floating an idea sit alongside buying and selling, in that order. The audience is named by disposition, not demographic — "people who care about each other and the place they live," not a segment or an age or an income. The invitation is participatory — "help shape the future" asks people to build the thing, not use it. "Decent, caring people" is the trust model in three words, and matches how good faith is actually enforced: community and peer pressure, not platform arbitration (`policy.md` § How good faith is enforced).
 
 ## Settled — the name and tagline
 
