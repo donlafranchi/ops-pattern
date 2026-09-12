@@ -47,6 +47,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 
 ## The nouns that are coming — ruled in, not all scheduled
 
+- **Response** ○ — a member says they are coming to an occurrence. **Ships as a thumbs up or nothing** (2026-09-12): presence or absence of a row, two lists for the organizer, names shown, public count. The eventual four-state shape — coming, not coming, seen and undecided, declined — is future design, not spec: [`../../IMAGINE.md`](../../IMAGINE.md) § The four response states.
 - **Announcement** ○ — a Page tells its followers and members what's upcoming. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. No edit/delete after posting; no inbox, no unread state.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.

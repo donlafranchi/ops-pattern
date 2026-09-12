@@ -20,7 +20,7 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 | **Publish** | — | ● activate | ● | ● | — | ● = posting | ○ |
 | **Retire** | ○ account delete | ○ | ○ | ○ | — | ✕ | ○ expires 90 days |
 | **Follow** | ● F032 | = Join, by design | ✕ not a concept | ✕ not a concept | ● a saved search | — | — |
-| **Respond** | — | — | ○ F063, RSVP | ○ | — | ○ one reaction | ○ = signal interest |
+| **Respond** | — | — | ○ thumbs up or nothing; four states are future design ([`../../IMAGINE.md`](../../IMAGINE.md)) | ○ | — | ○ one reaction | ○ = signal interest |
 | **Join / leave** | — | ○ rules exist, CTA not yet built | — | — | — | — | — |
 | **Appear at** | — | ○ Page-level | ● item-level | ● item-level | — | — | — |
 | **Take down** | — | ○ F058 | ○ F058 | ○ F058 | — | ✕ | ○ |
