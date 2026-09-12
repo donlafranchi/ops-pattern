@@ -1,6 +1,6 @@
 ---
 id: why-nouns
-purpose: The nouns — every entity the product has or will have, what each carries, what each deliberately does not.
+purpose: The nouns — every entity the product has or will have, what each carries, what each deliberately does not. Spine document: every entry carries its own status and holds both horizons, what ships now and what is intended later. The future version of a noun is a status on its entry here, never a second description elsewhere.
 layer: why
 status: active
 ---
@@ -12,6 +12,8 @@ status: active
 One of two tracking documents, with `verbs.md` (what may be done to each noun). Together they're the model — what things *are*. `surfaces.md` is where things *show*. Keep the two apart; conflating them is how this project's worst failures happened (a surface decision — Sell as the only create door — silently became a model decision, because one document described both). Postponed nouns are listed here, labelled — leaving them out to keep the launch list clean is how the model stops describing the product.
 
 **Status vocabulary**, used identically in `verbs.md`: **●** live (schema + working surface). **◐** substrate only (table exists, nothing reads/writes it). **○** postponed — ruled in, not scheduled. **✕** refused — deliberately absent, the reason is the entry.
+
+**Two horizons on one entry:** `● now / ○ later` — what ships and what is intended, on the same line. A concept lives in exactly one place, so the later horizon is a status here, never a second description in `IMAGINE.md` or anywhere else.
 
 ## The spine
 

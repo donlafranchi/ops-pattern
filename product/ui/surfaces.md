@@ -1,6 +1,6 @@
 ---
 id: what-surfaces
-purpose: The surfaces — every screen the product has or will have, what each is for, and whether it works. Replaces community-platform.md.
+purpose: The surfaces — every screen the product has or will have, what each is for, and whether it works. Spine document: every entry carries its own status and holds both horizons, what ships now and what is intended later. The future version of a surface is a status on its entry here, never a second description elsewhere. Replaces community-platform.md.
 layer: what
 status: active
 owns:

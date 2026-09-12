@@ -1,6 +1,6 @@
 ---
 id: why-verbs
-purpose: The verb × noun matrix — what each verb may do to each noun, and what it deliberately may not.
+purpose: The verb × noun matrix — what each verb may do to each noun, and what it deliberately may not. Spine document: every cell carries its own status and holds both horizons, what ships now and what is intended later. The future version of a verb is a status in this matrix, never a second description elsewhere.
 layer: why
 status: active
 ---

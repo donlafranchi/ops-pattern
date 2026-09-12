@@ -45,18 +45,21 @@ One line per doc, then the settled rules with no rationale attached — read the
 - No per-member "politeness" or derived score column of any kind, ever.
 - **Still open:** whether reachability rules alone gate speech, or combine with a flagging system; who may initiate contact with a stranger at launch; whether an operator/moderator role exists before member-initiated posts do.
 
-**`foundation/nouns.md`** — the entity list.
+**`foundation/nouns.md`** — the entity list. **Spine:** each entry carries its own status and holds both horizons, now and later.
 - Three core nouns: Person (schema name: Member), Item, Location. Group is a fourth, optional and emergent.
 - Page = the person/people behind a listing (the UI name for a Group row). Item = what's declared. Never conflate the two.
 - Refused as nouns: Business entity, Role, Follow-a-product-or-service, Location-scoped messaging or feed, Cooperative governance as a feature.
 
-**`foundation/verbs.md`** — the permission matrix.
+**`foundation/verbs.md`** — the permission matrix. **Spine:** each cell carries its own status and holds both horizons, now and later.
 - One matrix: what each verb (create/edit/follow/join/message/etc.) may do to each noun — a ✕ cell is a permanent refusal, not a backlog item.
 - Following a Page = joining it. Products and services can never be followed.
 - No messaging at large, anywhere — only inside a Page you've joined, once that ships.
 - A follow never grants membership, a role, or read access to anything.
 
 ## What — systems/ (settled shape of each entity/mechanism)
+
+> **Systems docs are depth, not a competing status.** They describe *how* a concept works; they never state whether it ships. The spine — `foundation/nouns.md`, `foundation/verbs.md`, `ui/surfaces.md` — owns status. That is why these are not a fourth tracking layer, and why "a concept lives in exactly one place" does not make them redundant: they answer a different question, not the same one twice. A systems doc that starts declaring what ships has drifted — move that sentence to the spine, don't delete the doc.
+
 
 **`systems/member.md`** — the identity primitive. *(split landed — see Open Actions below)*
 - One row per real human, lifetime-stable. No stored role column, no street address by default.
@@ -110,7 +113,7 @@ One line per doc, then the settled rules with no rationale attached — read the
 
 ## Where things show — ui/
 
-**`ui/surfaces.md`** — the single source of truth for "does it actually work."
+**`ui/surfaces.md`** — the single source of truth for "does it actually work." **Spine:** each entry carries its own status and holds both horizons, now and later.
 - Every screen is tagged live / live-but-hollow (reads tables that don't exist) / residue (dead pre-rebuild route) / postponed.
 - 10+ table names referenced in shipped code have no migration behind them — any surface reading one is silently broken.
 - This file is the spec; `audit-route-inventory.md` is only the evidence trail behind it and goes stale on every route change.

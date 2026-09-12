@@ -2,7 +2,11 @@
 
 Nothing here is a commitment. A heading and a few lines per idea, distilled from `product/exploration/` (23 files, now deleted — git history holds the full drafts). Scenarios may not cite this file.
 
-**This is the home for big-picture material that isn't this release.** `product/exploration/` is not coming back — it was deleted deliberately and distilled into this file, and a new idea folder would be the next thing to clean up.
+**A waiting room, not a parallel library.** This file holds only ideas that do **not yet have a noun, a verb, or a surface**. The moment an idea acquires one, it **moves** into the spine — `product/foundation/nouns.md`, `product/foundation/verbs.md`, `product/ui/surfaces.md` — and leaves this file. **Entries move out; they are never copied out.** A copy is two descriptions of one concept, which is what this rule exists to prevent.
+
+The test: does it have a shape — a noun, a verb, or a surface? Then the spine. If not, here. The Ticketmaster thesis below is the worked example of something staying: it is a claim about a market, not a shape.
+
+`product/exploration/` is not coming back — it was deleted deliberately and distilled into this file, and a new idea folder would be the next thing to clean up.
 
 ## House rules, so this doesn't become a graveyard
 
