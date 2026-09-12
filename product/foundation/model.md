@@ -81,6 +81,16 @@ Good reasons exist and are not weakened by this. A member who has not opted into
 
 **What this does not settle.** Browse carrying everything makes a result list a mixture — a Page, an event next Saturday, an undated *"50% off today"*. **How that list reads and how it orders is open.** What is not open, and is not to be reopened, is what may enter it.
 
+## Search is the filter
+
+*(Ruled 2026-09-12.)* **Categories stop being a visible control.** A Page still declares one and it still orders nothing, but no surface renders it as a pill, a chip, or a filter. **Search is how a finder narrows.**
+
+**A curated dictionary of search terms maps to categories, built up front.** *"Sourdough"* leads to Food & Drink; *"homemade soap"* to Home & Body. So a search returns Pages that never contain the word searched for — which is the point. At launch volumes the words a member types and the words a creator wrote will rarely be the same, and the dictionary closes that gap from the finder's side.
+
+**Page creators get tips on how to be found** — the same gap closed from the creator's side.
+
+**Not embeddings.** `item_embeddings` and `member_embeddings` exist, hold zero rows, and nothing reads them. A curated dictionary is cheaper, controllable, inspectable, and has no model to train or drift. **Revisit when the dictionary stops scaling** — when maintaining it becomes a recurring cost somebody notices, or when searches that should match are missing because nobody thought of the term. Not because the tables happen to be there.
+
 ## Why Home and Browse both exist
 
 In Don's words (2026-09-12): **"Browse is everything, Home is personalized so items the member's personal interests don't get buried in browse."**
