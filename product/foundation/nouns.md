@@ -56,7 +56,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 | **Member** | ● | One real human, one account | No type, tier, or stored role. No platform-awarded badge, rating, or label it didn't write itself. |
 | **Page** | ● | The person or people behind the listing | No permanent kind that gates anything. No permission granted by its business record. No Page for a single occasion. No conversion into another Page. |
 | **Item** | ● | One thing offered, or one occasion | No independent existence off a Page. No response counter shown to its author. No date on a product. |
-| **Venue** | ● | A physical place that may host other people's Items | No owner by default — an itinerant Page has none and is found through the Venues it appears at. |
+| ~~**Venue**~~ | ✕ | **Not a noun** *(2026-09-12)* — a venue is an organization hosting at a Location. The Page is justified by what the organization is; persistence is `locations.kind` (Harlow's `permanent`, a Saturday market `recurring_temporary`). | No entity of its own, and no Page kind. Anything can host — a bakery running a book club is a venue that evening, on the one Page it already had. |
 | **Place** | ● | Platform-curated geography (neighbourhood → state) | No member-facing create surface. Nobody adds a Place. |
 
 ## The nouns that are coming — ruled in, not all scheduled
