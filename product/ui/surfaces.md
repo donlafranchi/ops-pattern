@@ -127,9 +127,9 @@ Carried forward with their ratification intact. **These bind whatever the surfac
 
 > **Intent:** The landing surface has to be readable by someone who has never signed up, because the platform's first job is to show a stranger that their neighbourhood is already on it. A wall in front of an empty-looking catalog converts nobody and costs the only demonstration the product has. **The signup banner stays a banner, above the results, never in front of them.** Overturned by: evidence that anonymous browse suppresses rather than seeds signup.
 
-**No engagement-derived ranking.** *(Ratified 2026-09-04, in corrected form.)* Ordering is locality and recency, with the Member's **own declared interest tags** as a boost.
+**Ordering is locality and recency, with the Member's own declared interest tags as a boost — and may also carry genuine community response.** *(Amended 2026-09-12 on Don's instruction; see `DECISIONS.md`.)* What ordering may never carry is **payment**: nobody buys placement.
 
-> **Intent:** The refusal worth keeping is about *engagement optimization*, not about a Member's own stated interests. A boost the Member typed themselves is legible, editable, and turns off when they edit it; a score derived from what they lingered on is none of those things. Overturned by: evidence that the tag boost measurably crowds out locality.
+> **Removed from this entry, 2026-09-12:** the "No engagement-derived ranking" commitment that stood here. Don's ruling is that earned attention is the intended mechanism, not a loophole — *"if they're doing well in the community and the community loves them then we need to share that."* The provenance of the removed commitment is in the PR that removed it. What survives from it, and is not in dispute, is the foundation wording: ranking may use where you are and what you said you like; **it may never use what keeps you scrolling.**
 
 **Distance is out.** *(Ratified 2026-09-03.)* **Nothing in the product measures or displays miles.** No radius filter, no mile count, no distance sort. Ordering is hood → metro → wider → online. **How "how far is it" gets answered: hand off** — the address opens in the phone's map app on mobile and is copyable on web, because the map app knows the roads. **That affordance is load-bearing; it is the only path to a distance answer.**
 

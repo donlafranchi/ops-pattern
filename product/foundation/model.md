@@ -77,13 +77,15 @@ The reasoning generalises: **put logic where it can be tested and reviewed; put 
 
 ## Responding to an event
 
-Not a thumbs up. A **response with a state**, one per member per occurrence.
+**A thumbs up, or nothing.** There is no declined state and no seen-and-undecided state — those were Don painting the bigger picture, not a spec, and they are not what ships.
 
-**The Page owner sees four states:** who is coming · who isn't · who has seen it and is undecided · who has declined. *(Two of those may be the same thing — "isn't" and "has declined" were stated separately and may or may not be distinct from simply not answering. Flagged, not invented.)*
+**The organizer sees two lists:** who thumbed up, and who didn't. That is presence or absence of a row, not a state column — a member has responded, or they have not.
 
-**The count is public.** Don's reasoning, worth keeping: people want to know whether an event they are considering will be well attended. And more generally — *"let them decide what they like and what's popular for them."* Withholding it by instinct is the thing to resist.
+**Names are in the list.** **The public sees the count.**
 
-**Names and small profile photos are shown**, especially for meetups and group things. Seeing who is going is much of why someone decides to go.
+### What it needs
+
+Names mean members need a display name and a face. `display_name` exists and is always populated. **`avatar_url` exists as a column but nothing writes it** — there is no upload surface, so every avatar is empty today. That is new work, and it sits upstream of this.
 
 ### What "don't sell visibility" actually forbids
 
