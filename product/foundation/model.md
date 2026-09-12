@@ -15,15 +15,37 @@ Stated by Don, 2026-09-10. Where any other document disagrees with this one, thi
 
 A creator offers something of value: something to buy, join, visit, or learn about.
 
-## Pages
+## What a Page is
 
-A Page is a record of a tangible thing, and of who is behind it. Businesses. Groups that meet socially — a run club.
+In Don's words (2026-09-12): **a Page is "an organizing entity for something that needs more than one of anything."**
 
-*Unsettled:* whether venues are Pages too, as places where things happen. Raised tentatively, not ruled.
+Long-lived, and carrying multiples — multiple meetups, multiple announcements, maybe multiple conversations. That is the test, and it is the one to apply when something new turns up and nobody is sure.
+
+It replaces the older framing, "a Page is *who*; an Item is *what*." That pairing is retired: it depended on Items, which no longer exist, and it answered the wrong question. *Who is behind this* is a fact about a Page, not the reason one exists.
+
+Two things fall straight out of the test, without needing their own rule:
+
+- **Venues are Pages.** A venue is long-lived and hosts many things over time, so it needs more than one of everything. It was previously a separate noun; it isn't.
+- **A single occasion is not a Page.** One meetup needs one of everything. It is a post with a time.
 
 A Page carries who they are, what they're about, what they offer, where they'll be, and how to find them. Creators post pictures and edit all of it.
 
 A Page has a street address if it has a specific location, and a neighbourhood if it doesn't — either way it is findable by area on the map. The location is public. Never a home address; if someone enters one anyway, it is shown publicly.
+
+**A post can carry its own address**, separate from its Page's. A Page appears where its Page-level location says, and a post appears where the post says — which is how an itinerant Page's event reaches the map at the place it actually happens.
+
+## Dropping a pin
+
+A creator can set a location by dropping a pin on the map, for the places that have no street address — a meeting point in West Sacramento, a trailhead, a corner of a park.
+
+**The creator decides the precision. The platform does not snap, round, or coarsen it.** *(Provisional — read from a transcription artifact and being confirmed with Don. Everything below follows from it either way.)*
+
+That makes the copy the only thing standing between a creator and pinning their own house. So it is not advisory:
+
+- **The warning appears at the moment of placement**, not after, and says the pin is public.
+- **The place is confirmed back before it is saved** — "you've placed this in Midtown" — so nobody discovers later what they published.
+
+Both are required. With no snapping and no guard in the data, they are the guard.
 
 ## There are no Items
 
@@ -64,7 +86,7 @@ Its purpose is a headcount for the organizer. That is the whole of it:
 - It is not a social signal, and it is **not an input to ordering anywhere**. Visibility is not sold, and nothing is ranked by engagement — a count that moved a Page up the results would break both.
 - **Names, messaging attendees, capacity limits and waitlists are out.** An organizer who needs more than a number posts an announcement asking people to email a contact. Don named that escape hatch himself, and it is the reason the feature can stay this small.
 
-Two calls that shape it, recommended and awaiting confirmation: **a count only, no names, for launch** — whether a Page owner sees who noticed is a separate, deliberately deferred decision, and a list of names is that same question wearing a different hat. And **signed-in only** — anonymous browse stays, but a thumbs up needs an identity to count once, so an anonymous viewer sees the number and cannot add to it.
+**Count or names is still open.** Don is undecided and wants more to go on; nothing is ruled. The separate, deferred question of whether a Page owner sees who noticed is the same question wearing a different hat, which is why it is worth not answering sideways. **Signed-in only** is still the recommendation either way — a thumbs up needs an identity to be counted once, so an anonymous viewer sees the number and cannot add to it.
 
 ## What this reopened
 
