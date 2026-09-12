@@ -89,6 +89,10 @@ Good reasons exist and are not weakened by this. A member who has not opted into
 
 **Page creators get tips on how to be found** — the same gap closed from the creator's side.
 
+**Creators pick or submit tags, and submissions grow the dictionary** *(2026-09-12)*. Don: *"we are going to write the dictionary and start it with farmers market items. and then we need to allow page creators to pick or submit tags so we can grow that reference list."* Tags are what a creator calls their own thing; the dictionary is what a stranger might type for it. **Search matches both.**
+
+**An open tag field is member-contributed content**, so rule 1 applies: it does not reach production without a report-and-takedown path. Moderation is part of the cost of tags, not an extra.
+
 **Not embeddings.** `item_embeddings` and `member_embeddings` exist, hold zero rows, and nothing reads them. A curated dictionary is cheaper, controllable, inspectable, and has no model to train or drift. **Revisit when the dictionary stops scaling** — when maintaining it becomes a recurring cost somebody notices, or when searches that should match are missing because nobody thought of the term. Not because the tables happen to be there.
 
 ## Why Home and Browse both exist

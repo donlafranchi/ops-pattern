@@ -66,6 +66,11 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
   - **Later** — four states: coming · not coming · seen and undecided · declined. A state column replacing a row's existence — a migration and a rewrite of every read, **not an increment**.
   - **Blocked** — `members.avatar_url` has no write path. The list shows faces; no member has one.
   - **Trigger** — an organizer saying the yes-list alone isn't enough to plan with.
+- **Tag** ○ *(2026-09-12)* — a creator's own word for what their Page is, picked from a list or submitted.
+  - **Now** — nothing. No store, no picker, no submission path.
+  - **Later** — the vocabulary search matches, and the feed that grows the search dictionary.
+  - **Blocked** — moderation. A submitted tag is member-contributed content on a public surface (rule 1), so it needs a report-and-takedown path before any of it ships.
+  - **Never** — a tag that orders results, or one the platform assigns.
 - **Announcement** ○ — a Page tells its followers and members what's upcoming, **and the post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. No edit/delete after posting; no inbox, no unread state.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
