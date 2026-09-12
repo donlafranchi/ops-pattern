@@ -5,7 +5,9 @@ status: draft
 date: 2026-09-12
 ---
 
-**Don authors this; this is a draft so he edits rather than starts blank.** Seeded with farmers market items per his instruction. Every term maps to one of the twelve Page categories.
+> **Do not edit this yet** *(2026-09-12)*. It is organised by the twelve categories, and **the category count is now an open question** — Don has ruled that twelve is too many and has not said what replaces it (`DECISIONS.md` § Open). Editing 410 rows against a category set that is about to change wastes the edit. **Settle the count first.**
+
+**Don authors this; this is a draft so he edits rather than starts blank.** Seeded with farmers market items per his instruction. Every term maps to a Page category. **The draft uses the twelve that exist today; that set is not final.**
 
 **This file is temporary.** When Don has edited it, the list moves into the app as a named constant beside `PAGE_CATEGORIES` and **this file is deleted** — a vocabulary read by code does not also live in a document that can drift from it.
 

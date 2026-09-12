@@ -13,8 +13,8 @@ Mara has just moved and wants good bread. She opens the app and the search box o
 
 1. Search matches a Page on four sources: the curated term dictionary, the category a matched term maps to, the Page's own tags, and the Page's own text — its description, what it offers, and its posts. A Page matching on any one of them is returned.
 2. A term in the dictionary returns Pages in its mapped category even when no Page contains that word.
-3. A search matching a Page's tag returns that Page, whether the tag was picked from the list or submitted by its creator.
-4. Categories appear nowhere as a control — no pill row, no chip row, no filter surface. Search is the only filter.
+3. A search matching a Page's tag returns that Page. Tags are authored by the creator, not picked from a fixed list, and are visible to anyone viewing the Page.
+4. Categories appear nowhere as a control — no pill row, no chip row, no filter surface. Search is the only filter. (A creator still picks a category; **how many there are is unresolved and nothing here assumes twelve.**)
 5. The pre-search state shows a small set of example searches in plain words, not a category list or a taxonomy.
 6. A search with no matches shows what is near the searcher instead of an empty result set, and says in one line that nothing matched the words used.
 7. The no-match state never renders as an error, a dead end, or an empty page.
@@ -26,6 +26,8 @@ Mara has just moved and wants good bread. She opens the app and the search box o
 
 Free-text search over posts' bodies ranked by relevance — matching is enough at this size. Autocomplete, spell-correction, or synonym expansion beyond the curated dictionary. A surface for editing the dictionary. Saved searches. Any use of the embedding tables.
 
-**The creator-facing half of tags is NOT in this scenario and needs its own.** Picking a tag, submitting a new one, the tag store behind them, and **moderation of what gets submitted** — an open text field on a public surface is member-contributed content, which rule 1 bars from production without a report-and-takedown path. This scenario covers only that search matches tags that exist.
+**The creator-facing half of tags is NOT in this scenario and needs its own.** Authoring a tag, the store behind it, and **moderating tags that are now public** — member-contributed content other members see, which rule 1 bars from production without a report-and-takedown path. This scenario covers only that search matches tags that exist.
 
-**Open questions in `DECISIONS.md`, not here** (the three-section format is unbroken across every scenario): how the dictionary grows; whether tags replace or absorb *"Something else"*; and what the twelve categories are still for once tags exist.
+**The dictionary's automation is not here either.** An LLM agent proposing entries from submitted tags and zero-result searches, and the human approval gate before anything reaches the live dictionary, are their own work.
+
+**Open questions in `DECISIONS.md`, not here** (the three-section format is unbroken across every scenario): how many categories there are; what triggers the LLM pass and who approves its output; and whether public tags are moderated before or after they appear.

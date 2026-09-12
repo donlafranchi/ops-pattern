@@ -66,10 +66,10 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
   - **Later** — four states: coming · not coming · seen and undecided · declined. A state column replacing a row's existence — a migration and a rewrite of every read, **not an increment**.
   - **Blocked** — `members.avatar_url` has no write path. The list shows faces; no member has one.
   - **Trigger** — an organizer saying the yes-list alone isn't enough to plan with.
-- **Tag** ○ *(2026-09-12)* — a creator's own word for what their Page is, picked from a list or submitted.
-  - **Now** — nothing. No store, no picker, no submission path.
-  - **Later** — the vocabulary search matches, and the feed that grows the search dictionary.
-  - **Blocked** — moderation. A submitted tag is member-contributed content on a public surface (rule 1), so it needs a report-and-takedown path before any of it ships.
+- **Tag** ○ *(2026-09-12)* — a creator's own word for what their Page is. **Authored, not picked from a list, and public.**
+  - **Now** — nothing. No store, no composer field, no moderation path.
+  - **Later** — the vocabulary search matches, and one of three inputs to the search dictionary.
+  - **Blocked** — moderation. A public tag is member-contributed content other members see (rule 1), so it needs a report-and-takedown path before any of it ships. **Being public is what makes this blocking** — the backend free-text field, which only an operator reads, is not.
   - **Never** — a tag that orders results, or one the platform assigns.
 - **Announcement** ○ — a Page tells its followers and members what's upcoming, **and the post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. No edit/delete after posting; no inbox, no unread state.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
