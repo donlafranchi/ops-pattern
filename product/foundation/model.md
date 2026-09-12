@@ -65,7 +65,9 @@ Both are required. With no snapping and no guard in the data, they are the guard
 
 What a creator offers is described on their Page and in their posts. It is not a separately listed thing that browse indexes.
 
-Browse finds Pages, and it finds posts that carry a date and a place. In Don's words: *"You're right to include anything with a date and a location. We use a map to tell someone where to go."*
+**Browse finds Pages, and it finds posts.** Flat — not only the dated ones, not only the ones with a place. *(Ruled 2026-09-12.)*
+
+This widens an earlier line that said browse finds "posts that carry a date and a place." That phrasing came from Don on the map: *"You're right to include anything with a date and a location. We use a map to tell someone where to go."* **That is a statement about what reaches the map, and it still holds there** — a post needs a place to be a pin and a time to be an event. It was read as a filter on browse, which it never was.
 
 A specific occurrence is its own result, not a filter applied to its Page — this Saturday's farmers market is the thing a finder gets back, at the place it happens. Browse does not index a catalogue of listings.
 

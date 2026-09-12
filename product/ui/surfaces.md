@@ -44,6 +44,8 @@ Three tabs and a create action. **The two-tab merge is ruled and unbuilt**; the 
 
 **Browse is being rewritten around Pages** *(ruled 2026-09-09 — the existing scenario is rewritten, not replaced)*. Today it indexes Items only.
 
+**What browse indexes is Pages and posts** *(ruled 2026-09-12)* — flat, not only posts carrying a date and a place. The narrower phrasing was a statement about the map, which still holds there. `../foundation/model.md` § There are no Items.
+
 **The rewrite carries a second constraint** *(ruled 2026-09-12)*: **zero filter pills on the results surface.** Filtering lives in a filter surface — `design-language.md` principle 10, which is where the rule is stated and the only place it is stated. **What replaces the pill row is not chosen**; a research pass is running. Anything specifying a replacement shape before that lands is ahead of the ruling.
 
 ---
