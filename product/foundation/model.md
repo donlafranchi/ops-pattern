@@ -75,19 +75,29 @@ A scheduled function in the app, written in TypeScript, reviewed like any other 
 
 The reasoning generalises: **put logic where it can be tested and reviewed; put constraints where they cannot be bypassed.** Generating occurrences is logic — it belongs in the app. Cancellation state is a constraint — it belongs in the schema.
 
-## Saying you're coming
+## Responding to an event
 
-In Don's words: *"about RSVP it can be as simple as a thumbs up in the beginning. Just to give organizers an idea of headcount."*
+Not a thumbs up. A **response with a state**, one per member per occurrence.
 
-A thumbs up sits on **an occurrence** — a post carrying a time. Thursday's run, not the run club, and not the Page.
+**The Page owner sees four states:** who is coming · who isn't · who has seen it and is undecided · who has declined. *(Two of those may be the same thing — "isn't" and "has declined" were stated separately and may or may not be distinct from simply not answering. Flagged, not invented.)*
 
-Its purpose is a headcount for the organizer. That is the whole of it:
+**The count is public.** Don's reasoning, worth keeping: people want to know whether an event they are considering will be well attended. And more generally — *"let them decide what they like and what's popular for them."* Withholding it by instinct is the thing to resist.
 
-- It is not a social signal, and it is **not an input to ordering anywhere**. Visibility is not sold, and nothing is ranked by engagement — a count that moved a Page up the results would break both.
-- **Names, messaging attendees, capacity limits and waitlists are out.** An organizer who needs more than a number posts an announcement asking people to email a contact. Don named that escape hatch himself, and it is the reason the feature can stay this small.
+**Names and small profile photos are shown**, especially for meetups and group things. Seeing who is going is much of why someone decides to go.
 
-**Count or names is still open.** Don is undecided and wants more to go on; nothing is ruled. The separate, deferred question of whether a Page owner sees who noticed is the same question wearing a different hat, which is why it is worth not answering sideways. **Signed-in only** is still the recommendation either way — a thumbs up needs an identity to be counted once, so an anonymous viewer sees the number and cannot add to it.
+### The distinction this corrects
+
+An earlier version of this document said a response must not be "a social signal" and must not feed ordering, and treated both as the same commitment. They are not.
+
+- **Showing a count on an event is fine.** It is information a person uses to decide.
+- **Ordering browse results by that count is what the commitments forbid** — visibility is not sold, and nothing is ranked by engagement.
+
+Only the second is prohibited. The first was my conflation, not a ruling.
+
+### What it needs
+
+Names and faces mean members need a display name and an avatar. `display_name` exists and is always populated. **`avatar_url` exists as a column but nothing writes it** — there is no upload surface, so every avatar is empty today. That is new work, and it sits upstream of this.
 
 ## What this reopened
 
-Responding to an event was cut on the reasoning that occurrences of a recurring event did not exist as rows to respond to. They do now, so that reasoning was void — and the thumbs up above is what replaced it. Recorded because the cut was reversed by a decision, not by drift.
+Responding to an event was cut on the reasoning that occurrences of a recurring event did not exist as rows to respond to. They do now, so that reasoning was void — and the response above is what replaced it. Recorded because the cut was reversed by a decision, not by drift.
