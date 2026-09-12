@@ -77,15 +77,11 @@ The reasoning generalises: **put logic where it can be tested and reviewed; put 
 
 ## Responding to an event
 
-**A thumbs up, or nothing.** There is no declined state and no seen-and-undecided state — those were Don painting the bigger picture, not a spec, and they are not what ships. The eventual four-state shape is recorded as the *later* horizon on the Response entry in [`nouns.md`](nouns.md) — one entry, both horizons.
+**A thumbs up, or nothing.** There is no declined state and no seen-and-undecided state — those were Don painting the bigger picture, not a spec, and they are not what ships.
 
-**The organizer sees two lists:** who thumbed up, and who didn't. That is presence or absence of a row, not a state column — a member has responded, or they have not.
+**The organizer sees two lists:** who thumbed up, and who didn't.
 
 **Names are in the list.** **The public sees the count.**
-
-### What it needs
-
-Names mean members need a display name and a face. `display_name` exists and is always populated. **`avatar_url` exists as a column but nothing writes it** — there is no upload surface, so every avatar is empty today. That is new work, and it sits upstream of this.
 
 ### What "don't sell visibility" actually forbids
 
@@ -96,10 +92,6 @@ In Don's words (2026-09-12): *"Don't sell visibility means we don't sell visibil
 Genuine community response driving what surfaces is not a loophole in that rule — **it is the intended mechanism.** Earned attention is the product working as designed. A baker the neighbourhood turns up for should rise, and the platform's job is to carry that signal, not to flatten it in the name of fairness.
 
 This has been recorded wrongly twice, both times by an agent narrowing the rule further than Don ever stated it. The first version said a response count must not be "a social signal." The second said displaying a count was fine but ordering by it was forbidden. **The second half of that is also wrong**, and is corrected here: response may drive ordering. What may not is a payment.
-
-### What it needs
-
-Names and faces mean members need a display name and an avatar. `display_name` exists and is always populated. **`avatar_url` exists as a column but nothing writes it** — there is no upload surface, so every avatar is empty today. That is new work, and it sits upstream of this.
 
 ## What this reopened
 

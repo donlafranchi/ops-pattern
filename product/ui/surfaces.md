@@ -109,6 +109,8 @@ Three tabs and a create action. **The two-tab merge is ruled and unbuilt**; the 
 | **Feed delivery of announcements** | ○ | The announcement arriving somewhere a member will see it | **The feed function takes no follow input.** This is the missing half, and it is larger than the composer. |
 | **Page board** | ○ | Replies under an announcement — the coordination half of a group | Board increment one. One level of reply, not a tree. |
 | **Join control** | ○ | The control that lets someone join a Group | **Nothing.** The rules are specced, the handler ships, the read paths exist. **Only the control is missing** — so today a member can re-join something they left and cannot join anything else. In scope, 0.75 day, unticketed. |
+| **Response control** | ○ | A member says they are coming to an occurrence — the tap itself | Nothing structural; the noun is ruled. **No occurrence exists to respond to** — the post mechanism is upstream of it. |
+| **Response list** | ○ | The organizer reads who is coming and who isn't — two lists, with names and faces | **`members.avatar_url` has no write path.** There is no avatar upload surface, so the list would render faceless. That work is upstream of this screen. |
 | **Idea composer** | ○ | Put a new thing to the neighbourhood and see who wants it before it exists | Mechanic undesigned — threshold, signalling, conversion. Substrate shipped. |
 | **Volunteering composer** | ○ | Offer and ask | A reply channel. **Tractable inside a group the moment the board ships; blocked across the neighbourhood.** |
 | **Direct messages** | ○ | One person writing to another | Everything. No substrate at all. |

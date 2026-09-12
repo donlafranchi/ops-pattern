@@ -49,10 +49,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 
 ## The nouns that are coming — ruled in, not all scheduled
 
-- **Response** ● *now* / ○ *later* — a member says they are coming to an occurrence.
-  - **Now (ruled 2026-09-12):** a thumbs up or nothing. Presence or absence of a row, not a state column. The organizer sees two lists — who thumbed up and who didn't. Names are shown; the public sees the count.
-  - **Later (Don, 2026-09-12 — the bigger picture, not a spec):** four states — coming · not coming · seen and undecided · declined. *"Not coming" and "declined" were stated separately and may be the same state; nobody has needed to tell them apart, which is the argument for not building them.*
-  - **What it costs to get there:** a state column replacing a row's existence — a migration and a rewrite of every read. Not an increment on the thumbs up. **What would make it real:** an organizer saying the yes-list alone isn't enough to plan with.
+- **Response** ● *now* / ○ *later* (2026-09-12) — a member says they are coming to an occurrence. **Now:** a thumbs up or nothing — presence or absence of a row, not a state column; the organizer sees two lists, names are shown, the public sees the count. **Blocked on `members.avatar_url`, which has no write path** — the list shows faces, and no member has one. **Later:** four states (coming · not coming · seen and undecided · declined), which is a state column replacing a row's existence — a migration and a rewrite of every read, not an increment. Trigger: an organizer saying the yes-list alone isn't enough to plan with.
 - **Announcement** ○ — a Page tells its followers and members what's upcoming. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. No edit/delete after posting; no inbox, no unread state.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
