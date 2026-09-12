@@ -33,11 +33,11 @@ owns:
 
 ## Surface roles
 
-Three tabs and a create action.
+**Three tabs and a create action: Home, Browse, You, and `+`.** This is what the code ships, and — since 2026-09-12 — what is ruled.
 
-**The two-tab merge — Home absorbing Explore entirely — is contradicted by Don's statement of 2026-09-12** that Home and Browse have distinct jobs (`../foundation/model.md` § Why Home and Browse both exist). The merge was ratified 2026-09-03 on the reasoning that ambient browsing and intentional searching are the same posture over the same cards; **the ruling says they are not**, and gives each surface a job the other cannot do.
+**The two-tab merge is rescinded** *(2026-09-12)*. Don: *"we rescinded that decision to make the launch date."* **A scope cut for 30 October, not a design conclusion** — the merge was not judged wrong on its merits. Anyone reviving it needs that context. `../../DECISIONS.md`.
 
-**The navigation ships three, which is what the table below describes, and what the ruling implies.** Reconciling this formally — including whether the two-tab ratification is withdrawn or amended — is **Cowork's, not recorded here**. What is recorded: the merge's premise no longer holds, and F059 is built on it.
+**One thing in the nav is still missing: the create action.** Three tabs ship; the `+` does not. That was the half of the two-tab decision that was never about tab count.
 
 | Slot | Job | The question it answers |
 |---|---|---|
@@ -46,7 +46,9 @@ Three tabs and a create action.
 | **You** | The Member's own things | *What am I doing here, and what did I follow?* |
 | **+** | Create | *I want to put something up.* |
 
-**Browse is being rewritten around Pages** *(ruled 2026-09-09 — the existing scenario is rewritten, not replaced)*. Today it indexes Items only.
+**Browse is being rewritten around Pages** *(ruled 2026-09-09 — the existing scenario is rewritten, not replaced)*. Today it indexes Items only. **It is rewritten where it lives, not moved onto Home** — the merge is rescinded.
+
+**Undecided: what address Browse lives at.** The merge would have put it at `/`; that is rescinded. It sits at `/explore` today. Whether it stays there, moves to `/browse`, or takes `/` with Home moving is **open, and nothing has ruled on it.** It is a naming and URL question, not a structural one — all three shapes ship the same three tabs.
 
 **Home and Browse are two surfaces with two jobs** *(ruled 2026-09-12)*: **Browse is complete and not ranked by the member's interests; Home is personal.** The second exists so a member's interests are not buried in the first. `../foundation/model.md` § Why Home and Browse both exist, its one home — including the hard line that *personalized* means declared interests and place, never engagement.
 
@@ -63,7 +65,7 @@ Three tabs and a create action.
 | Route | Surface | What it's for |
 |---|---|---|
 | `/` | Home | ● The anonymous, locality-defaulted feed. Reads `locality_feed_items` → `discoverable_items`. **Takes a place and interest tags. Takes no follow input** — see the announcement gap below. |
-| `/explore` | Browse | ● Search, kind pills, secondary filters, list/map toggle. **Indexes Items only**, and **its pill row is a ratified defect** — filtering controls move off the results surface (`design-language.md` principle 10). The surface the Pages rewrite lands on. |
+| `/explore` | Browse | ● Search, kind pills, secondary filters, list/map toggle. **A first-class surface, not a mode of Home** *(2026-09-12)* — though whether Browse keeps this address is undecided. **Indexes Items only**, and **its pill row is a ratified defect** — filtering controls move off the results surface (`design-language.md` principle 10). The surface the Pages rewrite lands on. |
 | `/auth/login` · `/auth/signup` · `/auth/password` | Auth | ● Email-first, with magic link secondary. |
 | `/onboarding` | Onboarding | ● Hood and metro pick, post-signup. Idempotent re-entry. **A person currently finishes this without ever being told what the product is for** — the copy pass is Fortnight 4. |
 | `/m/[handle]` | Member | ● A Member's public surface. **The one deliberately global namespace** — the handle is the auth identity and must survive relocation. |
