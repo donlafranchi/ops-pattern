@@ -56,7 +56,7 @@ owns:
 
 **The rewrite carries a second constraint** *(ruled 2026-09-12, extended 2026-09-13)*: **there is no category at all.** It began as "zero filter pills", became "search is the filter", and ended with categories retired entirely — **creators create tags and pick no category.** `../foundation/model.md` § Search is the filter. Scenario: `../../planning/scenario-F071.md` (`draft`).
 
-**The composer's category step becomes the tag step** *(ruled 2026-09-13)* — same position, walkthrough stays six steps, pick-or-create a tag and no category. **Unbuilt:** it renders the twelve retired terms today, and the tag store it would pick from does not exist. Blocked on report-and-takedown, per rule 1.
+**The composer's category step becomes the tag step** *(ruled 2026-09-13)* — same position, walkthrough stays six steps, pick-or-create a tag and no category. **Unbuilt:** it renders the twelve retired terms today. **Creators create their own tags, so nothing needs seeding** — the picker fills itself as they are used. Blocked only on report-and-takedown, per rule 1.
 
 ---
 
