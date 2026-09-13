@@ -30,4 +30,4 @@ Free-text search over posts' bodies ranked by relevance — matching is enough a
 
 **The dictionary's automation is not here either.** An LLM agent proposing entries from submitted tags and zero-result searches, and the human approval gate before anything reaches the live dictionary, are their own work.
 
-**Open questions in `DECISIONS.md`, not here** (the three-section format is unbroken across every scenario): whether the composer's category step becomes a tag step or disappears; what triggers the LLM pass and who approves its output; whether public tags are moderated before or after they appear; and how the dictionary grows.
+**Open questions in `DECISIONS.md`, not here** (the three-section format is unbroken across every scenario): what triggers the LLM pass and who approves its output; whether public tags are moderated before or after they appear; and how the dictionary grows.
