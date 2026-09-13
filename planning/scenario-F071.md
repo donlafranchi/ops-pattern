@@ -7,14 +7,14 @@ depends: [F059]
 ---
 ## Story
 
-Mara has just moved and wants good bread. She opens the app and the search box offers a few things people actually look for — *sourdough*, *yoga*, *guitar lessons*. She types "sourdough". Nothing in her neighbourhood has that word on it, but the curated dictionary maps it to Food & Drink, so she gets the bakers and the jam maker anyway. On a quieter day the same search finds nothing at all, and rather than an empty screen she is shown what *is* near her, so she learns the neighbourhood is thin rather than that the app is broken. She has not signed in and is never asked to. Meanwhile Priya, setting up her bike-repair Page, sees a line telling her which words will find her — including the tags she picked.
+Mara has just moved and wants good bread. She opens the app and the search box offers a few things people actually look for — *sourdough*, *yoga*, *guitar lessons*. She types "sourdough". Nothing in her neighbourhood has that word on it, but the curated dictionary maps it to the tags *bread* and *bakery*, so she gets the bakers and the jam maker anyway. On a quieter day the same search finds nothing at all, and rather than an empty screen she is shown what *is* near her, so she learns the neighbourhood is thin rather than that the app is broken. She has not signed in and is never asked to. Meanwhile Priya, setting up her bike-repair Page, sees a line telling her which words will find her — including the tags she picked.
 
 ## Acceptance
 
-1. Search matches a Page on four sources: the curated term dictionary, the category a matched term maps to, the Page's own tags, and the Page's own text — its description, what it offers, and its posts. A Page matching on any one of them is returned.
-2. A term in the dictionary returns Pages in its mapped category even when no Page contains that word.
+1. Search matches a Page on three sources: the curated term dictionary, the Page's own tags, and the Page's own text — its description, what it offers, and its posts. A Page matching on any one of them is returned.
+2. A term in the dictionary returns Pages carrying the tags it maps to, even when no Page contains that word.
 3. A search matching a Page's tag returns that Page. Tags are authored by the creator, not picked from a fixed list, and are visible to anyone viewing the Page.
-4. Categories appear nowhere as a control — no pill row, no chip row, no filter surface. Search is the only filter. (A creator still picks a category; **how many there are is unresolved and nothing here assumes twelve.**)
+4. There is no category anywhere — not as a control, not as a field a creator fills in. **Tags are the only vocabulary**, and search is the only filter.
 5. The pre-search state shows a small set of example searches in plain words, not a category list or a taxonomy.
 6. A search with no matches shows what is near the searcher instead of an empty result set, and says in one line that nothing matched the words used.
 7. The no-match state never renders as an error, a dead end, or an empty page.
@@ -30,4 +30,4 @@ Free-text search over posts' bodies ranked by relevance — matching is enough a
 
 **The dictionary's automation is not here either.** An LLM agent proposing entries from submitted tags and zero-result searches, and the human approval gate before anything reaches the live dictionary, are their own work.
 
-**Open questions in `DECISIONS.md`, not here** (the three-section format is unbroken across every scenario): how many categories there are; what triggers the LLM pass and who approves its output; and whether public tags are moderated before or after they appear.
+**Open questions in `DECISIONS.md`, not here** (the three-section format is unbroken across every scenario): whether the composer's category step becomes a tag step or disappears; what triggers the LLM pass and who approves its output; whether public tags are moderated before or after they appear; and how the dictionary grows.

@@ -54,7 +54,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 | Noun | Status | What it is | **What it deliberately does not have** |
 |---|---|---|---|
 | **Member** | ● | One real human, one account | No type, tier, or stored role. No platform-awarded badge, rating, or label it didn't write itself. |
-| **Page** | ● | The person or people behind the listing | No permanent kind that gates anything. No permission granted by its business record. No Page for a single occasion. No conversion into another Page. |
+| **Page** | ● | The person or people behind the listing | No permanent kind that gates anything. No permission granted by its business record. No Page for a single occasion. No conversion into another Page. **No category a creator picks** *(2026-09-13 — tags are the only vocabulary)*. |
 | **Item** | ● | One thing offered, or one occasion | No independent existence off a Page. No response counter shown to its author. No date on a product. |
 | **Venue** | ● | A physical place that may host other people's Items | No owner by default — an itinerant Page has none and is found through the Venues it appears at. |
 | **Place** | ● | Platform-curated geography (neighbourhood → state) | No member-facing create surface. Nobody adds a Place. |
@@ -66,11 +66,11 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
   - **Later** — four states: coming · not coming · seen and undecided · declined. A state column replacing a row's existence — a migration and a rewrite of every read, **not an increment**.
   - **Blocked** — `members.avatar_url` has no write path. The list shows faces; no member has one.
   - **Trigger** — an organizer saying the yes-list alone isn't enough to plan with.
-- **Tag** ○ *(2026-09-12)* — a creator's own word for what their Page is. **Authored, not picked from a list, and public.**
-  - **Now** — nothing. No store, no composer field, no moderation path.
-  - **Later** — the vocabulary search matches, and one of three inputs to the search dictionary.
-  - **Blocked** — moderation. A public tag is member-contributed content other members see (rule 1), so it needs a report-and-takedown path before any of it ships. **Being public is what makes this blocking** — the backend free-text field, which only an operator reads, is not.
-  - **Never** — a tag that orders results, or one the platform assigns.
+- **Tag** ○ *(2026-09-12, made the only vocabulary 2026-09-13)* — a creator's own word for what their Page is. **Created, not picked from a fixed list, and public.**
+  - **Now** — nothing. No store, no composer field, no moderation path. A Page carries `groups.category` from the retired twelve; that column has no live writer once the category step goes.
+  - **Later** — **the only vocabulary.** What search matches, and what a coarse grouping is derived from if one is ever needed.
+  - **Blocked** — **report-and-takedown, which does not exist.** A public tag is member-contributed content other members see, so rule 1 bars it from production without one. There is no `reports` table and no operator concept in the code; F058 is the work and it is unbuilt.
+  - **Never** — a tag that orders results, one the platform assigns, or a coarse category a creator picks alongside it.
 - **Announcement** ○ — a Page tells its followers and members what's upcoming, **and the post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. No edit/delete after posting; no inbox, no unread state.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.

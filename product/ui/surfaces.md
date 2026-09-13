@@ -54,7 +54,9 @@ owns:
 
 **What browse indexes is everything the platform holds** *(ruled 2026-09-12)* — Pages and posts, flat, with posts as an instance rather than a separate rule. `../foundation/model.md` § Browse is everything.
 
-**The rewrite carries a second constraint** *(ruled 2026-09-12)*: **there is no category control at all — search is the filter.** This began the same day as "zero filter pills" and was settled by the simplify-to-search ruling. A Page still declares a category and it still orders nothing; no surface renders one as a control. `../foundation/model.md` § Search is the filter. Scenario: `../../planning/scenario-F071.md` (`draft`).
+**The rewrite carries a second constraint** *(ruled 2026-09-12, extended 2026-09-13)*: **there is no category at all.** It began as "zero filter pills", became "search is the filter", and ended with categories retired entirely — **creators create tags and pick no category.** `../foundation/model.md` § Search is the filter. Scenario: `../../planning/scenario-F071.md` (`draft`).
+
+**The composer's category step now has nothing to do.** It renders the twelve retired terms. Whether it becomes a tag step or disappears is open (`../../DECISIONS.md`); **until it is settled, the walkthrough still shows a step for a field that no longer means anything.**
 
 ---
 
