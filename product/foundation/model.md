@@ -26,8 +26,19 @@ It replaces the older framing, "a Page is *who*; an Item is *what*." That pairin
 
 Two things fall straight out of the test, without needing their own rule:
 
-- **Venues are Pages.** A venue is long-lived and hosts many things over time, so it needs more than one of everything. It was previously a separate noun; it isn't.
 - **A single occasion is not a Page.** One meetup needs one of everything. It is a post with a time.
+
+### Venue is not a noun — it is a role
+
+*(Confirmed by Don, 2026-09-12.)* **A venue is an organization hosting at a Location.** Not an entity of its own, and not a kind of Page.
+
+- **The Page is justified by what the organization is**, never by the hosting. Harlow's gets one because it is a business. A farmers market gets one because it is an organization that convenes people.
+- **Persistence lives on the Location, not the organization** — `locations.kind` already carries it. Harlow's is `permanent`. A market taking over a few streets on Saturday mornings is `recurring_temporary`.
+- **Hosting needs nothing new.** A venue's calendar is posts with times, which the post mechanism already gives every organization. What would justify a kind is a *booking* model — somebody asking to be on someone else's calendar — and that is coordination between two organizations, not a property of one.
+
+It follows that anything can host. A bakery that runs a book club one evening is a venue that evening and a bakery the rest of the week, with one Page throughout — which a venue kind would have broken, since a Page never converts into another Page.
+
+**Unrecorded:** which `kind` a farmers-market-shaped organization takes. The six are place · interest · practice · event_anchored · family · business, and a market that convenes commercial vendors without selling anything itself fits none of them cleanly. Raised, not ruled.
 
 **A Page carries:**
 
@@ -52,7 +63,7 @@ Creators post pictures and edit all of it.
 
 A creator can set a location by dropping a pin on the map, for the places that have no street address — a meeting point in West Sacramento, a trailhead, a corner of a park.
 
-**The creator decides the precision. The platform does not snap, round, or coarsen it.** *(Provisional — read from a transcription artifact and being confirmed with Don. Everything below follows from it either way.)*
+**The creator decides the precision. The platform does not snap, round, or coarsen it.** *(Confirmed by Don, 2026-09-12.)*
 
 That makes the copy the only thing standing between a creator and pinning their own house. So it is not advisory:
 

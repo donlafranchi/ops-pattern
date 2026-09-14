@@ -22,6 +22,24 @@ The platform's answer to the anonymous-complaint-feed failure mode (no one accou
 
 The platform pushes back on complaint-only content by offering — never forcing — a fix-it pairing in the same composer (a Wonder, an Ask, a Gathering that leads toward a solution). A complaint paired with a solution circulates fully; a bare complaint gets a nudge and reduced circulation, never silent deletion. Illegal, threatening, or child-safety content is a separate flow with human review, not this mechanism.
 
+## Who sees who is involved
+
+*(Don, 2026-09-13. **A guideline, not an absolute** — provisional until there is enough real use to judge it. Written down so it stops being re-explained.)*
+
+**The question is never whether to show participation. It is who is involved enough to see it.** Forbidding it outright is the wrong shape: the answer is scoped visibility, not absence.
+
+In Don's words: *"what we're doing is not showing everyone everything… a random who isn't involved doesn't get this info."*
+
+Three tiers, widest access first:
+
+- **The organizer, producer, or Page owner sees it in full** — names included. They are accountable for the thing happening; planning it requires knowing who is coming.
+- **Members of a Group see who is coming from within their Group.** Involvement is the qualification, and membership is what makes someone involved.
+- **Everyone else sees the count, and no names.** A stranger gets the number — enough to judge whether a thing is worth going to, which is the public's legitimate interest — and nothing about who.
+
+**This is a default, not a permission system.** It says what the platform shows absent any other signal; a member's own discoverability setting still governs whether their name links anywhere, and `member_place_interests` and `member_saved_searches` remain owner-only with no exception.
+
+**Why it is a guideline.** Nobody has watched this happen at real volume yet. The tier that will move first is the middle one — whether Group membership is the right unit of "involved", or whether it should be having responded to the same thing. **Revisit when an organizer or a member says the wrong people can or cannot see something**, not on a schedule.
+
 ## Uploaded images — two standing constraints
 
 **An uploaded image is stripped of embedded metadata (GPS included) before storage.** Three individually harmless facts combine into a doxxing vector: phone photos carry GPS, producers often work from home, and item locations are already public — an unstripped kitchen photo on a public listing publishes a home address nobody consented to showing. Enforcement is structural: the client re-encodes, and the bucket accepts exactly one format, so re-encoding is the only path in. A deliberately crafted file could still smuggle a metadata chunk — recorded as a residual risk, not claimed away.

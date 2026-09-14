@@ -56,7 +56,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 | **Member** | ● | One real human, one account | No type, tier, or stored role. No platform-awarded badge, rating, or label it didn't write itself. |
 | **Page** | ● | The person or people behind the listing | No permanent kind that gates anything. No permission granted by its business record. No Page for a single occasion. No conversion into another Page. **No category a creator picks** *(2026-09-13 — tags are the only vocabulary)*. |
 | **Item** | ● | One thing offered, or one occasion | No independent existence off a Page. No response counter shown to its author. No date on a product. |
-| **Venue** | ● | A physical place that may host other people's Items | No owner by default — an itinerant Page has none and is found through the Venues it appears at. |
+| ~~**Venue**~~ | ✕ | **Not a noun** *(2026-09-12)* — a venue is an organization hosting at a Location. The Page is justified by what the organization is; persistence is `locations.kind` (Harlow's `permanent`, a Saturday market `recurring_temporary`). | No entity of its own, and no Page kind. Anything can host — a bakery running a book club is a venue that evening, on the one Page it already had. |
 | **Place** | ● | Platform-curated geography (neighbourhood → state) | No member-facing create surface. Nobody adds a Place. |
 
 ## The nouns that are coming — ruled in, not all scheduled
@@ -71,7 +71,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
   - **Later** — **the only vocabulary.** What search matches, and what a coarse grouping is derived from if one is ever needed.
   - **Blocked** — **report-and-takedown, which does not exist.** A public tag is member-contributed content other members see, so rule 1 bars it from production without one. There is no `reports` table and no operator concept in the code; F058 is the work and it is unbuilt.
   - **Never** — a tag that orders results, one the platform assigns, or a coarse category a creator picks alongside it.
-- **Announcement** ○ — a Page tells its followers and members what's upcoming, **and the post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. No edit/delete after posting; no inbox, no unread state.
+- **Announcement** ○ — a Page tells its followers and members what's upcoming, **and the post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. **Editable after posting** *(ruled 2026-09-13 — reverses the earlier no-edit rule)*; **delete still refused**; no inbox, no unread state.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
 - **Idea** `○` *(schema `wonder`)* — someone puts a new thing to the neighbourhood and others signal interest before it exists.
