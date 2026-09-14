@@ -92,6 +92,31 @@ Good reasons exist and are not weakened by this. A member who has not opted into
 
 **What this does not settle.** Browse carrying everything makes a result list a mixture — a Page, an event next Saturday, an undated *"50% off today"*. **How that list reads and how it orders is open.** What is not open, and is not to be reopened, is what may enter it.
 
+## Search is the filter
+
+*(Ruled 2026-09-12, extended 2026-09-13.)* **There is no category, and no filter control.** **Search is how a finder narrows** — the only way.
+
+**A curated dictionary of search terms maps to tags, built up front.** *"Sourdough"* reaches Pages tagged *bread* or *bakery*; *"homemade soap"* reaches *soap* and *candles*. So a search returns Pages that never contain the word searched for — which is the point. At launch volumes the words a member types and the words a creator wrote will rarely be the same, and the dictionary closes that gap from the finder's side.
+
+**Page creators get tips on how to be found** — the same gap closed from the creator's side.
+
+**Creators pick or create tags. They do not pick a category** *(ruled 2026-09-13)*. **One vocabulary, not two.**
+
+**Why no category.** Amazon and Yelp both look like they have categories and do not — Yelp carries ~1,500 labels a business picks three of; Amazon has ~37,000 browse nodes essentially nobody browses. **Fine-grained labels chosen by the creator, with search as the front door.** A coarse category adds nothing for the person filling in the form: it is one more decision that buys the finder nothing search does not already do.
+
+- **Tags are created, not picked from a fixed list, and they are public.**
+- **There is no category field a creator fills in.** The twelve are retired.
+- **If a coarse grouping is ever needed** — a map legend, an empty state — **it is derived from tags, never chosen.** The shape, not work to do now.
+- **"Something else" is gone**, superseded by tag creation. A creator writing a suggestion and a creator creating a tag were always the same act.
+
+**Two inputs, one vocabulary.**  Tags creators create, and searches that returned nothing, both feed the dictionary. **The tag list and the dictionary are one vocabulary, not two**: the tags are what exists, and the dictionary is that plus the words strangers type for it. Nothing builds a third list.
+
+**An LLM agent grows the dictionary, and a human approves what it proposes.** New tags and zero-result searches in; proposed entries out. **The approval gate is a recommendation, not Don's words** — he asked for automation and did not mention a gate. It is written in because an unattended loop that writes its own search vocabulary drifts, and **the failure is invisible**: bad entries do not error, they quietly make search worse, and the thing that reports it is a member who searched and found nothing.
+
+**A public tag is member-contributed content that other people see**, so rule 1 applies — no production without a report-and-takedown path — and it is an abuse surface in its own right, not only a data-quality one. `messaging-problem.md`.
+
+**Not embeddings.** `item_embeddings` and `member_embeddings` exist, hold zero rows, and nothing reads them. A curated dictionary is cheaper, controllable, inspectable, and has no model to train or drift. **Revisit when the dictionary stops scaling** — when maintaining it becomes a recurring cost somebody notices, or when searches that should match are missing because nobody thought of the term. Not because the tables happen to be there.
+
 ## Why Home and Browse both exist
 
 In Don's words (2026-09-12): **"Browse is everything, Home is personalized so items the member's personal interests don't get buried in browse."**

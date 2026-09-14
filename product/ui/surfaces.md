@@ -54,7 +54,9 @@ owns:
 
 **What browse indexes is everything the platform holds** *(ruled 2026-09-12)* — Pages and posts, flat, with posts as an instance rather than a separate rule. `../foundation/model.md` § Browse is everything.
 
-**The rewrite carries a second constraint** *(ruled 2026-09-12)*: **zero filter pills on the results surface.** Filtering lives in a filter surface — `design-language.md` principle 10, which is where the rule is stated and the only place it is stated. **What replaces the pill row is not chosen**; a research pass is running. Anything specifying a replacement shape before that lands is ahead of the ruling.
+**The rewrite carries a second constraint** *(ruled 2026-09-12, extended 2026-09-13)*: **there is no category at all.** It began as "zero filter pills", became "search is the filter", and ended with categories retired entirely — **creators create tags and pick no category.** `../foundation/model.md` § Search is the filter. Scenario: `../../planning/scenario-F071.md` (`draft`).
+
+**The composer's category step becomes the tag step** *(ruled 2026-09-13)* — same position, walkthrough stays six steps, pick-or-create a tag and no category. **Unbuilt:** it renders the twelve retired terms today. **Creators create their own tags, so nothing needs seeding** — the picker fills itself as they are used. Blocked only on report-and-takedown, per rule 1.
 
 ---
 
@@ -65,7 +67,7 @@ owns:
 | Route | Surface | What it's for |
 |---|---|---|
 | `/` | Home | ● The anonymous, locality-defaulted feed. Reads `locality_feed_items` → `discoverable_items`. **Takes a place and interest tags. Takes no follow input** — see the announcement gap below. |
-| `/explore` | Browse | ● Search, kind pills, secondary filters, list/map toggle. **A first-class surface, not a mode of Home** *(2026-09-12)* — though whether Browse keeps this address is undecided. **Indexes Items only**, and **its pill row is a ratified defect** — filtering controls move off the results surface (`design-language.md` principle 10). The surface the Pages rewrite lands on. |
+| `/explore` | Browse | ● Search, kind pills, secondary filters, list/map toggle — **the pills and secondary filters are ruled out** *(2026-09-12, search is the filter)*. **A first-class surface, not a mode of Home** *(2026-09-12)* — though whether Browse keeps this address is undecided. **Indexes Items only**, and **its pill row is a ratified defect** — filtering controls move off the results surface (`design-language.md` principle 10). The surface the Pages rewrite lands on. |
 | `/auth/login` · `/auth/signup` · `/auth/password` | Auth | ● Email-first, with magic link secondary. |
 | `/onboarding` | Onboarding | ● Hood and metro pick, post-signup. Idempotent re-entry. **A person currently finishes this without ever being told what the product is for** — the copy pass is Fortnight 4. |
 | `/m/[handle]` | Member | ● A Member's public surface. **The one deliberately global namespace** — the handle is the auth identity and must survive relocation. |
