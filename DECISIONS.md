@@ -153,6 +153,9 @@ One dated line per ruling, newest first. Append only — never edit a past line;
 - **The platform does not generate QR codes.** Sharing is phone-to-phone. A producer generating their own business QR stays open as an unbuilt, unscoped idea.
 - **No legal or tax language reaches a person**, and entity type/state of formation/formation date never surface in any user-facing copy.
 - **One route: `_inbox/` → `planning/backlog/` → `next/` → `now/` → `done/`, decisions distill up into this file.** *(Superseded by this revamp — the lane structure is gone; a scenario's frontmatter `status` is now the only state.)*
+- **2026-09-14 — Browse lives at `/explore`.** Don's ruling. The address was left open when the Home/Browse merge was rescinded 2026-09-12; it is now settled and F059 states it as criterion 1. No redirect is owed, because Browse never moved.
+- **2026-09-14 — A member outside every seeded metro chooses one; no metro is ever picked for them.** Don's ruling, replacing the "named fallback" in F059. **Every US metro is seeded before launch**, which is what makes choosing possible — a fallback only existed because the seeded set was small enough to fall outside of. Choosing leads to the waitlist, F076.
+- **2026-09-14 — A metro opens on 50 creators and 250 patrons, gated on the creators; the member sees one combined "300 needed".** Don's ruling. **A combined-only gate can be met by 495 patrons and 5 creators, which opens a metro with nothing in it** — creators are what make Browse non-empty, so they are the real threshold. The split is internal; the member sees one number so the popup stays one number. **Starting values, tunable per metro**, and **never phrased to a member as a promise** — the message says what is needed, not when it will happen.
 
 ## Build & stack
 
