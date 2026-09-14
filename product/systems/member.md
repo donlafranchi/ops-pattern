@@ -11,9 +11,15 @@ A Member is the platform's record of one real human — one row, lifetime-stable
 
 **No street address is stored for any Member, by default.** ZIPs, Places, and radius queries cover every locality feature in scope, and not having an address store keeps the doxxing blast radius small. This isn't a categorical refusal — if a defined Member benefit ever needs one, the column can be added with a stated safety mechanism — but the default is no, and adding it without naming the benefit and the mitigation is refused.
 
-## Real names are encouraged, never required
+## A legal name is required to the platform; a display name is what other members see
 
-Requiring a real name raises trust among neighbors who recognize each other, but it also blocks exactly the people who most need this platform to protect them — a domestic-violence survivor, someone whose physical safety depends on not being findable by name. Encourage-not-require keeps both groups onboardable: the trust signal is available to whoever can safely offer it, and nobody is gatekept on a credential the platform can't verify or protect anyway.
+**Nobody is anonymous to the platform.** Every Member gives their full legal name at signup, alongside email — self-attested, not document-verified, but required, never optional. This is the accountability floor: content the platform can't trace to a real person is a report-and-takedown path with nothing behind it. (2026-09-14, reverses the earlier "real names encouraged, never required" rule.)
+
+**Nobody is required to be identifiable to other members.** A separate display name is what a Member's posts, Page, and responses show everyone else — it can be a first name, a nickname, anything. The safety reasoning the old rule was protecting — a domestic-violence survivor, someone whose physical safety depends on not being findable by name — is unchanged: pseudonymity at the peer layer still covers it. What changed is that the platform itself always knows who someone is, even when other members don't.
+
+## A second, stronger-verified tier is referenced, not yet built
+
+F080 gates one content category (anything about a child) behind a tier beyond the self-attested legal name every Member has — ID plus a selfie match, unbuilt as of 2026-09-14. This is a personal-identity tier, distinct from the producer trust ladder in `ROADMAP.md` (self-attest → community-attest → document-verify, which is about a *business's* claims, not a person's identity). Two different nouns; don't conflate them into one "tier" concept.
 
 ## Discoverability defaults to off; a member's outputs don't
 
@@ -45,4 +51,4 @@ Member-owned context storage and scoped, expiring permission grants to non-human
 
 ## What this rules out
 
-Any surface that sends content to a private geographic signal as its target. Auto-flipping a Member's discoverability on any state change, including acquiring a business Group. A stored street address without a named benefit and a stated safety mechanism attached. Row-level read access to another Member's awareness scope or saved searches, under any condition. (The stored-role and Business-entity refusals live with the pattern they constrain — `creator.md`.)
+Any surface that sends content to a private geographic signal as its target. Auto-flipping a Member's discoverability on any state change, including acquiring a business Group. A stored street address without a named benefit and a stated safety mechanism attached. Row-level read access to another Member's awareness scope or saved searches, under any condition. A legal name surfaced anywhere a peer member or anonymous visitor can see it. A Member account existing without a legal name on file. (The stored-role and Business-entity refusals live with the pattern they constrain — `creator.md`.)

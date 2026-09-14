@@ -8,6 +8,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Dead producer page fix — approved, ticketed, buildable today.
 - Producer entry point (`/you/create`, no shop required to host) — reviewed, ticketed.
 - Report path + image takedown — approved; no photo goes to production until this ships.
+- Legal name required, display name to peers (F077); flagged content auto-hides with an immediate reason and appeal (F078); no child content without a stronger-verified tier (F080) — approved, gates launch alongside the report path.
 - Metro waitlist at signup — pick a metro, say creator or patron, see a count in a popup. **Added 2026-09-14 at Don's direction; nothing was removed to make room.** F076.
 
 ## Next — Fortnights 2–3
@@ -22,6 +23,8 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Seed content, synthetic and display-only — Fortnight 4.
 
 ## Later — deferred past launch, priced
+
+- ID + selfie verification tier (unblocks child-related content per F080) and bulk actions on the review queue (F079) — both written, unscheduled; wait on real volume/demand.
 
 - Item-level photos — substrate built, ~half a day when resumed.
 - Volunteering (offer/ask composer) — blocked on messaging, not on the composer.

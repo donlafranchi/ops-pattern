@@ -2,10 +2,14 @@
 
 Approved for build, one line each. Cowork writes this; Code reads it. Scenario files carry the detail — `planning/scenario-F###.md`.
 
+- **F077 — a member's legal name is known to the platform; a display name is known to everyone else.** `status: approved`.
+- **F078 — flagged content hides itself immediately, and the poster is told why.** `status: approved`, depends on F058 and F077.
+- **F080 — nobody can post anything about a child without a stronger-verified account.** `status: approved`, depends on F077.
+- **F076 — a person outside an open metro joins its waitlist.** `status: approved`.
 - **F056 — a producer edits a shop that already exists.** `status: approved`.
 - **F057 — someone who isn't selling yet finds the way in.** `status: approved`.
 - **F058 — a member reports something, and the operator can take a photo down.** `status: approved`.
-- **F059 — a newcomer browses, and finds the neighbourhood.** `status: draft` — **rewritten 2026-09-13 and back to draft; needs re-approval.** Two of its criteria were reversed by the 2026-09-12 rulings, not refined. Its five issues in `socialus-web` (#51–#55) cite it.
+- **F059 — a newcomer browses, and finds the neighbourhood.** `status: approved` — **approved 2026-09-14**, ten criteria, Browse settled at `/explore`. Its issues in `socialus-web` (#51–#54) cite it; #75 carries the post-grain half.
 - **F060 — someone starts something without opening a shop.** `status: building`.
 - **F069 — a non-business Page resolves everywhere, and holding several is ordinary.** `status: building`.
 - **F061 — someone creates a Page worth showing people.** `status: building`.
@@ -18,3 +22,4 @@ Approved for build, one line each. Cowork writes this; Code reads it. Scenario f
 - **F073 — a post with a time is an event.** `status: draft`, depends on F072.
 - **F074 — a series repeats.** `status: draft`, depends on F073.
 - **F075 — an occurrence is cancelled.** `status: draft`, depends on F074.
+- **F079 — the review queue handles many reports at once.** `status: draft` — deferred, depends on F078.

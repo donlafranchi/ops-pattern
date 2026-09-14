@@ -52,6 +52,7 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 - Name things in plain words; a number in brackets after, if useful.
 - Questions reach him as A/B/C with one-line trade-offs and a recommendation. Ask only when a fact only he has is missing, or the call affects the deadline.
 - Reports open: `Status: Done | Blocked | Question — one sentence. Next: the ask.` Detail on "expand".
+- Email is not the best route to reach him — in-app is better; faster channels are TBD.
 - End with the next action, not a summary.
 
 ## Commits
