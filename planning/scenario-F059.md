@@ -4,7 +4,7 @@ title: A newcomer browses, and finds the neighbourhood
 status: draft
 date: 2026-09-13
 depends: [F061]
-approved: 2026-09-10 — superseded by the 2026-09-12 rulings; needs re-approval
+approved: 2026-09-10 — superseded by the 2026-09-12 rulings; needs re-approval; criterion 9 split in two 2026-09-14
 ---
 ## Story
 
@@ -20,8 +20,9 @@ A newcomer opens Browse and sees what is actually here — the Pages near them a
 6. Results are scoped to the active metro, with a named fallback for a member outside every seeded metro.
 7. The metro switcher moves a signed-in member's results, not only a signed-out visitor's.
 8. Narrowing never re-orders what the server already ranked.
-9. Past-dated posts drop out on their own, and each result carries the Page's own name rather than a business-only brand label.
-10. A shared link reopens the same metro and the same search; back-navigation restores scroll position.
+9. Past-dated posts drop out on their own.
+10. Each result carries the Page's own name rather than a business-only brand label.
+11. A shared link reopens the same metro and the same search; back-navigation restores scroll position.
 
 ## Not this
 
