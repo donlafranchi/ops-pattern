@@ -18,7 +18,8 @@ The run club meets every Thursday from the Sloppy Moose. Sam sets it up once, wi
 5. Editing one occurrence changes that occurrence and no other.
 6. Each occurrence behaves as its own event under F073 — its own place on the map, its own date match, its own responses.
 7. A member searching by date sees each occurrence separately, never the series as one result.
+8. **Responses survive an edit.** If an occurrence is replaced rather than edited in place, the responses already on it move with it — a member who said they are coming stays coming when the organizer fixes a detail.
 
 ## Not this
 
-Editing a whole series at once — every week differs anyway, so editing one occurrence is the normal case. Cancellation, which is F075. Infinite or unbounded horizons. Exceptions expressed as rules rather than as edits to a row.
+Editing a whole series at once — every week differs anyway, so editing one occurrence is the normal case. Cancellation, which is F075. Infinite or unbounded horizons. Exceptions expressed as rules rather than as edits to a row. **Whether an edit rewrites the row or replaces it is the implementer's call** *(Don, 2026-09-13: "whatever is easier")* — criterion 8 is the cost either choice has to pay.
