@@ -8,6 +8,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Dead producer page fix — approved, ticketed, buildable today.
 - Producer entry point (`/you/create`, no shop required to host) — reviewed, ticketed.
 - Report path + image takedown — approved; no photo goes to production until this ships.
+- Metro waitlist at signup — pick a metro, say creator or patron, see a count in a popup. **Added 2026-09-14 at Don's direction; nothing was removed to make room.** F076.
 
 ## Next — Fortnights 2–3
 
