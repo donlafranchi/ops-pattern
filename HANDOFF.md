@@ -13,4 +13,8 @@ Approved for build, one line each. Cowork writes this; Code reads it. Scenario f
 - **F063 — someone says they're coming.** `status: approved`.
 - **F064 — someone asks for something that isn't built.** `status: approved`.
 - **F065 — someone follows something.** `status: approved`.
-- **F066 — a Page owner posts to its followers.** `status: approved`, depends on F065.
+- **F066 — a Page owner posts to its followers.** `status: superseded` 2026-09-13 — **do not build.** Replaced by F072–F075 below, all `draft` and awaiting Don.
+- **F072 — a Page owner posts.** `status: draft`.
+- **F073 — a post with a time is an event.** `status: draft`, depends on F072.
+- **F074 — a series repeats.** `status: draft`, depends on F073.
+- **F075 — an occurrence is cancelled.** `status: draft`, depends on F074.
