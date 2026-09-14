@@ -19,4 +19,6 @@ Rae finds a repair café three streets away on Saturday morning, but the page gi
 
 ## Not this
 
-Notifications to the host. A visible list of who's coming. Capacity or waitlists.
+Notifications to the host. Capacity or waitlists. A list of who's coming shown to someone not involved — the count is what a stranger gets.
+
+> **Changed 2026-09-13, and this file is still `approved` — Cowork's to take or reject.** The *Not this* previously read *"a visible list of who's coming"*, full stop. That is the wrong shape: the ruling is **scoped visibility, not absence** — the organizer sees names, Group members see who is coming from within their Group, everyone else sees the count. `product/foundation/policy.md` § Who sees who is involved. **Acceptance criterion 4 is unaffected** — the count still reflects distinct people.
