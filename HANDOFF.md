@@ -5,7 +5,7 @@ Approved for build, one line each. Cowork writes this; Code reads it. Scenario f
 - **F056 — a producer edits a shop that already exists.** `status: approved`.
 - **F057 — someone who isn't selling yet finds the way in.** `status: approved`.
 - **F058 — a member reports something, and the operator can take a photo down.** `status: approved`.
-- **F059 — a newcomer browses one surface, of Pages and gatherings.** `status: approved`.
+- **F059 — a newcomer browses, and finds the neighbourhood.** `status: draft` — **rewritten 2026-09-13 and back to draft; needs re-approval.** Two of its criteria were reversed by the 2026-09-12 rulings, not refined. Its five issues in `socialus-web` (#51–#55) cite it.
 - **F060 — someone starts something without opening a shop.** `status: building`.
 - **F069 — a non-business Page resolves everywhere, and holding several is ordinary.** `status: building`.
 - **F061 — someone creates a Page worth showing people.** `status: building`.
