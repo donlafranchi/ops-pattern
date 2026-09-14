@@ -146,7 +146,7 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 ## The forbidden cells, with reasons
 
 - **Follow a product or service.** Ruled 2026-09-07 — people don't follow products. Removed as a concept, not deferred.
-- **Edit or delete an announcement after posting.** A broadcast rewritable after people read it isn't a broadcast.
+- **~~Edit or delete an announcement after posting.~~ Editing is now allowed** *(ruled 2026-09-13, Don: "they can both be edited or replaced entirely")*. The reason this line gave — *a broadcast rewritable after people read it isn't a broadcast* — **is set aside, not satisfied**; it is left visible so the rule is not re-derived from it. **Deleting is still refused** and was not ruled on.
 - **Rename an active Page's slug.** The name may change; the address doesn't follow it — a moved public URL is a broken link someone already shared.
 - **Overlapping appearances.** A Page can't be in two places at once.
 - **Message anyone, about anything, at large.** Replaced 2026-09-09 by the message-board ruling: conversation is forbidden between people at large, available inside a Page you've joined. No messages, threads, or comments exist anywhere in the product today — postponed with a settled shape, not refused. Why the cell stays forbidden while the board is built: `messaging-problem.md`.
