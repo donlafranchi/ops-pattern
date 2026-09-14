@@ -76,9 +76,42 @@ Both are required. With no snapping and no guard in the data, they are the guard
 
 What a creator offers is described on their Page and in their posts. It is not a separately listed thing that browse indexes.
 
-Browse finds Pages, and it finds posts that carry a date and a place. In Don's words: *"You're right to include anything with a date and a location. We use a map to tell someone where to go."*
+A specific occurrence is its own result, not a filter applied to its Page — this Saturday's farmers market is the thing a finder gets back, at the place it happens. Browse indexes Pages and posts, not a catalogue of listings.
 
-A specific occurrence is its own result, not a filter applied to its Page — this Saturday's farmers market is the thing a finder gets back, at the place it happens. Browse does not index a catalogue of listings.
+## Browse is everything
+
+In Don's words (2026-09-12): **"browse is everything, why wouldn't it be all kinds of things?"**
+
+Browse is the universal surface. It carries everything the platform holds.
+
+**The default is inclusion.** Anything excluded needs a reason, recorded. Inclusion needs no justification — that is the direction of the burden, and it is the whole of the principle. A thing is in browse because it exists; a thing is out of browse because someone wrote down why.
+
+Good reasons exist and are not weakened by this. A member who has not opted into discoverability is not in search — that is consent, and it is recorded. A draft is not published, so there is nothing to carry. What the principle forbids is the unrecorded exclusion: a thing kept out of browse because an earlier model had no room for it, or because nobody asked.
+
+**Posts appearing in browse is an instance of this, not a separate rule.** Flat — not only the dated ones, not only the ones with a place. An earlier line said browse finds "posts that carry a date and a place"; that came from Don speaking about the map — *"You're right to include anything with a date and a location. We use a map to tell someone where to go."* **It still holds for the map**, where a post needs a place to be a pin and a time to be an event. It was read as a filter on browse, which it never was.
+
+**What this does not settle.** Browse carrying everything makes a result list a mixture — a Page, an event next Saturday, an undated *"50% off today"*. **How that list reads and how it orders is open.** What is not open, and is not to be reopened, is what may enter it.
+
+## Why Home and Browse both exist
+
+In Don's words (2026-09-12): **"Browse is everything, Home is personalized so items the member's personal interests don't get buried in browse."**
+
+**Two surfaces, two jobs, and the second is the reason the first can afford to be complete.**
+
+- **Browse is complete.** Everything the platform holds, findable. **Not ranked by the member's interests** — completeness is its job, and interest-ranking a complete surface is how a member stops trusting that it is complete.
+- **Home is personal.** What this member cares about, surfaced so it is not lost in the completeness. The personalization exists **because** browse is exhaustive: without it, a member's own interests are a handful of rows in everything.
+
+Neither can do the other's job. A complete surface that quietly favours your interests is not complete; a personal surface that shows everything is not personal. **This is the reason both exist**, and until now nothing stated it.
+
+### Personalized means interests, not engagement
+
+**A hard distinction, because one word covers two things and only one of them is allowed.**
+
+- **Allowed — and the whole point:** the member's own **declared interests**, and where they are. Home surfaces what they said they care about, near them. That is personalization on facts the member volunteered about themselves.
+- **Allowed:** genuine community response. Earned attention is the intended mechanism *(2026-09-12)* — a baker the neighbourhood turns up for should rise.
+- **Never:** what keeps someone scrolling. No watch-time, no dwell-time, no engagement objective. And never payment — nobody buys placement.
+
+**"Home is personalized" is not licence for a feed algorithm.** It is licence for exactly one thing: showing a member what they told the platform they like, where they are. Anything reading behaviour back at them is a different product and is refused elsewhere in this tree.
 
 ## One mechanism: posts
 
