@@ -37,7 +37,7 @@ SocialUs is a local discovery app — buy, sell, trade, and gather — launching
 - **The Page composer is now six steps** — name, address, category, photo, about, review — against a launch requirement of *minimal fumbling*. Three are new and each earns its place, but nobody has judged them as a set. **Not blocking: the first tickets are substrate.** Options in the F061 review.
 - **The 84 cleanup rulings** and the unsure list from the doc consolidation — folded into this revamp; nothing outstanding blocks build.
 - **Promise 1 — what "surplus goes back to the community" actually means.** Who decides the number, over what period, and what returning it looks like. Three options noted in `DECISIONS.md`; **the promise stays out of user-facing copy until this is picked.**
-- **Two contradictions and one never-ratified claim left** in [`DECISIONS.md`](DECISIONS.md) — the creator-framing conflict, the top-anchored search row, and the flourishing thresholds.
+- **One contradiction and one never-ratified claim left** in [`DECISIONS.md`](DECISIONS.md) — the creator-framing conflict and the flourishing thresholds. *(The top-anchored search row is no longer one: principle 8 was restated 2026-09-13 as an aim about one-handed reach rather than a rule about an edge, so the row is a judgment rather than a contradiction.)*
 - **Whether the follows simplification and bulletins are scheduled.** Both are written and reviewed, deliberately sitting in the draft lane. **3.75 days for the pair**; bulletins is first on the cut list.
 
 ## Next — the four fortnights, in one line each

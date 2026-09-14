@@ -18,7 +18,11 @@ White canvas + photography + one signature accent. The chrome disappears so the 
 5. **No color-block cards.** A card without a photo is text-forward and neutral — never a solid-color rectangle.
 6. **Hairlines over shadows.** Separation is a 1px border; shadow is reserved for hover lift and overlays.
 7. **One typeface, restrained scale.** Inter, four weights, tops out at 32px in product surfaces.
-8. **Bottom-anchored, thumb-reachable.** Primary controls anchor to the viewport bottom — search expands upward, cards slide up, nav sits at the bottom. No top-anchored toolbars or search fields, except the one stated, dated exception in `DECISIONS.md`.
+8. **Controls sit where the hand already is** *(restated by Don, 2026-09-13 — this replaces "bottom-anchored, thumb-reachable," which stated the tactic and lost the reason)*.
+   - **On a small phone, that means near the bottom**, because it is one-handed operation and the top of the screen is where the thumb cannot reach. **That is the whole point of the rule** — not the bottom edge for its own sake.
+   - **On a larger screen it matters less**, because those are usually two-handed. There the aim is the **left and right edges**, where either hand already is, rather than the bottom.
+   - **This is an aim, not a prohibition.** Don: *"sites like AllTrails and Airbnb also have very nice layouts even though they don't follow the guideline I just described."* Good products break it and remain good, so a layout that puts a control elsewhere **needs a reason, not an exemption** — and the reason can be as ordinary as "this is where it reads best."
+   - The browse search row, which also carries the list/map toggle (2026-09-13), sits at the top. Recorded as a judgment rather than as a violation being tolerated.
 9. **No overlay ever carries color or decoration for its own sake** — an overlay exists to hold a state (loading, selected), never to add visual interest a photo or a hairline can't supply.
 10. **Filtering controls live in a filter surface, never on the results surface.** *(Ratified 2026-09-12, Don.)* **Zero filter pills** — no pill row, chip row or control strip sits alongside results. A results surface shows results. Sibling of principle 8: both say a control belongs where the thumb and the attention already are, not stapled to the content. **What replaces the pill row is settled the same day: search** — categories stop being a visible control entirely (`../foundation/model.md` § Search is the filter). A Page still declares a category; no surface renders one as a control.
 
