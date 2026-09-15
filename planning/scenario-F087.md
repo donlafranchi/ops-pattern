@@ -32,6 +32,10 @@ Converting one Page into another — rejected outright since 2026-09-07 and stil
 
 **And a prior ruling already asked for this.** `DECISIONS.md`, 2026-09-07: *"Different creation flows per type is correct; nothing ever mutates."* F087 is that ruling built.
 
+## The purposes themselves
+
+**Named, defined, and sized in `product/systems/page-kinds.md`** (draft, 2026-09-15): someone selling, someone with a recurring gathering, and a deliberately thinner one-time gathering. That document carries what each needs at minimum, what it does not need, the schema recommendation, and the full list of what the thin one lacks.
+
 ## One real conflict, for Don to rule on
 
 **A one-time gathering.** Don: *"Hosting is essentially a simplified version of creating a group or recurring gathering, for a one-time thing"* — which makes hosting a Page. But `nouns.md` says a Page has **"No Page for a single occasion"**, and `DECISIONS.md` 2026-09-07 says *"A Page is who; an Item is what. One-time events are Items with a date, filed under a Page — no Page is created for a single occasion."* The stated reason was that browse and the map would index listings as if they were people, and a follower graph on something ephemeral is worthless.
