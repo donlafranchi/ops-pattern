@@ -110,6 +110,8 @@
 
 ## Where the docs and the code disagree
 
+> **All nine below, plus the four method failures in the last section, are captured as `socialus-web` issue #96** so the status skill fixes them rather than rediscovering them.
+
 1. **`HANDOFF.md` lists F076 as approved-awaiting-build. It is live** — PR #86 merged 2026-09-15.
 2. **Issues #51 and #52 are open against work that shipped.**
 3. **`surfaces.md` calls `/join` "a redirect shim."** It is a 178-line pitch page [#90].
@@ -132,6 +134,6 @@
 
 **Recommendation: script the boring half, keep the judgement as a skill that runs it.** A `scripts/state.sh` emitting the joins as facts; a skill that runs it, reads the code, and writes sections 1 and 5. That split matters because of this repo's own rule: a hand-maintained file a person reads to be right goes stale and lies. A generated fact table nobody believes is safe. **A hand-edited status document is the thing that has died here five times.**
 
-**Three checks the script must encode, each from a mistake already made:** fetch before reading anything · never `--no-merged` in a squash-merge repo · an issue's state is not proof of what is on `main`, and what is on `main` is not proof of an issue's state.
+**Four checks the script must encode, each from a mistake made while building this document — all four are in `socialus-web` #96:** fetch before reading anything · never `--no-merged` in a squash-merge repo · an issue's state is not proof of what is on `main`, and what is on `main` is not proof of an issue's state · look for an existing measurement before making one with a grep.
 
 **Produce on demand, overwrite, never append. Do not schedule it.**

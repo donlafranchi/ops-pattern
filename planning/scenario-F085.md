@@ -35,3 +35,5 @@ The wording — Don writes it. Any stored source, referrer, or campaign field. A
 **Three person-noun violations are live on this page today** *(2026-09-15)*: the eyebrow **"For vendors"**, the primary button **"Sign up as a vendor →"**, and the heading **"Share with another vendor."** Each is a user-facing string and each fails criterion 6. *(Four further occurrences are in code comments and identifiers, which the rule does not reach.)*
 
 **The page also describes a product that no longer exists** — booths, market schedules, follow-for-market-updates. Broadening the heading alone does not fix that.
+
+**F087 changes what the page can honestly invite.** Once there is one create flow with a purpose chosen up front, `/join` can invite hosting and organizing without landing anyone in a selling flow. Until then it cannot.
