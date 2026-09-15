@@ -7,37 +7,63 @@ depends: []
 ---
 ## Story
 
-Forty people in this metro searched for a bike repair place last month and most of them found nothing. Nobody who could fix a bike knows that. Priya, who repairs bikes at weekends and has never listed anything, opens the app and is told plainly: people near you are looking for this. She has learned something true about her neighbourhood, and nobody has learned anything about the forty people.
+Priya repairs bikes at weekends and has never listed anything. She opens the create flow and is told, plainly, that people near her have been looking for bike repair. She has learned something true about her neighbourhood. Meanwhile Sam searches for the same thing, finds nothing, and instead of a blank screen is told that he is not the only one — other people near him have looked for this too. **Nobody has learned anything about Priya or Sam.**
 
 ## Acceptance
 
-1. **A search is recorded as a term, a metro, and a time. Nothing else.** No member id, no session id, no device, no IP, no ordering that would let rows be re-associated with a person.
-2. **Nothing renders below a threshold** — a term is shown only once enough distinct searches exist in that metro that no single person is identifiable from it. **The threshold is a number Don sets, not a judgement made at read time.**
-3. **What is shown is a term and a rough volume in a metro.** Never who, never when a particular search happened, never a trend line fine enough to single out a day's activity.
-4. **No creator sees anything scoped to their own Page** — not who searched for them, not who found them, not who looked and left.
-5. **A member is told this is happening**, in plain words, at the point they search or in the same place the other standing facts are stated.
-6. **Nothing here is ever sold, licensed, or shared off-platform.** *(Already promise 3; restated because this is the first feature that would tempt it.)*
+1. **A search is recorded as a term, a metro, and a month. Nothing else.** No member id, no session id, no device, no IP, no ordering or timestamp finer than the month that could re-associate a row with a person.
+2. **Nothing is shown below a floor of ten distinct members** having searched that term in that metro. The floor is a stored number, not a judgement made at read time, and **it is never lowered to make a surface less empty**.
+3. **A term is never shown if the term itself identifies someone**, whatever its count — one containing a personal name, a street address, a phone number, or matching any member's display name or handle. **The count is not the only way a person is identified.**
+4. **Scoped to one metro.** No cross-metro view, no national aggregate, no drill-down narrower than the metro.
+5. **What is shown is a term and a coarse band** — *a few people · dozens · more* — never an exact count, never a trend line, never a date.
+6. **No creator sees anything scoped to their own Page.** Not who searched for them, not who found them, not who looked and left.
+7. **Raw search rows are deleted after 30 days.** Only the aggregate survives, and nothing anywhere can reconstruct a row from it.
+8. **Nothing here is ever sold, licensed, or shared off-platform.**
 
 ## Not this
 
-Any per-creator analytics dashboard. Saved-search contents — those are owner-only at the row level with no exception. Retention beyond what the aggregate needs. Notifying anyone that they were searched for. Selling any of it, under any framing.
+Any per-creator dashboard. A leaderboard, a "trending" surface, or anything ranked for its own sake. A notification that anyone was searched for. Using this in ordering or ranking. Saved-search contents, which stay owner-only with no exception.
 
-## This needs a privacy ruling before it can be built
+## Why ten, and why the floor never moves
 
-**It is not blocked on design. It is blocked on Don.** Three things in the ratified record point different ways and only he can reconcile them.
+**A count of one is a person. A count of two in a launch metro is very nearly one** — a metro opens at 50 creators and 250 patrons, so two searchers out of 300 is a small enough set that anyone who knows two neighbours can guess. **Ten distinct members is the smallest floor that survives that arithmetic at launch volumes.**
 
-**It sits against a standing refusal.** `ROADMAP.md` § Won't lists *"individual visitor-tracking analytics for a producer."* **This scenario is deliberately the aggregate case, not the individual one** — criteria 1 and 4 exist to keep it on the right side of that line. **But the line has never been drawn explicitly, and this is the first thing that stands on it.**
+**At launch this will show almost nothing, and that is correct rather than broken.** Don already ruled the principle on 2026-09-15: a search that returns nothing is an honest answer. **The same logic applies here — a surface with nothing to show should say nothing, not lower its floor.** A floor that moves to fill a screen is not a floor.
 
-**It sits against the opt-out default.** `policy.md`: any non-essential data collection is **off by default**, and anything benefiting a member at the cost of relaxed protection is **opt-in — visible, granular, revocable**. **A search is not currently collected at all.** So the honest question is whether recording a term-plus-metro with no identifier counts as collecting anything about a person. **A reasonable person could answer either way, and the three-filter test does not settle it.**
+## The combination case, which is the one that gets missed
 
-**It sits with the platform's own argument for existing.** A neighbourhood that wants something and a person who could provide it not finding each other is the exact failure the product exists to fix. **This is the highest-value thing in the file and the one most likely to be regretted if it is built loosely.**
+**The threshold protects against counting. It does not protect against the term.** Ten people searching a common phrase is anonymous. Ten people searching a phrase containing somebody's name, or their street, is not — **the term itself carries the identity, and no count fixes that.** Criterion 3 exists for exactly this and is the criterion most likely to be dropped as an edge case.
 
-## What Don has to rule
+**Timing is the second half of it.** A term plus a fine-grained date plus local knowledge identifies people. Criteria 1 and 5 hold the granularity to a month and a band, which is what makes the aggregate safe rather than the count alone.
 
-- **Is a term plus a metro plus a time "member data"?** If yes, this needs opt-in and most of its value goes, because the people who opt out are not the ones being counted.
-- **What is the threshold** below which nothing renders?
-- **Where does the aggregate line sit**, given the standing refusal of producer analytics? Criteria 1 and 4 are a proposal for where it sits, not a ruling.
+## Purpose limitation — what it must never become
 
-## Provenance
+**Don's frame: *"the point is to help creators create and to help our members find what they need locally."* Two purposes, both about matching a need to a person who could meet it.**
 
-**Moved out of `IMAGINE.md` on 2026-09-15**, where it sat as *"Market intelligence — aggregate demand signal surfaced back to producers."* It now has a noun, a verb and a surface, so it leaves the waiting room rather than being copied out of it.
+**It must not become:** a measure of engagement · anything with the word *trending* on it · a ranked list read for its own sake · an input to ordering, which `model.md` already forbids from carrying anything but locality, recency and declared interest · a reason to send anyone a notification, which the pull-back-notification refusal already covers · a product sold to anyone.
+
+**The test for any future change: does this help somebody decide what to start, or help somebody find what they need nearby?** If neither, it is out, whatever else it would be good for.
+
+## Retention — 30 days, and deliberately not 12 months
+
+**Don ruled 12 months for a legal name on an interaction record. That number should not be copied here, and the reason is that it serves a different job.**
+
+A legal name stays legible because **two people who dealt with each other remain accountable to each other** for a period — the record is the point. **A raw search row serves nothing once it has been counted.** Its entire value transfers to the aggregate the moment the aggregate is computed, and everything kept after that is breach surface with no purpose behind it.
+
+**So: 30 days raw, then the aggregate only.** Thirty rather than seven because a monthly aggregate needs a month of rows to close, plus a margin for a failed job. **Consistency with the 12-month rule would be consistency for its own sake**, and the two rules answer opposite questions: one asks how long someone stays accountable, the other asks how soon data stops existing.
+
+## Is this the same mechanism as the signal queue? No.
+
+**They look alike and resolve differently, so keeping them separate is the honest answer.**
+
+The signal queue (F064, F088) captures **a person using a word the product does not know yet** — an unmapped label, an Other description. **It is resolved by adding vocabulary**, and its reader is whoever approves search-dictionary entries.
+
+This captures **a person looking for a thing that does not exist near them.** **It is resolved by somebody starting that thing**, which no operator can do. There is no queue and nobody approves anything.
+
+**And folding them would undo a ruling made today.** Don removed zero-result searches from the signal queue on the grounds that nothing being there is an honest answer. **Routing search demand back into that queue would reintroduce exactly what he cut** — under a different name.
+
+## Still open — Don rules
+
+- **Where it is shown.** The create flow serves the first purpose; a thin search result or an empty state serves the second. **Both are user-facing copy and are his under rule 4.**
+- **The bands.** *A few people · dozens · more* is a proposal; the words are his.
+- **Whether members are told this is happening**, and where. `policy.md`'s posture argues yes; nothing yet says how.
