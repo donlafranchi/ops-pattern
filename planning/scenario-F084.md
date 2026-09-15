@@ -7,7 +7,7 @@ depends: []
 ---
 ## Story
 
-Don wants to change a sentence. Today that means finding which of ninety-odd component files holds it, editing TSX, and hoping it isn't also written slightly differently somewhere else. After this, there is one file. He says which words should change, an agent edits that file, and it deploys. Nothing is hunted for, because there is nowhere else for words to be.
+Don wants to change a sentence. Today that means finding which of a hundred-odd component files holds it, editing TSX, and hoping it isn't also written slightly differently somewhere else. After this, there is one file. He says which words should change, an agent edits that file, and it deploys. Nothing is hunted for, because there is nowhere else for words to be.
 
 ## Acceptance
 
@@ -46,7 +46,7 @@ Rewriting, shortening, or improving any string — that is F083 and Don's own wr
 
 ## What it costs, and when
 
-**Roughly 458 strings across 93 of the app's 129 component files.** Mechanical, low-risk, and large: **~3–4 days**, dominated by verification rather than typing, because criterion 4 means every touched surface has to read the same afterwards.
+**584 strings across 118 files**, counted by the extractor behind `socialus-web` `docs/copy-inventory.md` (#89), which is the authority — an earlier grep-based figure of 458 across 93 was an undercount. Mechanical, low-risk, and large: **~3–4 days**, dominated by verification rather than typing, because criterion 4 means every touched surface has to read the same afterwards.
 
 **Do the vendor-route retirement first.** The three densest files — the old producer signup, the vendor page, the vendor form — hold about **60 strings between them and are already scheduled for removal**. Extracting them would be work thrown away twice.
 
