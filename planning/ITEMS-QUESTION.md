@@ -42,6 +42,66 @@
 
 ---
 
+## Don's model, stated 2026-09-15
+
+> **"Pages are built from kind.items"**
+
+**Items and their kinds are foundational, not legacy.** The kind system is the substrate a Page is composed from — not a parallel listing concept that a post model replaces. **`page_posts` is therefore not a replacement for items.** Whatever it is, it sits alongside or on top of them, and that relationship needs stating rather than assuming.
+
+---
+
+## The code, which nobody can argue with
+
+**Yes — a Page is composed from items in the current schema, explicitly and with intent.**
+
+- **`items.group_id` references `groups(id)`.** A Page is a `groups` row; items point at it. That link is the composition.
+- **There is a dedicated index for it:** `idx_items_group_active on public.items (group_id) where deleted_at is null and group_id is not null`. Somebody built for reading a Page's items.
+- **The publication rule is written in terms of it.** The RLS policy comment reads: *"anon + auth see published, non-deleted Items where the Item is either standalone (`group_id IS NULL`) or filed under a listed non-dissolved Group."* **Being filed under a Page is one of the two ways an item is public.**
+- Twelve source files in `src/actions` and `src/app` read or write items by `group_id`.
+
+**And `page_posts` is wired to nothing at all.**
+
+- **No writer.** Nothing in `src` inserts, updates, or deletes a row.
+- **No reader.** The only two mentions of `page_posts` anywhere outside its own migration are comments, and both say it does not exist: `browse-pages.ts` line 14 — *"but `page_posts` does not exist yet"* — and the `browse_pages` RPC's own description — *"Posts are NOT included: browse indexes them too, but page_posts does not exist yet."* **Both were written before the table landed and neither was updated.**
+- **`browse_pages` reads `groups` joined to `locations` and `places`. It does not join `items` and it does not join `page_posts`.**
+- The existing browse source, `discoverable_items`, is **item-grained** — keyed `unique_idx_discoverable_items (item_id)`.
+
+**Correction to an earlier report:** I described `page_posts` as having "a table, a read path, and no writer." **It has neither a reader nor a writer.** The read path I counted was a comment saying the table did not exist.
+
+**What `page_posts` says about itself**, from its migration, so Don can judge the intent behind it:
+
+> *"OPTIONAL start time. Nullable is the point: an undated post is a first-class post, not a degraded event."*
+
+> *"A post has no life independent of its Page."*
+
+**That second line is compatible with "Pages are built from kind items."** A post that cannot exist without its Page is a component of a Page, which is the same shape as an item filed under one. **What is unstated is whether a post is a kind of item, a sibling of items, or a replacement for them** — the table has no reference to `items` in either direction.
+
+---
+
+## What in `model.md` actually contradicts "Pages are built from kind items"
+
+**This is the distinction that matters, and it should not be blurred.** `model.md`'s passage does two different jobs, and only one of them touches the substrate.
+
+### Compatible — these are about browse indexing, not about what a Page is made of
+
+- *"It is not a separately listed thing that browse indexes."* — a claim about what browse returns.
+- *"Browse indexes Pages and posts, not a catalogue of listings."* — browse.
+- *"A specific occurrence is its own result, not a filter applied to its Page."* — browse results.
+- The whole of § Browse is everything.
+
+**All four are satisfiable with the kind system fully intact.** A Page can be built from kind items while browse returns Pages rather than a catalogue of those items. Those are different layers: what a thing is made of, and what a search gives back.
+
+### Genuinely contradicting — these are substrate claims
+
+- **"That pairing is retired: it depended on Items, which no longer exist."** *(§ What a Page is, 2026-09-12.)* **This is the one sentence in Don's own words that asserts the substrate is gone.** It is an existence claim, not a browse claim, and it is the sharpest evidence for the wider reading. Everything downstream rested on it.
+- **"Hosting needs nothing new. A venue's calendar is posts with times, which the post mechanism already gives every organization."** *(§ Venue is not a noun.)* This competes at the mechanism level with `items.kind='gathering'` and `item_gatherings`. Not fatal — a calendar of posts and a gathering item could coexist — but it proposes posts where the kind system already has an answer.
+
+### Not Don's words at all
+
+- The banner atop `nouns.md` — *"there are no Items, and a post carries a time or it doesn't"* — **was written by an agent summarising `model.md`, not by Don.** It is the most absolute statement of the wider reading anywhere in the repo, and it has no authority behind it beyond the summary it was making.
+
+---
+
 ## What each document claims
 
 | | `model.md` (Don, 2026-09-10) | `item.md` (undated, pre-09-10) |
@@ -62,12 +122,13 @@
 
 **The honest summary: the wider reading is defensible from the text, and the narrower one is defensible from what the text is arguing about.** Only Don knows which he meant.
 
-## The two possibilities, stated plainly
+## What Don has to settle — three questions, not one
 
-1. **He meant something narrower than the sentence reads** — the catalogue of separately-indexed listings goes, the kinds foundation stays. Then `item.md` needs its indexing claims corrected and its kind vocabulary kept, and `model.md` needs one clarifying line.
-2. **The sentence has been read correctly and he has since changed his mind.** Then `model.md` needs a dated amendment saying so, and the transition plan in `ONE-MODEL.md` is withdrawn.
+**1. Does "which no longer exist" mean the substrate, or the catalogue?** His 2026-09-15 statement says the substrate stands. If that is what he meant all along, `model.md` § What a Page is needs one clarifying line and the rest of that document is untouched — everything else in it is about browse, and browse and substrate do not conflict.
 
-**Either is fine and both are his.** Nothing else should move until he says which.
+**2. What is `page_posts`, given items are foundational?** It is an empty table wired to nothing, so this costs nothing to answer either way. Three readings the code permits, none of which it chooses between: a post is a kind of item; a post is a sibling of items, for announcements specifically; or `page_posts` was started as a replacement and should be dropped. **Its own comment — "a post has no life independent of its Page" — is compatible with all three.**
+
+**3. Does hosting use posts or `kind='gathering'`?** `model.md` says a venue's calendar is posts with times. The kind system already has gatherings with dates and a recurrence rule. **Both cannot be the mechanism.**
 
 ## What is on hold until he rules
 

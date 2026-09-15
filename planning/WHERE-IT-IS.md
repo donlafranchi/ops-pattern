@@ -50,7 +50,7 @@
 - **Report something; a reported Page's photo hides at once** — PRs #81, #82
 - See what you follow — `/you/following`
 
-**Substrate only, no surface:** `page_posts` and the post-grain browse source [PR #85] — nothing writes a post.
+**Wired to nothing:** `page_posts` [PR #85] has **no reader and no writer** — its only two mentions outside its own migration are comments saying the table does not exist. Its relationship to items is unstated; see `ITEMS-QUESTION.md`.
 
 **Broken in shipped code:** nobody can say they're coming (responses table has four readers, no writer) · Browse sorts by a column that's always zero · following a business Page tells the app you own a shop · storage access tests have never run.
 
