@@ -27,6 +27,27 @@ One of two tracking documents, with `verbs.md` (what may be done to each noun). 
 
 No other slot names. A thing that fits none of them is either detail for a systems doc or a line for `DECISIONS.md`.
 
+## A vague term is never used by itself
+
+**Don's ruling, 2026-09-15:** *"Item or kind or any other vague term is never to be used by itself."*
+
+**Every term on the list below must be qualified at the point of use.** Not *kind* — **Page kind** or **entry type**. Not *item* — the specific sense, always. This binds docs, scenarios, tickets, commit messages, and any code identifier read as prose.
+
+**The list is short on purpose.** A term earns a place by having caused drift here, or by meaning different things at different layers. Forty words is a list nobody follows.
+
+| Term | Why it qualifies | Qualify as |
+|---|---|---|
+| **item** | Umbrella over seven unlike things, and the word needed for a product offered for sale. Don named it. | the specific type — Product, Service, Event, Idea, Offer, Ask, Initiative — or **entry** for the umbrella |
+| **kind** | **Two vocabularies with the same column name**: `groups.kind` has six values, `items.kind` has seven, and they classify different layers. Don named it. | **Page kind** · **entry type** |
+| **group** | **The `groups` table holds Pages**, while *Group* in product language means a social group. `verbs.md` records these as *"routinely blurred in older docs and different nouns with different rules."* | **social group** · **business Page** · **group membership** |
+| **follower** | `F067`: *"Today 'follower' and 'member' mean the same thing in the code."* Same row, two meanings, diverging behaviour. | **Page follower** · **group member** |
+
+**On the watch list, not yet binding:** *post* (a `page_posts` row versus the act the voice guide refuses) and *state* (several columns, several meanings). **They are named here so the list can grow with evidence rather than with suspicion** — add one only when it has demonstrably drifted.
+
+**Prose versus identifiers.** The rule binds **prose**. **It does not rename a schema column** — `groups.kind` stays `groups.kind`, and no check may fail the build on the existing schema. An identifier is exempt where it is an identifier and bound where it is read as prose: a commit message, a comment sentence, a ticket title.
+
+**Where this is enforced:** § The user-facing string check, below. **Where it cannot be:** ordinary English. *"What kind of gathering"* and *"be kind"* are not violations, and no check can reliably tell them from the technical sense — which is why the bare-term check warns rather than fails outside a short list of certain cases.
+
 ## The spine
 
 Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Group** — exists for when a set of people decide they're an intentional, self-selected unit. Groups are emergent and optional; no Member is ever auto-assigned to one. The grammar: people declare things · things attach to places · some people choose to be a Group · other people respond.
@@ -65,6 +86,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 | **Em dash** | any `—` character at all | `voice.md` § Writing mechanics — "No em dashes, anywhere" |
 | **"Corner"** | `corner` as a whole word | `voice.md` — reads as forced |
 | **Corporate transitions** | `moreover · furthermore · additionally · essentially · in a world where` | `voice.md` |
+| **Bare vague term, certain cases** | `item` / `items` as an umbrella, and `kind` immediately followed by a noun it does not qualify, in **docs and prose only — never in schema identifiers** | § A vague term is never used by itself |
 
 **Warns, needs a human look — the pattern is real but the false-positive rate is not zero:**
 
@@ -72,6 +94,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 |---|---|---|
 | **"not just X, but Y"** | `not just` within 60 characters of `but` | Don bans it *as a repeated tic*, not per instance. His own name-sharing line uses it once. |
 | **Posting language** | `post · posting · share · sharing` as a verb about a member's own listing | "Share this link" is legitimate; "share a photo" is the failure. Only a reader can tell. |
+| **Bare vague term, general** | Any of `item · kind · group · follower` in prose with no approved qualifier nearby | **Ordinary English is indistinguishable from the technical sense.** *"What kind of gathering"* must not fail a build. |
 
 **Not checkable, and recorded as prose so nobody pretends otherwise:** no forced rule of three · CTAs point outward not inward · tone is warm and plainspoken · state things as fact not promise · no release numbers or internal jargon · no named-competitor comparison · real nouns over abstractions. **These live in `voice.md` and are enforced by reading, not by CI.** Saying so is the point — a rule filed as testable that no test holds is how the person-noun rule went unenforced twice.
 

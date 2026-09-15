@@ -23,6 +23,8 @@ Don's brief: *"Item is too vague of a word. Creators will create pages for whate
 
 ---
 
+> **The bare-term rule is now ratified and lives in `product/foundation/nouns.md` § A vague term is never used by itself.** It is not restated here. This document is the proposal behind it; the rule itself has one home.
+
 ## 2 · "Item" is reserved, not retired
 
 **Don's sense wins: an Item is a product someone lists for sale.** Not a gathering, not an idea, not an ask.
