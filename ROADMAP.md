@@ -10,7 +10,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Report path + image takedown — approved; no photo goes to production until this ships.
 - Legal name required, display name in public, real names exchanged mutually between people who actually interacted and reachable no other way (F077, amended 2026-09-14); flagged content auto-hides with an immediate reason and appeal (F078); no child content without a stronger-verified tier (F080) — approved, gates launch alongside the report path.
 - Metro waitlist at signup — pick a metro, say creator or patron, see a count in a popup. **Added 2026-09-14 at Don's direction; nothing was removed to make room.** F076.
-- Patron signup (legal name, email, zip; zip suggests a metro shortlist; the no-sale line as published copy) and the one-time self-attestation before a first Page, selling and hosting alike — F081, F082. **Added 2026-09-14 at Don's direction; nothing was removed to make room. Both drafted, neither approved.**
+- Patron signup (legal name, email, zip; zip suggests a metro shortlist; the no-sale line as published copy) and the one-time self-attestation before a first Page, selling and hosting alike — F081, F082. **Added 2026-09-14 at Don's direction; nothing was removed to make room. Both approved 2026-09-14.**
 
 ## Next — Fortnights 2–3
 
