@@ -18,20 +18,26 @@
 
 **Bringing it back is one action: edit it, or announce something on it.** No separate "renew" button, no confirmation, nothing to learn. **Doing the ordinary thing is the revival.**
 
-## What counts as interaction — Don rules, and one answer is forced
+## What counts as interaction — ruled 2026-09-15
 
-**A view must not count.** Not a judgement call: `surfaces.md` says ordering **"may never use what keeps you scrolling,"** and a view is exactly that. **Counting views would turn this into an engagement metric through the back door**, and it would keep a listing alive on strangers glancing at it.
+**Don: *"If the author updates it. Or a user interacts with the page more than viewing."*** **Two rules: any deliberate act by the author, and any deliberate act by anyone else. Viewing is neither.**
 
-**The short list for him:**
+**The enumeration, because "more than viewing" has to be a list someone can implement.**
 
-| Candidate | Read |
-|---|---|
-| **Someone responds** — interest, RSVP, save | **Obviously yes.** |
-| **Someone follows or joins** | **Probably yes** — it is a person choosing the thing. |
-| **The author announces something on it** | **Probably yes** — the thing is alive because its owner is. |
-| **The author edits it** | **Arguable.** A typo fix is not life; a rewritten description might be. |
-| **Someone views it** | **No, and the ordering rule forbids it.** |
-| **It appeared in a search result** | **No** — same reason, and worse: nobody chose anything. |
+| Act | Counts | Exists today |
+|---|---|---|
+| Author edits the Page | **yes** | yes — `groups.updated_at` |
+| Author edits an entry | **yes** | yes — `items.updated_at` |
+| Author announces something on the Page | **yes** | **no** — `page_posts` has no writer |
+| Someone responds: interest · rsvp · save · pledge · purchase · support | **yes** | values exist in `item_responses.response_kind`; **no writer** |
+| Someone joins a social group | **yes** | `group_memberships` exists; **the join control is missing** |
+| Someone follows a Page | **yes** | **no** — `member_follows` is member-to-member only |
+| Someone views it | **no** | n/a |
+| It appeared in a search result | **no** | n/a |
+
+**Which events write `last_interaction_at`: the ones that already exist.** Every write goes through a named action handler that commits the data row and its `*_events` row in the same transaction (`action-layer.md`). **The handler sets the date; nothing separate watches for it, and no job runs.** Half the acts above have no handler yet, which is the same list of missing writers already tracked elsewhere.
+
+**The ordering rule in `surfaces.md` stands unchanged.** Don had raised removing it; his answer here keeps views out of ordering by itself, so nothing needs to change there.
 
 ## It fits the ordering rule
 
@@ -49,4 +55,4 @@
 
 **A `last_interaction_at` column on the things that can go quiet, written by whatever already writes an interaction**, and one clause in the ordering. **No new surface and no job to run** — staleness is computed at read time from a date, the same way locality already is.
 
-**Flagged, not decided:** whether the 90 days is per entry type or one number everywhere. One number is simpler and a gathering that recurs monthly is fine either way; a seasonal producer who lists once a year is not.
+**Settled: 90 days, one number everywhere.** A per-type table is a config surface nobody maintains, and **the seasonal producer is already answered by the design — sorting last is not hiding, and one edit brings it back.** The cost of being stale is low enough not to need a second number.
