@@ -7,6 +7,10 @@ status: active
 
 # Item
 
+> **Superseded by [`../foundation/model.md`](../foundation/model.md) (2026-09-10), and not yet reconciled.** Don restated the model directly: **there are no Items.** *"What a creator offers is described on their Page and in their posts. It is not a separately listed thing that browse indexes."* The seven-kind vocabulary below, and the per-kind child tables, belong to the retired model. **The `items` tables are still live and still have three working composers, so this document still describes running code** — but it does not describe the model. Where the two disagree, `model.md` is right and this is the thing to fix.
+>
+> **What survives and is not in dispute:** the recurring-gathering design (§ Recurring gatherings), which `page_posts` does not yet carry, and the `item.published` event split.
+
 Anything a Person declares — a product, a service, a gathering, an idea, an offer, an ask, an initiative — is one schema, varying by `kind`. A maker declaring sourdough and an organizer declaring a run club are the same act in different costumes: a person declares something, optionally anchored to a location and a schedule, with a discoverable page and responses from other people. Modeling these as separate systems means writing the same code seven times; modeling them as one primitive with kind variation means the locality index is one query, not a union across seven tables, and natural-language search has one consistent thing to embed.
 
 ## The kind vocabulary — schema durable, UI label translates
