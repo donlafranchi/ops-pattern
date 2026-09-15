@@ -39,6 +39,16 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 
 **Group** — a named, self-selected set of people. Six kinds: five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) and one operate (`business`). Never auto-assigned by geography or anything else. Detail: `../systems/groups.md`.
 
+## The two sides — patron and creator
+
+*(Ratified 2026-09-14, Don: "The other side is patron. That's the closest I think we'll get." **Overrules `role-language.md`**, which refused any umbrella noun for either side; that document is retired.)*
+
+**The two words are patron and creator.** A creator is someone who publishes something other people show up for — sells, hosts, organizes. A patron is everyone on the other side of that. Every member starts as a patron; creator is what you become by taking the attestation step.
+
+**Neither is a stored type.** Patron is the default state of being a member, not a column; creator derives from the attestation record plus what the person has authored. The pair is vocabulary, not schema — see the `Member` row's "no type, tier, or stored role," which is unchanged by this ruling.
+
+**Never** — a third person-noun without a dated ruling. Other synonyms (producer, seller, maker, vendor, supporter, consumer) stay spec and category words and are never promoted to labels under a person's name; "vendor" in particular was removed from the product once already. Functional words — owner, staff, steward, host, founder — stay scoped to one Group or one gathering and never become a profile-level identity; sanctioning two nouns does not make these into badges.
+
 ## Page — the canonical definition
 
 *(Ratified 2026-09-07. The UI name for a `groups` row — the line every other doc is checked against.)*

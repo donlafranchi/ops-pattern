@@ -26,10 +26,10 @@ One line per doc, then the settled rules with no rationale attached — read the
 - Groups are started/joined/dissolved by members only — never auto-assigned, never corporately owned.
 - Deeper infrastructure (banking, insurance) spins off to separate federated platforms, never absorbed.
 
-**`foundation/role-language.md`** — the word "member" and nothing else.
-- One identity noun: "member." Everything else is a verb (sell, host, follow, ask) — never a role label.
-- No paired terms (creator/supporter) — refused; the same person does both sides.
-- "Creator" is a feeling the product gives, never a stored label or noun in the UI.
+**`foundation/role-language.md`** — **retired 2026-09-14**, a tombstone naming where each of its rules went. The two sides are now in `foundation/nouns.md` § The two sides.
+- The pair is **patron and creator** *(ratified 2026-09-14, Don — overrules this file's refusal of any paired term)*. Every member starts a patron; creator is what the attestation step makes you.
+- Neither is a stored type — patron is the default state, creator derives from the attestation record plus what the person authored.
+- A third person-noun needs a dated ruling. Producer, seller, maker, vendor, supporter, consumer stay spec words, never labels under a name.
 - Functional roles (owner, staff, steward, host, founder) stay scoped to one Group or gathering — never shown as a person-level identity.
 
 **`foundation/policy.md`** — the three-filter test.

@@ -7,7 +7,7 @@ status: active
 
 # Creator
 
-Selling, hosting, and organizing are things a Member does, not things a Member *is*. There is no creator record, no business entity, and no stored role anywhere in this pattern — every surface below is computed from Group memberships and Items, both of which are dated, declared, and auditable.
+Selling, hosting, and organizing are things a Member does, not things a Member *is*. *(2026-09-14: **creator** is now the sanctioned word for someone who does them, and **patron** for the other side — but the naming changes nothing below. There is still no creator record and no stored role; the word describes a state the platform computes, not a column it writes.)* There is no creator record, no business entity, and no stored role anywhere in this pattern — every surface below is computed from Group memberships and Items, both of which are dated, declared, and auditable.
 
 ## Selling tools have no toggle
 
