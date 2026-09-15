@@ -45,9 +45,13 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 
 **The two words are patron and creator.** A creator is someone who publishes something other people show up for — sells, hosts, organizes. A patron is everyone on the other side of that. Every member starts as a patron; creator is what you become by taking the attestation step.
 
+**Both are umbrella terms, and may be used as such.** *(Don, 2026-09-14.)* The product may say "creators" and "patrons" in ordinary copy and in these docs — addressing a group, naming a side, describing who something is for. They are not confined to internal spec vocabulary.
+
+**Addressing a group is not labelling a person.** *(This is a reading, not Don's words — see `DECISIONS.md` 2026-09-14.)* "Built for creators" on a landing surface is the sanctioned use. "Creator" printed under one person's name, on their profile or beside their posts, is a person-level badge, and that stays refused — by the `Member` row's "no platform-awarded badge, rating, or label," by the never-clause below, and by F082 criterion 3. If Don meant the second as well, that refusal is what changes.
+
 **Neither is a stored type.** Patron is the default state of being a member, not a column; creator derives from the attestation record plus what the person has authored. The pair is vocabulary, not schema — see the `Member` row's "no type, tier, or stored role," which is unchanged by this ruling.
 
-**Never** — a third person-noun without a dated ruling. Other synonyms (producer, seller, maker, vendor, supporter, consumer) stay spec and category words and are never promoted to labels under a person's name; "vendor" in particular was removed from the product once already. Functional words — owner, staff, steward, host, founder — stay scoped to one Group or one gathering and never become a profile-level identity; sanctioning two nouns does not make these into badges.
+**Never** — a **third** person-noun without a dated ruling; the two sanctioned words are free to use. **Other** synonyms (producer, seller, maker, vendor, supporter, consumer) stay spec and category words and are never promoted to labels under a person's name; "vendor" in particular was removed from the product once already. Functional words — owner, staff, steward, host, founder — stay scoped to one Group or one gathering and never become a profile-level identity; sanctioning two nouns does not make these into badges.
 
 ## Page — the canonical definition
 

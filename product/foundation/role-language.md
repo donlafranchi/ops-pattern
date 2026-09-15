@@ -20,8 +20,8 @@ This document existed to argue that the second word shouldn't exist — that nam
 | Rule 3, no stored role, mode, or account type | **Kept, as architecture.** A dated `DECISIONS.md` line of its own — it was never a naming rule, and F081/F082 are built on it. |
 | Rule 4, functional roles stay scoped to one thing | **Kept**, on its own merits, in `nouns.md` § The two sides. Sanctioning two nouns does not make *host* or *steward* a profile badge. |
 | Rule 5, no zero counters on your own work | **Kept, as UX.** Principle 11 in `../ui/design-language.md`. |
-| Rule 6, "producer/seller/maker" are spec words | **Kept in narrowed form** — the pair is the vocabulary; other synonyms don't get promoted to labels. Folded into `nouns.md` § The two sides. |
-| Rule 7, escalate before coining a person-noun | **Kept in narrowed form** — a *third* person-noun needs a dated ruling. Folded into the same entry. |
+| Rule 6, "producer/seller/maker" are spec words | **Kept, narrowed to *other* synonyms.** Patron and creator are umbrella terms and free to use in copy *(Don, 2026-09-14)*; producer, seller, maker, vendor, supporter and consumer are the ones that stay spec words. Folded into `nouns.md` § The two sides. |
+| Rule 7, escalate before coining a person-noun | **Kept, narrowed to a *third* noun.** The two sanctioned words need no escalation. Folded into the same entry. |
 
 The full prior text, including the argument against the pair and its copy examples, is in git history: `git log -p -- product/foundation/role-language.md`.
 
