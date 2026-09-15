@@ -152,6 +152,20 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 - **Message anyone, about anything, at large.** Replaced 2026-09-09 by the message-board ruling: conversation is forbidden between people at large, available inside a Page you've joined. No messages, threads, or comments exist anywhere in the product today — postponed with a settled shape, not refused. Why the cell stays forbidden while the board is built: `messaging-problem.md`.
 - **A follow granting membership, role, read access, or satisfying any "is this person part of this Page" check.** F065.
 
+## Privacy decides the relationship — following versus joining
+
+*(Ruled by Don, 2026-09-15.)* **"Anything private wouldn't have followers, they have members because you can't follow something. You'd have to become a member in order to see what's in it."**
+
+**The rule, generalised: the relationship follows from the Page's discoverability, not from its Page kind.**
+
+- **`private` → membership only.** There is nothing public to follow, and seeing inside requires being let in. **A follow relationship on a private Page is either meaningless or a hole.**
+- **`listed` → following is available.** There is something public to follow. Joining may also exist where the Page kind has a roster.
+- **`unlisted` → following is available.** Someone with the link can see it, so there is something to follow; it is simply not in search.
+
+**This is not a special case for family Pages.** Family defaults to `private` by a `BEFORE INSERT` trigger, so the rule catches it — but the rule is about the setting, and **any Page set to private loses following, whatever its kind.** F067's single `relationship` column already carries both values, which is the schema this needs.
+
+**What it corrects:** the tools mapping in `../systems/page-kind-tools.md` assigned following to `place`, `interest`, `practice` and `event_anchored` unconditionally. **Those four default to `listed` but can be set private, and when they are, following must stop.** Following is a per-Page property, not a per-kind one.
+
 ## Who can see whom
 
 A second matrix — visibility between people is a rule per pair, not per verb.

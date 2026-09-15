@@ -151,3 +151,59 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 **Independent of the merge.** The value means *a social group that formed out of a gathering people met at* — and if that gathering was recurring, "event" is now precisely the wrong word for it, since **event means one-time as of Don's ruling today.**
 
 **Recommendation: rename the value to `seeded` and the child table to `group_seeded_by`.** **Not renamed unilaterally** — it is a schema value with a deferred foreign key attached, and the merge above would retire the value anyway. **If the merge happens, this fixes itself; if it does not, the rename is worth doing on its own.**
+
+---
+
+# Proposal: a label layer in front of the Page kind
+
+**Draft, 2026-09-15.** Don: *"For all the types that are similar, we should let people choose based on their terms, but then it just directs them to whatever we're calling it behind the scenes so they don't need to guess based on an incomplete list of options."*
+
+**The person picks a label in their own words — run club, book club, neighbourhood group, farmers market, supper club, congregation. That label maps to a Page kind. They never see our taxonomy and never guess which of our words their thing is.**
+
+## Shape: many labels, one Page kind
+
+**Many-to-one.** Dozens of labels map to `community`; a handful to `business`; a handful to `event`; `family` gets its own few. **The label is what the person chose and what the interface says back to them. The Page kind is what decides tools.**
+
+## Where the mapping lives: a table, and this is the decision that matters
+
+**Labels will be added constantly. That single fact rules out the other two options.**
+
+| Option | Cost to add a label | Verdict |
+|---|---|---|
+| **A table** | one row | **Proposed.** |
+| A configuration file | a pull request and a deploy | **Rejected** — a deploy per label means labels stop being added, and the list goes stale exactly the way an incomplete list of options does. That is the problem this exists to solve. |
+| Seeded data, edited by migration | a migration and a deploy | **Rejected**, same reason, plus migration history noise. |
+
+**And this shape is already ratified here, so it is not a new pattern.** The search dictionary was settled on 2026-09-13 as **an LLM agent proposing entries and a human approving them**, growing from what creators actually write. **The label mapping is the same mechanism on a different vocabulary, and it should reuse it rather than inventing a second approval queue.**
+
+**The label is member-authored text other people see, so rule 1 applies** — no production without a report-and-takedown path — exactly as it does for tags.
+
+## What happens when a label is not in the mapping
+
+**This is the case that needs an answer rather than a shrug.**
+
+**The Page is created. The label is kept as the person typed it. It maps to the default Page kind for the shape of thing they were starting, and it enters the same proposal queue the search dictionary uses.** A human maps it later; nothing about the person's Page changes when they do, because the tools came from the kind and the kind was already assigned.
+
+**Why that is safe and "Something else" was not.** *"Something else"* was retired on 2026-09-13 because its rows *"sat unread by anything"* — **it mapped to nothing and did nothing.** A label maps to a real Page kind and does real work the moment it is typed: the Page exists, it has tools, it is findable. **The mapping is an improvement to vocabulary, not a prerequisite for the Page working.** That is the whole difference, and it is structural rather than a promise to be diligent.
+
+**One guard worth writing down:** the queue must be read by something. The search-dictionary decision already names the reader — an agent proposes, a human approves — so **the label queue inherits a reader rather than needing a new one.** A queue with no named reader is how "Something else" died.
+
+## This dissolves the merge argument rather than answering it
+
+**The case for four community Page kinds was never that they behave differently — this document showed they do not. It was that four words give a person more recognition than one.** A label layer gives more recognition than four ever could, without a taxonomy to guess at.
+
+**So merge behind the scenes and multiply labels in front.** Four kinds become `community`; run club, book club, neighbourhood watch, quilting circle, congregation and everything else become labels pointing at it. **The person gets their own word. The system gets one tool set to reason about.**
+
+## It closes the farmers-market gap
+
+**`model.md` records that a market "convenes commercial vendors without selling anything itself" and fits none of the six Page kinds cleanly. Under this proposal it does not need to: a farmers market is a label.**
+
+**Which kind it points at is a real question and a small one** — `community`, since a market convenes people and the market itself sells nothing, while each vendor holds their own `business` Page. **The gap closes because the market never had to be a kind; it had to be a word.**
+
+## What this costs
+
+**Cheap:** the table, and a seed list of labels. The mapping is read once at creation and never again.
+
+**Not cheap, and not new:** the approval queue needs a surface, and **the operator concept still does not exist in the code** — the same blocker the search dictionary already carries. **Both should be built once, for both vocabularies.**
+
+**Open — Don rules:** whether a person may type a label freely or picks from a suggested list with free text as the fallback. **Free typing gets the recognition he is after; a suggested list gets a cleaner vocabulary.** The search dictionary faced the same choice and took both — suggestions up front, free text accepted, an agent proposing from what people actually wrote.
