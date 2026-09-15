@@ -51,13 +51,29 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 
 **Neither is a stored type.** Patron is the default state of being a member, not a column; creator derives from the attestation record plus what the person has authored. The pair is vocabulary, not schema — see the `Member` row's "no type, tier, or stored role," which is unchanged by this ruling.
 
-### The lint check — because prose rules have not held
+### The user-facing string check — because prose rules have not held
 
-*(2026-09-14. Twice now a naming ruling has been written wider than Don made it. `LESSONS.md` 17: a rule with no hook is a wish.)*
+*(2026-09-14, extended 2026-09-15 with the mechanical rules from `voice.md`. Twice a naming ruling has been written wider than Don made it. `LESSONS.md` 17: a rule with no hook is a wish.)*
 
-**Fails the build:** any of `vendor · producer · seller · maker · supporter · consumer · patron · creator` appearing as a whole word in a user-facing string in `socialus-web` — JSX text nodes, and string literals reaching a rendered prop (`label`, `title`, `placeholder`, `alt`, `aria-label`, `children`).
+**Scope, for every rule below:** user-facing strings in `socialus-web` — JSX text nodes, and string literals reaching a rendered prop (`label`, `title`, `placeholder`, `alt`, `aria-label`, `children`). **Never** identifiers, table and column names, routes, imports, comments, test fixtures, or these planning docs. The rule is about what a member reads, not what the code calls things.
 
-**Does not fail:** identifiers, table and column names, routes, imports, comments, test fixtures, and these planning docs. The rule is about what a member reads, not what the code calls things.
+**Fails the build:**
+
+| Check | What it catches | From |
+|---|---|---|
+| **Person-noun** | `vendor · producer · seller · maker · supporter · consumer · patron · creator` as a whole word | this document |
+| **Em dash** | any `—` character at all | `voice.md` § Writing mechanics — "No em dashes, anywhere" |
+| **"Corner"** | `corner` as a whole word | `voice.md` — reads as forced |
+| **Corporate transitions** | `moreover · furthermore · additionally · essentially · in a world where` | `voice.md` |
+
+**Warns, needs a human look — the pattern is real but the false-positive rate is not zero:**
+
+| Check | What it catches | Why not a hard fail |
+|---|---|---|
+| **"not just X, but Y"** | `not just` within 60 characters of `but` | Don bans it *as a repeated tic*, not per instance. His own name-sharing line uses it once. |
+| **Posting language** | `post · posting · share · sharing` as a verb about a member's own listing | "Share this link" is legitimate; "share a photo" is the failure. Only a reader can tell. |
+
+**Not checkable, and recorded as prose so nobody pretends otherwise:** no forced rule of three · CTAs point outward not inward · tone is warm and plainspoken · state things as fact not promise · no release numbers or internal jargon · no named-competitor comparison · real nouns over abstractions. **These live in `voice.md` and are enforced by reading, not by CI.** Saying so is the point — a rule filed as testable that no test holds is how the person-noun rule went unenforced twice.
 
 **Escape hatch:** a line comment naming the dated `DECISIONS.md` ruling that permits it. No ruling, no exception — that is the whole point of moving this out of prose.
 

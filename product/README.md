@@ -32,6 +32,13 @@ One line per doc, then the settled rules with no rationale attached — read the
 - Neither is a stored type — patron is the default state, creator derives from the attestation record plus what the person authored.
 - Functional roles (owner, staff, steward, host, founder) stay scoped to one Group or gathering — never shown as a person-level identity.
 
+**`foundation/voice.md`** — **the voice of the platform and the launch copy. Don's words, verbatim; agents do not edit it.**
+- People are never a category; a person is "you", a group is "people" or named, everything else is a verb.
+- Never a zero count on someone's own work. Job words attach to a thing, never a profile.
+- Writing mechanics: no em dashes, no "not just X but Y" tic, no corporate transitions, no forced rule of three, "corner" banned.
+- CTAs point outward (meet up, show up, join in), never inward. Nothing is written as posting or sharing — every listing is a creation.
+- **Name line and subhead are locked.** Carries the launch copy surface by surface.
+
 **`foundation/policy.md`** — the three-filter test.
 - Every privacy/revenue/data-sharing default passes 3 questions in order: helpful to members? harmful to anyone else (including non-participants)? abusable by a bad actor?
 - Default posture for non-essential sharing: **off.** Opt-ins must be visible, granular, revocable, time-bounded where stakes warrant it.

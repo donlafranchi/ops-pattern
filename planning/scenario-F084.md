@@ -22,6 +22,28 @@ Don wants to change a sentence. Today that means finding which of ninety-odd com
 
 Rewriting, shortening, or improving any string — that is F083 and Don's own writing, and doing it here would hide a copy change inside a mechanical one. Copy in the database with an editing screen — that is option B and was not chosen. Extracting strings from files already slated for deletion. Translation or locale support.
 
+## What Don's copy covers, and what it does not
+
+*(Mapped 2026-09-15 against `product/ui/surfaces.md`. This is the gap list this scenario's ticket needs.)*
+
+**Has copy now, and it replaces something live:**
+
+| Surface | Replaces |
+|---|---|
+| `/auth/signup` | whatever the auth screens say today; the name line and subhead are the locked pair |
+| `/onboarding` | the hood-and-metro step that `surfaces.md` records as finishing *"without ever being told what the product is for"* |
+| `/explore` | Browse's headings |
+| Empty states — no listings, no groups, no responses, blank profile | the current empties, and principle 11's zero-counter rule lands here |
+| Buttons, errors, toasts | scattered inline strings |
+| Magic-link and welcome emails | the template being fixed in `socialus-web` #74 |
+| Footer / about | — |
+
+**Has copy with no surface to put it on yet:** *"No messages. Say hello to someone nearby"* — **messaging does not exist**, has no substrate at all, and is not in launch scope. **Name sharing** — the two lines belong to F077's counterparty disclosure, which is approved and unbuilt. **Join or start a group** — the join control is the one missing piece of Groups, 0.75 day and unticketed.
+
+**Live surfaces with no copy in the guide:** `/` Home · `/m/[handle]` Member · `/p/[...slug]` the place catch-all · `/you` · `/you/sell` · `/you/following` · Item routes · **`/join`**, which F085 requires be rewritten and whose heading Don has already called too narrow.
+
+**Not covered and should not be:** every residue route — `/vendors/[slug]`, `/business/[slug]`, `/register-vendor`, `/you/vendor` and its bulletin screens. They are being deleted, which is the point of doing that first.
+
 ## What it costs, and when
 
 **Roughly 458 strings across 93 of the app's 129 component files.** Mechanical, low-risk, and large: **~3–4 days**, dominated by verification rather than typing, because criterion 4 means every touched surface has to read the same afterwards.
