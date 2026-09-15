@@ -160,6 +160,8 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 
 **The person picks a label in their own words — run club, book club, neighbourhood group, farmers market, supper club, congregation. That label maps to a Page kind. They never see our taxonomy and never guess which of our words their thing is.**
 
+**A label names what someone is starting, never what it is about.** *(Guard added 2026-09-15 — Don: "We don't need categories for kinds.")* *Run club* and *supper club* are labels. **"House and home", "Art and artists", "Outdoor goods" are subject matter and are not labels** — subject matter is what tags already carry, freely and without approval. **A subject list entering the label mapping would be a category layer over Page kinds arriving through the back door**, which is the thing the ruling refuses.
+
 ## Shape: many labels, one Page kind
 
 **Many-to-one.** Dozens of labels map to `community`; a handful to `business`; a handful to `event`; `family` gets its own few. **The label is what the person chose and what the interface says back to them. The Page kind is what decides tools.**
