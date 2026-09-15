@@ -44,13 +44,15 @@ A description, and a way for people to say they want it. **It does not expire an
 
 **It resolves an ambiguity the code already admits.** `src/actions/item/create.ts` carries the comment *"rate_model defaults to 'quote'; rate_cents null = free or quote."* **A null rate cannot tell those apart today.** With `free` as a value, a null rate under `quote` means *ask me* and `free` means *free*.
 
-### Selling has the same gap, and it is worse
+### Free does not go on products, deliberately
 
-**`item_products.price_cents` is nullable and nothing says what null means.** A tool library and a giveaway are both plainly in scope, and **today the only way to express either is to leave the price blank — which is indistinguishable from not having got round to it.**
+**Don, 2026-09-15: *"It's a service. An item for free is a free item to pick up. I'm hoping people don't use this for that."*** **Free stays on services only. The product price gap is declined, not overlooked.**
 
-**It is not the same fix, though.** A service has an enum to add a value to; **a product has no enum at all, so "free" has to be said some other way** — a value on a new column, or a defined meaning for null. **Don's call which.**
+**The reason is a product stance:** giving something away for collection is a different act from offering a service, and **this is not a curb-alert or free-stuff board.** Adding `free` to products would invite it to become one.
 
-**One alternative worth naming and not arguing:** `items.kind` already has `offer` — UI verb *"Offer up"* — which may be where a giveaway belongs rather than as a free product. **A tool library is closer to an offer than to a shop with nothing charged.**
+**The `offer` entry type is what decides whether that holds.** `items.kind` already carries `offer`, UI verb *"Offer up"*, **with no sub-table and no composer — nothing is built.** Whether it gets built, and how it is worded, is what determines whether the behaviour he is hoping to avoid arrives anyway.
+
+**The null ambiguity is untouched by this ruling.** `item_products.price_cents` is still nullable and still means either a giveaway or a listing nobody finished. **Declining to add a value does not define what null means, and it still needs his line.**
 
 ### What free changes downstream
 
