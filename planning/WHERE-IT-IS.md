@@ -110,7 +110,7 @@ Signup — legal name, email, zip, zip suggests a metro [F081] and becoming a cr
 7. Members have no zip and no legal-name column. But `zip_metro_crosswalk` and `metro_polygons` already exist [migrations 025, 031] — **the zip-to-metro lookup has substrate and T162 is smaller than its ticket implies.**
 8. Two report paths live on `main` at once [#63].
 9. The only transactional email a member receives is a Supabase dashboard template, outside version control [#74]. `FOLLOW_EMAIL_FROM` still reads *Movers, Makers & Shakers*.
-10. **`systems/item.md` describes the retired Item model.** `model.md` ruled on 2026-09-10 that there are no Items; `item.md` still specifies seven kinds and their child tables. Both the `items` tables and `page_posts` are live on `main` at once — **two models running side by side, with composers on the retired one and no writer on the new one.** Banner added to `item.md`; the reconciliation is unscheduled.
+10. **Disputed, not drift: whether `systems/item.md` describes a retired model.** `model.md` carries a section headed "There are no Items"; `item.md` specifies seven kinds and their child tables. **Don disputes that these are the same claim — see `ITEMS-QUESTION.md`. Unresolved.** Both the `items` tables and `page_posts` are live on `main` at once — **two models running side by side, with composers on the retired one and no writer on the new one.** Banner on `item.md` says disputed, not superseded.
 11. **`page_posts` has no `recurrence_rule`.** `item_gatherings` does, and `item.md` § Recurring gatherings designs the behaviour. **A recurring gathering cannot be expressed in the new model today** — F074 covers it and is `draft`.
 
 ---

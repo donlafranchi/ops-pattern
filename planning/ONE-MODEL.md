@@ -1,5 +1,8 @@
 # Getting to one model
 
+> **ON HOLD, 2026-09-15.** Everything below rests on the reading that `model.md` retired Items. **Don disputes that reading and it is unsettled** — see `ITEMS-QUESTION.md`. Do not act on this document until he rules.
+
+
 **2026-09-15. The biggest open thing in the project.** Two models are live on `main` at once. This says what has to happen to end up with one, in what order, and what breaks if the order is wrong.
 
 **Verified against `origin/main` @ `4af5ca9`, fetched.**

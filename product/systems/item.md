@@ -7,9 +7,9 @@ status: active
 
 # Item
 
-> **Superseded by [`../foundation/model.md`](../foundation/model.md) (2026-09-10), and not yet reconciled.** Don restated the model directly: **there are no Items.** *"What a creator offers is described on their Page and in their posts. It is not a separately listed thing that browse indexes."* The seven-kind vocabulary below, and the per-kind child tables, belong to the retired model. **The `items` tables are still live and still have three working composers, so this document still describes running code** — but it does not describe the model. Where the two disagree, `model.md` is right and this is the thing to fix.
+> **In dispute, 2026-09-15 — not superseded, and nothing here has been retired.** `model.md` carries a section headed *"There are no Items"*, and an earlier reading of it took this document to be obsolete. **Don disputes that reading**: Items are the kinds foundation, not a synonym for listings or products. **The question is open and is his to settle — see `planning/ITEMS-QUESTION.md`, which quotes `model.md` in full alongside this document's claims.**
 >
-> **What survives and is not in dispute:** the recurring-gathering design (§ Recurring gatherings), which `page_posts` does not yet carry, and the `item.published` event split.
+> **Nothing in code was changed.** All seven kinds and all four sub-tables are intact on `origin/main`, with working composers for product, service and gathering.
 
 Anything a Person declares — a product, a service, a gathering, an idea, an offer, an ask, an initiative — is one schema, varying by `kind`. A maker declaring sourdough and an organizer declaring a run club are the same act in different costumes: a person declares something, optionally anchored to a location and a schedule, with a discoverable page and responses from other people. Modeling these as separate systems means writing the same code seven times; modeling them as one primitive with kind variation means the locality index is one query, not a union across seven tables, and natural-language search has one consistent thing to embed.
 
