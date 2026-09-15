@@ -1,15 +1,15 @@
 ---
 id: F077
-title: A member's legal name reaches the platform and the people they dealt with; everyone else sees a display name
+title: People who actually interact are not hidden from each other; everyone else sees a display name
 status: approved
 date: 2026-09-14
 depends: []
 approved: 2026-09-14 — Don's ruling, replaces member.md "real names encouraged, never required"
-amended: 2026-09-14 — Don's ruling: the blanket peer-facing ban becomes a public-surface ban plus a counterparty carve-out
+amended: 2026-09-14 — Don's ruling: public-surface ban plus mutual counterparty disclosure, with interaction as the only path to a name
 ---
 ## Story
 
-Rae signs up with her legal name and email; the platform records it and never puts it on a public surface. She picks a display name — "Rae," a nickname, whatever she wants — and that's what every other member sees on her posts, her Page, her responses. When she sells someone a jar of jam or they turn up to something she hosted, that person learns who Rae actually is — she is accountable to the people she dealt with, and that is where the accountability lives. Everyone else, and every stranger, sees "Rae." If she ever does something worth reporting, the operator opens her record and sees the legal name behind the display name, not just a handle.
+Rae signs up with her legal name and email; the platform records it and never puts it on a public surface. She picks a display name — "Rae," a nickname, whatever she wants — and that's what every other member sees on her posts, her Page, her responses. When she sells someone a jar of jam, the two of them stop being hidden from each other — the buyer learns who Rae is, and Rae learns who the buyer is. Same when someone turns up to something she hosted. Nobody can reach either name by looking, searching, or browsing; the only way to learn a name is to have dealt with the person. Everyone else, and every stranger, sees "Rae." If she ever does something worth reporting, the operator opens her record and sees the legal name behind the display name, not just a handle.
 
 ## Acceptance
 
@@ -18,10 +18,27 @@ Rae signs up with her legal name and email; the platform records it and never pu
 3. Legal name is never rendered on a public or discovery surface, or to any anonymous visitor — profile, listing, search, map popup. *(Amended 2026-09-14: the blanket peer-facing ban is narrowed to public surfaces; criterion 6 carries the exception.)*
 4. The operator's report-review view (F058) shows the reported member's legal name alongside their display name.
 5. Existing seeded/test members are backfilled with a legal name or flagged before this ships to real signups.
-6. A member who published something others showed up for — sold an item, hosted a gathering — has their legal name disclosed to that counterparty, and to nobody else. **Disclosure is never a default:** it follows a named transaction or a recorded attendance, and reaches only the person on the other side of it. *(Added 2026-09-14 — Don's ruling: accountability is being known to the people you are accountable to.)*
+6. Two people who actually interacted — a completed sale, a recorded attendance — **each see the other's legal name**, bound to that interaction. Buyer sees seller and seller sees buyer; neither is hidden from the other, and nobody else sees either name. This is a **term of interacting, stated plainly at signup — not a consent the member grants or withholds.**
+7. **Interaction is the only path to a name.** The design refuses, and a surface that does any of these is wrong: searching or looking up a member by legal name; reverse lookup from a name to that person's activity; a durable, browsable list of counterparty names existing apart from the interactions that produced them; any rollup that turns repeated interaction into a roster of people. *(Criteria 6–7 added 2026-09-14 — Don's ruling.)*
+
+## The principle, in Don's words
+
+*2026-09-14:* **"We want people who interact with each other to not be hidden. We don't want stalking. Anything that is similar to stalking needs to be reduced. Interaction should be open and honest. We also want to reduce negativity and vitriol. That's the idea behind when we share names and when we don't."**
+
+**Criterion 7 is the load-bearing half, and the half that will be lost first.** Criterion 6 reads as a feature and will survive on its own; criterion 7 reads as an absence, and an absence is what gets quietly filled in by the next convenient surface. Mutual disclosure without the refusals is a name directory with extra steps — which is the stalking vector, not the accountability mechanism.
+
+## The roster problem — stated, not papered over
+
+**A busy seller or host interacts with many people, and per-interaction visibility can quietly become a customer list.** What the design refuses, and what it cannot:
+
+**Refused.** A name renders on the interaction record and nowhere else — there is no person-level "people who bought from you" view. Order and attendance records are not sortable, filterable, or searchable by name. A name never links to a profile, a Page, or any other surface. No export.
+
+**Not preventable, and said out loud:** a seller scrolling their own order history still reads many names in sequence. That is inherent to having an order history at all and cannot be designed away without deleting the record. The asymmetry is real — a buyer accumulates a handful of names, a busy host accumulates hundreds — and the refusals above narrow it rather than close it. This is consistent with the 2026-09-08 ruling that a business may see its own audience and nobody else may; what is new is that these are legal names, not display names.
+
+**Open — Don rules: retention.** Does a legal name stay legible on an interaction record forever, or fall back to the display name after some period? Nothing in the repo answers it, and it is the difference between a record and an archive.
 
 ## Not this
 
-ID or document verification — self-attested is enough at launch. Any public or discovery surface showing the legal name — profile, listing, search, map. Disclosure to anyone a transaction or attendance did not make a counterparty. Retroactively verifying legal names already on file.
+ID or document verification — self-attested is enough at launch. Any public or discovery surface showing the legal name — profile, listing, search, map. Disclosure to anyone a transaction or attendance did not make a counterparty. Name search, reverse lookup, or any roster built from counterparty names. Asking a member to consent to criterion 6 — it is a term, disclosed at signup. Retroactively verifying legal names already on file.
 
 *("Any peer-facing surface showing the legal name" stood here until 2026-09-14; it was too wide and forbade the counterparty disclosure criterion 6 now requires.)*

@@ -2,7 +2,7 @@
 
 Approved for build, one line each. Cowork writes this; Code reads it. Scenario files carry the detail — `planning/scenario-F###.md`.
 
-- **F077 — a member's legal name reaches the platform and the people they dealt with; everyone else sees a display name.** `status: approved`. **Amended 2026-09-14** — criterion 6 added (counterparty disclosure), criterion 3 narrowed to public surfaces.
+- **F077 — people who actually interact are not hidden from each other; everyone else sees a display name.** `status: approved`. **Amended 2026-09-14** — criteria 6–7 added (mutual counterparty disclosure; interaction as the only path to a name), criterion 3 narrowed to public surfaces.
 - **F078 — flagged content hides itself immediately, and the poster is told why.** `status: approved`, depends on F058 and F077.
 - **F080 — nobody can post anything about a child without a stronger-verified account.** `status: approved`, depends on F077.
 - **F076 — a person outside an open metro joins its waitlist.** `status: approved`.

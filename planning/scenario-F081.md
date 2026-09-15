@@ -15,7 +15,7 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map. **The counterparty disclosure of F077 criterion 6 covers the legal name only; it never carries the zip.**
 3. The zip produces a shortlist of candidate metros. **The person selects one; no metro is selected for them** — not by zip, not by IP, not by a pre-filled default.
 4. Every US metro stays reachable from the same control, so a person whose shortlist is wrong is never stuck (F076 criterion 1 holds).
-5. The screen carries a published line stating the platform does not sell member information. It states no date, no feature, and no promise about the future.
+5. The screen carries a published line stating the platform does not sell member information, **and a second stating that people who interact see each other's real name** — disclosed as a term, not offered as a choice. Neither states a date, a feature, or a promise about the future.
 6. No field, control, or string in signup asks or records whether the person makes things or finds them.
 
 ## Not this
@@ -24,12 +24,7 @@ Any verification, document, ID, or identity check — that is F082, and it happe
 
 ## Who sees a real name
 
-**Settled 2026-09-14:** a member's legal name is disclosed to a counterparty — someone who bought what they sold, or showed up to something they hosted — and never on a public surface. F077 criterion 6 carries it.
-
-**Still open, two questions:**
-
-- **Does it run both ways?** Don's words describe the publisher's name reaching the buyer or attendee. Whether the buyer's own real name reaches the seller is not answered, and the two directions are not obviously the same call.
-- **Consent, or disclosure?** Is the counterparty exception something a member opts into, or a stated term they are told about at signup? `policy.md`'s opt-out default would say opt-in; the accountability argument would say it is a condition of publishing. Nothing settles it.
+**Settled 2026-09-14, both questions.** It runs **both ways** — two people who interacted each see the other's legal name. And it is **disclosure, not consent** — a term of interacting, stated plainly at signup, which is what criterion 5's copy has to carry alongside the no-sale line. **Interaction is the only path to a name:** nothing is reachable by lookup, search, or browsing. F077 criteria 6–7 carry the rule and the refusals; F077 also states the roster tension and the one open question left (retention).
 
 ## Settled against F076
 
