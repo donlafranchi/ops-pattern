@@ -12,7 +12,7 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 ## Acceptance
 
 1. Signup collects a zip code, alongside the legal name, email and display name F077 already requires. No field beyond those four exists in the flow.
-2. The zip is stored, and never rendered on any peer-facing or anonymous surface — profile, listing, search, map.
+2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map. **The counterparty disclosure of F077 criterion 6 covers the legal name only; it never carries the zip.**
 3. The zip produces a shortlist of candidate metros. **The person selects one; no metro is selected for them** — not by zip, not by IP, not by a pre-filled default.
 4. Every US metro stays reachable from the same control, so a person whose shortlist is wrong is never stuck (F076 criterion 1 holds).
 5. The screen carries a published line stating the platform does not sell member information. It states no date, no feature, and no promise about the future.
@@ -22,14 +22,15 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 
 Any verification, document, ID, or identity check — that is F082, and it happens later, not here. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro the person picked. A street address — `product/systems/member.md` refuses one by default. The exact wording of the no-sale line, which is Don's call (RULES rule 4).
 
-## Open — Don rules: who sees a real name
+## Who sees a real name
 
-Don, 2026-09-14: *"Real Names displayed to other app users publicly isn't required. And there are exceptions to that especially for customers of businesses and other groups potentially."* **"Potentially" is his word; nothing here is settled.** Three questions, unanswered anywhere in the repo:
+**Settled 2026-09-14:** a member's legal name is disclosed to a counterparty — someone who bought what they sold, or showed up to something they hosted — and never on a public surface. F077 criterion 6 carries it.
 
-- **Who** may see a member's legal name, beyond the operator's report-review view F077 already allows.
-- **Under what circumstances** — does buying from a business expose the buyer's real name to that business, and does it work the other way too?
-- **Consent or disclosure** — if a business sees its own customer's real name, is that the customer's opt-in, or a stated term they are told about?
+**Still open, two questions:**
 
-## Unresolved against F076
+- **Does it run both ways?** Don's words describe the publisher's name reaching the buyer or attendee. Whether the buyer's own real name reaches the seller is not answered, and the two directions are not obviously the same call.
+- **Consent, or disclosure?** Is the counterparty exception something a member opts into, or a stated term they are told about at signup? `policy.md`'s opt-out default would say opt-in; the accountability argument would say it is a condition of publishing. Nothing settles it.
 
-**F076 criterion 3 records creator-or-patron at signup** to drive the 50/250 waitlist gate. Criterion 6 here says signup records no such thing. Both cannot hold. Don rules; a candidate reconciliation is that the role field belongs to the waitlist popup, not to account creation, and dies when a metro opens.
+## Settled against F076
+
+**F076 criterion 3 was amended 2026-09-14** so the make-or-find answer is a property of the waitlist entry, discarded when the metro opens — not an account field. Criterion 6 here and F076 criterion 3 now hold together.

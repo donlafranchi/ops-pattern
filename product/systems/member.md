@@ -11,11 +11,13 @@ A Member is the platform's record of one real human — one row, lifetime-stable
 
 **No street address is stored for any Member, by default.** ZIPs, Places, and radius queries cover every locality feature in scope, and not having an address store keeps the doxxing blast radius small. This isn't a categorical refusal — if a defined Member benefit ever needs one, the column can be added with a stated safety mechanism — but the default is no, and adding it without naming the benefit and the mitigation is refused.
 
-## A legal name is required to the platform; a display name is what other members see
+## A legal name is required to the platform; a display name is what the public sees
 
 **Nobody is anonymous to the platform.** Every Member gives their full legal name at signup, alongside email — self-attested, not document-verified, but required, never optional. This is the accountability floor: content the platform can't trace to a real person is a report-and-takedown path with nothing behind it. (2026-09-14, reverses the earlier "real names encouraged, never required" rule.)
 
-**Nobody is required to be identifiable to other members.** A separate display name is what a Member's posts, Page, and responses show everyone else — it can be a first name, a nickname, anything. The safety reasoning the old rule was protecting — a domestic-violence survivor, someone whose physical safety depends on not being findable by name — is unchanged: pseudonymity at the peer layer still covers it. What changed is that the platform itself always knows who someone is, even when other members don't.
+**Nobody is required to be identifiable to other members on a public surface.** A separate display name is what a Member's posts, Page, and responses show everyone else — it can be a first name, a nickname, anything. The safety reasoning the old rule was protecting — a domestic-violence survivor, someone whose physical safety depends on not being findable by name — is unchanged: pseudonymity at the peer layer still covers it. What changed is that the platform itself always knows who someone is, even when other members don't.
+
+**A counterparty is the exception, and it is not a default.** *(2026-09-14, Don's ruling.)* Someone who bought what a Member sold, or showed up to something they hosted, learns that Member's legal name — accountability is being known to the people you are accountable to, and a seller who is a handle to their own buyer is accountable to nobody. The disclosure follows a named transaction or a recorded attendance, reaches only the person on the other side of it, and never widens into a public surface. The enforcement mechanism is visibility and peer pressure (`../foundation/policy.md` § How good faith is enforced) — not an ID check, a selfie, an approval queue, or a badge.
 
 ## A second, stronger-verified tier is referenced, not yet built
 
@@ -51,4 +53,4 @@ Member-owned context storage and scoped, expiring permission grants to non-human
 
 ## What this rules out
 
-Any surface that sends content to a private geographic signal as its target. Auto-flipping a Member's discoverability on any state change, including acquiring a business Group. A stored street address without a named benefit and a stated safety mechanism attached. Row-level read access to another Member's awareness scope or saved searches, under any condition. A legal name surfaced anywhere a peer member or anonymous visitor can see it. A Member account existing without a legal name on file. (The stored-role and Business-entity refusals live with the pattern they constrain — `creator.md`.)
+Any surface that sends content to a private geographic signal as its target. Auto-flipping a Member's discoverability on any state change, including acquiring a business Group. A stored street address without a named benefit and a stated safety mechanism attached. Row-level read access to another Member's awareness scope or saved searches, under any condition. A legal name on a public or discovery surface, or visible to an anonymous visitor. *(Amended 2026-09-14 — this read "anywhere a peer member or anonymous visitor can see it," which forbade the counterparty disclosure above.)* A Member account existing without a legal name on file. (The stored-role and Business-entity refusals live with the pattern they constrain — `creator.md`.)

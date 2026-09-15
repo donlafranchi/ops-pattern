@@ -14,7 +14,7 @@ Someone in Boise signs up. Boise is not open yet, so they pick it from the list 
 
 1. Every US metro is present and selectable at signup, before launch. A person cannot reach a state where their metro is absent from the list.
 2. A person outside an open metro picks one. The platform **may suggest** a shortlist, derived from the person's zip, and **never selects for them** — no IP-derived metro, no pre-filled default, no auto-assignment on a nearest match. *(Criterion amended 2026-09-14 to permit suggestion; auto-selection stays forbidden.)*
-3. Signup records exactly one of two roles for that person: **creator** or **patron**. Neither is pre-selected.
+3. The waitlist entry records whether the person is here to make things or to find them. Neither is pre-selected. **This is a property of the waitlist entry, not of the account** — no role is stored on the member, and the answer is discarded when the metro opens. *(Amended 2026-09-14: this read "Signup records exactly one of two roles for that person," which stored a role the platform refuses to store.)*
 4. Joining is idempotent: one person counts once in one metro. Re-signup, re-visit or a second device does not increment anything.
 5. Changing the selected metro moves that person's count from the old metro to the new one, leaving neither double-counted nor stranded.
 6. **Creator and patron counts are stored separately** per metro, and both are readable independently of what is displayed.

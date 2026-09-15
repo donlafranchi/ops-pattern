@@ -20,4 +20,6 @@ Devon signed up because a neighbour sent a link; he makes hot sauce but hasn't l
 
 ## Not this
 
-The Explore→Home nav fold. A separate "become a producer" toggle — creating a Page is the act. Deleting vendor-era files.
+The Explore→Home nav fold. A "become a producer" toggle that makes someone pick a class for themselves. Deleting vendor-era files.
+
+*(This read "a separate 'become a producer' toggle — creating a Page is the act" until 2026-09-14. Narrowed: F082's one-time self-attestation does precede a first Page. What stays refused is self-classification, not the step.)*
