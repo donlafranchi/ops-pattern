@@ -206,4 +206,8 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 
 **Not cheap, and not new:** the approval queue needs a surface, and **the operator concept still does not exist in the code** — the same blocker the search dictionary already carries. **Both should be built once, for both vocabularies.**
 
-**Open — Don rules:** whether a person may type a label freely or picks from a suggested list with free text as the fallback. **Free typing gets the recognition he is after; a suggested list gets a cleaner vocabulary.** The search dictionary faced the same choice and took both — suggestions up front, free text accepted, an agent proposing from what people actually wrote.
+**Answered 2026-09-15, and it turns the escape hatch into the research mechanism:** an **Other** option opens an explainer describing the kinds by what each lets you do, from which a person either picks the closest or says what is missing. **Nothing is stored as "other".** Written as **F088**, which also takes the position that the unmapped-label queue, the Other queue and the search dictionary are **one queue with three sources**, reusing F064's approved signal table.
+
+**This document is what the explainer must agree with** — F088 criterion 3 forbids the page from showing a tool the mapping does not grant, or omitting one it does.
+
+**Still open — Don rules:** whether a person may type a label freely or picks from a suggested list with free text as the fallback. **Free typing gets the recognition he is after; a suggested list gets a cleaner vocabulary.** The search dictionary faced the same choice and took both — suggestions up front, free text accepted, an agent proposing from what people actually wrote.
