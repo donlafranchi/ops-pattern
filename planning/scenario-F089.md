@@ -17,7 +17,7 @@ Priya repairs bikes at weekends and has never listed anything. She opens the cre
 4. **Scoped to one metro.** No cross-metro view, no national aggregate, no drill-down narrower than the metro.
 5. **What is shown is a term and a coarse band** — *a few people · dozens · more* — never an exact count, never a trend line, never a date.
 6. **No creator sees anything scoped to their own Page.** Not who searched for them, not who found them, not who looked and left.
-7. **Raw search rows are deleted after 30 days.** Only the aggregate survives, and nothing anywhere can reconstruct a row from it.
+7. **The aggregates are kept indefinitely** — a count per term, per metro, per month, forever. *(Don, 2026-09-15: "Retention is forever. We want trends.")* **How long a raw row lives before it is counted and dropped is open — see below.**
 8. **Nothing here is ever sold, licensed, or shared off-platform.**
 
 ## Not this
@@ -29,6 +29,12 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 **A count of one is a person. A count of two in a launch metro is very nearly one** — a metro opens at 50 creators and 250 patrons, so two searchers out of 300 is a small enough set that anyone who knows two neighbours can guess. **Ten distinct members is the smallest floor that survives that arithmetic at launch volumes.**
 
 **At launch this will show almost nothing, and that is correct rather than broken.** Don already ruled the principle on 2026-09-15: a search that returns nothing is an honest answer. **The same logic applies here — a surface with nothing to show should say nothing, not lower its floor.** A floor that moves to fill a screen is not a floor.
+
+## Indefinite retention makes the threshold and the term rule permanent
+
+**A consequence worth stating rather than leaving implicit.** With a short retention window, a mistake ages out — a term shown that should not have been stops being visible once its rows expire. **With aggregates kept forever, nothing ages out. Every protection has to hold on the day the row is written, because there is no second chance later.**
+
+**That raises the stakes on criterion 3 specifically** — the rule that a term identifying someone is never shown whatever its count. **It is already the criterion most likely to be dropped as an edge case, and it is now the one with the longest consequence.** A term wrongly admitted to an aggregate is admitted permanently.
 
 ## The combination case, which is the one that gets missed
 
@@ -44,13 +50,34 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 
 **The test for any future change: does this help somebody decide what to start, or help somebody find what they need nearby?** If neither, it is out, whatever else it would be good for.
 
-## Retention — 30 days, and deliberately not 12 months
+## Retention — aggregates forever; raw rows are Don's call
 
-**Don ruled 12 months for a legal name on an interaction record. That number should not be copied here, and the reason is that it serves a different job.**
+**Settled. Don, 2026-09-15: *"Retention is forever. We want trends."*** **The aggregates are kept indefinitely**, which is what a trend is made of. **There is no privacy cost in that**: an aggregate only exists once it has passed the floor of ten and the term rule, so by construction it contains nothing that identifies anyone.
 
-A legal name stays legible because **two people who dealt with each other remain accountable to each other** for a period — the record is the point. **A raw search row serves nothing once it has been counted.** Its entire value transfers to the aggregate the moment the aggregate is computed, and everything kept after that is breach surface with no purpose behind it.
+### The open half, in two lines
 
-**So: 30 days raw, then the aggregate only.** Thirty rather than seven because a monthly aggregate needs a month of rows to close, plus a margin for a failed job. **Consistency with the 12-month rule would be consistency for its own sake**, and the two rules answer opposite questions: one asks how long someone stays accountable, the other asks how soon data stops existing.
+**Trends do not need raw rows.** Once a search is counted into its month's aggregate it adds nothing further to any trend. **The only question is whether the individual rows are kept after that, and it is a separate ruling from the one above.**
+
+### The real exposure, which is not what it looks like
+
+**Criterion 1 already strips a raw row of every identifier** — no member id, no session, no device, no IP, no timestamp finer than a month. **So a raw row is already almost an aggregate row.** It cannot be re-associated with a person, and the usual argument about breach surface is weaker here than it first appears.
+
+**What a raw row carries that an aggregate never does is the terms that failed the rules** — the ones below the floor of ten, and the ones criterion 3 refused because the term itself named a person, a street or a phone number. **So the honest question is narrow: do we keep, forever, the search terms that were too identifying to ever be shown?**
+
+### The case for keeping them, stated properly rather than stacked
+
+**These are real arguments and Don should hear them before ruling.**
+
+- **Re-aggregating at a different granularity.** The aggregate is monthly. If a weekly or seasonal view is ever wanted, only raw rows can produce it, and only for the period they still exist. **Deleted history cannot be recovered later.**
+- **Correcting a bad aggregation job.** A bug in the aggregator writes wrong counts. With raw rows you recompute; without them the error is permanent and silent.
+- **Re-bucketing when terms are normalised.** If *bike repair* and *bicycle repair* are later merged, raw rows can be re-counted. **Aggregates already summed cannot be split apart again.**
+- **Applying a stricter sanitisation rule retroactively.** If criterion 3 is ever tightened, raw rows can be re-screened.
+
+**The case against is one sentence:** every argument above is about fixing our own mistakes, not about trends — **and the price is holding the most identifying terms anyone typed, indefinitely, with no surface that will ever show them.**
+
+**A middle option, named because it is the obvious one:** keep raw rows for a bounded window long enough to re-aggregate — twelve months, matching the interaction-record rule — then drop them, keeping the aggregates forever. **That buys most of the correction value with a surface that stops growing.**
+
+**Recommendation: the middle option.** But this is a judgement about how much of our own fallibility to insure against, and that is Don's, not a design question.
 
 ## Is this the same mechanism as the signal queue? No.
 
