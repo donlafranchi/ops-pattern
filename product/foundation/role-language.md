@@ -9,19 +9,21 @@ status: retired
 
 **Overruled by Don, 2026-09-14.** His words: *"The other side is patron. That's the closest I think we'll get. This has nothing to do with copy. Also I think this document can go away and the two sides can exist in another doc."*
 
-This document existed to argue that the second word shouldn't exist — that naming both sides installs a class boundary the product would spend forever apologising for. Don ruled the other way: **patron is the word for the non-creator side, creator for the other.** Its central rule falls with that, and the document with it.
+**What was actually overruled is narrower than this tombstone first said.** *(Corrected 2026-09-14, same day.)* Don's clarification: *"Creator and patron are shorthand for you and me when discussing the two sides broadly."* He sanctioned **internal** vocabulary — our words for talking about the product. He did not sanction person-nouns in user-facing copy, and the first version of this tombstone recorded the ruling far wider than he made it.
+
+**So rule 2 fell only in its internal half.** The doc refused to let anyone name the two sides at all; that refusal is gone. **Its user-facing rule — no person-noun printed in front of a member — stands, unchanged and unweakened.** The document is retired because the pair now lives in `nouns.md`, not because its core rule was wrong.
 
 **Where its contents went:**
 
 | Was | Now |
 |---|---|
-| Rule 2, no umbrella noun for either side | **Overruled.** The pair is ratified in `nouns.md` § The two sides. |
-| Rule 1, no noun a person didn't choose | **Falls with rule 2.** Its live residue — the platform never invents *further* labels for people — was already ratified separately as "the platform never rates, ranks, or labels a person." |
+| Rule 2, no umbrella noun for either side | **Overruled in its internal half only.** Patron and creator are our shorthand; `nouns.md` § The two sides. **The user-facing half stands.** |
+| Rule 1, no noun a person didn't choose | **Kept.** *(Restored 2026-09-14 — dropped on a misreading that rule 2 had fallen entirely.)* No person-noun reaches a member; they get "you," their own name, and verbs. Now in `nouns.md` § The two sides and enforced by lint. |
 | Rule 3, no stored role, mode, or account type | **Kept, as architecture.** A dated `DECISIONS.md` line of its own — it was never a naming rule, and F081/F082 are built on it. |
 | Rule 4, functional roles stay scoped to one thing | **Kept**, on its own merits, in `nouns.md` § The two sides. Sanctioning two nouns does not make *host* or *steward* a profile badge. |
 | Rule 5, no zero counters on your own work | **Kept, as UX.** Principle 11 in `../ui/design-language.md`. |
-| Rule 6, "producer/seller/maker" are spec words | **Kept, narrowed to *other* synonyms.** Patron and creator are umbrella terms and free to use in copy *(Don, 2026-09-14)*; producer, seller, maker, vendor, supporter and consumer are the ones that stay spec words. Folded into `nouns.md` § The two sides. |
-| Rule 7, escalate before coining a person-noun | **Kept, narrowed to a *third* noun.** The two sanctioned words need no escalation. Folded into the same entry. |
+| Rule 6, "producer/seller/maker" are spec words | **Kept in full.** *(Restored 2026-09-14.)* They are spec words and never labels — and so, in user-facing copy, are patron and creator. |
+| Rule 7, escalate before coining a person-noun | **Kept in full.** *(Restored 2026-09-14.)* A new person-noun needs a dated ruling; a surface that needs one is modelling a class distinction and should be escalated. |
 
 The full prior text, including the argument against the pair and its copy examples, is in git history: `git log -p -- product/foundation/role-language.md`.
 

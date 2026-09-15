@@ -39,19 +39,29 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **Gr
 
 **Group** — a named, self-selected set of people. Six kinds: five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) and one operate (`business`). Never auto-assigned by geography or anything else. Detail: `../systems/groups.md`.
 
-## The two sides — patron and creator
+## The two sides — patron and creator *(internal vocabulary)*
 
-*(Ratified 2026-09-14, Don: "The other side is patron. That's the closest I think we'll get." **Overrules `role-language.md`**, which refused any umbrella noun for either side; that document is retired.)*
+*(Ratified 2026-09-14, Don: "Creator and patron are shorthand for you and me when discussing the two sides broadly.")*
 
-**The two words are patron and creator.** A creator is someone who publishes something other people show up for — sells, hosts, organizes. A patron is everyone on the other side of that. Every member starts as a patron; creator is what you become by taking the attestation step.
+**These are our words for talking about the product, not the product's words for talking to a member.** A creator is someone who publishes something other people show up for — sells, hosts, organizes. A patron is everyone on the other side. Use them freely in these docs, in scenarios, in tickets, in conversation.
 
-**Both are umbrella terms, and may be used as such.** *(Don, 2026-09-14.)* The product may say "creators" and "patrons" in ordinary copy and in these docs — addressing a group, naming a side, describing who something is for. They are not confined to internal spec vocabulary.
+**Never rendered in a user-facing string.** *(Restores `role-language.md`'s rule: no person-noun in front of a member.)* Not in copy, not as a label under a name, not addressing a group. A member is addressed as **you**; a set of people is **people**, or named. Everything a person *does* is a verb — make, sell, host, offer, ask, wonder, show up, back, follow, save.
 
-**Addressing a group is not labelling a person.** *(This is a reading, not Don's words — see `DECISIONS.md` 2026-09-14.)* "Built for creators" on a landing surface is the sanctioned use. "Creator" printed under one person's name, on their profile or beside their posts, is a person-level badge, and that stays refused — by the `Member` row's "no platform-awarded badge, rating, or label," by the never-clause below, and by F082 criterion 3. If Don meant the second as well, that refusal is what changes.
+**What was actually overruled** on 2026-09-14 is narrow: the old doc refused to let *us* name the two sides at all, even internally. That refusal is gone. **Its user-facing rule stands unchanged.**
 
 **Neither is a stored type.** Patron is the default state of being a member, not a column; creator derives from the attestation record plus what the person has authored. The pair is vocabulary, not schema — see the `Member` row's "no type, tier, or stored role," which is unchanged by this ruling.
 
-**Never** — a **third** person-noun without a dated ruling; the two sanctioned words are free to use. **Other** synonyms (producer, seller, maker, vendor, supporter, consumer) stay spec and category words and are never promoted to labels under a person's name; "vendor" in particular was removed from the product once already. Functional words — owner, staff, steward, host, founder — stay scoped to one Group or one gathering and never become a profile-level identity; sanctioning two nouns does not make these into badges.
+### The lint check — because prose rules have not held
+
+*(2026-09-14. Twice now a naming ruling has been written wider than Don made it. `LESSONS.md` 17: a rule with no hook is a wish.)*
+
+**Fails the build:** any of `vendor · producer · seller · maker · supporter · consumer · patron · creator` appearing as a whole word in a user-facing string in `socialus-web` — JSX text nodes, and string literals reaching a rendered prop (`label`, `title`, `placeholder`, `alt`, `aria-label`, `children`).
+
+**Does not fail:** identifiers, table and column names, routes, imports, comments, test fixtures, and these planning docs. The rule is about what a member reads, not what the code calls things.
+
+**Escape hatch:** a line comment naming the dated `DECISIONS.md` ruling that permits it. No ruling, no exception — that is the whole point of moving this out of prose.
+
+**Never** — a person-noun in any user-facing string, these two included. A third internal person-noun without a dated ruling. Producer, seller, maker, vendor, supporter and consumer as anything but spec words; "vendor" was removed from the product once already and is still in the code. Functional words — owner, staff, steward, host, founder — outside the scope of one Group or one gathering; they never become a profile-level identity.
 
 ## Page — the canonical definition
 

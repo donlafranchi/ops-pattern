@@ -14,6 +14,8 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 
 ## Next — Fortnights 2–3
 
+- Person-noun lint in `socialus-web` — fails the build on a person-noun in a user-facing string. Spec in `product/foundation/nouns.md`; a chore, opened as an Issue. **~16 strings fail today, plus the retired vendor routes.**
+
 - Search (Pages only) + Browse rebuilt around Pages and gatherings.
 - Popularity ordering with a reserved share for new Pages.
 - Metadata rewrite; retired vendor routes redirected or removed.
