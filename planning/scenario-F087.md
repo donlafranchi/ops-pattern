@@ -11,7 +11,7 @@ Priya wants to convene a Tuesday run. Marcus wants to sell hot sauce. Dana is st
 
 ## Acceptance
 
-1. **Every path through the create flow produces a Page.** There is no second entity, no alternative record, and no path that creates something else.
+1. **Every path through the create flow produces a Page** — a one-time gathering included. There is no second entity, no alternative record, and no path that creates something else. *(Confirmed by Don 2026-09-15; `nouns.md`'s "no Page for a single occasion" was overruled the same day.)*
 2. **Purpose is chosen first, from a named set**, before any other field. Nothing is pre-selected and nothing is inferred.
 3. **The words shown to the person differ by purpose** — headings, labels, buttons, and the confirmation. Opening a shop, posting a gathering and starting a group read as three different things.
 4. **The tools offered differ by purpose.** A purpose's flow omits steps its thing does not need, rather than showing them disabled or skippable.
@@ -36,8 +36,10 @@ Converting one Page into another — rejected outright since 2026-09-07 and stil
 
 **Named, defined, and sized in `product/systems/page-kinds.md`** (draft, 2026-09-15): someone selling, someone with a recurring gathering, and a deliberately thinner one-time gathering. That document carries what each needs at minimum, what it does not need, the schema recommendation, and the full list of what the thin one lacks.
 
-## One real conflict, for Don to rule on
+## Settled — the one-time gathering
 
-**A one-time gathering.** Don: *"Hosting is essentially a simplified version of creating a group or recurring gathering, for a one-time thing"* — which makes hosting a Page. But `nouns.md` says a Page has **"No Page for a single occasion"**, and `DECISIONS.md` 2026-09-07 says *"A Page is who; an Item is what. One-time events are Items with a date, filed under a Page — no Page is created for a single occasion."* The stated reason was that browse and the map would index listings as if they were people, and a follower graph on something ephemeral is worthless.
+**Don ruled 2026-09-15:** *"We can create a page for every kind. It just doesn't require all of the same tools. It would still require an announcement and perhaps a following list and later messaging etc."*
 
-**Two readings, and this scenario cannot pick one:** the host purpose creates a Page like the others, reversing that rule; or it creates an Item filed under a Page the person already holds or gets by default, keeping the rule and making hosting the one purpose whose output differs. **Criterion 1 as written assumes the first.** Don rules.
+**A Page for every kind, including a one-off. What differs is the tools.** Every Page gets a baseline — announcing, and a following list — with messaging later. `nouns.md` was amended the same day; criterion 1 stands as written and is no longer in conflict.
+
+**What this costs is in `planning/ONE-MODEL.md`** — the baseline is not free, and neither half of it has a writer today.

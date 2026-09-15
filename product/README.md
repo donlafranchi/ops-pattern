@@ -68,12 +68,6 @@ One line per doc, then the settled rules with no rationale attached — read the
 > **Systems docs are depth, not a competing status.** They describe *how* a concept works; they never state whether it ships. The spine — `foundation/nouns.md`, `foundation/verbs.md`, `ui/surfaces.md` — owns status. That is why these are not a fourth tracking layer, and why "a concept lives in exactly one place" does not make them redundant: they answer a different question, not the same one twice. A systems doc that starts declaring what ships has drifted — move that sentence to the spine, don't delete the doc.
 
 
-**`systems/page-kinds.md`** *(draft, 2026-09-15)* — the three things a person can start.
-- Someone selling · someone with a recurring gathering · a one-time gathering, deliberately thinner.
-- **Purpose is a Page concept, not an Item one.** "Offering a service" is an Item filed under a Page, not a purpose of its own.
-- Schema recommendation: the existing `kind` column plus typed child tables, the pattern `groups` and `items` both already use. No migration proposed.
-- Carries the written list of what a one-time gathering lacks, and four contradictions for Don.
-
 **`systems/member.md`** — the identity primitive. *(split landed — see Open Actions below)*
 - One row per real human, lifetime-stable. No stored role column, no street address by default.
 - Full legal name required at signup and held by the platform. **What is not required is that a real name be displayed publicly** — a display name stands in on every public and discovery surface. **People who actually interact are not hidden from each other:** a completed sale or a recorded attendance discloses each party's legal name to the other, mutually, as a term of interacting rather than a consent. **Interaction is the only path to a name** — no lookup, no name search, no reverse lookup, no roster. *(2026-09-14, replaces "real names encouraged, never required" — see `DECISIONS.md` and F077.)*
