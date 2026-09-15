@@ -12,7 +12,7 @@ Priya is making a Page for bike repair and none of the labels are hers, so she t
 
 ## Acceptance
 
-1. **One signal table serves three sources** — an unmapped label, an Other description (F088), and a search-dictionary gap — each row carrying which source it came from. *(Amended 2026-09-15. This read: "Free-typed category text renders on the Page as the Member's own words and is search-matchable, without becoming a filter." **That described the twelve categories and the "Something else" field, both retired 2026-09-13** — building it as written would ship a deleted field.)*
+1. **One signal table serves two sources** — an unmapped label, and an Other description (F088) — each row carrying which source it came from. *(Reduced from three on 2026-09-15: a zero-result search is an honest answer, not a signal.)* *(Amended 2026-09-15. This read: "Free-typed category text renders on the Page as the Member's own words and is search-matchable, without becoming a filter." **That described the twelve categories and the "Something else" field, both retired 2026-09-13** — building it as written would ship a deleted field.)*
 2. A tap on a not-yet-built option is acknowledged; a second tap from the same person is a no-op enforced by a constraint.
 3. No copy anywhere in this flow implies a date, plan, or queue position.
 4. The person who signaled sees no count of how many others did.

@@ -186,7 +186,7 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 
 **Why that is safe and "Something else" was not.** *"Something else"* was retired on 2026-09-13 because its rows *"sat unread by anything"* — **it mapped to nothing and did nothing.** A label maps to a real Page kind and does real work the moment it is typed: the Page exists, it has tools, it is findable. **The mapping is an improvement to vocabulary, not a prerequisite for the Page working.** That is the whole difference, and it is structural rather than a promise to be diligent.
 
-**One guard worth writing down:** the queue must be read by something. The search-dictionary decision already names the reader — an agent proposes, a human approves — so **the label queue inherits a reader rather than needing a new one.** A queue with no named reader is how "Something else" died.
+**One guard worth writing down:** the queue must be read by something. The search-dictionary decision already names the reader — an agent proposes, a human approves — so **the label queue inherits a reader rather than needing a new one.** *(That reader survives the 2026-09-15 ruling that a zero-result search is not a signal: the dictionary still grows from creators' tags, which was always its first and better input.)* A queue with no named reader is how "Something else" died.
 
 ## This dissolves the merge argument rather than answering it
 

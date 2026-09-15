@@ -30,7 +30,6 @@ Every entry added from 2026-09-12 carries three things:
 - **Bulletin intelligence.** The platform proactively prompts business Pages to post timely bulletins by surfacing what's happening nearby (weather, local events, seasonal cues).
 - **Local stays.** Short-term rentals as a platform surface — an anti-Airbnb thesis built on the platform's existing Location/Group primitives instead of a new booking stack.
 - **Locally Made badge.** A provenance badge distinct from Locally Owned, graduating from self-attestation to verified; varies by product category. A proximity model was built and shelved (branch `t-f039`) pending the trust-model question.
-- **Market intelligence.** Aggregate demand signal surfaced back to producers — a platform-wide read of what's being searched and saved, distinct from any one producer's own dashboard.
 - **MEHKO home kitchens.** Microenterprise Home Kitchen Operations as an early-adopter producer segment; permit verification links to the vetting-and-vouching idea below.
 - **The mighty oak.** A candidate visual symbol for the platform — "an oak tree is not a tree, it is a neighborhood."
 - **Missing pets.** Whether there's a structural shape for "help me find my pet" that captures the community-rallying value without opening a freeform posting surface that becomes a vector for rants and scams. Pushes against the accountable-participation commitment; unresolved.
@@ -61,3 +60,11 @@ Every entry added from 2026-09-12 carries three things:
 **Where it connects to what's already promised:** it is a direct instance of *not an extractive platform* — the fee and the surrendered attendee relationship are the extraction. It is also the clearest case of *not pricing out the small*: a per-ticket fee is regressive against exactly the neighbourhood-scale organizer this platform is for. The thesis is not a new commitment; it is an application of two that exist.
 
 **What would have to become true for this to be more than a thesis:** capacity limits · payment · transfer between people · proof of entry at the door. Each is a real build, and the platform has none of them. A future reader can measure the distance by how many of those four exist.
+
+### Blog posts and emails that explain what's what
+
+*Don, 2026-09-15.* A channel for helping people understand the differences between the kinds of thing they can start, and what the product is for — alongside the in-app explainer, not instead of it.
+
+**Unscoped, and deliberately so.** This is a marketing and education question, not a product surface, and it is **outside launch scope**. Recorded here so it is not lost.
+
+**What would make it real:** somebody owning marketing, which nobody does today.
