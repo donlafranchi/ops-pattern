@@ -14,11 +14,12 @@ Priya repairs bikes at weekends and has never listed anything. She opens the cre
 1. **A search is recorded as a term, a metro, and a month. Nothing else.** No member id, no session id, no device, no IP, no ordering or timestamp finer than the month that could re-associate a row with a person.
 2. **Nothing is shown below a floor of ten distinct members** having searched that term in that metro. The floor is a stored number, not a judgement made at read time, and **it is never lowered to make a surface less empty**.
 3. **A term is never shown if the term itself identifies someone**, whatever its count — one containing a personal name, a street address, a phone number, or matching any member's display name or handle. **The count is not the only way a person is identified.**
-4. **Scoped to one metro.** No cross-metro view, no national aggregate, no drill-down narrower than the metro.
-5. **What is shown is a term and a coarse band** — *a few people · dozens · more* — never an exact count, never a trend line, never a date.
-6. **No creator sees anything scoped to their own Page.** Not who searched for them, not who found them, not who looked and left.
-7. **The aggregates are kept indefinitely** — a count per term, per metro, per month, forever. *(Don, 2026-09-15: "Retention is forever. We want trends.")* **How long a raw row lives before it is counted and dropped is open — see below.**
-8. **Nothing here is ever sold, licensed, or shared off-platform.**
+4. **Trends roll up across metros.** The stored grain is one metro, but the shape supports summing across any set of them — a region, a similarity cohort, everywhere. **No drill-down narrower than a metro, ever.** *(Amended 2026-09-15 — this read "scoped to one metro, no cross-metro view, no national aggregate". Don: "we want to know all the trends everywhere… one community's trend could help a similar community.")*
+5. **What is shown is a term and a coarse band** — *a few people · dozens · more* — never an exact count, never a date. **The exact count is stored; the band is computed at read time.** Storing the band would make every rollup impossible.
+6. **The floor applies at every level that is shown, not only the top**, and a rollup is never displayed alongside a complete enumeration of its parts. See § The floor under rollup.
+7. **No creator sees anything scoped to their own Page.** Not who searched for them, not who found them, not who looked and left.
+8. **The aggregates are kept indefinitely** — a count per term, per metro, per month, forever. *(Don, 2026-09-15: "Retention is forever. We want trends.")* **How long a raw row lives before it is counted and dropped is open — see below.**
+9. **Nothing here is ever sold, licensed, or shared off-platform.**
 
 ## Not this
 
@@ -36,6 +37,46 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 
 **That raises the stakes on criterion 3 specifically** — the rule that a term identifying someone is never shown whatever its count. **It is already the criterion most likely to be dropped as an edge case, and it is now the one with the longest consequence.** A term wrongly admitted to an aggregate is admitted permanently.
 
+## Rolling up across metros — what the schema has to get right
+
+**Grain: one row per term, per metro, per month, holding an exact count.** Everything else is a sum over that.
+
+**Dimensions:** term · metro · month. A region, a similarity cohort and "everywhere" are all sets of metros, so none of them needs its own grain — **which is the point of storing at the metro and never below it.**
+
+**Three things would make this painful later, and all three are cheap to avoid now:**
+
+- **Storing the display band instead of the count.** Bands cannot be summed. *A few* plus *a few* is not a band. **The count is stored, the band is a read-time function** — criterion 5.
+- **Dropping sub-threshold rows at write time.** If rows below the floor are never stored, **every rollup is silently wrong**, because it omits exactly the small metros a national trend is meant to include. **Sub-threshold rows must be stored and withheld at display, not at write.**
+- **Normalising terms per metro.** If *bike repair* and *bicycle repair* are bucketed differently in different places, nothing sums. **One normalisation, applied once, globally.**
+
+## The floor under rollup — sharper, not softer
+
+**A term clearing ten nationally can be two people in one metro. The floor has to survive that.**
+
+- **The floor applies at every level that is displayed.** A metro shown must clear ten in that metro. A cohort shown must clear ten in that cohort.
+- **Components below the floor are folded into an unnamed remainder and never itemised.** Not listed, not counted separately, not linkable.
+- **A rollup is never shown alongside a complete enumeration of its parts.** If a total and all but one component are visible, the missing one is arithmetic. **This is the failure that a per-level check alone does not catch**, and it is why the rule is about what appears together, not only about each number.
+
+## A contradiction to resolve: counting distinct people without an identifier
+
+**Criterion 2 requires a floor of ten *distinct members*. Criterion 1 forbids recording a member id. As written, both cannot hold** — distinct counting needs something that distinguishes people.
+
+**Three ways out, and the choice is a collection decision, so it is Don's:**
+
+- **Count searches rather than people.** No identifier at all, but one person searching ten times clears the floor, which makes the floor much weaker than it reads.
+- **A salted hash of the member id, scoped to one term, metro and month, used only to deduplicate and dropped when the month closes.** Gives true distinct counting with no cross-month linkage and nothing that survives. **Recommended**, but it is still a per-person value existing for a month.
+- **Ask the member.** Out of proportion for this.
+
+**Flagged rather than decided, because criterion 1 is the criterion the whole privacy posture rests on and it should not be weakened silently.**
+
+## "A similar community" needs a definition, and it is Don's
+
+**The phrase is doing real work in his sentence and is defined nowhere.** Candidates, each giving different answers: **population or member count** · **density** — urban, suburban, rural · **region or geography** · **the mix of what already exists there**, from the tag distribution · **economic profile**.
+
+**No similarity model is built into this scenario, deliberately.** The rollup works over any set of metros; **who decides which metros form a set is a separate ruling.**
+
+**One honest caution before it is made.** Grouping communities by demographic or economic proxies and then telling people what to start is a short walk from deciding which neighbourhoods get told about which opportunities. **The mix-of-what-exists option avoids that better than the economic one**, because it compares what a place already does rather than who lives there.
+
 ## The combination case, which is the one that gets missed
 
 **The threshold protects against counting. It does not protect against the term.** Ten people searching a common phrase is anonymous. Ten people searching a phrase containing somebody's name, or their street, is not — **the term itself carries the identity, and no count fixes that.** Criterion 3 exists for exactly this and is the criterion most likely to be dropped as an edge case.
@@ -44,11 +85,13 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 
 ## Purpose limitation — what it must never become
 
-**Don's frame: *"the point is to help creators create and to help our members find what they need locally."* Two purposes, both about matching a need to a person who could meet it.**
+**Don's frame, widened 2026-09-15: *"the point is to help creators create and to help our members find what they need locally"*, and *"one community's trend could help a similar community… this is for the good of all the members. We want this to grow and to help our members become creators and earn money."*** **Three purposes now, all about matching a need to a person who could meet it:** helping somebody decide what to start · helping somebody find what they need nearby · **showing somebody that a thing works elsewhere and could work here.**
 
 **It must not become:** a measure of engagement · anything with the word *trending* on it · a ranked list read for its own sake · an input to ordering, which `model.md` already forbids from carrying anything but locality, recency and declared interest · a reason to send anyone a notification, which the pull-back-notification refusal already covers · a product sold to anyone.
 
-**The test for any future change: does this help somebody decide what to start, or help somebody find what they need nearby?** If neither, it is out, whatever else it would be good for.
+**The test for any future change: does this help somebody decide what to start, help somebody find what they need nearby, or show them a thing that works elsewhere and could work here?** If none of the three, it is out, whatever else it would be good for.
+
+**One line the copy must not cross.** Don has now described this as helping members earn money. **Showing someone unmet demand is not a promise that acting on it pays** — forty searches are forty searches, not forty customers. **No copy on this surface may imply income, and `voice.md` already forbids promises the product cannot back.**
 
 ## Retention — aggregates forever; raw rows are Don's call
 
