@@ -2,11 +2,13 @@
 id: why-page-kinds
 purpose: The three things a person can start, what each needs at minimum, and where "kind" actually lives.
 layer: why
-status: draft
+status: needs-correction
 date: 2026-09-15
 ---
 
 # What a person can start
+
+> **Marked for correction, 2026-09-15, same day.** This document was written as a design exercise before reading what already exists, and **most of what it proposes is already built and already specified in `item.md`.** Specifically: the seven-kind vocabulary with schema/UI-label/UI-verb columns is `item.md` § The kind vocabulary; the recurring gathering is fully designed at `item.md` line 34 and implemented as `item_gatherings.recurrence_rule`; and the child-table-per-kind pattern this document "recommends" is what the schema already does. **Read `item.md` first. What survives here is the missing-features list for a one-off and the four flagged contradictions.** The schema section should be cut, not followed.
 
 **Draft, not approved.** Written for Don's ruling of 2026-09-15: two durable kinds — someone selling, and someone with a recurring gathering — plus a deliberately thinner one-time gathering. Cross-references `../../planning/scenario-F087.md`, the one-create-flow scenario.
 
