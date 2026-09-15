@@ -18,7 +18,7 @@ Five families, each a deeper level of activation energy and stake. Members enter
 The lightest, most universal loops — no belief required, only the desire to be less alone in a place.
 
 1. **Find your people.** A recurring real-world gathering (a run club, a chess meetup) is findable only by being there and asking. Surface: a public, locality-first, searchable index with a shareable URL.
-2. **Float an idea.** Someone's thinking of starting something but doesn't know if anyone would come. Surface: Wonder — one sentence, no commitment; interest converts into a real gathering (Loop 4).
+2. **Float an idea.** Someone's thinking of starting something but doesn't know if anyone would come. Surface: Wonder — one sentence, no commitment; interest tells them whether to start it, and they create the gathering themselves (Loop 4). **Nothing converts** *(2026-09-15)*.
 3. **Land here.** A newcomer wants to know what's happening within walking distance this week. Surface: a no-login locality view. Newcomers are the highest-intent users this platform serves.
 4. **Gather regularly.** An organizer already convening something wants it findable and persistent. Surface: a public page anchored to a place and a recurring time.
 

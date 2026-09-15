@@ -43,6 +43,6 @@ Distinct from `item.created` (fires on insert, any state): `item.published` is w
 
 ## What this rules in and out
 
-**Rules in:** one schema for every declared thing, with strong per-kind typing in child tables rather than a JSONB free-for-all; a natural-language description field written for humans that doubles as future embedding substrate; a Wonder converting into a Gathering or Initiative as a new linked row, never an in-place mutation that erases the original.
+**Rules in:** one schema for every declared thing, with strong per-kind typing in child tables rather than a JSONB free-for-all; a natural-language description field written for humans that doubles as future embedding substrate; a Wonder that expires into nothing and converts into nothing *(2026-09-15, Don — the expiry and the conversion machinery are both cut; the author creates the new Page the ordinary way and announces or links it from the wonder)*.
 
 **Rules out:** a Business entity anywhere in the ownership chain — an Item belongs to the Person who made it, or to a Group of people, never to a corporate shell. Platform-generated QR codes for Items (retired 2026-09-03 with the platform-wide QR refusal). Auto-deriving a provenance or ownership claim from any other signal.

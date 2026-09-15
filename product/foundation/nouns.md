@@ -140,6 +140,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
 - **Idea** `○` *(schema `wonder`)* — someone puts a new thing to the neighbourhood and others signal interest before it exists.
+  - **Never** — an expiry, or any conversion into another entry type *(2026-09-15, Don)*. The author creates the new Page themselves and announces or links it from the wonder.
   - **Now** — substrate only.
   - **Blocked** — the signalling / threshold / conversion mechanic is undesigned.
   - *The most distinctive thing in the positioning, and the hardest deferral on the list.*
