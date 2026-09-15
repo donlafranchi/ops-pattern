@@ -19,7 +19,7 @@ Anything a Person declares — a product, a service, a gathering, an idea, an of
 |---|---|---|
 | `product` | Product | Sell · Share |
 | `service` | Service | Offer |
-| `gathering` | Event | Host |
+| `gathering` | Gathering | Host |
 | `wonder` | Idea | Wonder · Float |
 | `offer` | Offer | Offer up |
 | `ask` | Ask | Ask |

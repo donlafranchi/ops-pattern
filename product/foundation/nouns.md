@@ -37,12 +37,12 @@ No other slot names. A thing that fits none of them is either detail for a syste
 
 | Term | Why it qualifies | Qualify as |
 |---|---|---|
-| **item** | Umbrella over seven unlike things, and the word needed for a product offered for sale. Don named it. | the specific type — Product, Service, Event, Idea, Offer, Ask, Initiative — or **entry** for the umbrella |
+| **item** | Umbrella over seven unlike things, and the word needed for a product offered for sale. Don named it. | the specific type — Product, Service, Gathering, Idea, Offer, Ask, Initiative — or **entry** for the umbrella |
 | **kind** | **Two vocabularies with the same column name**: `groups.kind` has six values, `items.kind` has seven, and they classify different layers. Don named it. | **Page kind** · **entry type** |
 | **group** | **The `groups` table holds Pages**, while *Group* in product language means a social group. `verbs.md` records these as *"routinely blurred in older docs and different nouns with different rules."* | **social group** · **business Page** · **group membership** |
 | **follower** | `F067`: *"Today 'follower' and 'member' mean the same thing in the code."* Same row, two meanings, diverging behaviour. | **Page follower** · **group member** |
 
-**On the watch list, not yet binding:** *post* (a `page_posts` row versus the act the voice guide refuses) and *state* (several columns, several meanings). **They are named here so the list can grow with evidence rather than with suspicion** — add one only when it has demonstrably drifted.
+**On the watch list, not yet binding:** *post* (a `page_posts` row versus the act the voice guide refuses), *state* (several columns, several meanings), and **event** — which now carries three senses: the **`event` Page kind** (a one-time gathering, ruled 2026-09-15), **a dated post** (`model.md`, F073), and **an event-log row** (`member_events`, `item_events`, `group_events`, `place_events`, and `item.published`). **The first two are the same idea at two layers and are fine; the third is unrelated and is the one to qualify — say *event-log row*, never a bare *event*.** **They are named here so the list can grow with evidence rather than with suspicion** — add one only when it has demonstrably drifted.
 
 **Prose versus identifiers.** The rule binds **prose**. **It does not rename a schema column** — `groups.kind` stays `groups.kind`, and no check may fail the build on the existing schema. An identifier is exempt where it is an identifier and bound where it is read as prose: a commit message, a comment sentence, a ticket title.
 
