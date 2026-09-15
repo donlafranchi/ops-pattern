@@ -63,7 +63,7 @@ One line per doc, then the settled rules with no rationale attached — read the
 
 **`systems/member.md`** — the identity primitive. *(split landed — see Open Actions below)*
 - One row per real human, lifetime-stable. No stored role column, no street address by default.
-- Full legal name required at signup and held by the platform; never shown to peers, where a display name stands in. *(2026-09-14, reverses "real names encouraged, never required" — see `DECISIONS.md` and F077.)*
+- Full legal name required at signup and held by the platform. **What is not required is that a real name be displayed publicly to other members** — a display name stands in. **There are exceptions where a real name may be shown or required** — customers of a business, and potentially other groups; who and under what conditions is unsettled *(open against F081)*. *(2026-09-14, replaces "real names encouraged, never required" — see `DECISIONS.md` and F077.)*
 - Discoverability (search/directory/autocomplete visibility) defaults off — independent of whether the Member's own posts/hosting/founding still carry their name (they always do).
 - Geography lives in 3 owner-only substrates (locality default, private awareness scope, saved searches) — never a message send-to target.
 - Direct-message and agent-assistance (Delegations) tables exist from day one with no UI yet.

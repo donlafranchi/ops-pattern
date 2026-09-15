@@ -22,6 +22,14 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 
 Any verification, document, ID, or identity check — that is F082, and it happens later, not here. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro the person picked. A street address — `product/systems/member.md` refuses one by default. The exact wording of the no-sale line, which is Don's call (RULES rule 4).
 
+## Open — Don rules: who sees a real name
+
+Don, 2026-09-14: *"Real Names displayed to other app users publicly isn't required. And there are exceptions to that especially for customers of businesses and other groups potentially."* **"Potentially" is his word; nothing here is settled.** Three questions, unanswered anywhere in the repo:
+
+- **Who** may see a member's legal name, beyond the operator's report-review view F077 already allows.
+- **Under what circumstances** — does buying from a business expose the buyer's real name to that business, and does it work the other way too?
+- **Consent or disclosure** — if a business sees its own customer's real name, is that the customer's opt-in, or a stated term they are told about?
+
 ## Unresolved against F076
 
 **F076 criterion 3 records creator-or-patron at signup** to drive the 50/250 waitlist gate. Criterion 6 here says signup records no such thing. Both cannot hold. Don rules; a candidate reconciliation is that the role field belongs to the waitlist popup, not to account creation, and dies when a metro opens.
