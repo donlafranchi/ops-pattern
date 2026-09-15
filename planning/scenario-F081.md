@@ -24,7 +24,7 @@ Any verification, document, ID, or identity check — that is F082, and it happe
 
 ## Who sees a real name
 
-**Settled 2026-09-14, both questions.** It runs **both ways** — two people who interacted each see the other's legal name. And it is **disclosure, not consent** — a term of interacting, stated plainly at signup, which is what criterion 5's copy has to carry alongside the no-sale line. **Interaction is the only path to a name:** nothing is reachable by lookup, search, or browsing. F077 criteria 6–7 carry the rule and the refusals; F077 also states the roster tension and the one open question left (retention).
+**Settled 2026-09-14, both questions.** It runs **both ways** — two people who interacted each see the other's legal name. And it is **disclosure, not consent** — a term of interacting, stated plainly at signup, which is what criterion 5's copy has to carry alongside the no-sale line. **Interaction is the only path to a name:** nothing is reachable by lookup, search, or browsing. F077 criteria 6–8 carry the rule, the 12-month clock, and the refusals; F077 also states the roster tension and the one open question left (retention).
 
 ## Settled against F076
 
