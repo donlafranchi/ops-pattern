@@ -58,7 +58,7 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 ## Commits
 
 - Cowork commits and pushes its own doc changes here. Message: `docs: what`.
-- Code commits in `socialus-web`, branch per ticket, asks before merge to main (it deploys).
+- Code commits in `socialus-web`, branch per ticket. Who merges and when Don looks: `PIPELINE.md` § Who checks what. A merge to main there deploys to production.
 - Code reaches this repo by PR only — branch, PR, Cowork reviews and merges. No direct push, no self-merge.
 - Never cross-commit (guideline — the two-repo split enforces it). Never rewrite history (rule 3).
 
