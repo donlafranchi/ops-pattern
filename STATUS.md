@@ -1,50 +1,68 @@
 # STATUS
 
-**Where the project is, right now. 2026-09-08.**
-
-> **Overwritten, never appended — `git log -p STATUS.md` is the history. Hard limit: one screen**; if it stops fitting, something has stopped being current, so cut rather than scroll.
+> ## Generated 2026-09-16 · 21:55 UTC
 >
-> **Nothing is published.** Every user-facing string in the repo is a draft; what gets published is the PM's call.
+> **Disposable. Regenerating replaces this file wholesale** — nothing here is
+> hand-maintained, and a hand-edit is lost on the next run. `git log -p
+> STATUS.md` is the history. Ask for **`status`** to refresh it.
 >
-> **One of three durable documents**, with [`DECISIONS.md`](DECISIONS.md) (what's ruled out, and why) and [`nouns.md`](product/foundation/nouns.md) (the nouns). Everything else has a lifecycle or is a liability. **New rulings** land in [`DECISIONS.md`](DECISIONS.md); **build detail** lives as Issues and PRs in `socialus-web`.
+> **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
+> `ed2200d` (2026-09-16) — open issues, PRs merged in the last 14 days, and
+> tickets whose numbers appear on main; `planning/scenario-*.md` frontmatter;
+> `ROADMAP.md`; the newest lines of `DECISIONS.md`.
+>
+> **Answers "where is this project", not "what tickets exist."** The ticket
+> list is `gh issue list`, which is always right; this is not a copy of it.
 
----
+Launch **2026-10-30**, one metro. 44 days out.
 
-## What's true right now
+## Scenarios, by status
 
-SocialUs is a local discovery app — buy, sell, trade, and gather — launching **30 October** to one metro. The substrate is finished. Anyone can browse a feed and a map, search it, and open any listing. Producers can create a shop through a five-step walkthrough and list products, services and gatherings under it. There are 16 items, 11 people and 3 groups, all seeded.
+| approved | building | draft | deferred | superseded |
+|---|---|---|---|---|
+| 13 | 4 | 18 | 1 | 1 |
 
-**The model changed on 7 September and the build is catching up.** **Pages are the unit of discovery, not products** — browse is Pages and gatherings, a Page declares its categories, and photos belong to Pages. The producer entry point is still dead and a gathering still requires opening a shop first, which is the marketplace-only defect the launch exists to correct. Nothing carries a photo and no shared link shows a preview.
+**Building:** F060 (start something without a shop), F061 (a Page worth showing
+people), F069 (a non-business Page resolves everywhere), F070 (every Page has a
+face).
 
-## In flight
+**41 issues open** in `socialus-web`, one labelled launch-blocking: **#12 — the
+operator reviews a report on their phone.** No photograph goes to production
+before it.
 
-- **A Page worth showing people** — the current stretch, judged by Don creating his own Page: a real address *or* a neighbourhood, one category, a photo, generated art on every Page without one. **In build, seven tickets, nothing blocking.**
-- **The launch plan was rebuilt 2026-09-08** after a day of decisions superseded it. **~26.5 days of work against ~37 available — it fits, with about 28% slack.** First on the cut list is bulletins. [`ROADMAP.md`](ROADMAP.md).
-- **Fixing the dead producer page** — approved, ticketed, buildable today. Create nothing, reuse one query, remove six dead reads. *Blocked on nothing.*
-- **The producer entry point** — `/you/sell` forks into `/you/create`, letting people host without opening a shop. Reviewed and ticketed.
-- **The report path and image takedown** — approved. **No photograph is accepted in production until this is live**, so it runs alongside the Page work rather than after it.
-- **Item photos** — **deferred.** The Page is the unit that carries a face. The upload substrate moved to the Page work; when Items resume it is a composer field, about half a day.
+## Shipped in the last fortnight
 
-## Known broken — shipped code, not missing features
+14 PRs merged, the newest six all on 2026-09-16: CI now runs lint, types, build
+and the full test suite on every PR (#120); the merge rule is written down and
+lives in one place (#117, #118); sign-in follows the browser's host rather than
+the canonical one (#116); a Page owner can post (#115); one search finds a
+street, a city or a neighbourhood (#113).
 
-- **Nobody can say they're coming to a gathering.** The response table has four readers and no writer.
-- **Browse offers a sort that orders by a column that is always zero.** The control works; the ordering does nothing.
-- **Following a business Page would tell the app you own a shop** — a routing check filters kind and lifecycle but not role. Live today.
-- **Storage access rules are unverified** — the tests exist and have never run. Not known-broken; known-unchecked.
+## Needs a look — not a claim that anything is wrong
+
+Five issues are open while a commit naming their ticket is already on main. A
+commit naming a ticket is not proof the ticket is done; partial work counts.
+Each needs a look, not a close: **#51** and **#52** (browse reads Pages; feed
+vantage becomes a metro), **#30** (retire vendor routes), **#16** (edit shop),
+**#15** (You gains a producer state).
 
 ## Waiting on Don
 
-- **The Page composer is now six steps** — name, address, category, photo, about, review — against a launch requirement of *minimal fumbling*. Three are new and each earns its place, but nobody has judged them as a set. **Not blocking: the first tickets are substrate.** Options in the F061 review.
-- **The 84 cleanup rulings** and the unsure list from the doc consolidation — folded into this revamp; nothing outstanding blocks build.
-- **Promise 1 — what "surplus goes back to the community" actually means.** Who decides the number, over what period, and what returning it looks like. Three options noted in `DECISIONS.md`; **the promise stays out of user-facing copy until this is picked.**
-- **One contradiction and one never-ratified claim left** in [`DECISIONS.md`](DECISIONS.md) — the creator-framing conflict and the flourishing thresholds. *(The top-anchored search row is no longer one: principle 8 was restated 2026-09-13 as an aim about one-handed reach rather than a rule about an edge, so the row is a judgment rather than a contradiction.)*
-- **Whether the follows simplification and bulletins are scheduled.** Both are written and reviewed, deliberately sitting in the draft lane. **3.75 days for the pair**; bulletins is first on the cut list.
+Carried from the previous STATUS and **not re-verified by this run** — no
+source in the repo proves these are still open:
 
-## Next — the four fortnights, in one line each
+- **Promise 1** — what "surplus goes back to the community" means. Three
+  options in `DECISIONS.md`; the promise stays out of user-facing copy until
+  one is picked.
+- **The six-step Page composer**, judged as a set rather than step by step.
+- **The ontology spike** — paused 2026-09-16 before any code, on two questions:
+  which noun to model, and whether the address rule changes.
+  `../socialus-ontology-spike/INTENT.md`.
 
-1. **A producer can make a Page worth showing someone** — real address or neighbourhood, a category, a photo. *(Gated on Don making his own.)*
-2. **A stranger can find that producer** — search, and browse rebuilt around Pages and gatherings.
-3. **People can respond, and producers can reach them** — RSVP, follows, bulletins.
-4. **The product explains itself** — onboarding, empty states, and whatever the dogfood loop surfaces.
+## What this run could not verify
 
-Detail, days and the cut list: [`ROADMAP.md`](ROADMAP.md).
+- **Whether any scenario marked `building` is actually in progress.** Frontmatter
+  says `building`; nothing checks it against branches or commits.
+- **The 18 drafts.** Status alone does not say which are waiting on Don and
+  which are simply unfinished.
+- **Anything in the Waiting-on-Don list above**, as stated there.
