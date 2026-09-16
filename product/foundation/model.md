@@ -113,7 +113,7 @@ Good reasons exist and are not weakened by this. A member who has not opted into
 
 **An LLM agent grows the dictionary, and a human approves what it proposes.** New tags and zero-result searches in; proposed entries out. **The approval gate is a recommendation, not Don's words** — he asked for automation and did not mention a gate. It is written in because an unattended loop that writes its own search vocabulary drifts, and **the failure is invisible**: bad entries do not error, they quietly make search worse, and the thing that reports it is a member who searched and found nothing.
 
-**A public tag is member-contributed content that other people see**, so rule 1 applies — no production without a report-and-takedown path — and it is an abuse surface in its own right, not only a data-quality one. `messaging-problem.md`.
+**A public tag is member-contributed content that other people see**, so [member-content-takedown] applies — no production without a report-and-takedown path — and it is an abuse surface in its own right, not only a data-quality one. `messaging-problem.md`.
 
 **Not embeddings.** `item_embeddings` and `member_embeddings` exist, hold zero rows, and nothing reads them. A curated dictionary is cheaper, controllable, inspectable, and has no model to train or drift. **Revisit when the dictionary stops scaling** — when maintaining it becomes a recurring cost somebody notices, or when searches that should match are missing because nobody thought of the term. Not because the tables happen to be there.
 

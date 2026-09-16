@@ -134,6 +134,6 @@ This captures **a person looking for a thing that does not exist near them.** **
 
 ## Still open — Don rules
 
-- **Where it is shown.** The create flow serves the first purpose; a thin search result or an empty state serves the second. **Both are user-facing copy and are his under rule 4.**
+- **Where it is shown.** The create flow serves the first purpose; a thin search result or an empty state serves the second. **Both are user-facing copy and are his under [public-is-draft].**
 - **The bands.** *A few people · dozens · more* is a proposal; the words are his.
 - **Whether members are told this is happening**, and where. `policy.md`'s posture argues yes; nothing yet says how.

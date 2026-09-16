@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Fails on: missing `status` in planning/, any root .md outside the nine, any
-# link to a path that doesn't exist, a scenario over 40 lines, or a scenario
-# section outside Story/Acceptance/Not this. Run from the repo root.
+# Fails on: missing `status` in planning/, any root .md outside the eight, any
+# link to a path that doesn't exist, a scenario over 40 lines, a scenario
+# section outside Story/Acceptance/Not this, or an absolute cited by a slug
+# that no longer exists. Run from the repo root.
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -35,15 +36,15 @@ for f in planning/scenario-*.md; do
   fi
 done
 
-# 2. Root .md files are only the nine listed here, plus README.md (generated
+# 2. Root .md files are only the eight listed here, plus README.md (generated
 #    by scripts/view.sh — never hand-edited, so it's not link-checked below).
-allowed="CLAUDE.md RULES.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md PIPELINE.md README.md"
+allowed="CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md PIPELINE.md README.md"
 for f in *.md; do
   [ -f "$f" ] || continue
   case " $allowed " in
     *" $f "*) ;;
     *)
-      echo "lint: root .md outside the nine (+ generated README.md) — $f"
+      echo "lint: root .md outside the eight (+ generated README.md) — $f"
       fail=1
       ;;
   esac
@@ -69,11 +70,26 @@ check_links() {
   done
 }
 
-for f in CLAUDE.md RULES.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md PIPELINE.md planning/*.md; do
+for f in CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md HANDOFF.md LESSONS.md IMAGINE.md PIPELINE.md planning/*.md; do
   [ -f "$f" ] || continue
   out="$(check_links "$f")"
   if [ -n "$out" ]; then
     echo "$out" | grep -v '__FAIL__'
+    fail=1
+  fi
+done
+
+# 4. Every bracketed absolute-slug citation resolves to a heading in one of the
+#    two ABSOLUTES files. This is the point of slugs: a renamed or deleted
+#    absolute breaks the build instead of leaving a citation that reads fine and
+#    points at nothing. DECISIONS.md is exempt — it is append-never-edit, so its
+#    frozen "rule N" citations cannot be rewritten; the 2026-09-16 line there
+#    maps those old numbers to these slugs.
+slugs="$(grep -hoE '^### [a-z][a-z0-9-]+$' process/ABSOLUTES.md product/ABSOLUTES.md | sed 's/^### //')"
+for hit in $(grep -roE '\[[a-z][a-z0-9]*(-[a-z0-9]+)+\]' --include='*.md' --exclude=DECISIONS.md . | sort -u); do
+  slug="${hit##*:[}"; slug="${slug%]}"
+  if ! printf '%s\n' "$slugs" | grep -qx "$slug"; then
+    echo "lint: [$slug] cites an absolute that does not exist — ${hit%%:*}"
     fail=1
   fi
 done

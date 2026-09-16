@@ -178,7 +178,7 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 
 **And this shape is already ratified here, so it is not a new pattern.** The search dictionary was settled on 2026-09-13 as **an LLM agent proposing entries and a human approving them**, growing from what creators actually write. **The label mapping is the same mechanism on a different vocabulary, and it should reuse it rather than inventing a second approval queue.**
 
-**The label is member-authored text other people see, so rule 1 applies** — no production without a report-and-takedown path — exactly as it does for tags.
+**The label is member-authored text other people see, so [member-content-takedown] applies** — no production without a report-and-takedown path — exactly as it does for tags.
 
 ## What happens when a label is not in the mapping
 

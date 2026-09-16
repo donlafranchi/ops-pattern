@@ -16,7 +16,7 @@ Approved for build, one line each. Cowork writes this; Code reads it. Scenario f
 | 3 | **F081 · T162 · zip to metro shortlist** | Turns a zip into an ordered list of candidate metros. Suggests only; never selects. | T161 |
 | 4 | **F082 · T166 · derive creator status** | The read path that answers "is this member a creator" from the attestation row plus what they have authored. | T165 |
 | 5 | **F081 · T163 · signup form** | The zip field and the metro picker on the signup screen, with every US metro reachable if the shortlist is wrong (reuses F076's full metro list). Also asserts signup records no make-or-find role. | T162 **and F077's legal-name/display-name fields** |
-| 6 | **F081 · T164 · signup copy** | The two published lines: we don't sell your information, and people who interact see each other's real name. **Wording is Don's under rule 4.** | T163 |
+| 6 | **F081 · T164 · signup copy** | The two published lines: we don't sell your information, and people who interact see each other's real name. **Wording is Don's under [public-is-draft].** | T163 |
 | 7 | **F082 · T167 · the attestation step** | The one-time screen before a first Page. No upload, no check, no queue, no badge. | T166 |
 | 8 | **F082 · T168 · gate the first Page** | Publishing a first Page — selling or hosting — requires the attestation. | T167 **and F060's create flow** |
 
