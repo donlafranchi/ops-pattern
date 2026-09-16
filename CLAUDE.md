@@ -6,7 +6,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 
 1. `STATUS.md` — what is true now. One screen.
 2. `ROADMAP.md` — Now / Next / Later / Won't.
-3. `RULES.md` — the six absolutes and the test that admits a seventh. Everything else is a guideline; break one if you can say why.
+3. `process/ABSOLUTES.md` and `product/ABSOLUTES.md` — the six absolutes, four process and two product. The four-harms test and the rule that admits a seventh are stated once, in the process file. Cite an absolute by its slug in brackets (`[public-is-draft]`), never by number. Everything else is a guideline; break one if you can say why.
 4. `PIPELINE.md` — the five kinds of work and how each moves.
 
 ## Where truth lives
@@ -17,6 +17,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **What might be built someday:** `IMAGINE.md`. Nothing there is a commitment. Scenarios may not cite it.
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
 - **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
+- **What may never be broken:** `process/ABSOLUTES.md` (process) and `product/ABSOLUTES.md` (member-facing). Two files, one test — the test lives in the process file.
 
 **A concept lives in exactly one place.** Two documents describing the same thing is how this repo has failed before, so routing it is a rule, not a preference:
 
@@ -60,7 +61,7 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 - Cowork commits and pushes its own doc changes here. Message: `docs: what`.
 - Code commits in `socialus-web`, branch per ticket. Who merges and when Don looks: `PIPELINE.md` § Who checks what. A merge to main there deploys to production.
 - Anything bigger than a doc touch-up goes by branch and PR here. **Whoever does the work merges it, Code or Cowork** — self-merge is fine, and needs no approval and no second reviewer.
-- Never cross-commit (guideline — the two-repo split enforces it). Never rewrite history (rule 3).
+- Never cross-commit (guideline — the two-repo split enforces it). Never rewrite history ([production-asks-don]).
 
 ## Sessions
 

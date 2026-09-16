@@ -26,7 +26,7 @@ Mara has just moved and wants good bread. She opens the app and the search box o
 
 Free-text search over posts' bodies ranked by relevance — matching is enough at this size. Autocomplete, spell-correction, or synonym expansion beyond the curated dictionary. A surface for editing the dictionary. Saved searches. Any use of the embedding tables.
 
-**The creator-facing half of tags is NOT in this scenario and needs its own.** Authoring a tag, the store behind it, and **moderating tags that are now public** — member-contributed content other members see, which rule 1 bars from production without a report-and-takedown path. This scenario covers only that search matches tags that exist.
+**The creator-facing half of tags is NOT in this scenario and needs its own.** Authoring a tag, the store behind it, and **moderating tags that are now public** — member-contributed content other members see, which [member-content-takedown] bars from production without a report-and-takedown path. This scenario covers only that search matches tags that exist.
 
 **The dictionary's automation is not here either.** An LLM agent proposing entries from submitted tags and zero-result searches, and the human approval gate before anything reaches the live dictionary, are their own work.
 

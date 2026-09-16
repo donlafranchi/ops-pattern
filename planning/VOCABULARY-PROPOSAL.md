@@ -43,7 +43,7 @@ Don's brief: *"Item is too vague of a word. Creators will create pages for whate
 | **Listing** | **Rejected — collides with a ratified ruling.** `model.md` says an offering is *"not a separately listed thing that browse indexes."* The word is contested at the model level, and an ask or an idea is not a listing in any ordinary sense. |
 | **Offering** | **Rejected — fatal collision.** `offer` is already one of the seven types. An umbrella that shares a name with one of its members is the exact bug being fixed. |
 | **Declaration** | **Rejected on the cold-read test.** Nobody guesses that "declarations" covers a loaf of sourdough and a run club. It also collides with legal and tax usage in a product that already refuses legal language in copy. |
-| **Content** | **Rejected — collides with moderation vocabulary in force.** RULES rule 1 and F078 both use "member-contributed content" with a specific meaning. |
+| **Content** | **Rejected — collides with moderation vocabulary in force.** [member-content-takedown] and F078 both use "member-contributed content" with a specific meaning. |
 | **Post** | **Rejected — collides with `page_posts`**, and a post is arguably one of the types rather than the category. |
 | **Record** | **Rejected.** Collides with database vocabulary in every sentence an engineer writes. |
 | **`page_entries` / entry** | **Proposed.** Cold-reads correctly ("the entries under a Page"), collides with no type name and no ratified noun, and still reads right when an eighth type is added. The mild overlap with log "entries" is already owned by the `*_events` tables, which are named for it. |
