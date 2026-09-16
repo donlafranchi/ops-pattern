@@ -35,14 +35,14 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 
 - A scenario's state is its frontmatter `status`: `draft` → `approved` → `building`. Shipped scenarios are deleted at sync.
 - A ticket's state is its Issue label in `socialus-web`. Tickets never live here.
-- `HANDOFF.md` is the one bridge: what is approved for build, one line each. Cowork writes it, Code reads it.
+- What is approved for build is the scenario frontmatter (`status: approved`) plus the Issues in `socialus-web`. There is no separate bridge document — one existed, restated both sources, and went wrong.
 
 ## Who does what
 
 | Who | Owns | Never |
 |---|---|---|
 | Don | rulings, judgment, domain knowledge — may open Issues in `socialus-web` directly | reads more than STATUS + ROADMAP unless he asks |
-| Cowork — `plan` `review` `sync` `trim` | this repo: scenarios, STATUS, ROADMAP, HANDOFF, DECISIONS, `product/`; may open Issues in `socialus-web` | commits code to `socialus-web`; hand-edits `README.md` |
+| Cowork — `plan` `review` `sync` `trim` | this repo: scenarios, STATUS, ROADMAP, DECISIONS, `product/`; may open Issues in `socialus-web` | commits code to `socialus-web`; hand-edits `README.md` |
 | Code — `ticket` `build` | `socialus-web`: architecture notes, issues, code, PRs; branches, PRs and merges here too | writes scenarios, STATUS, ROADMAP or rulings here |
 
 Code is the architect. Any ticket touching schema, RLS, or routes starts with a ≤20-line architecture note in the Issue. Cowork reviews it in a comment. Don sees it only if they disagree.

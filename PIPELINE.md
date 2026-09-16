@@ -12,7 +12,7 @@ Five kinds of work. Each has its own path; only one goes through design. Everyth
 
 ## Paths
 
-- **Scenario:** `IMAGINE.md` → `planning/scenario-*.md` (draft) → Cowork review flips it to approved → `HANDOFF.md` → Code writes the architecture note in an Issue and builds → all acceptance checks closed → `sync` deletes the scenario.
+- **Scenario:** `IMAGINE.md` → `planning/scenario-*.md` (draft) → Cowork review flips it to approved → Code opens an Issue with the architecture note and builds → all acceptance checks closed → `sync` deletes the scenario.
 - **Change / Bug / Chore:** Issue → Code builds → PR closes it. No scenario, no handoff, no review file. Don sees a preview link, not a document.
 - **Process:** name the failure, make the change on a branch, open the PR, log it. Cowork merges. Small fixes any time. A reorganisation of the tree is rare, in one session, with a git tag first.
 

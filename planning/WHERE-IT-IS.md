@@ -101,7 +101,7 @@ Signup — legal name, email, zip, zip suggests a metro [F081] and becoming a cr
 
 *Subordinate to the lists above. **All of this, plus the method failures below, is captured as `socialus-web` #96.***
 
-1. `HANDOFF.md` lists the metro waitlist as awaiting build. It is live [PR #86].
+1. A hand-maintained handoff list said the metro waitlist was awaiting build. It was live [PR #86]. That document is deleted (2026-09-16); the drift is why.
 2. Issues #51 and #52 are open against shipped work.
 3. `surfaces.md` calls `/join` a redirect shim. It is a 178-line pitch page [#90].
 4. `surfaces.md` says the composer renders the twelve retired category terms. The tag step shipped [PR #66].
