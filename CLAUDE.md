@@ -7,7 +7,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 1. `STATUS.md` — what is true now. One screen.
 2. `ROADMAP.md` — Now / Next / Later / Won't.
 3. `process/ABSOLUTES.md` and `product/ABSOLUTES.md` — the six absolutes, four process and two product. The four-harms test and the rule that admits a seventh are stated once, in the process file. Cite an absolute by its slug in brackets (`[public-is-draft]`), never by number. Everything else is a guideline; break one if you can say why.
-4. `PIPELINE.md` — the five kinds of work and how each moves.
+4. `process/PIPELINE.md` — the five kinds of work and how each moves.
 
 ## Where truth lives
 
@@ -18,6 +18,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
 - **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
 - **What may never be broken:** `process/ABSOLUTES.md` (process) and `product/ABSOLUTES.md` (member-facing). Two files, one test — the test lives in the process file.
+- **How work moves, and what went wrong before:** `process/` — `PIPELINE.md` (the five kinds), `LESSONS.md` (append-only), `LIVING-DOCS.md` (the design note behind the generated docs), `ABSOLUTES.md`, and `skills/`.
 
 **A concept lives in exactly one place.** Two documents describing the same thing is how this repo has failed before, so routing it is a rule, not a preference:
 
@@ -59,7 +60,7 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 ## Commits
 
 - Cowork commits and pushes its own doc changes here. Message: `docs: what`.
-- Code commits in `socialus-web`, branch per ticket. Who merges and when Don looks: `PIPELINE.md` § Who checks what. A merge to main there deploys to production.
+- Code commits in `socialus-web`, branch per ticket. Who merges and when Don looks: `process/PIPELINE.md` § Who checks what. A merge to main there deploys to production.
 - Anything bigger than a doc touch-up goes by branch and PR here. **Whoever does the work merges it, Code or Cowork** — self-merge is fine, and needs no approval and no second reviewer.
 - Never cross-commit (guideline — the two-repo split enforces it). Never rewrite history ([production-asks-don]).
 
@@ -77,6 +78,6 @@ Schema names are durable; UI labels translate them. The table is in `product/fou
 
 - **Issue title:** `F060 · T142 · plain name`. Bugs/changes/chores: `bug · plain name` (or `change ·`, `chore ·`), with `Scenario: F###|none` in the body.
 - **Branch:** `f060-t142-slug`. **Commit:** `F060/T142: what`.
-- **Bugs/changes/chores carry the Issue number, not a ticket number** — they have no `T###`. Branch `bug-36-slug`, commit `bug #36: what` (likewise `change-`/`chore-`). Process work has no Issue (`PIPELINE.md`), so it dates instead: branch `process-YYYY-MM-DD-slug`, commit `docs: what`. Every branch name carries something unique that needs no central counter — dozens of agents must be able to name a branch without asking anything.
+- **Bugs/changes/chores carry the Issue number, not a ticket number** — they have no `T###`. Branch `bug-36-slug`, commit `bug #36: what` (likewise `change-`/`chore-`). Process work has no Issue (`process/PIPELINE.md`), so it dates instead: branch `process-YYYY-MM-DD-slug`, commit `docs: what`. Every branch name carries something unique that needs no central counter — dozens of agents must be able to name a branch without asking anything.
 - **Provenance is git:** `git log --grep F060` is everything built for that scenario.
 - **No hand-maintained indexes.** A file a person reads to find out what is true goes stale between the moment it is written and the moment it is read, and then it lies — REGISTRY, MAP, TRACE, STAGE-LEDGER and JOURNAL all died of this (lesson 2). The test is *who reads it to be right*, not what format it is in: a file only a script compares is fine, because nothing believes it and drift shows up as diff noise on the next run. `accepted-risks/` is that — generated from advisor exports, read by `scripts/advisor-diff.sh`, never consulted to settle a question. `DECISIONS.md` settles questions.

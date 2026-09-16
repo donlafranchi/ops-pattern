@@ -36,15 +36,15 @@ for f in planning/scenario-*.md; do
   fi
 done
 
-# 2. Root .md files are only the seven listed here, plus README.md (generated
+# 2. Root .md files are only the five listed here, plus README.md (generated
 #    by scripts/view.sh — never hand-edited, so it's not link-checked below).
-allowed="CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md LESSONS.md IMAGINE.md PIPELINE.md README.md"
+allowed="CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md IMAGINE.md README.md"
 for f in *.md; do
   [ -f "$f" ] || continue
   case " $allowed " in
     *" $f "*) ;;
     *)
-      echo "lint: root .md outside the seven (+ generated README.md) — $f"
+      echo "lint: root .md outside the five (+ generated README.md) — $f"
       fail=1
       ;;
   esac
@@ -70,7 +70,7 @@ check_links() {
   done
 }
 
-for f in CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md LESSONS.md IMAGINE.md PIPELINE.md planning/*.md; do
+for f in CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md IMAGINE.md process/*.md planning/*.md; do
   [ -f "$f" ] || continue
   out="$(check_links "$f")"
   if [ -n "$out" ]; then
