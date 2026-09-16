@@ -42,7 +42,7 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 |---|---|---|
 | Don | rulings, judgment, domain knowledge — may open Issues in `socialus-web` directly | reads more than STATUS + ROADMAP unless he asks |
 | Cowork — `plan` `review` `sync` `trim` | this repo: scenarios, STATUS, ROADMAP, HANDOFF, DECISIONS, `product/`; may open Issues in `socialus-web` | commits code to `socialus-web`; hand-edits `README.md` |
-| Code — `ticket` `build` | `socialus-web`: architecture notes, issues, code, PRs; **a PR against this repo, nothing more** | pushes or merges here |
+| Code — `ticket` `build` | `socialus-web`: architecture notes, issues, code, PRs; branches, PRs and merges here too | writes scenarios, STATUS, ROADMAP or rulings here |
 
 Code is the architect. Any ticket touching schema, RLS, or routes starts with a ≤20-line architecture note in the Issue. Cowork reviews it in a comment. Don sees it only if they disagree.
 
@@ -59,7 +59,7 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 
 - Cowork commits and pushes its own doc changes here. Message: `docs: what`.
 - Code commits in `socialus-web`, branch per ticket. Who merges and when Don looks: `PIPELINE.md` § Who checks what. A merge to main there deploys to production.
-- Code reaches this repo by PR only — branch, PR, Cowork reviews and merges. No direct push, no self-merge.
+- Anything bigger than a doc touch-up goes by branch and PR here. **Whoever does the work merges it, Code or Cowork** — self-merge is fine, and needs no approval and no second reviewer.
 - Never cross-commit (guideline — the two-repo split enforces it). Never rewrite history (rule 3).
 
 ## Sessions
