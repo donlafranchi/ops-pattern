@@ -22,13 +22,15 @@ Rae signs up with her legal name and email; the platform records it and never pu
 7. **A legal name stays legible on an interaction record for 12 months, then the record shows the display name.** The clock runs from **the date of that interaction** — the sale completing, the gathering happening. **Not from last activity, not from the pair's most recent dealing, and never extended by a later interaction:** each interaction carries its own 12-month clock, so a regular customer's name from 2024 goes dark on schedule while this month's stays legible. *(Don's ruling, 2026-09-14.)*
 8. **Interaction is the only path to a name.** The design refuses, and a surface that does any of these is wrong: searching or looking up a member by legal name; reverse lookup from a name to that person's activity; a durable, browsable list of counterparty names existing apart from the interactions that produced them; any rollup that turns repeated interaction into a roster of people. *(Criteria 6–8 added 2026-09-14 — Don's ruling.)*
 
-## The principle, in Don's words
+## Why
+
+### The principle, in Don's words
 
 *2026-09-14:* **"We want people who interact with each other to not be hidden. We don't want stalking. Anything that is similar to stalking needs to be reduced. Interaction should be open and honest. We also want to reduce negativity and vitriol. That's the idea behind when we share names and when we don't."**
 
 **Criterion 8 is the load-bearing half, and the half that will be lost first.** Criterion 6 reads as a feature and will survive on its own; criterion 8 reads as an absence, and an absence is what gets quietly filled in by the next convenient surface. Mutual disclosure without the refusals is a name directory with extra steps — which is the stalking vector, not the accountability mechanism.
 
-## The roster problem — stated, not papered over
+### The roster problem — stated, not papered over
 
 **A busy seller or host interacts with many people, and per-interaction visibility can quietly become a customer list.** What the design refuses, and what it cannot:
 

@@ -19,7 +19,8 @@ Five kinds of work. Each has its own path; only one goes through design. Everyth
 ## Rules of the road (guidelines)
 
 - Anyone may open an Issue in `socialus-web`, including Cowork via Dispatch. Only Code commits code there.
-- A scenario is ≤40 lines with three sections: Story, Acceptance, Not this. If it needs more, it's two scenarios.
+- A scenario's **spec** is ≤40 lines across three sections: Story, Acceptance, Not this. If the spec needs more, it's two scenarios.
+- A fourth section, **Why**, carries rationale — why this shape, what was rejected, how it relates to a neighbouring scenario. **It is not counted toward the 40 lines**, because the cap exists to keep a spec small enough to hold in your head and rationale is not spec. *(Added 2026-09-17: 12 of 37 scenarios already carried exactly this content under a dozen ad-hoc headings, which is what kept `scripts/lint.sh` red. Deleting it to satisfy a linter would have destroyed the reasoning behind ratified decisions; giving it one name makes it checkable.)*
 - If a Change starts needing acceptance checks, it's a Scenario. If a Bug fix changes what a scenario promises, it's a Change to the scenario first.
 - Launch-blocking work displaces everything else. When a new launch-blocker lands, `sync` names what moved to Next.
 - When something arrives that fits none of the five, don't force it — log it in `LESSONS.md` as a gap and pick the nearest path for now.

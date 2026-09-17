@@ -1,3 +1,10 @@
+---
+id: page-kind-event
+title: The event-anchored Page kind
+status: draft
+date: 2026-09-17
+---
+
 # `event` — the Page kind for a one-time gathering
 
 **The name is settled; the rest is a draft proposal. Nothing applied.** First document written under the bare-term rule in `product/foundation/nouns.md` § A vague term is never used by itself.

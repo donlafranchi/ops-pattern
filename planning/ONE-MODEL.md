@@ -1,3 +1,10 @@
+---
+id: one-model
+title: Getting to one model — the order, and what breaks if it is wrong
+status: on-hold
+date: 2026-09-17
+---
+
 # Getting to one model
 
 > **ON HOLD, 2026-09-15.** Everything below rests on the reading that `model.md` retired Items. **Don disputes that reading and it is unsettled** — see `ITEMS-QUESTION.md`. Do not act on this document until he rules.

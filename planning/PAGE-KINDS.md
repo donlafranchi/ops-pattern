@@ -1,3 +1,10 @@
+---
+id: page-kinds
+title: The Page kinds, and which are settled
+status: draft
+date: 2026-09-17
+---
+
 # Four Page kinds
 
 **Draft, 2026-09-15.** Don: **"People are either selling something"** · **"Offering a service for money or for free"** · **"gathering one or many times"** · **"looking to start something and want to test the waters to see if anyone is interested in their offering"**.

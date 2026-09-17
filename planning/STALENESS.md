@@ -1,3 +1,10 @@
+---
+id: staleness
+title: One staleness rule for every entry that can go quiet
+status: draft
+date: 2026-09-17
+---
+
 # Staleness — one rule for everything
 
 **Draft, 2026-09-15.** Don: **"We should date these things and not display things that haven't had any interaction in 90 days. Or show them last."**

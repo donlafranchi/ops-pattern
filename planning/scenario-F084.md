@@ -22,7 +22,9 @@ Don wants to change a sentence. Today that means finding which of a hundred-odd 
 
 Rewriting, shortening, or improving any string — that is F083 and Don's own writing, and doing it here would hide a copy change inside a mechanical one. Copy in the database with an editing screen — that is option B and was not chosen. Extracting strings from files already slated for deletion. Translation or locale support.
 
-## What Don's copy covers, and what it does not
+## Why
+
+### What Don's copy covers, and what it does not
 
 *(Mapped 2026-09-15 against `product/ui/surfaces.md`. This is the gap list this scenario's ticket needs.)*
 
@@ -44,7 +46,7 @@ Rewriting, shortening, or improving any string — that is F083 and Don's own wr
 
 **Not covered and should not be:** every residue route — `/vendors/[slug]`, `/business/[slug]`, `/register-vendor`, `/you/vendor` and its bulletin screens. They are being deleted, which is the point of doing that first.
 
-## What it costs, and when
+### What it costs, and when
 
 **584 strings across 118 files**, counted by the extractor behind `socialus-web` `docs/copy-inventory.md` (#89), which is the authority — an earlier grep-based figure of 458 across 93 was an undercount. Mechanical, low-risk, and large: **~3–4 days**, dominated by verification rather than typing, because criterion 4 means every touched surface has to read the same afterwards.
 

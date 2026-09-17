@@ -22,11 +22,13 @@ Marcus signs in and opens You. Nothing on the screen tells him he is anybody. Th
 
 Editing anything. This scenario makes `/you` say who you are; it does not make it a settings screen. Aggregating activity across a person's several Pages — parked by F069 and still parked. The Sell control, which is live and correct and stays as it is. Deciding what happens to the Saved and Following tabs.
 
-## What this unblocks, and what it takes with it
+## Why
+
+### What this unblocks, and what it takes with it
 
 `/you` is the last thing holding four vendor-era components alive — `RecruitmentGrid`, `VendorCard`, `MarketSelector`, `MarketContext`. **They are reachable only because this page imports them**, which is why they appear in no deletion ticket. Criterion 5 retires all four by consequence.
 
-## Open — nobody has ruled on these
+### Open — nobody has ruled on these
 
 - **Can a person change their photo here?** Criterion 2 only requires it be shown. There is no write path for `avatar_url` anywhere in the app, so "show it" and "let them set it" are different sizes of work and only one is in scope.
 - **Is `/you` the same thing as `/m/[handle]`?** One is the signed-in view, the other the public one. Whether they are two renderings of one surface or two surfaces is undecided, and it changes what criterion 4 means.

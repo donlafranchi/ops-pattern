@@ -1,3 +1,10 @@
+---
+id: items-question
+title: Whether Items are retired — disputed and unsettled
+status: open
+date: 2026-09-17
+---
+
 # The Items question — for Don to settle
 
 **2026-09-15. Nothing has been changed in code. This document exists so Don can read his own words and rule.**

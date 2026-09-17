@@ -22,13 +22,15 @@ Someone gets a link from a neighbour and lands on `/join`. The page is blunt in 
 
 The wording — Don writes it. Any stored source, referrer, or campaign field. A second account type, a second creator path, or a change to F082's step. Keeping the page's current claim that signup is "email and password" — F081 settles what signup asks for.
 
-## How it relates to F081 and F082, so nobody reads it as a third flow
+## Why
+
+### How it relates to F081 and F082, so nobody reads it as a third flow
 
 **There is one signup and one creator step.** `/join` changes **sequence and framing, not mechanics**: the creator question comes right after signup rather than waiting for a first Page. That is the same shape as F076's waitlist answer — **a property of the visit, not a field on the account** — which is what keeps the no-stored-role rule intact.
 
 **The honest cost of not storing it:** a refresh, a return visit, or finishing signup on another device loses the framing, and the person meets the creator step later like anyone else. That is the price of criterion 3 and it is the right price.
 
-## Copy requirements — not wording
+### Copy requirements — not wording
 
 **The heading must not narrow the product to farmers markets.** It currently reads *"Sell at a farmers market? Get listed."* Markets are one example among many; the page's examples are illustrative and must read as illustrative.
 

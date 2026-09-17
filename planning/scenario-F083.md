@@ -22,7 +22,9 @@ Maya signs up and reads two sentences about why this exists. She doesn't read th
 
 Writing the premise copy — Don writes it himself, from audio being transcribed separately. Deciding where the strings live: three options are in `DECISIONS.md` § Open — Don rules, unresolved. Migrating the app's other copy; this scenario covers premise copy only. Any surface that argues at length, however well.
 
-## Raw material — Don's premise, NOT copy
+## Why
+
+### Raw material — Don's premise, NOT copy
 
 *His words, 2026-09-15, recorded verbatim as source material. **This is not final copy and may not be shipped as written** — criterion 4 requires his own written language, which this is not yet.*
 

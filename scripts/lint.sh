@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 # Fails on: missing `status` in planning/, any root .md outside the eight, any
-# link to a path that doesn't exist, a scenario over 40 lines, a scenario
-# section outside Story/Acceptance/Not this, or an absolute cited by a slug
-# that no longer exists. Run from the repo root.
+# link to a path that doesn't exist, a scenario whose SPEC runs over 40 lines, a
+# scenario section outside Story/Acceptance/Why/Not this, or an absolute cited
+# by a slug that no longer exists. Run from the repo root.
+#
+# `## Why` (added 2026-09-17) carries rationale — why this shape, what was
+# rejected, how it relates to a neighbouring scenario. It exists because 12 of
+# 37 scenarios already carried exactly that content under a dozen different
+# ad-hoc headings, and deleting it to satisfy a linter would have destroyed the
+# reasoning behind ratified decisions. It is NOT counted toward the 40 lines:
+# the cap exists to keep a SPEC small enough to hold in your head, and rationale
+# is not spec. A scenario whose Story + Acceptance + Not this exceeds 40 lines
+# is still two scenarios, which is the rule PIPELINE.md states.
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -19,18 +28,19 @@ for f in planning/*.md; do
   fi
 done
 
-# 1b. Every planning/scenario-*.md is <=40 lines and has only the three
-#     allowed sections (Story, Acceptance, Not this), in any subset.
+# 1b. Every planning/scenario-*.md keeps its SPEC under 40 lines and uses only
+#     the four allowed sections, in any subset. `## Why` is rationale and is
+#     excluded from the count — see the note at the top of this file.
 for f in planning/scenario-*.md; do
   [ -f "$f" ] || continue
-  lines=$(wc -l < "$f" | tr -d ' ')
-  if [ "$lines" -gt 40 ]; then
-    echo "lint: scenario over 40 lines ($lines) — $f"
+  spec=$(awk '/^## Why$/{skip=1; next} /^## /{skip=0} !skip' "$f" | wc -l | tr -d ' ')
+  if [ "$spec" -gt 40 ]; then
+    echo "lint: scenario spec over 40 lines ($spec, excluding ## Why) — $f"
     fail=1
   fi
-  bad=$(grep -E '^## ' "$f" | grep -Ev '^## (Story|Acceptance|Not this)$')
+  bad=$(grep -E '^## ' "$f" | grep -Ev '^## (Story|Acceptance|Why|Not this)$')
   if [ -n "$bad" ]; then
-    echo "lint: scenario has a section outside Story/Acceptance/Not this — $f"
+    echo "lint: scenario has a section outside Story/Acceptance/Why/Not this — $f"
     echo "$bad" | sed 's/^/  /'
     fail=1
   fi

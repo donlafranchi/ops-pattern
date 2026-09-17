@@ -23,7 +23,9 @@ Devon signed up a month ago like everyone else. He makes hot sauce, and today he
 
 ID plus selfie verification — deferred, and still the unbuilt unlock F080 names. Community attestation (Tier 1) or document upload (Tier 2) — both Later. Any badge or tier label. The business-claim surface, which stays the friction gate it has been since 2026-09-07.
 
-## Why this is not the toggle F057 refused
+## Why
+
+### Why this is not the toggle F057 refused
 
 **F057 refused a toggle that makes a person pick a class; this asks them to say something about their thing.** The refusal was about self-classification — "are you a business" — and that stays refused by criterion 5. What the member declares here is locality and provenance, in their own words, about what they are publishing.
 

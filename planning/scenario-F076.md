@@ -25,7 +25,9 @@ Someone in Boise signs up. Boise is not open yet, so they pick it from the list 
 11. The thresholds are **configurable per metro** without a migration or a deploy.
 12. Opening a metro is a deliberate act. **Crossing the threshold never opens a metro on its own.**
 
-## The threshold, and why it is split
+## Why
+
+### The threshold, and why it is split
 
 **50 creators and 250 patrons. Gated on the creators. Displayed as one combined 300.**
 

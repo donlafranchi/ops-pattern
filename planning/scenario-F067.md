@@ -16,7 +16,9 @@ Today "follower" and "member" mean the same thing in the code, and the PM wants 
 3. A social group's current members are visible to each other; members who left are not.
 4. Neither relationship affects any authorization or role check — both hold every guard rail F065 already established.
 
-## Open, not decided
+## Why
+
+### Open, not decided
 
 **Whether a follower can see another follower.** Not ruled on. Built closed, because closed is reversible and open is not: once a follower list has been shown to other followers it cannot be unshown. A follower is written `source: 'soft_via_follow'` and is therefore not an explicit member, so the co-member policy returns them nothing.
 

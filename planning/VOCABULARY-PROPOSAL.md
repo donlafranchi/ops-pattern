@@ -1,3 +1,10 @@
+---
+id: vocabulary-proposal
+title: Proposed vocabulary for local kinds
+status: draft
+date: 2026-09-17
+---
+
 # Naming the model so it stops drifting
 
 **2026-09-15. A proposal. Nothing renamed, nothing migrated.**

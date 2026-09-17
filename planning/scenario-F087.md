@@ -22,21 +22,23 @@ Priya wants to convene a Tuesday run. Marcus wants to sell hot sauce. Dana is st
 
 Converting one Page into another — rejected outright since 2026-09-07 and still rejected. Creating two Pages at once; they are made sequentially. The business claim, which remains the friction gate and is separate from the purpose dropdown. Naming the members of the purpose set — that is Don's, and criterion 2 only requires it be named and closed.
 
-## What this dissolves
+## Why
+
+### What this dissolves
 
 **"Hosting requires opening a shop first" was never a missing substrate. It was a label on a door.** `WHERE-IT-IS.md` records it as the one awkward thing a person meets today; F060 already ticketed the entry point. This scenario makes the fix general instead of a special case for hosts.
 
-## Checked against what is already approved — no conflict on self-classification
+### Checked against what is already approved — no conflict on self-classification
 
 **The dropdown classifies the thing, not the person, and that is exactly what the existing rules ask for.** F060 criterion 2: *"`/you/create`'s first question is what they're starting, not what they are — no self-classification anywhere in the flow."* Don's dropdown asks what they are starting. **The rules it might have collided with are all about the person:** no stored role on a member, no account type, no umbrella noun for a person. None is touched.
 
 **And a prior ruling already asked for this.** `DECISIONS.md`, 2026-09-07: *"Different creation flows per type is correct; nothing ever mutates."* F087 is that ruling built.
 
-## The purposes themselves
+### The purposes themselves
 
 **Named, defined, and sized in `product/systems/page-kinds.md`** (draft, 2026-09-15): someone selling, someone with a recurring gathering, and a deliberately thinner one-time gathering. That document carries what each needs at minimum, what it does not need, the schema recommendation, and the full list of what the thin one lacks.
 
-## Settled — the one-time gathering
+### Settled — the one-time gathering
 
 **Don ruled 2026-09-15:** *"We can create a page for every kind. It just doesn't require all of the same tools. It would still require an announcement and perhaps a following list and later messaging etc."*
 

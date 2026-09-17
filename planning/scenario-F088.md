@@ -22,7 +22,9 @@ Dana is starting something and none of the labels are hers. She taps Other. Inst
 
 Writing the explainer copy — Don writes it; this scenario says what it must convey. A second signal table. An admin screen for any queue. A public "most requested" surface. Any promise of a reply.
 
-## The triage is the point, not the form
+## Why
+
+### The triage is the point, not the form
 
 **A capture nobody reads is "Something else" again, and this project retired that on 2026-09-13 because its rows sat unread.** So the reader and the cadence are part of the scenario, not an afterthought.
 
@@ -31,11 +33,11 @@ Writing the explainer copy — Don writes it; this scenario says what it must co
 - **Already covered by a kind that exists.** **The fix is a new label, not a new kind.** If three people describe a thing the product already does, that is a labelling failure, and the label layer makes fixing it one row. **This is the outcome that should feel like progress, not like a dismissal.**
 - **A genuine gap.** It becomes a scenario, through the ordinary path. Nothing here shortcuts that.
 
-## When it is not about kinds at all
+### When it is not about kinds at all
 
 **Some of what arrives will be a bug report, a complaint, or a question. Say so and move on.** The row is acknowledged the same way as any other — once, with no reply implied — and closed. **It is not routed, not answered, and not forwarded**, because there is no support inbox and F064 criterion 3 already forbids implying one exists. **A person who needs an answer has the report path; this is not it.**
 
-## One queue, not three
+### One queue, not three
 
 **Two queues with one person behind them is how both stop being read.**
 
@@ -43,6 +45,6 @@ There are two sources: **an unmapped label** and **this**. *(A third — zero-re
 
 **They share an outcome shape:** each is a person using a word the product does not know yet, and each is resolved by adding vocabulary rather than by building. **The search dictionary's ratified mechanism — an agent proposes, a human approves — is the same mechanism both want**, and it survives the ruling above: the dictionary still grows from the tags creators create, it simply no longer treats an empty search as an input.
 
-## Flagged: F064 criterion 1 is stale
+### Flagged: F064 criterion 1 is stale
 
 **F064 is approved and its first criterion describes "Something else" and the twelve categories, both retired on 2026-09-13.** The scenario's other four criteria and its signal table are unaffected and are what this scenario depends on. **Criterion 1 needs rewriting or striking before F064 is built; ticket #33 would otherwise implement a retired field.**
