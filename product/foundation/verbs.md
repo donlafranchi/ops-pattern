@@ -74,7 +74,7 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 ## Follow
 
 - **Person** ● — F032.
-- **Page** — **= Join, by design.** Following a Page and joining it are the same act.
+- **Page** — **superseded 2026-09-17.** "Following a Page and joining it are the same act" held while there was one link. There are now two, and neither is *join*: see § Support and get-updates below. Joining remains what `private` gives (§ Privacy decides the relationship).
 - **Gathering** ✕ — not a concept.
 - **Product / Service** ✕ — not a concept.
 - **Venue** ● — a saved search.
@@ -151,6 +151,26 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 - **Overlapping appearances.** A Page can't be in two places at once.
 - **Message anyone, about anything, at large.** Replaced 2026-09-09 by the message-board ruling: conversation is forbidden between people at large, available inside a Page you've joined. No messages, threads, or comments exist anywhere in the product today — postponed with a settled shape, not refused. Why the cell stays forbidden while the board is built: `messaging-problem.md`.
 - **A follow granting membership, role, read access, or satisfying any "is this person part of this Page" check.** F065.
+
+## Support and get-updates — two links, and the difference is the inbox
+
+*(Ruled by Don, 2026-09-17.)* **"Support is a like or a follow. I don't know if there's a difference yet."** / **"There could be a get updates button. This should be in place of emails from vendors with offers etc."** / **"Where a support is perhaps a softer signal."**
+
+**Two distinct link types between the same pair of nouns — a Member and a Page.** That is the whole point, and it is why one `relationship` value cannot carry both: a person may do either, both, or neither.
+
+| | **Support** (the ribbon) | **Get updates** |
+|---|---|---|
+| What it says | *I like that this exists* | *Tell me what this Page posts* |
+| Commitment | one tap, soft | a subscription |
+| Inbox consequence | **none — ever** | the Page's posts, **in the app** |
+| Replaces | nothing | **promotional email from businesses** |
+| Built? | **○ unbuilt** — no column, no handler, no control | **● the existing `group.follow`**, minus a reader |
+
+**Support produces no notifications. If it ever does, it has stopped being support and become a subscription** — that single test is what keeps the ribbon compatible with the not-addicting constraint instead of being a pull-back loop in softer clothing. It sits under *no engagement optimization, anywhere* and under `metrics.md`'s refusal of notification open-rate.
+
+**Get-updates is a privacy posture as much as a feature.** Its purpose is that a Page owner reaches subscribers **without holding their email address** — which answers the hatch `messaging-problem.md` names, an organizer publishing a contact address that is *"scrapeable, not revocable."*
+
+**Open, and Don has to settle it:** the 2026-09-08 ruling says a business *"may see its own audience"*; F067's implementation writes followers as `source = 'soft_via_follow'` so the list is unreadable **by anyone, the owner included**. *Without their email* and *without knowing who they are* are different promises.
 
 ## Privacy decides the relationship — following versus joining
 
