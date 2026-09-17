@@ -132,6 +132,11 @@ One line per doc, then the settled rules with no rationale attached — read the
 - Three roles, not account types: Member (default — anyone), Producer (spectrum from full pro to casual maker), Convener (runs a Group).
 - Tiers: MVP (ships b1), Deferred b2+ (problem is settled, design isn't), Deferred far-horizon (kept so the shape isn't forgotten).
 
+**`needs/local-kinds.md`** *(draft)* — the kinds of local enterprise a metro holds.
+- **A seed list, not a category system.** `nouns.md` § Tag is ratified: a tag is created, never picked from a fixed list. Nothing here is a dropdown.
+- Two halves, marked: **borrowed** (the twelve retired categories, the recruitment groupings, the six ownership tiers — all recovered from code deleted in #124) and **proposed** (a fuller metro list, added, observed nowhere).
+- Open: whether this ever becomes a lookup table seeding the tag store. Blocked on the tag store, which is blocked on report-and-takedown.
+
 **`needs/member-journey.md`** — the loop order.
 - 13 engagement loops in strict dependency order — a deeper loop assumes every loop above it already works in practice.
 - Federation (spinning off banking/insurance to separate platforms) is the platform's ceiling — the structural answer to "what stops this becoming Facebook."
