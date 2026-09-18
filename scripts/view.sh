@@ -52,6 +52,49 @@ deferred_f=$(echo "$all" | awk -F'\t' '$4=="true"{print $2}' | grep -oE '^F[0-9]
   for f in $deferred_f; do
     echo "- $f: $(scenario_title "$f")"
   done
+
+  # Accepted risks — things ruled fine ON PURPOSE, which is exactly why they get
+  # forgotten. They live one-file-per-finding in accepted-risks/ so agents don't
+  # collide; that shape is unreadable on a phone, so it is rendered here.
+  # Anything due or overdue is marked; the rest are listed so the set stays in
+  # view rather than needing to be hunted.
+  echo
+  echo "## Accepted risks"
+  echo
+  echo "Ruled acceptable, with a condition for looking again. Source: \`accepted-risks/\`."
+  echo
+  python3 - <<'RISKS'
+import datetime, glob, json
+today = datetime.date.today()
+rows = []
+for path in sorted(glob.glob("accepted-risks/*.json")):
+    e = json.load(open(path))
+    # Advisor findings are the register's original job and are noise here —
+    # they are machine-diffed by advisor-diff.sh and nobody reads them.
+    if e.get("lint") != "project_accepted_risk":
+        continue
+    try:
+        left = (datetime.date.fromisoformat(e["review_by"]) - today).days
+    except Exception:
+        left = None
+    rows.append((left if left is not None else 9999, e, left))
+rows.sort(key=lambda r: r[0])
+if not rows:
+    print("None recorded.")
+for _, e, left in rows:
+    if left is None:
+        mark = ""
+    elif left < 0:
+        mark = f" — **{-left} days overdue**"
+    elif left <= 21:
+        mark = f" — **due in {left} days**"
+    else:
+        mark = f" — review by {e['review_by']}"
+    print(f"- **{e['object']}**{mark}")
+    if e.get("cost_if_forgotten"):
+        print(f"  - If forgotten: {e['cost_if_forgotten']}")
+    print(f"  - Look again if: {e['revisit_if']}")
+RISKS
 } > README.md
 
 echo "wrote README.md"

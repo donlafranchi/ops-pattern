@@ -2,7 +2,15 @@
 
 # accepted-risks/
 
-One JSON file per lint finding ruled acceptable. Read by `scripts/advisor-diff.sh`, not by people — the ruling itself is a dated line in `../DECISIONS.md`, and that is what settles a question. See `../PIPELINE.md` § Accepted risk.
+One JSON file per finding ruled acceptable. Read by scripts, not by people — the ruling itself is a dated line in `../DECISIONS.md`, and that is what settles a question. See `../process/PIPELINE.md` § Accepted risk.
+
+**Two kinds of entry, told apart by `lint`.** Supabase advisor findings carry the advisor's own lint name and are diffed by `scripts/advisor-diff.sh`. **Project risks carry `"lint": "project_accepted_risk"`** — things deliberately deferred that have no advisor to raise them. The register was built for the first kind; the second is the same shape because the problem is identical, and the `source` field already anticipated it.
+
+**A project risk carries one extra field, `cost_if_forgotten`.** Plain words, no jargon: what actually goes wrong for a person if nobody looks again. It exists because these are the entries most easily forgotten — somebody already decided they were fine.
+
+**`revisit_if` must be checkable.** Not "before launch". A named event ("the first report of illegal content reaches the review queue"), or a date, or both. `review_by` is the date a human argues it again.
+
+**Where they surface:** `scripts/risks-due.sh` prints anything overdue or due within 21 days and is **silent when nothing is** — a list that prints daily is a list nobody reads. `scripts/view.sh` renders every project risk into the generated `README.md`, which is how Don reads them on a phone without a checkout.
 
 **Filename is the identity.** `<cache_key>.json` when the advisor has given one; otherwise `<lint>__<object>.json`, sanitised to `[a-z0-9_]`. Either way it is derived from the finding, so two agents ruling the same finding write the same filename and collide in git — which is the argument you want to have, out loud, instead of two rulings landing side by side.
 
