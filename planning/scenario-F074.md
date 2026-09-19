@@ -27,6 +27,12 @@ The run club meets every Thursday from the Sloppy Moose. Sam sets it up once, wi
 
 **What is already true, checked rather than assumed:** `page_posts.parent_post_id` **exists**, nullable and indexed, added in `20260916003100_page_post_write.sql` against exactly this future. **If occurrences are real rows over a bounded horizon, `browse_feed` needs no change at all** — it reads `page_posts` and filters on `starts_at`, with no concept of a series. **The old Item path has `item_gatherings.recurrence_rule` in RRULE format and it is not a head start**: it hangs off `items`, the noun `model.md` says does not exist, and nothing in the browse path reads it.
 
+**Verified against what actually merged, 2026-09-19.** `browse_feed`'s `p_starts_from`/`p_starts_before` are `timestamptz`, compared with `>=` and `<` and never truncated to a day, so **intra-day windows work today with no query change** — *this afternoon* is two arguments. `page_posts.starts_at` is `timestamptz` and indexed; `parent_post_id` is nullable and partially indexed. **The de-duplication gap is real**: `browse_feed` has no `distinct` and no grouping by parent, so seven occurrences return seven rows (F091 criterion 6).
+
+**The one cost B adds that nothing else was carrying: expansion needs the metro's zone, not just reading does.** F073 criterion 8 already owes a timezone source for *reading* a window. Expanding *every Thursday at seven* by adding 168 hours of UTC drifts an hour across a DST boundary — and **DST ends 2026-11-01, two days after launch**, so the first month of the lens crosses it. Weekly expansion must add a local day, which means the zone exists before the job runs, not before the read does.
+
+**The stack is three unbuilt scenarios deep.** F072 (a Page owner posts) is still `draft`; F073 is approved and unbuilt; F074 sits on both.
+
 **Exceptions are the part that eats the schedule**, and B can ship without them because criterion 5 already makes one occurrence individually editable — a cancelled week is an edit to a row, not a rule. **What an owner does when they need one**: they open that occurrence and cancel it, which is F075. Without F075 the honest answer is that they edit its text to say so, which is ugly and works.
 
 ## Not this
