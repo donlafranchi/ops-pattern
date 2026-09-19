@@ -16,6 +16,8 @@ Every entry added from 2026-09-12 carries three things:
 2. **One line: what would make this real.** The observable thing that would move it out of here. Not "when we have time" — a fact about the world or the product that would change the answer.
 3. **A separation of claim from analysis** where both exist. Don's framing is recorded in his terms; anything an agent adds is marked as analysis. A thesis that overstates itself is worse than no thesis.
 
+**A `Priority: higher` line, where an entry has one.** It means Don has said this matters more than the rest of the room — nothing more. **Its absence says nothing**: most entries here have never been ranked against each other, and inventing a full ordering would be a hand-maintained index of the kind this repo keeps killing. Added 2026-09-19 at Don's direction.
+
 **Retiring is the normal outcome.** An entry leaves when it ships, when its trigger fires, or when someone reads it and says it's dead — and the last of those is a good day, not a failure. Entries above this line predate the rule and are distillations with git history behind them; they are not retro-fitted.
 
 ## Ideas
@@ -68,3 +70,28 @@ Every entry added from 2026-09-12 carries three things:
 **Unscoped, and deliberately so.** This is a marketing and education question, not a product surface, and it is **outside launch scope**. Recorded here so it is not lost.
 
 **What would make it real:** somebody owning marketing, which nobody does today.
+
+### Discovery that knows what a person is optimizing for
+
+**Priority: higher.**
+
+*Don's framing, 2026-09-19, in his terms:* *"I tend to regularly search for bars and restaurants with nice outdoor environments as opposed to outdoor tables next to a busy street. Whereas other times I don't really care about the ambiance and only want the best enchilada in the city."* And on reviews: *"yelp and google... lump all reviews from all people and that isn't really a useful way to do reviews when people have different expectations. For example some people are value oriented and want maximum say food for their dollar whereas I am willing to pay for quality and it'd be nice to be able to differentiate this."*
+
+*Analysis, agent, 2026-09-19 — marked separately because the goal is one sentence and the mechanism is four systems:*
+
+**The load-bearing obstacle is not filtering. It is that the product has no way for anyone to say anything about a Page they do not own.** Every description the platform holds today is creator-supplied — tags, the Page description, the composer's fields. A brewery will tag itself *patio*; it will never tag itself *patio beside a four-lane road*. **The distinction Don wants is inherently third-party, and third-party statements about a Page are a surface this product has never had.** Any first step that does not answer *may a member write about someone else's Page* is a step in a different direction.
+
+**Four separable systems, smallest first, and none of them is a filter control:**
+
+1. **A vocabulary for attributes**, distinct from the tags a creator types about themselves — quiet, patio, cheap, worth-the-price. Nothing exists. Tags are the nearest substrate and are creator-owned by rule.
+2. **Member-supplied attributes** — the third-party surface above. Gated by [member-content-takedown]; the report path (F058) now exists, so the gate is passable for the first time.
+3. **Reviewer segmentation** — knowing what a reviewer optimizes for. Either a declared axis on the member, or inferred from behaviour. **Inference is close to what `product/systems/discovery.md` refuses**, and a declared axis is a profile field nobody fills in.
+4. **Reviews at all.** There is no review noun. `ROADMAP.md` § Won't bars star ratings and reputation scores **for people**; a treatment-review surface that reviews the treatment and never the person sits in § Later, unbuilt and unscoped.
+
+**Cold start is the quiet killer.** One metro at launch means roughly zero reviews, and a review system segmented by reviewer type needs several times the volume of an unsegmented one to say anything at all. **A segmented review surface with no reviews is worse than none** — it advertises a promise the data cannot keep, which is the specific failure Don is describing in Yelp, arrived at from the opposite direction.
+
+**The smallest honest first step is not to build any of it.** F064 — the not-built-yet signal capture — is approved and exists for exactly this: a person taps something marked not built yet, it is recorded once, no count, no date implied. Pointing that at *narrow by what I care about* costs approximately nothing and answers whether anyone but Don wants it. **The first real build afterwards is creator-declared attribute tags, and Don should know before it starts that it does not solve his stated problem** — self-reported attributes cannot make the distinction he opened with.
+
+**What would make this real:** a ruling that members may publish statements about Pages they do not own, plus enough density in one metro that a second reader would see a first reader's words. Neither exists on 2026-09-19.
+
+**Related and deliberately not folded in:** *what's on* — the time-based half of the same conversation — is not here, because it has a noun, a verb and a surface already and belongs in the spine.
