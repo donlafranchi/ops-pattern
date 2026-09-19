@@ -19,6 +19,16 @@ The run club meets every Thursday from the Sloppy Moose. Sam sets it up once, wi
 6. Each occurrence behaves as its own event under F073 — its own place on the map, its own date match, its own responses.
 7. A member searching by date sees each occurrence separately, never the series as one result.
 
+## Why
+
+**Raised again 2026-09-19, and it reframes the theme rather than extending it.** Don: *"Now what about recurring events? Saturdays in the summer or Tuesdays year round. I'm thinking if someone wants to find what's happening this afternoon without knowing much that they can find these things."* **Every example he has given for What's happening is recurring** — happy hour, trivia night, the farmers market, a brewery's regular music slot. **One-off events are the rarest kind of dated content in a local discovery app**, so a time lens fed only by them returns an empty row most afternoons. **Cutting recurrence does not shrink this theme; it hollows it out.** F091 criterion 3 then hides the rows, and the named set silently does not appear.
+
+**Three sizes, unruled — Don picks.** A) **Full rules** — arbitrary patterns, exceptions as rules, the lot. B) **Simple repeat** — weekly on one or more weekdays, with an optional start and end date, so *Saturdays in the summer* and *Tuesdays year round* are one feature with different bounds. C) **None** — owners repost by hand each week.
+
+**What is already true, checked rather than assumed:** `page_posts.parent_post_id` **exists**, nullable and indexed, added in `20260916003100_page_post_write.sql` against exactly this future. **If occurrences are real rows over a bounded horizon, `browse_feed` needs no change at all** — it reads `page_posts` and filters on `starts_at`, with no concept of a series. **The old Item path has `item_gatherings.recurrence_rule` in RRULE format and it is not a head start**: it hangs off `items`, the noun `model.md` says does not exist, and nothing in the browse path reads it.
+
+**Exceptions are the part that eats the schedule**, and B can ship without them because criterion 5 already makes one occurrence individually editable — a cancelled week is an edit to a row, not a rule. **What an owner does when they need one**: they open that occurrence and cancel it, which is F075. Without F075 the honest answer is that they edit its text to say so, which is ugly and works.
+
 ## Not this
 
 Editing a whole series at once — every week differs anyway, so editing one occurrence is the normal case. Cancellation, which is F075. Infinite or unbounded horizons. Exceptions expressed as rules rather than as edits to a row. Replacing an occurrence's row instead of editing it — **edits are in place** *(ruled 2026-09-13)*, which is what keeps its responses attached.

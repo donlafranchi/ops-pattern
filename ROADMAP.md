@@ -22,6 +22,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - RSVP / response path — one per person.
 - Follows simplification — one table, three subjects.
 - Bulletins (`page_posts`, member audience) — first item on the cut list if slack runs out.
+- **What's happening…** — a date, a time and a post-level address on an announcement (F073); the time lens rows (F091); narrowing in a modal that writes text (F092). **Mostly a rename of work already here**: the query shipped 2026-09-19 and needs no change. **The new cost is F073 and the parser**, and recurrence is unruled — see `DECISIONS.md` § Open.
 - Onboarding, empty states, copy pass — Fortnight 4.
 - Seed content, synthetic and display-only — Fortnight 4.
 
