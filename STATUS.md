@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-19 · 18:03 UTC
+> ## Generated 2026-09-19 · 18:05 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -12,9 +12,9 @@
 > moved, so a new revision of this file is never a bare heartbeat. Locally:
 > `bash scripts/status.sh`.
 >
-> **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
-> `6de9d40` (2026-09-18); `accepted-risks/*.json`;
-> `planning/scenario-*.md` frontmatter; `ROADMAP.md`.
+> **Derived from this repo only** — `accepted-risks/*.json`,
+> `planning/scenario-*.md` frontmatter and `ROADMAP.md`. Everything about
+> the code repo is missing from this run; see the last section.
 >
 > **Answers "where is this project", not "what tickets exist."** The ticket
 > list is `gh issue list`, which is always right; this is not a copy of it.
@@ -35,57 +35,6 @@ Launch **2026-10-30**, one metro. 41 days out.
 
 **`building` is frontmatter, not evidence** — nothing checks it against a
 branch or a commit.
-
-## In the code repo
-
-**38 issues open** in `socialus-web`, 1 launch-blocking:
-- #135 bug · A member cannot see the Pages they made
-
-**62 PRs merged in the last fortnight.** The newest five:
-- #160 2026-09-18 Social links take a handle, not a URL — and the owner can change their photo
-- #158 2026-09-18 The owner can edit their own live Page
-- #155 2026-09-18 Signed out is read-only — one gate, deferred registration, report caps
-- #154 2026-09-18 Pin the runner to ubuntu-24.04, bump every action off Node 20
-- #153 2026-09-18 The apply workflow refuses to be a silent no-op, and names the branch
-
-### Needs a look — not a claim that anything is wrong
-
-*A commit naming a ticket is not proof the ticket is done: partial work
-counts. Each row needs a look, not a close.*
-
-- **#52 open, but T155 appears on main** — F059 · T155 · Feed vantage point becomes a metro
-- **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
-- **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
-- **#16 open, but T126 appears on main** — F056 · T126 · Edit shop — image, description, values
-- **#15 open, but T125 appears on main** — F057 · T125 · You gains a producer state
-
-### Still on main, meant to be gone
-
-- `/following` still present — src/app/following/page.tsx
-- `members.maker_mode_enabled` still in the schema
-
-## The ontology — what is declared
-
-- **6 link types declared**, 5 built.
-- **Declared but not built (1)** — the relationship is named and nothing writes it yet:
-  - a Member supports a Page
-- Object types are deferred on purpose: a noun gets a declaration the next
-  time a handler touching it is edited. Not a gap to close in one pass.
-
-## What CI last said
-
-- **`deploy-health.yml`** — success, 2026-09-19
-  - Ontology declarations still match the code: success
-  - Database reachable from the deployment: success
-- **`ci.yml`** — success, 2026-09-18
-  - Lint, types, build: success
-  - Unit tests: success
-
-## Measured, not estimated
-
-- Copy: 584 strings across 118 files — source `docs/copy-inventory.md` on origin/main
-- Routes on origin/main: 21
-- Migrations on origin/main: 51
 
 ## Deferred on purpose — and therefore easy to forget
 
@@ -123,6 +72,8 @@ source in this repo proves these are still open.
 
 ## What this run could not verify
 
+- **Everything about `socialus-web`** — open issues, merges, the ontology
+  registry and CI's last word. No `socialus-web` checkout was available to this run.
 - **Everything in the Waiting-on-Don list**, as stated there.
 - **Whether any scenario marked `building` is actually in progress.**
   Frontmatter says `building`; nothing checks it against branches or commits.
