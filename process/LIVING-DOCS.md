@@ -52,7 +52,11 @@ So: **a document earns a skill only if someone reads it to be right AND it canno
 | **GitHub Action on push to `main`** | **Yes**, same reasoning. Both repos have remotes. | Use for regenerating facts after a merge. |
 | **Local `post-merge` hook** | **No.** A squash-merge through the GitHub UI never touches anyone's machine, so it would not have fired for a single merge this week. | Do not build. |
 | **Local `pre-commit`** | **Weak.** `core.hooksPath` can be committed, but every clone must opt in and `--no-verify` skips it. | Only as a fast local echo of a check CI already enforces. |
-| **Scheduled Action** | Technically reliable. | **Refused on purpose** — regenerating on a schedule produces a document that accumulates and rots between reads. On demand, overwritten. |
+| **Scheduled Action** | Technically reliable. | **Amended 2026-09-19 — allowed, with one condition.** See below. |
+
+**The scheduled-Action refusal, amended 2026-09-19.** It read: *"regenerating on a schedule produces a document that accumulates and rots between reads. On demand, overwritten."* **The second half was right and the first half was aimed at the wrong target** — and between them they talked this design out of the only hook that actually fires. `STATUS.md` is overwritten wholesale, so it cannot accumulate; the real risk named here is the other one, a file whose date says *today* when nothing in it moved. **So the condition is on the commit, not on the schedule: a scheduled run regenerates freely and commits only when the content changed.** A new revision of the file then always means something moved. Written up as a dated line in `DECISIONS.md`; built as `.github/workflows/status.yml`.
+
+**What the refusal got right, and what it cost.** *"On demand"* was the correct instinct and the wrong mechanism: the on-demand path was a skill nobody installed, so the document was never regenerated at all (lesson 27). A refusal that leaves a document with no working trigger is worse than the rot it was guarding against.
 
 **The important design point: the reliable hook is not "regenerate the doc." It is "fail the PR when a document's claim has become false."** That is the pattern this repo has already learned works — the person-noun lint, the migration drift check, `advisor-diff.sh`. A generated document nobody believes is safe; a check that blocks a merge is what actually holds a rule.
 
@@ -67,7 +71,7 @@ So: **a document earns a skill only if someone reads it to be right AND it canno
 ## Sequence
 
 1. **`scripts/state.sh`** — the joins and the four method checks. *(Building now; `socialus-web` #96.)*
-2. **Done 2026-09-16, differently.** `HANDOFF.md` is deleted outright. `STATUS.md` is not retired but regenerated — a dated, disposable report produced by the `status` skill from `state.sh` plus scenario frontmatter. `WHERE-IT-IS.md` absorbed neither.
+2. **Done 2026-09-16, differently; corrected 2026-09-19.** `HANDOFF.md` is deleted outright. `STATUS.md` is not retired but regenerated — a dated, disposable report built from `state.sh` plus scenario frontmatter, `accepted-risks/` and the ontology registry. **The `status` skill that was to produce it is deleted:** it was never installed, so it never ran, and its judgement is encoded in `scripts/status.sh` as rules a script cannot forget. `WHERE-IT-IS.md` absorbed neither.
 3. **The `WHERE-IT-IS` skill**, wrapping the script.
 4. **The string check on PR** — highest-value hook, already specified.
 5. The copy-inventory skill.

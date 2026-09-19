@@ -12,7 +12,10 @@ scenario_title() {
   local f="$1"
   local file="planning/scenario-$f.md"
   if [ -f "$file" ]; then
-    grep -m1 -E '^title:' "$file" | sed -E 's/^title:\s*//'
+    # `[[:space:]]`, not `\s`: BSD sed does not understand `\s` and left the
+    # leading space in every title, so the file this produced on a Mac and the
+    # file it produces on the CI runner differed on every line.
+    grep -m1 -E '^title:' "$file" | sed -E 's/^title:[[:space:]]*//'
   else
     echo "$f"
   fi
