@@ -65,12 +65,16 @@ while read -r num title; do
 done < <(gh issue list --repo "$REPO" --state open --limit 200 --json number,title -q '.[] | "\(.number) \(.title)"')
 
 # ---------------------------------------------------------------- merged work
+# `gh` has no `--arg`. The previous form passed one, so gh rejected the call on
+# every single run and the `||` fallback fired every time — printing the twenty
+# newest merges with no date filter under a heading that said fourteen days.
+# The date is spliced into the jq filter instead, and there is no fallback: if
+# this breaks it should be visible rather than quietly answering a different
+# question.
 note ""; note "## Merged in the last 14 days"
-gh pr list --repo "$REPO" --state merged --limit 50 \
-  --json number,title,mergedAt \
-  -q --arg since "$(date -u -v-14d +%Y-%m-%d 2>/dev/null || date -u -d '14 days ago' +%Y-%m-%d)" \
-  '.[] | select(.mergedAt[0:10] >= $since) | "- #\(.number) \(.mergedAt[0:10]) \(.title)"' 2>/dev/null \
-  || gh pr list --repo "$REPO" --state merged --limit 20 --json number,title,mergedAt -q '.[] | "- #\(.number) \(.mergedAt[0:10]) \(.title)"'
+SINCE="$(date -u -v-14d +%Y-%m-%d 2>/dev/null || date -u -d '14 days ago' +%Y-%m-%d)"
+gh pr list --repo "$REPO" --state merged --limit 100 --json number,title,mergedAt \
+  -q '.[] | select(.mergedAt[0:10] >= "'"$SINCE"'") | "- #\(.number) \(.mergedAt[0:10]) \(.title)"'
 
 # ----------------------------------------------------------------- scenarios
 note ""; note "## Scenarios by status"
@@ -93,6 +97,71 @@ for r in register-vendor "vendors/\[slug\]" "business/\[slug\]" you/vendor follo
 done
 g show origin/main:supabase/migrations/002_members.sql 2>/dev/null | grep -q maker_mode_enabled \
   && note "- \`members.maker_mode_enabled\` still in the schema"
+
+# ------------------------------------------------------------------ ontology
+# The link registry IS `src/ontology/links.ts` — reading that file is reading
+# the source, not grepping for a proxy of it, so guard rail 4 is satisfied.
+#
+# What this deliberately does NOT do is re-derive the drift verdict.
+# `scripts/ontology-drift.ts` in the code repo is that measurement, it runs
+# daily, and its answer is reported under "What CI last said" below. Two
+# answers to one question is the failure this repo is named for.
+#
+# What it reports is the SHAPE of the registry — how many relationships are
+# declared and which are declared-but-unbuilt. That is invisible everywhere
+# else: the drift job is silent when clean by design, so a link sitting at
+# `built: false` for a month produces no signal at all.
+note ""; note "## The ontology — what is declared"
+note ""
+if LINKS="$(g show origin/main:src/ontology/links.ts 2>/dev/null)"; then
+  printf '%s' "$LINKS" | python3 -c '
+import re, sys
+src = sys.stdin.read()
+rows = []
+for m in re.finditer(r"name:\s*(['\''\"])((?:\\\\.|(?!\1).)*)\1", src):
+    tail = src[m.end():]
+    nxt = re.search(r"\bname:\s*['\''\"]", tail)
+    scope = tail[:nxt.start()] if nxt else tail
+    b = re.search(r"\bbuilt:\s*(true|false)", scope)
+    if b:
+        rows.append((m.group(2), b.group(1) == "true"))
+built = [n for n, b in rows if b]
+unbuilt = [n for n, b in rows if not b]
+print(f"- **{len(rows)} link types declared**, {len(built)} built.")
+if unbuilt:
+    print(f"- **Declared but not built ({len(unbuilt)})** — the relationship is named and nothing writes it yet:")
+    for n in unbuilt:
+        print(f"  - {n}")
+print("- Object types are deferred on purpose: a noun gets a declaration the next")
+print("  time a handler touching it is edited. Not a gap to close in one pass.")
+' || note "- **Could not parse the registry.** Its shape has changed; the parser in \`state.sh\` needs a look."
+else
+  note "- **\`src/ontology/links.ts\` is not on origin/main.** The registry has moved or gone."
+fi
+
+# ------------------------------------------------------------ what CI reports
+# Both of these are silent-when-clean jobs. That is right for a gate and wrong
+# for a status report: a green that nobody sees is indistinguishable from a job
+# that stopped running. So their last conclusion is stated here, including when
+# it is green, and including how long ago it ran.
+note ""; note "## What CI last said in the code repo"
+note ""
+for wf in deploy-health.yml ci.yml; do
+  row="$(gh run list --repo "$REPO" --workflow "$wf" --branch main --limit 1 \
+        --json databaseId,conclusion,createdAt,status \
+        -q '.[] | "\(.databaseId)\t\(.conclusion // .status)\t\(.createdAt[0:10])"' 2>/dev/null || true)"
+  if [ -z "$row" ]; then
+    note "- **\`$wf\`** — no run found. A workflow that has never run is not a passing one."
+    continue
+  fi
+  id="$(printf '%s' "$row" | cut -f1)"
+  concl="$(printf '%s' "$row" | cut -f2)"
+  when="$(printf '%s' "$row" | cut -f3)"
+  note "- **\`$wf\`** — $concl, $when"
+  gh run view "$id" --repo "$REPO" --json jobs \
+    -q '.jobs[] | "  - \(.name): \(.conclusion // .status)"' 2>/dev/null || true
+  [ "$concl" = "failure" ] && fail=1
+done
 
 # ------------------------------------------------------------------- counts
 note ""; note "## Measured, not estimated"

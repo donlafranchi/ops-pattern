@@ -4,7 +4,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 
 ## Read first, every session
 
-1. `STATUS.md` — what is true now. One screen.
+1. `STATUS.md` — what is true now. One screen. **Generated, never hand-edited** — see *Generated files* below.
 2. `ROADMAP.md` — Now / Next / Later / Won't.
 3. `process/ABSOLUTES.md` and `product/ABSOLUTES.md` — the six absolutes, four process and two product. The four-harms test and the rule that admits a seventh are stated once, in the process file. Cite an absolute by its slug in brackets (`[public-is-draft]`), never by number. Everything else is a guideline; break one if you can say why.
 4. `process/PIPELINE.md` — the five kinds of work and how each moves.
@@ -18,7 +18,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
 - **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
 - **What may never be broken:** `process/ABSOLUTES.md` (process) and `product/ABSOLUTES.md` (member-facing). Two files, one test — the test lives in the process file.
-- **How work moves, and what went wrong before:** `process/` — `PIPELINE.md` (the five kinds), `LESSONS.md` (append-only), `LIVING-DOCS.md` (the design note behind the generated docs), `ABSOLUTES.md`, and `skills/`.
+- **How work moves, and what went wrong before:** `process/` — `PIPELINE.md` (the five kinds), `LESSONS.md` (append-only), `LIVING-DOCS.md` (the design note behind the generated docs), and `ABSOLUTES.md`.
 
 **A concept lives in exactly one place.** Two documents describing the same thing is how this repo has failed before, so routing it is a rule, not a preference:
 
@@ -31,6 +31,19 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 **The test: does it have a shape — a noun, a verb, or a surface? Then the spine. If not, `IMAGINE.md`.** Worked example: *responses* have a noun and a verb, so the eventual four-state design is a status line on the response entry in `nouns.md`. *The Ticketmaster thesis* has none of the three — it is a claim about a market, not a shape — so it stays in `IMAGINE.md` until something about the product gives it one.
 
 If a directory isn't listed here, don't read it. Anything not in the tree is not current — git history is the archive (`git log`, tag `archive-2026-09`).
+
+## Generated files
+
+`STATUS.md` and `README.md` are written by scripts and **committed by a workflow, not by a person**. A hand-edit to either is lost on the next run.
+
+| File | Written by | Runs |
+|---|---|---|
+| `STATUS.md` | `scripts/status.sh`, wrapping `scripts/state.sh` | `.github/workflows/status.yml` — push to `main`, daily 13:05 UTC, and *Actions → status → Run workflow*, which works from a phone |
+| `README.md` | `scripts/view.sh` | the same workflow |
+
+**Nothing here asks you to remember to run anything.** A skill for this was written and never installed, so it never ran once and `STATUS.md` went stale naming the wrong launch blocker — the whole point is that the refresh does not depend on anyone thinking of it (lesson 27, and lesson 15 before it). To refresh by hand anyway: `bash scripts/status.sh`.
+
+**Reading the code repo needs a token.** Both repos are private, so the workflow cannot see `socialus-web` without the `SOCIALUS_WEB_TOKEN` secret. Without it `STATUS.md` still regenerates and says, at the top and at the bottom, exactly what is missing.
 
 ## State
 
