@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-19 · 20:39 UTC
+> ## Generated 2026-09-19 · 21:17 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -25,7 +25,7 @@ Launch **2026-10-30**, one metro. 41 days out.
 
 | approved | building | draft | deferred | superseded |
 |---|---|---|---|---|
-| 13 | 4 | 19 | 1 | 1 |
+| 16 | 4 | 18 | 1 | 1 |
 
 **Building:**
 - F060 (Someone starts something without opening a shop)
@@ -77,6 +77,6 @@ source in this repo proves these are still open.
 - **Everything in the Waiting-on-Don list**, as stated there.
 - **Whether any scenario marked `building` is actually in progress.**
   Frontmatter says `building`; nothing checks it against branches or commits.
-- **The 19 drafts.** Status alone does not say which are waiting
+- **The 18 drafts.** Status alone does not say which are waiting
   on Don and which are simply unfinished.
 
