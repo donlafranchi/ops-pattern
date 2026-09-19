@@ -54,9 +54,9 @@ owns:
 
 **What browse indexes is everything the platform holds** *(ruled 2026-09-12)* — Pages and posts, flat, with posts as an instance rather than a separate rule. `../foundation/model.md` § Browse is everything.
 
-**The rewrite carries a second constraint** *(ruled 2026-09-12, extended 2026-09-13)*: **there is no category at all.** It began as "zero filter pills", became "search is the filter", and ended with categories retired entirely — **creators create tags and pick no category.** `../foundation/model.md` § Search is the filter. Scenario: `../../planning/scenario-F071.md` (`draft`).
+**The rewrite carries a second constraint** *(ruled 2026-09-12, extended 2026-09-13, **narrowed 2026-09-19**)*: **no category control on the results surface.** It began as "zero filter pills", became "search is the filter", and ended with categories retired entirely. **The retirement is reversed and the control ban is not:** a Page's owner now picks **collections** from a curated set of about ten (`../foundation/nouns.md` § Page), and **no surface renders them as a row of controls beside results** — narrowing happens in a modal that writes its selection into the search box as text (2026-09-19). `../foundation/model.md` § Search is the filter. Scenario: `../../planning/scenario-F071.md` (`draft`).
 
-**The composer's category step becomes the tag step** *(ruled 2026-09-13)* — same position, walkthrough stays six steps, pick-or-create a tag and no category. **Unbuilt:** it renders the twelve retired terms today. **Creators create their own tags, so nothing needs seeding** — the picker fills itself as they are used. Blocked only on report-and-takedown, per [member-content-takedown].
+**The composer's category step becomes the tag step** *(ruled 2026-09-13)* — same position, walkthrough stays six steps, pick-or-create a tag. **It gains a collection picker** *(2026-09-19)*; whether that widens step 3 or adds a seventh is unruled, and the six-step count is the thing at risk. **The edit form has two fields, name and description** — no tag or collection editing exists there at all. **Unbuilt:** it renders the twelve retired terms today. **Creators create their own tags, so nothing needs seeding** — the picker fills itself as they are used. Blocked only on report-and-takedown, per [member-content-takedown].
 
 ---
 
