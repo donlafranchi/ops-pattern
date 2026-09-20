@@ -95,3 +95,13 @@ Every entry added from 2026-09-12 carries three things:
 **What would make this real:** a ruling that members may publish statements about Pages they do not own, plus enough density in one metro that a second reader would see a first reader's words. Neither exists on 2026-09-19.
 
 **Related and deliberately not folded in:** *what's on* — the time-based half of the same conversation — is not here, because it has a noun, a verb and a surface already and belongs in the spine.
+
+### The occasion — a thing people organize around, with no row of its own
+
+*Don's ruling, 2026-09-19, recorded here because the ruling was that it stays here:* **there is no goal object type.** The app is a **finding mechanism**. The organizing happens in real life, and where it needs a legal form it happens in entities formed outside the platform.
+
+**Why this is in the waiting room and not the spine.** It has no noun — that is the ruling. It has no verb of its own: what people actually do is make a Page and post a date, and both already exist. It has no surface. **It fails all three parts of the test at the top of this file**, which is the whole reason it stays rather than moving.
+
+**What it is not:** an Idea (`wonder`) — that is someone putting a *new thing* to the neighbourhood and watching for interest, and it has a noun and substrate already. Not a Page — a Page is *who*. Not a dated post — that is *when*. The occasion would be *what for*, and nothing in the model holds that.
+
+**What would make it real:** an occasion that a Page and a dated post cannot carry between them — something people need to find, join and come back to that is neither an organization nor a moment. Nobody has produced one yet, and until somebody does, the pair is the answer.

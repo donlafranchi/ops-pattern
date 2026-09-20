@@ -131,12 +131,14 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
   - **Later** — four states: coming · not coming · seen and undecided · declined. A state column replacing a row's existence — a migration and a rewrite of every read, **not an increment**.
   - **Blocked** — `members.avatar_url` has no write path. The list shows faces; no member has one.
   - **Trigger** — an organizer saying the yes-list alone isn't enough to plan with.
-- **Tag** ○ *(2026-09-12, made the only vocabulary 2026-09-13)* — a creator's own word for what their Page is. **Created, not picked from a fixed list, and public.**
-  - **Now** — nothing. No store, no composer field, no moderation path. A Page carries `groups.category` from the retired twelve; that column has no live writer once the category step goes.
-  - **Later** — **the only vocabulary a creator authors.** What search matches. *(It is no longer what a coarse grouping is derived from: collections are owner-picked, not derived — 2026-09-19.)*
-  - **Blocked** — **report-and-takedown, which does not exist.** A public tag is member-contributed content other members see, so [member-content-takedown] bars it from production without one. There is no `reports` table and no operator concept in the code; F058 is the work and it is unbuilt.
+- **Tag** ● *(2026-09-12, made the only vocabulary 2026-09-13; status corrected to live 2026-09-19)* — a creator's own word for what their Page is. **Created, not picked from a fixed list, and public.**
+  - **Now** — **shipped.** `tags` and `page_tags` exist and are written by `group.activate`; `browse_feed` matches a lens on `tags.normalized` and excludes any tag whose `status` is not `visible`, so a tag taken down stops steering discovery rather than merely disappearing from display. **The only vocabulary a creator authors, and the only thing search matches.**
+  - **Later** — editing tags on a live Page. **Written once, at activation** — there is no tag editing after that.
+  - **Blocked** — nothing. The old blocker was report-and-takedown, and it **shipped**: `reports`, `report_decisions` and a reviewing surface are on main.
   - **Never** — a tag that orders results, or one the platform assigns. *(The third Never — "a coarse category a creator picks alongside it" — was reversed 2026-09-19. **Collections are exactly that**, and the line is struck rather than reworded so nobody cites it. What survives it: tags stay the only vocabulary a **creator authors**, and the only thing search matches; a collection is a name the platform owns.)*
-- **Announcement** ○ — a Page tells its Page followers and group members what's upcoming, **and the post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. **Editable after posting** *(ruled 2026-09-13 — reverses the earlier no-edit rule)*; **delete still refused**; no inbox, no unread state.
+- **Announcement** ● *(status corrected to live 2026-09-19)* — a Page tells its Page followers and group members what's upcoming, **and the post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. **Editable after posting** *(ruled 2026-09-13 — reverses the earlier no-edit rule)*; **delete still refused**; no inbox, no unread state.
+  - **Now** — **shipped.** `page_posts` exists, `group.post_create` and `group.post_edit` write it, and `browse_feed` returns posts and Pages in one result set. **`group_id` is `NOT NULL`** — a post has no existence apart from its Page, which is what lets one query return both without inventing a second identity for the poster.
+  - **Later** — a date, a time and its own address on a post (F073), and a series that repeats (F074, unruled). **`ends_at` does not exist** on the table; `starts_at` does, as `timestamptz`, indexed.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
 - **Idea** `○` *(schema `wonder`)* — someone puts a new thing to the neighbourhood and others signal interest before it exists.
@@ -148,7 +150,10 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
   - **Now** — entry types exist, no composer.
   - **Blocked** — the missing reply channel, not the composer.
 - **Appearance** ○ — a Page at a Venue for a bounded time. Cannot overlap in time, refused at creation.
-- **Operator** ○ — whoever can remove someone else's content. Nothing exists yet — no role, no flag, no check.
+- **Operator** `● now / ○ later` *(status corrected 2026-09-19 — the old line said "nothing exists yet" and three things do)* — whoever can remove someone else's content.
+  - **Now** — **a check, and only a check.** `src/actions/_lib/operator.ts` compares the acting member against one env var, `OPERATOR_MEMBER_ID`, and **unset means nobody** — it fails closed, because the failure mode of the alternative is the whole moderation surface open to the internet. `reports`, `report_decisions` and the reviewing surface are on main; a decision is a reversible event.
+  - **Later** — delegated reviewers, which is more than one operator and therefore a real identity rather than an env var.
+  - **Never** — an operator role stored on a member. **There is still no roles table and no flag** — that part of the old line was right and survives. The singular, definite "the operator" in F058 is what the env var encodes.
 - **Poll** ○ — `page_posts.kind='poll'` + `page_post_options`. Deliberately separate substrate from demand signals: a poll option is a row with a foreign key; a demand signal's subject has none, by design.
 
 ## Refused, and why
@@ -165,4 +170,17 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 ## The relationships
 
-Person↔Item: creates, holds, responds to. Item↔Location: anchored at. *("Item" here names the `items` table, not the reserved product sense.)* Person↔Location: three purpose-owned substrates (locality default, private community-awareness scope, saved-search follow) — none grants addressability. Person↔Person: follows only; messages don't exist yet. Person↔Page: founder/steward/owner/member of; soft affiliations are inferred and surface-only, never written as group membership without consent. Item↔Page: optionally filed under one Page, but `items.member_id` (the responsible human) is always `NOT NULL`. The relationship surface is intentionally flat — there is no Business that owns entries at a Location and employs Persons.
+**Retired as prose, 2026-09-19. The link model lives in one place and this is not it:** `src/ontology/links.ts` in `socialus-web`, generated to `src/ontology/registry.json` (schema 2) and checked against the handlers by `scripts/ontology-drift.ts`, which runs daily.
+
+**Why the paragraph that stood here is gone rather than corrected.** It was the second description of the link model and the one people read to be right, while **nothing checked it** — the failure this repo is named for. It had already drifted: it listed *"Person↔Page: founder/steward/owner/member of"* as one relation, and those are **two links with different meanings**. Ownership is `groups.founder_member_id` — who *started* the Page, which **no permission consults**. Authority is `group_memberships.role` — `owner` or `steward`, which is what every managing check actually reads. They coincide today only because one handler writes both, and **a steward who did not found a Page holds authority under the second and appears under neither of the others**. That link was undeclared until 2026-09-19.
+
+**What to read instead, by question:**
+
+| Question | Where |
+|---|---|
+| Which relationships are declared, and which are declared-but-unbuilt | `registry.json` → `links`, each with its table, column, writing handlers and `built` flag |
+| Which handler writes a given link | that link's `writtenBy` |
+| Whether the declaration still matches the code | `scripts/ontology-drift.ts`, daily; its verdict is reported in `STATUS.md`, not re-derived here |
+| The shape of the registry at a glance | `STATUS.md` § The ontology — what is declared |
+
+**What stays here, because it is a refusal and not a link:** **the relationship surface is intentionally flat.** There is no Business that owns entries at a Location and employs Persons — see § Refused, and why. A registry can say what exists; only this file says what may never be added.

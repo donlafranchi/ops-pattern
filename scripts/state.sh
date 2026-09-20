@@ -99,44 +99,75 @@ g show origin/main:supabase/migrations/002_members.sql 2>/dev/null | grep -q mak
   && note "- \`members.maker_mode_enabled\` still in the schema"
 
 # ------------------------------------------------------------------ ontology
-# The link registry IS `src/ontology/links.ts` — reading that file is reading
-# the source, not grepping for a proxy of it, so guard rail 4 is satisfied.
+# The registry IS `src/ontology/registry.json` — generated from `links.ts` and
+# `objects.ts` in the code repo and committed there, so reading it is reading
+# the source rather than grepping a proxy of it. Guard rail 4 is satisfied.
+#
+# It used to regex-parse `links.ts` here. That was a TypeScript parser written
+# in a heredoc inside a shell script, and it carried a "could not parse" branch
+# that could report a healthy registry as a broken one on a formatting change.
+# JSON has no such failure mode: it parses or the file is not there.
 #
 # What this deliberately does NOT do is re-derive the drift verdict.
 # `scripts/ontology-drift.ts` in the code repo is that measurement, it runs
 # daily, and its answer is reported under "What CI last said" below. Two
 # answers to one question is the failure this repo is named for.
 #
-# What it reports is the SHAPE of the registry — how many relationships are
-# declared and which are declared-but-unbuilt. That is invisible everywhere
-# else: the drift job is silent when clean by design, so a link sitting at
-# `built: false` for a month produces no signal at all.
+# What it reports is the SHAPE of the registry — what is declared and what is
+# declared-but-unbuilt. That is invisible everywhere else: the drift job is
+# silent when clean by design, so a link sitting at `built: false` for a month
+# produces no signal at all.
 note ""; note "## The ontology — what is declared"
 note ""
-if LINKS="$(g show origin/main:src/ontology/links.ts 2>/dev/null)"; then
-  printf '%s' "$LINKS" | python3 -c '
-import re, sys
-src = sys.stdin.read()
-rows = []
-for m in re.finditer(r"name:\s*(['\''\"])((?:\\\\.|(?!\1).)*)\1", src):
-    tail = src[m.end():]
-    nxt = re.search(r"\bname:\s*['\''\"]", tail)
-    scope = tail[:nxt.start()] if nxt else tail
-    b = re.search(r"\bbuilt:\s*(true|false)", scope)
-    if b:
-        rows.append((m.group(2), b.group(1) == "true"))
-built = [n for n, b in rows if b]
-unbuilt = [n for n, b in rows if not b]
-print(f"- **{len(rows)} link types declared**, {len(built)} built.")
+if REGISTRY="$(g show origin/main:src/ontology/registry.json 2>/dev/null)"; then
+  printf '%s' "$REGISTRY" | python3 -c '
+import json, sys
+d = json.load(sys.stdin)
+
+schema = d.get("schema")
+
+links = d.get("links", [])
+built = [l["name"] for l in links if l.get("built")]
+unbuilt = [l["name"] for l in links if not l.get("built")]
+print(f"- **{len(links)} link types declared**, {len(built)} built. Registry schema {schema}.")
 if unbuilt:
-    print(f"- **Declared but not built ({len(unbuilt)})** — the relationship is named and nothing writes it yet:")
+    print(f"- **Declared but not built ({len(unbuilt)})** - the relationship is named and nothing writes it yet:")
     for n in unbuilt:
         print(f"  - {n}")
-print("- Object types are deferred on purpose: a noun gets a declaration the next")
-print("  time a handler touching it is edited. Not a gap to close in one pass.")
-' || note "- **Could not parse the registry.** Its shape has changed; the parser in \`state.sh\` needs a look."
+
+# objectTypes is a list of bare names in schema 1 and a list of records in
+# schema 2. Both shapes are read rather than one being treated as a fault:
+# schema 2 lands with change #171 and main carries schema 1 until it merges.
+objs = d.get("objectTypes", [])
+labels = []
+for o in objs:
+    if isinstance(o, str):
+        labels.append(o)
+    else:
+        labels.append(o["name"] + " (" + o.get("status", "?") + ")")
+if labels:
+    print(f"- **{len(labels)} object types declared**: " + ", ".join(labels) + ".")
+else:
+    print("- **No object types declared.** A noun gets a declaration the next time a")
+    print("  handler touching it is edited; this is not a gap to close in one pass.")
+
+rejected = d.get("rejectedAsNouns", [])
+if rejected:
+    print(f"- **Rejected as nouns ({len(rejected)})** - named so they stay rejected: "
+          + ", ".join(rejected) + ".")
+
+handlers = d.get("handlers", [])
+writing = {h for l in links for h in l.get("writtenBy", [])}
+silent = sorted(set(handlers) - writing)
+if silent:
+    print(f"- **{len(handlers)} handlers, of which {len(silent)} write no declared link.**")
+    print("  Not a fault on its own - a handler may legitimately touch no relationship -")
+    print("  but an undeclared link lives here if it lives anywhere:")
+    for h in silent:
+        print(f"  - {h}")
+'
 else
-  note "- **\`src/ontology/links.ts\` is not on origin/main.** The registry has moved or gone."
+  note "- **\`src/ontology/registry.json\` is not on origin/main.** The registry has moved or gone."
 fi
 
 # ------------------------------------------------------------ what CI reports
