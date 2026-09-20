@@ -27,6 +27,8 @@ Maya writes the same way she always does, but this time she adds a start and an 
 
 **Criterion 3 exists because "this afternoon" is the question.** `page_posts.starts_at` is already `timestamptz` and `browse_feed`'s window parameters are already `timestamptz`, so intra-day windows need no schema or query change. Stated as a criterion anyway, because a composer that captures only a date would satisfy every other line here and answer none of the question.
 
+**Criterion 8 now gates F074 as well, and therefore comes first.** *(2026-09-20, with Don's ruling of simple repeat.)* This scenario needs the metro's zone to *read* a window; expansion needs the same missing column to *write* one, because adding a fixed number of hours to a weekly series drifts an hour across a daylight-saving change — and **daylight saving ends 2026-11-01, two days after launch.** Nothing expands occurrences before the zone exists.
+
 **Criterion 8 is not free and is the one thing here with no substrate.** There is **no timezone column anywhere in the schema** — verified across every migration. Something must supply the metro's zone before a window boundary can be computed, and a reader's browser is the wrong source: F059 criterion 7 has a member switch metros, so the reader is routinely not in the metro they are reading.
 
 **`ends_at` does not exist on `page_posts` either.** The table has `starts_at` and `location_id` and no end. Criterion 6 needs the column.

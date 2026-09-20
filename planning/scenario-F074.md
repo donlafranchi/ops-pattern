@@ -1,40 +1,40 @@
 ---
 id: F074
 title: A series repeats
-status: draft
+status: approved
 date: 2026-09-13
-depends: [F073]
+depends: [F072, F073]
+approved: 2026-09-20 — Don ruled B, simple repeat; Bulletins leaves the launch list to pay for it.
 ---
 ## Story
 
-The run club meets every Thursday from the Sloppy Moose. Sam sets it up once, with a rule rather than a date, and every Thursday for the next three months exists as its own occurrence — each one findable, each one separately editable, because the route changes every week. In February, Thursdays keep appearing without anyone doing anything.
+The run club meets every Thursday from the Sloppy Moose. Sam sets it up once — Thursdays, starting now, no end — and every Thursday for the next three months exists as its own occurrence, each separately editable, because the route changes every week. Harlow's summer patio series is the same feature with both bounds filled in: Saturdays, June to September. In February, Thursdays keep appearing without anyone doing anything. Rae, browsing *this week*, sees the run club once.
 
 ## Acceptance
 
-1. A series is created once, with a recurrence rule; the creator never enters individual dates.
-2. Every occurrence is a real row referencing its parent post, not a date computed when someone reads a calendar.
-3. **Occurrences exist from today to three months ahead, at all times.** Checked on any day, the furthest occurrence is no less than three months out.
+1. A series is created once as **weekly on one or more chosen weekdays, with an optional start date and an optional end date**. The creator never enters individual dates, and no other pattern is offered.
+2. Every occurrence is a real `page_posts` row referencing its parent post — never a date computed at read time.
+3. **Occurrences exist from today to three months ahead, at all times.** Checked on any day, the furthest is no less than three months out.
 4. The job that maintains that window is idempotent: running it twice in succession creates nothing the first run did not.
-5. Editing one occurrence changes that occurrence and no other.
-6. Each occurrence behaves as its own event under F073 — its own place on the map, its own date match, its own responses.
-7. A member searching by date sees each occurrence separately, never the series as one result.
-
-## Why
-
-**Raised again 2026-09-19, and it reframes the theme rather than extending it.** Don: *"Now what about recurring events? Saturdays in the summer or Tuesdays year round. I'm thinking if someone wants to find what's happening this afternoon without knowing much that they can find these things."* **Every example he has given for What's happening is recurring** — happy hour, trivia night, the farmers market, a brewery's regular music slot. **One-off events are the rarest kind of dated content in a local discovery app**, so a time lens fed only by them returns an empty row most afternoons. **Cutting recurrence does not shrink this theme; it hollows it out.** F091 criterion 3 then hides the rows, and the named set silently does not appear.
-
-**Three sizes, unruled — Don picks.** A) **Full rules** — arbitrary patterns, exceptions as rules, the lot. B) **Simple repeat** — weekly on one or more weekdays, with an optional start and end date, so *Saturdays in the summer* and *Tuesdays year round* are one feature with different bounds. C) **None** — owners repost by hand each week.
-
-**What is already true, checked rather than assumed:** `page_posts.parent_post_id` **exists**, nullable and indexed, added in `20260916003100_page_post_write.sql` against exactly this future. **If occurrences are real rows over a bounded horizon, `browse_feed` needs no change at all** — it reads `page_posts` and filters on `starts_at`, with no concept of a series. **The old Item path has `item_gatherings.recurrence_rule` in RRULE format and it is not a head start**: it hangs off `items`, the noun `model.md` says does not exist, and nothing in the browse path reads it.
-
-**Verified against what actually merged, 2026-09-19.** `browse_feed`'s `p_starts_from`/`p_starts_before` are `timestamptz`, compared with `>=` and `<` and never truncated to a day, so **intra-day windows work today with no query change** — *this afternoon* is two arguments. `page_posts.starts_at` is `timestamptz` and indexed; `parent_post_id` is nullable and partially indexed. **The de-duplication gap is real**: `browse_feed` has no `distinct` and no grouping by parent, so seven occurrences return seven rows (F091 criterion 6).
-
-**The one cost B adds that nothing else was carrying: expansion needs the metro's zone, not just reading does.** F073 criterion 8 already owes a timezone source for *reading* a window. Expanding *every Thursday at seven* by adding 168 hours of UTC drifts an hour across a DST boundary — and **DST ends 2026-11-01, two days after launch**, so the first month of the lens crosses it. Weekly expansion must add a local day, which means the zone exists before the job runs, not before the read does.
-
-**The stack is three unbuilt scenarios deep.** F072 (a Page owner posts) is still `draft`; F073 is approved and unbuilt; F074 sits on both.
-
-**Exceptions are the part that eats the schedule**, and B can ship without them because criterion 5 already makes one occurrence individually editable — a cancelled week is an edit to a row, not a rule. **What an owner does when they need one**: they open that occurrence and cancel it, which is F075. Without F075 the honest answer is that they edit its text to say so, which is ugly and works.
+5. **An occurrence's start is computed in the metro's timezone, not by adding a fixed number of hours.** A weekly series spanning a daylight-saving change keeps its local time on both sides of it.
+6. **A time-windowed read returns one row per series** — its soonest occurrence inside that window — and one row per non-recurring post. A week window containing seven occurrences of one series returns one.
+7. Editing one occurrence changes that occurrence and no other.
+8. Each occurrence behaves as its own dated post under F073: its own address, its own time-window match, its own responses.
 
 ## Not this
 
-Editing a whole series at once — every week differs anyway, so editing one occurrence is the normal case. Cancellation, which is F075. Infinite or unbounded horizons. Exceptions expressed as rules rather than as edits to a row. Replacing an occurrence's row instead of editing it — **edits are in place** *(ruled 2026-09-13)*, which is what keeps its responses attached.
+**Exceptions as rules.** A skipped week is an **edit to an occurrence row**, never a rule expressed against the series — that is the line between this and full recurrence, and it is stated as a line rather than left as an omission, because everything expensive about A arrives the moment a rule can describe its own exception. Also: any pattern but weekly — no monthly, no nth-weekday, no interval. Editing a whole series at once. Cancellation, which is F075. Unbounded horizons. Replacing an occurrence's row instead of editing it — **edits are in place** *(ruled 2026-09-13)*, which is what keeps its responses attached.
+
+## Why
+
+**Don ruled B on 2026-09-20**, against A (full rules) and C (manual reposting). **A is out on a reason, not a size:** exceptions-as-rules means a rule engine and a rule editor, and `model.md` already ratifies that every occurrence is individually editable *because every week differs anyway* — so the expensive half buys something the design does not want. **C is out because it is not the cheap option it looks like:** it builds nothing and produces an empty time lens, which is worse than not naming the set.
+
+**The stakes, restated because they are the reason this is in at all.** Every example Don has given for *What's happening…* is recurring — happy hour, trivia, the market, a brewery's regular music slot. **One-offs are the rarest kind of dated content in a local discovery app**, so a time lens fed only by them returns an empty row most afternoons. **Cutting recurrence would not shrink the theme; it would hollow it out** — F091 criterion 3 hides empty rows, so the named set would silently not appear.
+
+**Criterion 5 is first, and it is the one thing here with no substrate.** There is **no timezone column anywhere in the schema** — verified across every migration. F073 criterion 8 already owed a zone for *reading* a window; expansion needs the same missing column for *writing* one, and adding 168 hours of UTC to *every Thursday at seven* drifts an hour across a daylight-saving boundary. **Daylight saving ends 2026-11-01, two days after launch**, so the first month of this feature crosses it. The zone is a property of the metro, not of a Page, a post or a reader — F059 criterion 7 has members switching metros, so the reader is routinely not in the metro they are reading.
+
+**Criterion 6 ships with this or this does not ship** *(Don, 2026-09-20)*. `browse_feed` has **no `distinct` and no grouping by parent** — verified in the merged migration — so a daily series returns seven rows in a week window and floods the lens. **A flooded lens reads as broken, not as incomplete.** It is written here rather than only in F091 because the flood is created by this scenario: the read-side rule (F091 criterion 6) and the write-side expansion must land in the same release, or the release is a regression.
+
+**What is already true, checked rather than assumed.** `page_posts.parent_post_id` **exists**, nullable and indexed, added in `20260916003100_page_post_write.sql` against exactly this future. `starts_at` is `timestamptz` and indexed. **Given criterion 6, `browse_feed` needs a de-duplication rule and nothing else** — its window parameters are already `timestamptz` compared with `>=`/`<`, never truncated to a day. **The old Item path's `item_gatherings.recurrence_rule` is not a head start**: it hangs off `items`, and nothing in the browse path reads it.
+
+**The stack is three deep and F072 is still `draft`.** F072 (a Page owner posts) → F073 (a date, a time, an address) → this.

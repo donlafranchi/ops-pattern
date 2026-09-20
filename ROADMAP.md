@@ -21,8 +21,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Metadata rewrite; retired vendor routes redirected or removed.
 - RSVP / response path — one per person.
 - Follows simplification — one table, three subjects.
-- Bulletins (`page_posts`, member audience) — first item on the cut list if slack runs out.
-- **What's happening…** — a date, a time and a post-level address on an announcement (F073); the time lens rows (F091); narrowing in a modal that writes text (F092). **Mostly a rename of work already here**: the query shipped 2026-09-19 and needs no change. **The new cost is F073 and the parser**, and recurrence is unruled — see `DECISIONS.md` § Open.
+- **What's happening…** — a date, a time and a post-level address on an announcement (F073); **a series that repeats, weekly with optional bounds (F074, ruled 2026-09-20)**; the time lens rows (F091); narrowing in a modal that writes text (F092). The browse query shipped 2026-09-19 and needs **one** change, a de-duplication rule. **The new cost is F073, recurrence, and the parser.** Recurrence is what makes the lens non-empty; Bulletins was cut to pay for it — see § Cut.
 - Onboarding, empty states, copy pass — Fortnight 4.
 - Seed content, synthetic and display-only — Fortnight 4.
 
@@ -50,6 +49,12 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - On-platform payments — closed-loop ledger + ACH via a chartered partner, zero platform transaction fees on member commerce (the wealth-circulation rubric), a stablecoin path long-horizon.
 - Treatment-review surface (reviews the treatment, never the person) and member references.
 - Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
+
+## Cut — taken off the launch list, dated and reasoned
+
+*Not the same as Won't. A cut thing is still wanted; it lost a trade against the deadline and may come back. A Won't thing is refused on principle and never comes back. Recorded here rather than quietly deleted, because a line that vanishes from Next leaves no trace of who decided or why.*
+
+- **Bulletins — the member-audience half of a post** *(cut 2026-09-20, Don)*. **What left:** a post being delivered to the feed of everyone who follows a Page or belongs to its group. **What stayed:** the composer, and posts appearing in browse — both are what *What's happening…* runs on. **Why:** recurrence (F074) was ruled in the same day and is what makes the time lens non-empty; the launch list was already over, so something had to pay. **Cost of the cut:** a Page owner has no way to reach people who already follow them, which is the thing followers are for. **It comes back when** the time lens is shipped and the follower graph has enough density that delivery reaches more than a handful of people. **Nothing built is discarded** — the subscription link exists in `group_memberships` and nothing reads it yet, so the cut removes unbuilt work. Reflected in F072 criterion 2.
 
 ## Won't
 
