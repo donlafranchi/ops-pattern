@@ -1,9 +1,10 @@
 ---
 id: F072
 title: A Page owner posts
-status: draft
+status: approved
 date: 2026-09-13
 depends: [F059, F065]
+approved: 2026-09-21 — Don approved after review: Story fixed, five observable checks, F059 added.
 supersedes: F066
 ---
 ## Story
