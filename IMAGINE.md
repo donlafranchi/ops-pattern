@@ -94,6 +94,8 @@ Every entry added from 2026-09-12 carries three things:
 
 **What would make this real:** a ruling that members may publish statements about Pages they do not own, plus enough density in one metro that a second reader would see a first reader's words. Neither exists on 2026-09-19.
 
+**Reframed in part, 2026-09-21, by the in-app answering strategy** (`planning/AGENT-ANSWERING.md`). **System 1 above largely dissolves**: nobody has to enumerate *quiet*, *patio*, *worth-the-price* as a vocabulary if a person can simply say it, so natural language is how this intent gets expressed without a taxonomy. **The obstacle is untouched.** An answering layer can only answer over what is written, and the load-bearing problem here is that **nothing lets anyone say anything about a Page they do not own**. A brewery will tag itself *patio* and will never write *patio beside a four-lane road*. **The entry stays, and its trigger is unchanged** — the interface half is answered, the data half is not.
+
 **Related and deliberately not folded in:** *what's on* — the time-based half of the same conversation — is not here, because it has a noun, a verb and a surface already and belongs in the spine.
 
 ### The occasion — a thing people organize around, with no row of its own
