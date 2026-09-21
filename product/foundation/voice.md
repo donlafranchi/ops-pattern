@@ -40,6 +40,8 @@ Nobody just posts here. Every listing is a creation: something to trade, somethi
 
 "Corner" (as in "your corner of it") reads as forced. Say "near you," "here," or name the thing plainly instead.
 
+**The standard behind these rules** *(ratified 2026-09-21)*: **plainlanguage.gov**, for short sentences, common words, the active voice, and addressing the reader as *you*. **Where it and this file differ, this file wins** — the mechanics below are house style and plainlanguage.gov has no opinion on em dashes. `../ui/design-language.md` principle 11 also overrides it: never show someone a zero counter on their own work, whatever plainness would suggest.
+
 Writing mechanics, so copy doesn't read as AI generated:
 
 No em dashes, anywhere.
