@@ -1,35 +1,36 @@
 ---
 id: F072
-title: A Page owner posts
-status: draft
+title: A Page owner announces something, with a time on it
+status: approved
 date: 2026-09-13
 depends: [F059, F065]
-supersedes: F066
+approved: 2026-09-21 — Don: "I need it built and composed." Composer, time, post address and the audience switch are one piece of work. Absorbs F073.
+supersedes: F066, F073
 ---
 ## Story
 
-Maya's bakery has nothing to say until Thursday, when the sourdough is back. She taps Announce and writes two sentences. Under the box is a switch for who sees it, sitting on anyone, and she leaves it there. It appears at the top of her Page and in browse, where a stranger who has never heard of her can find it. It is not a listing: no price, nothing to buy, just the bakery saying a thing. The next morning she spots a typo and fixes it in place, and it stays the same announcement.
+Maya's bakery has nothing to say until Thursday, when the sourdough is back. She taps Announce and writes two sentences. She adds Thursday, seven o'clock, and because the bread class is at the church hall rather than her own counter she types that address too. Under the box is a switch for who sees it, sitting on anyone, and she leaves it there. It appears at the top of her Page and in browse, where a stranger looking for what is on this week finds it. Her Saturday "sourdough is back" post has no time at all, and it is no less a post for that. The next morning she fixes a typo in place, and it stays the same announcement.
 
 ## Acceptance
 
-1. Only a Page's managing role can post or edit it afterwards; anyone else sees no control and a direct write is refused. An edit happens **in place** and the post stays the same post. **Deleting is refused.**
-2. A post appears on its Page **and in browse**.
-3. The composer carries **one switch for who it reaches**, defaulting to anyone. The words name the people, never a kind of post, and **neither "announcement" nor "bulletin" appears in any label.** Beside the restricted setting sits a live count of the people it would reach, and **at zero that count reads as words, never as "0".**
-4. A post renders as coming from the Page, not as a listing: no price, no buy control, no listing chrome.
-5. A post that fails to save leaves nothing behind — no half-made post on the Page, in browse, or in its Page's history.
+1. Only a Page's managing role can announce or edit it afterwards; anyone else sees no control and a direct write is refused. An edit happens **in place** and stays the same announcement. **Deleting is refused.**
+2. An announcement appears on its Page **and in browse**, reading as coming from the Page and never as a listing — no price, no buy control, no listing chrome. **One whose start time has passed stops appearing in browse, with no manual cleanup.**
+3. The composer takes an **optional date and time** and an **optional address of its own**. With a start time it is returned by a time-windowed read **to the hour, not only to the day**; with none it is still a first-class announcement and is never returned by a time-windowed read. With an address it reads as being there; with none, at its Page's location. **Times are the metro's, never the reader's and never the server's.**
+4. The composer carries **one switch for who it reaches**, defaulting to anyone. The words name the people, never a kind of post, and **neither "announcement" nor "bulletin" appears in any label.** Beside the restricted setting sits a live count of the people it would reach, and **at zero that count reads as words, never as "0".**
+5. An announcement that fails to save leaves nothing behind — no half-made row on the Page, in browse, or in its Page's history.
 
 ## Not this
 
-Times on a post — that is F073, and this scenario's posts carry none. Replies, threads, comments, or any inbox. Scheduling or sending to a subset. Images. Responses and any reaction count, which are F063. An edit history or a visible "edited" marker — not ruled on either way.
+**An end time.** `page_posts` has `starts_at` and no `ends_at`; Don asked for a date and a time, and the end is a column that does not exist. **Recurrence, which is F074** — approved, separate, and not what is being built today. **No announcement renders on the map, dated or not** — the map shows Pages. Replies, threads, comments or any inbox. Scheduling, or sending to a subset. Images. Responses and any reaction count, which are F063. All-day events, multi-day spans, or a start with no end. Timezone *selection* by a creator: times are the metro's, which is what criterion 3 says. An edit history or a visible "edited" marker — not ruled either way.
 
-**Criterion 2 is narrower than it was, and the narrowing is the cut that paid for recurrence** *(2026-09-20)*. It used to say a post also appears *"in the feed of every follower and every Group member."* **That delivery half is what "Bulletins" names on the roadmap, and it is what left the launch list** — not the composer, and not posts in browse, both of which stay. `surfaces.md` had already priced it: *"the feed function takes no follow input — this is the missing half, and it is larger than the composer."* **Nothing built is discarded**: `group_memberships` carries the subscription link and nothing reads it yet. **What a Page owner loses is reach to people who already follow them**; what they keep is being findable by strangers, which is the half *What's happening…* runs on.
+## Why
 
-**Criterion 3 is new, 2026-09-21, and two of its three parts have no substrate.** *Announcement is the word everywhere* (Don, same day), so the switch labels people rather than naming a kind of post. **`page_posts` has nowhere to record the audience** — its columns are `id`, `group_id`, `body`, `starts_at`, `location_id`, `lifecycle_state`, `discoverability`, `dissolved_at`, `created_at`, `updated_at`, `parent_post_id`, and that is all of them. **`discoverability` is the near-miss and is not the field**: it answers *can this be found*, `browse_feed` already reads it that way, and a `private` post is hidden from everyone rather than delivered to anyone. **The restricted setting also needs the delivery half, which sits in `ROADMAP.md` § Cut** — recorded here as a dependency.
+**Absorbs F073, on Don's instruction, 2026-09-21:** *"I don't need an answer. I need it built and composed. Just get that done."* **He treats the composer and the timestamp as one piece of work**, and the diagnosis that prompted it supports him: `page_posts.starts_at` is already `timestamptz` and indexed, `browse_feed` already compares both window bounds against it without truncating to a day, and the past-dated drop-out already works. **The write handler is the only gap** — `src/actions/group/post.ts` inserts six columns and deliberately skips `starts_at`, deferring to F073. So criterion 3 is one `zod` field, one column in an existing insert, and a composer input. **F073 is marked superseded rather than deleted**, so its approval trail survives; nothing it ruled is lost, and the post-level address stays per his "middle size" ruling of 2026-09-19.
 
-**The count is permitted, and the thing next to it is not.** Criterion 3 shows a count of the people the restricted setting would reach. **That is a count, not a roster**, which is the line Don drew on 2026-09-07: *a reaction count is shown to the Page owner, never a roster of who reacted.* **The open question in `verbs.md` — whether a Page owner may see who their audience is, given F067 writes followers unreadable to everyone including the owner — is about the list and is untouched by this.** Named here so the next reader does not reopen it on the count's behalf.
+**What criterion 3 still needs that does not exist.** **`timestamptz` normalises to UTC and discards the offset it was written with**, so nothing in the row remembers that seven o'clock meant seven in Sacramento. Rendering with the reader's browser zone shows a Sacramento evening as a New York night. **The metro's zone is `socialus-web` #173**, already open and unblocked; with one metro live a constant is defensible until it lands, and the column is the honest version.
 
-**Build sequencing, which the switch permits.** The anyone setting is complete against what exists plus F059's wiring. **The restricted setting may be visible before delivery exists, but not selectable-and-postable** — a creator who addresses forty-two people none of whom receive it has been told something untrue by the composer. Visible with its reason shown is honest; silently inert is not. At launch most Pages have nobody getting updates, so the reason shown is the true one either way.
+**Criterion 4's count is permitted and its roster is not** — Don, 2026-09-07: *a count is shown to the Page owner, never a roster of who reacted.* The open question in `verbs.md` about a Page owner seeing **who** their audience is stays open and is untouched by a count.
 
-**Criterion 2 is not verifiable until Explore reads `browse_feed`, which is why `depends:` gained F059** *(2026-09-20)*. The function is live in production with **no caller** — Explore still reads the old Item-grain view client-side, so a `page_posts` row cannot surface there today however correctly it is written. **That wiring is F059's remaining half, not new scope**, but this scenario cannot pass without it.
+**The restricted setting depends on delivery, which is in `ROADMAP.md` § Cut.** It may be **visible before delivery exists, and not selectable-and-postable** — a creator who addresses forty-two people none of whom receive it has been told something untrue. At launch most Pages have nobody getting updates, so the reason shown is the true one either way. **The anyone setting is complete against what exists.**
 
-**Supersedes F066** *(2026-09-13)*. Two of F066's criteria were contradicted by later rulings — it said a post appears *"never in browse or search"*, and that the owner sees *"a count and no identities, ever."* Both are reversed above.
+**Supersedes F066** *(2026-09-13)*, whose "never in browse or search" and "a count and no identities, ever" were both reversed by later rulings.

@@ -3,7 +3,7 @@ id: F091
 title: What's happening, today and this week
 status: approved
 date: 2026-09-19
-depends: [F059, F073]
+depends: [F059, F072]
 approved: 2026-09-19 — Don named the set and ruled the heading is a sentence stem the lens completes.
 ---
 ## Story

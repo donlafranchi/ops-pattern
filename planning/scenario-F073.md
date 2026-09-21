@@ -1,11 +1,14 @@
 ---
 id: F073
 title: An announcement carries a date, a time and its own place
-status: approved
+status: superseded
 date: 2026-09-13
 depends: [F072]
-approved: 2026-09-19 — Don ruled the middle size: a date, a time and a post-level address, and no map pin. Criteria 3 and 4 replaced accordingly.
+approved: 2026-09-19 — Don ruled the middle size: a date, a time and a post-level address, and no map pin.
+superseded: 2026-09-21 — folded into F072, which builds the composer and the timestamp as one piece of work. Nothing here was reversed; the end-time criterion moved to F072 § Not this.
 ---
+**Superseded 2026-09-21 — do not build from this file. Its content is F072 criteria 2 and 3.** Kept for the approval trail, not as a second description. *(Don: "I need it built and composed." The composer and the time are one ticket, and two scenarios describing one composer is how this repo has failed before.)*
+
 ## Story
 
 Maya writes the same way she always does, but this time she adds a start and an end: bread class, Thursday seven till nine, at the church hall rather than her bakery. Nothing else about the composer changes. A stranger looking for what is on this week finds it, at the address she typed. Her Saturday "sourdough is back" post has no times, so it stays an announcement — in browse, in feeds, and answering no question about when.
