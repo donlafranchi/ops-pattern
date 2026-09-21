@@ -1,72 +1,41 @@
 ---
 id: agent-answering
-purpose: Scoping for an in-app answering layer over SocialUs data, and the thin public tier outside agents get instead. Don's strategy, the substrate that exists, the dependency chain, and the four hard parts. Not a ruling and not a schedule.
-status: open
+purpose: What must not be foreclosed before 2026-10-30 so that in-app answering stays cheap afterwards. A constraints list, not a build plan.
+status: prepare-only
 ---
 
-# Answering, inside the app
+# Answering, inside the app — prepare, don't build
 
-**Paired with the crawler-blocking and thin-public-tier work in `socialus-web`.** That document governs what leaves the building; this one governs what happens inside it. **Neither is complete without the other** — blocking outside agents without being able to answer yourself is a refusal with nothing behind it.
+> **Not for launch.** Don, 2026-09-21: *"This isn't something we're adding for [launch], but it is something I'd like to prepare for for the next version after [launch]."* **The next version after 2026-10-30, and not backlog for it.** Nothing here is a ticket, and nothing here competes for the launch list.
 
-## The strategy, in Don's words
+**The strategy it serves** *(Don, 2026-09-21, and the dated line is in `DECISIONS.md`)*: if agent search replaces keyword search, SocialUs becomes the agent for its own domain rather than the free data layer under someone else's. Outside agents get a thin summary of what kinds of things exist here; the good answers happen inside, over data only SocialUs has. **The outward half is the crawler-blocking and thin-public-tier work in `socialus-web`** — the refusal and the capability are one strategy, and each is incoherent alone.
 
-*"My hypothesis is that Google and Bing search are being replaced by agent search and that we don't want to be cut out yet we also don't want to offer up easy information. I'd prefer that we offer up a summary of the kinds of things that we have that are available without any specific detail... I don't want the large language model creators to replace what we're doing and to take what we've gathered and give it away for free."* / *"I want to offer that LLM answering capability inside of our own app."* / *"That's the more important feature."*
+## What must not be foreclosed
 
-**Recorded as a coherent position rather than two separate asks:** if agent search displaces keyword search, and you refuse to be the free data layer under someone else's agent, **then you have to become the agent for your own domain.** Outside agents get a thin summary of *what kinds of things exist here*; the good answers happen inside SocialUs, over data only SocialUs has. **The refusal and the capability are one strategy, and either alone is incoherent** — a thin public tier with no in-app answering is a product that has hidden itself.
+**Five constraints. Each is cheap to hold now and expensive to retrofit.**
 
-**Status note, not a schedule:** *LLM-enhanced natural-language search ("sourdough near me Saturday")* already sits in `ROADMAP.md` § Later, written before this. **Don has now called this "the more important feature."** Moving it is his call and is not made here.
+1. **Privacy is enforced in the data layer, never in a component.** `browse_feed` is `security invoker` and withholds the follower-restricted half **in its own predicate**, so anything reading through it inherits the rule for free — an assistant included. **If withholding ever migrates into a component, a future assistant bypasses it silently**, because it will not be reading through the component. **This is invisible until it is violated**, which is why it is written down rather than trusted. The same property binds any retrieval path added later: a `security definer` retrieval function breaks it without failing anything.
 
-## Is `browse_feed` the tool surface? Partly, and the honest answer is no for the interesting half
+2. **A summarised answer is a disclosure.** Retrieving a restricted row to *inform* an answer discloses it as surely as printing it. Anything designed now that assumes "we only show what we retrieved" should assume the stronger form.
 
-**What it genuinely gives, and it is not nothing.** `browse_feed` takes metro or place, Page kinds, result kinds, audience and follow set, tags, a start-time window at both ends, a creation-recency cutoff, a sort and a limit, and returns one discriminated row shape with body, description, tags, start time and location. **For a question that decomposes into filters — *what is on in Oak Park on Thursday evening* — this is already a tool-callable surface and a wrapper is thin.**
+3. **Structured fields over prose, wherever the choice comes up.** Times, addresses and tags as columns are what makes retrieval good later; the same facts buried in `body` are not retrievable without inventing a parser for them. **F073 (a post's own address and its start time) and F074 (repeats as rows) already push the right way.** **Where it is currently going wrong: a post has no tags of its own** — there is no `post_tags` table, so `browse_feed` gives a post *its Page's* tags. A bakery's Page tagged `bread` says nothing about which post is the bread class. That is subject matter living in prose because there is nowhere else to put it.
 
-**What it cannot do, checked rather than assumed:**
+4. **The query's parameter surface is an asset — do not narrow it.** `browse_feed` takes scope, kinds, result kinds, audience, follow set, tags, a start-window at both ends, a creation cutoff, a sort and a limit. **That shape is close to a tool definition already.** Anything that collapses it back toward one hardcoded call — a convenience wrapper that fixes the sort, a caller that always passes the same three arguments — takes the asset away. **Related and worth keeping general: F092's query parser**, which turns typed words into structured filters, is the same job an answering layer does at the front end.
 
-- **There is no text matching anywhere in the schema.** No `tsvector`, no `pg_trgm`, no `ilike` in any migration. `p_tags` matches `tags.normalized` **exactly**. So *sourdough* has no retrieval path at all unless a creator happened to type that exact tag.
-- **`pgvector` is installed and unused.** `001_extensions.sql` creates the extension; `item_embeddings` is an **empty reserved table** of `vector(1536)` with no rows and no pipeline, and **it hangs off `items`** — the noun `model.md` says does not exist. **Nothing exists for Pages or for `page_posts`.**
-- **Sorting carries no relevance.** The three sorts are recency, soonest and Page-creation-newest. An answering layer needs *best match*, which is a fourth thing.
-- **The limit is capped at 100**, which is ample for retrieval and worth knowing.
+5. **The thin public tier draws the line the assistant will inherit.** The public/private split being decided now in `socialus-web` is not only about crawlers. **Whatever is public to an outside agent is public to everyone**, and whatever is withheld is what the internal assistant will have to be trusted with. **That decision should be made knowing an internal assistant is coming**, not on the assumption that withheld means unused.
 
-**So: a thin tool-calling wrapper covers structured questions and nothing else.** Anything expressed in words rather than filters needs a retrieval path that does not exist today — text index, embeddings over the right nouns, or both. **Saying otherwise would be flattering the substrate.** The reserved `item_embeddings` table is not a head start for the same reason its recurrence column was not: it is attached to the wrong noun.
+## What is honestly missing, so nobody mistakes the substrate for a head start
 
-## What it would answer over, which mostly does not exist yet
+- **No text matching exists anywhere.** No `tsvector`, no `pg_trgm`, no `ilike` in any migration; `p_tags` matches `tags.normalized` exactly. *Sourdough* has no retrieval path unless a creator typed that exact tag.
+- **`pgvector` is installed and unused.** `item_embeddings` is an empty `vector(1536)` table with no rows and no pipeline, **hanging off `items`** — the noun `model.md` says does not exist. Nothing exists for Pages or `page_posts`. **Same trap as the zoneless RRULE columns: reserved substrate on the wrong noun is not a head start.**
+- **No relevance sort.** Recency, soonest and newest are the three; *best match* is a fourth thing.
 
-Stated as a dependency chain, in order:
+## The hard parts, recorded once so they are not rediscovered
 
-1. **F059's wiring** — `browse_feed` is live in production with **no caller**; Explore still reads the old Item-grain view.
-2. **F072** — a Page owner can post at all. Approved, unbuilt.
-3. **F073** — an announcement can carry a date, a time and its own address. Without it there is no *tonight*.
-4. **F074** — a series repeats. Without it *what is on this afternoon* is fed by the rarest content in the product.
-5. **F071** — search over a Page's own text and tags. Draft, and the nearest existing thing to a retrieval path.
-6. **Page editing** — a Page cannot be edited after creation beyond name and description.
+**Hallucinated specifics about real businesses is the serious one**, because the exposure is a business's reputation rather than ours — invented hours, invented prices, an invented event. **Grounding every specific in a retrieved row, and declining rather than inferring, is a product requirement here and not a quality preference.** The others, briefly: thin data must produce a thin answer rather than a confident one; *nothing on tonight* is a true and acceptable answer and will be the common one for months; and cost is per-query, which makes it **the first thing in SocialUs where a member being engaged costs money**.
 
-**The honest summary: the answering layer is downstream of nearly everything currently in flight.** That is a fact about ordering, not an argument about priority.
+## Related and not folded in
 
-## What this does to the parked discovery idea
+`IMAGINE.md` § *Discovery that knows what a person is optimizing for* — natural language dissolves its attribute-vocabulary problem and leaves its real one untouched, because nothing lets anyone say anything about a Page they do not own. Reframe recorded there; the entry stays parked.
 
-`IMAGINE.md` § *Discovery that knows what a person is optimizing for* (marked **Priority: higher**) is Don's *"a patio, not tables beside a busy street"* and value-oriented versus quality-oriented reviewing.
-
-**It reframes half of it and leaves the hard half exactly where it was.** Natural language is indeed how that intent gets expressed without anyone building a taxonomy, and the parked entry's first system — *a vocabulary for attributes* — largely dissolves: nobody has to enumerate *quiet*, *patio*, *worth-the-price* if a person can just say it. **That is a real simplification and worth recording.**
-
-**What does not move:** the entry's own load-bearing obstacle was that **the product has no way for anyone to say anything about a Page they do not own**, and every description it holds is creator-supplied. **An answering layer can only answer over what is written.** A brewery will tag itself *patio*; it will never write *patio beside a four-lane road*, and no model can retrieve a sentence nobody wrote. **So the interface half is answered and the data half is untouched** — the entry stays parked, with its trigger unchanged.
-
-## The four hard parts, named
-
-1. **Answering confidently over sparse data.** One metro at launch, and a retrieval layer's failure mode is that it answers anyway. **The bar is that thin data produces a thin answer, not a confident one.**
-2. **Hallucinated specifics about real businesses.** This is the serious one, because **the exposure is a real business's reputation and not only ours** — invented hours, invented prices, an invented event. A wrong answer about a made-up thing is embarrassing; a wrong answer about Maya's bakery is something Maya did not consent to. **Grounding every specific in a retrieved row, and declining rather than inferring, is a product requirement here rather than a quality preference.**
-3. **Cost per query**, which is unlike every other surface in the product: it is per-use, it scales with curiosity rather than with members, and it is the first thing in SocialUs where a member being engaged costs money.
-4. **What the answer is when nothing is on tonight.** The pull toward filling the silence is exactly what `design-language.md` principle 11 and the empty-state rules already refuse elsewhere. **Nothing on is a true and acceptable answer**, and it is the single most likely answer in the first months.
-
-## The line it must not cross
-
-**The answering layer sees only what it retrieves, and it retrieves as the person asking.**
-
-- **`browse_feed` is `security invoker`**, so called as the asking member, RLS and its own predicates apply unchanged — the follower-restricted half is withheld in the database, not by a client. **Any retrieval path added later must hold the same property**, and a `security definer` retrieval function would silently break it.
-- **An assistant that leaks what the UI withholds is the worst version of this feature**, and it is worse than not building it: the restriction stops being a rule and becomes a bug that only some people know about.
-- **A summarised answer is still a disclosure.** Retrieving a restricted row to *inform* an answer discloses it just as surely as printing it.
-
-**One correction, because a rule is being relied on that does not exist.** The private-residence half of this line — *public places show an address to everyone, private residences only to invited or responding members* — **is not ratified anywhere in this repo.** What is ratified says close to the opposite: `nouns.md` (2026-09-09) — *a Page's address is public if given* — and `model.md` — *"Never a home address, and if someone enters one anyway, it is shown publicly."* **So there is no residence rule for the answering layer to hold; there is a rule that addresses are shown.** If the intended boundary is the one described, **it is a new ruling Don has to make**, and it governs the Page surface first and the answering layer only as a consequence. `policy.md`'s GPS-stripping rule is the nearest thing on the books and is about uploads, not addresses.
-
-## Not in scope here
-
-Which model, self-hosted or API. What the thin public tier contains — that is the `socialus-web` document. Creator-side agent assistance, which is a different thing already named in `product/systems/creator.md` and gated on standing presence; conflating the two would put a member-facing answering surface behind a business-membership gate for no reason.
+**Open and not answered here:** whether a private residence's address is withheld, and from whom — `DECISIONS.md` § Open. **It governs the Page surface first**, and the answering layer can only inherit a line somebody has drawn.

@@ -39,7 +39,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Structured recurring-location scheduling — priced v2 buy-back for the free-text "where they'll be next" line.
 - Paid visibility / advertising mechanic — gated on passing the member-benefit test; not designed.
 - Cooperative coordination tooling (voting, distributions) — waits on documented demand.
-- LLM-enhanced natural-language search ("sourdough near me Saturday") and SEO-structured public pages. **Don called in-app answering "the more important feature" on 2026-09-21** and it is scoped in `planning/AGENT-ANSWERING.md`; it sits here until he moves it. Paired with the crawler-blocking and thin-public-tier work in `socialus-web` — the refusal and the capability are one strategy.
+- LLM-enhanced natural-language search ("sourdough near me Saturday") and SEO-structured public pages. **In-app answering is the next version after launch, not backlog for 2026-10-30** *(Don, 2026-09-21: "something I'd like to prepare for for the next version after")*. **What is wanted before launch is not building it but not foreclosing it** — five constraints in `planning/AGENT-ANSWERING.md`, each cheap now and expensive to retrofit. Paired with the crawler-blocking and thin-public-tier work in `socialus-web`.
 - Saved-search subscriptions ("notify me: new products in Oak Park").
 - Richer service-listing fields (appointment availability, scope of work), item lifecycle states (draft/paused/archived), stock indicators, bundled items.
 - Community-attested (Tier 1) and document-verified (Tier 2) locality/provenance badges — Tier 0 self-attestation is all that ships at launch.
