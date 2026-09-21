@@ -1,14 +1,48 @@
 ---
 id: agent-answering
-purpose: What must not be foreclosed before 2026-10-30 so that in-app answering stays cheap afterwards. A constraints list, not a build plan.
+purpose: In-app answering over SocialUs data — the argument for it, what the project looked like when it was decided, and what must not be foreclosed before launch. A constraints list, not a build plan.
 status: prepare-only
+discussed: 2026-09-21
+horizon: the version after launch (launch is 2026-10-30)
 ---
 
 # Answering, inside the app — prepare, don't build
 
-> **Not for launch.** Don, 2026-09-21: *"This isn't something we're adding for [launch], but it is something I'd like to prepare for for the next version after [launch]."* **The next version after 2026-10-30, and not backlog for it.** Nothing here is a ticket, and nothing here competes for the launch list.
+> **Not for launch.** Don, 2026-09-21, verbatim: *"This isn't something we're adding for [launch], but it is something I'd like to prepare for for the next version after [launch]."* And on why it is written down at all: *"I also want the information captured so we can build off of it when the time comes. Lastly date it so we have a reference for where we were when it was discussed."*
+>
+> **The version after 2026-10-30, and not backlog for it.** Nothing here is a ticket and nothing here competes for the launch list. **The post-launch milestone in `socialus-web` is where the work will hang; its name is pending and belongs in this line once it exists.**
 
-**The strategy it serves** *(Don, 2026-09-21, and the dated line is in `DECISIONS.md`)*: if agent search replaces keyword search, SocialUs becomes the agent for its own domain rather than the free data layer under someone else's. Outside agents get a thin summary of what kinds of things exist here; the good answers happen inside, over data only SocialUs has. **The outward half is the crawler-blocking and thin-public-tier work in `socialus-web`** — the refusal and the capability are one strategy, and each is incoherent alone.
+## The argument, so a later reader can disagree with it
+
+**Written out as premises rather than as a conclusion, because the premises are the part that may stop being true.** Don's words are quoted; the chain is his, stated in steps.
+
+1. **Premise — agent search is replacing keyword search.** *"My hypothesis is that Google and Bing search are being replaced by agent search."* **He calls it a hypothesis and it is one.** Nothing in this document tests it, and if it is wrong the rest does not follow: a product that blocks crawlers in a world where crawlers still send the traffic has simply taken itself off the map.
+2. **Premise — being the data layer under someone else's agent is not a business.** *"I don't want the large language model creators to replace what we're doing and to take what we've gathered and give it away for free."* The claim is that a model answering from SocialUs data substitutes for SocialUs rather than referring to it.
+3. **Therefore the public tier is thin.** *"We don't want to be cut out yet we also don't want to offer up easy information. I'd prefer that we offer up a summary of the kinds of things that we have that are available without any specific detail."* **Who exists, yes. What is happening, no.** Enough to be discoverable, not enough to be substituted for.
+4. **Therefore the answering happens inside.** *"I want to offer that LLM answering capability inside of our own app."* **This is the step that makes 3 honest rather than merely defensive** — thinning the public tier without answering well internally is a product that has hidden itself. The two are one strategy and each is incoherent alone.
+5. **The bet underneath all four:** that data only SocialUs holds is worth more answered in one place than indexed everywhere. **That is a bet about the data being distinctive**, and it is weakest at launch when there is least of it.
+
+**The outward half is the crawler-blocking and thin-public-tier work in `socialus-web`.** This document is the inward half.
+
+## Where the project was on 2026-09-21
+
+**Recorded because half of this will not hold by the time anyone builds the capability, and a later reader needs to know which constraints the reasoning leaned on.** Taken from the repos, not from memory.
+
+| | On 2026-09-21 | Load-bearing for the argument? |
+|---|---|---|
+| **Days to launch** | **39.** Launch 2026-10-30, one metro | Yes — point 5's weakness is a launch-time fact |
+| **The browse query** | `browse_feed` merged 2026-09-19 (#161) **and wired the same week**: `/explore` is server-rendered through `src/app/explore/load.ts` as of #174. Migration applied to production separately *(reported by the app session, not verified from here)* | Yes — constraints 1 and 4 describe this query |
+| **The personal half** | **Deliberately not wired.** `load.ts` holds `audience` at `public`; F059 criterion 2b is its own ticket. The SQL already withholds on the follow set — only the caller is missing | Yes — constraint 1 is about exactly this seam |
+| **Announcements** | **Cannot carry a time** (F073 approved, unbuilt) and **cannot repeat** (F074 approved 2026-09-20, unbuilt). **No member can post at all** — F072 is approved and unbuilt, so no member-authored posts exist | Yes — there is nothing to answer *tonight* with |
+| **Pages** | **Editable**, name and description only, via an owner bar on the live Page (#158, merged). No tag or collection editing exists | Partly — corrects a common assumption that Pages are immutable |
+| **Post subject matter** | **No `post_tags` table.** A post carries its *Page's* tags | Yes — constraint 3 |
+| **Text and vector retrieval** | **Neither exists.** No `tsvector`, `pg_trgm` or `ilike` in any migration. `pgvector` installed, `item_embeddings` empty and attached to the retired `items` noun | Yes — this is why it is not a thin wrapper |
+| **Addresses** | **URL scheme ruled the same day**: slug plus a short non-sequential ID, no geography in a canonical URL, no member identity derivable from one (`planning/URL-IDENTITY.md`) | Yes — the public/private line and the no-geography rule both bear on the thin tier |
+| **Member identity** | **Two leaks open**: `member_public_group_memberships` granted to `anon` joins `member_id` to a Page; `groups.founder_member_id` appears `anon`-selectable | Yes — an answering layer inherits whatever is public |
+| **Follower delivery** | **Bulletins in `ROADMAP.md` § Cut** (2026-09-20). The subscription link exists in `group_memberships` and nothing reads it | Yes — constraint 5, the public/private line |
+| **Metros** | One live; seeds pending for nearby markets *(reported, not verified from here)* | Yes — point 5 |
+
+**The two facts most likely to age badly:** *no member can post at all* and *no retrieval path exists*. **If both have changed by the time this is read, re-check the argument's step 5 first** — the bet that the data is distinctive is the one that gets stronger with content and was weakest on this date.
 
 ## What must not be foreclosed
 
@@ -39,3 +73,7 @@ status: prepare-only
 `IMAGINE.md` § *Discovery that knows what a person is optimizing for* — natural language dissolves its attribute-vocabulary problem and leaves its real one untouched, because nothing lets anyone say anything about a Page they do not own. Reframe recorded there; the entry stays parked.
 
 **Open and not answered here:** whether a private residence's address is withheld, and from whom — `DECISIONS.md` § Open. **It governs the Page surface first**, and the answering layer can only inherit a line somebody has drawn.
+
+## Reading this later
+
+**Start with the argument, not the constraints.** The five constraints are cheap engineering hygiene and will mostly still be right. **The argument is the part that expires** — check step 1 first, because if agent search did not displace keyword search, steps 2 through 4 do not follow and the thin public tier is a self-inflicted wound rather than a defence. **Then check the table**, which says what was true on the day and marks which rows the reasoning leaned on.
