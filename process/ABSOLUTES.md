@@ -42,6 +42,51 @@ A ruling exists only when it is one dated line in `../DECISIONS.md`. The code
 says how; `DECISIONS.md` says why; a doc that disagrees with either is the thing
 that's wrong.
 
+## Verification
+
+### guard-proves-itself
+
+**A check may not be relied on until it has been observed rejecting input that
+should be rejected.** Until then it is inert, and an inert guard counts as
+absent — not as weak, as *absent*. Green is not evidence: every guard below was
+green throughout.
+
+**What relying on it means:** citing it as the reason something is safe, letting
+it gate a merge, or writing it into `CLAUDE.md` as a thing agents watch for.
+
+**What discharges it.** A guard ships with a case that *makes it fail*, run by
+the same job that runs the guard — a known-bad fixture the check must reject, so
+the failure path executes on every run and not only on the day it matters. Where
+that is genuinely impossible, the PR links a run where the guard actually
+failed. **No link and no failing fixture means the guard is not yet a guard**,
+and nothing may be built on it.
+
+**The dated failures, all within two days, which is what makes this a category
+rather than three bugs** *(2026-09-19 to 2026-09-21)*:
+
+- **The migration preflight parser** never worked in CI at all. `supabase
+  migration list` renders markdown when stdout is not a TTY, so every cell
+  arrived backtick-wrapped and the parser required bare digits. It failed
+  closed, correctly, every time — and **the first migration it ever guarded is
+  the one it blocked.** Above it sat a green test asserting the script's *text*
+  contained the right strings.
+- **`migrations (check)`** was broken by an unpinned Supabase CLI. **Its absence
+  is what let a merge land ahead of its migration and take production down on
+  2026-09-21.**
+- **`issue-lint`** cannot match across the `**` in `**Kind:**` that its own
+  template emits, so every templated issue is judged non-compliant; and with no
+  `permissions:` block the labelling call returns 403 and kills the run. **The
+  `needs-fix` label that `CLAUDE.md` tells agents to watch for has never once
+  been applied.**
+
+**Which harm:** harm to a member, and production data. The 2026-09-21 outage is
+the dated failure — members could not use the product, and no later session can
+undo downtime that already happened. **A guideline did not prevent it**: lessons
+28 and 29 each name one instance, both were written, and the third instance
+happened anyway. **That is the argument for an absolute rather than a third
+lesson** — the pattern had already been described twice in prose and described
+again is not a hook (lesson 17).
+
 ## Adding an absolute
 
 Six is a result, not a cap. A new absolute needs a dated failure that a guideline

@@ -5,6 +5,7 @@ status: approved
 date: 2026-09-14
 depends: [F059]
 approved: 2026-09-14 — Don's ruling; threshold 50 creators / 250 patrons, gated on creators, shown as one combined 300
+amended: 2026-09-21 — Don: someone may leave an email to be told when a metro opens, without signing up. Criterion 4 reopened, 13-15 added, the Not-this line struck.
 ---
 ## Story
 
@@ -15,7 +16,7 @@ Someone in Boise signs up. Boise is not open yet, so they pick it from the list 
 1. Every US metro is present and selectable at signup, before launch. A person cannot reach a state where their metro is absent from the list.
 2. A person outside an open metro picks one. The platform **may suggest** a shortlist, derived from the person's zip, and **never selects for them** — no IP-derived metro, no pre-filled default, no auto-assignment on a nearest match. *(Criterion amended 2026-09-14 to permit suggestion; auto-selection stays forbidden.)*
 3. The waitlist entry records whether the person is here to make things or to find them. Neither is pre-selected. **This is a property of the waitlist entry, not of the account** — no role is stored on the member, and the answer is discarded when the metro opens. *(Amended 2026-09-14: this read "Signup records exactly one of two roles for that person," which stored a role the platform refuses to store.)*
-4. Joining is idempotent: one person counts once in one metro. Re-signup, re-visit or a second device does not increment anything.
+4. Joining is idempotent: **one person counts once in one metro, whether they signed up or only left an email.** Re-signup, re-visit or a second device does not increment anything. *(Amended 2026-09-21: `member_id unique` no longer carries this, because an anonymous entry has no member. The uniqueness key becomes the identity the entry actually has — the normalised email, per metro.)*
 5. Changing the selected metro moves that person's count from the old metro to the new one, leaving neither double-counted nor stranded.
 6. **Creator and patron counts are stored separately** per metro, and both are readable independently of what is displayed.
 7. After joining, a **popup** shows a count and a message. Not a page, not a tab, not a new surface.
@@ -24,6 +25,9 @@ Someone in Boise signs up. Boise is not open yet, so they pick it from the list 
 10. A metro is eligible to open only when it has **at least 50 creators and at least 250 patrons**. Meeting the combined 300 with fewer than 50 creators does not make it eligible.
 11. The thresholds are **configurable per metro** without a migration or a deploy.
 12. Opening a metro is a deliberate act. **Crossing the threshold never opens a metro on its own.**
+13. **A person who picks a metro that is not open can leave an email address to be told when it opens, without creating an account.** No password, no name, no second step. Signing up stays available and is not the price of being told.
+14. **The response is identical whether or not that address was already on the list** — same words, same status, same count. A person who submits twice cannot tell that they had already submitted, and neither can anyone else.
+15. **An address left this way is used to say that the metro opened, and for nothing else.** Not marketing, not a newsletter, not a second message about something else. It is discarded when the metro opens and the message has been sent.
 
 ## Why
 
@@ -37,6 +41,18 @@ Someone in Boise signs up. Boise is not open yet, so they pick it from the list 
 
 **These are starting values and are expected to move.** A dense metro and a thin one do not need the same floor, which is why criterion 11 makes them per-metro configuration rather than a constant. **Nothing about the number is a commitment to the member** — criterion 9 is the guard: the message says what is needed, never when it will arrive.
 
+### Leaving an email, and the thing it makes answerable
+
+**Don ruled this in on 2026-09-21**, answering the open question `MetroNotCoveredPanel` already carried in a comment: someone who picks a closed metro should be able to say *tell me when it opens* without signing up.
+
+**It breaks criterion 4's enforcement, which is the real change.** Idempotency was carried by `member_id unique`, and **an anonymous entry has no member**. The replacement is uniqueness on the normalised email per metro — and **that is a privacy consequence, not just a constraint swap: a unique key on an email makes *is this address already on the list* a question the endpoint can answer.** Anyone who can reach it can test an address they did not supply.
+
+**The mitigation is criterion 14 and it is the only one that works: the endpoint must not distinguish the two cases.** Same words, same status, same count, whether the row was inserted or already there. **The count is the subtle half** — showing a number that moves only on a genuine insert leaks exactly what criterion 14 withholds, so the count shown must be the metro's current count either way rather than a before-and-after.
+
+**Hashing the address does not help here and should not be reached for.** The address has to be readable to send the one message criterion 15 permits, so it is stored as an address; a hash would buy nothing and cost the feature.
+
+**This needs a migration**, and per [production-asks-don] Don applies it. **Today's outage came from merging ahead of one** — the code reached production before the schema it required. The migration lands and is applied before the surface that depends on it merges, not alongside it.
+
 ## Not this
 
-A waitlist surface, a progress bar, a leaderboard, or a referral mechanic. Notifying people when a metro opens — worth doing, needs a messaging path that does not exist, and is its own scenario. Ranking or displaying who joined. Opening a metro automatically. Charging for a place in line, or selling one.
+A waitlist surface, a progress bar, a leaderboard, or a referral mechanic. ~~Notifying people when a metro opens~~ — **struck 2026-09-21, Don ruled it in; it is criteria 13-15.** Ranking or displaying who joined. Any use of a left address other than the one message criterion 15 permits. Opening a metro automatically. Charging for a place in line, or selling one.
