@@ -18,7 +18,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
 - **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
 - **What may never be broken:** `process/ABSOLUTES.md` (process) and `product/ABSOLUTES.md` (member-facing). Two files, one test — the test lives in the process file.
-- **How work moves, and what went wrong before:** `process/` — `PIPELINE.md` (the five kinds), `LESSONS.md` (append-only), `LIVING-DOCS.md` (the design note behind the generated docs), and `ABSOLUTES.md`.
+- **How work moves, and what went wrong before:** `process/` — `PIPELINE.md` (the five kinds), `LESSONS.md` (append-only), `LIVING-DOCS.md` (the design note behind the generated docs), `ABSOLUTES.md`, and `SETUP.md` (standing up a second machine; read once per machine, never per session).
 
 **A concept lives in exactly one place.** Two documents describing the same thing is how this repo has failed before, so routing it is a rule, not a preference:
 

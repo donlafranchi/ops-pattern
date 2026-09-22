@@ -2,7 +2,11 @@
 .DS_Store
 *.log
 node_modules/
-.claude
+.claude/*
+# ...except the shared permission allowlist, which must travel between machines.
+# `.claude/skills/` stays ignored: skills are symlinked per-machine by
+# ~/Projects/skills/link.sh and are not this repo's to carry.
+!.claude/settings.json
 .env.local
 .idea/
 *.swp
