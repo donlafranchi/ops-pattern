@@ -21,7 +21,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Metadata rewrite; retired vendor routes redirected or removed.
 - RSVP / response path — one per person.
 - Follows simplification — one table, three subjects.
-- **What's happening…** — a date, a time and a post-level address on an announcement (F073); **a series that repeats, weekly with optional bounds (F074, ruled 2026-09-20)**; the time lens rows (F091); narrowing in a modal that writes text (F092). The browse query shipped 2026-09-19 **and nothing calls it** — Explore still reads the old Item-grain view client-side. So it needs **two** things, a caller and a de-duplication rule, not the one change this line claimed until 2026-09-20. **The new cost is F073, recurrence, and the parser.** Recurrence is what makes the lens non-empty; Bulletins was cut to pay for it — see § Cut.
+- **What's happening…** — a date, a time and a post-level address on an announcement (F072); **a series that repeats, weekly with optional bounds (F074, ruled 2026-09-20)**; the time lens rows (F091); narrowing in a modal that writes text (F092). The browse query shipped 2026-09-19 **and nothing calls it** — Explore still reads the old Item-grain view client-side. So it needs **two** things, a caller and a de-duplication rule, not the one change this line claimed until 2026-09-20. **The new cost is F073, recurrence, and the parser.** Recurrence is what makes the lens non-empty; Bulletins was cut to pay for it — see § Cut.
 - Onboarding, empty states, copy pass — Fortnight 4.
 - Seed content, synthetic and display-only — Fortnight 4.
 

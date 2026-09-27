@@ -78,4 +78,4 @@ Reading *after* the write inverts the problem rather than solving it: two submis
 
 ## Not this
 
-A waitlist surface, a progress bar, a leaderboard, or a referral mechanic. ~~Notifying people when a metro opens~~ — **struck 2026-09-21, Don ruled it in; it is criteria 13-15.** [superseded-in-part-by 2026-09-21: Someone who picks a metro] Ranking or displaying who joined. Any use of a left address other than the one message criterion 15 permits. Opening a metro automatically. Charging for a place in line, or selling one.
+A waitlist surface, a progress bar, a leaderboard, or a referral mechanic. Ranking or displaying who joined. Any use of a left address other than the one message criterion 15 permits. Opening a metro automatically. Charging for a place in line, or selling one.

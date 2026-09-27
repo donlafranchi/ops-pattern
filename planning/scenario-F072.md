@@ -9,7 +9,7 @@ supersedes: F066, F073
 ---
 ## Story
 
-Maya's bakery has nothing to say until Thursday, when the sourdough is back. She taps Announce and writes two sentences. She adds Thursday, seven o'clock, and because the bread class is at the church hall rather than her own counter she types that address too. Under the box is a switch for who sees it, sitting on anyone, and she leaves it there. It appears at the top of her Page and in browse, where a stranger looking for what is on this week finds it. [superseded-in-part-by 2026-09-23: Who exists is public] Her Saturday "sourdough is back" post has no time at all, and it is no less a post for that. The next morning she fixes a typo in place, and it stays the same announcement.
+Maya's bakery has nothing to say until Thursday, when the sourdough is back. She taps Announce and writes two sentences. She adds Thursday, seven o'clock, and because the bread class is at the church hall rather than her own counter she types that address too. Under the box is a switch for who sees it, sitting on anyone, and she leaves it there. It appears at the top of her Page and in browse, where a member looking for what is on this week reads it, and a stranger sees that the bakery has announced something. Her Saturday "sourdough is back" post has no time at all, and it is no less a post for that. The next morning she fixes a typo in place, and it stays the same announcement.
 
 ## Acceptance
 
@@ -32,5 +32,3 @@ Maya's bakery has nothing to say until Thursday, when the sourdough is back. She
 **Criterion 4's count is permitted and its roster is not** — Don, 2026-09-07: *a count is shown to the Page owner, never a roster of who reacted.* The open question in `verbs.md` about a Page owner seeing **who** their audience is stays open and is untouched by a count.
 
 **The restricted setting depends on delivery, which is in `ROADMAP.md` § Cut.** It may be **visible before delivery exists, and not selectable-and-postable** — a creator who addresses forty-two people none of whom receive it has been told something untrue. At launch most Pages have nobody getting updates, so the reason shown is the true one either way. **The anyone setting is complete against what exists.**
-
-**Supersedes F066** *(2026-09-13)*, whose "never in browse or search" and "a count and no identities, ever" were both reversed by later rulings.

@@ -26,7 +26,7 @@ Converting one Page into another — rejected outright since 2026-09-07 and stil
 
 ### What this dissolves
 
-**"Hosting requires opening a shop first" was never a missing substrate. It was a label on a door.** `WHERE-IT-IS.md` records it as the one awkward thing a person meets today; F060 already ticketed the entry point. This scenario makes the fix general instead of a special case for hosts.
+**"Hosting requires opening a shop first" was never a missing substrate. It was a label on a door.** A 2026-09-15 read of the project named it the one awkward thing a person meets today; F060 already ticketed the entry point. This scenario makes the fix general instead of a special case for hosts.
 
 ### Checked against what is already approved — no conflict on self-classification
 

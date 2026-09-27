@@ -13,7 +13,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 ## Where truth lives
 
 - **How the system works:** the code in `socialus-web`. If the code can answer it, read the code, don't write it down.
-- **Why it is that way:** `DECISIONS.md`. One dated line per ruling. Append, never edit.
+- **Why it is that way:** `DECISIONS.md`. One dated line per **live** ruling. A superseded one is deleted and named in one `[replaces …]` tag on its replacement; git holds the rest ([newer-decision-wins]).
 - **What is decided but not built:** `planning/` scenarios with `status: approved`, and `ROADMAP.md`.
 - **Anything that spans the project** — open questions, which check guards which criterion, which ruling binds which tier, which risk is due — **is generated from inline markers, never maintained.** The pattern, and what it refuses: `process/LIVING-DOCS.md` § Grep-built, never hand-kept.
 - **What is not yet decided:** an `[open-question owner=… raised=…]` marker, inline where the question was raised — in the file its answer will change. Never a list: the index is `STATUS.md` § Open questions, generated. Grammar, placement and what closes one: `process/PIPELINE.md` § Open questions; `scripts/lint.sh` enforces it.
@@ -21,7 +21,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
 - **The product model:** `product/` — nouns, verbs, surfaces, systems. Must match the code and `model.md`. If it doesn't, fix the doc in the same session you notice.
 - **What may never be broken:** `process/ABSOLUTES.md` (process) and `product/ABSOLUTES.md` (member-facing). Two files, one test — the test lives in the process file.
-- **How work moves, and what went wrong before:** `process/` — `PIPELINE.md` (the five kinds), `LESSONS.md` (append-only), `LIVING-DOCS.md` (the design note behind the generated docs), `ABSOLUTES.md`, and `SETUP.md` (standing up a second machine; read once per machine, never per session).
+- **How work moves, and what went wrong before:** `process/` — `PIPELINE.md` (the five kinds), `LESSONS.md` (append-only), `LIVING-DOCS.md` (the pattern behind the generated docs, and why authored docs are pruned), `ABSOLUTES.md`, and `SETUP.md` (standing up a second machine; read once per machine, never per session).
 
 **A concept lives in exactly one place.** Two documents describing the same thing is how this repo has failed before, so routing it is a rule, not a preference:
 

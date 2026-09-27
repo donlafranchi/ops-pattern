@@ -4,15 +4,14 @@
 > lost on the next run, and `scripts/lint.sh` fails whenever this file differs from what
 > `DECISIONS.md` generates. To change it, change the `[binds …]` tag on the decision.
 >
-> Every **live** ratified decision whose tag binds the **code** tier, newest first. The reasoning
-> is the dated line in [`DECISIONS.md`](../DECISIONS.md); this is what it requires of you.
-> **Superseded decisions are not here (5 of them)** — nothing below conflicts with anything
-> above it, and where a line is superseded in part, the newer ruling wins (`[newer-decision-wins]`).
-> **218 older live decisions carry no tag yet and are not listed** — tagging is required
-> from 2026-09-21 onward. Absent here is not the same as not binding.
+> Every ratified decision whose tag binds the **code** tier, newest first. `DECISIONS.md` holds
+> only live decisions — a superseded one is deleted — so nothing below conflicts with anything
+> else here. If two lines ever seem to, the newer wins (`[newer-decision-wins]`).
+> **216 older decisions carry no tag yet and are not listed** — tagging is required from
+> 2026-09-21 onward. Absent here is not the same as not binding.
 
 - **2026-09-27** · process — When a newer decision contradicts an older one, the newer one wins and work continues. Agents do not stop to ask Don which is true
-- **2026-09-27** · process — Cross-cutting documents are generated from inline markers, never kept by hand. This retires the practice of hand-maintained cross-cutting documents, and it is recorded as a contradiction on purpose so nobody splits the difference
+- **2026-09-27** · process — Cross-cutting documents are generated from inline markers, never kept by hand, and authored documents are pruned rather than annotated. Neither accumulates; history is git, read on demand
 - **2026-09-27** · process, ci — Grep-built, never hand-kept: a fact lives inline where it is true, and anything that spans the project is generated from markers, never maintained
 - **2026-09-27** · process — An open question is an inline marker where it was raised, not an entry in a register. The index is generated
 - **2026-09-27** · explore, venue, onboarding, copy — "Local" means the whole metro, not a neighbourhood or anything tighter
@@ -21,17 +20,17 @@
 - **2026-09-27** · page-publish — The creator attestation comes before publishing a first Page, not before creating a draft
 - **2026-09-27** · page-photos, moderation — No pictures of children, full stop. It is a photo rule, not a topic rule
 - **2026-09-27** · page-photos, verification — Nothing unlocks F080. There is no stronger verification and none is being built
-- **2026-09-23** · waitlist — The waitlist count comes back, CACHED rather than live, and metros sort by it. This reverses the 2026-09-22 ruling below
+- **2026-09-23** · waitlist — The waitlist count comes back, CACHED rather than live, and metros sort by it
 - **2026-09-23** · explore, announcements, rls — Who exists is public. What's happening is not — but *that* something is happening is public
-- **2026-09-21** · waitlist — Someone who picks a metro that is not open may leave an email to be told when it opens, without signing up — *in part superseded by 2026-09-23 (The waitlist count comes back); where they differ, the newer wins*
-- **2026-09-21** · ci, process — [guard-proves-itself] is the sixth process absolute: a check may not be relied on until it has been observed rejecting input that should be rejected
+- **2026-09-21** · waitlist — Someone who picks a metro that is not open may leave an email to be told when it opens, without signing up
+- **2026-09-21** · ci, process — `[guard-proves-itself]` is the sixth process absolute: a check may not be relied on until it has been observed rejecting input that should be rejected
 - **2026-09-21** · composer, announcements — The composer and the timestamp are one piece of work. F073 is folded into F072, which is approved and buildable now
 - **2026-09-21** · answering, crawlers — If agent search replaces keyword search, SocialUs becomes the agent for its own domain rather than the free data layer under someone else's
-- **2026-09-21** · page-url — A Page's canonical URL is a cosmetic slug plus a short non-sequential ID: joes-pizza-7k3x. No geography in it, and no member derivable from it
+- **2026-09-21** · page-url — A Page's canonical URL is a cosmetic slug plus a short non-sequential ID: `joes-pizza-7k3x`. No geography in it, and no member derivable from it
 - **2026-09-21** · rls — Two member-identity leaks exist in public data today, and no URL scheme fixes either
 - **2026-09-21** · page-url — One canonical address per Page, many indexes onto it. The Place in a URL is never part of a Page's identity
-- **2026-09-21** · copy — plainlanguage.gov governs user-facing copy, alongside voice.md and design-language.md
+- **2026-09-21** · copy — plainlanguage.gov governs user-facing copy, alongside `voice.md` and `design-language.md`
 - **2026-09-21** · page-location — Where a Page is, is resolved at read time from its Location's geography, never stored on it. Deepest containing Place wins, and "deepest" means the kind rank that already exists
 - **2026-09-21** · copy, model — Announcement is the word everywhere: in the model, in the docs, and in the product
-- **2026-09-21** · copy, model — Bulletin is refused as a noun: it named a delivery mode, not a thing
-- **2026-09-18** · explore, signed-out — Signed out is read-only: anything that touches another person requires an account — *in part superseded by 2026-09-23 (Who exists is public); where they differ, the newer wins*
+- **2026-09-21** · copy, model — `Bulletin` is refused as a noun: it named a delivery mode, not a thing
+- **2026-09-18** · explore, signed-out — Signed out is read-only: anything that touches another person requires an account

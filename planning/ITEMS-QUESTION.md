@@ -140,6 +140,6 @@ date: 2026-09-17
 ## What is on hold until he rules
 
 - `planning/ONE-MODEL.md` — the whole transition order rests on the wider reading.
-- The claim in `WHERE-IT-IS.md` that two models are live at once.
+- The claim, made 2026-09-15, that two models are live at once.
 - Whether `item.md` is stale.
 - Whether `page-kinds.md` survives at all. *(One criticism of it is unrelated to this question and stands either way: it duplicates `item.md`'s kind table.)*

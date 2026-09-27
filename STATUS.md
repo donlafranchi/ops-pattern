@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-27 · 15:50 UTC
+> ## Generated 2026-09-27 · 16:03 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -23,9 +23,9 @@ Launch **2026-10-30**, one metro. 33 days out.
 
 ## Scenarios, by status
 
-| approved | building | draft | deferred | superseded |
-|---|---|---|---|---|
-| 18 | 4 | 17 | 1 | 2 |
+| approved | building | draft | deferred |
+|---|---|---|---|
+| 18 | 4 | 17 | 1 |
 
 **Building:**
 - F060 (Someone starts something without opening a shop)
