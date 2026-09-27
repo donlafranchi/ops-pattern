@@ -6,7 +6,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 
 1. `STATUS.md` — what is true now. One screen. **Generated, never hand-edited** — see *Generated files* below.
 2. `ROADMAP.md` — Now / Next / Later / Won't.
-3. `process/ABSOLUTES.md` and `product/ABSOLUTES.md` — the six absolutes, four process and two product. The four-harms test and the rule that admits a seventh are stated once, in the process file. Cite an absolute by its slug in brackets (`[public-is-draft]`), never by number. Everything else is a guideline; break one if you can say why.
+3. `process/ABSOLUTES.md` and `product/ABSOLUTES.md` — the eight absolutes, six process and two product. The four-harms test and the rule that admits a seventh are stated once, in the process file. Cite an absolute by its slug in brackets (`[public-is-draft]`), never by number. Everything else is a guideline; break one if you can say why.
 4. `process/PIPELINE.md` — the five kinds of work and how each moves.
 5. `constraints/planning.md` — every ratified decision that binds this tier, one line each. Generated from the `[binds …]` tags in `DECISIONS.md`; never edit it.
 
@@ -69,7 +69,7 @@ Code is the architect. Any ticket touching schema, RLS, or routes starts with a 
 
 - Bullets, one line each. No preamble, no recap, no narration.
 - Name things in plain words; a number in brackets after, if useful.
-- Questions reach him as A/B/C with one-line trade-offs and a recommendation. Ask only when a fact only he has is missing, or the call affects the deadline.
+- Questions reach him as A/B/C with one-line trade-offs and a recommendation. Ask only when a fact only he has is missing, or the call affects the deadline. **Never ask which of two rulings is true — the newer wins and work continues** ([newer-decision-wins]); two live rulings that genuinely conflict become a marked open question, not a message.
 - Reports open: `Status: Done | Blocked | Question — one sentence. Next: the ask.` Detail on "expand".
 - Email is not the best route to reach him — in-app is better; faster channels are TBD.
 - End with the next action, not a summary.

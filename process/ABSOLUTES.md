@@ -42,6 +42,58 @@ A ruling exists only when it is one dated line in `../DECISIONS.md`. The code
 says how; `DECISIONS.md` says why; a doc that disagrees with either is the thing
 that's wrong.
 
+### newer-decision-wins
+
+**When a newer decision contradicts an older one, the newer one wins and work
+continues.** Do not stop to ask Don which is true — he answered when he made the
+newer one. Build to the newer ruling; where the older survives in part, build to
+the part that survives.
+
+**Structural, not remembered** — a rule agents must recall is a guard nobody runs:
+
+- **Every decision names what it supersedes.** Each `DECISIONS.md` line from
+  2026-09-21 on ends with `[supersedes 2026-09-22: headline]`,
+  `[supersedes-part F059.2b]` (a criterion, or `F072 story`, or a whole `F073`),
+  or `[supersedes none]`.
+- **The superseded thing is marked in place, pointing forward** —
+  `[superseded-by …]` or `[superseded-in-part-by …]` on the old decision line,
+  criterion or section. **Nothing is deleted**: the history is why the current
+  direction makes sense.
+- **`constraints/<tier>.md` carries only live decisions.** An agent reading its
+  own constraints file cannot see the conflict, so the question never arises.
+- **`scripts/lint.sh` fails** on a supersede whose target does not exist or does
+  not point back, on a forward pointer nothing names, and on a decision since
+  2026-09-21 that does not say. It proves itself on
+  `scripts/fixtures/markers/supersede-bad/` every run ([guard-proves-itself]).
+
+**Found a contradiction nobody wired?** If the dates differ, the newer wins:
+add the supersede tag to the newer line and the forward pointer to the older,
+in one commit, and carry on. Wiring a supersession Don already made is
+bookkeeping, not a ruling.
+
+**The one case worth raising: two live decisions that conflict and neither
+supersedes the other** — the same date, or two rulings on different things that
+a case needs both of. Then: mark `[open-question owner=don raised=…]` where the
+conflict bites, with A/B and a recommendation; build everything the conflict
+does not touch; **never block on a chat message** — it reaches Don through
+`STATUS.md` § Open questions. **What an agent never does is split the
+difference:** a third position neither ruling took is a decision made without
+Don.
+
+**Beside `[don-decides]`, not against it.** That one governs *making* a ruling —
+agents recommend, Don decides. This one governs *reading* them: once he has
+decided twice, the later one is the decision.
+
+**Which harm:** a decision made without Don — the agent who splits the
+difference makes one — and the cost Don named on 2026-09-27: *he has hit this
+repeatedly.* **The dated failures:** `socialus-web` #220 (2026-09-26) asked him
+to confirm that F078's 2026-09-14 ruling meant what it said over the 2026-09-13
+hide-on-report line; F093 (2026-09-23) spent a paragraph arguing it *"reaches a
+question the 2026-09-18 ruling did not reach rather than reversing it"* and left
+F059 criterion 2b's contradicted clause live, restated in a section of its own.
+**A guideline existed and did not prevent either** — `DECISIONS.md`'s header
+already said *a reversal is a new line that says what it replaces*.
+
 ## Verification
 
 ### guard-proves-itself
@@ -89,7 +141,7 @@ again is not a hook (lesson 17).
 
 ## Adding an absolute
 
-Six is a result, not a cap. A new absolute needs a dated failure that a guideline
+Eight is a result, not a cap. A new absolute needs a dated failure that a guideline
 demonstrably didn't prevent, and must name which of the four harms it falls
 under. If it can't, it's a guideline. Give it a slug, file it in whichever of the
 two pages it belongs to, and cite it by that slug from its first use.

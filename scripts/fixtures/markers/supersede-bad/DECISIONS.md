@@ -1,0 +1,17 @@
+Every numbered problem below must be rejected; lint.sh counts them.
+- **2026-09-27 — (1) Names a target that does not exist.** [binds tiers=none] [supersedes 2026-01-01: Nothing on that date]
+- **2026-09-27 — (2) Supersedes an entry that never points forward.** [binds tiers=none] [supersedes 2026-09-02: Old and unmarked]
+- **2026-09-27 — (3) Says nothing about what it supersedes.** [binds tiers=none]
+- **2026-09-27 — (4) None, and a target too.** [binds tiers=none] [supersedes none] [supersedes 2026-09-05: Whole pointer]
+- **2026-09-27 — (5) Part, but the target says whole.** [binds tiers=none] [supersedes-part 2026-09-05: Whole pointer]
+- **2026-09-27 — (6) A criterion with no forward pointer.** [binds tiers=none] [supersedes F990.1]
+- **2026-09-27 — (7) A criterion the scenario does not have.** [binds tiers=none] [supersedes F990.9]
+- **2026-09-27 — (8) Malformed.** [binds tiers=none] [supersedes yesterday]
+- **2026-09-27 — (9) Ambiguous.** [binds tiers=none] [supersedes 2026-09-06: Twin]
+- **2026-09-27 — Real newer, supersedes nothing.** [binds tiers=none] [supersedes none]
+- **2026-09-06 — Twin one.**
+- **2026-09-06 — Twin two.**
+- **2026-09-05 — Whole pointer.** [superseded-by 2026-09-27: (4) None]
+- **2026-09-04 — (10) Claims a successor that does not name it.** [superseded-by 2026-09-27: Real newer]
+- **2026-09-03 — (11) Points forward to nothing.** [superseded-by 2026-09-30: Does not exist]
+- **2026-09-02 — Old and unmarked.**

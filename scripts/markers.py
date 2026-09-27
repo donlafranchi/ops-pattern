@@ -7,6 +7,9 @@ inline markers and one file field:
   `[open-question owner=<don|cowork|code> raised=YYYY-MM-DD] question` where raised -> STATUS.md
   `[guards F093.4]` on the check that discharges F093 criterion 4                 -> coverage map
   `[binds tiers=<planning,code|none> surfaces=<a,b>]` ending a DECISIONS.md line  -> constraints/<tier>.md
+  `[supersedes 2026-09-22: Headline prefix]`, `[supersedes-part F059.2b]`, `[supersedes none]`
+      on every DECISIONS.md line from 2026-09-21; the target carries `[superseded-by …]` or
+      `[superseded-in-part-by …]` pointing back           -> superseded entries leave constraints/
   accepted-risks/*.json "owner" and "review_by"                     -> lint fails once review_by passes
 
   python3 scripts/markers.py lint [FILE...]           # default: every tracked file, plus the rest
@@ -38,11 +41,17 @@ ANY = {
     "oq": re.compile(B + r"open[- ]?question", re.I),
     "guards": re.compile(B + r"guards?(?=[\s\]])", re.I),
     "binds": re.compile(B + r"binds?(?=[\s\]])", re.I),
+    "sup": re.compile(B + r"supersed[\w-]*", re.I),
 }
 LIST = r"[a-z0-9-]+(?:,[a-z0-9-]+)*"
 FULL_OQ = re.compile(B + OQ + r" owner=(\w+) raised=([0-9-]+)\]")
 FULL_GUARDS = re.compile(B + r"guards (F\d{3})\.(\d+[a-z]?)\]")
 FULL_BINDS = re.compile(B + r"binds tiers=(" + LIST + r")(?: surfaces=(" + LIST + r"))?\]")
+DREF = r"(\d{4}-\d{2}-\d{2}): ([^\]]+?)"
+SREF = r"(F\d{3})(?:\.(\d+[a-z]?)| (story|not-this|why))?"
+FULL_SUP = re.compile(B + r"(supersedes|supersedes-part) (?:(none)|" + DREF + "|" + SREF + r")\]")
+FULL_BACK = re.compile(B + r"(superseded-by|superseded-in-part-by) " + DREF + r"\]")
+PART = {"supersedes": "whole", "supersedes-part": "part", "superseded-by": "whole", "superseded-in-part-by": "part"}
 DECISION = re.compile(r"^- \*\*(\d{4}-\d{2}-\d{2}) — (.+?)\*\*")
 
 
@@ -98,6 +107,27 @@ def parse_line(path, line):
         if not surfaces:
             yield "binds", False, "a decision that binds a tier names the surfaces it binds"; continue
         yield "binds", True, (tiers, surfaces)
+    name = os.path.basename(path)
+    for m in ANY["sup"].finditer(bare):
+        f = FULL_SUP.match(bare, m.start())
+        if f:
+            if name != "DECISIONS.md":
+                yield "sup", False, "a supersedes tag lives on a DECISIONS.md line — a supersession is a ruling"; continue
+            kind = PART[f.group(1)]
+            if f.group(2):
+                ref = ("none",)
+            elif f.group(3):
+                ref = ("d", f.group(3), f.group(4).strip())
+            else:
+                ref = ("s", f.group(5), f.group(6), f.group(7))
+            yield "sup", True, (kind, ref); continue
+        f = FULL_BACK.match(bare, m.start())
+        if f:
+            if name != "DECISIONS.md" and not name.startswith("scenario-"):
+                yield "back", False, "a superseded marker lives on the superseded DECISIONS.md line or scenario, nowhere else"; continue
+            yield "back", True, (PART[f.group(1)], f.group(2), f.group(3).strip()); continue
+        yield "sup", False, ("not `[supersedes <YYYY-MM-DD: headline>|<F###.N|F### story>|none]`, `[supersedes-part …]`, "
+                             "`[superseded-by YYYY-MM-DD: headline]` or `[superseded-in-part-by …]`")
 
 
 def read_lines(path):
@@ -178,33 +208,121 @@ def guard_referent_error(fid, crit):
 
 
 # ---------------------------------------------------------------- decisions
-def decisions():
-    """(line_no, date, headline, binds-or-None) per DECISIONS.md entry."""
+def norm(t):
+    return re.sub(r"[`*]", "", t).strip().rstrip(".").casefold()
+
+
+def decisions(path="DECISIONS.md"):
+    """One dict per DECISIONS.md entry: line, date, headline, binds, sups, backs."""
     out = []
-    for n, l in enumerate(read_lines("DECISIONS.md"), 1):
+    for n, l in enumerate(read_lines(path), 1):
         m = DECISION.match(l)
         if not m:
             continue
-        tags = [info for kind, ok, info in parse_line("DECISIONS.md", l) if kind == "binds" and ok]
-        headline = m.group(2).replace("`", "").strip().rstrip(".")
-        out.append((n, datetime.date.fromisoformat(m.group(1)), headline, tags[0] if tags else None))
+        found = [(k, info) for k, ok, info in parse_line(path, l) if ok]
+        out.append({"n": n, "date": m.group(1), "headline": m.group(2).replace("`", "").strip().rstrip("."),
+                    "binds": next((i for k, i in found if k == "binds"), None),
+                    "sups": [i for k, i in found if k == "sup"],
+                    "backs": [i for k, i in found if k == "back"]})
     return out
+
+
+def resolve(entries, date, prefix):
+    return [e for e in entries if e["date"] == date and norm(e["headline"]).startswith(norm(prefix))]
+
+
+def label(e):
+    return f"{e['date']}: {e['headline'][:50]}"
+
+
+def scenario_backs(fid):
+    """(line, crit, section, kind, date, prefix) for each superseded marker in a scenario."""
+    out, section = [], None
+    path = f"{PLANNING}/scenario-{fid}.md"
+    for n, l in enumerate(read_lines(path), 1):
+        if l.startswith("## "):
+            section = l[3:].strip().lower().replace(" ", "-"); continue
+        crit = re.match(r"^(\d+[a-z]?)\.\s", l)
+        for kind, ok, info in parse_line(path, l):
+            if kind == "back" and ok:
+                out.append((n, crit.group(1) if crit and section == "acceptance" else None, section, *info))
+    return out
+
+
+def supersede_errors(path):
+    """Every supersession must name a target that exists, and every target must point forward to it."""
+    entries, errs = decisions(path), []
+    for e in entries:
+        for kind, ref in e["sups"]:
+            if ref[0] == "none":
+                if len(e["sups"]) > 1:
+                    errs.append(f"{path}:{e['n']}: `[supersedes none]` alongside a supersedes target")
+                continue
+            if ref[0] == "d":
+                hits = resolve(entries, ref[1], ref[2])
+                if len(hits) != 1:
+                    errs.append(f"{path}:{e['n']}: supersedes {ref[1]}: {ref[2]} — "
+                                + ("no such decision" if not hits else f"{len(hits)} decisions match; give more of the headline"))
+                    continue
+                t = hits[0]
+                if not any(k == kind and resolve(entries, d, pre) == [e] for k, d, pre in t["backs"]):
+                    word = "superseded-by" if kind == "whole" else "superseded-in-part-by"
+                    errs.append(f"{path}:{t['n']}: superseded by {label(e)} but carries no `[{word} {e['date']}: …]` pointing forward")
+                continue
+            _, fid, crit, section = ref
+            what = f"{fid}" + (f" criterion {crit}" if crit else f" § {section}" if section else "")
+            if not os.path.exists(f"{PLANNING}/scenario-{fid}.md"):
+                if not (PLANNING == "planning" and ever_existed(fid)):
+                    errs.append(f"{path}:{e['n']}: supersedes {what} — no such scenario")
+                continue
+            if crit and crit not in (criteria(fid) or []):
+                errs.append(f"{path}:{e['n']}: supersedes {what} — {fid} has no criterion {crit}"); continue
+            ok = [b for b in scenario_backs(fid) if b[3] == kind and resolve(entries, b[4], b[5]) == [e]
+                  and (b[1] == crit if crit else b[2] == section if section else True)]
+            if not ok:
+                errs.append(f"{path}:{e['n']}: supersedes {what}, which carries no superseded marker pointing forward to it")
+    for e in entries:
+        for kind, d, pre in e["backs"]:
+            hits = resolve(entries, d, pre)
+            if len(hits) != 1 or not any(k == kind and r[0] == "d" and resolve(entries, r[1], r[2]) == [e]
+                                         for k, r in hits[0]["sups"]):
+                errs.append(f"{path}:{e['n']}: points forward to {d}: {pre}, which "
+                            + ("does not exist" if not hits else "does not name this as superseded"))
+    for sp in sorted(glob.glob(f"{PLANNING}/scenario-F*.md")):
+        fid = os.path.basename(sp)[9:13]
+        for n, crit, section, kind, d, pre in scenario_backs(fid):
+            hits = resolve(entries, d, pre)
+            match = lambda r: r[0] == "s" and r[1] == fid and (r[2] == crit if r[2] else r[3] == section if r[3] else True)
+            if len(hits) != 1 or not any(k == kind and match(r) for k, r in hits[0]["sups"]):
+                errs.append(f"{sp}:{n}: points forward to {d}: {pre}, which "
+                            + ("does not exist" if not hits else "does not name this as superseded"))
+    return errs
 
 
 def render_constraints(tier):
     ds = decisions()
-    rows = [(d, h, b[1]) for _, d, h, b in ds if b and tier in b[0]]
-    untagged = sum(1 for _, _, _, b in ds if b is None)
+    live = [e for e in ds if not any(k == "whole" for k, _, _ in e["backs"])]
+    rows = [e for e in live if e["binds"] and tier in e["binds"][0]]
+    untagged = sum(1 for e in live if e["binds"] is None)
+    gone = len(ds) - len(live)
     o = [f"# CONSTRAINTS — {tier} tier", "",
          "> **Generated by `python3 scripts/markers.py constraints` — never edit this file.** A hand edit is",
          "> lost on the next run, and `scripts/lint.sh` fails whenever this file differs from what",
          "> `DECISIONS.md` generates. To change it, change the `[binds …]` tag on the decision.",
          ">",
-         f"> Every ratified decision whose tag binds the **{tier}** tier, newest first. The reasoning is",
-         "> the dated line in [`DECISIONS.md`](../DECISIONS.md); this is what it requires of you.",
-         f"> **{untagged} older decisions carry no tag yet and are not listed** — tagging is required from",
-         f"> {BINDS_FROM.isoformat()} onward. Absent here is not the same as not binding.", ""]
-    o += [f"- **{d.isoformat()}** · {', '.join(s)} — {h}" for d, h, s in rows] or ["None tagged."]
+         f"> Every **live** ratified decision whose tag binds the **{tier}** tier, newest first. The reasoning",
+         "> is the dated line in [`DECISIONS.md`](../DECISIONS.md); this is what it requires of you.",
+         f"> **Superseded decisions are not here ({gone} of them)** — nothing below conflicts with anything",
+         "> above it, and where a line is superseded in part, the newer ruling wins (`[newer-decision-wins]`).",
+         f"> **{untagged} older live decisions carry no tag yet and are not listed** — tagging is required",
+         f"> from {BINDS_FROM.isoformat()} onward. Absent here is not the same as not binding.", ""]
+    for e in rows:
+        parts = [f"{d} ({pre})" for k, d, pre in e["backs"]
+                 if k == "part" and any(x in live for x in resolve(ds, d, pre))]  # a dead superseder is not cited
+        o.append(f"- **{e['date']}** · {', '.join(e['binds'][1])} — {e['headline']}"
+                 + (f" — *in part superseded by {', '.join(parts)}; where they differ, the newer wins*" if parts else ""))
+    if not rows:
+        o.append("None tagged.")
     return "\n".join(o) + "\n"
 
 
@@ -243,8 +361,14 @@ def lint(files):
                         errs.append(f"{p}:{n}: {e}")
             if os.path.basename(p) == "DECISIONS.md":
                 m = DECISION.match(l)
-                if m and datetime.date.fromisoformat(m.group(1)) >= BINDS_FROM and not any(k == "binds" for k, _, _ in found):
-                    errs.append(f"{p}:{n}: a decision from {BINDS_FROM} on must end with a `[binds …]` tag")
+                if m and datetime.date.fromisoformat(m.group(1)) >= BINDS_FROM:
+                    if not any(k == "binds" for k, _, _ in found):
+                        errs.append(f"{p}:{n}: a decision from {BINDS_FROM} on must end with a `[binds …]` tag")
+                    if not any(k == "sup" for k, _, _ in found):
+                        errs.append(f"{p}:{n}: a decision from {BINDS_FROM} on must say what it supersedes — "
+                                    "`[supersedes <target>]` or `[supersedes none]`")
+        if os.path.basename(p) == "DECISIONS.md":
+            errs += supersede_errors(p)
     return errs
 
 
