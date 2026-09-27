@@ -275,26 +275,24 @@ if risks:
 # Generated from inline `[open-question]` markers. Until 2026-09-27 this was a
 # Waiting-on-Don list carried forward verbatim and never re-verified — a
 # register, and it had gone stale. The marker's owner=don rows replace it.
-oq = subprocess.run(["bash", "scripts/open-questions.sh", "index", os.environ.get("STATUS_CODE", "")],
-                    capture_output=True, text=True)
-w()
-if oq.returncode == 0 and oq.stdout.strip():
-    w(oq.stdout.rstrip("\n"))
-else:
-    w("## Open questions")
+code_arg = ["--code", os.environ["STATUS_CODE"]] if os.environ.get("STATUS_CODE") else []
+for mode, title in (("index", "Open questions"), ("coverage", "Guard coverage"), ("building", "Is `building` backed by code?")):
+    r = subprocess.run(["python3", "scripts/markers.py", mode] + code_arg + (["--summary"] if mode == "coverage" else []),
+                       capture_output=True, text=True)
     w()
-    w("`scripts/open-questions.sh index` failed this run.")
-    unverified.append("**Open questions** — the index did not generate.")
+    if r.returncode == 0 and r.stdout.strip():
+        w(r.stdout.rstrip("\n"))
+    else:
+        w(f"## {title}")
+        w()
+        w(f"`python3 scripts/markers.py {mode}` failed this run.")
+        unverified.append(f"**{title}** — the section did not generate.")
 
 # ------------------------------------------------------- could not verify
 # Never empty by default. If a run really did verify everything, it says so.
 w()
 w("## What this run could not verify")
 w()
-if building:
-    unverified.append(
-        "**Whether any scenario marked `building` is actually in progress.**\n"
-        "  Frontmatter says `building`; nothing checks it against branches or commits.")
 if counts.get("draft"):
     unverified.append(
         f"**The {counts['draft']} drafts.** Status alone does not say which are waiting\n"

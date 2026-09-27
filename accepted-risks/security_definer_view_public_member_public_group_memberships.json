@@ -8,5 +8,6 @@
   "evidence": "socialus-web#36",
   "why": "Owner-privileges projection over group_memberships (RLS is owner/co-member only). The WHERE clause is the gate; the indirection is the privacy mechanism, not a defect.",
   "revisit_if": "the view's WHERE clause changes, or it starts selecting a column beyond slug/name/kind",
+  "owner": "code",
   "review_by": "2027-03-31"
 }

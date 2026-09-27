@@ -69,14 +69,14 @@ Nothing blocks it, and nothing should — his plan has no protection rules, and 
 A lint finding ruled acceptable gets recorded once and stops being re-argued. The ruling is the dated line in `DECISIONS.md`; `accepted-risks/` holds one JSON file per finding so an advisor run can be diffed against it — `bash scripts/advisor-diff.sh <export.json>` prints only what isn't already ruled on, plus anything past review.
 
 - One file per finding, named for the finding (`<cache_key>.json`, else `<lint>__<object>.json`). Two agents ruling the same thing collide on the filename instead of writing two rulings.
-- An entry needs a `decision` (the `DECISIONS.md` date it points at), a `revisit_if` (the observable condition that reopens it), and a `review_by` date.
+- An entry needs a `decision` (the `DECISIONS.md` date it points at), a `revisit_if` (the observable condition that reopens it), a `review_by` date, and an `owner` — who argues it again. **`scripts/lint.sh` fails the day `review_by` passes**: an accepted risk nobody revisits is an inert guard.
 - `revisit_if` is a fact about the world, not a feeling — "the view's WHERE clause changes", not "if we get worried".
 - A past `review_by` is reported on every run. An entry nobody will re-argue is deleted, not renewed silently; renewing it is a new dated line.
 - Never derive a `cache_key` from the naming pattern. A key that looks right but never matches stops suppressing silently; `null` falls back to `(lint, object)` and keeps working.
 
 ## Open questions
 
-A question nobody has answered yet is marked **inline, where it was raised**, and nowhere else. There is no register — `DECISIONS.md` § Open was one, and on 2026-09-27 F080's detection question stood in it, in F080 and in #221 at once. **The index is generated**: `STATUS.md` § Open questions, by `scripts/open-questions.sh index`.
+A question nobody has answered yet is marked **inline, where it was raised**, and nowhere else. There is no register — `DECISIONS.md` § Open was one, and on 2026-09-27 F080's detection question stood in it, in F080 and in #221 at once. **The index is generated**: `STATUS.md` § Open questions, by `python3 scripts/markers.py index`.
 
 **The marker — copy this, without the backticks:**
 
@@ -103,4 +103,4 @@ A question nobody has answered yet is marked **inline, where it was raised**, an
 - **`owner=cowork` / `owner=code`:** the answer is the change itself. The commit that makes it removes the marker and says so in its message. A `DECISIONS.md` line only if it settles something that would otherwise be re-argued.
 - **A marker is never deleted without an answer.** A question that became moot is closed by a commit message saying why. A scenario or Issue carrying a marker is not deleted or closed until the marker is answered or moved.
 
-**What checks it.** `scripts/lint.sh` fails on a marker missing an owner, a date or a question, or sitting in `DECISIONS.md` — and first proves the checker rejects every line of `scripts/fixtures/open-questions/bad.md` ([guard-proves-itself]). It runs in `.github/workflows/lint.yml`. `socialus-web` runs the same grammar in its own CI for code comments. Issue bodies are not gated; a malformed marker there is listed in the index as malformed.
+**What checks it.** `scripts/lint.sh` fails on a marker missing an owner, a date or a question, or sitting in `DECISIONS.md` — and first proves the checker rejects every line of its bad fixtures in `scripts/fixtures/markers/` ([guard-proves-itself]). The same checker runs the other markers — `process/LIVING-DOCS.md` § Grep-built, never hand-kept. It runs in `.github/workflows/lint.yml`. `socialus-web` runs the same grammar in its own CI for code comments. Issue bodies are not gated; a malformed marker there is listed in the index as malformed.

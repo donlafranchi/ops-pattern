@@ -8,12 +8,14 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 2. `ROADMAP.md` — Now / Next / Later / Won't.
 3. `process/ABSOLUTES.md` and `product/ABSOLUTES.md` — the six absolutes, four process and two product. The four-harms test and the rule that admits a seventh are stated once, in the process file. Cite an absolute by its slug in brackets (`[public-is-draft]`), never by number. Everything else is a guideline; break one if you can say why.
 4. `process/PIPELINE.md` — the five kinds of work and how each moves.
+5. `constraints/planning.md` — every ratified decision that binds this tier, one line each. Generated from the `[binds …]` tags in `DECISIONS.md`; never edit it.
 
 ## Where truth lives
 
 - **How the system works:** the code in `socialus-web`. If the code can answer it, read the code, don't write it down.
 - **Why it is that way:** `DECISIONS.md`. One dated line per ruling. Append, never edit.
 - **What is decided but not built:** `planning/` scenarios with `status: approved`, and `ROADMAP.md`.
+- **Anything that spans the project** — open questions, which check guards which criterion, which ruling binds which tier, which risk is due — **is generated from inline markers, never maintained.** The pattern, and what it refuses: `process/LIVING-DOCS.md` § Grep-built, never hand-kept.
 - **What is not yet decided:** an `[open-question owner=… raised=…]` marker, inline where the question was raised — in the file its answer will change. Never a list: the index is `STATUS.md` § Open questions, generated. Grammar, placement and what closes one: `process/PIPELINE.md` § Open questions; `scripts/lint.sh` enforces it.
 - **What might be built someday:** `IMAGINE.md`. Nothing there is a commitment. Scenarios may not cite it.
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.
@@ -35,12 +37,13 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 
 ## Generated files
 
-`STATUS.md` and `README.md` are written by scripts and **committed by a workflow, not by a person**. A hand-edit to either is lost on the next run.
+`STATUS.md`, `README.md` and `constraints/` are written by scripts and **committed by a workflow, not by a person**. A hand-edit to either is lost on the next run.
 
 | File | Written by | Runs |
 |---|---|---|
-| `STATUS.md` | `scripts/status.sh`, wrapping `scripts/state.sh` and `scripts/open-questions.sh` | `.github/workflows/status.yml` — push to `main`, daily 13:05 UTC, and *Actions → status → Run workflow*, which works from a phone |
+| `STATUS.md` | `scripts/status.sh`, wrapping `scripts/state.sh` and `scripts/markers.py` | `.github/workflows/status.yml` — push to `main`, daily 13:05 UTC, and *Actions → status → Run workflow*, which works from a phone |
 | `README.md` | `scripts/view.sh` | the same workflow |
+| `constraints/planning.md`, `constraints/code.md` | `python3 scripts/markers.py constraints` | by hand after a `DECISIONS.md` change — `scripts/lint.sh` fails until it is run |
 
 **Nothing here asks you to remember to run anything.** A skill for this was written and never installed, so it never ran once and `STATUS.md` went stale naming the wrong launch blocker — the whole point is that the refresh does not depend on anyone thinking of it (lesson 27, and lesson 15 before it). To refresh by hand anyway: `bash scripts/status.sh`.
 

@@ -8,5 +8,6 @@
   "evidence": "socialus-web#36",
   "why": "Badge derivation granted to anon deliberately so the public Member page can render it for every viewer.",
   "revisit_if": "the derivation starts reading a table with a member-private surface",
+  "owner": "code",
   "review_by": "2027-03-31"
 }
