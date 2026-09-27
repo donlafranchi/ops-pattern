@@ -15,7 +15,7 @@ Local discovery app: buy, sell, trade, gather. Launching 2026-10-30 to one metro
 - **How the system works:** the code in `socialus-web`. If the code can answer it, read the code, don't write it down.
 - **Why it is that way:** `DECISIONS.md`. One dated line per **live** ruling. A superseded one is deleted and named in one `[replaces …]` tag on its replacement; git holds the rest ([newer-decision-wins]).
 - **What is decided but not built:** `planning/` scenarios with `status: approved`, and `ROADMAP.md`.
-- **Anything that spans the project** — open questions, which check guards which criterion, which ruling binds which tier, which risk is due — **is generated from inline markers, never maintained.** The pattern, and what it refuses: `process/LIVING-DOCS.md` § Grep-built, never hand-kept.
+- **Anything that spans the project** — open questions, which check guards which criterion, which ruling binds which tier, which risk is due — **is generated from inline markers, never maintained.** The pattern, and what it refuses: `process/LIVING-DOCS.md`.
 - **What is not yet decided:** an `[open-question owner=… raised=…]` marker, inline where the question was raised — in the file its answer will change. Never a list: the index is `STATUS.md` § Open questions, generated. Grammar, placement and what closes one: `process/PIPELINE.md` § Open questions; `scripts/lint.sh` enforces it.
 - **What might be built someday:** `IMAGINE.md`. Nothing there is a commitment. Scenarios may not cite it.
 - **What the product is:** `product/foundation/model.md` — Don's own statement of the model. Every other product document answers to it; where one disagrees, the other is the thing to fix.

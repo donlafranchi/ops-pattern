@@ -105,7 +105,7 @@ for hit in $(grep -roE '\[[a-z][a-z0-9]*(-[a-z0-9]+)+\]' --include='*.md' --excl
   fi
 done
 
-# 5. Markers (process/LIVING-DOCS.md § Grep-built, never hand-kept): open
+# 5. Markers (process/LIVING-DOCS.md): open
 #    questions, guard claims, decision bindings, accepted-risk dates, and the
 #    generated files they build. The checker proves itself first, every run
 #    ([guard-proves-itself]): it must reject every bad fixture and pass every
@@ -113,8 +113,8 @@ done
 #    repo it never really checked.
 fx=scripts/fixtures/markers
 mk() { MARKERS_PLANNING="$fx/planning" python3 scripts/markers.py "$@"; }
-EXPECT_BAD=19 EXPECT_RISKS=4 EXPECT_REP=8
-got=$(mk lint "$fx/open-question-bad.md" "$fx/guards-bad.md" "$fx/binds-bad/DECISIONS.md" | grep -c '^markers:')
+EXPECT_BAD=20 EXPECT_RISKS=4 EXPECT_REP=8
+got=$(mk lint "$fx/open-question-bad.md" "$fx/guards-bad.md" "$fx/binds-bad/DECISIONS.md" "$fx/gating-bad/scenario-F998.md" | grep -c '^markers:')
 [ "$got" -eq "$EXPECT_BAD" ] || { echo "lint: marker checker is inert — rejected $got of $EXPECT_BAD bad fixture lines"; fail=1; }
 got=$(mk risks "$fx/risks-bad" | grep -c '^markers:')
 [ "$got" -eq "$EXPECT_RISKS" ] || { echo "lint: accepted-risk checker is inert — rejected $got of $EXPECT_RISKS bad fixtures"; fail=1; }

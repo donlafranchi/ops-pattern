@@ -276,7 +276,7 @@ if risks:
 # Waiting-on-Don list carried forward verbatim and never re-verified — a
 # register, and it had gone stale. The marker's owner=don rows replace it.
 code_arg = ["--code", os.environ["STATUS_CODE"]] if os.environ.get("STATUS_CODE") else []
-for mode, title in (("index", "Open questions"), ("coverage", "Guard coverage"), ("building", "Is `building` backed by code?")):
+for mode, title in (("index", "Open questions"), ("coverage", "Guard coverage"), ("building", "Is `building` backed by code?"), ("gating", "Gating launch")):
     r = subprocess.run(["python3", "scripts/markers.py", mode] + code_arg + (["--summary"] if mode == "coverage" else []),
                        capture_output=True, text=True)
     w()

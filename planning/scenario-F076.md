@@ -2,6 +2,7 @@
 id: F076
 title: A person outside an open metro joins its waitlist
 status: approved
+gates: launch
 date: 2026-09-14
 depends: [F059]
 approved: 2026-09-14 — Don's ruling; threshold 50 creators / 250 patrons, gated on creators, shown as one combined 300

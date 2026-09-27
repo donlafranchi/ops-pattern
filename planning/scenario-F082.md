@@ -2,6 +2,7 @@
 id: F082
 title: Anyone publishing something others show up for takes one step first, and nothing is checked
 status: approved
+gates: launch
 date: 2026-09-14
 depends: [F081]
 approved: 2026-09-14 — Don's ruling; self-attestation only, selling and hosting alike
