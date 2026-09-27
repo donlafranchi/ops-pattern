@@ -11,6 +11,8 @@ superseded: 2026-09-21 — folded into F072, which builds the composer and the t
 
 ## Story
 
+**Superseded whole — folded into F072.** [superseded-by 2026-09-21: The composer and the timestamp]
+
 Maya writes the same way she always does, but this time she adds a start and an end: bread class, Thursday seven till nine, at the church hall rather than her bakery. Nothing else about the composer changes. A stranger looking for what is on this week finds it, at the address she typed. Her Saturday "sourdough is back" post has no times, so it stays an announcement — in browse, in feeds, and answering no question about when.
 
 ## Acceptance

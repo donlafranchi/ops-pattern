@@ -16,6 +16,7 @@
 | `[open-question owner=… raised=…]` | where the question's answer lands — `process/PIPELINE.md` § Open questions | `STATUS.md` § Open questions | owner, date or question missing; sitting in `DECISIONS.md` |
 | `[guards F093.4]` | on the line above the check that discharges the criterion — test, script, CI step | `markers.py coverage` (full map, on demand); `STATUS.md` § Guard coverage (summary) | grammar wrong; the scenario or criterion does not exist |
 | `[binds tiers=… surfaces=…]` | at the end of a `DECISIONS.md` line — the one edit a past line may take | `constraints/planning.md`, `constraints/code.md` | a decision from 2026-09-21 on has none; a constraints file differs from what `DECISIONS.md` generates |
+| `[supersedes …]` / `[superseded-by …]` | the first on every `DECISIONS.md` line from 2026-09-21; the second on what it replaced, in place — `[newer-decision-wins]` | superseded decisions leave `constraints/` | a target that does not exist or does not point back; a pointer nothing names; a decision that does not say |
 | `"owner"`, `"review_by"` | in each `accepted-risks/*.json` | `STATUS.md` § Deferred on purpose | owner missing; **the date has passed** |
 
 **The tiers are the two with a `CLAUDE.md`** — `planning` (this repo, Cowork) and `code` (`socialus-web`, Code). **Each `CLAUDE.md` points at its own constraints file and at no other.** The firewall stays where it already works — which files an agent is told to read — rather than moving into a retrieval system. `planning` still owns and reads `DECISIONS.md`; `code` reads only `constraints/code.md`.
@@ -37,6 +38,8 @@
 ---
 
 ## One skill per living document — a design note
+
+> **Superseded 2026-09-27 by the pattern above** (`DECISIONS.md`, *Cross-cutting documents are generated*). Kept because it is why the pattern looks the way it does; its plan to keep documents current with skills is retired.
 
 **2026-09-15. A design, not a build.** Don's ask: *"skills for each of these documents that we're counting on to keep us up to date, solely responsible for their one document, and hopefully hooks."*
 

@@ -4,11 +4,15 @@
 > lost on the next run, and `scripts/lint.sh` fails whenever this file differs from what
 > `DECISIONS.md` generates. To change it, change the `[binds …]` tag on the decision.
 >
-> Every ratified decision whose tag binds the **planning** tier, newest first. The reasoning is
-> the dated line in [`DECISIONS.md`](../DECISIONS.md); this is what it requires of you.
-> **223 older decisions carry no tag yet and are not listed** — tagging is required from
-> 2026-09-21 onward. Absent here is not the same as not binding.
+> Every **live** ratified decision whose tag binds the **planning** tier, newest first. The reasoning
+> is the dated line in [`DECISIONS.md`](../DECISIONS.md); this is what it requires of you.
+> **Superseded decisions are not here (5 of them)** — nothing below conflicts with anything
+> above it, and where a line is superseded in part, the newer ruling wins (`[newer-decision-wins]`).
+> **218 older live decisions carry no tag yet and are not listed** — tagging is required
+> from 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-27** · process — When a newer decision contradicts an older one, the newer one wins and work continues. Agents do not stop to ask Don which is true
+- **2026-09-27** · process — Cross-cutting documents are generated from inline markers, never kept by hand. This retires the practice of hand-maintained cross-cutting documents, and it is recorded as a contradiction on purpose so nobody splits the difference
 - **2026-09-27** · process, ci — Grep-built, never hand-kept: a fact lives inline where it is true, and anything that spans the project is generated from markers, never maintained
 - **2026-09-27** · process — An open question is an inline marker where it was raised, not an entry in a register. The index is generated
 - **2026-09-27** · explore, venue, onboarding, copy — "Local" means the whole metro, not a neighbourhood or anything tighter
@@ -25,3 +29,4 @@
 - **2026-09-21** · copy — plainlanguage.gov governs user-facing copy, alongside voice.md and design-language.md
 - **2026-09-21** · copy, model — Announcement is the word everywhere: in the model, in the docs, and in the product
 - **2026-09-21** · copy, model — Bulletin is refused as a noun: it named a delivery mode, not a thing
+- **2026-09-18** · explore, signed-out — Signed out is read-only: anything that touches another person requires an account — *in part superseded by 2026-09-23 (Who exists is public); where they differ, the newer wins*

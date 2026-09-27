@@ -9,7 +9,7 @@ supersedes: F066, F073
 ---
 ## Story
 
-Maya's bakery has nothing to say until Thursday, when the sourdough is back. She taps Announce and writes two sentences. She adds Thursday, seven o'clock, and because the bread class is at the church hall rather than her own counter she types that address too. Under the box is a switch for who sees it, sitting on anyone, and she leaves it there. It appears at the top of her Page and in browse, where a stranger looking for what is on this week finds it. Her Saturday "sourdough is back" post has no time at all, and it is no less a post for that. The next morning she fixes a typo in place, and it stays the same announcement.
+Maya's bakery has nothing to say until Thursday, when the sourdough is back. She taps Announce and writes two sentences. She adds Thursday, seven o'clock, and because the bread class is at the church hall rather than her own counter she types that address too. Under the box is a switch for who sees it, sitting on anyone, and she leaves it there. It appears at the top of her Page and in browse, where a stranger looking for what is on this week finds it. [superseded-in-part-by 2026-09-23: Who exists is public] Her Saturday "sourdough is back" post has no time at all, and it is no less a post for that. The next morning she fixes a typo in place, and it stays the same announcement.
 
 ## Acceptance
 
