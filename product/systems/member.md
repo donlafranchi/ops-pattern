@@ -21,9 +21,9 @@ A Member is the platform's record of one real human — one row, lifetime-stable
 
 **Interaction is the only path to a name, and that half is load-bearing.** Don's framing: *"We don't want stalking. Anything that is similar to stalking needs to be reduced."* A name is never reachable by looking someone up. Four refusals follow and are not negotiable at the surface level: **no search or lookup by legal name; no reverse lookup from a name to a person's activity; no durable browsable list of counterparty names apart from the interactions that produced them; no rollup that turns repeated interaction into a roster.** Mutual disclosure without these is a name directory with extra steps. **A name is legible on an interaction record for 12 months from the date of that interaction**, then the record falls back to the display name; each interaction carries its own clock and a later one never extends an earlier one. Reversion is a render gate, not a deletion — the platform keeps knowing who someone is, the counterparty stops being able to browse it. The roster tension for a busy seller is stated in full in F077.
 
-## A second, stronger-verified tier is referenced, not yet built
+## There is no second, stronger-verified tier
 
-F080 gates one content category (anything about a child) behind a tier beyond the self-attested legal name every Member has — ID plus a selfie match, unbuilt as of 2026-09-14. This is a personal-identity tier, distinct from the producer trust ladder in `ROADMAP.md` (self-attest → community-attest → document-verify, which is about a *business's* claims, not a person's identity). Two different nouns; don't conflate them into one "tier" concept.
+Every Member is self-attested, and that is the only identity tier. An ID-plus-selfie tier was once named as the unlock for F080; **Don ruled 2026-09-27 that none is being built**, so F080 (no pictures of children) has no unlock. The producer trust ladder in `ROADMAP.md` (self-attest → community-attest → document-verify) is about a *business's* claims, not a person's identity; don't conflate the two.
 
 ## Discoverability defaults to off; a member's outputs don't
 

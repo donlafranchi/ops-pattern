@@ -1,29 +1,37 @@
 ---
 id: F081
-title: Everyone signs up the same way, and the zip suggests the metro
+title: Everyone signs up the same way, and the zip sets the metro
 status: approved
 date: 2026-09-14
 depends: [F076, F077]
 approved: 2026-09-14 — Don's ruling; legal name, email, zip, display name, zip suggests the metro
+amended: 2026-09-27 — Don: the zip determines the metro, and onboarding stops silently assigning a place. Criterion 3 restated, 7 added. The wider ruling that local means the whole metro is F094.
 ---
 ## Story
 
-Maya follows a neighbour's link and signs up. One screen: her legal name, her email, her zip, and the display name everyone else will see. The screen tells her plainly that the platform does not sell her information, and that not doing that is the point of it. Her zip produces a short list of metros; she picks hers. Nothing is picked for her, and if the list is wrong she reaches every other US metro from the same control. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
+Maya follows a neighbour's link and signs up. One screen: her legal name, her email, her zip, and the display name everyone else will see. The screen tells her plainly that the platform does not sell her information, and that not doing that is the point of it. Her zip decides her metro, and the screen says which one — Sacramento — so she can see it rather than have it happen to her. Nothing is placed for her that she did not give. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
 
 ## Acceptance
 
 1. Signup collects a zip code, alongside the legal name, email and display name F077 already requires. No field beyond those four exists in the flow.
 2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map. **The counterparty disclosure of F077 criterion 6 covers the legal name only; it never carries the zip.**
-3. The zip produces a shortlist of candidate metros. **The person selects one; no metro is selected for them** — not by zip, not by IP, not by a pre-filled default.
+3. **The zip determines the metro**, and the screen shows the person which metro that is. **Nothing else determines it** — not IP, not a pre-filled default, not a nearest match. *(Amended 2026-09-27: this read "the zip produces a shortlist… the person selects one"; Don ruled the zip decides.)*
 4. Every US metro stays reachable from the same control, so a person whose shortlist is wrong is never stuck (F076 criterion 1 holds).
 5. The screen carries a published line stating the platform does not sell member information, **and a second stating that people who interact see each other's real name** — disclosed as a term, not offered as a choice. Neither states a date, a feature, or a promise about the future.
 6. No field, control, or string in signup asks or records whether the person makes things or finds them.
+7. **Onboarding assigns no place the person did not give.** A member's home is the metro their zip determined; no default place is written on their behalf, seen or unseen. *(Added 2026-09-27. Today `DEFAULT_HOME_PLACE_ID` sets every new member's home to a fictional city whose box sits inside Sacramento, which is why every member resolves to Sacramento.)*
 
 ## Not this
 
-Any verification, document, ID, or identity check — that is F082, and it happens later, not here. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro the person picked. A street address — `product/systems/member.md` refuses one by default. The exact wording of the no-sale line, which is Don's call ([public-is-draft]).
+Any verification, document, ID, or identity check — that is F082, and it happens later, not here. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro it determined. A home place finer than the metro — local means the whole metro (F094). A street address — `product/systems/member.md` refuses one by default. The exact wording of the no-sale line, which is Don's call ([public-is-draft]).
 
 ## Why
+
+### The zip decides (2026-09-27)
+
+**Don reversed the 2026-09-14 shortlist-and-pick.** A zip is something the person told us, so a metro derived from it is not the platform choosing for them; what F076 criterion 2 forbids is choosing from something they did not give — IP, a default, a nearest match. **The unseen default place was the real violation**, and criterion 7 removes it.
+
+**Open for a builder, not settled here:** a zip the crosswalk does not know (it holds Sacramento only; one zip maps to exactly one metro); a zip whose metro differs by grain — the crosswalk is MSA 40900, four counties, while the metro polygon is CSA 472, six, so a Sutter or Yuba zip falls in the polygon but not the crosswalk; and whether criterion 4's every-metro control lets a person override what their zip decided. See #222.
 
 ### Who sees a real name
 

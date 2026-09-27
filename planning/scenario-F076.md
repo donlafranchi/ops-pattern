@@ -8,6 +8,7 @@ approved: 2026-09-14 — Don's ruling; threshold 50 creators / 250 patrons, gate
 amended: 2026-09-21 — Don: someone may leave an email to be told when a metro opens, without signing up. Criterion 4 reopened, 13-15 added, the Not-this line struck.
 amended: 2026-09-22 — criterion 14 cannot be met by a live count at all; an anonymous submitter is shown none. Found by running the handler against a real database while the unit test stayed green.
 amended: 2026-09-23 — Don reverses the line above: the count comes back, CACHED rather than live, and metros sort by it. The oracle was real and the stakes were overstated. Criteria 7, 8 and 14 restated; criterion 16 added.
+amended: 2026-09-27 — Don (with F081): a member's zip determines their metro. Criterion 2 annotated.
 ---
 ## Story
 
@@ -16,7 +17,7 @@ Someone in Boise signs up. Boise is not open yet, so they pick it from the list 
 ## Acceptance
 
 1. Every US metro is present and selectable at signup, before launch. A person cannot reach a state where their metro is absent from the list.
-2. A person outside an open metro picks one. The platform **may suggest** a shortlist, derived from the person's zip, and **never selects for them** — no IP-derived metro, no pre-filled default, no auto-assignment on a nearest match. *(Criterion amended 2026-09-14 to permit suggestion; auto-selection stays forbidden.)*
+2. A person outside an open metro picks one. The platform **may suggest** a shortlist, derived from the person's zip, and **never selects for them** — no IP-derived metro, no pre-filled default, no auto-assignment on a nearest match. *(Criterion amended 2026-09-14 to permit suggestion; auto-selection stays forbidden.)* **Amended 2026-09-27 (F081): a signing-up member's zip determines their metro.** A metro derived from the person's own zip is not a selection made for them; IP, a default, and a nearest match stay forbidden.
 3. The waitlist entry records whether the person is here to make things or to find them. Neither is pre-selected. **This is a property of the waitlist entry, not of the account** — no role is stored on the member, and the answer is discarded when the metro opens. *(Amended 2026-09-14: this read "Signup records exactly one of two roles for that person," which stored a role the platform refuses to store.)*
 4. Joining is idempotent: **one person counts once in one metro, whether they signed up or only left an email.** Re-signup, re-visit or a second device does not increment anything. *(Amended 2026-09-21: `member_id unique` no longer carries this, because an anonymous entry has no member. The uniqueness key becomes the identity the entry actually has — the normalised email, per metro.)*
 5. Changing the selected metro moves that person's count from the old metro to the new one, leaving neither double-counted nor stranded.
