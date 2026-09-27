@@ -44,6 +44,10 @@ Rae signs up with her legal name and email; the platform records it and never pu
 
 **Said honestly:** a counterparty who saw a name inside the 12 months can write it down, and nothing prevents that. The rule bounds what the product hands them, not what a person remembers.
 
+### Open
+
+[open-question owner=don raised=2026-09-27] What record is "a completed sale" and "a recorded attendance"? Neither exists; criteria 6–7 need a row with a date and two members on it. Until that noun exists, criteria 1–5 and 8 can ship and 6–7 cannot.
+
 ## Not this
 
 ID or document verification — self-attested is enough at launch. Any public or discovery surface showing the legal name — profile, listing, search, map. Disclosure to anyone a transaction or attendance did not make a counterparty. Name search, reverse lookup, or any roster built from counterparty names. Asking a member to consent to criterion 6 — it is a term, disclosed at signup. Retroactively verifying legal names already on file.

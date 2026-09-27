@@ -24,7 +24,9 @@ Any rule about text, topics, or Pages that serve children. Building any verifica
 
 ## Why
 
-### Open — Don rules: where is it detected?
+### Open — where is it detected?
+
+[open-question owner=don raised=2026-09-27] Where is a picture of a child caught before anyone sees it — human review before visible (A), the uploader's word per photo (B), once in F082's pre-publish step (C), or an automated check (D) — and at upload or at publish? There is no automated image check, so today it can only be a person or an attestation.
 
 **Nothing in the repo can see what is in a picture.** Every Page photo goes through one path (`src/lib/media/upload-image.ts`, used by `PagePhotoPicker` and `update-draft.ts`), which uploads **from the browser to a public bucket and returns a public URL** at upload time. So criterion 1 needs a detection point, and today it can only be a person or the uploader's own word.
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Fails on: missing `status` in planning/, any root .md outside the eight, any
 # link to a path that doesn't exist, a scenario whose SPEC runs over 40 lines, a
-# scenario section outside Story/Acceptance/Why/Not this, or an absolute cited
-# by a slug that no longer exists. Run from the repo root.
+# scenario section outside Story/Acceptance/Why/Not this, an absolute cited
+# by a slug that no longer exists, or a malformed `[open-question]` marker. Run
+# from the repo root.
 #
 # `## Why` (added 2026-09-17) carries rationale — why this shape, what was
 # rejected, how it relates to a neighbouring scenario. It exists because 12 of
@@ -96,13 +97,34 @@ done
 #    frozen "rule N" citations cannot be rewritten; the 2026-09-16 line there
 #    maps those old numbers to these slugs.
 slugs="$(grep -hoE '^### [a-z][a-z0-9-]+$' process/ABSOLUTES.md product/ABSOLUTES.md | sed 's/^### //')"
-for hit in $(grep -roE '\[[a-z][a-z0-9]*(-[a-z0-9]+)+\]' --include='*.md' --exclude=DECISIONS.md . | sort -u); do
+for hit in $(grep -roE '\[[a-z][a-z0-9]*(-[a-z0-9]+)+\]' --include='*.md' --exclude=DECISIONS.md --exclude-dir=fixtures . | sort -u); do
   slug="${hit##*:[}"; slug="${slug%]}"
   if ! printf '%s\n' "$slugs" | grep -qx "$slug"; then
     echo "lint: [$slug] cites an absolute that does not exist — ${hit%%:*}"
     fail=1
   fi
 done
+
+# 5. Open-question markers (process/PIPELINE.md § Open questions). The checker
+#    proves itself first, every run ([guard-proves-itself]): it must reject
+#    every line of the bad fixture and pass the good one, or it is inert and
+#    this lint fails rather than reporting a clean repo it never really checked.
+EXPECT_BAD=8
+oq=scripts/open-questions.sh
+fx=scripts/fixtures/open-questions
+got=$(bash "$oq" lint "$fx/bad.md" | grep -c '^open-question:')
+if [ "$got" -ne "$EXPECT_BAD" ]; then
+  echo "lint: open-question checker is inert — rejected $got of $EXPECT_BAD bad fixture lines"
+  fail=1
+fi
+if ! bash "$oq" lint "$fx/good.md" >/dev/null; then
+  echo "lint: open-question checker rejects the good fixture"
+  fail=1
+fi
+if ! out="$(bash "$oq" lint)"; then
+  echo "$out" | sed 's/^/lint: /'
+  fail=1
+fi
 
 if [ "$fail" -ne 0 ]; then
   echo "lint: FAILED"

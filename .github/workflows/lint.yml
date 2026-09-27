@@ -1,0 +1,22 @@
+name: lint
+
+# Runs scripts/lint.sh, which until 2026-09-27 ran nowhere but a laptop — and was
+# red on main without anyone seeing it. Includes the open-question checker and
+# its known-bad fixture ([guard-proves-itself]).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - run: bash scripts/lint.sh

@@ -30,4 +30,14 @@ Free-text search over posts' bodies ranked by relevance — matching is enough a
 
 **The dictionary's automation is not here either.** An LLM agent proposing entries from submitted tags and zero-result searches, and the human approval gate before anything reaches the live dictionary, are their own work.
 
-**Open questions in `DECISIONS.md`, not here** (the three-section format is unbroken across every scenario): what triggers the LLM pass and who approves its output; whether public tags are moderated before or after they appear; and how the dictionary grows.
+## Why
+
+### Open
+
+[open-question owner=don raised=2026-09-12] What triggers the LLM pass, and who approves its output? A) a scheduled job, proposals landing in a queue Don reviews. B) on demand, run when someone looks. C) per submission, one proposal at a time. *Recommend A — batching makes the review a session rather than an interruption, and the horizon is the same shape as the recurring-events top-up already ruled.* **Who approves is the part that matters**: today that is Don, and there is no operator concept in the code at all.
+
+[open-question owner=don raised=2026-09-12] Are public creator tags moderated before or after they appear? A) after — visible immediately, removed on report, which matches how the rest of the platform treats member content. B) before — a tag waits for approval, which is a queue nobody owns and makes tagging feel like submitting a form. *Recommend A, with the report path being the same one rule 1 already requires for member-contributed content.* **This is not optional scope**: rule 1 bars member-contributed content from production without a report-and-takedown path, and a public tag is member-contributed content.
+
+[open-question owner=don raised=2026-09-13] How does the search dictionary grow? A) from tags creators create — every new tag is a word a real person chose for their own thing. B) from logged zero-result searches — every one is a word a real person typed and got nothing for. C) by hand. *Recommend A and B together: **A is the creator's vocabulary and B is the finder's**, and the gap between them is exactly what the dictionary exists to close.* Rewritten 2026-09-13 — the earlier version proposed `group_category_suggestions` as the feed, and that table is retired with "Something else"; **its rows seed the initial tag list instead.**
+
+`product/foundation/model.md` § *Two inputs, one vocabulary* already reads as A and B together; if Don confirms that is his answer, this closes.

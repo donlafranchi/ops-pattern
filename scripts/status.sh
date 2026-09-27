@@ -15,9 +15,7 @@
 #   · `status: building` in frontmatter is a claim, not evidence. Said so.
 #   · Anything this run could not check goes under "What this run could not
 #     verify", which is never empty by default.
-#   · The Waiting-on-Don list is carried forward from the previous file and
-#     LABELLED as not re-verified. A script cannot check it; it must not
-#     silently present it as fresh.
+#   · Open questions come from inline markers, never from the previous file.
 #
 # It answers *where is this project*, not *what tickets exist*. The ticket list
 # is `gh issue list`, which is always right; this does not copy it in.
@@ -70,9 +68,8 @@ export STATUS_BLOCKED="$BLOCKED"
 export STATUS_LAUNCH="$LAUNCH"
 export STATUS_CODE="${CODE:-}"
 
-# Composed to a temp file and moved into place. Writing STATUS.md directly
-# would truncate it before the composer reads the previous Waiting-on-Don list
-# out of it, silently losing the one section no script can regenerate.
+# Composed to a temp file and moved into place, so a failed run leaves the
+# previous STATUS.md intact.
 TMP="$(mktemp)"
 trap 'rm -f "$TMP"' EXIT
 
@@ -274,26 +271,20 @@ if risks:
             w(f"  - If forgotten: {e['cost_if_forgotten']}")
         w(f"  - Look again if: {e['revisit_if']}")
 
-# ------------------------------------------------------------- waiting on Don
-# Carried forward verbatim. A script cannot check whether Don has answered
-# these, so it never claims to have.
-prev = ""
-try:
-    prev = open("STATUS.md").read()
-except FileNotFoundError:
-    pass
-m = re.search(r"^## Waiting on Don\s*$(.*?)(?=^## |\Z)", prev, re.M | re.S)
-carried = m.group(1).strip("\n") if m else ""
-carried = re.sub(r"\A.*?(?=^-\s)", "", carried, flags=re.S | re.M).strip("\n")
-if carried:
+# ------------------------------------------------------------ open questions
+# Generated from inline `[open-question]` markers. Until 2026-09-27 this was a
+# Waiting-on-Don list carried forward verbatim and never re-verified — a
+# register, and it had gone stale. The marker's owner=don rows replace it.
+oq = subprocess.run(["bash", "scripts/open-questions.sh", "index", os.environ.get("STATUS_CODE", "")],
+                    capture_output=True, text=True)
+w()
+if oq.returncode == 0 and oq.stdout.strip():
+    w(oq.stdout.rstrip("\n"))
+else:
+    w("## Open questions")
     w()
-    w("## Waiting on Don")
-    w()
-    w("Carried from the previous STATUS and **not re-verified by this run** — no")
-    w("source in this repo proves these are still open.")
-    w()
-    w(carried)
-    unverified.append("**Everything in the Waiting-on-Don list**, as stated there.")
+    w("`scripts/open-questions.sh index` failed this run.")
+    unverified.append("**Open questions** — the index did not generate.")
 
 # ------------------------------------------------------- could not verify
 # Never empty by default. If a run really did verify everything, it says so.

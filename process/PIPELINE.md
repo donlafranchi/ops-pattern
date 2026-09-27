@@ -73,3 +73,34 @@ A lint finding ruled acceptable gets recorded once and stops being re-argued. Th
 - `revisit_if` is a fact about the world, not a feeling — "the view's WHERE clause changes", not "if we get worried".
 - A past `review_by` is reported on every run. An entry nobody will re-argue is deleted, not renewed silently; renewing it is a new dated line.
 - Never derive a `cache_key` from the naming pattern. A key that looks right but never matches stops suppressing silently; `null` falls back to `(lint, object)` and keeps working.
+
+## Open questions
+
+A question nobody has answered yet is marked **inline, where it was raised**, and nowhere else. There is no register — `DECISIONS.md` § Open was one, and on 2026-09-27 F080's detection question stood in it, in F080 and in #221 at once. **The index is generated**: `STATUS.md` § Open questions, by `scripts/open-questions.sh index`.
+
+**The marker — copy this, without the backticks:**
+
+`[open-question owner=don raised=2026-09-27] Where is a picture of a child detected — review before visible, or the uploader's word?`
+
+- **`owner`** is who must answer: `don`, `cowork` or `code`. Not who asked.
+- **`raised`** is the date it was first asked, never updated. The index sorts oldest first and shows the age, so a stale question is visible without anyone tending it.
+- **The question follows on the same line.** Options, trade-offs and a recommendation go in the lines after it, as before — A/B/C, one line each.
+- In a code or migration comment the marker follows the comment token: `-- [open-question owner=code raised=2026-09-27] …`.
+- In backticks it is a mention, not a marker — which is how this section quotes it.
+
+**Where it goes — one rule: in the file the answer will change.**
+
+- The answer changes what a member experiences → **the scenario**, in `## Why`. No scenario yet → the spine entry in `product/`.
+- The answer changes only how it is built → **the Issue body** in `socialus-web`. Code owns it.
+- The answer changes one line of code or one migration and nothing above it → **a comment on that line**.
+- **Never** in a PR description, a commit message or an Issue comment: none is scanned, and a merged PR or a commit cannot be edited, so the marker could never be closed. **Never** in `DECISIONS.md`, which holds answers. An Issue that restates a scenario's question points at the scenario instead.
+
+**Who writes one.** Whoever raises a question they cannot answer and will not answer this session — Cowork in `plan` and `review`, Code in `ticket` and `build`. An agent that would otherwise write *"open"*, *"TBD"* or *"needs a ruling"* writes the marker.
+
+**What closes one.**
+
+- **`owner=don`:** the answer is a ruling, so it lands as a dated `DECISIONS.md` line first ([ruling-is-dated-line]). **The same commit** removes the marker and edits the text the answer changes. Whoever records the ruling removes the marker — Cowork, or Code when the ruling reached an Issue.
+- **`owner=cowork` / `owner=code`:** the answer is the change itself. The commit that makes it removes the marker and says so in its message. A `DECISIONS.md` line only if it settles something that would otherwise be re-argued.
+- **A marker is never deleted without an answer.** A question that became moot is closed by a commit message saying why. A scenario or Issue carrying a marker is not deleted or closed until the marker is answered or moved.
+
+**What checks it.** `scripts/lint.sh` fails on a marker missing an owner, a date or a question, or sitting in `DECISIONS.md` — and first proves the checker rejects every line of `scripts/fixtures/open-questions/bad.md` ([guard-proves-itself]). It runs in `.github/workflows/lint.yml`. `socialus-web` runs the same grammar in its own CI for code comments. Issue bodies are not gated; a malformed marker there is listed in the index as malformed.

@@ -34,4 +34,12 @@ A public-facing appeals board or an SLA promise. Building the classification log
 
 **This keeps the 2026-09-13 hide-on-report ruling intact at launch rather than softening it.** #220 asked Don to confirm a trade: dropping hide-on-report for below-bar content. With the bar at zero there is no below-bar content, so the trade does not happen at launch. It happens only when Don raises a metro's bar — a deliberate act, per metro, with the volume in front of him.
 
+### Open
+
+[open-question owner=don raised=2026-09-27] What tells Don it is time to raise a metro's bar — a queue size, a daily report count, time spent reviewing? Nothing raises it automatically (Not this), so without a stated trigger the bar stays at zero until the queue is already buried.
+
+[open-question owner=don raised=2026-09-27] Which content is reportable at launch — Page photos only, as today (`reports.subject_kind` admits `group` alone), or posts too? This decides whether F078 widens the report path or rides the one that exists.
+
+[open-question owner=don raised=2026-09-27] What is a "credible threat"? Criterion 5 routes on it and it is not one of criterion 1's six categories — a seventh category, a score threshold inside one, or a separate flag?
+
 **Unresolvable metro uses zero** so the fallback leans toward hiding, never toward leaving something up.

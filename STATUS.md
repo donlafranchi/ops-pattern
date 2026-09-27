@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-19 · 21:17 UTC
+> ## Generated 2026-09-27 · 14:27 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -12,20 +12,20 @@
 > moved, so a new revision of this file is never a bare heartbeat. Locally:
 > `bash scripts/status.sh`.
 >
-> **Derived from this repo only** — `accepted-risks/*.json`,
-> `planning/scenario-*.md` frontmatter and `ROADMAP.md`. Everything about
-> the code repo is missing from this run; see the last section.
+> **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
+> `8df33aa` (2026-09-27); `accepted-risks/*.json`;
+> `planning/scenario-*.md` frontmatter; `ROADMAP.md`.
 >
 > **Answers "where is this project", not "what tickets exist."** The ticket
 > list is `gh issue list`, which is always right; this is not a copy of it.
 
-Launch **2026-10-30**, one metro. 41 days out.
+Launch **2026-10-30**, one metro. 33 days out.
 
 ## Scenarios, by status
 
 | approved | building | draft | deferred | superseded |
 |---|---|---|---|---|
-| 16 | 4 | 18 | 1 | 1 |
+| 18 | 4 | 17 | 1 | 2 |
 
 **Building:**
 - F060 (Someone starts something without opening a shop)
@@ -36,18 +36,100 @@ Launch **2026-10-30**, one metro. 41 days out.
 **`building` is frontmatter, not evidence** — nothing checks it against a
 branch or a commit.
 
+## In the code repo
+
+**51 issues open** in `socialus-web`, 8 launch-blocking:
+- #135 bug · A member cannot see the Pages they made
+- #178 bug · Anonymous callers can read every member row, including members marked private
+- #205 bug · Onboarding assigns every new member a fictional home place, with no picker
+- #219 F077 · Real names only between people who actually interacted; display name everywhere else
+- #220 F078 · Flagged content hides itself on the agent's call, and the poster is told why
+- #221 F080 · No pictures of children, from anyone — detection point needs Don
+- #222 F081 · One signup for everyone: four fields, and the zip sets the metro
+- #223 F082 · One self-attestation before a first Page, selling and hosting alike
+
+**78 PRs merged in the last fortnight.** The newest five:
+- #226 2026-09-27 bug #224, #225: the migration gate names the right direction; the Page-ID test stops flaking
+- #218 2026-09-26 F093/T171: signed out sees that an announcement exists, not what it says
+- #217 2026-09-26 change #216: the waitlist count comes back, cached, and metros sort by it
+- #214 2026-09-23 chore #213: subprocess suites get a realistic timeout, and a guard against the next one
+- #212 2026-09-23 bug #211: an announcement card lands on its announcement, in the metro's time
+
+### Needs a look — not a claim that anything is wrong
+
+*A commit naming a ticket is not proof the ticket is done: partial work
+counts. Each row needs a look, not a close.*
+
+- **#52 open, but T155 appears on main** — F059 · T155 · Feed vantage point becomes a metro
+- **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
+- **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
+- **#16 open, but T126 appears on main** — F056 · T126 · Edit shop — image, description, values
+- **#15 open, but T125 appears on main** — F057 · T125 · You gains a producer state
+
+### Still on main, meant to be gone
+
+- `/following` still present — src/app/following/page.tsx
+- `members.maker_mode_enabled` still in the schema
+
+## The ontology — what is declared
+
+- **13 link types declared**, 11 built. Registry schema 2.
+- **Declared but not built (2)** - the relationship is named and nothing writes it yet:
+  - a Member supports a Page
+  - an Announcement is at a Location
+- **7 object types declared**: Member (live), Page (live), Item (live), Location (live), Place (live), Announcement (live), Tag (live).
+- **Rejected as nouns (6)** - named so they stay rejected: Person, Creator, Organizer, Follower, Patron, Vendor.
+- **28 handlers, of which 17 write no declared link.**
+  Not a fault on its own - a handler may legitimately touch no relationship -
+  but an undeclared link lives here if it lives anywhere:
+  - group.member_join
+  - group.member_leave
+  - group.post_edit
+  - item.publish
+  - member.business_jurisdiction.remove
+  - member.business_jurisdiction.set
+  - member.create
+  - member.interests.add
+  - member.place_interest.add
+  - member.place_interest.remove
+  - member.saved_search.remove
+  - member.saved_search.restore
+  - metro.waitlist_join
+  - metro.waitlist_join_anonymous
+  - report.create
+  - report.decide
+  - report.reverse
+
+## What CI last said
+
+- **`deploy-health.yml`** — success, 2026-09-27
+  - Ontology declarations still match the code: success
+  - Database reachable from the deployment: success
+- **`ci.yml`** — success, 2026-09-27
+  - Unit tests: success
+  - Lint, types, build: success
+  - Migrations applied to production: skipped
+
+## Measured, not estimated
+
+- Copy: 584 strings across 118 files — source `docs/copy-inventory.md` on origin/main
+- Routes on origin/main: 23
+- Migrations on origin/main: 56
+
 ## Deferred on purpose — and therefore easy to forget
 
 Ruled acceptable with a condition for looking again. The ruling itself is a
 dated line in `DECISIONS.md`; the register is `accepted-risks/`.
 
-- **observability: no error tracking in production** — review by 2026-10-16
+**3 need a look now.**
+
+- **observability: no error tracking in production** — **due in 19 days**
   - If forgotten: A runtime error for a real member is invisible. Nobody is paged, nothing is logged where anyone looks, and the first signal is a person giving up and not saying why. The DATABASE_URL outage went four months unnoticed for exactly this reason.
   - Look again if: ANY of: a member outside the team signs up; a bug is reported that nobody can reproduce; or 2026-10-16 passes with this still open.
-- **ci: playwright suite exists but no workflow runs it** — review by 2026-10-16
+- **ci: playwright suite exists but no workflow runs it** — **due in 19 days**
   - If forgotten: The end-to-end tests rot. Nobody runs them, they drift from the app, and the day someone needs them they no longer pass for reasons unrelated to the bug being chased — at which point they get deleted instead of fixed.
   - Look again if: ANY of: a regression reaches production that a browser test would have caught; the Playwright suite fails to run locally when someone next tries it; or 2026-10-16 passes with this still open.
-- **storage: removed photo bytes stay fetchable by direct URL** — review by 2026-10-16
+- **storage: removed photo bytes stay fetchable by direct URL** — **due in 19 days**
   - If forgotten: A photo the operator removed stays downloadable, indefinitely, by anyone who has or can guess its storage URL. For ordinary bad content that is tolerable. For illegal content it is not, and 'we kept it so it could be reversed' is not a defensible answer to a regulator, a police request, or the person in the photo.
   - Look again if: ANY of: the first report of illegal content reaches the review queue; a member asks for their own photo to be actually deleted rather than taken down; a takedown demand arrives from outside the platform; or 2026-10-16 passes (two weeks before launch) with this still open.
 - **data: two rows in public.places share the slug 'sacramento'** — review by 2026-11-30
@@ -57,26 +139,49 @@ dated line in `DECISIONS.md`; the register is `accepted-risks/`.
   - If forgotten: Two sources of truth drift. A write path that updates the decisions log and forgets the projection leaves a report invisible in the queue or double-counted against a reporter's cap, and the bug looks like a UI fault rather than a schema one.
   - Look again if: ANY of: a third writer of report_decisions appears; delegated reviewers land (more writers, more chances to drift); the queue shows a report whose status disagrees with its history; or 2026-11-30 passes.
 
-## Waiting on Don
+## Open questions
 
-Carried from the previous STATUS and **not re-verified by this run** — no
-source in this repo proves these are still open.
+Every open-question marker, found by scanning — nobody maintains this list.
+Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
-- **Promise 1** — what "surplus goes back to the community" means. Three
-  options in `DECISIONS.md`; the promise stays out of user-facing copy until
-  one is picked.
-- **The six-step Page composer**, judged as a set rather than step by step.
-- **The ontology spike** — paused 2026-09-16 before any code, on two questions:
-  which noun to model, and whether the address rule changes.
-  `../socialus-ontology-spike/INTENT.md`.
+
+**Waiting on Don** (26)
+
+- 23d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
+- 20d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
+- 20d · The flourishing thresholds (40 discretionary hours/week, 1.5× adequacy margin). A) adopt as the literal north-star targets everywhere. B) keep them illustrat… — [product/foundation/metrics.md:16](product/foundation/metrics.md#L16)
+- 15d · What triggers the LLM pass, and who approves its output? A) a scheduled job, proposals landing in a queue Don reviews. B) on demand, run when someone looks.… — [planning/scenario-F071.md:37](planning/scenario-F071.md#L37)
+- 15d · Are public creator tags moderated before or after they appear? A) after — visible immediately, removed on report, which matches how the rest of the platform… — [planning/scenario-F071.md:39](planning/scenario-F071.md#L39)
+- 14d · How does the search dictionary grow? A) from tags creators create — every new tag is a word a real person chose for their own thing. B) from logged zero-resu… — [planning/scenario-F071.md:41](planning/scenario-F071.md#L41)
+- 12d · Where do the premise strings live, given Don expects to update them often? Copy is inline in the components today — roughly 458 user-facing strings across 50… — [planning/scenario-F083.md:37](planning/scenario-F083.md#L37)
+- 11d · Which noun does the paused ontology spike model first — Item or Page? Its other question, the address rule, is the residence question in § Page. The spike li… — [product/foundation/nouns.md:178](product/foundation/nouns.md#L178)
+- 8d · What makes a thing "free", now that the free-things lens has nowhere to read from? Surfaced by the browse query rewrite (`socialus-web` T156, 2026-09-19), wh… — [planning/scenario-F059.md:46](planning/scenario-F059.md#L46)
+- 8d · Which ten names are the collections, and does the picker suggest from a Page's tags? *(Narrowed 2026-09-19 — Don ruled membership is owner-set, so what is le… — [product/ui/surfaces.md:61](product/ui/surfaces.md#L61)
+- 8d · Does the collection picker widen step 3 or add a seventh step — and is the six-step composer judged as a set rather than step by step? — [product/ui/surfaces.md:63](product/ui/surfaces.md#L63)
+- 6d · Is a private residence's address withheld, and from whom? *(Raised 2026-09-21 while scoping the answering layer, which was about to be told to enforce a rule… — [product/foundation/nouns.md:117](product/foundation/nouns.md#L117)
+- 0d · What record is "a completed sale" and "a recorded attendance"? Neither exists; criteria 6–7 need a row with a date and two members on it. Until that noun exi… — [planning/scenario-F077.md:49](planning/scenario-F077.md#L49)
+- 0d · What tells Don it is time to raise a metro's bar — a queue size, a daily report count, time spent reviewing? Nothing raises it automatically (Not this), so w… — [planning/scenario-F078.md:39](planning/scenario-F078.md#L39)
+- 0d · Which content is reportable at launch — Page photos only, as today (`reports.subject_kind` admits `group` alone), or posts too? This decides whether F078 wid… — [planning/scenario-F078.md:41](planning/scenario-F078.md#L41)
+- 0d · What is a "credible threat"? Criterion 5 routes on it and it is not one of criterion 1's six categories — a seventh category, a score threshold inside one, o… — [planning/scenario-F078.md:43](planning/scenario-F078.md#L43)
+- 0d · Where is a picture of a child caught before anyone sees it — human review before visible (A), the uploader's word per photo (B), once in F082's pre-publish s… — [planning/scenario-F080.md:29](planning/scenario-F080.md#L29)
+- 0d · What does a zip the crosswalk does not know do? It holds Sacramento only, and one zip maps to exactly one metro. — [planning/scenario-F081.md:34](planning/scenario-F081.md#L34)
+- 0d · Which grain is "the metro" for a zip — the crosswalk's MSA 40900 (four counties) or the polygon's CSA 472 (six)? A Sutter or Yuba zip is inside the polygon a… — [planning/scenario-F081.md:36](planning/scenario-F081.md#L36)
+- 0d · May a person override the metro their zip decided, through criterion 4's every-metro control? — [planning/scenario-F081.md:38](planning/scenario-F081.md#L38)
+- 0d · What are the exact words of criterion 5's two lines — no sale, and real names between people who interact? Don's words ([public-is-draft]); a builder can wir… — [planning/scenario-F081.md:40](planning/scenario-F081.md#L40)
+- 0d · Is the step free text in the member's own words, or fixed statements they affirm? If free text: is it stored, and who may read it — the operator only? — [planning/scenario-F082.md:43](planning/scenario-F082.md#L43)
+- 0d · Are members who already own a live Page asked before their next one, or treated as having taken the step? — [planning/scenario-F082.md:45](planning/scenario-F082.md#L45)
+- 0d · Does "local means metro" govern who sees a thing but not how precisely it is placed? Criterion 3 and every "no change — describing" row above rest on that re… — [planning/scenario-F094.md:56](planning/scenario-F094.md#L56)
+- 0d · What replaces the venue page's "X mi away" label once there is no home place finer than the metro — drop it, or measure from something else? — [planning/scenario-F094.md:58](planning/scenario-F094.md#L58)
+- 0d · Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is… — [planning/scenario-F094.md:60](planning/scenario-F094.md#L60)
+
+**Cowork owes an answer** (1)
+
+- 1d · Is the national HUD-USPS crosswalk in scope here, or a data chore first? Today's seed covers Sacramento only. — [#222](https://github.com/donlafranchi/socialus-web/issues/222)
 
 ## What this run could not verify
 
-- **Everything about `socialus-web`** — open issues, merges, the ontology
-  registry and CI's last word. No `socialus-web` checkout was available to this run.
-- **Everything in the Waiting-on-Don list**, as stated there.
 - **Whether any scenario marked `building` is actually in progress.**
   Frontmatter says `building`; nothing checks it against branches or commits.
-- **The 18 drafts.** Status alone does not say which are waiting
+- **The 17 drafts.** Status alone does not say which are waiting
   on Don and which are simply unfinished.
 
