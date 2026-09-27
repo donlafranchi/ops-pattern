@@ -13,6 +13,8 @@ The platform measures what happens inside the app — did members find each othe
 
 Two dimensions, both must rise together: **discretionary hours per week** (not consumed by work, caregiving, or commute; working target ≥40) and **adequacy margin** (disposable income after essentials, as a multiple of local basic-needs cost; working target ≥1.5×). A member below either threshold is Precarious, Overworked, or Trapped — the platform never accepts a trade between the two dimensions. The product test for any feature: does this net-move members up on both?
 
+[open-question owner=don raised=2026-09-07] The flourishing thresholds (40 discretionary hours/week, 1.5× adequacy margin). A) adopt as the literal north-star targets everywhere. B) keep them illustrative only; drop the specific numbers from anywhere they read as a commitment. *Recommend A — they're already used as targets in one doc; B just leaves the inconsistency standing.*
+
 There are no real users yet. Every category below is a placeholder to keep the wrong metrics from installing themselves by default — not a target. Real thresholds get set after 90 days of real usage; resist setting them before there's data.
 
 ## What gets watched, in categories (no thresholds yet)

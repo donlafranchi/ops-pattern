@@ -51,4 +51,14 @@ Choosing replacement copy. Neighbourhoods as a finer lens *inside* the metro —
 
 **Three geographic grains disagree** and a builder will meet them: the zip crosswalk is MSA 40900 (four counties), the metro polygon is CSA 472 (six), places are county/city/neighbourhood. "The metro" in this scenario means the `metro_polygons` row. Whether the crosswalk moves to CSA grain is open (#222).
 
+### Open
+
+[open-question owner=don raised=2026-09-27] Does "local means metro" govern who sees a thing but not how precisely it is placed? Criterion 3 and every "no change — describing" row above rest on that reading, which is this document's, not Don's.
+
+[open-question owner=don raised=2026-09-27] What replaces the venue page's "X mi away" label once there is no home place finer than the metro — drop it, or measure from something else?
+
+[open-question owner=don raised=2026-09-27] Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is Don's ([public-is-draft]).
+
+The crosswalk's grain is F081's question, not a second copy here.
+
 **Draft, not approved,** because the line between scoping and describing (criterion 3) and the rows it strikes are this document's reading of the ruling, not Don's words.

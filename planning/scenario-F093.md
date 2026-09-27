@@ -49,7 +49,7 @@ So the body goes, entirely. **There is no excerpt, no first line, no character-t
 
 **The *signed out is read-only* ruling answered what a signed-out person may DO.** Its substance is writes — no follow, no get-updates, no reporting, no messaging — and its reasoning is that an account buys **continuity**, not identity. Its sentence about public Pages and *"their public content"* is a supporting clause, and the crawler question was not in view when it was written. **This ruling reaches a question that one did not reach.** Nothing in the 2026-09-18 entry is withdrawn.
 
-## What this changes in F059
+### What this changes in F059
 
 **Criterion 2b's closing clause is superseded.** It reads today:
 

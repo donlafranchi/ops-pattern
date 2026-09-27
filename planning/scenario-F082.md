@@ -38,6 +38,14 @@ ID plus selfie verification — not planned; F080 no longer names an unlock (202
 
 **Proposed, for Don ([public-is-draft]):** add one line to the step, stated as a rule of the place rather than a question — *"No pictures of children. That goes for every photo you add, here and later."* — and keep F080's detection question separate. **Not added to the acceptance criteria until Don rules** on F080's open question; if he picks per-photo attestation (F080 option B), this line becomes its introduction rather than a substitute for it.
 
+### Open
+
+[open-question owner=don raised=2026-09-27] Is the step free text in the member's own words, or fixed statements they affirm? If free text: is it stored, and who may read it — the operator only?
+
+[open-question owner=don raised=2026-09-27] Are members who already own a live Page asked before their next one, or treated as having taken the step?
+
+Whether the step carries the no-pictures-of-children line waits on F080's detection question, not a question of its own.
+
 ### Why at publish, not at draft
 
 **A draft reaches nobody, so there is nothing yet to attest about** (Don, 2026-09-27). The step exists because other people will show up for the thing; that becomes true when the Page goes live. Asking earlier puts a declaration in front of someone still deciding whether to make anything.

@@ -28,3 +28,7 @@ status: retired
 The full prior text, including the argument against the pair and its copy examples, is in git history: `git log -p -- product/foundation/role-language.md`.
 
 **This document is not a voice or copy guide and never was** — Don is right about that. Its copy examples were illustrations of the naming rules, not a house voice. No voice guide exists yet.
+
+## Open
+
+[open-question owner=don raised=2026-09-04] "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only — the feeling is fine, just don't call anyone a creator. B) it bars the aspiration too — no reach chrome, no creator-shaped feature, ever. *No recommendation — genuinely a values call.*

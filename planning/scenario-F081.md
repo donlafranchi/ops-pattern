@@ -31,7 +31,13 @@ Any verification, document, ID, or identity check — that is F082, and it happe
 
 **Don reversed the 2026-09-14 shortlist-and-pick.** A zip is something the person told us, so a metro derived from it is not the platform choosing for them; what F076 criterion 2 forbids is choosing from something they did not give — IP, a default, a nearest match. **The unseen default place was the real violation**, and criterion 7 removes it.
 
-**Open for a builder, not settled here:** a zip the crosswalk does not know (it holds Sacramento only; one zip maps to exactly one metro); a zip whose metro differs by grain — the crosswalk is MSA 40900, four counties, while the metro polygon is CSA 472, six, so a Sutter or Yuba zip falls in the polygon but not the crosswalk; and whether criterion 4's every-metro control lets a person override what their zip decided. See #222.
+[open-question owner=don raised=2026-09-27] What does a zip the crosswalk does not know do? It holds Sacramento only, and one zip maps to exactly one metro.
+
+[open-question owner=don raised=2026-09-27] Which grain is "the metro" for a zip — the crosswalk's MSA 40900 (four counties) or the polygon's CSA 472 (six)? A Sutter or Yuba zip is inside the polygon and outside the crosswalk.
+
+[open-question owner=don raised=2026-09-27] May a person override the metro their zip decided, through criterion 4's every-metro control?
+
+[open-question owner=don raised=2026-09-27] What are the exact words of criterion 5's two lines — no sale, and real names between people who interact? Don's words ([public-is-draft]); a builder can wire placeholders only.
 
 ### Who sees a real name
 

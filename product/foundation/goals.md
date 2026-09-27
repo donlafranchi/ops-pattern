@@ -43,8 +43,9 @@ Guidelines, a tier below promises — depart only with a dated reason in `DECISI
 
 ## Still open
 
+[open-question owner=don raised=2026-09-07] Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process decides the number and the mechanism. C) stays internal-only indefinitely; never published as a specific commitment. *Recommend C for now — nothing forces a decision before launch, and a vague public promise is worse than a deferred one.*
+
 - Exact incorporation type (PBC vs. nonprofit vs. something else).
-- How much comes back to communities, and how (see `monetization.md`).
 - How members exercise ownership in practice.
 
 **People can do more. They don't have to.**

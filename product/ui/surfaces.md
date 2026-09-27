@@ -58,6 +58,10 @@ owns:
 
 **The composer's category step becomes the tag step** *(ruled 2026-09-13)* — same position, walkthrough stays six steps, pick-or-create a tag. **It gains a collection picker** *(2026-09-19)*; whether that widens step 3 or adds a seventh is unruled, and the six-step count is the thing at risk. **The edit form has two fields, name and description** — no tag or collection editing exists there at all. **Unbuilt:** it renders the twelve retired terms today. **Creators create their own tags, so nothing needs seeding** — the picker fills itself as they are used. Blocked only on report-and-takedown, per [member-content-takedown].
 
+[open-question owner=don raised=2026-09-19] Which ten names are the collections, and does the picker suggest from a Page's tags? *(Narrowed 2026-09-19 — Don ruled membership is owner-set, so what is left is the list and the picker's helpfulness.)* The straw man is Food & Drink · Coffee · Brewery · Bakery · Makers · Fitness · Outdoors · Music & Nightlife · Services · Clubs & Groups, **not ratified**. A) **Ship the straw man as-is**, revise on evidence; cheapest, and the first ten Pages will show whether it fits. B) **Don edits the list first** — `planning/search-dictionary-draft.md` already exists for exactly this shape of task and its twelve reading-aid headings are close to these ten. C) **Derive the first version from the seed tag vocabulary** and have Don cut it down. *Recommend B, reusing the draft file he already has.* **Separately and cheaply: may the picker pre-tick a collection from what the owner typed as tags?** That is a suggestion, not membership, so it reverses nothing — but T159 called a tag suggester a progressive enhancement and left it out, so it is new work either way.
+
+[open-question owner=don raised=2026-09-19] Does the collection picker widen step 3 or add a seventh step — and is the six-step composer judged as a set rather than step by step?
+
 ---
 
 ## Page routes — 25
