@@ -82,7 +82,7 @@ Six-step composer with honest resume [#28] · photo at creation and takedown [#2
 
 ## Approved, needs tickets
 
-Signup — legal name, email, zip, zip suggests a metro [F081] and becoming a creator by saying so [F082] — **eight tickets sequenced, T161–T168, none opened** · real names between people who actually dealt with each other [F077] · flagged content hides itself and the poster is told why [F078] · nothing about a child without a stronger-verified account [F080] · someone follows something [F065].
+Signup — legal name, email, zip, zip suggests a metro [F081] and becoming a creator by saying so [F082] — **eight tickets sequenced, T161–T168, none opened** · real names between people who actually dealt with each other [F077] · flagged content hides itself and the poster is told why [F078] · no pictures of children, from anyone [F080, amended 2026-09-27] · someone follows something [F065].
 
 ## Draft — needs Don before anything else happens
 
