@@ -2,7 +2,7 @@
 # Fails on: missing `status` in planning/, any root .md outside the eight, any
 # link to a path that doesn't exist, a scenario whose SPEC runs over 40 lines, a
 # scenario section outside Story/Acceptance/Why/Not this, an absolute cited
-# by a slug that no longer exists, or a malformed `[open-question]` marker. Run
+# by a slug that no longer exists, or a marker the markers checker rejects. Run
 # from the repo root.
 #
 # `## Why` (added 2026-09-17) carries rationale — why this shape, what was
@@ -105,23 +105,22 @@ for hit in $(grep -roE '\[[a-z][a-z0-9]*(-[a-z0-9]+)+\]' --include='*.md' --excl
   fi
 done
 
-# 5. Open-question markers (process/PIPELINE.md § Open questions). The checker
-#    proves itself first, every run ([guard-proves-itself]): it must reject
-#    every line of the bad fixture and pass the good one, or it is inert and
-#    this lint fails rather than reporting a clean repo it never really checked.
-EXPECT_BAD=8
-oq=scripts/open-questions.sh
-fx=scripts/fixtures/open-questions
-got=$(bash "$oq" lint "$fx/bad.md" | grep -c '^open-question:')
-if [ "$got" -ne "$EXPECT_BAD" ]; then
-  echo "lint: open-question checker is inert — rejected $got of $EXPECT_BAD bad fixture lines"
-  fail=1
-fi
-if ! bash "$oq" lint "$fx/good.md" >/dev/null; then
-  echo "lint: open-question checker rejects the good fixture"
-  fail=1
-fi
-if ! out="$(bash "$oq" lint)"; then
+# 5. Markers (process/LIVING-DOCS.md § Grep-built, never hand-kept): open
+#    questions, guard claims, decision bindings, accepted-risk dates, and the
+#    generated files they build. The checker proves itself first, every run
+#    ([guard-proves-itself]): it must reject every bad fixture and pass every
+#    good one, or it is inert and this lint fails rather than reporting a clean
+#    repo it never really checked.
+fx=scripts/fixtures/markers
+mk() { MARKERS_PLANNING="$fx/planning" python3 scripts/markers.py "$@"; }
+EXPECT_BAD=19 EXPECT_RISKS=4
+got=$(mk lint "$fx/open-question-bad.md" "$fx/guards-bad.md" "$fx/binds-bad/DECISIONS.md" | grep -c '^markers:')
+[ "$got" -eq "$EXPECT_BAD" ] || { echo "lint: marker checker is inert — rejected $got of $EXPECT_BAD bad fixture lines"; fail=1; }
+got=$(mk risks "$fx/risks-bad" | grep -c '^markers:')
+[ "$got" -eq "$EXPECT_RISKS" ] || { echo "lint: accepted-risk checker is inert — rejected $got of $EXPECT_RISKS bad fixtures"; fail=1; }
+mk lint "$fx/good.md" "$fx/binds-good/DECISIONS.md" >/dev/null && mk risks "$fx/risks-good" >/dev/null ||
+  { echo "lint: marker checker rejects a good fixture"; fail=1; }
+if ! out="$(python3 scripts/markers.py lint)"; then
   echo "$out" | sed 's/^/lint: /'
   fail=1
 fi

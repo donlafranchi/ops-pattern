@@ -1,0 +1,2 @@
+- **2026-09-27 — Binds both.** [binds tiers=planning,code surfaces=explore,signup]
+- **2026-09-27 — Reversed later, binds nothing.** [binds tiers=none]

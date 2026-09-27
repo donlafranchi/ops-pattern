@@ -8,5 +8,6 @@
   "evidence": "socialus-web#36",
   "why": "Owner-privileges projection exposing only member_id for Members who have published. Replaces an opt-in flag nobody was asked to set.",
   "revisit_if": "it projects any column beyond member_id, or the published-ness test widens beyond active managing role / published Item",
+  "owner": "code",
   "review_by": "2027-03-31"
 }

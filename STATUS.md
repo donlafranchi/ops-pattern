@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-27 · 14:27 UTC
+> ## Generated 2026-09-27 · 15:38 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -178,10 +178,26 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 - 1d · Is the national HUD-USPS crosswalk in scope here, or a data chore first? Today's seed covers Sacramento only. — [#222](https://github.com/donlafranchi/socialus-web/issues/222)
 
+## Guard coverage
+
+Criteria of approved and building scenarios that a check claims with a `[guards F###.N]`
+marker. **Unclaimed is not the same as untested — it means nothing says so, which under
+`[guard-proves-itself]` counts as absent.** Full map: `python3 scripts/markers.py coverage`.
+
+- **No criterion claimed by any check** (22): F056, F057, F058, F059, F060, F061, F063, F064, F065, F069, F070, F072, F074, F076, F077, F078, F080, F081, F082, F091, F092, F093
+
+## Is `building` backed by code?
+
+Each scenario whose frontmatter says `building`, against what names it in `socialus-web`: commits
+and files on main, and branches. Frontmatter is a claim; this is the evidence.
+
+- **F060** · 0 commits on main · 5 files naming it · 0 branches
+- **F061** · 0 commits on main · 12 files naming it · 0 branches
+- **F069** · **nothing in the code names it** — no commit, file or branch
+- **F070** · 6 commits on main · 14 files naming it · 1 branch
+
 ## What this run could not verify
 
-- **Whether any scenario marked `building` is actually in progress.**
-  Frontmatter says `building`; nothing checks it against branches or commits.
 - **The 17 drafts.** Status alone does not say which are waiting
   on Don and which are simply unfinished.
 

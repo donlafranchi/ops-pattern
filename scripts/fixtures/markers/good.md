@@ -2,3 +2,5 @@ Every marker below must pass.
 - [open-question owner=don raised=2026-09-27] Where is it detected?
 -- [open-question owner=code raised=2026-01-02] Does this index need a partial predicate?
 A mention in backticks is not a marker: `[open-question owner=<who> raised=<date>]`.
+[guards F999.1] the check above discharges it
+`[guards F998.1]` in backticks is a mention

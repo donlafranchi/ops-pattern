@@ -8,5 +8,6 @@
   "evidence": "socialus-web#36",
   "why": "Projects one boolean out of the owner-only member_privacy table. No other privacy column is reachable through it.",
   "revisit_if": "it projects any column of member_privacy other than is_discoverable",
+  "owner": "code",
   "review_by": "2027-03-31"
 }
