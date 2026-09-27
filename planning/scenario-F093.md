@@ -2,6 +2,7 @@
 id: F093
 title: A signed-out visitor sees that something is happening, and is asked in to read it
 status: approved
+gates: launch
 date: 2026-09-23
 depends: [F059, F072]
 approved: 2026-09-23 — Don's ruling on socialus-web #200. "Who exists is public. What's happening is not — but that something is happening is public." The body is withheld entirely, not just the time and the place, and the withholding is enforced in SQL.

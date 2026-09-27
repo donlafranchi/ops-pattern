@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-27 · 16:03 UTC
+> ## Generated 2026-09-27 · 16:07 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -159,17 +159,17 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 8d · Which ten names are the collections, and does the picker suggest from a Page's tags? *(Narrowed 2026-09-19 — Don ruled membership is owner-set, so what is le… — [product/ui/surfaces.md:61](product/ui/surfaces.md#L61)
 - 8d · Does the collection picker widen step 3 or add a seventh step — and is the six-step composer judged as a set rather than step by step? — [product/ui/surfaces.md:63](product/ui/surfaces.md#L63)
 - 6d · Is a private residence's address withheld, and from whom? *(Raised 2026-09-21 while scoping the answering layer, which was about to be told to enforce a rule… — [product/foundation/nouns.md:117](product/foundation/nouns.md#L117)
-- 0d · What record is "a completed sale" and "a recorded attendance"? Neither exists; criteria 6–7 need a row with a date and two members on it. Until that noun exi… — [planning/scenario-F077.md:49](planning/scenario-F077.md#L49)
-- 0d · What tells Don it is time to raise a metro's bar — a queue size, a daily report count, time spent reviewing? Nothing raises it automatically (Not this), so w… — [planning/scenario-F078.md:39](planning/scenario-F078.md#L39)
-- 0d · Which content is reportable at launch — Page photos only, as today (`reports.subject_kind` admits `group` alone), or posts too? This decides whether F078 wid… — [planning/scenario-F078.md:41](planning/scenario-F078.md#L41)
-- 0d · What is a "credible threat"? Criterion 5 routes on it and it is not one of criterion 1's six categories — a seventh category, a score threshold inside one, o… — [planning/scenario-F078.md:43](planning/scenario-F078.md#L43)
-- 0d · Where is a picture of a child caught before anyone sees it — human review before visible (A), the uploader's word per photo (B), once in F082's pre-publish s… — [planning/scenario-F080.md:29](planning/scenario-F080.md#L29)
-- 0d · What does a zip the crosswalk does not know do? It holds Sacramento only, and one zip maps to exactly one metro. — [planning/scenario-F081.md:34](planning/scenario-F081.md#L34)
-- 0d · Which grain is "the metro" for a zip — the crosswalk's MSA 40900 (four counties) or the polygon's CSA 472 (six)? A Sutter or Yuba zip is inside the polygon a… — [planning/scenario-F081.md:36](planning/scenario-F081.md#L36)
-- 0d · May a person override the metro their zip decided, through criterion 4's every-metro control? — [planning/scenario-F081.md:38](planning/scenario-F081.md#L38)
-- 0d · What are the exact words of criterion 5's two lines — no sale, and real names between people who interact? Don's words ([public-is-draft]); a builder can wir… — [planning/scenario-F081.md:40](planning/scenario-F081.md#L40)
-- 0d · Is the step free text in the member's own words, or fixed statements they affirm? If free text: is it stored, and who may read it — the operator only? — [planning/scenario-F082.md:43](planning/scenario-F082.md#L43)
-- 0d · Are members who already own a live Page asked before their next one, or treated as having taken the step? — [planning/scenario-F082.md:45](planning/scenario-F082.md#L45)
+- 0d · What record is "a completed sale" and "a recorded attendance"? Neither exists; criteria 6–7 need a row with a date and two members on it. Until that noun exi… — [planning/scenario-F077.md:50](planning/scenario-F077.md#L50)
+- 0d · What tells Don it is time to raise a metro's bar — a queue size, a daily report count, time spent reviewing? Nothing raises it automatically (Not this), so w… — [planning/scenario-F078.md:40](planning/scenario-F078.md#L40)
+- 0d · Which content is reportable at launch — Page photos only, as today (`reports.subject_kind` admits `group` alone), or posts too? This decides whether F078 wid… — [planning/scenario-F078.md:42](planning/scenario-F078.md#L42)
+- 0d · What is a "credible threat"? Criterion 5 routes on it and it is not one of criterion 1's six categories — a seventh category, a score threshold inside one, o… — [planning/scenario-F078.md:44](planning/scenario-F078.md#L44)
+- 0d · Where is a picture of a child caught before anyone sees it — human review before visible (A), the uploader's word per photo (B), once in F082's pre-publish s… — [planning/scenario-F080.md:30](planning/scenario-F080.md#L30)
+- 0d · What does a zip the crosswalk does not know do? It holds Sacramento only, and one zip maps to exactly one metro. — [planning/scenario-F081.md:35](planning/scenario-F081.md#L35)
+- 0d · Which grain is "the metro" for a zip — the crosswalk's MSA 40900 (four counties) or the polygon's CSA 472 (six)? A Sutter or Yuba zip is inside the polygon a… — [planning/scenario-F081.md:37](planning/scenario-F081.md#L37)
+- 0d · May a person override the metro their zip decided, through criterion 4's every-metro control? — [planning/scenario-F081.md:39](planning/scenario-F081.md#L39)
+- 0d · What are the exact words of criterion 5's two lines — no sale, and real names between people who interact? Don's words ([public-is-draft]); a builder can wir… — [planning/scenario-F081.md:41](planning/scenario-F081.md#L41)
+- 0d · Is the step free text in the member's own words, or fixed statements they affirm? If free text: is it stored, and who may read it — the operator only? — [planning/scenario-F082.md:44](planning/scenario-F082.md#L44)
+- 0d · Are members who already own a live Page asked before their next one, or treated as having taken the step? — [planning/scenario-F082.md:46](planning/scenario-F082.md#L46)
 - 0d · Does "local means metro" govern who sees a thing but not how precisely it is placed? Criterion 3 and every "no change — describing" row above rest on that re… — [planning/scenario-F094.md:56](planning/scenario-F094.md#L56)
 - 0d · What replaces the venue page's "X mi away" label once there is no home place finer than the metro — drop it, or measure from something else? — [planning/scenario-F094.md:58](planning/scenario-F094.md#L58)
 - 0d · Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is… — [planning/scenario-F094.md:60](planning/scenario-F094.md#L60)
@@ -195,6 +195,20 @@ and files on main, and branches. Frontmatter is a claim; this is the evidence.
 - **F061** · 0 commits on main · 12 files naming it · 0 branches
 - **F069** · **nothing in the code names it** — no commit, file or branch
 - **F070** · 6 commits on main · 14 files naming it · 1 branch
+
+## Gating launch — does each have an Issue?
+
+Every scenario whose frontmatter says `gates: launch`, against the `socialus-web` Issues
+naming it. Five approved gating scenarios once had none, and nothing noticed.
+
+- **F058** (approved) · #62 closed, #61 closed, #13 closed, #12 closed
+- **F076** (approved) · #194 closed, #193 closed, #77 closed
+- **F077** (approved) · #219 open
+- **F078** (approved) · #220 open
+- **F080** (approved) · #221 open
+- **F081** (approved) · #222 open
+- **F082** (approved) · #223 open
+- **F093** (approved) · #215 closed
 
 ## What this run could not verify
 

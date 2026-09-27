@@ -2,6 +2,7 @@
 id: F058
 title: A member reports something, and the operator can take a photo down
 status: approved
+gates: launch
 date: 2026-09-10
 depends: []
 approved: 2026-09-07 — Gate B cleared; hard precondition for any photo upload

@@ -2,6 +2,7 @@
 id: F081
 title: Everyone signs up the same way, and the zip sets the metro
 status: approved
+gates: launch
 date: 2026-09-14
 depends: [F076, F077]
 approved: 2026-09-14 — Don's ruling; legal name, email, zip, display name, zip suggests the metro

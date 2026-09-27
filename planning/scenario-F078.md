@@ -2,6 +2,7 @@
 id: F078
 title: Flagged content hides itself immediately, and the poster is told why
 status: approved
+gates: launch
 date: 2026-09-14
 depends: [F058, F077]
 approved: 2026-09-14 — Don's ruling

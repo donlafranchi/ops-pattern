@@ -2,6 +2,7 @@
 id: F077
 title: People who actually interact are not hidden from each other; everyone else sees a display name
 status: approved
+gates: launch
 date: 2026-09-14
 depends: []
 approved: 2026-09-14 — Don's ruling, replaces member.md "real names encouraged, never required"

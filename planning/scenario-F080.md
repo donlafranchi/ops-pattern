@@ -2,6 +2,7 @@
 id: F080
 title: No pictures of children, from anyone
 status: approved
+gates: launch
 date: 2026-09-14
 depends: [F077]
 approved: 2026-09-14 — Don's ruling

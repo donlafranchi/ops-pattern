@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Markers: facts written inline where they are true, and everything built from them.
 
-The pattern is `process/LIVING-DOCS.md` § Grep-built, never hand-kept. Three
+The pattern is `process/LIVING-DOCS.md`. Three
 inline markers and one file field:
 
   `[open-question owner=<don|cowork|code> raised=YYYY-MM-DD] question` where raised -> STATUS.md
@@ -11,6 +11,7 @@ inline markers and one file field:
       on a DECISIONS.md line that supersedes something; the old text must be gone and in git
   `[evidence YYYY-MM-DD from=<source>: what was seen]` on a decision a user's action or words changed
   accepted-risks/*.json "owner" and "review_by"                     -> lint fails once review_by passes
+  `gates: launch` in a scenario's frontmatter                       -> its Issues, or none
 
   python3 scripts/markers.py lint [FILE...]           # default: every tracked file, plus the rest
   python3 scripts/markers.py risks [DIR]              # accepted-risk owners and dates only
@@ -18,6 +19,7 @@ inline markers and one file field:
   python3 scripts/markers.py coverage [--code DIR] [--summary] [F###...]
   python3 scripts/markers.py constraints [--check]    # write, or diff, constraints/*.md
   python3 scripts/markers.py building [--code DIR]    # is `building` backed by code?
+  python3 scripts/markers.py gating                   # does every gating scenario have an Issue?
 
 A marker inside backticks is a mention, not a marker. `--code` defaults to a
 socialus-web checkout beside this repo, read at CODE_REF (origin/main).
@@ -309,6 +311,9 @@ def lint(files):
                     e = guard_referent_error(*info)
                     if e:
                         errs.append(f"{p}:{n}: {e}")
+            if n < 15 and os.path.basename(p).startswith("scenario-") and l.startswith("gates:") \
+                    and l.split(":", 1)[1].strip() != "launch":
+                errs.append(f"{p}:{n}: `gates:` names what the scenario gates — the only gate is `launch`")
             if os.path.basename(p) == "DECISIONS.md":
                 m = DECISION.match(l)
                 if m and datetime.date.fromisoformat(m.group(1)) >= BINDS_FROM:
@@ -322,7 +327,7 @@ def lint(files):
             errs += replace_errors(p)
             if not EVIDENCE_VIEW_BUILT and any(e["evidence"] for e in decisions(p)) and p == "DECISIONS.md":
                 errs.append(f"{p}: the first `[evidence …]` tag has landed — build the evidence view deferred in "
-                            "process/LIVING-DOCS.md § Grep-built, never hand-kept, then set EVIDENCE_VIEW_BUILT")
+                            "process/LIVING-DOCS.md, then set EVIDENCE_VIEW_BUILT")
     return errs
 
 
@@ -493,6 +498,25 @@ def main():
             plural = lambda n, w, s="s": f"{n} {w}{s * (n != 1)}"
             print(f"- **{f}** · " + ("**nothing in the code names it** — no commit, file or branch" if not (commits or files or branches)
                   else f"{plural(commits, 'commit')} on main · {plural(files, 'file')} naming it · {plural(branches, 'branch', 'es')}"))
+        return
+
+    if mode == "gating":
+        print("## Gating launch — does each have an Issue?\n")
+        print("Every scenario whose frontmatter says `gates: launch`, against the `socialus-web` Issues")
+        print("naming it. Five approved gating scenarios once had none, and nothing noticed.\n")
+        r = subprocess.run(["gh", "issue", "list", "-R", "donlafranchi/socialus-web", "--state", "all",
+                            "--limit", "1000", "--json", "number,title,state"], capture_output=True, text=True)
+        issues = json.loads(r.stdout) if r.returncode == 0 else None
+        for p in sorted(glob.glob("planning/scenario-F*.md")):
+            f = os.path.basename(p)[9:13]
+            if not any(l.strip() == "gates: launch" for l in read_lines(p)[:15]):
+                continue
+            if issues is None:
+                print(f"- **{f}** · not checked — `gh` could not read Issues"); continue
+            mine = [i for i in issues if re.match(rf"{f}\b", i["title"])]
+            st = status_of(f)
+            print(f"- **{f}** ({st}) · " + (", ".join(f"#{i['number']} {i['state'].lower()}" for i in mine) if mine
+                  else "**no Issue**" + (" — approved and gating launch with nothing to build from" if st in ("approved", "building") else "")))
         return
 
     print(__doc__, file=sys.stderr)
