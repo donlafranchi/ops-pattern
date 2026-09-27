@@ -34,7 +34,7 @@ import datetime, json, os, re, subprocess, sys
 MODE, CODE = os.environ["MODE"], os.environ["CODE"]
 OWNERS = ("don", "cowork", "code")
 ANY = re.compile(r"\[open[- ]?question", re.I)
-FULL = re.compile(r"\[open-question owner=(\w+) raised=([0-9-]+)\]")
+FULL = re.compile(r"\[open-" r"question owner=(\w+) raised=([0-9-]+)\]")
 TODAY = datetime.date.today()
 
 def check(path, n, line):
