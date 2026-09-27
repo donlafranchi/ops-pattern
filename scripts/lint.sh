@@ -113,15 +113,15 @@ done
 #    repo it never really checked.
 fx=scripts/fixtures/markers
 mk() { MARKERS_PLANNING="$fx/planning" python3 scripts/markers.py "$@"; }
-EXPECT_BAD=20 EXPECT_RISKS=4 EXPECT_SUP=12
+EXPECT_BAD=19 EXPECT_RISKS=4 EXPECT_REP=8
 got=$(mk lint "$fx/open-question-bad.md" "$fx/guards-bad.md" "$fx/binds-bad/DECISIONS.md" | grep -c '^markers:')
 [ "$got" -eq "$EXPECT_BAD" ] || { echo "lint: marker checker is inert — rejected $got of $EXPECT_BAD bad fixture lines"; fail=1; }
 got=$(mk risks "$fx/risks-bad" | grep -c '^markers:')
 [ "$got" -eq "$EXPECT_RISKS" ] || { echo "lint: accepted-risk checker is inert — rejected $got of $EXPECT_RISKS bad fixtures"; fail=1; }
-got=$(MARKERS_PLANNING="$fx/supersede-bad/planning" python3 scripts/markers.py lint "$fx/supersede-bad/DECISIONS.md" | grep -c '^markers:')
-[ "$got" -eq "$EXPECT_SUP" ] || { echo "lint: supersede checker is inert — rejected $got of $EXPECT_SUP bad fixtures"; fail=1; }
-MARKERS_PLANNING="$fx/supersede-good/planning" python3 scripts/markers.py lint "$fx/supersede-good/DECISIONS.md" >/dev/null ||
-  { echo "lint: supersede checker rejects the good fixture"; fail=1; }
+got=$(MARKERS_PLANNING="$fx/replaces-bad/planning" python3 scripts/markers.py lint "$fx/replaces-bad/DECISIONS.md" | grep -c '^markers:')
+[ "$got" -eq "$EXPECT_REP" ] || { echo "lint: replaces/evidence checker is inert — rejected $got of $EXPECT_REP bad fixtures"; fail=1; }
+MARKERS_PLANNING="$fx/replaces-good/planning" python3 scripts/markers.py lint "$fx/replaces-good/DECISIONS.md" >/dev/null ||
+  { echo "lint: replaces/evidence checker rejects the good fixture"; fail=1; }
 mk lint "$fx/good.md" "$fx/binds-good/DECISIONS.md" >/dev/null && mk risks "$fx/risks-good" >/dev/null ||
   { echo "lint: marker checker rejects a good fixture"; fail=1; }
 if ! out="$(python3 scripts/markers.py lint)"; then

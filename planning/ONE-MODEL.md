@@ -84,6 +84,6 @@ Seeded content is 16 items. **Confirm the real row count against production befo
 **Is F074 the right vehicle?** **Partly.** F074 *"A series repeats"* is the right scenario for the member-facing behaviour, and F075 *"An occurrence is cancelled"* is its necessary sibling — a series with no way to cancel one instance is not usable. **But F074 is `draft` and sits behind F072 and F073 in a chain none of which is approved.** Two things to weigh:
 
 - **The rotation process is infrastructure, not a member-facing story**, and scenarios are member-facing. It may belong as a chore alongside F074 rather than inside it.
-- **F073 ("a post with a time is an event") is the real prerequisite** and is also draft. Approving F074 without it approves the roof before the walls.
+- **F072, which absorbed "a post with a time is an event", is the real prerequisite.** Approving F074 without it approves the roof before the walls.
 
-**Recommendation: approve F072 and F073 first, keep F074 as the vehicle for recurrence, and open the rotation process as its own chore.** The column is small; the rotation is the part that will be forgotten.
+**Recommendation: approve F072 first, keep F074 as the vehicle for recurrence, and open the rotation process as its own chore.** The column is small; the rotation is the part that will be forgotten.

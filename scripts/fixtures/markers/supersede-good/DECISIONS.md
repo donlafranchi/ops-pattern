@@ -1,4 +1,0 @@
-- **2026-09-27 — Newer whole.** [binds tiers=code surfaces=x] [supersedes 2026-09-02: Older whole]
-- **2026-09-27 — Newer part.** [binds tiers=code surfaces=x] [supersedes-part 2026-09-01: Older part] [supersedes-part F991.2] [supersedes-part F991 story]
-- **2026-09-02 — Older whole.** [superseded-by 2026-09-27: Newer whole]
-- **2026-09-01 — Older part.** [superseded-in-part-by 2026-09-27: Newer part]

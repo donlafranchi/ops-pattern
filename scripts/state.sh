@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Emits the facts WHERE-IT-IS.md's working lists are built from.
+# Emits the facts STATUS.md is built from.
 # Judgement sections are NOT produced here — see process/LIVING-DOCS.md.
 #
 # Usage: bash scripts/state.sh [path-to-socialus-web]   (default ../socialus-web)
@@ -12,7 +12,7 @@ fail=0
 note() { printf '%s\n' "$*"; }
 
 # ---------------------------------------------------------------- guard rails
-# Four checks encoded from mistakes made building WHERE-IT-IS.md by hand.
+# Four checks encoded from mistakes made building a status read by hand on 2026-09-15.
 # See socialus-web #96.
 
 # 1. Never read an unfetched checkout.

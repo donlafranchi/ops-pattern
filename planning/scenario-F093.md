@@ -51,12 +51,6 @@ So the body goes, entirely. **There is no excerpt, no first line, no character-t
 
 ### What this changes in F059
 
-**Criterion 2b's closing clause is superseded.** It reads today:
-
-> 2b. **Signed in, Browse also carries what is that person's own** — announcements from Pages they follow, and things coming up. This content is **not** tucked away in the member's own area. **Signed out, it is absent**, and the rest of Browse is unchanged.
-
-**"Signed out, it is absent" remains true and is about the following-derived row** — that row still requires a member and still resolves to nothing without one. **"and the rest of Browse is unchanged" is now false** and should read: *and the rest of Browse carries its Pages unchanged and its announcements in withheld form (F093).*
-
 **Criterion 2 — *"complete: nothing is withheld that the reader is entitled to see"* — still holds**, and is worth restating rather than amending: what changed is entitlement, not completeness. **Criterion 4's *what's on today* lens needs its own answer** — a time lens over announcements a signed-out reader cannot read has nothing to order by. Either it is a signed-in lens or it shows Pages with something on. **That is not ruled here and is not this scenario's job.** The **newcomers lens is unaffected**, which matters, because F059 calls it load-bearing for supply.
 
 ## Not this
