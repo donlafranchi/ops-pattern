@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-28 · 00:33 UTC
+> ## Generated 2026-09-28 · 20:05 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -13,7 +13,7 @@
 > `bash scripts/status.sh`.
 >
 > **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
-> `6d8144f` (2026-09-27); `accepted-risks/*.json`;
+> `19109a1` (2026-09-27); `accepted-risks/*.json`;
 > `planning/scenario-*.md` frontmatter; `ROADMAP.md`.
 >
 > **Answers "where is this project", not "what tickets exist."** The ticket
@@ -47,12 +47,12 @@ branch or a commit.
 - #222 F081 · One signup for everyone: four fields, and the zip sets the metro
 - #223 F082 · One self-attestation before a first Page, selling and hosting alike
 
-**80 PRs merged in the last fortnight.** The newest five:
+**81 PRs merged in the last fortnight.** The newest five:
+- #230 2026-09-28 F093 · T172 · One withheld announcement card per Page, with its photo
 - #229 2026-09-28 chore · lint ops-pattern markers; mark F093's checks
 - #227 2026-09-28 bug · #178 a member marked private is not handed to a stranger
 - #226 2026-09-27 bug #224, #225: the migration gate names the right direction; the Page-ID test stops flaking
 - #218 2026-09-26 F093/T171: signed out sees that an announcement exists, not what it says
-- #217 2026-09-26 change #216: the waitlist count comes back, cached, and metros sort by it
 
 ### Needs a look — not a claim that anything is wrong
 
@@ -104,18 +104,18 @@ counts. Each row needs a look, not a close.*
 ## What CI last said
 
 - **`deploy-health.yml`** — success, 2026-09-28
-  - Ontology declarations still match the code: success
   - Database reachable from the deployment: success
+  - Ontology declarations still match the code: success
 - **`ci.yml`** — success, 2026-09-28
-  - Unit tests: success
   - Lint, types, build: success
+  - Unit tests: success
   - Migrations applied to production: skipped
 
 ## Measured, not estimated
 
 - Copy: 584 strings across 118 files — source `docs/copy-inventory.md` on origin/main
 - Routes on origin/main: 23
-- Migrations on origin/main: 57
+- Migrations on origin/main: 58
 
 ## Deferred on purpose — and therefore easy to forget
 
@@ -196,7 +196,7 @@ and files on main, and branches. Frontmatter is a claim; this is the evidence.
 - **F060** · 0 commits on main · 5 files naming it · 0 branches
 - **F061** · 0 commits on main · 12 files naming it · 0 branches
 - **F069** · **nothing in the code names it** — no commit, file or branch
-- **F070** · 6 commits on main · 14 files naming it · 1 branch
+- **F070** · 6 commits on main · 14 files naming it · 0 branches
 
 ## Gating launch — does each have an Issue?
 
