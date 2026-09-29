@@ -63,7 +63,7 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 
 ## Retire
 
-- **Person** ○ — account delete.
+- **Person** ○ — account delete. [platform store=account-deletion gap: no path exists; `members.deleted_at` is never set, and nothing calls the auth deletion]
 - **Page** ○
 - **Gathering** ○
 - **Product / Service** ○

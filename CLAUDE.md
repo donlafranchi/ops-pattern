@@ -37,13 +37,14 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 
 ## Generated files
 
-`STATUS.md`, `README.md` and `constraints/` are written by scripts and **committed by a workflow, not by a person**. A hand-edit to either is lost on the next run.
+`STATUS.md`, `README.md`, `constraints/` and `PLATFORM-*.md` are written by scripts and **committed by a workflow, not by a person**. A hand-edit to either is lost on the next run.
 
 | File | Written by | Runs |
 |---|---|---|
 | `STATUS.md` | `scripts/status.sh`, wrapping `scripts/state.sh` and `scripts/markers.py` | `.github/workflows/status.yml` — push to `main`, daily 13:05 UTC, and *Actions → status → Run workflow*, which works from a phone |
 | `README.md` | `scripts/view.sh` | the same workflow |
 | `constraints/planning.md`, `constraints/code.md` | `python3 scripts/markers.py constraints` | by hand after a `DECISIONS.md` change — `scripts/lint.sh` fails until it is run |
+| `PLATFORM-IOS.md`, `PLATFORM-ANDROID.md` | `python3 scripts/markers.py platform`, from `[platform …]` markers | by hand after a marker changes — `scripts/lint.sh` fails until it is run |
 
 **Nothing here asks you to remember to run anything.** A skill for this was written and never installed, so it never ran once and `STATUS.md` went stale naming the wrong launch blocker — the whole point is that the refresh does not depend on anyone thinking of it (lesson 27, and lesson 15 before it). To refresh by hand anyway: `bash scripts/status.sh`.
 
