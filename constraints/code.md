@@ -35,3 +35,4 @@
 - **2026-09-21** · copy, model — Announcement is the word everywhere: in the model, in the docs, and in the product
 - **2026-09-21** · copy, model — `Bulletin` is refused as a noun: it named a delivery mode, not a thing
 - **2026-09-18** · explore, signed-out — Signed out is read-only: anything that touches another person requires an account
+- **2026-09-29** · rls — `member_public_group_memberships` is a defect, not accepted risk: a stranger may not read it
