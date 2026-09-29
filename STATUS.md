@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-29 · 15:59 UTC
+> ## Generated 2026-09-29 · 16:04 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -66,7 +66,6 @@ branch or a commit.
 counts. Each row needs a look, not a close.*
 
 - **#84 open, but T159 appears on main** — chore · T159 is two different tickets — renumber one in ops-pattern
-- **#53 open, but T156 appears on main** — F059 · T156 · Browse renders Pages
 - **#52 open, but T155 appears on main** — F059 · T155 · Feed vantage point becomes a metro
 - **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
 - **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
@@ -109,7 +108,7 @@ counts. Each row needs a look, not a close.*
 
 ## What CI last said
 
-- **`deploy-health.yml`** — success, 2026-09-29
+- **`deploy-health.yml`** — success, 2026-09-22
   - Database reachable from the deployment: success
   - Ontology declarations still match the code: success
 - **`ci.yml`** — success, 2026-09-29
