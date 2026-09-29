@@ -4,3 +4,4 @@ Every marker below must pass.
 A mention in backticks is not a marker: `[open-question owner=<who> raised=<date>]`.
 [guards F999.1] the check above discharges it
 `[guards F998.1]` in backticks is a mention
+[guards F999.2 partial: the copy on the card is not checked] a check that covers half of a criterion

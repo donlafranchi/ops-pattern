@@ -1,2 +1,5 @@
-- **2026-09-27 — Binds both.** [binds tiers=planning,code surfaces=explore,signup]
+- **2026-09-27 — Binds both, and nothing to build.** [binds tiers=planning,code surfaces=explore,signup build=none]
 - **2026-09-27 — Binds nothing.** [binds tiers=none]
+- **2026-09-27 — Binds code and names its Issue, `socialus-web` #12.** [binds tiers=code surfaces=rls]
+- **2026-09-27 — Binds code and names the scenario that builds it, F999.** [binds tiers=code surfaces=explore]
+- **2026-09-27 — Binds how code agents work; there is nothing to build.** [binds tiers=code surfaces=process build=none]

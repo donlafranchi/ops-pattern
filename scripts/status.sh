@@ -132,6 +132,23 @@ w("> list is `gh issue list`, which is always right; this is not a copy of it.")
 w()
 w(f"Launch **{launch:%Y-%m-%d}**, one metro. {(launch - today).days} days out.")
 
+# Headline counts from the markers, so what is unverified is a number up here and not silence below.
+_code = ["--code", os.environ["STATUS_CODE"]] if os.environ.get("STATUS_CODE") else []
+_cov = subprocess.run(["python3", "scripts/markers.py", "coverage", "--count"] + _code, capture_output=True, text=True)
+if _cov.returncode == 0 and _cov.stdout.split():
+    un, of = _cov.stdout.split()[:2]
+    w()
+    w(f"**{un} of {of} approved and building scenarios are unverified** — no check is marked as discharging any")
+    w("of their criteria. Unmarked is unverified, not verified. § Guard coverage.")
+else:
+    unverified.append("**The unverified-scenario count** — `markers.py coverage --count` failed.")
+_gaps = dict(l.split() for l in subprocess.run(["python3", "scripts/markers.py", "platform", "--gaps"],
+                                               capture_output=True, text=True).stdout.splitlines() if l.strip())
+if _gaps:
+    w()
+    w(f"**Native apps: {_gaps.get('ios', '?')} gaps for iOS, {_gaps.get('android', '?')} for Android** — "
+      "`PLATFORM-IOS.md`, `PLATFORM-ANDROID.md`.")
+
 # ------------------------------------------------------------------ scenarios
 counts, building = {}, []
 for f in sorted(glob.glob("planning/scenario-F*.md")):

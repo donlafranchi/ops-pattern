@@ -47,15 +47,16 @@ for f in planning/scenario-*.md; do
   fi
 done
 
-# 2. Root .md files are only the five listed here, plus README.md (generated
-#    by scripts/view.sh — never hand-edited, so it's not link-checked below).
-allowed="CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md IMAGINE.md README.md"
+# 2. Root .md files are only the five listed here, plus the generated ones —
+#    README.md (scripts/view.sh) and PLATFORM-*.md (scripts/markers.py platform),
+#    never hand-edited, so not link-checked below.
+allowed="CLAUDE.md STATUS.md ROADMAP.md DECISIONS.md IMAGINE.md README.md PLATFORM-IOS.md PLATFORM-ANDROID.md"
 for f in *.md; do
   [ -f "$f" ] || continue
   case " $allowed " in
     *" $f "*) ;;
     *)
-      echo "lint: root .md outside the five (+ generated README.md) — $f"
+      echo "lint: root .md outside the five (+ generated README.md, PLATFORM-*.md) — $f"
       fail=1
       ;;
   esac
@@ -106,14 +107,15 @@ for hit in $(grep -roE '\[[a-z][a-z0-9]*(-[a-z0-9]+)+\]' --include='*.md' --excl
 done
 
 # 5. Markers (process/LIVING-DOCS.md): open
-#    questions, guard claims, decision bindings, accepted-risk dates, and the
-#    generated files they build. The checker proves itself first, every run
+#    questions, guard claims (full or partial), decision bindings and whether a
+#    code-binding ruling names its work, platform needs, accepted-risk dates, and
+#    the generated files they build. The checker proves itself first, every run
 #    ([guard-proves-itself]): it must reject every bad fixture and pass every
 #    good one, or it is inert and this lint fails rather than reporting a clean
 #    repo it never really checked.
 fx=scripts/fixtures/markers
 mk() { MARKERS_PLANNING="$fx/planning" python3 scripts/markers.py "$@"; }
-EXPECT_BAD=20 EXPECT_RISKS=4 EXPECT_REP=8
+EXPECT_BAD=26 EXPECT_RISKS=4 EXPECT_REP=8 EXPECT_PLAT=10
 got=$(mk lint "$fx/open-question-bad.md" "$fx/guards-bad.md" "$fx/binds-bad/DECISIONS.md" "$fx/gating-bad/scenario-F998.md" | grep -c '^markers:')
 [ "$got" -eq "$EXPECT_BAD" ] || { echo "lint: marker checker is inert — rejected $got of $EXPECT_BAD bad fixture lines"; fail=1; }
 got=$(mk risks "$fx/risks-bad" | grep -c '^markers:')
@@ -122,6 +124,14 @@ got=$(MARKERS_PLANNING="$fx/replaces-bad/planning" python3 scripts/markers.py li
 [ "$got" -eq "$EXPECT_REP" ] || { echo "lint: replaces/evidence checker is inert — rejected $got of $EXPECT_REP bad fixtures"; fail=1; }
 MARKERS_PLANNING="$fx/replaces-good/planning" python3 scripts/markers.py lint "$fx/replaces-good/DECISIONS.md" >/dev/null ||
   { echo "lint: replaces/evidence checker rejects the good fixture"; fail=1; }
+got=$(mk lint "$fx"/platform-bad/product/*.md "$fx"/platform-bad/planning/*.md | grep -c '^markers:')
+[ "$got" -eq "$EXPECT_PLAT" ] || { echo "lint: platform marker checker is inert — rejected $got of $EXPECT_PLAT bad fixtures"; fail=1; }
+mk lint "$fx"/platform-good/product/*.md "$fx"/platform-good/planning/*.md >/dev/null ||
+  { echo "lint: platform marker checker rejects the good fixture"; fail=1; }
+cov=$(MARKERS_SOURCES="$fx/good.md" mk coverage F999; MARKERS_SOURCES="$fx/good.md" mk coverage --summary F999)
+echo "$cov" | grep -q '^- \*\*1\*\* — \[' && echo "$cov" | grep -q '^- \*\*2\*\* — \*\*partial\*\*' &&
+  echo "$cov" | grep -q '1 of 2 covered · \*\*partial: 2\*\*' ||
+  { echo "lint: coverage map is inert — it does not tell a partial claim from a full one"; fail=1; }
 mk lint "$fx/good.md" "$fx/binds-good/DECISIONS.md" >/dev/null && mk risks "$fx/risks-good" >/dev/null ||
   { echo "lint: marker checker rejects a good fixture"; fail=1; }
 if ! out="$(python3 scripts/markers.py lint)"; then

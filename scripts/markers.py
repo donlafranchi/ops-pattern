@@ -6,7 +6,11 @@ inline markers and one file field:
 
   `[open-question owner=<don|cowork|code> raised=YYYY-MM-DD] question` where raised -> STATUS.md
   `[guards F093.4]` on the check that discharges F093 criterion 4                 -> coverage map
+  `[guards F093.4 partial: what it leaves unchecked]` on a check that covers part of one
   `[binds tiers=<planning,code|none> surfaces=<a,b>]` ending a DECISIONS.md line  -> constraints/<tier>.md
+      one that binds code names its Issue (#N), its scenario (F###), or says `build=none`
+  `[platform <need>[=<topic>][ gap]: what and why]` in product/, a scenario, or DECISIONS.md
+      `[platform none]` in a scenario that needs nothing native      -> PLATFORM-IOS.md, PLATFORM-ANDROID.md
   `[replaces 2026-09-22: exact old text]`, `[replaces F059: exact old text]`, `[replaces path.md]`
       on a DECISIONS.md line that supersedes something; the old text must be gone and in git
   `[evidence YYYY-MM-DD from=<source>: what was seen]` on a decision a user's action or words changed
@@ -20,6 +24,7 @@ inline markers and one file field:
   python3 scripts/markers.py constraints [--check]    # write, or diff, constraints/*.md
   python3 scripts/markers.py building [--code DIR]    # is `building` backed by code?
   python3 scripts/markers.py gating                   # does every gating scenario have an Issue?
+  python3 scripts/markers.py platform [--check]       # write, or diff, PLATFORM-*.md
 
 A marker inside backticks is a mention, not a marker. `--code` defaults to a
 socialus-web checkout beside this repo, read at CODE_REF (origin/main).
@@ -45,15 +50,21 @@ ANY = {
     "binds": re.compile(B + r"binds?(?=[\s\]])", re.I),
     "rep": re.compile(B + r"(replac\w*|supersed[\w-]*)", re.I),
     "ev": re.compile(B + r"evidence\b", re.I),
+    "plat": re.compile(B + r"platforms?\b", re.I),
 }
 LIST = r"[a-z0-9-]+(?:,[a-z0-9-]+)*"
 FULL_OQ = re.compile(B + OQ + r" owner=(\w+) raised=([0-9-]+)\]")
-FULL_GUARDS = re.compile(B + r"guards (F\d{3})\.(\d+[a-z]?)\]")
-FULL_BINDS = re.compile(B + r"binds tiers=(" + LIST + r")(?: surfaces=(" + LIST + r"))?\]")
+FULL_GUARDS = re.compile(B + r"guards (F\d{3})\.(\d+[a-z]?)(?: partial: ([^\]]+?))?\]")
+FULL_BINDS = re.compile(B + r"binds tiers=(" + LIST + r")(?: surfaces=(" + LIST + r"))?(?: (build=none))?\]")
+FULL_PLAT = re.compile(B + r"platform (?:(none)|([a-z]+)(?:=([a-z-]+))?( gap)?: ([^\]]+?))\]")
 FULL_REP = re.compile(B + r"replaces (?:(none)|(\d{4}-\d{2}-\d{2}|F\d{3}): ([^\]]+?)|([\w./-]+\.md))\]")
 FULL_EV = re.compile(B + r"evidence (\d{4}-\d{2}-\d{2}) from=(\S+): ([^\]]+?)\]")
 CLAIM = re.compile(r"\b(revers(e|es|ed|ing)|replac(e|es|ed|ing)|supersed(e|es|ed|ing)|overrul\w*)\b", re.I)
+PLATFORM_FROM = datetime.date(2026, 9, 29)  # a scenario approved on or after this carries a platform marker
 EVIDENCE_VIEW_BUILT = False  # process/LIVING-DOCS.md: deferred until the first evidence tag lands
+# What a screen or capability can need from a native platform. One list; each platform's view maps it.
+NEEDS = ("push", "link", "camera", "photos", "location", "background", "auth", "key", "store")
+STORE = ("account-deletion", "sign-in", "ugc", "age-rating", "privacy", "payments")
 DECISION = re.compile(r"^- \*\*(\d{4}-\d{2}-\d{2}) — (.+?)\*\*")
 
 
@@ -91,8 +102,26 @@ def parse_line(path, line):
     for m in ANY["guards"].finditer(bare):
         f = FULL_GUARDS.match(bare, m.start())
         if not f:
-            yield "guards", False, "not `[guards F###.N]` — one scenario criterion per marker"; continue
+            yield "guards", False, "not `[guards F###.N]` or `[guards F###.N partial: what it leaves unchecked]` — one criterion per marker"; continue
         yield "guards", True, f.groups()
+    for m in ANY["plat"].finditer(bare):
+        f = FULL_PLAT.match(bare, m.start())
+        if not f:
+            yield "plat", False, "not `[platform <need>[=<topic>][ gap]: what and why]` or `[platform none]`"; continue
+        none, need, topic, gap, _ = f.groups()
+        text = line[f.start(5):f.end(5)] if not none else None  # the detail keeps its code spans
+        scen = os.path.basename(path).startswith("scenario-")
+        if not (scen or os.path.basename(path) == "DECISIONS.md" or "product/" in path):
+            yield "plat", False, "a platform marker lives on a spine entry in product/, a scenario, or a DECISIONS.md line"; continue
+        if none:
+            yield ("plat", True, None) if scen else ("plat", False, "`[platform none]` is a scenario's assessment — the spine marks only what is needed"); continue
+        if need not in NEEDS:
+            yield "plat", False, f"need {need} is not one of {', '.join(NEEDS)}"; continue
+        if (need == "store") != bool(topic):
+            yield "plat", False, f"store names one topic ({', '.join(STORE)}); no other need takes one"; continue
+        if topic and topic not in STORE:
+            yield "plat", False, f"store topic {topic} is not one of {', '.join(STORE)}"; continue
+        yield "plat", True, (need, topic, bool(gap), text.strip())
     for m in ANY["binds"].finditer(bare):
         f = FULL_BINDS.match(bare, m.start())
         if not f:
@@ -102,13 +131,13 @@ def parse_line(path, line):
         if os.path.basename(path) != "DECISIONS.md":
             yield "binds", False, "a binds tag lives on a DECISIONS.md line and nowhere else"; continue
         if tiers == ["none"]:
-            yield "binds", True, ([], surfaces); continue
+            yield "binds", True, ([], surfaces, False); continue
         bad = [t for t in tiers if t not in TIERS]
         if bad:
             yield "binds", False, f"tier {', '.join(bad)} is not one of {', '.join(TIERS)} (or none)"; continue
         if not surfaces:
             yield "binds", False, "a decision that binds a tier names the surfaces it binds"; continue
-        yield "binds", True, (tiers, surfaces)
+        yield "binds", True, (tiers, surfaces, bool(f.group(3)))
     dec = os.path.basename(path) == "DECISIONS.md"
     for m in ANY["rep"].finditer(bare):
         f = FULL_REP.match(bare, m.start())
@@ -202,7 +231,7 @@ def status_of(fid):
     return None
 
 
-def guard_referent_error(fid, crit):
+def guard_referent_error(fid, crit, partial=None):
     have = criteria(fid)
     if have is None:
         return None if ever_existed(fid) else f"{fid} is not a scenario, now or in history"
@@ -278,6 +307,106 @@ def render_constraints(tier):
     return "\n".join(o) + "\n"
 
 
+# ---------------------------------------------------------------- platform
+# The one place the two platforms differ. The markers say what a thing needs; this says what that need
+# costs on each platform. A third platform is a third column, not a third inventory.
+NATIVE = {
+    "push": ("APNs, the Push Notifications capability, a runtime permission prompt, and a server that sends.",
+             "FCM, the POST_NOTIFICATIONS runtime permission on Android 13 and later, and a server that sends."),
+    "link": ("Universal Links: `apple-app-site-association` served at `/.well-known/` on the site, plus the "
+             "Associated Domains entitlement.",
+             "App Links: `assetlinks.json` served at `/.well-known/` on the site, plus an `autoVerify` intent filter."),
+    "camera": ("`NSCameraUsageDescription` in Info.plist.", "The CAMERA permission, or hand off to the camera app with no permission."),
+    "photos": ("PHPicker needs no permission. `NSPhotoLibraryUsageDescription` is needed only for full-library access.",
+               "The system Photo Picker needs no permission. Legacy media permissions are needed only for full-library access."),
+    "location": ("`NSLocationWhenInUseUsageDescription`, and a prompt the member can refuse.",
+                 "ACCESS_COARSE_LOCATION (fine only if it is needed), and a prompt the member can refuse."),
+    "background": ("BGTaskScheduler. The OS decides when it runs, and it may never run.",
+                   "WorkManager. It is deferred under Doze."),
+    "auth": ("ASWebAuthenticationSession, returning through a Universal Link or a custom scheme. The PKCE verifier "
+             "must live in the Keychain, not a cookie.",
+             "Custom Tabs, returning through an App Link or a custom scheme. The PKCE verifier must live in "
+             "EncryptedSharedPreferences, not a cookie."),
+    "key": ("The same publishable key ships inside the app bundle and is as extractable as it is from the web bundle.",
+            "The same publishable key ships inside the APK and is as extractable as it is from the web bundle."),
+}
+STORE_RULE = {  # (iOS, Android); None means that store does not require it
+    "account-deletion": ("App Review 5.1.1(v): an app that lets people create an account must let them delete it from inside the app.",
+                         "Play User Data policy: delete the account in the app, and from a web link listed in the Play Console."),
+    "sign-in": ("App Review 4.8: an app offering a third-party sign-in such as Google must also offer Sign in with Apple, or an equivalent privacy-preserving option.",
+                None),
+    "ugc": ("App Review 1.2: an app with member content needs a filter, a way to report content, a way to block abusive members, and published contact details.",
+            "Play User-Generated Content policy: in-app reporting, a way to block users, and moderation that acts on reports."),
+    "age-rating": ("The App Store Connect age-rating questionnaire. Unrestricted member content and an open web view both raise the rating.",
+                   "The IARC content-rating questionnaire in the Play Console."),
+    "privacy": ("App Review 5.1.1(i): a privacy-policy URL in the listing and in the app, plus the App Privacy label.",
+                "A privacy-policy URL, plus the Data safety form in the Play Console."),
+    "payments": ("App Review 3.1.1: digital goods or features unlocked inside the app go through in-app purchase. Physical goods and services between people are exempt (3.1.3(e)).",
+                 "Play Payments policy: the same line, with digital goods through Play Billing."),
+}
+PLATFORMS = {"ios": ("iOS", "App Store", 0), "android": ("Android", "Google Play", 1)}
+
+
+def platform_sources():
+    files = sorted(set(glob.glob("product/**/*.md", recursive=True) + glob.glob("planning/scenario-F*.md") + ["DECISIONS.md"]))
+    return [(p, n, i) for p in files for n, i in platform_marks(p)]
+
+
+def render_platform(key):
+    name, store, col = PLATFORMS[key]
+    other = [v[0] for k, v in PLATFORMS.items() if k != key][0]
+    marks = [(p, n, i) for p, n, i in platform_sources() if i]
+    where = lambda p, n: f"[{p}]({p})"  # no line number: an edit above a marker must not stale the view
+    def item(p, n, i):
+        scen = os.path.basename(p).startswith("scenario-")
+        tag = f" · *{os.path.basename(p)[9:13]}, {status_of(os.path.basename(p)[9:13])} — decided, not built*" if scen else ""
+        return f"- {'**GAP** · ' if i[2] else ''}{i[3]} — {where(p, n)}{tag}"
+    o = [f"# PLATFORM — {name}", "",
+         "> **Generated by `python3 scripts/markers.py platform`. Never edit this file.** A hand edit is lost on the",
+         "> next run, and `scripts/lint.sh` fails whenever this file differs from what the markers generate. To",
+         "> change it, change a `[platform …]` marker where the fact is true: a spine entry in `product/`, a",
+         "> scenario, or a `DECISIONS.md` line. Pattern: `process/LIVING-DOCS.md` § Platform readiness.",
+         ">",
+         f"> **One set of markers, one view per platform.** This file and `PLATFORM-{other.upper()}.md` are built",
+         "> from the same markers and differ only in what each need costs on each platform. That mapping is a",
+         "> table in `scripts/markers.py`. Nobody keeps an inventory for either platform.", ""]
+    keys = [(p, n, i) for p, n, i in marks if i[0] == "key"]
+    o += ["## Rulings a native client inherits unchanged", "",
+          f"**A native {name} app ships the publishable key exactly as the web bundle does.** The rulings below were",
+          "written assuming a web client that hands the key to anyone, and **they apply to the app without change**.",
+          "The only boundary is what `anon` and `authenticated` may select in SQL. No app, like no component, is",
+          f"a place to enforce privacy. {NATIVE['key'][col]}", ""]
+    o += [item(*m) for m in keys] or ["None marked."]
+    gaps = [m for m in marks if m[2][2] and not (m[2][0] == "store" and STORE_RULE[m[2][1]][col] is None)]
+    o += ["", f"## Gaps: {len(gaps)}", "",
+          "What a native build or a store review needs and the code does not have today. Each is marked `gap`",
+          "where it is true; the gap is gone when its marker is.", ""]
+    o += [item(*m) for m in gaps] or ["None marked."]
+    o += ["", f"## {store} review", ""]
+    for topic, rules in STORE_RULE.items():
+        rule = rules[col]
+        mine = [m for m in marks if m[2][0] == "store" and m[2][1] == topic]
+        o.append(f"**{topic}** · " + (rule if rule else f"{store} has no such requirement; the markers below are for {other}."))
+        o += [item(*m) for m in mine] or ([f"- **NOT ASSESSED.** No marker says how this is met or that it is not."] if rule else [])
+        o.append("")
+    o += ["## By need", ""]
+    for need in NEEDS:
+        if need in ("key", "store"):
+            continue
+        mine = [m for m in marks if m[2][0] == need]
+        o.append(f"**{need}** · {NATIVE[need][col]}")
+        o += [item(*m) for m in mine] or ["- Nothing marked as needing it."]
+        o.append("")
+    scen = [os.path.basename(p)[9:13] for p in sorted(glob.glob("planning/scenario-F*.md")) if status_of(os.path.basename(p)[9:13]) in ("approved", "building")]
+    unassessed = [f for f in scen if not platform_marks(f"planning/scenario-{f}.md")]
+    o += ["## Scenarios not yet assessed", "",
+          f"**{len(unassessed)} of {len(scen)} approved and building scenarios carry no platform marker**, so what they will",
+          f"need from a native platform is unknown, not none. Every scenario approved from {PLATFORM_FROM} on must carry one;",
+          "the lint fails one that does not. The older ones are the retro-scan deferred in `process/LIVING-DOCS.md`.", "",
+          (", ".join(unassessed) or "None.")]
+    return "\n".join(o) + "\n"
+
+
 # ------------------------------------------------------------------- risks
 def risk_errors(directory="accepted-risks"):
     errs = []
@@ -296,6 +425,42 @@ def risk_errors(directory="accepted-risks"):
             errs.append((path, f"review_by {due} has passed — argue it again (a new DECISIONS.md line and a "
                                f"new date) or delete the entry"))
     return errs
+
+
+def code_ruling_error(line):
+    """A ruling that binds code and names no work is a ruling nobody will build (the identity leaks sat
+    eight days so). It names its Issue, or its scenario, or says `build=none`."""
+    bare = re.sub(B + r"[^\]]*\]", "", line)
+    if re.search(r"(?<![\w&])#\d+", bare):
+        return None
+    fids = re.findall(r"\bF\d{3}\b", bare)
+    if any(criteria(f) is not None or ever_existed(f) for f in fids):
+        return None
+    if fids:
+        return f"binds code and names {', '.join(fids)}, which never existed — name its Issue (#N)"
+    return ("binds code and names no `socialus-web` Issue (#N) or scenario (F###) — open the Issue, "
+            "or add `build=none` to the tag if it governs conduct and there is nothing to build")
+
+
+def approved_on(path):
+    for l in read_lines(path)[:15]:
+        m = re.match(r"approved:\s*(\d{4}-\d{2}-\d{2})", l)
+        if m:
+            return datetime.date.fromisoformat(m.group(1))
+    return None
+
+
+def platform_marks(path):
+    return [(n, i) for n, l in enumerate(read_lines(path), 1) for k, ok, i in parse_line(path, l) if k == "plat" and ok]
+
+
+def platform_scenario_error(path):
+    st = next((l.split(":", 1)[1].strip() for l in read_lines(path)[:12] if l.startswith("status:")), None)
+    d = approved_on(path)
+    if st in ("approved", "building") and d and d >= PLATFORM_FROM and not platform_marks(path):
+        return (f"approved {d} with no platform marker — say what it needs from a native platform, "
+                "`[platform <need>: …]`, or `[platform none]`")
+    return None
 
 
 # -------------------------------------------------------------------- lint
@@ -319,10 +484,19 @@ def lint(files):
                 if m and datetime.date.fromisoformat(m.group(1)) >= BINDS_FROM:
                     if not any(k == "binds" for k, _, _ in found):
                         errs.append(f"{p}:{n}: a decision from {BINDS_FROM} on must end with a `[binds …]` tag")
+                    binds = next((i for k, ok, i in found if k == "binds" and ok), None)
+                    if binds and "code" in binds[0] and not binds[2]:
+                        err = code_ruling_error(l)
+                        if err:
+                            errs.append(f"{p}:{n}: {err}")
                     prose = re.sub(B + r"[^\]]*\]", "", blank_code_spans(l))
                     if CLAIM.search(prose) and not any(k == "rep" for k, _, _ in found):
                         errs.append(f"{p}:{n}: says it {CLAIM.search(prose).group(0).lower()} something but names nothing — "
                                     "add `[replaces …]`, or `[replaces none]` if the word is not a supersession")
+        if os.path.basename(p).startswith("scenario-"):
+            err = platform_scenario_error(p)
+            if err:
+                errs.append(f"{p}: {err}")
         if os.path.basename(p) == "DECISIONS.md":
             errs += replace_errors(p)
             if not EVIDENCE_VIEW_BUILT and any(e["evidence"] for e in decisions(p)) and p == "DECISIONS.md":
@@ -351,7 +525,11 @@ def main():
                 if not os.path.exists(path) or open(path).read() != render_constraints(tier):
                     errs.append(f"{path}: stale or missing — a decision binds this tier and the file does not "
                                 f"say so. Run `python3 scripts/markers.py constraints`")
-            for path in ["STATUS.md", "README.md"] + [f"constraints/{t}.md" for t in TIERS]:
+            for k in PLATFORMS:
+                path = f"PLATFORM-{PLATFORMS[k][0].upper()}.md"
+                if not os.path.exists(path) or open(path).read() != render_platform(k):
+                    errs.append(f"{path}: stale or missing — a platform marker changed. Run `python3 scripts/markers.py platform`")
+            for path in ["STATUS.md", "README.md"] + [f"constraints/{t}.md" for t in TIERS] + [f"PLATFORM-{v[0].upper()}.md" for v in PLATFORMS.values()]:
                 head = "\n".join(read_lines(path)[:8])
                 if head and not (re.search(r"generated", head, re.I)
                                  and re.search(r"never (hand-)?edit|hand-edit is lost", head, re.I)):
@@ -359,6 +537,26 @@ def main():
         for e in errs:
             print(f"markers: {e}")
         sys.exit(1 if errs else 0)
+
+    if mode == "platform":
+        if "--gaps" in argv:
+            for k, (name, _, col) in PLATFORMS.items():
+                print(k, sum(1 for p, n, i in platform_sources() if i and i[2]
+                             and not (i[0] == "store" and STORE_RULE[i[1]][col] is None)))
+            return
+        stale = []
+        for k, v in PLATFORMS.items():
+            path, body = f"PLATFORM-{v[0].upper()}.md", render_platform(k)
+            if (open(path).read() if os.path.exists(path) else None) != body:
+                stale.append(path)
+                if "--check" not in argv:
+                    open(path, "w").write(body)
+        if "--check" in argv:
+            for p in stale:
+                print(f"markers: {p} is stale")
+            sys.exit(1 if stale else 0)
+        print("\n".join(f"wrote {p}" for p in stale) or "platform: unchanged")
+        return
 
     if mode == "risks":
         errs = risk_errors(argv[0] if argv else "accepted-risks")
@@ -384,8 +582,11 @@ def main():
 
     code = find_code(argv)
     rows = code_lines(code)
-    sources = [((p, "local"), n, l) for p in tracked() for n, l in enumerate(read_lines(p), 1)]
+    only = os.environ.get("MARKERS_SOURCES")  # fixtures: scan these files and nothing else
+    sources = [((p, "local"), n, l) for p in (only.split() if only else tracked()) for n, l in enumerate(read_lines(p), 1)]
     gaps = []
+    if only:
+        rows = []
     if rows is None:
         gaps.append(f"the `socialus-web` code at `{CODE_REF}`" + ("" if code else " — no checkout"))
     else:
@@ -448,30 +649,46 @@ def main():
                     if e:
                         dangling.append((where, n, e))
                     else:
-                        claims.setdefault(info, []).append((where, n))
-        scen = sorted(os.path.basename(p)[9:13] for p in glob.glob("planning/scenario-F*.md"))
+                        claims.setdefault(info[:2], []).append((where, n, info[2]))
+
+        def state(f, c):
+            """covered: a check claims all of it. partial: checks claim only parts, and parts never add up."""
+            cs = claims.get((f, c), [])
+            return "covered" if any(p is None for *_, p in cs) else "partial" if cs else "unclaimed"
+
+        scen = sorted(os.path.basename(p)[9:13] for p in glob.glob(f"{PLANNING}/scenario-F*.md"))
         scen = [f for f in scen if f in wanted or (not wanted and status_of(f) in ("approved", "building"))]
+        unmarked = [f for f in scen if not any(state(f, c) != "unclaimed" for c in criteria(f) or [])]
+        if "--count" in argv:
+            print(len(unmarked), len(scen)); return
         if summary:
             print("## Guard coverage\n")
-            print("Criteria of approved and building scenarios that a check claims with a `[guards F###.N]`")
-            print("marker. **Unclaimed is not the same as untested — it means nothing says so, which under")
-            print("`[guard-proves-itself]` counts as absent.** Full map: `python3 scripts/markers.py coverage`.\n")
-            none = []
+            print(f"**{len(unmarked)} of {len(scen)} approved and building scenarios are unverified — no check is marked")
+            print("as discharging any criterion of theirs, so a contradiction in them cannot surface here.** Unmarked")
+            print("is unverified, not verified: nothing says a check exists, and under `[guard-proves-itself]` that")
+            print("counts as absent. A **partial** criterion has checks that cover only part of it, named with what")
+            print("they leave out; parts never add up to covered. Full map: `python3 scripts/markers.py coverage`.\n")
             for f in scen:
+                if f in unmarked:
+                    continue
                 cs = criteria(f) or []
-                have = [c for c in cs if (f, c) in claims]
-                if not have:
-                    none.append(f); continue
-                miss = [c for c in cs if (f, c) not in claims]
-                print(f"- **{f}** · {len(have)} of {len(cs)} claimed" + (f" · unclaimed: {', '.join(miss)}" if miss else ""))
-            if none:
-                print(f"- **No criterion claimed by any check** ({len(none)}): {', '.join(none)}")
+                by = {k: [c for c in cs if state(f, c) == k] for k in ("covered", "partial", "unclaimed")}
+                print(f"- **{f}** · {len(by['covered'])} of {len(cs)} covered"
+                      + (f" · **partial: {', '.join(by['partial'])}**" if by["partial"] else "")
+                      + (f" · unclaimed: {', '.join(by['unclaimed'])}" if by["unclaimed"] else ""))
+            if unmarked:
+                print(f"- **Unverified — no marked check at all** ({len(unmarked)}): {', '.join(unmarked)}")
         else:
             for f in scen:
                 print(f"## {f} ({status_of(f)})\n")
                 for c in criteria(f) or []:
-                    where = claims.get((f, c), [])
-                    print(f"- **{c}** — " + ("; ".join(link(w, n) for w, n in where) if where else "**no marked check**"))
+                    cs, st = claims.get((f, c), []), state(f, c)
+                    full = [(w, n) for w, n, p in cs if p is None]
+                    part = [(w, n, p) for w, n, p in cs if p is not None]
+                    if st == "unclaimed":
+                        print(f"- **{c}** — **no marked check**"); continue
+                    cells = [link(w, n) for w, n in full] + [f"{link(w, n)} (leaves out: {p})" for w, n, p in part]
+                    print(f"- **{c}** — " + ("**partial** — " if st == "partial" else "") + "; ".join(cells))
                 print()
         if dangling:
             print("\n**Markers pointing at nothing:**\n")
@@ -517,6 +734,21 @@ def main():
             st = status_of(f)
             print(f"- **{f}** ({st}) · " + (", ".join(f"#{i['number']} {i['state'].lower()}" for i in mine) if mine
                   else "**no Issue**" + (" — approved and gating launch with nothing to build from" if st in ("approved", "building") else "")))
+        # A ruling that binds code gates the code as surely as a scenario does. The lint fails one that names
+        # no Issue, scenario or `build=none`; this says whether the Issues it names exist.
+        code = [e for e in decisions() if e["binds"] and "code" in e["binds"][0]]
+        exempt = [e for e in code if e["binds"][2]]
+        print(f"\n**Rulings that bind code: {len(code)}.** Each names its Issue or scenario, or says it has nothing to build;")
+        print("the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.\n")
+        if issues is not None:
+            prs = subprocess.run(["gh", "pr", "list", "-R", "donlafranchi/socialus-web", "--state", "all", "--limit", "1000",
+                                  "--json", "number"], capture_output=True, text=True)
+            known = {i["number"] for i in issues} | {i["number"] for i in (json.loads(prs.stdout) if prs.returncode == 0 else [])}
+            for e in code:
+                gone = [n for n in map(int, re.findall(r"(?<![\w&])#(\d+)", re.sub(B + r"[^\]]*\]", "", e["line"]))) if n not in known]
+                if gone:
+                    print(f"- **{e['date']}** {e['headline'][:90]} — names {', '.join(f'#{n}' for n in gone)}, **which is no `socialus-web` Issue or PR**")
+        print(f"- **Nothing to build** ({len(exempt)}), by their own tag: " + "; ".join(f"{e['date']} {e['headline'].replace('`', '')[:60]}…" for e in exempt))
         return
 
     print(__doc__, file=sys.stderr)

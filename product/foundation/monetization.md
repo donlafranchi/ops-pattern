@@ -14,7 +14,7 @@ No venture capital, ever — an exit-aligned funder is structurally misaligned w
 
 ## Lines under consideration
 
-Voluntary/tiered member dues. Success-based producer fees (a share above a floor, or a flat fee past a threshold — earn-before-extract, stated as a business model). Services members would pay for anyway (bookkeeping, insurance pooling, bulk purchasing) where the platform's cut is the coordination it performed. Collective bargaining as a service — negotiating rates with processors/suppliers/insurers on the membership's behalf.
+Voluntary/tiered member dues. Success-based producer fees (a share above a floor, or a flat fee past a threshold — earn-before-extract, stated as a business model). Services members would pay for anyway (bookkeeping, insurance pooling, bulk purchasing) where the platform's cut is the coordination it performed. Collective bargaining as a service — negotiating rates with processors/suppliers/insurers on the membership's behalf. [platform store=payments: nothing is sold in the app today, and sales between members happen off it; dues that unlock anything in the app would fall under each store's in-app billing rule]
 
 ## Refused outright
 

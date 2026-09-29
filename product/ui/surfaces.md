@@ -62,6 +62,8 @@ owns:
 
 [open-question owner=don raised=2026-09-19] Does the collection picker widen step 3 or add a seventh step — and is the six-step composer judged as a set rather than step by step?
 
+[open-question owner=don raised=2026-09-29] Are the store apps the site in a native shell, or native screens on the same database? A) **A shell around the site** (Capacitor-style): every screen and server action works as it does today, and the work is the gaps in `PLATFORM-IOS.md`. The risk is App Review 4.2, which rejects an app that is only a repackaged website, so it needs push or another native feature to pass. B) **Native screens**: the best phone experience, but every write goes through Next server actions that write with `pg`, which a native client cannot call. Each one needs an RPC or an API route first. C) **Wait**: ship the web app on 30 October and decide after launch, with the markers keeping the list current meanwhile. *Recommend C, then A.* Nothing native is on the launch list, and A reuses everything that exists.
+
 ---
 
 ## Page routes — 25
@@ -71,12 +73,13 @@ owns:
 | Route | Surface | What it's for |
 |---|---|---|
 | `/` | Home | ● The anonymous, locality-defaulted feed. Reads `locality_feed_items` → `discoverable_items`. **Takes a place and interest tags. Takes no follow input** — see the announcement gap below. |
-| `/explore` | Browse | ● Search, kind pills, secondary filters, list/map toggle — **the pills and secondary filters are ruled out** *(2026-09-12, search is the filter)*. **A first-class surface, not a mode of Home** *(2026-09-12)* — though whether Browse keeps this address is undecided. **Indexes Items only**, and **its pill row is a ratified defect** — filtering controls move off the results surface (`design-language.md` principle 10). The surface the Pages rewrite lands on. |
-| `/auth/login` · `/auth/signup` · `/auth/password` | Auth | ● Email-first, with magic link secondary. |
+| `/explore` | Browse | ● Search, kind pills, secondary filters, list/map toggle — **the pills and secondary filters are ruled out** *(2026-09-12, search is the filter)*. **A first-class surface, not a mode of Home** *(2026-09-12)* — though whether Browse keeps this address is undecided. **Indexes Items only**, and **its pill row is a ratified defect** — filtering controls move off the results surface (`design-language.md` principle 10). The surface the Pages rewrite lands on. [platform location: the map and the metro pill ask the device for its position (`Map.tsx`, `MarketPill.tsx`); Browse must still work when the member refuses] |
+| `/auth/login` · `/auth/signup` · `/auth/password` | Auth | ● Email-first, with magic link secondary. [platform auth gap: redirects are built from `window.location.origin` and the PKCE verifier is a host-only cookie, so neither a magic link nor a Google sign-in can return to an app] [platform store=sign-in gap: Continue with Google is offered and Sign in with Apple is not] [platform store=age-rating gap: signup asks no age and states no minimum, and there are no terms] |
 | `/onboarding` | Onboarding | ● Hood and metro pick, post-signup. Idempotent re-entry. **A person currently finishes this without ever being told what the product is for** — the copy pass is Fortnight 4. |
-| `/m/[handle]` | Member | ● A Member's public surface. **The one deliberately global namespace** — the handle is the auth identity and must survive relocation. |
+| `/m/[handle]` | Member | ● A Member's public surface. **The one deliberately global namespace** — the handle is the auth identity and must survive relocation. [platform link: `/m/<handle>`, a member's public surface] |
 | `/m/[handle]/p/[slug]` · `/s/[slug]` · `/e/[slug]` | Item | ● Product / service / gathering, for Items not filed under a Page. |
-| `/p/[...slug]` | The place-scoped catch-all | ● Places, Pages, Venues, and Group-filed Items — dispatches to five resolvers. **The most load-bearing route in the app**, and the only one whose URL shape matches the naming conventions. |
+| `/p/[...slug]` | The place-scoped catch-all | ● Places, Pages, Venues, and Group-filed Items — dispatches to five resolvers. **The most load-bearing route in the app**, and the only one whose URL shape matches the naming conventions. [platform link: `/p/<state>/<city>/…`, place addresses; legacy slugs redirect to the canonical Page] |
+| `/g/[handle]` · `/g/[handle]/edit` | Page | ● **The canonical Page**, `/g/<slug>-<id>` (2026-09-21 ruling); its owner edits it at `/edit`. [platform link: `/g/<slug>-<id>`, the address every share, crawler and withheld-announcement anchor resolves to] [platform link gap: the site serves neither `apple-app-site-association` nor `assetlinks.json`, so no shared link can open an app] [platform photos: the owner picks a Page photo from the library; it is resized and re-encoded to WebP on the device, which strips its location data] [platform store=ugc: anyone signed in can report a Page, its photo hides at once, and the operator restores or removes it at `/admin/reports`] [platform store=ugc gap: announcements and member profiles cannot be reported, and no member can block another] |
 | `/you/sell` | Seller index | ● The walkthrough's destination. |
 | `/you/following` | Following | ● People / Groups / Venues, with unfollow and leave. **Management only — it lists who you follow and delivers nothing.** |
 | `/join` | Shim | ● Redirects to `/you`, or to login first. Explicitly interim; replaced `/register-vendor`. |
@@ -85,7 +88,7 @@ owns:
 
 | Route | Surface | State |
 |---|---|---|
-| `/you` | You | ◑ **The one to fix.** It renders the Sell CTA, which is live and correct. **Its own data layer queries seven tables that do not exist** — `businesses`, `user_preferences`, `supports`, `follows`, `vendor_categories`, `markets`, `market_vendors`. Consequences: the Your Market row, the follows list and the category rails are fed by dead reads, and **the "Switch to vendor mode" link is gated on a condition derived from the dead `businesses` query, so it can never render.** That gate is the only thing keeping the residue below unreachable. |
+| `/you` | You | ◑ **The one to fix.** It renders the Sell CTA, which is live and correct. **Its own data layer queries seven tables that do not exist** — `businesses`, `user_preferences`, `supports`, `follows`, `vendor_categories`, `markets`, `market_vendors`. Consequences: the Your Market row, the follows list and the category rails are fed by dead reads, and **the "Switch to vendor mode" link is gated on a condition derived from the dead `businesses` query, so it can never render.** That gate is the only thing keeping the residue below unreachable. [platform store=privacy gap: no privacy policy or terms page exists anywhere in the app] |
 
 ### Residue
 
@@ -110,7 +113,7 @@ owns:
 
 | Route | State |
 |---|---|
-| `/auth/callback` | ● Auth redirect handler |
+| `/auth/callback` | ● Auth redirect handler [platform link: `/auth/callback`, where a magic link or a Google sign-in returns] |
 | `/api/internal/auth-signup` · `/api/internal/auth-before-user-created` | ● Supabase auth hooks |
 
 **Referenced and absent:** `/api/vendor/bulletins/publish` and `/api/vendor/followers/export`. Neither 404s visibly, because neither calling surface can be reached.
@@ -124,7 +127,7 @@ owns:
 | Surface | Status | What it's for | Blocked on |
 |---|---|---|---|
 | **Announcement composer** | ○ | A creator tells followers and group members what they have upcoming — a sale, an appearance, a new item | Nothing structural. The shape is ruled: `page_posts`, members not followers as the audience. **A shell of this exists as residue and is not a head start** — no table, no endpoint. |
-| **Feed delivery of announcements** | ✕ *cut* | The announcement arriving somewhere a member will see it | **Cut from the launch list 2026-09-20** to pay for recurrence — `ROADMAP.md` § Cut. **The feed function takes no follow input.** This is the missing half, and it is larger than the composer, which is why it was the affordable thing to drop. **Not the same as gone:** announcements from followed Pages still reach a signed-in reader on Explore under F059 criterion 2b, and **that is the only reason the cut is survivable**. |
+| **Feed delivery of announcements** | ✕ *cut* | The announcement arriving somewhere a member will see it | **Cut from the launch list 2026-09-20** to pay for recurrence — `ROADMAP.md` § Cut. **The feed function takes no follow input.** This is the missing half, and it is larger than the composer, which is why it was the affordable thing to drop. **Not the same as gone:** announcements from followed Pages still reach a signed-in reader on Explore under F059 criterion 2b, and **that is the only reason the cut is survivable**. [platform push: an announcement from a Page the member follows or belongs to; nothing sends email or push today] |
 | **Page board** | ○ | Replies under an announcement — the coordination half of a group | Board increment one. One level of reply, not a tree. |
 | **Join control** | ○ | The control that lets someone join a Group | **Nothing.** The rules are specced, the handler ships, the read paths exist. **Only the control is missing** — so today a member can re-join something they left and cannot join anything else. In scope, 0.75 day, unticketed. |
 | **Response control** | ○ | A member says they are coming to an occurrence — the tap itself | Nothing structural; the noun is ruled. **No occurrence exists to respond to** — the post mechanism is upstream of it. |
