@@ -5,9 +5,9 @@
   "severity": "ERROR",
   "source": "supabase advisor / socialus-db",
   "decision": "2026-09-09",
-  "evidence": "socialus-web#36",
-  "why": "Owner-privileges projection over group_memberships (RLS is owner/co-member only). The WHERE clause is the gate; the indirection is the privacy mechanism, not a defect.",
-  "revisit_if": "the view's WHERE clause changes, or it starts selecting a column beyond slug/name/kind",
+  "evidence": "socialus-web#36; socialus-web#241",
+  "why": "NOT ACCEPTABLE AS RULED — corrected 2026-09-29. The 2026-09-09 entry called the WHERE clause the privacy mechanism, but the view projects member_id beside a Page's slug and has no direction: an anonymous caller asking by slug gets the member ids behind a Page (socialus-web#241, confirmed on production 2026-09-29). Its own revisit_if — a column beyond slug/name/kind — was met the day it was written, because member_id was always selected. Fix in progress: socialus-web#244 moves the signed-out readers off it, #245 revokes anon. Signed-in members keep it and can still read it by slug.",
+  "revisit_if": "socialus-web#245 is applied to production (then argue again for signed-in readers, or delete this entry), or 2026-10-16 passes with the view still granted to anon",
   "owner": "code",
-  "review_by": "2027-03-31"
+  "review_by": "2026-10-16"
 }
