@@ -10,6 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · monetization — Mentions of paid visibility, paid placement and advertising mechanics are deleted. No ruling takes their place
 - **2026-09-30** · business-registration, page-publish, copy — The app doesn't use legal language between members. Legal-entity information (entity type, legal entity name, state) is asked only at business registration, and only of members who have a legal entity
 - **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
 - **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism

@@ -38,7 +38,6 @@ The one thing refused, categorically: **extraction** — taking value from peopl
 6. **The platform keeps only what it needs to run.** Everything past that goes back out — see promise 1.
 
 Guidelines, a tier below promises — depart only with a dated reason in `DECISIONS.md`:
-- Visibility isn't sold by default.
 - Fees serve the platform and its members, and favour no member over another (2026-09-30).
 
 ## Still open
