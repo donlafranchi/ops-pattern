@@ -15,7 +15,7 @@ Priya wants to convene a Tuesday run. Marcus wants to sell hot sauce. Dana is st
 2. **Purpose is chosen first, from a named set**, before any other field. Nothing is pre-selected and nothing is inferred.
 3. **The words shown to the person differ by purpose** — headings, labels, buttons, and the confirmation. Opening a shop, posting a gathering and starting a group read as three different things.
 4. **The tools offered differ by purpose.** A purpose's flow omits steps its thing does not need, rather than showing them disabled or skippable.
-5. **"Shop" never names the general act.** No string outside the shop purpose calls creating a Page opening a shop, and no person reaches a shop-worded step from a non-shop purpose.
+5. **"Shop" does not name the general act.** No string outside the shop purpose calls creating a Page opening a shop, and no person reaches a shop-worded step from a non-shop purpose.
 6. **The chosen purpose gates nothing afterwards.** It selects copy and steps at creation and confers no permission, no badge, and no permanent kind — per the Page entry in `product/foundation/nouns.md`.
 
 ## Not this
@@ -26,7 +26,7 @@ Converting one Page into another — rejected outright since 2026-09-07 and stil
 
 ### What this dissolves
 
-**"Hosting requires opening a shop first" was never a missing substrate. It was a label on a door.** A 2026-09-15 read of the project named it the one awkward thing a person meets today; F060 already ticketed the entry point. This scenario makes the fix general instead of a special case for hosts.
+**"Hosting requires opening a shop first" was not a missing substrate. It was a label on a door.** A 2026-09-15 read of the project named it the one awkward thing a person meets today; F060 already ticketed the entry point. This scenario makes the fix general instead of a special case for hosts.
 
 ### Checked against what is already approved — no conflict on self-classification
 

@@ -13,13 +13,13 @@ Anonymous messaging between strangers produces vitriol — not as an edge case, 
 
 *(Don, 2026-09-12.)* Direct messaging **will** be built: between creators and their followers, and within the community. He was explicit that it carries safeguards, and equally explicit that it is not a question of whether.
 
-That changes how the rest of this document should be read. The upper rungs of the ladder below are **stated intent**, not a hypothetical the platform might refuse — the refusal option is off the table, and what remains is when, and with what protections. Nothing here designs those protections; the point is only that "we might never build this" is no longer an available answer.
+That changes how the rest of this document should be read. The upper rungs of the ladder below are **stated intent**, not a hypothetical the platform might refuse — the refusal option is off the table, and what remains is when, and with what protections. Nothing here designs those protections; the point is only that declining to build this is no longer an available answer.
 
 Unscheduled, undesigned, and nothing about it is in the launch.
 
 ## The ladder: reachability and witnessing are two different axes
 
-Messaging widens in rungs — 0 (nothing exists today) → 1 (one manager announces to opted-in members) → 2 (bounded replies) → 3 (member-initiated posts, unbounded subject) → 4 (direct messages, no witness) → 5 (reaching people who never opted in). Rungs 1–3 widen *who may speak*; rung 4 removes *who is watching*. That matters here specifically because the platform's whole enforcement model is peer pressure — visible behavior, visible consequence — and a DM has no witness. The surface most likely to carry abuse is the one the stated enforcement model doesn't reach.
+Messaging widens in rungs — 0 (nothing exists today) → 1 (one manager announces to opted-in members) → 2 (bounded replies) → 3 (member-initiated posts, unbounded subject) → 4 (direct messages, no witness) → 5 (reaching people who have not opted in). Rungs 1–3 widen *who may speak*; rung 4 removes *who is watching*. That matters here specifically because the platform's whole enforcement model is peer pressure — visible behavior, visible consequence — and a DM has no witness. The surface most likely to carry abuse is the one the stated enforcement model doesn't reach.
 
 ## What code can decide, and what only a person can
 

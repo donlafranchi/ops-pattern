@@ -1,6 +1,6 @@
 ---
 id: why-nouns
-purpose: The nouns — every entity the product has or will have, what each carries, what each deliberately does not. Spine document: every entry carries its own status and holds both horizons, what ships now and what is intended later. The future version of a noun is a status on its entry here, never a second description elsewhere.
+purpose: The nouns — every entity the product has or will have, what each carries, what each deliberately does not. Spine document: every entry carries its own status and holds both horizons, what ships now and what is intended later. The future version of a noun is a status on its entry here, not a second description elsewhere.
 layer: why
 status: active
 ---
@@ -13,7 +13,7 @@ One of two tracking documents, with `verbs.md` (what may be done to each noun). 
 
 **Status vocabulary**, used identically in `verbs.md`: **●** live (schema + working surface). **◐** substrate only (table exists, nothing reads/writes it). **○** postponed — ruled in, not scheduled. **✕** refused — deliberately absent, the reason is the entry.
 
-**Two horizons on one entry:** `● now / ○ later` — what ships and what is intended. A concept lives in exactly one place, so the later horizon is a status here, never a second description in `IMAGINE.md` or anywhere else.
+**Two horizons on one entry:** `● now / ○ later` — what ships and what is intended. A concept lives in exactly one place, so the later horizon is a status here, not a second description in `IMAGINE.md` or anywhere else.
 
 **Entry format.** One line when one line says it. When an entry has more to carry, it breaks into **labelled slots** — and the slot names are a closed set, which is what stops this file growing into prose again:
 
@@ -23,13 +23,13 @@ One of two tracking documents, with `verbs.md` (what may be done to each noun). 
 | **Later** | what it becomes, and why that is not an increment |
 | **Blocked** | the specific thing standing in the way |
 | **Trigger** | the observable fact that would move Later to Now |
-| **Never** | what the entry deliberately excludes |
+| **Won't** | what the entry deliberately excludes |
 
 No other slot names. A thing that fits none of them is either detail for a systems doc or a line for `DECISIONS.md`.
 
-## A vague term is never used by itself
+## A vague term is not used by itself
 
-**Don's ruling, 2026-09-15:** *"Item or kind or any other vague term is never to be used by itself."*
+**Don's ruling, 2026-09-15:** Item, kind, or any other vague term is not to be used by itself.
 
 **Every term on the list below must be qualified at the point of use.** Not *kind* — **Page kind** or **entry type**. Not *item* — the specific sense, always. This binds docs, scenarios, tickets, commit messages, and any code identifier read as prose.
 
@@ -42,7 +42,7 @@ No other slot names. A thing that fits none of them is either detail for a syste
 | **group** | **The `groups` table holds Pages**, while *Group* in product language means a social group. `verbs.md` records these as *"routinely blurred in older docs and different nouns with different rules."* | **social group** · **business Page** · **group membership** |
 | **follower** | `F067`: *"Today 'follower' and 'member' mean the same thing in the code."* Same row, two meanings, diverging behaviour. | **Page follower** · **group member** |
 
-**On the watch list, not yet binding:** *post* (a `page_posts` row versus the act the voice guide refuses), *state* (several columns, several meanings), and **event** — which now carries three senses: the **`event` Page kind** (a one-time gathering, ruled 2026-09-15), **a dated post** (`model.md`, F073), and **an event-log row** (`member_events`, `item_events`, `group_events`, `place_events`, and `item.published`). **The first two are the same idea at two layers and are fine; the third is unrelated and is the one to qualify — say *event-log row*, never a bare *event*.** **They are named here so the list can grow with evidence rather than with suspicion** — add one only when it has demonstrably drifted.
+**On the watch list, not yet binding:** *post* (a `page_posts` row versus the act the voice guide refuses), *state* (several columns, several meanings), and **event** — which now carries three senses: the **`event` Page kind** (a one-time gathering, ruled 2026-09-15), **a dated post** (`model.md`, F073), and **an event-log row** (`member_events`, `item_events`, `group_events`, `place_events`, and `item.published`). **The first two are the same idea at two layers and are fine; the third is unrelated and is the one to qualify — say *event-log row*, not a bare *event*.** **They are named here so the list can grow with evidence rather than with suspicion** — add one only when it has demonstrably drifted.
 
 **Prose versus identifiers.** The rule binds **prose**. **It does not rename a schema column** — `groups.kind` stays `groups.kind`, and no check may fail the build on the existing schema. An identifier is exempt where it is an identifier and bound where it is read as prose: a commit message, a comment sentence, a ticket title.
 
@@ -58,7 +58,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **Location** — a physical place (permanent, recurring-temporary, or area). No members of its own — for members, you need a social group. Detail: `../systems/location.md`.
 
-**Social group** — a named, self-selected set of people. Six Page kinds: five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) and one operate (`business`). Never auto-assigned by geography or anything else. Detail: `../systems/groups.md`.
+**Social group** — a named, self-selected set of people. Six Page kinds: five affiliate (`place`, `interest`, `practice`, `event_anchored`, `family`) and one operate (`business`). Not auto-assigned by geography or anything else. Detail: `../systems/groups.md`.
 
 ## The two sides — patron and creator *(internal vocabulary)*
 
@@ -66,7 +66,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **These are our words for talking about the product, not the product's words for talking to a member.** A creator is someone who publishes something other people show up for — sells, hosts, organizes. A patron is everyone on the other side. Use them freely in these docs, in scenarios, in tickets, in conversation.
 
-**Never rendered in a user-facing string.** *(Restores `role-language.md`'s rule: no person-noun in front of a member.)* Not in copy, not as a label under a name, not addressing a set of people. A member is addressed as **you**; a set of people is **people**, or named. Everything a person *does* is a verb — make, sell, host, offer, ask, wonder, show up, back, follow, save.
+**Not rendered in a user-facing string.** *(Restores `role-language.md`'s rule: no person-noun in front of a member.)* Not in copy, not as a label under a name, not addressing a set of people. A member is addressed as **you**; a set of people is **people**, or named. Everything a person *does* is a verb — make, sell, host, offer, ask, wonder, show up, back, follow, save.
 
 **What was actually overruled** on 2026-09-14 is narrow: the old doc refused to let *us* name the two sides at all, even internally. That refusal is gone. **Its user-facing rule stands unchanged.**
 
@@ -76,7 +76,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 *(2026-09-14, extended 2026-09-15 with the mechanical rules from `voice.md`. Twice a naming ruling has been written wider than Don made it. `LESSONS.md` 17: a rule with no hook is a wish.)*
 
-**Scope, for every rule below:** user-facing strings in `socialus-web` — JSX text nodes, and string literals reaching a rendered prop (`label`, `title`, `placeholder`, `alt`, `aria-label`, `children`). **Never** identifiers, table and column names, routes, imports, comments, test fixtures, or these planning docs. The rule is about what a member reads, not what the code calls things.
+**Scope, for every rule below:** user-facing strings in `socialus-web` — JSX text nodes, and string literals reaching a rendered prop (`label`, `title`, `placeholder`, `alt`, `aria-label`, `children`). **Not** identifiers, table and column names, routes, imports, comments, test fixtures, or these planning docs. The rule is about what a member reads, not what the code calls things.
 
 **Fails the build:**
 
@@ -86,7 +86,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 | **Em dash** | any `—` character at all | `voice.md` § Writing mechanics — "No em dashes, anywhere" |
 | **"Corner"** | `corner` as a whole word | `voice.md` — reads as forced |
 | **Corporate transitions** | `moreover · furthermore · additionally · essentially · in a world where` | `voice.md` |
-| **Bare vague term, certain cases** | `item` / `items` as an umbrella, and `kind` immediately followed by a noun it does not qualify, in **docs and prose only — never in schema identifiers** | § A vague term is never used by itself |
+| **Bare vague term, certain cases** | `item` / `items` as an umbrella, and `kind` immediately followed by a noun it does not qualify, in **docs and prose only — not in schema identifiers** | § A vague term is not used by itself |
 
 **Warns, needs a human look — the pattern is real but the false-positive rate is not zero:**
 
@@ -100,7 +100,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **Escape hatch:** a line comment naming the dated `DECISIONS.md` ruling that permits it. No ruling, no exception — that is the whole point of moving this out of prose.
 
-**Never** — a person-noun in any user-facing string, these two included. A third internal person-noun without a dated ruling. Producer, seller, maker, vendor, supporter and consumer as anything but spec words; "vendor" was removed from the product once already and is still in the code. Functional words — owner, staff, steward, host, founder — outside the scope of one Page or one gathering; they never become a profile-level identity.
+**Won't** — a person-noun in any user-facing string, these two included. A third internal person-noun without a dated ruling. Producer, seller, maker, vendor, supporter and consumer as anything but spec words; "vendor" was removed from the product once already and is still in the code. Functional words — owner, staff, steward, host, founder — outside the scope of one Page or one gathering; they don't become a profile-level identity.
 
 ## Page — the canonical definition
 
@@ -108,9 +108,9 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **A Page is the person or people behind the listing. Page is *who*; Item is *what*.** A Page holds many Items and dates over time and carries identity, a name, a face, followers.
 
-**Amended 2026-09-15, Don's direct ruling: every kind gets a Page, including a one-time gathering.** *"We can create a page for every kind. It just doesn't require all of the same tools."* What differs between kinds is the tools the Page offers, never whether it is a Page. **This overrules the earlier "no Page for a single occasion"**, whose reasoning — that browse and the map would index listings as if they were people, and a follower graph on something ephemeral is worthless — is answered by the tools differing rather than the entity differing. **The `Page is who; Item is what` framing above is disputed and unresolved; see `planning/ITEMS-QUESTION.md`. It is not retired.** Pages have varying lifespans and are created sequentially, never simultaneously — a producer who also hosts makes a second Page, never converts the first. A Page may sell, host, or both, and needs no business record to do either — the business record is a claim about the Page, not a permission.
+**Amended 2026-09-15, Don's direct ruling: every kind gets a Page, including a one-time gathering.** *"We can create a page for every kind. It just doesn't require all of the same tools."* What differs between kinds is the tools the Page offers, not whether it is a Page. **This overrules the earlier "no Page for a single occasion"**, whose reasoning — that browse and the map would index listings as if they were people, and a follower graph on something ephemeral is worthless — is answered by the tools differing rather than the entity differing. **The `Page is who; Item is what` framing above is disputed and unresolved; see `planning/ITEMS-QUESTION.md`. It is not retired.** Pages have varying lifespans and are created sequentially, not simultaneously — a producer who also hosts makes a second Page and doesn't convert the first. A Page may sell, host, or both, and needs no business record to do either — the business record is a claim about the Page, not a permission.
 
-**Three consequences:** the map's unit is the Page, not the thing filed under it — search sourdough and see the bakers, not individual loaves. One Page is one place — a two-location bakery is two Pages, which is why the map needs no cross-location grouping. A Page with no fixed place is found through the Venues it appears at, never pinned at an address it doesn't have. Anything in the past doesn't appear — time-based, automatic, no manual cleanup.
+**Three consequences:** the map's unit is the Page, not the thing filed under it — search sourdough and see the bakers, not individual loaves. One Page is one place — a two-location bakery is two Pages, which is why the map needs no cross-location grouping. A Page with no fixed place is found through the Venues it appears at, not pinned at an address it doesn't have. Anything in the past doesn't appear — time-based, automatic, no manual cleanup.
 
 **A Page's address is public if given** *(ratified 2026-09-09)* — a street address if it has a specific location, a neighbourhood otherwise; having premises decides it, not the Page kind. It's a public location, not a private one — the platform won't stop someone entering a home address, but it's shown to anyone who views the Page. The field must say so before anyone types into it.
 
@@ -138,15 +138,15 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
   - **Now** — **shipped.** `tags` and `page_tags` exist and are written by `group.activate`; `browse_feed` matches a lens on `tags.normalized` and excludes any tag whose `status` is not `visible`, so a tag taken down stops steering discovery rather than merely disappearing from display. **The only vocabulary a creator authors, and the only thing search matches.**
   - **Later** — editing tags on a live Page. **Written once, at activation** — there is no tag editing after that.
   - **Blocked** — nothing. The old blocker was report-and-takedown, and it **shipped**: `reports`, `report_decisions` and a reviewing surface are on main.
-  - **Never** — a tag that orders results, or one the platform assigns. *(The third Never — "a coarse category a creator picks alongside it" — was reversed 2026-09-19. **Collections are exactly that**, and the line is struck rather than reworded so nobody cites it. What survives it: tags stay the only vocabulary a **creator authors**, and the only thing search matches; a collection is a name the platform owns.)*
+  - **Won't** — a tag that orders results, or one the platform assigns. *(The third Won't — "a coarse category a creator picks alongside it" — was reversed 2026-09-19. **Collections are exactly that**, and the line is struck rather than reworded so nobody cites it. What survives it: tags stay the only vocabulary a **creator authors**, and the only thing search matches; a collection is a name the platform owns.)*
 - **Announcement** ● *(status corrected to live 2026-09-19; named the only word 2026-09-21)* — a Page says what is on. **One noun, one word, everywhere** — in the model, the docs and the product, with no creator-facing synonym and no per-kind vocabulary. **Its audience is a field on it, not a second noun**: public, or only people who get updates. **The post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. **Editable after posting** *(ruled 2026-09-13 — reverses the earlier no-edit rule)*; **delete still refused**; no inbox, no unread state.
   - **Now** — **shipped.** `page_posts` exists, `group.post_create` and `group.post_edit` write it, and `browse_feed` returns posts and Pages in one result set. **`group_id` is `NOT NULL`** — a post has no existence apart from its Page, which is what lets one query return both without inventing a second identity for the poster.
   - **Later** — a date, a time and its own address on a post (F072), and a series that repeats (F074, unruled). **`ends_at` does not exist** on the table; `starts_at` does, as `timestamptz`, indexed.
 - **Purchase** ○ *(2026-09-30)* — a member bought something from a business Page, confirmed by the seller, dated, with both members on it. **Not tracked yet; parked.** F077's sale half waits on it. Only the business's owners see who bought.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
-- **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
+- **Direct message** ○ — one person to another. No substrate exists at all. Not Location-scoped — the accountable-participation commitment is honoured by absence.
 - **Idea** `○` *(schema `wonder`)* — someone puts a new thing to the neighbourhood and others signal interest before it exists.
-  - **Never** — an expiry, or any conversion into another entry type *(2026-09-15, Don)*. The author creates the new Page themselves and announces or links it from the wonder.
+  - **Won't** — an expiry, or any conversion into another entry type *(2026-09-15, Don)*. The author creates the new Page themselves and announces or links it from the wonder.
   - **Now** — substrate only.
   - **Blocked** — the signalling / threshold / conversion mechanic is undesigned.
   - *The most distinctive thing in the positioning, and the hardest deferral on the list.*
@@ -157,18 +157,18 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 - **Operator** `● now / ○ later` *(status corrected 2026-09-19 — the old line said "nothing exists yet" and three things do)* — whoever can remove someone else's content.
   - **Now** — **a check, and only a check.** `src/actions/_lib/operator.ts` compares the acting member against one env var, `OPERATOR_MEMBER_ID`, and **unset means nobody** — it fails closed, because the failure mode of the alternative is the whole moderation surface open to the internet. `reports`, `report_decisions` and the reviewing surface are on main; a decision is a reversible event.
   - **Later** — delegated reviewers, which is more than one operator and therefore a real identity rather than an env var.
-  - **Never** — an operator role stored on a member. **There is still no roles table and no flag** — that part of the old line was right and survives. The singular, definite "the operator" in F058 is what the env var encodes.
+  - **Won't** — an operator role stored on a member. **There is still no roles table and no flag** — that part of the old line was right and survives. The singular, definite "the operator" in F058 is what the env var encodes.
 - **Poll** ○ — `page_posts.kind='poll'` + `page_post_options`. Deliberately separate substrate from demand signals: a poll option is a row with a foreign key; a demand signal's subject has none, by design.
 
 ## Refused, and why
 
 | Not a noun | Why |
 |---|---|
-| **Business entity** ✕ | No corporate shell between Persons and what they declare — every entry has a named human accountable for it. When a feature seems to want a corporate row: attach it to the Member or the business Group, never a shell. |
+| **Business entity** ✕ | No corporate shell between Persons and what they declare — every entry has a named human accountable for it. When a feature seems to want a corporate row: attach it to the Member or the business Group, not a shell. |
 | **Role** ✕ | Roles are verbs a Member is doing, surfaced from activity. The moment a `role` enum lands on `members`, the primitive collapses into a directory-of-types. |
 | **Follow on a product or service** ✕ | Ruled 2026-09-07 — people don't follow products. Removed as a concept, not deferred. |
 | **Location-scoped messaging or feed** ✕ | No surface addresses everyone in a place — accountable participation, honoured by absence. |
-| **Bulletin** ✕ | **A delivery mode, not a thing** *(2026-09-21, Don)*. It named one setting of an announcement's audience field — the addressed-and-pushed half — and an announcement is one noun whatever its audience. **Never a noun, an object type, or a label**, and never a creator-facing word: *Announcement* is the word everywhere, in the model, the docs and the product. Distinct from the six rejected role words, which are relations mistaken for things; this is a mode mistaken for one. The only thing ever built under the word is the retired `/you/vendor/bulletins` screen, which tracked *delivered / opened / clicked* — what `metrics.md` refuses. |
+| **Bulletin** ✕ | **A delivery mode, not a thing** *(2026-09-21, Don)*. It named one setting of an announcement's audience field — the addressed-and-pushed half — and an announcement is one noun whatever its audience. **Not a noun, an object type, or a label**, and not a creator-facing word: *Announcement* is the word everywhere, in the model, the docs and the product. Distinct from the six rejected role words, which are relations mistaken for things; this is a mode mistaken for one. The only thing ever built under the word is the retired `/you/vendor/bulletins` screen, which tracked *delivered / opened / clicked* — what `metrics.md` refuses. |
 | **Cooperative governance** ✕ | Voting and distributions are off-platform verbs (securities law, operating agreements). A business Group with multiple owner-role memberships carries the cooperative *shape* without claiming to answer whether a vote is legally binding. |
 
 **Why no Business entity, concretely:** the closest construct is a `kind='business'` Page — itself a group of Members, not a corporate record. Maya doesn't *have* a business; she's the sole owner-role member of a business Page, and what she files belongs to her. "Business name" on any surface is a business-Page label, not a separate record. This keeps the platform people-first structurally, not rhetorically, and makes cooperative formation a first-class outcome rather than a new entity type. Test for future proposals: does this give a business Page ownership of what is filed under it, or of other Pages, even indirectly? If yes, refuse.
@@ -248,4 +248,4 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 | Whether the declaration still matches the code | `scripts/ontology-drift.ts`, daily; its verdict is reported in `STATUS.md`, not re-derived here |
 | The shape of the registry at a glance | `STATUS.md` § The ontology — what is declared |
 
-**What stays here, because it is a refusal and not a link:** **the relationship surface is intentionally flat.** There is no Business that owns entries at a Location and employs Persons — see § Refused, and why. A registry can say what exists; only this file says what may never be added.
+**What stays here, because it is a refusal and not a link:** **the relationship surface is intentionally flat.** There is no Business that owns entries at a Location and employs Persons — see § Refused, and why. A registry can say what exists; only this file says what may not be added.

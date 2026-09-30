@@ -7,7 +7,7 @@ depends: []
 ---
 ## Story
 
-A newcomer to Sacramento set her home to Oak Park. Scrolling the feed Tuesday evening, she finds Thursday's run at Drake's. The card tells her "2.3 mi" — measured from a centroid she never chose, to a venue whose coordinates are approximate. It answers nothing. Instead: no mileage anywhere. The venue's real address sits on the item page, actionable — a tap opens her phone's map app with the address as destination; on the web it's a copyable string.
+A newcomer to Sacramento set her home to Oak Park. Scrolling the feed Tuesday evening, she finds Thursday's run at Drake's. The card tells her "2.3 mi" — measured from a centroid she did not choose, to a venue whose coordinates are approximate. It answers nothing. Instead: no mileage anywhere. The venue's real address sits on the item page, actionable — a tap opens her phone's map app with the address as destination; on the web it's a copyable string.
 
 ## Acceptance
 

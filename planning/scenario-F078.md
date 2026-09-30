@@ -16,7 +16,7 @@ A photo gets reported. The reporter picks a reason, and is told kindly that repo
 
 1. **Anything a member can post is reportable: photos, Pages, announcements and posts.** A submitted report triggers agent classification: category (harassment, nudity, spam, violence, children, threat of harm, other) and a confidence/severity score.
 2. **Content hides automatically when its score is at or above its metro's hide bar** — the same mechanism F058's Remove-photo control uses, triggered by the agent, not a person. *(Amended 2026-09-27: this read "the disallowed bar", with no number and no owner.)*
-3. The poster is notified immediately, in-app (never email), with the specific category, **the reason the reporter chose**, and a plain-language explanation.
+3. The poster is notified immediately, in-app (not email), with the specific category, **the reason the reporter chose**, and a plain-language explanation.
 4. The poster can submit one explanation, rebutting the reason; submitting is the only thing that creates work for a person — an unanswered takedown stays hidden and closes itself.
 5. Threat-of-harm or children-category flags text Don's phone (SMS) immediately regardless of confidence; everything else queues in a mobile review view for whenever he's free.
 6. Below the bar, nothing happens automatically — it still lands in the same queue for an unhurried look. **At the launch value nothing is below the bar.**
@@ -50,4 +50,4 @@ Don delegated what a credible threat is to Cowork. **A seventh category, not a s
 
 **We don't currently share a misusing reporter's identity with the person they reported** (Don, 2026-09-30): it would make the platform a party to a dispute between members. Three strikes is the consequence. Revisit later.
 
-**Unresolvable metro uses zero** so the fallback leans toward hiding, never toward leaving something up.
+**Unresolvable metro uses zero** so the fallback leans toward hiding, not toward leaving something up.

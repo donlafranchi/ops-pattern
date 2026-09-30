@@ -6,7 +6,7 @@ gates: launch
 date: 2026-09-14
 depends: [F076, F077]
 approved: 2026-09-14 — Don's ruling; legal name, email, zip, display name, zip suggests the metro
-amended: 2026-09-30 — Don: every US zip known before launch, an unknown one refused; the metro is the MSA; the zip is kept and changed on /you; every member is verified as a person, method open; no "we never sell" line, a placeholder about what the app is for instead. Story and criteria 1, 4 and 5 restated, 8 added.
+amended: 2026-09-30 — Don: every US zip known before launch, an unknown one refused; the metro is the MSA; the zip is kept and changed on /you; every member is verified as a person, method open; no line promising that we don't sell, a placeholder about what the app is for instead. Story and criteria 1, 4 and 5 restated, 8 added.
 ---
 ## Story
 
@@ -15,7 +15,7 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 ## Acceptance
 
 1. **Signup collects legal name, email, zip and display name, and verifies the email.** Every member is verified as a person; how is open (Why). No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently handed over only under a court order (2026-09-30).
-2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map.
+2. The zip is stored, and not rendered on any surface another member or visitor can reach — profile, listing, search, map.
 3. **The zip determines the metro**, and the screen shows the person which metro that is. **Nothing else determines it** — not IP, not a pre-filled default, not a nearest match. *(Amended 2026-09-27: this read "the zip produces a shortlist… the person selects one"; Don ruled the zip decides.)*
 4. **Nobody picks a metro at signup.** A member who moves changes their zip on `/you`, and their metro follows from it. It is not one-and-done.
 5. The screen carries a line saying what the app is for, **and no line about not selling member information.** Placeholder, Don's words ([public-is-draft]): *"This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."* It states no date, feature, or promise about the future.

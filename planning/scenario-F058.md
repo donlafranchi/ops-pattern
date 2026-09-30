@@ -19,7 +19,7 @@ Rae sees a photo on a listing that doesn't belong on a neighbourhood app. She ta
 4. Removing a photo stops every surface serving it and writes a decision row naming who decided, when, and why — the listing itself survives untouched. **The URL and the storage object are deliberately left intact, which is what makes the removal reversible.**
 5. The report is actually delivered somewhere a person reads it, not just stored in a table.
 
-6. Every decision is reversible from the item itself, at any time, by recording a new decision — never by editing or deleting the old one. The reviewer sees what happened before and who did it.
+6. Every decision is reversible from the item itself, at any time, by recording a new decision — not by editing or deleting the old one. The reviewer sees what happened before and who did it.
 
 ## Not this
 
@@ -31,7 +31,7 @@ Automated image classification or a moderation queue. Appeals, strikes, or bans.
 
 It used to read *"nulls the URL, deletes the storage object"*.
 
-**The second half was never true.** The media bucket's delete policy is `media authenticated delete own folder` (migration 039): a member may delete their own folder and nobody else's, so the operator's key cannot remove another member's object. Nothing in this project has ever deleted photo bytes.
+**The second half was not true.** The media bucket's delete policy is `media authenticated delete own folder` (migration 039): a member may delete their own folder and nobody else's, so the operator's key cannot remove another member's object. Nothing in this project has ever deleted photo bytes.
 
 **The first half is now deliberately false.** Nulling `photo_url` destroyed the URL, so there was nothing to restore a removal *to* — reversibility was not a missing feature on top of that shape, it was impossible in it. Removal now sets `photo_removed_at`, exactly as hiding sets `photo_hidden_at`, and the read path refuses both. Don's clarification: *"We actually want two buttons. And perhaps a record of what happened in order to reverse."*
 

@@ -47,7 +47,7 @@ Members become stakeholders; capital is pooled, businesses founded, resources sh
 
 ### Family 5 — Federation (the spawn boundary)
 
-13. **Federate and spawn.** A community's needs exceed what this platform should try to do — real banking, shared bookkeeping and insurance, regional intelligence. Surface: the handoff to dedicated, separate, federated platforms, connected through identity and protocol, never absorbed. This is the platform's most important architectural commitment and the answer to "what stops this from becoming Facebook" — a platform trying to do banking, insurance, and gathering coordination all at once fails at all of them.
+13. **Federate and spawn.** A community's needs exceed what this platform should try to do — real banking, shared bookkeeping and insurance, regional intelligence. Surface: the handoff to dedicated, separate, federated platforms, connected through identity and protocol, not absorbed. This is the platform's most important architectural commitment and the answer to "what stops this from becoming Facebook" — a platform trying to do banking, insurance, and gathering coordination all at once fails at all of them.
 
 ## Why this order
 

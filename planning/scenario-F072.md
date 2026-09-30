@@ -14,9 +14,9 @@ Maya's bakery has nothing to say until Thursday, when the sourdough is back. She
 ## Acceptance
 
 1. Only a Page's managing role can announce or edit it afterwards; anyone else sees no control and a direct write is refused. An edit happens **in place** and stays the same announcement. **Deleting is refused.**
-2. An announcement appears on its Page **and in browse**, reading as coming from the Page and never as a listing — no price, no buy control, no listing chrome. **One whose start time has passed stops appearing in browse, with no manual cleanup.**
-3. The composer takes an **optional date and time** and an **optional address of its own**. With a start time it is returned by a time-windowed read **to the hour, not only to the day**; with none it is still a first-class announcement and is never returned by a time-windowed read. With an address it reads as being there; with none, at its Page's location. **Times are the metro's, never the reader's and never the server's.**
-4. The composer carries **one switch for who it reaches**, defaulting to anyone. The words name the people, never a kind of post, and **neither "announcement" nor "bulletin" appears in any label.** Beside the restricted setting sits a live count of the people it would reach, and **at zero that count reads as words, never as "0".**
+2. An announcement appears on its Page **and in browse**, reading as coming from the Page and not as a listing — no price, no buy control, no listing chrome. **One whose start time has passed stops appearing in browse, with no manual cleanup.**
+3. The composer takes an **optional date and time** and an **optional address of its own**. With a start time it is returned by a time-windowed read **to the hour, not only to the day**; with none it is still a first-class announcement and is not returned by a time-windowed read. With an address it reads as being there; with none, at its Page's location. **Times are the metro's, not the reader's and not the server's.**
+4. The composer carries **one switch for who it reaches**, defaulting to anyone. The words name the people, not a kind of post, and **neither "announcement" nor "bulletin" appears in any label.** Beside the restricted setting sits a live count of the people it would reach, and **at zero that count reads as words, not as "0".**
 5. An announcement that fails to save leaves nothing behind — no half-made row on the Page, in browse, or in its Page's history.
 
 ## Not this
@@ -29,6 +29,6 @@ Maya's bakery has nothing to say until Thursday, when the sourdough is back. She
 
 **What criterion 3 still needs that does not exist.** **`timestamptz` normalises to UTC and discards the offset it was written with**, so nothing in the row remembers that seven o'clock meant seven in Sacramento. Rendering with the reader's browser zone shows a Sacramento evening as a New York night. **The metro's zone is `socialus-web` #173**, already open and unblocked; with one metro live a constant is defensible until it lands, and the column is the honest version.
 
-**Criterion 4's count is permitted and its roster is not** — Don, 2026-09-07: *a count is shown to the Page owner, never a roster of who reacted.* The open question in `verbs.md` about a Page owner seeing **who** their audience is stays open and is untouched by a count.
+**Criterion 4's count is permitted and its roster is not** — Don, 2026-09-07: *a count is shown to the Page owner*, not a roster of who reacted. The open question in `verbs.md` about a Page owner seeing **who** their audience is stays open and is untouched by a count.
 
 **The restricted setting depends on delivery, which is in `ROADMAP.md` § Cut.** It may be **visible before delivery exists, and not selectable-and-postable** — a creator who addresses forty-two people none of whom receive it has been told something untrue. At launch most Pages have nobody getting updates, so the reason shown is the true one either way. **The anyone setting is complete against what exists.**

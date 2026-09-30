@@ -7,16 +7,16 @@ depends: []
 ---
 ## Story
 
-Priya repairs bikes at weekends and has never listed anything. She opens the create flow and is told, plainly, that people near her have been looking for bike repair. She has learned something true about her neighbourhood. Meanwhile Sam searches for the same thing, finds nothing, and instead of a blank screen is told that he is not the only one — other people near him have looked for this too. **Nobody has learned anything about Priya or Sam.**
+Priya repairs bikes at weekends and hasn't listed anything. She opens the create flow and is told, plainly, that people near her have been looking for bike repair. She has learned something true about her neighbourhood. Meanwhile Sam searches for the same thing, finds nothing, and instead of a blank screen is told that he is not the only one — other people near him have looked for this too. **Nobody has learned anything about Priya or Sam.**
 
 ## Acceptance
 
 1. **A search is recorded as a term, a metro, and a month. Nothing else.** No member id, no session id, no device, no IP, no ordering or timestamp finer than the month that could re-associate a row with a person.
-2. **Nothing is shown below a floor of ten distinct members** having searched that term in that metro. The floor is a stored number, not a judgement made at read time, and **it is never lowered to make a surface less empty**.
-3. **A term is never shown if the term itself identifies someone**, whatever its count — one containing a personal name, a street address, a phone number, or matching any member's display name or handle. **The count is not the only way a person is identified.**
+2. **Nothing is shown below a floor of ten distinct members** having searched that term in that metro. The floor is a stored number, not a judgement made at read time, and **it is not lowered to make a surface less empty**.
+3. **A term is not shown if the term itself identifies someone**, whatever its count — one containing a personal name, a street address, a phone number, or matching any member's display name or handle. **The count is not the only way a person is identified.**
 4. **Trends roll up across metros.** The stored grain is one metro, but the shape supports summing across any set of them — a region, a similarity cohort, everywhere. **No drill-down narrower than a metro, ever.** *(Amended 2026-09-15 — this read "scoped to one metro, no cross-metro view, no national aggregate". Don: "we want to know all the trends everywhere… one community's trend could help a similar community.")*
-5. **What is shown is a term and a coarse band** — *a few people · dozens · more* — never an exact count, never a date. **The exact count is stored; the band is computed at read time.** Storing the band would make every rollup impossible.
-6. **The floor applies at every level that is shown, not only the top**, and a rollup is never displayed alongside a complete enumeration of its parts. See § The floor under rollup.
+5. **What is shown is a term and a coarse band** — *a few people · dozens · more* — not an exact count, not a date. **The exact count is stored; the band is computed at read time.** Storing the band would make every rollup impossible.
+6. **The floor applies at every level that is shown, not only the top**, and a rollup is not displayed alongside a complete enumeration of its parts. See § The floor under rollup.
 7. **No creator sees anything scoped to their own Page.** Not who searched for them, not who found them, not who looked and left.
 8. **The aggregates are kept indefinitely** — a count per term, per metro, per month, forever. *(Don, 2026-09-15: "Retention is forever. We want trends.")* **How long a raw row lives before it is counted and dropped is open — see below.**
 9. **Nothing here is ever sold, licensed, or shared off-platform.**
@@ -27,7 +27,7 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 
 ## Why
 
-### Why ten, and why the floor never moves
+### Why ten, and why the floor does not move
 
 **A count of one is a person. A count of two in a launch metro is very nearly one** — a metro opens at 50 creators and 250 patrons, so two searchers out of 300 is a small enough set that anyone who knows two neighbours can guess. **Ten distinct members is the smallest floor that survives that arithmetic at launch volumes.**
 
@@ -37,18 +37,18 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 
 **A consequence worth stating rather than leaving implicit.** With a short retention window, a mistake ages out — a term shown that should not have been stops being visible once its rows expire. **With aggregates kept forever, nothing ages out. Every protection has to hold on the day the row is written, because there is no second chance later.**
 
-**That raises the stakes on criterion 3 specifically** — the rule that a term identifying someone is never shown whatever its count. **It is already the criterion most likely to be dropped as an edge case, and it is now the one with the longest consequence.** A term wrongly admitted to an aggregate is admitted permanently.
+**That raises the stakes on criterion 3 specifically** — the rule that a term identifying someone is not shown whatever its count. **It is already the criterion most likely to be dropped as an edge case, and it is now the one with the longest consequence.** A term wrongly admitted to an aggregate is admitted permanently.
 
 ### Rolling up across metros — what the schema has to get right
 
 **Grain: one row per term, per metro, per month, holding an exact count.** Everything else is a sum over that.
 
-**Dimensions:** term · metro · month. A region, a similarity cohort and "everywhere" are all sets of metros, so none of them needs its own grain — **which is the point of storing at the metro and never below it.**
+**Dimensions:** term · metro · month. A region, a similarity cohort and "everywhere" are all sets of metros, so none of them needs its own grain — **which is the point of storing at the metro and not below it.**
 
 **Three things would make this painful later, and all three are cheap to avoid now:**
 
 - **Storing the display band instead of the count.** Bands cannot be summed. *A few* plus *a few* is not a band. **The count is stored, the band is a read-time function** — criterion 5.
-- **Dropping sub-threshold rows at write time.** If rows below the floor are never stored, **every rollup is silently wrong**, because it omits exactly the small metros a national trend is meant to include. **Sub-threshold rows must be stored and withheld at display, not at write.**
+- **Dropping sub-threshold rows at write time.** If rows below the floor are not stored, **every rollup is silently wrong**, because it omits exactly the small metros a national trend is meant to include. **Sub-threshold rows must be stored and withheld at display, not at write.**
 - **Normalising terms per metro.** If *bike repair* and *bicycle repair* are bucketed differently in different places, nothing sums. **One normalisation, applied once, globally.**
 
 ### The floor under rollup — sharper, not softer
@@ -56,8 +56,8 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 **A term clearing ten nationally can be two people in one metro. The floor has to survive that.**
 
 - **The floor applies at every level that is displayed.** A metro shown must clear ten in that metro. A cohort shown must clear ten in that cohort.
-- **Components below the floor are folded into an unnamed remainder and never itemised.** Not listed, not counted separately, not linkable.
-- **A rollup is never shown alongside a complete enumeration of its parts.** If a total and all but one component are visible, the missing one is arithmetic. **This is the failure that a per-level check alone does not catch**, and it is why the rule is about what appears together, not only about each number.
+- **Components below the floor are folded into an unnamed remainder and not itemised.** Not listed, not counted separately, not linkable.
+- **A rollup is not shown alongside a complete enumeration of its parts.** If a total and all but one component are visible, the missing one is arithmetic. **This is the failure that a per-level check alone does not catch**, and it is why the rule is about what appears together, not only about each number.
 
 ### A contradiction to resolve: counting distinct people without an identifier
 
@@ -85,7 +85,7 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 
 **Timing is the second half of it.** A term plus a fine-grained date plus local knowledge identifies people. Criteria 1 and 5 hold the granularity to a month and a band, which is what makes the aggregate safe rather than the count alone.
 
-### Purpose limitation — what it must never become
+### Purpose limitation — what it must not become
 
 **Don's frame, widened 2026-09-15: *"the point is to help creators create and to help our members find what they need locally"*, and *"one community's trend could help a similar community… this is for the good of all the members. We want this to grow and to help our members become creators and earn money."*** **Three purposes now, all about matching a need to a person who could meet it:** helping somebody decide what to start · helping somebody find what they need nearby · **showing somebody that a thing works elsewhere and could work here.**
 
@@ -107,7 +107,7 @@ Any per-creator dashboard. A leaderboard, a "trending" surface, or anything rank
 
 **Criterion 1 already strips a raw row of every identifier** — no member id, no session, no device, no IP, no timestamp finer than a month. **So a raw row is already almost an aggregate row.** It cannot be re-associated with a person, and the usual argument about breach surface is weaker here than it first appears.
 
-**What a raw row carries that an aggregate never does is the terms that failed the rules** — the ones below the floor of ten, and the ones criterion 3 refused because the term itself named a person, a street or a phone number. **So the honest question is narrow: do we keep, forever, the search terms that were too identifying to ever be shown?**
+**What a raw row carries that an aggregate does not is the terms that failed the rules** — the ones below the floor of ten, and the ones criterion 3 refused because the term itself named a person, a street or a phone number. **So the honest question is narrow: do we keep, forever, the search terms that were too identifying to ever be shown?**
 
 ### The case for keeping them, stated properly rather than stacked
 

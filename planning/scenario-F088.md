@@ -12,7 +12,7 @@ Dana is starting something and none of the labels are hers. She taps Other. Inst
 ## Acceptance
 
 1. **"Other" stores nothing on the Page.** No kind value, no column, no flag. It opens the explainer, and a person leaves it having picked a real kind or having created nothing.
-2. **The explainer describes each kind by what a person can do with it**, never by an internal name. **No occurrence of `community`, `business`, `event`, `family`, or any schema value appears on the page.**
+2. **The explainer describes each kind by what a person can do with it**, not by an internal name. **No occurrence of `community`, `business`, `event`, `family`, or any schema value appears on the page.**
 3. **No tool appears on the explainer that the tools mapping does not give that kind, and none the mapping does give is omitted.** The page and `product/systems/page-kind-tools.md` cannot disagree.
 4. **Both exits are one step and neither is a dead end:** pick a kind and carry on creating, or describe what is needed in the person's own words and carry on.
 5. **What is captured is one row in F064's existing signal table** — the label they typed, what they described, and which kind they picked afterwards if any — tagged with its source. **No second table is created.**

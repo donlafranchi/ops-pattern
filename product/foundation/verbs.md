@@ -1,6 +1,6 @@
 ---
 id: why-verbs
-purpose: The verb × noun matrix — what each verb may do to each noun, and what it deliberately may not. Spine document: every cell carries its own status and holds both horizons, what ships now and what is intended later. The future version of a verb is a status in this matrix, never a second description elsewhere.
+purpose: The verb × noun matrix — what each verb may do to each noun, and what it deliberately may not. Spine document: every cell carries its own status and holds both horizons, what ships now and what is intended later. The future version of a verb is a status in this matrix, not a second description elsewhere.
 layer: why
 status: active
 ---
@@ -15,7 +15,7 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 
 ### Index — the whole grid at a glance
 
-*The one thing a matrix did well. Detail is in the per-verb sections below; this is for orientation only, never for citing.*
+*The one thing a matrix did well. Detail is in the per-verb sections below; this is for orientation only, not for citing.*
 
 | | Person | Page | Gathering | Product / Service | Venue | Announcement | Idea |
 |---|---|---|---|---|---|---|---|
@@ -63,7 +63,7 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 
 ## Retire
 
-- **Person** ○ — account delete. [platform store=account-deletion gap: no path exists; `members.deleted_at` is never set, and nothing calls the auth deletion]
+- **Person** ○ — account delete. [platform store=account-deletion gap: no path exists; `members.deleted_at` is not set, and nothing calls the auth deletion]
 - **Page** ○
 - **Gathering** ○
 - **Product / Service** ○

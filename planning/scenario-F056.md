@@ -8,7 +8,7 @@ approved: 2026-09-07 — Gate A/B cleared; values statement cut per PM ruling
 ---
 ## Story
 
-Maya's shop has a name and one product, but nothing she can change once the walkthrough ends. From You, she taps Edit shop: one page, four fields — image, name, about, and a self-written "what we stand for" line the platform never sources or infers. She saves once; her public shop page updates immediately.
+Maya's shop has a name and one product, but nothing she can change once the walkthrough ends. From You, she taps Edit shop: one page, four fields — image, name, about, and a self-written "what we stand for" line the platform does not source or infer. She saves once; her public shop page updates immediately.
 
 ## Acceptance
 

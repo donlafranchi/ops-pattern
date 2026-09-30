@@ -135,12 +135,11 @@ echo "$cov" | grep -q '^- \*\*1\*\* — \[' && echo "$cov" | grep -q '^- \*\*2\*
 mk lint "$fx/good.md" "$fx/binds-good/DECISIONS.md" >/dev/null && mk risks "$fx/risks-good" >/dev/null ||
   { echo "lint: marker checker rejects a good fixture"; fail=1; }
 # The "never" lint (Don, 2026-09-30: the only approved "never" is "never extractive").
-# The checker proves itself on every run; the scan of real docs is off until Don approves
-# the rewording. Turn it on with NEVER_LINT=1.
+# The checker proves itself on every run, then scans every authored doc.
 got=$(python3 scripts/never.py scripts/fixtures/never/bad.md | grep -c '^never:')
 [ "$got" -eq 3 ] || { echo "lint: never checker is inert — rejected $got of 3 bad fixture uses"; fail=1; }
 python3 scripts/never.py scripts/fixtures/never/good.md >/dev/null || { echo "lint: never checker rejects the good fixture"; fail=1; }
-if [ "${NEVER_LINT:-0}" = "1" ] && ! out="$(python3 scripts/never.py)"; then
+if ! out="$(python3 scripts/never.py)"; then
   echo "$out" | sed 's/^/lint: /'; fail=1
 fi
 if ! out="$(python3 scripts/markers.py lint)"; then

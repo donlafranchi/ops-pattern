@@ -15,6 +15,6 @@ A place is a recognized geographic scope — region, state, county, city, neighb
 
 **Parent-scoped slug uniqueness.** A place's slug is unique under its parent, not globally — two distinct Oak Parks (a Sacramento neighborhood, an Illinois city) are two rows with different parents and neither needs a name-mangling suffix. The hierarchy carries the disambiguation so the slug stays legible.
 
-**Granularities can be skipped.** A small town's city row can parent directly to state; some neighborhoods have no universally-recognized boundary and never get their own row — their Locations anchor to the parent city. The hierarchy is variable-depth by design, not every place uses every level.
+**Granularities can be skipped.** A small town's city row can parent directly to state; some neighborhoods have no universally-recognized boundary and don't get their own row — their Locations anchor to the parent city. The hierarchy is variable-depth by design, not every place uses every level.
 
-**Distinct from the business-jurisdiction ladder.** Places are a discovery/URL surface; jurisdiction (`business-jurisdiction.md`) is an evidence surface using ZIPs, not place rows. A business Group carries both a place anchor (for its URL) and a jurisdiction tier (for its badge) — never one standing in for the other.
+**Distinct from the business-jurisdiction ladder.** Places are a discovery/URL surface; jurisdiction (`business-jurisdiction.md`) is an evidence surface using ZIPs, not place rows. A business Group carries both a place anchor (for its URL) and a jurisdiction tier (for its badge) — neither standing in for the other.

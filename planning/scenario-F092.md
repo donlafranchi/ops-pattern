@@ -16,12 +16,12 @@ Rae wants coffee this weekend. She taps the filter control beside the search box
 2. Applying dismisses the panel and writes the selection into the search box as text a person can read and retype.
 3. The results match the text in the box, whether that text was written by the panel or typed by hand.
 4. Every string the panel can write is understood by the reader of that box.
-5. Text that is not understood opens the panel. It never errors and never empties the results without saying so.
+5. Text that is not understood opens the panel. It does not error, and does not empty the results without saying so.
 6. Clearing the box clears the narrowing.
 
 ## Why
 
-**This threads design-language principle 10 rather than amending it** *(Don, 2026-09-19)*. That principle already says filtering controls live in *a filter surface, never on the results surface* — a modal is the shape it names. Criterion 1 is what keeps it honest: `ActiveFilterChips` and `KindFilterPills` ship on Explore today and are exactly the chip and pill rows the principle removed. They go with the rewrite; surviving beside the panel would make the panel a dodge.
+**This threads design-language principle 10 rather than amending it** *(Don, 2026-09-19)*. That principle already says filtering controls live in *a filter surface*, not on the results surface — a modal is the shape it names. Criterion 1 is what keeps it honest: `ActiveFilterChips` and `KindFilterPills` ship on Explore today and are exactly the chip and pill rows the principle removed. They go with the rewrite; surviving beside the panel would make the panel a dodge.
 
 **Criterion 4 is the whole risk, and it is also what makes this affordable.** The panel defines the grammar, so the parser's required input is the set of strings the panel emits, plus graceful failure. It does not have to understand prose. **A panel that writes a string its own reader cannot parse is worse than no panel** — the product would contradict itself in public.
 

@@ -14,7 +14,7 @@ status: ruled
 
 - **No geography in a canonical URL.** Metro today, neighbourhoods later, and an address must survive both.
 - **No member identity derivable from a Page URL.** A safety requirement, not tidiness.
-- **Metro, neighbourhood, state and city are indexes that forward to the canonical URL**, never alternative homes for it.
+- **Metro, neighbourhood, state and city are indexes that forward to the canonical URL**, not alternative homes for it.
 - **Metro disambiguates for humans; the ID disambiguates for the system.** Putting a metro ID in the address was considered and rejected: it reintroduces the geographic coupling just refused, it does not separate two same-named Pages *within* one metro, and it moves a Page's address when a business relocates or a boundary is redrawn. **Same-name disambiguation is a display concern** — show *"Joe's Pizza — Davis"* in search results and lens rows, and keep geography out of the address.
 
 **His two constraints, verbatim:** *"addresses/locations will evolve. we need to find a different way. right now we're using metros but one day may use neighborhoods."* and *"I'm concerned about a URL being downstream of a member. I want to keep members safe from people with bad intentions. I don't know that I like a page and a member id being in the same url."*
@@ -26,7 +26,7 @@ status: ruled
 | | |
 |---|---|
 | **Page address** | `/p/<place-path>/g/<slug>` — geography is in the canonical URL |
-| **Page identity in practice** | **`groups.slug` alone.** `resolveShop(supabase, groupSplit.groupSlug)` looks up by slug; the place segments are peeled off by `splitGroupSlug` and **never validated** |
+| **Page identity in practice** | **`groups.slug` alone.** `resolveShop(supabase, groupSplit.groupSlug)` looks up by slug; the place segments are peeled off by `splitGroupSlug` and **not validated** |
 | **Consequence** | `/p/ca/sacramento/g/mayas-bakery` and `/p/ny/albany/g/mayas-bakery` render the same Page today. Many addresses already exist, with no canonicalisation and no redirect |
 | **`groups.slug`** | `not null unique` **globally** (`014_groups.sql:51`) — so a slug-only address needs no migration to be unique |
 | **Member address** | `/m/<handle>` — members are already publicly addressable by their own handle |
@@ -49,7 +49,7 @@ status: ruled
 
 ## The tension with the ratified place rule
 
-**`nouns.md`, ratified 2026-09-09:** a Page's address is public if given — a street address where there are premises, a neighbourhood otherwise — and **the platform will not stop someone entering a home address, but it is shown to anyone who views the Page.** `model.md` says the same: *"Never a home address, and if someone enters one anyway, it is shown publicly."*
+**`nouns.md`, ratified 2026-09-09:** a Page's address is public if given — a street address where there are premises, a neighbourhood otherwise — and **the platform will not stop someone entering a home address, but it is shown to anyone who views the Page.** `model.md` says the same: if someone enters a home address anyway, *"it is shown publicly."*
 
 **Geography in the URL sharpens that from a display choice into an identifier.** A neighbourhood shown on a Page is a fact a viewer reads. **The same neighbourhood in the canonical address is carried into every link, every share, every referrer header and every log** — and `policy.md` already treats this category of combination as the doxxing vector it is, stripping GPS from uploads because *"producers often work from home."* **Removing geography from the address is coherent with a refusal already on the books**, not a new caution.
 
@@ -61,13 +61,13 @@ status: ruled
 
 ## What happens to links already shared
 
-**This is cheap today and expensive later, which is the argument for ruling now.** Launch is 2026-10-30 and no member-created Page has a working URL at all — that is #135, the bug underneath all of this. **So there is currently nothing to break.** Whichever option wins, the rule is the same: **old shapes redirect permanently to the canonical form, and are never served as a second copy of it.** The redirect is what makes the place prefix safe to keep as a courtesy segment rather than dangerous as an identifier.
+**This is cheap today and expensive later, which is the argument for ruling now.** Launch is 2026-10-30 and no member-created Page has a working URL at all — that is #135, the bug underneath all of this. **So there is currently nothing to break.** Whichever option wins, the rule is the same: **old shapes redirect permanently to the canonical form, and are not served as a second copy of it.** The redirect is what makes the place prefix safe to keep as a courtesy segment rather than dangerous as an identifier.
 
 ## The ID, specified
 
-- **Random, from a CSPRNG. Never derived** from a member id, a group id, a timestamp or a sequence. **Derivation is what would reintroduce both enumerability and the member link**, so it is the one property that is not a preference.
+- **Random, from a CSPRNG. Not derived** from a member id, a group id, a timestamp or a sequence. **Derivation is what would reintroduce both enumerability and the member link**, so it is the one property that is not a preference.
 - **Crockford base32** — digits plus letters, minus `i`, `l`, `o` and `u`. That kills the look-alike pairs (`0`/`O`, `1`/`l`/`I`) for anyone reading an address aloud, and dropping `u` blocks most accidental words.
-- **Length: recommend six, not four.** Four characters is 32⁴ ≈ 1.05M values, and a birthday collision becomes likely at roughly 1,200 Pages — which one metro reaches. Six is 32⁶ ≈ 1.07B, likely at roughly 38,000. **Generate-and-retry against a unique index either way**, so a collision is a retry and never a duplicate. *(Don's `joes-pizza-7k3x` example is four. This is the one number worth confirming: four looks better and needs retries sooner.)*
+- **Length: recommend six, not four.** Four characters is 32⁴ ≈ 1.05M values, and a birthday collision becomes likely at roughly 1,200 Pages — which one metro reaches. Six is 32⁶ ≈ 1.07B, likely at roughly 38,000. **Generate-and-retry against a unique index either way**, so a collision is a retry and not a duplicate. *(Don's `joes-pizza-7k3x` example is four. This is the one number worth confirming: four looks better and needs retries sooner.)*
 - **Case-insensitive on read, lower-case on write.**
 
 ## Slug changes, and slugs that were used before
@@ -76,7 +76,7 @@ status: ruled
 
 1. **Resolution is by ID alone.** The slug segment is read for display and ignored for lookup.
 2. **Any slug plus the correct ID resolves**, and redirects permanently to the canonical form. A stale slug in a shared link therefore keeps working forever with no bookkeeping.
-3. **So no slug-history table and no previously-used-slug reservation is needed.** Old slugs do not need reserving because they were never identity. **This is the main operational saving of the scheme and should not be re-engineered back in.**
+3. **So no slug-history table and no previously-used-slug reservation is needed.** Old slugs do not need reserving because they were not identity. **This is the main operational saving of the scheme and should not be re-engineered back in.**
 4. **`groups.slug` global uniqueness becomes meaningless and should be dropped.** With identity on the ID, a unique constraint on a cosmetic field buys nothing and creates a land-grab race over names. *(Schema change — it belongs in the architecture note, not here.)*
 5. **Reserved words are not needed for routing.** Pages live under their own segment, so a Page slugged `explore` or `admin` cannot collide with a root route.
 6. **The real new risk is impersonation, and it is a moderation matter rather than a uniqueness one.** A freely changeable slug lets someone rename a Page to mimic another; the IDs differ, but people read slugs. **This is member-contributed content that other members see, so `[member-content-takedown]` already covers it** — the report path is the answer, not a uniqueness constraint that would not have stopped it anyway.
@@ -86,7 +86,7 @@ status: ruled
 
 **State, city, metro and neighbourhood are index hierarchies.** Two rules keep them from becoming addresses again:
 
-- **An index links to canonical URLs and never renders a Page inline at an index path.** Rendering is what created the duplicate-address defect described above.
+- **An index links to canonical URLs and does not render a Page inline at an index path.** Rendering is what created the duplicate-address defect described above.
 - **An index path is free to change shape**, because nothing shared points at it. That is the whole benefit of taking geography out of the address: the metro-to-neighbourhood change Don is anticipating becomes an index rewrite with no address churn.
 
 ## What is not in scope here

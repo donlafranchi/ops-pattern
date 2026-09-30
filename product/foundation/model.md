@@ -32,11 +32,11 @@ Two things fall straight out of the test, without needing their own rule:
 
 *(Confirmed by Don, 2026-09-12.)* **A venue is an organization hosting at a Location.** Not an entity of its own, and not a kind of Page.
 
-- **The Page is justified by what the organization is**, never by the hosting. Harlow's gets one because it is a business. A farmers market gets one because it is an organization that convenes people.
+- **The Page is justified by what the organization is**, not by the hosting. Harlow's gets one because it is a business. A farmers market gets one because it is an organization that convenes people.
 - **Persistence lives on the Location, not the organization** — `locations.kind` already carries it. Harlow's is `permanent`. A market taking over a few streets on Saturday mornings is `recurring_temporary`.
 - **Hosting needs nothing new.** A venue's calendar is posts with times, which the post mechanism already gives every organization. What would justify a kind is a *booking* model — somebody asking to be on someone else's calendar — and that is coordination between two organizations, not a property of one.
 
-It follows that anything can host. A bakery that runs a book club one evening is a venue that evening and a bakery the rest of the week, with one Page throughout — which a venue kind would have broken, since a Page never converts into another Page.
+It follows that anything can host. A bakery that runs a book club one evening is a venue that evening and a bakery the rest of the week, with one Page throughout — which a venue kind would have broken, since a Page doesn't convert into another Page.
 
 **Unrecorded:** which `kind` a farmers-market-shaped organization takes. The six are place · interest · practice · event_anchored · family · business, and a market that convenes commercial vendors without selling anything itself fits none of them cleanly. Raised, not ruled.
 
@@ -55,7 +55,7 @@ Creators post pictures and edit all of it.
 - A **street address** if it has a specific location.
 - A **neighbourhood** if it doesn't.
 - Either way, findable by area on the map.
-- **The location is public.** Never a home address — and if someone enters one anyway, it is shown publicly.
+- **The location is public.** Not a home address — and if someone enters one anyway, it is shown publicly.
 
 **A post can carry its own address**, separate from its Page's. A Page appears where its Page-level location says, and a post appears where the post says — which is how an itinerant Page's event reaches the map at the place it actually happens.
 
@@ -88,7 +88,7 @@ Browse is the universal surface. It carries everything the platform holds.
 
 Good reasons exist and are not weakened by this. A member who has not opted into discoverability is not in search — that is consent, and it is recorded. A draft is not published, so there is nothing to carry. What the principle forbids is the unrecorded exclusion: a thing kept out of browse because an earlier model had no room for it, or because nobody asked.
 
-**Posts appearing in browse is an instance of this, not a separate rule.** Flat — not only the dated ones, not only the ones with a place. An earlier line said browse finds "posts that carry a date and a place"; that came from Don speaking about the map — *"You're right to include anything with a date and a location. We use a map to tell someone where to go."* **It still holds for the map**, where a post needs a place to be a pin and a time to be an event. It was read as a filter on browse, which it never was.
+**Posts appearing in browse is an instance of this, not a separate rule.** Flat — not only the dated ones, not only the ones with a place. An earlier line said browse finds "posts that carry a date and a place"; that came from Don speaking about the map — *"You're right to include anything with a date and a location. We use a map to tell someone where to go."* **It still holds for the map**, where a post needs a place to be a pin and a time to be an event. It was read as a filter on browse, which it was not.
 
 **What this does not settle.** Browse carrying everything makes a result list a mixture — a Page, an event next Saturday, an undated *"50% off today"*. **How that list reads and how it orders is open.** What is not open, and is not to be reopened, is what may enter it.
 
@@ -96,7 +96,7 @@ Good reasons exist and are not weakened by this. A member who has not opted into
 
 *(Ruled 2026-09-12, extended 2026-09-13.)* **There is no category, and no filter control.** **Search is how a finder narrows** — the only way.
 
-**A curated dictionary of search terms maps to tags, built up front.** *"Sourdough"* reaches Pages tagged *bread* or *bakery*; *"homemade soap"* reaches *soap* and *candles*. So a search returns Pages that never contain the word searched for — which is the point. At launch volumes the words a member types and the words a creator wrote will rarely be the same, and the dictionary closes that gap from the finder's side.
+**A curated dictionary of search terms maps to tags, built up front.** *"Sourdough"* reaches Pages tagged *bread* or *bakery*; *"homemade soap"* reaches *soap* and *candles*. So a search returns Pages that don't contain the word searched for — which is the point. At launch volumes the words a member types and the words a creator wrote will rarely be the same, and the dictionary closes that gap from the finder's side.
 
 **Page creators get tips on how to be found** — the same gap closed from the creator's side.
 
@@ -106,7 +106,7 @@ Good reasons exist and are not weakened by this. A member who has not opted into
 
 - **Tags are created, not picked from a fixed list, and they are public.**
 - **There is no category field a creator fills in.** The twelve are retired.
-- **If a coarse grouping is ever needed** — a map legend, an empty state — **it is derived from tags, never chosen.** The shape, not work to do now.
+- **If a coarse grouping is ever needed** — a map legend, an empty state — **it is derived from tags, not chosen.** The shape, not work to do now.
 - **"Something else" is gone**, superseded by tag creation. A creator writing a suggestion and a creator creating a tag were always the same act.
 
 **Two inputs, one vocabulary.**  Tags creators create, and searches that returned nothing, both feed the dictionary. **The tag list and the dictionary are one vocabulary, not two**: the tags are what exists, and the dictionary is that plus the words strangers type for it. Nothing builds a third list.
@@ -134,7 +134,7 @@ Neither can do the other's job. A complete surface that quietly favours your int
 
 - **Allowed — and the whole point:** the member's own **declared interests**, and where they are. Home surfaces what they said they care about, near them. That is personalization on facts the member volunteered about themselves.
 - **Allowed:** genuine community response. Earned attention is the intended mechanism *(2026-09-12)* — a baker the neighbourhood turns up for should rise.
-- **Never:** what keeps someone scrolling. No watch-time, no dwell-time, no engagement objective. Ranking doesn't favour a member because of payment, size or follower count (2026-09-30).
+- **Not used:** what keeps someone scrolling. No watch-time, no dwell-time, no engagement objective. Ranking doesn't favour a member because of payment, size or follower count (2026-09-30).
 
 **"Home is personalized" is not licence for a feed algorithm.** It is licence for exactly one thing: showing a member what they told the platform they like, where they are. Anything reading behaviour back at them is a different product and is refused elsewhere in this tree.
 
@@ -151,7 +151,7 @@ Neither can do the other's job. A complete surface that quietly favours your int
 A series carries a rule — the run club meets every Thursday in West Sacramento. Each occurrence is a real row, generated ahead of time, not computed when someone reads the calendar. Rows, because every occurrence is individually editable: the run club runs a different route every week.
 
 - **A rolling three-month horizon, topped up nightly.** The job asks whether occurrences exist from today out to three months and inserts only the missing ones. Running it twice changes nothing; most nights it inserts nothing or one row.
-- **Cancelling is a state on the occurrence, never a deletion.** A deleted occurrence comes back the next night, because the top-up job cannot tell it apart from one that was never created. An occurrence can be cancelled from its own controls.
+- **Cancelling is a state on the occurrence, not a deletion.** A deleted occurrence comes back the next night, because the top-up job cannot tell it apart from one that was not created. An occurrence can be cancelled from its own controls.
 - **Editing one occurrence ships. Editing a whole series does not.** Every week differs anyway, so editing one occurrence is the normal case, not the exception.
 
 ## Where the scheduling job runs

@@ -18,15 +18,15 @@ Voice of the platform
 
 Source: the creator's TikTok essay on dying malls, late capitalism, and supporting local (transcribed from audio). This is where the tone comes from. Future copy should sound like this, not like a pitch deck.
 
-Tone: warm, plainspoken, a little wry. Never corporate. Never a nonprofit appeal. Never a pitch against a named competitor.
+Tone: warm, plainspoken, a little wry. Not corporate. Not a nonprofit appeal. Not a pitch against a named competitor.
 
 Sentence style: short, concrete, verb led. Real nouns (shops, the farmers market, neighbors) over abstractions (community, ecosystem, stakeholders).
 
-People are never a category. No "creators," "vendors," "sellers," "makers," "supporters," "patrons," "consumers." A person is "you." A group is "people" or named. Everything else is a verb.
+People are not a category. No "creators," "vendors," "sellers," "makers," "supporters," "patrons," "consumers." A person is "you." A group is "people" or named. Everything else is a verb.
 
-Never show a zero count on someone's own work. "Nobody's in yet," not "0 RSVPs."
+Don't show a zero count on someone's own work. "Nobody's in yet," not "0 RSVPs."
 
-Job words like host or owner attach to a thing, never to a profile.
+Job words like host or owner attach to a thing, not to a profile.
 
 No release numbers, internal jargon, or product team vocabulary.
 
@@ -36,11 +36,11 @@ Don't compare ourselves to named competitors or run a "why us" section. Let what
 
 This app is meant to get people together in person. It is not another feed to lose an afternoon in. When in doubt, point CTAs outward (meet up, show up, join in), not inward (stay, scroll, keep going).
 
-Nobody just posts here. Every listing is a creation: something to trade, something to teach, a meet up, a volunteer ask. Never write about it the way Facebook, Instagram, or TikTok write about posting or sharing.
+Nobody just posts here. Every listing is a creation: something to trade, something to teach, a meet up, a volunteer ask. Don't write about it the way Facebook, Instagram, or TikTok write about posting or sharing.
 
 "Corner" (as in "your corner of it") reads as forced. Say "here," "in Sacramento," or name the thing plainly instead. No "near you" or "nearby" while there is one metro (Don, 2026-09-30).
 
-**The standard behind these rules** *(ratified 2026-09-21)*: **plainlanguage.gov**, for short sentences, common words, the active voice, and addressing the reader as *you*. **Where it and this file differ, this file wins** — the mechanics below are house style and plainlanguage.gov has no opinion on em dashes. `../ui/design-language.md` principle 11 also overrides it: never show someone a zero counter on their own work, whatever plainness would suggest.
+**The standard behind these rules** *(ratified 2026-09-21)*: **plainlanguage.gov**, for short sentences, common words, the active voice, and addressing the reader as *you*. **Where it and this file differ, this file wins** — the mechanics below are house style and plainlanguage.gov has no opinion on em dashes. `../ui/design-language.md` principle 11 also overrides it: don't show someone a zero counter on their own work, whatever plainness would suggest.
 
 Writing mechanics, so copy doesn't read as AI generated:
 
