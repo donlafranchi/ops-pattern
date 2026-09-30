@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-30 · 03:42 UTC
+> ## Generated 2026-09-30 · 16:44 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -13,7 +13,7 @@
 > `bash scripts/status.sh`.
 >
 > **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
-> `46c310f` (2026-09-29); `accepted-risks/*.json`;
+> `8244b14` (2026-09-30); `accepted-risks/*.json`;
 > `planning/scenario-*.md` frontmatter; `ROADMAP.md`.
 >
 > **Answers "where is this project", not "what tickets exist."** The ticket
@@ -53,12 +53,12 @@ branch or a commit.
 - #223 F082 · One self-attestation before a first Page, selling and hosting alike
 - #246 bug · What one member can read about another: the signed-in half of #241, and four member tables open to anyone
 
-**67 PRs merged in the last fortnight.** The newest five:
+**68 PRs merged in the last fortnight.** The newest five:
+- #247 2026-09-30 bug #246: a business registration is never displayed; the badge is a boolean
 - #245 2026-09-29 bug #241 (2 of 2): a public Page does not hand a stranger the member ids behind it
 - #244 2026-09-29 bug #241 (1 of 2): signed-out profile and Page read who is behind them without a member id
 - #243 2026-09-29 chore #242: a guards marker can say it covers only part of a criterion
 - #238 2026-09-28 bug #232: a Page photo can be added from Safari and iPhone
-- #236 2026-09-28 bug #232: a Page photo from Safari is encoded as WebP in the page
 
 ### Needs a look — not a claim that anything is wrong
 
@@ -66,7 +66,6 @@ branch or a commit.
 counts. Each row needs a look, not a close.*
 
 - **#84 open, but T159 appears on main** — chore · T159 is two different tickets — renumber one in ops-pattern
-- **#53 open, but T156 appears on main** — F059 · T156 · Browse renders Pages
 - **#52 open, but T155 appears on main** — F059 · T155 · Feed vantage point becomes a metro
 - **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
 - **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
@@ -109,19 +108,19 @@ counts. Each row needs a look, not a close.*
 
 ## What CI last said
 
-- **`deploy-health.yml`** — success, 2026-09-29
+- **`deploy-health.yml`** — success, 2026-09-30
   - Ontology declarations still match the code: success
   - Database reachable from the deployment: success
-- **`ci.yml`** — success, 2026-09-29
-  - Unit tests: success
+- **`ci.yml`** — success, 2026-09-30
   - Lint, types, build: success
+  - Unit tests: success
   - Migrations applied to production: skipped
 
 ## Measured, not estimated
 
 - Copy: 584 strings across 118 files — source `docs/copy-inventory.md` on origin/main
 - Routes on origin/main: 23
-- Migrations on origin/main: 61
+- Migrations on origin/main: 62
 
 ## Deferred on purpose — and therefore easy to forget
 
@@ -152,7 +151,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (38)
+**Waiting on Don** (35)
 
 - 26d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 23d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -161,26 +160,10 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 18d · Are public creator tags moderated before or after they appear? A) after — visible immediately, removed on report, which matches how the rest of the platform… — [planning/scenario-F071.md:39](planning/scenario-F071.md#L39)
 - 17d · How does the search dictionary grow? A) from tags creators create — every new tag is a word a real person chose for their own thing. B) from logged zero-resu… — [planning/scenario-F071.md:41](planning/scenario-F071.md#L41)
 - 15d · Where do the premise strings live, given Don expects to update them often? Copy is inline in the components today — roughly 458 user-facing strings across 50… — [planning/scenario-F083.md:37](planning/scenario-F083.md#L37)
-- 14d · Which noun does the paused ontology spike model first — Item or Page? Its other question, the address rule, is the residence question in § Page. The spike li… — [product/foundation/nouns.md:178](product/foundation/nouns.md#L178)
+- 14d · Which noun does the paused ontology spike model first — Item or Page? The spike lives outside this repo, at `../socialus-ontology-spike/INTENT.md`. — [product/foundation/nouns.md:238](product/foundation/nouns.md#L238)
 - 11d · What makes a thing "free", now that the free-things lens has nowhere to read from? Surfaced by the browse query rewrite (`socialus-web` T156, 2026-09-19), wh… — [planning/scenario-F059.md:46](planning/scenario-F059.md#L46)
 - 11d · Which ten names are the collections, and does the picker suggest from a Page's tags? *(Narrowed 2026-09-19 — Don ruled membership is owner-set, so what is le… — [product/ui/surfaces.md:61](product/ui/surfaces.md#L61)
 - 11d · Does the collection picker widen step 3 or add a seventh step — and is the six-step composer judged as a set rather than step by step? — [product/ui/surfaces.md:63](product/ui/surfaces.md#L63)
-- 9d · Is a private residence's address withheld, and from whom? *(Raised 2026-09-21 while scoping the answering layer, which was about to be told to enforce a rule… — [product/foundation/nouns.md:117](product/foundation/nouns.md#L117)
-- 3d · What record is "a completed sale" and "a recorded attendance"? Neither exists; criteria 6–7 need a row with a date and two members on it. Until that noun exi… — [planning/scenario-F077.md:50](planning/scenario-F077.md#L50)
-- 3d · What tells Don it is time to raise a metro's bar — a queue size, a daily report count, time spent reviewing? Nothing raises it automatically (Not this), so w… — [planning/scenario-F078.md:40](planning/scenario-F078.md#L40)
-- 3d · Which content is reportable at launch — Page photos only, as today (`reports.subject_kind` admits `group` alone), or posts too? This decides whether F078 wid… — [planning/scenario-F078.md:42](planning/scenario-F078.md#L42)
-- 3d · What is a "credible threat"? Criterion 5 routes on it and it is not one of criterion 1's six categories — a seventh category, a score threshold inside one, o… — [planning/scenario-F078.md:44](planning/scenario-F078.md#L44)
-- 3d · Where is a picture of a child caught before anyone sees it — human review before visible (A), the uploader's word per photo (B), once in F082's pre-publish s… — [planning/scenario-F080.md:30](planning/scenario-F080.md#L30)
-- 3d · What does a zip the crosswalk does not know do? It holds Sacramento only, and one zip maps to exactly one metro. — [planning/scenario-F081.md:35](planning/scenario-F081.md#L35)
-- 3d · Which grain is "the metro" for a zip — the crosswalk's MSA 40900 (four counties) or the polygon's CSA 472 (six)? A Sutter or Yuba zip is inside the polygon a… — [planning/scenario-F081.md:37](planning/scenario-F081.md#L37)
-- 3d · May a person override the metro their zip decided, through criterion 4's every-metro control? — [planning/scenario-F081.md:39](planning/scenario-F081.md#L39)
-- 3d · What are the exact words of criterion 5's two lines — no sale, and real names between people who interact? Don's words ([public-is-draft]); a builder can wir… — [planning/scenario-F081.md:41](planning/scenario-F081.md#L41)
-- 3d · Is the step free text in the member's own words, or fixed statements they affirm? If free text: is it stored, and who may read it — the operator only? — [planning/scenario-F082.md:44](planning/scenario-F082.md#L44)
-- 3d · Are members who already own a live Page asked before their next one, or treated as having taken the step? — [planning/scenario-F082.md:46](planning/scenario-F082.md#L46)
-- 3d · Does "local means metro" govern who sees a thing but not how precisely it is placed? Criterion 3 and every "no change — describing" row above rest on that re… — [planning/scenario-F094.md:57](planning/scenario-F094.md#L57)
-- 3d · What replaces the venue page's "X mi away" label once there is no home place finer than the metro — drop it, or measure from something else? — [planning/scenario-F094.md:59](planning/scenario-F094.md#L59)
-- 3d · Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is… — [planning/scenario-F094.md:61](planning/scenario-F094.md#L61)
-- 1d · Is this the right reading of "zip is the wrong shape; the metro is what determines local": a zip is used once to resolve a metro, is not kept as a locality a… — [planning/scenario-F094.md:63](planning/scenario-F094.md#L63)
 - 1d · Are the store apps the site in a native shell, or native screens on the same database? A) A shell around the site (Capacitor-style): every screen and server… — [product/ui/surfaces.md:65](product/ui/surfaces.md#L65)
 - 1d · May a Page's runner see *who* follows them, or only how many? The 2026-09-08 ruling says "may see its own audience"; the `verbs.md` matrix says numbers only;… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
 - 1d · Is there an audience between "Anyone" and "Members": announcements only followers can read? The recommendation says no, because a followers-only tier makes a… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
@@ -192,6 +175,19 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 1d · Which of a member's fields may a signed-in stranger read? Today it is all of them, home location and home metro included. — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Is the follow graph (who follows whom) visible to anyone, to signed-in members, or only to the two people in it? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Are a member's interest tags public, and if so, public without their member id? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
+- 0d · What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and di… — [planning/scenario-F081.md:40](planning/scenario-F081.md#L40)
+- 0d · How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candid… — [planning/scenario-F081.md:46](planning/scenario-F081.md#L46)
+- 0d · For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy dut… — [planning/scenario-F081.md:48](planning/scenario-F081.md#L48)
+- 0d · (a) Does a signed-in stranger see a private group Page's front door, so they can find it and ask to join? A) Yes, the front door only: the Page decides wheth… — [product/foundation/nouns.md:209](product/foundation/nouns.md#L209)
+- 0d · (b) Does a consumer — someone who RSVP'd or bought, and is neither follower nor member — see anything a signed-in stranger does not, beyond their own RSVP or… — [product/foundation/nouns.md:211](product/foundation/nouns.md#L211)
+- 0d · (c) What does "community-members-only" mean: the Page's own members, or every signed-in SocialUs member? A) Every signed-in member: a Page open to the commun… — [product/foundation/nouns.md:213](product/foundation/nouns.md#L213)
+- 0d · (d) Who sees who RSVP'd to a business Page's gathering? The 2026-09-30 ruling names group members. A) The business's owners only, like who bought. B) Its mem… — [product/foundation/nouns.md:215](product/foundation/nouns.md#L215)
+- 0d · (e) What is on a Page's front door for someone signed out, besides its name, photo and where it shows up — an RSVP count, upcoming dates, its tags? A) Name,… — [product/foundation/nouns.md:217](product/foundation/nouns.md#L217)
+- 0d · (f) Does a Page's front door show its founder or seller? Two same-day answers conflict: *"Is a founder or seller part of the front door? Yes, by display name… — [product/foundation/nouns.md:219](product/foundation/nouns.md#L219)
+- 0d · (g) Does a public announcement on a community-only or private group Page reach people who cannot see the Page's contents? A) Yes: public is public, which is… — [product/foundation/nouns.md:221](product/foundation/nouns.md#L221)
+- 0d · (h) A viewer holding two relations — a follower who bought, a member who RSVP'd, a runner who follows another Page — sees what? A) The union of their columns… — [product/foundation/nouns.md:223](product/foundation/nouns.md#L223)
+- 0d · (i) Visibility between people directly — creator and consumer, creator and creator, consumer and consumer — and a consumer's own visibility setting, which co… — [product/foundation/nouns.md:225](product/foundation/nouns.md#L225)
+- 0d · (j) Is "consumer" a new internal word for what this file calls patron — everyone who is not publishing — or the narrower sense this table uses, someone who R… — [product/foundation/nouns.md:229](product/foundation/nouns.md#L229)
 
 **Cowork owes an answer** (1)
 
@@ -225,17 +221,16 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 
 - **F058** (approved) · #62 closed, #61 closed, #13 closed, #12 closed
 - **F076** (approved) · #194 closed, #193 closed, #77 closed
-- **F077** (approved) · #219 open
 - **F078** (approved) · #220 open
 - **F080** (approved) · #221 open
 - **F081** (approved) · #222 open
 - **F082** (approved) · #223 open
 - **F093** (approved) · #215 closed
 
-**Rulings that bind code: 29.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 63.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
-- **Nothing to build** (6), by their own tag: 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
+- **Nothing to build** (8), by their own tag: 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
 
 ## What this run could not verify
 
