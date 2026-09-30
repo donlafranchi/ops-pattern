@@ -30,7 +30,7 @@ Job words like host or owner attach to a thing, never to a profile.
 
 No release numbers, internal jargon, or product team vocabulary.
 
-State things as fact, not as promises about a future we can't back yet. "We don't sell your information," not "we promise to always protect your data."
+State things as fact, not as promises about a future we can't back yet.
 
 Don't compare ourselves to named competitors or run a "why us" section. Let what's on the screen do the convincing.
 
@@ -73,9 +73,6 @@ This is what's near you. Have a look.
 Join or start a group
 Find people already doing what you love, or start it yourself.
 No group like yours yet? Start one.
-
-We don't sell your information
-We don't sell your information. We built this because we're tired of platforms that do.
 
 Name sharing
 This is real people, in real life. You'll see their name, they'll see yours, because the point is meeting up, not just messaging.

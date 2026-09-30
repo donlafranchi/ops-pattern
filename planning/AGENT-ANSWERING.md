@@ -72,7 +72,7 @@ horizon: the version after launch (launch is 2026-10-30)
 
 `IMAGINE.md` § *Discovery that knows what a person is optimizing for* — natural language dissolves its attribute-vocabulary problem and leaves its real one untouched, because nothing lets anyone say anything about a Page they do not own. Reframe recorded there; the entry stays parked.
 
-**Open and not answered here:** whether a private residence's address is withheld, and from whom — marked in `product/foundation/nouns.md` § Page. **It governs the Page surface first**, and the answering layer can only inherit a line somebody has drawn.
+**Residence addresses:** public if given, at launch (`product/foundation/nouns.md` § Page, 2026-09-30). The answering layer inherits the Page surface's line.
 
 ## Reading this later
 

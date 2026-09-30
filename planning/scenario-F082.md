@@ -6,20 +6,21 @@ gates: launch
 date: 2026-09-14
 depends: [F081]
 approved: 2026-09-14 — Don's ruling; self-attestation only, selling and hosting alike
-amended: 2026-09-27 — Don: the step comes before publishing a first Page, not before creating a draft. Story and criterion 4 restated.
+amended: 2026-09-30 — Don: fixed statements framed as rules, and agreeing is the attestation; the rules are one click away and versioned, and members agree again when they change; existing Page owners take the step before their next new Page. Story and criteria 2 and 6 restated, 7 added. (2026-09-27: at publish, not at draft.)
 ---
 ## Story
 
-Devon signed up a month ago like everyone else. He makes hot sauce, and today he taps the invitation on `/you`. He creates his Page and works on it as a draft for a few evenings. When he goes to publish it, he goes through one short step first: he says, in his own words, that he is local and that he makes what he means to sell. Nothing is uploaded, nothing is checked, nobody approves him, and no badge appears anywhere. Then the Page goes live. Priya, convening her Tuesday run, takes the same step — she is publishing something people will show up to, and that is the line, not whether money changes hands. Neither is asked to call themselves a business, and neither is asked again on the second Page or the tenth.
+Devon signed up a month ago like everyone else. He makes hot sauce, and today he taps the invitation on `/you`. He creates his Page and works on it as a draft for a few evenings. When he goes to publish it, he goes through one short step first: the app sets out the rules of the place and why each exists, and he agrees to abide by them. Nothing is uploaded, nothing is checked, nobody approves him, and no badge appears anywhere. Then the Page goes live. Priya, convening her Tuesday run, takes the same step — she is publishing something people will show up to, and that is the line, not whether money changes hands. Neither is asked to call themselves a business. When the rules change, both read the new version and agree again.
 
 ## Acceptance
 
 1. A member becomes a creator by completing one step before their first Page. Creator status derives from that attestation record plus what they have authored — **no account type, no stored role column, no mode flag.**
-2. The step is self-attestation only: the member declares it themselves. **No document upload, no ID, no selfie, no photo, no third-party lookup, no automated check, no human approval queue.**
+2. **The step is fixed statements, presented as rules with the reason for each, which the member agrees to abide by. Agreeing is the attestation;** nothing is typed and no free text is stored. Self-attestation only: **no document upload, no ID, no selfie, no photo, no third-party lookup, no automated check, no human approval queue.**
 3. Nothing attested renders to peers as a badge, tier, score, label, or public claim.
 4. The step gates **publishing** a member's first Page, not creating it — **selling and hosting alike**, because the test is whether other people show up for the thing, not whether it is sold. **Creating and editing a draft never asks for it.** Browsing, responding, following and attending are untouched by it. *(Amended 2026-09-27: the story had put the step before the first Page was created.)*
 5. No string in the step asks the member to classify themselves as a business, or collects entity type, formation date, or legal or tax language.
-6. The step runs exactly once per member. A member who has completed it is never asked again, on any later Page.
+6. **The rules are versioned.** A member who agreed to an earlier version reads the new one and agrees again before they next publish. How often the step is asked otherwise is open (Why § Open).
+7. **The rules are viewable with one click**, whether or not the member is taking the step.
 
 ## Not this
 
@@ -33,19 +34,17 @@ ID plus selfie verification — not planned; F080 no longer names an unlock (202
 
 **The mechanism is visibility and peer pressure, not gatekeeping** (`product/foundation/policy.md` § How good faith is enforced). Nobody checks the attestation. A false claim is seen by the claimant's own neighbours, and the social cost lands without the platform doing anything — which is why there is no queue and no badge to earn.
 
-### Is this step the home for F080's photo rule?
+### Rules, not an attestation (2026-09-30)
 
-**Partly: it is the right place to say the rule, and the wrong place to enforce it.** It fits because it already sits before publishing, already asks the member to affirm something in their own words, and already relies on visibility and peer pressure rather than a check — the same mechanism F080 falls back on. It does not fit as detection, for three reasons: **it runs once** (criterion 6), and a promise made once cannot speak for a photo taken next spring; **it misses uploaders who never take it** — a steward added to someone else's Page adds photos without ever publishing a first Page of their own; and **what it affirms is locality and provenance**, so bolting a content rule on changes what the step is.
+**Don: the app explains the rules and why they exist, and the member agrees to abide by them.** Nothing is framed as a sworn statement about the member. The rules carry the locality-and-provenance promise this step was made for. **F080's photo rule is not enforced here:** it is stated wherever a member posts (F080 criterion 5), because this step does not reach every uploader.
 
-**Proposed, for Don ([public-is-draft]):** add one line to the step, stated as a rule of the place rather than a question — *"No pictures of children. That goes for every photo you add, here and later."* — and keep F080's detection question separate. **Not added to the acceptance criteria until Don rules** on F080's open question; if he picks per-photo attestation (F080 option B), this line becomes its introduction rather than a substitute for it.
+**Reading, Cowork's, not Don's:** criterion 6's "before they next publish" is when a re-agreement falls due. Don said only that members must re-read and agree.
+
+**Existing Page owners** take the step before their next new Page (Don: *"A new Page gets the attestation."*). Nobody is treated as having taken a step that did not exist when they published.
 
 ### Open
 
-[open-question owner=don raised=2026-09-27] Is the step free text in the member's own words, or fixed statements they affirm? If free text: is it stored, and who may read it — the operator only?
-
-[open-question owner=don raised=2026-09-27] Are members who already own a live Page asked before their next one, or treated as having taken the step?
-
-Whether the step carries the no-pictures-of-children line waits on F080's detection question, not a question of its own.
+[open-question owner=don raised=2026-09-30] Is the rules agreement asked before every new Page, or only before the first — then again on each rules update? A) **First Page only, plus each update:** the least friction, and versioning already brings everyone back when something changes. B) Every new Page: a reminder each time, at the cost of a step a busy creator learns to click through. *Recommend A.* Criteria 1 and 4 say "first Page" until this is answered.
 
 ### Why at publish, not at draft
 

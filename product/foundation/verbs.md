@@ -188,17 +188,23 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 
 ## Who can see whom
 
-A second matrix — visibility between people is a rule per pair, not per verb.
+A second matrix — visibility between people is a rule per pair, not per verb. *(Don, 2026-09-30, on `socialus-web` #246 and #248.)*
 
-| Viewer → sees | Followers of a business | Members of a social group | That group's conversations |
+| Viewer → sees | Followers of a Page | Members of a social group | That group's conversations |
 |---|---|---|---|
-| The business itself | ● its own audience, numbers only | — | — |
-| Follower of a business | ✕ forbidden | — | — |
+| The Page's owner | ● who follows it, by name | ● | — |
+| Follower of a Page | ✕ forbidden | — | — |
 | Member of a group | — | ● current members only | allowed, when built |
 | Follower of a group | — | ✕ forbidden | ✕ forbidden |
-| Anyone else, anonymous included | ✕ forbidden | ✕ | ✕ |
+| Anyone else, signed in or out | ✕ forbidden | ✕ the roster | ✕ |
 
-**A business Page never shows its followers publicly, to anyone** *(ratified 2026-09-08)* — a follower list on a business is a customer list, published; the business sees its own audience, nobody else has a reason to. This is stronger than "followers don't see each other." "Group" in this table means a social group, not a business — the two are routinely blurred in older docs and are different nouns with different rules. Rules: F067.
+**Nobody sees who follows whom; a Page's owner sees who follows their Page.** Nothing else about a member is readable by a stranger: no field, no interest tag. There is no followers-only announcement audience. "Group" in this table means a social group, not a business — the two are routinely blurred in older docs and are different nouns with different rules. Rules: F067.
+
+**Group Pages are private, community-members-only or public**, for signed-in members; the level is the Page's, not a member's, and has nothing to do with metro. Business Pages do not take these levels. **A signed-out visitor gets a Page's front door**, like a closed business's, **and nothing for a private group.**
+
+**Visibility has two sides.** `stakeholder_visibility` is the Page creator's setting. A consumer setting comes with direct messaging. Creator↔consumer, creator↔creator and consumer↔consumer visibility are each still to be addressed.
+
+[open-question owner=don raised=2026-09-30] Does a Page's front door show its founder? Two same-day answers conflict: *"Is a founder or seller part of the front door? Yes, by display name"* and *"May a stranger see a Page's roster or founder? No."* A) **Yes, by display name**, and "no" was about the roster: a stranger sees who runs the thing and not who belongs to it. B) No founder on the front door for a stranger; the creator may still choose to show a display name and avatar on the Page. *Recommend A:* the front door of a business normally says whose it is, and the creator-display ruling already allows it. Nothing that shows a founder to a stranger is built until this is answered.
 
 A follower of a business is a customer, and customers aren't an audience for each other — following a bakery tells the bakery something, it doesn't put you in a room with its other customers. A member of a social group has joined something, and knowing who else is in it is most of the reason to join.
 
