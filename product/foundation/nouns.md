@@ -142,7 +142,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 - **Announcement** ● *(status corrected to live 2026-09-19; named the only word 2026-09-21)* — a Page says what is on. **One noun, one word, everywhere** — in the model, the docs and the product, with no creator-facing synonym and no per-kind vocabulary. **Its audience is a field on it, not a second noun**: public, or only people who get updates. **The post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. **Editable after posting** *(ruled 2026-09-13 — reverses the earlier no-edit rule)*; **delete still refused**; no inbox, no unread state.
   - **Now** — **shipped.** `page_posts` exists, `group.post_create` and `group.post_edit` write it, and `browse_feed` returns posts and Pages in one result set. **`group_id` is `NOT NULL`** — a post has no existence apart from its Page, which is what lets one query return both without inventing a second identity for the poster.
   - **Later** — a date, a time and its own address on a post (F072), and a series that repeats (F074, unruled). **`ends_at` does not exist** on the table; `starts_at` does, as `timestamptz`, indexed.
-- **Consumer** *(2026-09-30)* — the other side from the creator, producer or organizer (the Page's owner or founder): a business's customer, or a party to a transaction. A follower only watches; someone who RSVP'd to a social Page is a member. **Derived from an RSVP on a business post, a one-on-one meeting or a purchase, not stored.** Internal only, not a user-facing word.
+- **Consumer** *(2026-09-30)* — the other side from the creator, producer or organizer (the Page's owner or founder): a party to an RSVP or a transaction. A follower only watches. **Derived from an RSVP, a one-on-one meeting or a purchase, not stored.** Internal only, not a user-facing word.
 - **Purchase** ○ *(2026-09-30)* — a member bought something from a business Page, confirmed by the seller, dated, with both members on it. **Not tracked yet; parked.** F077's sale half waits on it. Who sees a purchase is deferred with it (2026-09-30).
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
@@ -178,40 +178,43 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **The one place for visibility between people.** Filled from the rulings of 2026-09-30. **The default is social norms** — what people would expect socially (Don, 2026-09-30); a case the table doesn't cover is settled by that. `verbs.md` and `policy.md` point here.
 
-**Two kinds of Page — the organising distinction** *(Don, 2026-09-30)*. A **business Page has customers (consumers), not members.** A **social (group) Page has members, not customers.** How someone takes part follows from the kind:
+**Visibility follows the relationship, not the Page's type** *(dispatch's recommendation, 2026-09-30)*. Don: *"this is a page by page and business by business group by group category that all have some similar overlapping where others don't."* An artist may have followers and no members, or members who buy often, announcements, and events that need RSVPs. **Each Page has whichever of these its owner uses: followers, members, announcements, RSVP gatherings (Page-level or on a single post), and transactions.** Business and social are presets, not rules. A member is a more involved follower, and the Page decides whether joining needs approval (2026-09-29).
 
-- **Social Page, a group that meets regularly:** RSVP gatherings. An RSVP makes you part of the group.
-- **Business Page, a one-off:** it may require RSVPs on a post. An RSVP makes you part of that post only.
-- **Service business, one person meeting another** (a therapist, a massage, any in-person service): one-on-one meetings, treated as transactions. Only the parties see each other, as far as the meeting needs.
+**What a Page can use at launch** — only what is built or ruled; no new scope:
 
-A **consumer** is a business's customer or a party to a transaction; a **follower** only watches. Private, community-only and public are levels for a social Page's members; community-only can have followers and private can't (dispatch's recommendation).
+- **Followers** — built, on every Page (`group.follow` isn't keyed on kind).
+- **Members** — built, on every Page (`group.member_join` isn't keyed on kind); approval is ruled (2026-09-29).
+- **Announcements** — built, on every Page (`page_posts`).
+- **RSVP gatherings** — the Response on an occurrence (● now, above). **Gap:** no RSVP on a single announcement post is built.
+- **Transactions** — none built; purchasing is deferred; one-on-one meetings have no substrate. **Gap.**
+- **Visibility levels** — ruled for group Pages only (2026-09-30). **Gap:** a business Page that uses members has no level.
+- **Switching a capability off** — **Gap:** there is no per-Page switch; follow and join are open on every Page.
 
-**Viewers.** *Signed out* — the general public, *"the one on the street after all the businesses are closed"* (Don). *Stranger* — signed in, no relation to the Page. *Follower* — watches the Page, takes no part. *Member* — social Pages only: a member of this Page, or someone who RSVP'd to its gathering; membership is scoped to the Page and there is no MSA-wide community. A member gets everything a follower does (2026-09-29). *Consumer* — business Pages only: RSVP'd to one of its posts, or party to a one-on-one meeting. *Runner* — the Page's creator, owner or steward.
+**Viewers.** *Signed out* — the general public, *"the one on the street after all the businesses are closed"* (Don). *Signed in* — no relation to the Page. *Follower* — watches the Page, takes no part. *Member* — of this Page; membership is scoped to the Page and there is no MSA-wide community; a member gets everything a follower does (2026-09-29). *RSVP party* — RSVP'd to one of the Page's gatherings, or to a single post, which covers that post only. *Transaction party* — one side of a one-on-one meeting or a purchase. *Runner* — the Page's creator, owner or steward. A **consumer** is a party to an RSVP or a transaction; a follower only watches.
 
 ● sees · ✕ not currently · ◐ partly, as noted · — cannot arise
 
-| What | Signed out | Stranger | Follower | Member (social) | Consumer (business) | Runner |
-|---|---|---|---|---|---|---|
-| A member's fields: legal name, zip, interests, follows, profile | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
-| A member's interest tags | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
-| Front door of any Page, private social Pages included: name, default photo, description, withheld-announcements card | ● | ● | ● | ● | ● | ● |
-| The Page's founder or seller, by display name | ✕ | ◐ inside the Page, if its creator shows it | ◐ the same | ◐ the same | ◐ the same | ● |
-| Contents (location, tags, posts): business Page | ✕ | ◐ what the owner makes visible to the MSA | ◐ the same, plus followers announcements | — | ◐ as a stranger, plus the post they RSVP'd to | ● |
-| Contents: public social Page | ✕ | ● | ● | ● | — | ● |
-| Contents: community-only social Page | ✕ | ✕ | ◐ its announcements | ● | — | ● |
-| Contents: private social Page | ✕ | ✕ | — | ● | — | ● |
-| How many RSVP'd | ✕ | ● | ● | ● | ● | ● |
-| Roster: who a social Page's members are | ✕ | ✕ | ✕ | ● current members | — | ● |
-| Follow graph: who follows whom | ✕ | ✕ | ✕ | ✕ | ✕ | ◐ their own Page's followers, by name |
-| Who RSVP'd to a social Page's gathering | ✕ | ✕ | ✕ | ◐ if they RSVP'd: the others who did | — | ● as host |
-| Who RSVP'd to a business Page's post | ✕ | ✕ | ✕ | — | ◐ if they RSVP'd: the others who did | ● as host |
-| A service business's one-on-one meeting | ✕ | ✕ | ✕ | — | ◐ the two parties see each other, as far as the meeting needs | ◐ the same |
-| Who bought | — no purchasing in the app yet (`ROADMAP.md` § Later) | — | — | — | — | — |
-| A member's legal name | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
-| Public announcement, from any Page | ◐ one withheld card per Page (F093), "Sign up to see what's happening" | ● | ● | ● | ● | ● |
-| Followers announcement | ◐ the same withheld card | ✕ | ● | ● | ✕ | ● |
+| What | Signed out | Signed in | Follower | Member | RSVP party | Transaction party | Runner |
+|---|---|---|---|---|---|---|---|
+| A member's fields: legal name, zip, interests, follows, profile | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
+| A member's interest tags | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
+| Front door, the same for every Page, private ones included: name, default photo, description, withheld-announcements card | ● | ● | ● | ● | ● | ● | ● |
+| The Page's founder or seller, by display name | ✕ | ◐ inside the Page, if its creator shows it | ◐ the same | ◐ the same | ◐ the same | ◐ the same | ● |
+| Contents (location, tags, posts): a Page with no level | ✕ | ◐ what the owner makes visible to the MSA | ◐ the same, plus followers announcements | ● | ◐ as signed in, plus the gathering or post | ◐ as signed in | ● |
+| Contents: public Page | ✕ | ● | ● | ● | ● | ● | ● |
+| Contents: community-only Page | ✕ | ✕ | ◐ its announcements | ● | ◐ the gathering or post only | ✕ | ● |
+| Contents: private Page | ✕ | ✕ | — | ● | ◐ the gathering or post only | ✕ | ● |
+| How many RSVP'd | ✕ | ● | ● | ● | ● | ● | ● |
+| Roster: who the members are | ✕ | ✕ | ✕ | ● current members | ✕ | ✕ | ● |
+| Follow graph: who follows whom | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ | ◐ their own Page's followers, by name |
+| Who RSVP'd | ✕ | ✕ | ✕ | ✕ | ● the others party to that gathering or post | ✕ | ● as host |
+| A one-on-one meeting or transaction | ✕ | ✕ | ✕ | ✕ | ✕ | ◐ the parties see each other, as far as it needs | ◐ as a party |
+| Who bought | — no purchasing in the app yet (`ROADMAP.md` § Later) | — | — | — | — | — | — |
+| A member's legal name | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
+| Public announcement, from any Page | ◐ one withheld card per Page (F093), "Sign up to see what's happening" | ● | ● | ● | ● | ● | ● |
+| Followers announcement | ◐ the same withheld card | ✕ | ● | ● | ✕ | ✕ | ● |
 
-**Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door: a business closed for the night — every viewer sees it, private social Pages included, and it doesn't show the founder or seller; the card's words are placeholder copy (2026-09-30). Contents: a signed-in non-member sees the front door plus what the owner makes visible to the MSA; private, community-only and public are social-Page levels; community-only means the Page's own members and can have followers; a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs: whoever is party to an RSVP sees it, and a member who didn't RSVP is not party; a social RSVP makes someone a member, a business RSVP a member of that post only (2026-09-30); the count is the Response entry above. One-on-one meetings and purchases are transactions: the parties see each other as far as the transaction needs, and without a transaction it can be visible (2026-09-30); purchasing is deferred. Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), a public one reaches everyone whatever the Page's level (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
+**Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door: a business closed for the night, the same for every Page, and it doesn't show the founder or seller; the card's words are placeholder copy (2026-09-30). Contents: a signed-in non-member sees the front door plus what the owner makes visible to the MSA; private, community-only and public are levels on group Pages; community-only means the Page's own members and can have followers; a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs: whoever is party to an RSVP sees what that gathering's parties see, and a post RSVP covers that post only (2026-09-30); the count is the Response entry above. One-on-one meetings and transactions: only the parties, as far as it needs; without a transaction it can be visible (2026-09-30); purchasing is deferred. Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), a public one reaches everyone whatever the Page's level (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
 
 **Combinations.** A member with several relationships to a Page sees the union of their columns, and nothing extra (2026-09-30). Someone who runs one Page is a stranger to another.
 
