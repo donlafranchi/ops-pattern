@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-30 · 02:47 UTC
+> ## Generated 2026-09-30 · 02:54 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -152,7 +152,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (32)
+**Waiting on Don** (33)
 
 - 26d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 23d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -177,9 +177,10 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 3d · What are the exact words of criterion 5's two lines — no sale, and real names between people who interact? Don's words ([public-is-draft]); a builder can wir… — [planning/scenario-F081.md:41](planning/scenario-F081.md#L41)
 - 3d · Is the step free text in the member's own words, or fixed statements they affirm? If free text: is it stored, and who may read it — the operator only? — [planning/scenario-F082.md:44](planning/scenario-F082.md#L44)
 - 3d · Are members who already own a live Page asked before their next one, or treated as having taken the step? — [planning/scenario-F082.md:46](planning/scenario-F082.md#L46)
-- 3d · Does "local means metro" govern who sees a thing but not how precisely it is placed? Criterion 3 and every "no change — describing" row above rest on that re… — [planning/scenario-F094.md:56](planning/scenario-F094.md#L56)
-- 3d · What replaces the venue page's "X mi away" label once there is no home place finer than the metro — drop it, or measure from something else? — [planning/scenario-F094.md:58](planning/scenario-F094.md#L58)
-- 3d · Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is… — [planning/scenario-F094.md:60](planning/scenario-F094.md#L60)
+- 3d · Does "local means metro" govern who sees a thing but not how precisely it is placed? Criterion 3 and every "no change — describing" row above rest on that re… — [planning/scenario-F094.md:57](planning/scenario-F094.md#L57)
+- 3d · What replaces the venue page's "X mi away" label once there is no home place finer than the metro — drop it, or measure from something else? — [planning/scenario-F094.md:59](planning/scenario-F094.md#L59)
+- 3d · Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is… — [planning/scenario-F094.md:61](planning/scenario-F094.md#L61)
+- 1d · Is this the right reading of "zip is the wrong shape; the metro is what determines local": a zip is used once to resolve a metro, is not kept as a locality a… — [planning/scenario-F094.md:63](planning/scenario-F094.md#L63)
 - 1d · Are the store apps the site in a native shell, or native screens on the same database? A) A shell around the site (Capacitor-style): every screen and server… — [product/ui/surfaces.md:65](product/ui/surfaces.md#L65)
 - 1d · What do `private`, `community_only` and `public` mean to a signed-in member looking at someone else, and who counts as "community" for `community_only`? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · May a signed-in member see who belongs to a Page, or who founded it, when they have never interacted with them? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
@@ -226,7 +227,7 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 - **F082** (approved) · #223 open
 - **F093** (approved) · #215 closed
 
-**Rulings that bind code: 27.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 28.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
 - **Nothing to build** (6), by their own tag: 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
