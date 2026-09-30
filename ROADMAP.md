@@ -8,7 +8,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Dead producer page fix — approved, ticketed, buildable today.
 - Producer entry point (`/you/create`, no shop required to host) — reviewed, ticketed.
 - Report path + image takedown — approved; no photo goes to production until this ships.
-- Legal name required, display name in public, real names exchanged mutually between people who actually interacted and reachable no other way (F077, amended 2026-09-14); flagged content auto-hides with an immediate reason and appeal, anything a member posts is reportable, and the reporter picks a reason the poster can rebut (F078, scope added 2026-09-30); no pictures of children from anyone, stated at posting with reports as the backstop (F080, 2026-09-30) — approved, gates launch alongside the report path.
+- Display name in public; flagged content auto-hides with an immediate reason and appeal, anything a member posts is reportable, and the reporter picks a reason the poster can rebut (F078, scope added 2026-09-30); no pictures of children from anyone, stated at posting with reports as the backstop (F080, 2026-09-30) — approved, gates launch alongside the report path.
 - Metro waitlist at signup — pick a metro, say creator or patron, see a count in a popup. **Added 2026-09-14 at Don's direction; nothing was removed to make room.** F076.
 - Patron signup (legal name, email, zip; the zip determines the metro, every US zip known before launch; a line on what the app is for, 2026-09-30) and agreeing to the versioned rules before each new Page, selling and hosting alike — F081, F082. **Added 2026-09-14 at Don's direction; nothing was removed to make room. Both approved 2026-09-14.**
 
@@ -27,6 +27,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 
 ## Later — deferred past launch, priced
 
+- Real names between people who dealt with each other (F077, `socialus-web` #219) — **parked 2026-09-30 until SocialUs has legal counsel.** Legal-name collection at signup waits on Don's call.
 - Bulk actions on the review queue (F079) — written, unscheduled; waits on real volume. *(The ID + selfie tier left this line 2026-09-27: Don ruled none is being built, so F080 names no unlock.)*
 
 - Item-level photos — substrate built, ~half a day when resumed.

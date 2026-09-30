@@ -37,11 +37,11 @@ Any verification, document, ID, or identity check — that is F082, and it happe
 
 **The zip is kept** (Don, 2026-09-30): *"How will we know what's going on in their area without it."* So criterion 2 stands, and changing the zip is how a member changes metro.
 
-[open-question owner=don raised=2026-09-30] Is a member's legal name disclosed to the people they actually dealt with (the 2026-09-14 counterparty ruling, `socialus-web` #219), and if so, where is it stated now that Don rejected the signup line? Seeing who RSVP'd needs no disclosure: Don, 2026-09-30, *people who RSVP obviously agree to be seen.* A) Keep the disclosure and state it in the rules members agree to (F082). B) Keep it and state it at the moment of the confirmed interaction. C) Drop legal-name disclosure; counterparties see display names. *Recommend A* if it stays. Don is considering this.
+[open-question owner=don raised=2026-09-30] What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and different language is coming. Nothing about legal names goes in it while legal-name disclosure is parked ([public-is-draft]).
 
 ### Who sees a real name
 
-**Settled 2026-09-14, both questions.** It runs **both ways** — two people who interacted each see the other's legal name. And it is **disclosure, not consent** — a term of interacting, stated plainly. Where it is stated, now that Don rejected the signup line, is open above. **Interaction is the only path to a name:** nothing is reachable by lookup, search, or browsing. F077 criteria 6–8 carry the rule, the 12-month clock, and the refusals; F077 also states the roster tension and the one open question left (retention).
+**Parked 2026-09-30 until SocialUs has legal counsel** (F077). Signup says nothing about legal names.
 
 ### Settled against F076
 

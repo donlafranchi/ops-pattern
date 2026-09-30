@@ -2,11 +2,11 @@
 id: F077
 title: People who actually interact are not hidden from each other; everyone else sees a display name
 status: approved
-gates: launch
 date: 2026-09-14
 depends: []
 approved: 2026-09-14 — Don's ruling, replaces member.md "real names encouraged, never required"
 amended: 2026-09-14 — Don's ruling: public-surface ban plus mutual counterparty disclosure, with interaction as the only path to a name
+parked: 2026-09-30 — Don: parked until SocialUs has legal counsel, off launch scope, with `socialus-web` #219. The platform does not arbitrate or disclose legal names, or bring them up to the public.
 ---
 ## Story
 
@@ -24,6 +24,10 @@ Rae signs up with her legal name and email; the platform records it and never pu
 8. **Interaction is the only path to a name.** The design refuses, and a surface that does any of these is wrong: searching or looking up a member by legal name; reverse lookup from a name to that person's activity; a durable, browsable list of counterparty names existing apart from the interactions that produced them; any rollup that turns repeated interaction into a roster of people. *(Criteria 6–8 added 2026-09-14 — Don's ruling.)*
 
 ## Why
+
+### Parked pending counsel (2026-09-30)
+
+**Nothing here is built for launch.** Don's standing principle: no decision brings legal liability onto the platform, and anything that asks something legal of members waits for counsel. The rules below keep their intent for when it returns. **Criterion 1's legal-name field is on Don's list to decide separately;** F081 criterion 1 still names it until he does.
 
 ### The principle, in Don's words
 

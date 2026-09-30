@@ -10,6 +10,8 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · process, product, copy — The first goal of any decision is to bring no legal liability onto the platform. Anything that requires something legal of members is postponed until SocialUs has legal counsel
+- **2026-09-30** · names, signup, copy — Legal-name disclosure between people who dealt with each other is parked until SocialUs has legal counsel, and is off launch scope
 - **2026-09-30** · signup, onboarding, you, locality — The zip is kept. Nobody picks a metro: the zip decides it at signup, and a member who moves changes their zip on `/you` and the metro follows
 - **2026-09-30** · reports, moderation — Misusing reports: three strikes
 - **2026-09-30** · copy, explore, venue — "Near you", "Browse nearby" and "mi away" come out. "In Sacramento" stands in until there is a second metro

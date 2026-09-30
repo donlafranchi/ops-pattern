@@ -74,10 +74,6 @@ Join or start a group
 Find people already doing what you love, or start it yourself.
 No group like yours yet? Start one.
 
-Name sharing
-This is real people, in real life. You'll see their name, they'll see yours, because the point is meeting up, not just messaging.
-Real names lead to real relationships. That's how this works here.
-
 Empty states
 No listings yet: Nothing created in Sacramento yet. Be the first.
 No groups yet: No groups here yet. Start the first one.
