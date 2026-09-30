@@ -10,6 +10,8 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · imports, attribution, explore — Our relationship with venues is symbiotic: we send traffic to a venue's own site and channels rather than capturing it, and everything pulled in carries attribution and a link back
+- **2026-09-30** · imports, events, claims — Events reach SocialUs two ways: a venue, artist or group links its Instagram or calendar once, with consent, and we pull its events in (the main path); and members share events they hear about, and the venue is invited to claim them. We don't currently gather public listings without consent
 - **2026-09-30** · explore, pages, map, rls — F093 criterion 8 amended: a signed-out visitor sees a Page's name, default photo, description and the withheld card ("Sign up to see what's happening", placeholder), and no location, tags or founder. Storing a location and showing it are separate: a Page keeps its location regardless, and it scopes the metro and places the Page on the map without being displayed. Signed in, the owner chooses how much location shows; tags show to signed-in visitors only
 - **2026-09-30** · rls, members, pages — The founder and RSVP corrections `socialus-web` #246 flagged are pruned here
 - **2026-09-30** · scope, booking, payments, storefront — SocialUs is currently not a fully built-out platform of any kind — booking, storefront, payments or other — except for helping with discovery and support of locals. It may offer basic versions of these, so people can transact in the platform and connect
