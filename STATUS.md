@@ -69,7 +69,6 @@ branch or a commit.
 counts. Each row needs a look, not a close.*
 
 - **#84 open, but T159 appears on main** — chore · T159 is two different tickets — renumber one in ops-pattern
-- **#53 open, but T156 appears on main** — F059 · T156 · Browse renders Pages
 - **#52 open, but T155 appears on main** — F059 · T155 · Feed vantage point becomes a metro
 - **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
 - **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
@@ -230,7 +229,7 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 - **F082** (approved) · #223 open
 - **F093** (approved) · #252 open, #215 closed
 
-**Rulings that bind code: 72.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 74.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
 - **Nothing to build** (10), by their own tag: 2026-09-30 Visibility currently defaults to social norms: what people w…; 2026-09-30 We are careful and supportive of our members, and we ask the…; 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
