@@ -10,6 +10,13 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · rls, pages, groups, announcements — Signed-out visitors and signed-in non-participants currently see a Page's front door, private group Pages included: its name, photo, location, tags and the withheld-announcements card
+- **2026-09-30** · rls, rsvp, groups — Someone who RSVP'd is part of the group and currently sees what a group member sees
+- **2026-09-30** · rls, groups — "Community-members-only" currently means every signed-in SocialUs member
+- **2026-09-30** · rls, rsvp — Who RSVP'd to a business Page's gathering is currently visible to its owners and to the others who RSVP'd
+- **2026-09-30** · pages — A Page's front door shows its founder or seller by display name, to every viewer
+- **2026-09-30** · announcements — A public announcement from a community-only or private group Page currently reaches everyone
+- **2026-09-30** · rls — A member with several relationships to a Page currently sees the union of what each allows, and nothing extra
 - **2026-09-30** · business-registration, page-publish, copy — The app doesn't use legal language between members. Legal-entity information (entity type, legal entity name, state) is asked only at business registration, and only of members who have a legal entity
 - **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
 - **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
@@ -39,7 +46,7 @@
 - **2026-09-30** · rls, follows — Nobody sees who follows whom. A Page's owner sees who follows their Page, by name
 - **2026-09-30** · announcements — An announcement has no third audience. The 2026-09-21 public/followers switch stands
 - **2026-09-30** · rls, members — A member's interest tags are not public
-- **2026-09-30** · rls, rsvp, purchases — Group members see who RSVP'd. Only a business's owners see who bought, and they may see avatars
+- **2026-09-30** · rls, rsvp — Group members see who RSVP'd
 - **2026-09-30** · rls, pages — A stranger does not see a Page's roster
 - **2026-09-30** · pages — A founder or seller is part of a Page's front door, by display name
 - **2026-09-30** · rsvp, purchases, names — A completed sale or attendance is a purchase or RSVP that the seller or organiser has confirmed, with a date and both members on it

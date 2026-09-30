@@ -51,6 +51,10 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Treatment-review surface (reviews the treatment, never the person) and member references.
 - Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
 
+**Speculative, not ruled**
+- When in-app purchasing exists, producer and purchaser see each other as far as the transaction needs *(Don, 2026-09-30)*.
+- "Consumer" as a noun apart from patron. It currently has no separate meaning: someone who RSVP'd is inside the group, and nobody buys in the app yet *(2026-09-30)*.
+
 ## Cut — taken off the launch list, dated and reasoned
 
 *Not the same as Won't. A cut thing is still wanted; it lost a trade against the deadline and may come back. A Won't thing is refused on principle and never comes back. Recorded here rather than quietly deleted, because a line that vanishes from Next leaves no trace of who decided or why.*
