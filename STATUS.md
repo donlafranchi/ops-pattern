@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-30 · 02:54 UTC
+> ## Generated 2026-09-30 · 03:40 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -43,7 +43,7 @@ branch or a commit.
 
 ## In the code repo
 
-**51 issues open** in `socialus-web`, 8 launch-blocking:
+**52 issues open** in `socialus-web`, 8 launch-blocking:
 - #135 bug · A member cannot see the Pages they made
 - #205 bug · Onboarding assigns every new member a fictional home place, with no picker
 - #219 F077 · Real names only between people who actually interacted; display name everywhere else
@@ -152,7 +152,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (33)
+**Waiting on Don** (39)
 
 - 26d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 23d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -182,8 +182,14 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 3d · Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is… — [planning/scenario-F094.md:61](planning/scenario-F094.md#L61)
 - 1d · Is this the right reading of "zip is the wrong shape; the metro is what determines local": a zip is used once to resolve a metro, is not kept as a locality a… — [planning/scenario-F094.md:63](planning/scenario-F094.md#L63)
 - 1d · Are the store apps the site in a native shell, or native screens on the same database? A) A shell around the site (Capacitor-style): every screen and server… — [product/ui/surfaces.md:65](product/ui/surfaces.md#L65)
+- 1d · Does joining need the Page's approval? Recommendation (relayed, not Don's): the Page decides, defaulting to open join, using the two approval columns that al… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
+- 1d · May a Page's runner see *who* follows them, or only how many? The 2026-09-08 ruling says "may see its own audience"; the `verbs.md` matrix says numbers only;… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
+- 1d · Is there an audience between "Anyone" and "Members": announcements only followers can read? The recommendation says no, because a followers-only tier makes a… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
 - 1d · What do `private`, `community_only` and `public` mean to a signed-in member looking at someone else, and who counts as "community" for `community_only`? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
-- 1d · May a signed-in member see who belongs to a Page, or who founded it, when they have never interacted with them? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
+- 1d · Which one setting is a member's visibility: stakeholder_visibility (private | community_only | public) or member_privacy.profile_visibility (public |… — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
+- 1d · Is a Page's founder, or an item's seller, part of the thing's front door (shown to everyone), or a person, and so subject to their own setting? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
+- 1d · Who may see that someone RSVP'd to, or bought, an item: anyone, the organiser or seller, other attendees, or nobody? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
+- 1d · May a signed-in member see who belongs to a Page, or who founded it, when they have never interacted with them? (The draft above suggests a roster is behind… — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Which of a member's fields may a signed-in stranger read? Today it is all of them, home location and home metro included. — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Is the follow graph (who follows whom) visible to anyone, to signed-in members, or only to the two people in it? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Are a member's interest tags public, and if so, public without their member id? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
@@ -227,7 +233,7 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 - **F082** (approved) · #223 open
 - **F093** (approved) · #215 closed
 
-**Rulings that bind code: 28.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 29.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
 - **Nothing to build** (6), by their own tag: 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
