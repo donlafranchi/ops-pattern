@@ -142,6 +142,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 - **Announcement** ● *(status corrected to live 2026-09-19; named the only word 2026-09-21)* — a Page says what is on. **One noun, one word, everywhere** — in the model, the docs and the product, with no creator-facing synonym and no per-kind vocabulary. **Its audience is a field on it, not a second noun**: public, or only people who get updates. **The post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. **Editable after posting** *(ruled 2026-09-13 — reverses the earlier no-edit rule)*; **delete still refused**; no inbox, no unread state.
   - **Now** — **shipped.** `page_posts` exists, `group.post_create` and `group.post_edit` write it, and `browse_feed` returns posts and Pages in one result set. **`group_id` is `NOT NULL`** — a post has no existence apart from its Page, which is what lets one query return both without inventing a second identity for the poster.
   - **Later** — a date, a time and its own address on a post (F072), and a series that repeats (F074, unruled). **`ends_at` does not exist** on the table; `starts_at` does, as `timestamptz`, indexed.
+- **Consumer** *(2026-09-30)* — the other side from the creator, producer or organizer (the Page's owner or founder): someone who RSVP'd or bought. **Derived from an RSVP or a purchase, not stored.** Internal only, not a user-facing word.
 - **Purchase** ○ *(2026-09-30)* — a member bought something from a business Page, confirmed by the seller, dated, with both members on it. **Not tracked yet; parked.** F077's sale half waits on it. Who sees a purchase is deferred with it (2026-09-30).
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
@@ -177,7 +178,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **The one place for visibility between people.** Filled from the rulings of 2026-09-30. **The default is social norms** — what people would expect socially (Don, 2026-09-30); a case the table doesn't cover is settled by that. `verbs.md` and `policy.md` point here.
 
-**Viewers.** *Signed out* — the general public. *Stranger* — signed in, no relation to the Page. *Follower* and *member* of the Page (a member gets everything a follower does, 2026-09-29). *RSVP'd* — RSVP'd to one of the Page's gatherings; part of the group, so they see what a member sees. *Runner* — the Page's creator, owner or steward.
+**Viewers.** *Signed out* — the general public, *"the one on the street after all the businesses are closed"* (Don). *Stranger* — signed in, no relation to the Page. *Follower* of the Page. *Member* — of this Page; membership is scoped to the Page, there is no MSA-wide community, and business Pages currently have none (2026-09-30). A member gets everything a follower does (2026-09-29). *RSVP'd* — a member of that post, not of the Page: they see inside the post, including the others party to it (2026-09-30). *Runner* — the Page's creator, owner or steward.
 
 ● sees · ✕ not currently · ◐ partly, as noted · — cannot arise
 
@@ -185,27 +186,28 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 |---|---|---|---|---|---|---|
 | A member's fields: legal name, zip, interests, follows, profile | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
 | A member's interest tags | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
-| Front door of any Page, private group Pages included: name, photo, withheld-announcements card | ● | ● | ● | ● | ● | ● |
-| Front door: location and tags | ✕ | ● | ● | ● | ● | ● |
-| The Page's founder or seller, by display name | ✕ | ● | ● | ● | ● | ● |
+| Front door of any Page, private group Pages included: name, default photo, description, withheld-announcements card | ● | ● | ● | ● | ● | ● |
+| The Page's founder or seller, by display name | ✕ | ◐ inside the Page, if its creator shows it | ◐ the same | ◐ the same | ◐ the same | ● |
+| Contents (location, tags, posts): business Page | ✕ | ◐ what the owner makes visible to the MSA | ◐ the same, plus followers announcements | — no members | ◐ as a stranger, plus the post | ● |
+| Contents: public group Page | ✕ | ● | ● | ● | ● | ● |
+| Contents: community-only group Page | ✕ | ✕ | ◐ its announcements | ● | ◐ the post only | ● |
+| Contents: private group Page | ✕ | ✕ | — | ● | ◐ the post only | ● |
 | How many RSVP'd | ✕ | ● | ● | ● | ● | ● |
-| Contents: business Page | ◐ front door only | ● | ● | ● | ● | ● |
-| Contents: public group Page | ◐ front door only | ● | ● | ● | ● | ● |
-| Contents: community-only group Page | ◐ front door only | ● | ● | ● | ● | ● |
-| Contents: private group Page | ◐ front door only | ◐ front door only | — | ● | ● | ● |
-| Roster: who the members are | ✕ | ✕ | ✕ | ● current members | ● | ● |
+| Roster: who the members are | ✕ | ✕ | ✕ | ● current members | ✕ | ● |
 | Follow graph: who follows whom | ✕ | ✕ | ✕ | ✕ | ✕ | ◐ their own Page's followers, by name |
 | Who RSVP'd to a gathering | ✕ | ✕ | ✕ | ✕ | ◐ its other parties; a one-on-one, only the two | ◐ as host |
 | Who bought | — no purchasing in the app yet (`ROADMAP.md` § Later) | — | — | — | — | — |
 | A member's legal name | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
-| Public announcement, from any Page | ◐ one withheld card per Page (F093) | ● | ● | ● | ● | ● |
+| Public announcement, from any Page | ◐ one withheld card per Page (F093), "Sign up to see what's happening" | ● | ● | ● | ● | ● |
 | Followers announcement | ◐ the same withheld card | ✕ | ● | ● | ✕ | ● |
 
-**Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door: every viewer sees it, private group Pages included; signed out gets the minimum — name, photo and the withheld card — and signed in adds location, tags and the founder or seller by display name; no RSVP count or dates for the signed out (2026-09-30). Contents: private, community-only and public are group-Page levels; community-only means every signed-in member; business Pages take none; a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs: someone who RSVP'd is inside the group; whoever is party to an RSVP sees it — everyone at a gathering of many, only the two at a one-on-one — and a member who didn't RSVP is not party (2026-09-30); the count is the Response entry above. Purchases: deferred until the app has purchasing (2026-09-30). Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), a public one reaches everyone whatever the Page's level (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
+**Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door: a business closed for the night — every viewer sees it, private group Pages included, and it doesn't show the founder or seller; the card's words are placeholder copy (2026-09-30). Contents: a signed-in non-member sees the front door plus what the owner makes visible to the MSA; private, community-only and public are group-Page levels; community-only means the Page's own members; business Pages take none and have no members; a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs: an RSVP makes someone a member of that post, not the Page; whoever is party to an RSVP sees it — everyone at a gathering of many, only the two at a one-on-one — and a member who didn't RSVP is not party (2026-09-30); the count is the Response entry above. Purchases: deferred until the app has purchasing (2026-09-30). Between people: limits apply only to transactions, where the parties see each other as far as the transaction needs; without a transaction it can be visible (2026-09-30). Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), a public one reaches everyone whatever the Page's level (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
 
 **Combinations.** A member with several relationships to a Page sees the union of their columns, and nothing extra (2026-09-30). Someone who runs one Page is a stranger to another.
 
-[open-question owner=don raised=2026-09-30] **(i)** Visibility between people directly — creator and consumer, creator and creator, consumer and consumer — and a consumer's own visibility setting, which comes with direct messaging. **Parked by Don 2026-09-30, not launch.** Marked so it stays in the index. `stakeholder_visibility` is the creator's setting today.
+[open-question owner=don raised=2026-09-30] Is the transaction limit what separates a follower from a consumer or member? Don: *"This could be a differentiator for follower vs consumer/member."* A) **Yes, by participation:** a follower sees what the Page shows; a consumer or member also sees the others party to what they took part in, capped by what a transaction needs. B) No: follower and consumer see the same, and only a transaction limits anything. C) Leave it until direct messaging brings the consumer's own visibility setting. *Recommend A;* it is what the RSVP ruling already does.
+
+[open-question owner=don raised=2026-09-30] Now that community-only means the Page's own members, what separates a community-only group Page from a private one? A) **Followers:** a community-only Page can be followed and its announcements reach them; a private Page has members, not followers (2026-09-15). B) Nothing: merge the two levels into one. *Recommend A;* it is the only difference the rulings leave, and the table is filled that way.
 
 ### Nouns this needs
 

@@ -53,7 +53,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 
 **Speculative, not ruled**
 - When in-app purchasing exists, producer and purchaser see each other as far as the transaction needs *(Don, 2026-09-30)*.
-- "Consumer" as a noun apart from patron. It currently has no separate meaning: someone who RSVP'd is inside the group, and nobody buys in the app yet *(2026-09-30)*.
+- Membership-style offerings on a business Page, such as a CSA farm box or a recurring membership for a product *(Don, 2026-09-30)*. Business Pages currently have no members.
 
 ## Cut — taken off the launch list, dated and reasoned
 
