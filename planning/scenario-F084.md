@@ -12,10 +12,10 @@ Don wants to change a sentence. Today that means finding which of a hundred-odd 
 ## Acceptance
 
 1. **No component file contains a user-facing string literal.** Every rendered word is imported from the copy module.
-2. The module is **typed**: a missing or misspelled key fails the build, never at runtime in front of a member.
+2. The module is **typed**: a missing or misspelled key fails the build, not at runtime in front of a member.
 3. Changing any wording is an edit to **that one file and nothing else** — no component touched.
 4. **No rendered text changes during the extraction.** The app reads identically before and after; this moves words, it does not rewrite them.
-5. Strings with values in them (counts, names, dates) are **functions taking typed arguments**, never assembled by concatenation at the call site.
+5. Strings with values in them (counts, names, dates) are **functions taking typed arguments**, not assembled by concatenation at the call site.
 6. The person-noun check of `product/foundation/nouns.md` can run against **the module alone** and produce the same verdict as scanning the whole app.
 
 ## Not this

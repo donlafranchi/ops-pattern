@@ -8,9 +8,9 @@ date: 2026-09-15
 
 # The tools mapping
 
-**Draft, 2026-09-15. A first cut to react to, not a ruling.** This is the mechanism behind three separate rulings that all assumed it — *"it just doesn't require all of the same tools"*, the baseline every Page gets, and the `event` Page kind. **It has never existed in schema or in a document.**
+**Draft, 2026-09-15. A first cut to react to, not a ruling.** This is the mechanism behind three separate rulings that all assumed it — *"it just doesn't require all of the same tools"*, the baseline every Page gets, and the `event` Page kind. **It has not existed in schema or in a document.**
 
-Written under the bare-term rule in `nouns.md` § A vague term is never used by itself.
+Written under the bare-term rule in `nouns.md` § A vague term is not used by itself.
 
 ## The tool list, derived not invented
 
@@ -29,7 +29,7 @@ Every tool below exists in the schema, in an approved scenario, or in a ratified
 | **Location anchor** | `groups.anchor_location_id`, address or neighbourhood |
 | **Appearances** | `groups.md` — an appearance at a venue takes precedence over the anchor |
 | **Photo, or art that admits it isn't one** | F070 |
-| **Dormancy** | `groups.md` — 90 days for community kinds, never for business |
+| **Dormancy** | `groups.md` — 90 days for community kinds, none for business |
 | **Messaging** | nothing. Named because Don's baseline says "later" |
 
 ## The mapping
@@ -77,7 +77,7 @@ What actually separates them is **what the social group is about** — a neighbo
 **So the honest count is three distinct tool sets:**
 
 1. **Community** — the five affiliate kinds. `family` is this set with privacy on.
-2. **Business** — adds selling and the business claim, and is the only kind that never goes dormant.
+2. **Business** — adds selling and the business claim, and is the only kind that doesn't go dormant.
 3. **Event** — loses recurrence, group membership and everything commercial.
 
 **That is evidence the four community kinds should merge.** Four values that produce one tool set are four ways to get the same Page and one more decision at creation that buys the person nothing — the same argument that retired the twelve categories. **The counter-argument, and it is real:** `event_anchored`'s child table exists and is referenced by a deferred foreign key, and `family`'s private default is load-bearing. **Merging is a recommendation, not a conclusion, and it is Don's call.**
@@ -158,9 +158,9 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 
 **Draft, 2026-09-15.** Don: *"For all the types that are similar, we should let people choose based on their terms, but then it just directs them to whatever we're calling it behind the scenes so they don't need to guess based on an incomplete list of options."*
 
-**The person picks a label in their own words — run club, book club, neighbourhood group, farmers market, supper club, congregation. That label maps to a Page kind. They never see our taxonomy and never guess which of our words their thing is.**
+**The person picks a label in their own words — run club, book club, neighbourhood group, farmers market, supper club, congregation. That label maps to a Page kind. They don't see our taxonomy or guess which of our words their thing is.**
 
-**A label names what someone is starting, never what it is about.** *(Guard added 2026-09-15 — Don: "We don't need categories for kinds.")* *Run club* and *supper club* are labels. **"House and home", "Art and artists", "Outdoor goods" are subject matter and are not labels** — subject matter is what tags already carry, freely and without approval. **A subject list entering the label mapping would be a category layer over Page kinds arriving through the back door**, which is the thing the ruling refuses.
+**A label names what someone is starting, not what it is about.** *(Guard added 2026-09-15 — Don: "We don't need categories for kinds.")* *Run club* and *supper club* are labels. **"House and home", "Art and artists", "Outdoor goods" are subject matter and are not labels** — subject matter is what tags already carry, freely and without approval. **A subject list entering the label mapping would be a category layer over Page kinds arriving through the back door**, which is the thing the ruling refuses.
 
 ## Shape: many labels, one Page kind
 
@@ -192,7 +192,7 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 
 ## This dissolves the merge argument rather than answering it
 
-**The case for four community Page kinds was never that they behave differently — this document showed they do not. It was that four words give a person more recognition than one.** A label layer gives more recognition than four ever could, without a taxonomy to guess at.
+**The case for four community Page kinds was not that they behave differently — this document showed they do not. It was that four words give a person more recognition than one.** A label layer gives more recognition than four ever could, without a taxonomy to guess at.
 
 **So merge behind the scenes and multiply labels in front.** Four kinds become `community`; run club, book club, neighbourhood watch, quilting circle, congregation and everything else become labels pointing at it. **The person gets their own word. The system gets one tool set to reason about.**
 
@@ -200,11 +200,11 @@ Rejected: `social` (a family Page is social too, and family does not merge) · `
 
 **`model.md` records that a market "convenes commercial vendors without selling anything itself" and fits none of the six Page kinds cleanly. Under this proposal it does not need to: a farmers market is a label.**
 
-**Which kind it points at is a real question and a small one** — `community`, since a market convenes people and the market itself sells nothing, while each vendor holds their own `business` Page. **The gap closes because the market never had to be a kind; it had to be a word.**
+**Which kind it points at is a real question and a small one** — `community`, since a market convenes people and the market itself sells nothing, while each vendor holds their own `business` Page. **The gap closes because the market didn't have to be a kind; it had to be a word.**
 
 ## What this costs
 
-**Cheap:** the table, and a seed list of labels. The mapping is read once at creation and never again.
+**Cheap:** the table, and a seed list of labels. The mapping is read once at creation and not again.
 
 **Not cheap, and not new:** the approval queue needs a surface, and **the operator concept still does not exist in the code** — the same blocker the search dictionary already carries. **Both should be built once, for both vocabularies.**
 

@@ -79,7 +79,7 @@ date: 2026-09-15
 3. **No recurrence.** There is no second occurrence, and no path from one to a series without starting something new.
 4. **No photo.** Photos belong to Pages under the 2026-09-07 model change. A one-time gathering that is not a Page carries no face.
 5. **No tags.** Tags are a Page's own vocabulary, so a one-off is not findable by the words its host would choose for it.
-6. **Not indexed as an organization.** It never appears in Browse's Pages list. **This is the point, not a defect** — it is why the no-Page-for-a-single-occasion rule exists.
+6. **Not indexed as an organization.** It does not appear in Browse's Pages list. **This is the point, not a defect** — it is why the no-Page-for-a-single-occasion rule exists.
 7. **It disappears once past.** *Anything in the past doesn't appear* — time-based and automatic.
 8. **No business claim, jurisdiction, or locality badge.**
 9. **No editing lifecycle** beyond an Item's own `state` — no archive, no dormancy, no retirement.
@@ -107,6 +107,6 @@ date: 2026-09-15
 ## What this contradicts, for Don to rule on
 
 1. **The one-time gathering versus F087 criterion 1.** F087 says *every path through the create flow produces a Page*. This document says the thin one is an Item. **`nouns.md`: "No Page for a single occasion"**, and the 2026-09-07 ruling gives the reason — browse and the map would index listings as if they were people, and a follower graph on something ephemeral is worthless. **Either F087 criterion 1 narrows, or the rule reverses.**
-2. **If a container Page is created silently** to hold a one-off, it collides with **F069 criterion 3**: *"A Member holding several Pages sees every one on any producer surface — none silently chosen for them."* A silent container is a Page the person never knew they made. Either it is hidden from producer surfaces too, narrowing an approved criterion, or the person is told, which breaks the point of it being silent.
+2. **If a container Page is created silently** to hold a one-off, it collides with **F069 criterion 3**: *"A Member holding several Pages sees every one on any producer surface — none silently chosen for them."* A silent container is a Page the person didn't know they made. Either it is hidden from producer surfaces too, narrowing an approved criterion, or the person is told, which breaks the point of it being silent.
 3. **`items.category` is still a live column** while categories are retired and *tags are the only vocabulary* (2026-09-13). Nothing in this document uses it; it is named so nobody revives it.
 4. **`groups.kind = 'business'` already gates** — it carries a 1:1 child and the business claim attaches to it. That sits in tension with *"no permanent kind that gates anything"*, and predates this document.

@@ -24,7 +24,7 @@ a place to enforce privacy. The same publishable key ships inside the APK and is
 What a native build or a store review needs and the code does not have today. Each is marked `gap`
 where it is true; the gap is gone when its marker is.
 
-- **GAP** · no path exists; `members.deleted_at` is never set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
+- **GAP** · no path exists; `members.deleted_at` is not set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
 - **GAP** · redirects are built from `window.location.origin` and the PKCE verifier is a host-only cookie, so neither a magic link nor a Google sign-in can return to an app — [product/ui/surfaces.md](product/ui/surfaces.md)
 - **GAP** · signup asks no age and states no minimum, and there are no terms — [product/ui/surfaces.md](product/ui/surfaces.md)
 - **GAP** · the site serves neither `apple-app-site-association` nor `assetlinks.json`, so no shared link can open an app — [product/ui/surfaces.md](product/ui/surfaces.md)
@@ -34,7 +34,7 @@ where it is true; the gap is gone when its marker is.
 ## Google Play review
 
 **account-deletion** · Play User Data policy: delete the account in the app, and from a web link listed in the Play Console.
-- **GAP** · no path exists; `members.deleted_at` is never set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
+- **GAP** · no path exists; `members.deleted_at` is not set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
 
 **sign-in** · Google Play has no such requirement; the markers below are for iOS.
 - **GAP** · Continue with Google is offered and Sign in with Apple is not — [product/ui/surfaces.md](product/ui/surfaces.md)

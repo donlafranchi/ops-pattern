@@ -21,7 +21,7 @@ date: 2026-09-17
 - **`model.md` already rules the same way:** *"Browse is everything… The default is inclusion. Anything excluded needs a reason, recorded."* **Quiet is not a reason to exclude; it is a reason to rank below things that are not.**
 - **Sorting last fails softly.** If the date is wrong, something appears lower than it should. If hiding is wrong, something disappears.
 
-**The author can see it has gone quiet, and only the author can.** One line on their own Page, never on a public surface — quiet is not a label the platform hangs on somebody in front of other people.
+**The author can see it has gone quiet, and only the author can.** One line on their own Page, not on a public surface — quiet is not a label the platform hangs on somebody in front of other people.
 
 **Bringing it back is one action: edit it, or announce something on it.** No separate "renew" button, no confirmation, nothing to learn. **Doing the ordinary thing is the revival.**
 

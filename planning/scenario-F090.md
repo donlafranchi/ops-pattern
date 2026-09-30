@@ -7,18 +7,18 @@ depends: [F070]
 ---
 ## Story
 
-Priya already posts her pottery to TikTok and Instagram every week. She is not going to post it again here. On her Page she types `priyamakes` into a field already showing `tiktok.com/@`, does the same for Instagram, and pastes the URL of her Etsy shop into a third field. Her Page now shows where else to find her. She has typed three things, once, and she never maintains any of it again.
+Priya already posts her pottery to TikTok and Instagram every week. She is not going to post it again here. On her Page she types `priyamakes` into a field already showing `tiktok.com/@`, does the same for Instagram, and pastes the URL of her Etsy shop into a third field. Her Page now shows where else to find her. She has typed three things, once, and she does not maintain any of it again.
 
 ## Acceptance
 
 1. A Page owner can record where else their work lives from the Page edit surface, in one pass, without leaving SocialUs.
 2. **The cheapest possible action from the member.** They type a handle, not a URL, into a field that already shows the prefix. Judged against: does this ask more of them than they already do elsewhere? If yes, it fails.
-3. Handle validation is permissive — what each platform actually allows, never stricter. A real handle is never refused. Nothing verifies the account exists.
+3. Handle validation is permissive — what each platform actually allows, not stricter. A real handle is not refused. Nothing verifies the account exists.
 4. A recorded destination renders on the public Page as a link out, with the platform named.
 5. Nothing on the Page depends on a third party's script, and nothing breaks visibly when a third party changes or fails.
 6. Removing a destination is one action and leaves nothing behind.
-7. Every rendered destination is an https URL — the value reaches an `href` on a public page, so anything else is a script injection wearing a platform label. `[member-data-disclosure]`: a destination is published only because the owner typed it, never inferred, never imported.
-8. Copy names platforms in the member's words and never says "creator". `[public-is-draft]` — wording here is Don's.
+7. Every rendered destination is an https URL — the value reaches an `href` on a public page, so anything else is a script injection wearing a platform label. `[member-data-disclosure]`: a destination is published only because the owner typed it, not inferred, not imported.
+8. Copy names platforms in the member's words and does not say "creator". `[public-is-draft]` — wording here is Don's.
 
 ## Not this
 

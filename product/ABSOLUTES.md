@@ -5,7 +5,7 @@ public acts, authority — are in `../process/ABSOLUTES.md`, which also carries
 **the four-harms test** every absolute must pass and the rule for adding a
 seventh. Both are stated once, there, and govern this page too.
 
-Cite these by slug in brackets — `[member-content-takedown]`, never "rule 1".
+Cite these by slug in brackets — `[member-content-takedown]`, not "rule 1".
 
 ## People
 
@@ -16,7 +16,7 @@ production until there is a report-and-takedown path for that kind of content.
 
 ### member-data-disclosure
 
-Member data is never exposed beyond what the member chose to show. Addresses,
+We currently expose no member data beyond what the member chose to show. Addresses,
 contact details, and private records stay private by default.
 
 ## The value absolute lives elsewhere

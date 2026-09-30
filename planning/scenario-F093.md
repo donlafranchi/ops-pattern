@@ -9,13 +9,13 @@ approved: 2026-09-23 — Don's ruling on socialus-web #200. "Who exists is publi
 ---
 ## Story
 
-Someone who has never signed in opens Explore in Sacramento. They see the Pages that are here — names, descriptions, where they are, the map — exactly as before. Among them is SacRiver Floaters' tile — its photo, its name, and *3 announcements this week* — one card for the Page, however many it posted. It does not say what the announcements are, or when, or where. It says *the details are for members and followers of this Page*, and under it: *Sign in to become a member.* They can see the place is alive without being handed its diary, and the one thing they can do about it is join.
+Someone who has not signed in opens Explore in Sacramento. They see the Pages that are here — names, descriptions, where they are, the map — exactly as before. Among them is SacRiver Floaters' tile — its photo, its name, and *3 announcements this week* — one card for the Page, however many it posted. It does not say what the announcements are, or when, or where. It says *the details are for members and followers of this Page*, and under it: *Sign in to become a member.* They can see the place is alive without being handed its diary, and the one thing they can do about it is join.
 
 ## Acceptance
 
 1. **An anonymous caller cannot retrieve an announcement body from the database, by any route.** A direct request to the PostgREST endpoint for `page_posts`, using the publishable key that ships in the client bundle, returns no `body` for any row. This is checked by calling the endpoint, not by reading the policy.
 2. **The same is true of `starts_at` and `location_id`**, and of any later column carrying what an announcement says or when and where it happens. Withholding the body alone and serving the time would invert the ruling.
-3. **Withholding is enforced in SQL.** The signed-out card is served by a read path that never selects the body — a projection, not a filter applied to a row the caller has already been given. **No test of the form "the component does not render it" discharges any criterion here.**
+3. **Withholding is enforced in SQL.** The signed-out card is served by a read path that does not select the body — a projection, not a filter applied to a row the caller has already been given. **No test of the form "the component does not render it" discharges any criterion here.**
 4. **The signed-out card carries exactly five things:** the Page's photo, the Page name, how many announcements that Page has this period, that the details are for members and followers of this Page, and a call to sign in and become a member. Not the body, not the time, not the place, not an excerpt — and not the Page's own location, which beside a count reads as where they happen. A Page with no photo, or a hidden one, shows the same placeholder every tile does.
 5. **One card per Page, not per announcement**, carrying that Page's count of announcements for the current period, with the period named in words a reader understands. A count that cannot be read as a period is not a count, and two cards for one Page repeating one count read as broken. A Page with announcements but none this period still has its card, without a nought.
 6. **A signed-in member sees no change whatsoever** — same bodies, same times, same places, same ordering, on Explore and on a Page. This scenario adds nothing to and removes nothing from the signed-in surface.
@@ -24,7 +24,7 @@ Someone who has never signed in opens Explore in Sacramento. They see the Pages 
 9. **A signed-out visitor who follows an `#announcement-<id>` link — to any of the Page's announcements, not only the latest — lands on a page that resolves.** The Page renders its one withheld card, marked as where they landed, with the CTA on it. **No 404, no blank Announcements section, and no silent scroll to nothing.**
 10. **Nothing on the signed-out surface is a link to a body.** A control that navigates to something a signed-out reader cannot read, and only then asks them to sign in, fails this: the ask comes first.
 11. **The card is the same for every anonymous reader.** No personalisation, no geolocation-derived variation, nothing derived from a prior visit — there is no member, so there is nothing to vary on.
-12. **Every criterion above is discharged by a check that has been observed failing** against a fixture that should fail it, per `[guard-proves-itself]`. A green suite that has never rejected a body-bearing anonymous response does not discharge criterion 1.
+12. **Every criterion above is discharged by a check that has been observed failing** against a fixture that should fail it, per `[guard-proves-itself]`. A green suite that has not rejected a body-bearing anonymous response does not discharge criterion 1.
 
 ## Why
 
@@ -36,7 +36,7 @@ So the body goes, entirely. **There is no excerpt, no first line, no character-t
 
 ### Two doors, which is why this is RLS and not robots.txt
 
-**`robots.txt` and the Vercel firewall defend `www.socialus.org`. The rows are also served from `https://<ref>.supabase.co/rest/v1/`, with a publishable key that ships inside our own JavaScript.** That origin is not behind our firewall and never will be. An agent that reads the bundle — which is what a collecting crawler does — takes the second door and never touches the first.
+**`robots.txt` and the Vercel firewall defend `www.socialus.org`. The rows are also served from `https://<ref>.supabase.co/rest/v1/`, with a publishable key that ships inside our own JavaScript.** That origin is not behind our firewall and will not be. An agent that reads the bundle — which is what a collecting crawler does — takes the second door and does not touch the first.
 
 **That is the whole reason this was an RLS question.** RLS is the only layer sitting in front of both. **A hide in a React component is an inert guard under `[guard-proves-itself]`**: green on every run, and absent the moment anyone asks the database directly. `#178` is the standing demonstration that the second door is real and already being used to count our tables.
 

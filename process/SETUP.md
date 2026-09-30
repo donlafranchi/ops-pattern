@@ -54,7 +54,7 @@ npx vercel link          # this checkout is NOT linked — there is no .vercel/p
 npx vercel env pull .env.local
 ```
 
-**Never paste a secret into this file, into a scenario, into an Issue, or into a chat.** `SUPABASE_SECRET_KEY` bypasses row-level security entirely.
+**Secrets go only in the secret store; don't paste one into this file, into a scenario, into an Issue, or into a chat.** `SUPABASE_SECRET_KEY` bypasses row-level security entirely.
 
 ## 4. Supabase — hosted, not local
 
@@ -94,7 +94,7 @@ npx vercel env pull .env.local
 - **Main is the truth.** Not the laptop you were last on.
 - **Branches push too.** A branch left local is work the other machine cannot see.
 
-**One convention to drop: "socialus-web commits stay local until Don says so."** It does not survive two machines — it strands app work on whichever laptop it was written on, which is exactly what this setup exists to prevent. **Recommend dropping it**; `CLAUDE.md` § Commits never encoded it, so nothing needs editing, only the habit. `ops-pattern` already pushes its own doc changes and should keep doing so.
+**One convention to drop: "socialus-web commits stay local until Don says so."** It does not survive two machines — it strands app work on whichever laptop it was written on, which is exactly what this setup exists to prevent. **Recommend dropping it**; `CLAUDE.md` § Commits did not encode it, so nothing needs editing, only the habit. `ops-pattern` already pushes its own doc changes and should keep doing so.
 
 ## Verify
 

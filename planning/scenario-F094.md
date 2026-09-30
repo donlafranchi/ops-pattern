@@ -11,7 +11,7 @@ Maya lives in Midtown and makes hot sauce. Devon runs a Tuesday run club out of 
 
 ## Acceptance
 
-1. **Every member-facing surface that scopes, ranks or defaults by locality scopes to the metro** — never to a neighbourhood, a city, or a fixed radius. Each row in *Why § Scope* is changed or struck with a reason; none is left silent.
+1. **Every member-facing surface that scopes, ranks or defaults by locality scopes to the metro** — not to a neighbourhood, a city, or a fixed radius. Each row in *Why § Scope* is changed or struck with a reason; none is left silent.
 2. **No member-facing string presents locality as tighter than the metro** ("near you", "nearby", "your neighbourhood", "your neighbors") where it is scoping rather than describing. Until a second metro the replacement is *"in Sacramento"* (Don, 2026-09-30; [public-is-draft]).
 3. **Local means where a thing is, and stays as fine-grained as its owner gave it** — an address, a neighbourhood label, a service area, or where it usually shows up. **Who sees a Page is the Page's own setting**, not its locality (Don, 2026-09-30).
 4. A member's home is their metro (F081 criterion 7). Nothing reads a home place finer than it for scoping.

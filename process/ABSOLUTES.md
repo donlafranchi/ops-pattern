@@ -9,7 +9,7 @@ exposure of production data, a public act that can't be unpublished, a decision
 made without Don. Everything not on these two pages is a guideline — break it
 when justified and say why in the PR or the scenario.
 
-**Cite an absolute by its slug in brackets — `[production-asks-don]`, never
+**Cite an absolute by its slug in brackets — `[production-asks-don]`, not
 "rule 3".** Numbers renumber and citations to them rot silently; slugs do not.
 `scripts/lint.sh` fails on any bracketed slug in the repo with no matching `###`
 heading in one of these two files, so a rename breaks the build instead of
@@ -71,7 +71,7 @@ on. Pruning a supersession Don already made is bookkeeping, not a ruling.
 replaces the other** — the same date, or rulings on different things that one
 case needs both of. Mark `[open-question owner=don raised=…]` where the
 conflict bites, with A/B and a recommendation; build everything it does not
-touch; **never block on a chat message.** **An agent never splits the
+touch; **don't block on a chat message.** **An agent doesn't split the
 difference:** a third position neither ruling took is a decision made without
 Don.
 
@@ -107,7 +107,7 @@ and nothing may be built on it.
 **The dated failures, all within two days, which is what makes this a category
 rather than three bugs** *(2026-09-19 to 2026-09-21)*:
 
-- **The migration preflight parser** never worked in CI at all. `supabase
+- **The migration preflight parser** did not work in CI at all. `supabase
   migration list` renders markdown when stdout is not a TTY, so every cell
   arrived backtick-wrapped and the parser required bare digits. It failed
   closed, correctly, every time — and **the first migration it ever guarded is
@@ -119,7 +119,7 @@ rather than three bugs** *(2026-09-19 to 2026-09-21)*:
 - **`issue-lint`** cannot match across the `**` in `**Kind:**` that its own
   template emits, so every templated issue is judged non-compliant; and with no
   `permissions:` block the labelling call returns 403 and kills the run. **The
-  `needs-fix` label that `CLAUDE.md` tells agents to watch for has never once
+  `needs-fix` label that `CLAUDE.md` tells agents to watch for has not once
   been applied.**
 
 **Which harm:** harm to a member, and production data. The 2026-09-21 outage is

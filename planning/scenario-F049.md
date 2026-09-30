@@ -14,7 +14,7 @@ Someone new to Oak Park finishes the account step. Signup asks one geography que
 1. Signup asks for a "hood" (that word) and a metro, both on one screen.
 2. The metro field is pre-filled but overridable without leaving the screen.
 3. A member outside every seeded metro picks from a short list of nearby candidate metros.
-4. An overridden metro is never silently rewritten by a later place-interest change.
+4. An overridden metro is not silently rewritten by a later place-interest change.
 5. Both fields are editable later from the profile.
 
 ## Not this

@@ -48,7 +48,7 @@ horizon: the version after launch (launch is 2026-10-30)
 
 **Five constraints. Each is cheap to hold now and expensive to retrofit.**
 
-1. **Privacy is enforced in the data layer, never in a component.** `browse_feed` is `security invoker` and withholds the follower-restricted half **in its own predicate**, so anything reading through it inherits the rule for free — an assistant included. **If withholding ever migrates into a component, a future assistant bypasses it silently**, because it will not be reading through the component. **This is invisible until it is violated**, which is why it is written down rather than trusted. The same property binds any retrieval path added later: a `security definer` retrieval function breaks it without failing anything.
+1. **Privacy is enforced in the data layer; we currently don't rely on a component to withhold anything.** `browse_feed` is `security invoker` and withholds the follower-restricted half **in its own predicate**, so anything reading through it inherits the rule for free — an assistant included. **If withholding ever migrates into a component, a future assistant bypasses it silently**, because it will not be reading through the component. **This is invisible until it is violated**, which is why it is written down rather than trusted. The same property binds any retrieval path added later: a `security definer` retrieval function breaks it without failing anything.
 
 2. **A summarised answer is a disclosure.** Retrieving a restricted row to *inform* an answer discloses it as surely as printing it. Anything designed now that assumes "we only show what we retrieved" should assume the stronger form.
 

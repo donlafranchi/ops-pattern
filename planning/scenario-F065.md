@@ -13,7 +13,7 @@ Rae wants to hear from a bakery, a repair collective, and the Saturday market �
 ## Acceptance
 
 1. Following a person, Page, or venue writes one row with its event row in the same transaction.
-2. A follow never grants membership, a role, or read access to anything unlisted — checked directly against every authorization/roster path.
+2. A follow grants no membership, no role, and no read access to anything unlisted — checked directly against every authorization/roster path.
 3. A Member who follows a business and owns no shop still sees the Sell control offer to help them start something.
 4. Unfollowing then re-following revives the original row rather than duplicating it.
 5. The following list reads from one table, not three.

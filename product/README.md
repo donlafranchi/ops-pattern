@@ -22,27 +22,27 @@ One line per doc, then the settled rules with no rationale attached — read the
 - No impersonal Business entity in the data model, ever.
 - A Person makes Items; a brand name is a label, not a record that owns anything.
 - A cooperative = a business Group with multiple owner-role members, not a new entity type.
-- No ranking of people — a review is of the treatment, never a single score or leaderboard.
-- Groups are started/joined/dissolved by members only — never auto-assigned, never corporately owned.
-- Deeper infrastructure (banking, insurance) spins off to separate federated platforms, never absorbed.
+- No ranking of people — a review is of the treatment, not a single score or leaderboard.
+- Groups are started/joined/dissolved by members only — not auto-assigned, not corporately owned.
+- Deeper infrastructure (banking, insurance) spins off to separate federated platforms, not absorbed.
 
 **`foundation/role-language.md`** — **retired 2026-09-14**, a tombstone naming where each rule went. The two sides live in `foundation/nouns.md` § The two sides.
 - **Patron and creator are internal vocabulary** *(2026-09-14, Don)* — our shorthand for the two sides. Free to use in docs, scenarios and tickets.
-- **No person-noun in a user-facing string, these two included.** A member is "you"; a group is "people" or named; everything else is a verb. This rule was never overruled.
+- **No person-noun in a user-facing string, these two included.** A member is "you"; a group is "people" or named; everything else is a verb. This rule was not overruled.
 - Neither is a stored type — patron is the default state, creator derives from the attestation record plus what the person authored.
-- Functional roles (owner, staff, steward, host, founder) stay scoped to one Group or gathering — never shown as a person-level identity.
+- Functional roles (owner, staff, steward, host, founder) stay scoped to one Group or gathering — not currently shown as a person-level identity.
 
 **`foundation/voice.md`** — **the voice of the platform and the launch copy. Don's words, verbatim; agents do not edit it.**
-- People are never a category; a person is "you", a group is "people" or named, everything else is a verb.
-- Never a zero count on someone's own work. Job words attach to a thing, never a profile.
+- People are not a category; a person is "you", a group is "people" or named, everything else is a verb.
+- No zero count on someone's own work. Job words attach to a thing, not a profile.
 - Writing mechanics: no em dashes, no "not just X but Y" tic, no corporate transitions, no forced rule of three, "corner" banned.
-- CTAs point outward (meet up, show up, join in), never inward. Nothing is written as posting or sharing — every listing is a creation.
+- CTAs point outward (meet up, show up, join in), not inward. Nothing is written as posting or sharing — every listing is a creation.
 - **Name line and subhead are locked.** Carries the launch copy surface by surface.
 
 **`foundation/policy.md`** — the three-filter test.
 - Every privacy/revenue/data-sharing default passes 3 questions in order: helpful to members? harmful to anyone else (including non-participants)? abusable by a bad actor?
 - Default posture for non-essential sharing: **off.** Opt-ins must be visible, granular, revocable, time-bounded where stakes warrant it.
-- Messaging stays scoped to an Item or a Group — never a Location.
+- Messaging is currently scoped to an Item or a Group, not a Location.
 - A Member's private geography (place-interests, saved searches) is owner-only at the row level, no exceptions, ever.
 - Uploaded images: metadata (GPS) stripped before storage; a takedown path exists before the first upload is accepted.
 
@@ -54,68 +54,68 @@ One line per doc, then the settled rules with no rationale attached — read the
 
 **`foundation/nouns.md`** — the entity list. **Spine:** each entry carries its own status and holds both horizons, now and later.
 - Three core nouns: Person (schema name: Member), Item, Location. Group is a fourth, optional and emergent.
-- Page = the person/people behind a listing (the UI name for a Group row). Item = what's declared. Never conflate the two.
+- Page = the person/people behind a listing (the UI name for a Group row). Item = what's declared. Don't conflate the two.
 - Refused as nouns: Business entity, Role, Follow-a-product-or-service, Location-scoped messaging or feed, Cooperative governance as a feature.
 
 **`foundation/verbs.md`** — the permission matrix. **Spine:** each cell carries its own status and holds both horizons, now and later.
 - One matrix: what each verb (create/edit/follow/join/message/etc.) may do to each noun — a ✕ cell is a permanent refusal, not a backlog item.
-- Following a Page = joining it. Products and services can never be followed.
+- Following a Page = joining it. Products and services currently can't be followed.
 - No messaging at large, anywhere — only inside a Page you've joined, once that ships.
-- A follow never grants membership, a role, or read access to anything.
+- Following currently grants no membership, role, or read access to anything.
 
 ## What — systems/ (settled shape of each entity/mechanism)
 
-> **Systems docs are depth, not a competing status.** They describe *how* a concept works; they never state whether it ships. The spine — `foundation/nouns.md`, `foundation/verbs.md`, `ui/surfaces.md` — owns status. That is why these are not a fourth tracking layer, and why "a concept lives in exactly one place" does not make them redundant: they answer a different question, not the same one twice. A systems doc that starts declaring what ships has drifted — move that sentence to the spine, don't delete the doc.
+> **Systems docs are depth, not a competing status.** They describe *how* a concept works; they don't state whether it ships. The spine — `foundation/nouns.md`, `foundation/verbs.md`, `ui/surfaces.md` — owns status. That is why these are not a fourth tracking layer, and why "a concept lives in exactly one place" does not make them redundant: they answer a different question, not the same one twice. A systems doc that starts declaring what ships has drifted — move that sentence to the spine, don't delete the doc.
 
 
 **`systems/member.md`** — the identity primitive. *(split landed — see Open Actions below)*
 - One row per real human, lifetime-stable. No stored role column, no street address by default.
-- Full legal name required at signup and held by the platform. **What is not required is that a real name be displayed publicly** — a display name stands in on every public and discovery surface. **People who actually interact are not hidden from each other:** a completed sale or a recorded attendance discloses each party's legal name to the other, mutually, as a term of interacting rather than a consent. **Interaction is the only path to a name** — no lookup, no name search, no reverse lookup, no roster. *(2026-09-14, replaces "real names encouraged, never required" — see `DECISIONS.md` and F077.)*
+- Full legal name required at signup and held by the platform. **What is not required is that a real name be displayed publicly** — a display name stands in on every public and discovery surface. **People who actually interact are not hidden from each other:** a completed sale or a recorded attendance discloses each party's legal name to the other, mutually, as a term of interacting rather than a consent. **Interaction is the only path to a name** — no lookup, no name search, no reverse lookup, no roster. *(2026-09-14, replaces the earlier ruling that real names were encouraged but not required — see `DECISIONS.md` and F077.)*
 - Discoverability (search/directory/autocomplete visibility) defaults off — independent of whether the Member's own posts/hosting/founding still carry their name (they always do).
-- Geography lives in 3 owner-only substrates (locality default, private awareness scope, saved searches) — never a message send-to target.
+- Geography lives in 3 owner-only substrates (locality default, private awareness scope, saved searches) — not a message send-to target.
 - Direct-message and agent-assistance (Delegations) tables exist from day one with no UI yet.
 
 **`systems/creator.md`** *(new)* — the pattern for one-off/ongoing selling and hosting.
-- No stored business/creator entity — status is a Group-membership fact only, never a Member-row flag.
-- No promote-to-recurring flow — a one-off (a garage sale, a single class) never auto-upgrades into a Page; want it permanent, create one yourself.
+- No stored business/creator entity — status is a Group-membership fact only, not a Member-row flag.
+- No promote-to-recurring flow — a one-off (a garage sale, a single class) doesn't auto-upgrade into a Page; want it permanent, create one yourself.
 - "Archive" = a single flag that drops a Page from map findability. Not a lifecycle state machine, no separate reactivate flow.
 
 **`systems/groups.md`** — the Group/Page entity.
 - A business Group needs ≥1 active owner; owners are co-equal — no "operating owner" or succession concept anywhere.
-- Locally-Owned badge is computed fresh every time, OR-aggregated across all active owners — never a stored flag.
+- Locally-Owned badge is computed fresh every time, OR-aggregated across all active owners — not a stored flag.
 - No kind transitions — a Group that wants to formalize dissolves and a new one is created; items re-file at the member's discretion.
-- No auto-dormancy, no auto-dissolution — inactivity only demotes surfacing, never changes lifecycle state or adds a public label.
-- Reputation follows the person, never the Group.
+- No auto-dormancy, no auto-dissolution — inactivity only demotes surfacing; it doesn't change lifecycle state or adds a public label.
+- Reputation follows the person, not the Group.
 - Business names are scoped to a hood/metro — no global namespace.
-- Members are never auto-assigned to a Group; joining is always explicit.
+- We currently don't place anyone in a Group; joining is always explicit.
 
 **`systems/item.md`** — the one universal entity for anything declared.
-- One schema, varying only by `kind` (product/service/gathering/idea/offer/ask/initiative) — never separate systems per kind.
-- "Item" is schema-only — the UI always shows the specific kind, never the word "Item."
-- Provenance ("Locally Made") and jurisdiction ("Locally Owned") are separate claims, never auto-derived from each other.
+- One schema, varying only by `kind` (product/service/gathering/idea/offer/ask/initiative) — not separate systems per kind.
+- "Item" is schema-only — the UI always shows the specific kind, not the word "Item."
+- Provenance ("Locally Made") and jurisdiction ("Locally Owned") are separate claims, not auto-derived from each other.
 
 **`systems/location.md`** — physical places.
-- Three kinds, fixed at creation, never transitioning: permanent, recurring-temporary, area.
-- Not a Page, not civic geography, not a complaint/messaging surface, not a Person, never auto-populated from third-party data.
+- Three kinds, fixed at creation, not transitioning: permanent, recurring-temporary, area.
+- Not a Page, not civic geography, not a complaint/messaging surface, not a Person, not auto-populated from third-party data.
 - No ownership transfer — only a future claim-if-inactive flow, not yet built.
 
 **`systems/discovery.md`** — the one ranking engine.
-- One scoring core for feed, search, and notifications — never a separate watch-time optimizer.
-- Never rank by business size or follower count, ever.
+- One scoring core for feed, search, and notifications — not a separate watch-time optimizer.
+- Ranking currently doesn't favour a member because of payment, size or follower count.
 - No "verified business" boost — personal businesses are first-class.
-- Communities/Groups are never auto-assigned to a member's feed.
+- Communities/Groups are not currently auto-assigned to a member's feed.
 - Locality feed is computed at query time from private interests — no stored follow-edge table.
-- Inactive businesses get a surfacing-weight demotion only — never archived, hidden, or publicly labeled.
+- Inactive businesses get a surfacing-weight demotion only — not archived, hidden, or publicly labeled.
 
 **`systems/business-jurisdiction.md`** — the "locally owned" verification ladder.
-- Three tiers: self-attested → community-attested → document-verified. Only the tier and a ZIP render publicly, never the document or address.
+- Three tiers: self-attested → community-attested → document-verified. Only the tier and a ZIP render publicly, not the document or address.
 - OR-aggregation across all active owners — any one local owner qualifies the whole Group.
-- Never auto-derived from a Member's home location — must be explicitly declared.
+- Not auto-derived from a Member's home location — must be explicitly declared.
 
 **`systems/action-layer.md`** — the one write path.
 - Every write (web, mobile, agents, future federation peers) goes through one named, validated handler — no parallel write paths, ever.
-- Agent capabilities are short-lived, single-scope, minted server-side — the model never sees the credential itself.
-- Publishing or context-changing actions require a fresh human confirmation tap, never minted by an agent or Skill.
+- Agent capabilities are short-lived, single-scope, minted server-side — the model doesn't see the credential itself.
+- Publishing or context-changing actions require a fresh human confirmation tap, not minted by an agent or Skill.
 - No long-lived agent credentials, no uncatalogued scopes, no service-role SQL outside the handler library.
 
 ## Where things show — ui/
@@ -133,7 +133,7 @@ One line per doc, then the settled rules with no rationale attached — read the
 - Tiers: MVP (ships b1), Deferred b2+ (problem is settled, design isn't), Deferred far-horizon (kept so the shape isn't forgotten).
 
 **`needs/local-kinds.md`** *(draft)* — the kinds of local enterprise a metro holds.
-- **A seed list, not a category system.** `nouns.md` § Tag is ratified: a tag is created, never picked from a fixed list. Nothing here is a dropdown.
+- **A seed list, not a category system.** `nouns.md` § Tag is ratified: a tag is created, not picked from a fixed list. Nothing here is a dropdown.
 - Two halves, marked: **borrowed** (the twelve retired categories, the recruitment groupings, the six ownership tiers — all recovered from code deleted in #124) and **proposed** (a fuller metro list, added, observed nowhere).
 - Open: whether this ever becomes a lookup table seeding the tag store. Blocked on the tag store, which is blocked on report-and-takedown.
 

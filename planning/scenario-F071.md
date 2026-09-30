@@ -7,7 +7,7 @@ depends: [F059]
 ---
 ## Story
 
-Mara has just moved and wants good bread. She opens the app and the search box offers a few things people actually look for — *sourdough*, *yoga*, *guitar lessons*. She types "sourdough". Nothing in her neighbourhood has that word on it, but the curated dictionary maps it to the tags *bread* and *bakery*, so she gets the bakers and the jam maker anyway. On a quieter day the same search finds nothing at all, and rather than an empty screen she is shown what *is* near her, so she learns the neighbourhood is thin rather than that the app is broken. She has not signed in and is never asked to. Meanwhile Priya, setting up her bike-repair Page, sees a line telling her which words will find her — including the tags she picked.
+Mara has just moved and wants good bread. She opens the app and the search box offers a few things people actually look for — *sourdough*, *yoga*, *guitar lessons*. She types "sourdough". Nothing in her neighbourhood has that word on it, but the curated dictionary maps it to the tags *bread* and *bakery*, so she gets the bakers and the jam maker anyway. On a quieter day the same search finds nothing at all, and rather than an empty screen she is shown what *is* near her, so she learns the neighbourhood is thin rather than that the app is broken. She has not signed in and is not asked to. Meanwhile Priya, setting up her bike-repair Page, sees a line telling her which words will find her — including the tags she picked.
 
 ## Acceptance
 
@@ -17,7 +17,7 @@ Mara has just moved and wants good bread. She opens the app and the search box o
 4. There is no category anywhere — not as a control, not as a field a creator fills in. **Tags are the only vocabulary**, and search is the only filter.
 5. The pre-search state shows a small set of example searches in plain words, not a category list or a taxonomy.
 6. A search with no matches shows what is near the searcher instead of an empty result set, and says in one line that nothing matched the words used.
-7. The no-match state never renders as an error, a dead end, or an empty page.
+7. The no-match state does not render as an error, a dead end, or an empty page.
 8. Every search behaviour above works for an anonymous visitor: no sign-in wall, no truncated result set, no prompt to register before results.
 9. A Page creator sees, at the point of writing their description and on their own Page, one line telling them what makes them findable.
 10. No copy in the creator tips carries legal, tax, or entity language, and none promises placement or ranking.

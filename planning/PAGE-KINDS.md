@@ -85,7 +85,7 @@ One check constraint, six values to three — **testing interest needs no new Pa
 - **`nouns.md`:** *"A Page may sell, host, or both, and needs no business record to do either."* **Exclusive kinds contradicts "or both".**
 - **`nouns.md`:** *"Six Page kinds: five affiliate … and one operate."*
 - **`groups.md`:** the affiliate-versus-operate split, and its list of six.
-- **`groups.md`:** *"A Group never changes kind"* — the gathering that starts selling is now the main path, not an edge. **The wonder no longer collides with this at all, because nothing converts.**
+- **`groups.md`:** a Group does not change kind — the gathering that starts selling is now the main path, not an edge. **The wonder no longer collides with this at all, because nothing converts.**
 - **`item_services.rate_model`** — no value means free.
 - **`PAGE-KIND-EVENT.md`** — `event` as its own kind is replaced by recurrence as a property.
 - **The community-merge proposal** in `page-kind-tools.md` — subsumed.

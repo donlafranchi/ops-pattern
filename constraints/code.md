@@ -29,7 +29,7 @@
 - **2026-09-30** · page-publish — The rules agreement comes before every new Page, including an existing owner's next one
 - **2026-09-30** · signup, onboarding — Every US zip is known before launch, and an unrecognised zip gets "We don't recognize that zip, try again."
 - **2026-09-30** · signup, onboarding, locality — The metro for a zip is the MSA: Sacramento is MSA 40900, not CSA 472
-- **2026-09-30** · signup, copy — Signup does not say "we never sell". It says what the app is for
+- **2026-09-30** · signup, copy — Signup does not make a no-sale promise. It says what the app is for
 - **2026-09-30** · pages, venue, locality — "Local" means where a thing is, not who may see it. A Page's own settings decide whether it is open to the public
 - **2026-09-30** · venue, map, pages — No distance is shown anywhere
 - **2026-09-30** · copy, explore — There is no "near you" while there is one metro. Nearness is deferred until there is critical mass
@@ -46,11 +46,11 @@
 - **2026-09-30** · pages, location — A residence's address is public if given, at launch. The protection is the existing option to give a neighbourhood instead of a street
 - **2026-09-29** · pages, membership, announcements — A member is a more involved follower. The difference is involvement, not Page kind
 - **2026-09-29** · signup, onboarding, business-registration, locality — The metro is what determines "local"; a zip is only the lookup that finds it
-- **2026-09-29** · rls, business-registration — A business registration is collected and never displayed; its public artifact is a badge
+- **2026-09-29** · rls, business-registration — A business registration is collected and currently shown to nobody but that member and operators; its public artifact is a badge
 - **2026-09-27** · explore, announcements, copy — The signed-out announcement card is one card per Page, and it shows the Page's photo
 - **2026-09-27** · process — When a newer decision contradicts an older one, the newer one wins and work continues. Agents do not stop to ask Don which is true
-- **2026-09-27** · process — Cross-cutting documents are generated from inline markers, never kept by hand, and authored documents are pruned rather than annotated. Neither accumulates; history is git, read on demand
-- **2026-09-27** · process, ci — Grep-built, never hand-kept: a fact lives inline where it is true, and anything that spans the project is generated from markers, never maintained
+- **2026-09-27** · process — Cross-cutting documents are generated from inline markers, not kept by hand, and authored documents are pruned rather than annotated. Neither accumulates; history is git, read on demand
+- **2026-09-27** · process, ci — Grep-built, not hand-kept: a fact lives inline where it is true, and anything that spans the project is generated from markers, not maintained
 - **2026-09-27** · process — An open question is an inline marker where it was raised, not an entry in a register. The index is generated
 - **2026-09-27** · explore, venue, onboarding, copy — "Local" means the whole metro, not a neighbourhood or anything tighter
 - **2026-09-27** · signup, onboarding — Onboarding stops silently assigning a place
@@ -66,9 +66,9 @@
 - **2026-09-21** · answering, crawlers — If agent search replaces keyword search, SocialUs becomes the agent for its own domain rather than the free data layer under someone else's
 - **2026-09-21** · page-url — A Page's canonical URL is a cosmetic slug plus a short non-sequential ID: `joes-pizza-7k3x`. No geography in it, and no member derivable from it
 - **2026-09-21** · rls — Two member-identity leaks exist in public data today, and no URL scheme fixes either
-- **2026-09-21** · page-url — One canonical address per Page, many indexes onto it. The Place in a URL is never part of a Page's identity
+- **2026-09-21** · page-url — One canonical address per Page, many indexes onto it. The Place in a URL is not part of a Page's identity
 - **2026-09-21** · copy — plainlanguage.gov governs user-facing copy, alongside `voice.md` and `design-language.md`
-- **2026-09-21** · page-location — Where a Page is, is resolved at read time from its Location's geography, never stored on it. Deepest containing Place wins, and "deepest" means the kind rank that already exists
+- **2026-09-21** · page-location — Where a Page is, is resolved at read time from its Location's geography, not stored on it. Deepest containing Place wins, and "deepest" means the kind rank that already exists
 - **2026-09-21** · copy, model — Announcement is the word everywhere: in the model, in the docs, and in the product
 - **2026-09-21** · copy, model — `Bulletin` is refused as a noun: it named a delivery mode, not a thing
 - **2026-09-18** · explore, signed-out — Signed out is read-only: anything that touches another person requires an account

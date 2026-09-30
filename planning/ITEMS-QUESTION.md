@@ -123,7 +123,7 @@ date: 2026-09-17
 
 **They collide on one thing: what browse indexes, and therefore what a listing is.** `model.md` says a creator's offering is *described* on a Page and in posts and is "not a separately listed thing that browse indexes." `item.md` says every declared thing is an indexed row. **Both cannot be true of the same offering at the same time.**
 
-**They do not collide on kinds as a concept.** `model.md` never argues against kinds. It does not mention `wonder`, `offer`, `ask` or `initiative` at all, in any form. **Its argument is about the shape of what browse returns, not about whether a declared thing has a type.**
+**They do not collide on kinds as a concept.** `model.md` does not argue against kinds. It does not mention `wonder`, `offer`, `ask` or `initiative` at all, in any form. **Its argument is about the shape of what browse returns, not about whether a declared thing has a type.**
 
 **What would have to be true for both to stand:** that "Items" in `model.md` means *separately-indexed listing rows* — the catalogue — and not *the kinds foundation*. Under that reading, `model.md` retires the catalogue and says an offering is described rather than listed, while `item.md`'s kind vocabulary survives and attaches to whatever the durable thing turns out to be. **The sentence "it depended on Items, which no longer exist" is the line that reading has to account for**, and it is the sharpest evidence for the wider reading.
 

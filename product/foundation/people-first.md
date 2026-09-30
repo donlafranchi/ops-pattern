@@ -13,12 +13,12 @@ There is no impersonal Business entity anywhere in the data model. A Person make
 
 ## The question business Pages exist to answer
 
-*Is this local to my community? Does it support my community? Should I support it?* Every capability around a business Page — locality claims, verification, peer recommendation — exists to help a member answer that three-part question, never to help the business rank higher or be more findable in general. A proposed capability that can't name how it advances that question doesn't earn its slot. Members can't reliably answer the question against a corporate shell, because there's no *whom* to evaluate — which is the load-bearing reason the refusal exists at all.
+*Is this local to my community? Does it support my community? Should I support it?* Every capability around a business Page — locality claims, verification, peer recommendation — exists to help a member answer that three-part question, not to help the business rank higher or be more findable in general. A proposed capability that can't name how it advances that question doesn't earn its slot. Members can't reliably answer the question against a corporate shell, because there's no *whom* to evaluate — which is the load-bearing reason the refusal exists at all.
 
 ## Corollaries this principle produces
 
-**No ranking of people; treatment, not the person, gets reviewed.** Star ratings and leaderboards are the Yelp failure mode — the rating becomes a price-of-being-found column and platform incentives flip to selling visibility to the rated. A treatment-pattern review (per the four-pillar structure, never a single score) is the peer-pressure shape the platform wants instead.
+**No ranking of people; treatment, not the person, gets reviewed.** Star ratings and leaderboards are the Yelp failure mode — the rating becomes a price-of-being-found column and platform incentives flip to selling visibility to the rated. A treatment-pattern review (per the four-pillar structure, not a single score) is the peer-pressure shape the platform wants instead.
 
-**Groups are people-first too.** A Group is never a polygon, a postal code, or an algorithm's guess — it's started, joined, and dissolved by members alone, never auto-assigned by geography or owned by a corporate entity. A Group without members ceases to exist; a Group can never dissolve a member.
+**Groups are people-first too.** A Group is not a polygon, a postal code, or an algorithm's guess — it's started, joined, and dissolved by members alone, not auto-assigned by geography or owned by a corporate entity. A Group without members ceases to exist; a Group can't dissolve a member.
 
 **Federation over consolidation.** Deeper infrastructure (banking, insurance) spawns into separate dedicated platforms rather than growing inside this one — the platform stays small enough to stay accountable to the people on it.

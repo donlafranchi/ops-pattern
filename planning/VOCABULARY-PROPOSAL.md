@@ -9,7 +9,7 @@ date: 2026-09-17
 
 **2026-09-15. A proposal. Nothing renamed, nothing migrated.**
 
-Don's brief: *"Item is too vague of a word. Creators will create pages for whatever Kind they are creating. The page is the organizing entity for other tools and features. If a person has a business where they sell products they could potentially list those as 'Items' etc. What do we need to change to remove this confusion so it never happens again when we have hundreds of employees."*
+Don's brief: *"Item is too vague of a word. Creators will create pages for whatever Kind they are creating. The page is the organizing entity for other tools and features. If a person has a business where they sell products they could potentially list those as 'Items' etc. What do we need to change to remove this confusion"* — so that it does not recur once there are hundreds of employees.
 
 **Two asks in that, and the second is the bigger one.** The naming is a day's work. Preventing recurrence is a mechanism, and this document argues the mechanism matters more than the words.
 
@@ -30,7 +30,7 @@ Don's brief: *"Item is too vague of a word. Creators will create pages for whate
 
 ---
 
-> **The bare-term rule is now ratified and lives in `product/foundation/nouns.md` § A vague term is never used by itself.** It is not restated here. This document is the proposal behind it; the rule itself has one home.
+> **The bare-term rule is now ratified and lives in `product/foundation/nouns.md` § A vague term is not used by itself.** It is not restated here. This document is the proposal behind it; the rule itself has one home.
 
 ## 2 · "Item" is reserved, not retired
 
@@ -42,7 +42,7 @@ Don's brief: *"Item is too vague of a word. Creators will create pages for whate
 
 ## 3 · The umbrella — candidates, and why six lose
 
-**The winner: `page_entries`, with "entry" lowercase and descriptive in prose. Never a capitalised noun anyone is taught.**
+**The winner: `page_entries`, with "entry" lowercase and descriptive in prose. Not a capitalised noun anyone is taught.**
 
 | Candidate | Verdict |
 |---|---|
@@ -68,7 +68,7 @@ Today there are two, and they are not the same kind of thing:
 - **`groups.kind`** — `place · interest · practice · event_anchored · family · business`. What someone is running.
 - **`items.kind`** — `product · service · gathering · wonder · offer · ask · initiative`. What sits under it.
 
-**Merging them would be wrong, and Don's own two rulings say why.** *"We can create a page for every kind. It just doesn't require all of the same tools."* **The Page kind is the classification; the types under it are what the tools produce.** Those are different layers, and collapsing them would mean a business that hosts one gathering has changed kind — which contradicts the ratified refusal that a Page never converts into another Page.
+**Merging them would be wrong, and Don's own two rulings say why.** *"We can create a page for every kind. It just doesn't require all of the same tools."* **The Page kind is the classification; the types under it are what the tools produce.** Those are different layers, and collapsing them would mean a business that hosts one gathering has changed kind — which contradicts the ratified refusal that a Page does not convert into another Page.
 
 **What changes is that the relationship becomes written down and enforced:**
 
@@ -93,9 +93,9 @@ Today there are two, and they are not the same kind of thing:
 ### Three mechanisms, in order of value
 
 **1 · One term, one definition, one place. `nouns.md` is the authority and nothing else defines a term.**
-Every other document *references*. A doc that redefines a term is the bug. This is the existing "a concept lives in exactly one place" rule applied to vocabulary specifically, which is where it has never been applied.
+Every other document *references*. A doc that redefines a term is the bug. This is the existing "a concept lives in exactly one place" rule applied to vocabulary specifically, which is where it has not been applied.
 
-**2 · A summary is marked as a summary and is never citable.**
+**2 · A summary is marked as a summary and is not citable.**
 Any paraphrase of another document carries a visible marker and the sentence *"Not a ruling. Cite the source or a `DECISIONS.md` line."* **Only the source document and dated decision lines are citable.** The `nouns.md` banner would have been harmless with that marker on it.
 
 **3 · The vocabulary check — extending the lint already specified.**
@@ -121,7 +121,7 @@ Reserve "Item" in `nouns.md` and write the layer table. Mark every summary banne
 **Moderate — worth doing before launch.**
 The vocabulary check, extending the lint already specified but unbuilt. **The person-noun check is still unbuilt after being specified twice**, which is the argument for doing them together rather than queueing another.
 
-**Expensive — after launch, or never.**
-The schema rename of `items` to `page_entries`: 11 tables, 39 indexes, 14 policies, 15 functions, 3 views, 651 occurrences across 47 migrations, plus 101 source files and 51 test files. **Its cost is roughly flat over time**, so there is no urgency premium. **And the user-facing collision it would fix does not exist** — `item.md` already rules that "Item" never reaches a member, so no member will ever meet the ambiguity. **The confusion is internal, and mechanisms 1–3 fix internal confusion more cheaply than a migration does.**
+**Expensive — after launch, or not at all.**
+The schema rename of `items` to `page_entries`: 11 tables, 39 indexes, 14 policies, 15 functions, 3 views, 651 occurrences across 47 migrations, plus 101 source files and 51 test files. **Its cost is roughly flat over time**, so there is no urgency premium. **And the user-facing collision it would fix does not exist** — `item.md` already rules that "Item" does not reach a member, so no member will ever meet the ambiguity. **The confusion is internal, and mechanisms 1–3 fix internal confusion more cheaply than a migration does.**
 
 **Recommendation: reserve the word and build the checks now; defer the schema rename indefinitely and revisit only if the internal confusion survives the checks.**

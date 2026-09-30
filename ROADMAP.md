@@ -48,19 +48,19 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Producer growth dashboard, weekly digest email, peer benchmarks.
 - Hours-of-operation display, multi-location/ambulatory-route management, sub-venue support (e.g. "Drake's barn" under Drake's).
 - On-platform payments — closed-loop ledger + ACH via a chartered partner, zero platform transaction fees on member commerce (the wealth-circulation rubric), a stablecoin path long-horizon.
-- Treatment-review surface (reviews the treatment, never the person) and member references.
+- Treatment-review surface (reviews the treatment, not the person) and member references.
 - Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
 
 ## Cut — taken off the launch list, dated and reasoned
 
-*Not the same as Won't. A cut thing is still wanted; it lost a trade against the deadline and may come back. A Won't thing is refused on principle and never comes back. Recorded here rather than quietly deleted, because a line that vanishes from Next leaves no trace of who decided or why.*
+*Not the same as Won't. A cut thing is still wanted; it lost a trade against the deadline and may come back. A Won't thing is refused on principle and does not come back. Recorded here rather than quietly deleted, because a line that vanishes from Next leaves no trace of who decided or why.*
 
 - **Bulletins — the member-audience half of a post** *(cut 2026-09-20, Don)*. **What left:** a post being delivered to the feed of everyone who follows a Page or belongs to its group. **What stayed:** the composer, and posts appearing in browse — both are what *What's happening…* runs on. **Why:** recurrence (F074) was ruled in the same day and is what makes the time lens non-empty; the launch list was already over, so something had to pay. **Cost of the cut:** a Page owner has no way to reach people who already follow them, which is the thing followers are for. **It comes back when** the time lens is shipped and the follower graph has enough density that delivery reaches more than a handful of people. **Re-examine this trade if F059 criterion 2b slips.** The cost above is survivable *only* because announcements from followed Pages are meant to surface on Explore for a signed-in reader — that is F059 criterion 2b, item 2 on Don's list, and **it is not built**. If it moves, a Page owner has no route to their own followers at all, and this stops being a deferral and becomes a hole. **Nothing built is discarded** — the subscription link exists in `group_memberships` and nothing reads it yet, so the cut removes unbuilt work. Reflected in F072 criterion 2.
 
 ## Won't
 
 - Platform-generated QR codes — a producer's own business QR stays open as an unbuilt idea; the platform doesn't generate any.
-- Activity badges, reputation scores, star ratings, ownership tiers — the platform never rates, ranks, or labels a person.
+- Activity badges, reputation scores, star ratings, ownership tiers — we currently don't rate, rank or label people.
 - Business-entity modeling — ownership transfer, succession, corporate shells. Membership is the only access-granting verb.
 - Geofenced or auto-assigned group membership.
 - Engagement-optimized ranking, infinite feeds, streaks, pull-back notifications.

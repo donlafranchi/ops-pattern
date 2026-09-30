@@ -8,7 +8,7 @@ status: draft
 # Local kinds
 
 **This is a seed list, not a category system.** `nouns.md` § Tag is ratified and
-explicit: a tag is *"created, not picked from a fixed list"*, and the **Never**
+explicit: a tag is *"created, not picked from a fixed list"*, and the **Won't**
 line bars *"a coarse category a creator picks alongside it"*. Nothing here
 reverses that, and nothing here should ever become a dropdown.
 
@@ -159,7 +159,7 @@ working.
 **Not a dropdown.** A creator writes their own word. If this list ever appears
 in a composer as options, the ratified tag rule has been broken.
 
-**Not an ordering.** `nouns.md` § Tag: *"Never — a tag that orders results."*
+**Not an ordering.** `nouns.md` § Tag: *"Won't — a tag that orders results."*
 
 **Should it become a schema enum or a lookup table?** Probably a **table, and
 not an enum** — but not yet, and not on this document's say-so.

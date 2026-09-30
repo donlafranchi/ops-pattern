@@ -1,6 +1,6 @@
 ---
 id: what-surfaces
-purpose: The surfaces — every screen the product has or will have, what each is for, and whether it works. Spine document: every entry carries its own status and holds both horizons, what ships now and what is intended later. The future version of a surface is a status on its entry here, never a second description elsewhere. Replaces community-platform.md.
+purpose: The surfaces — every screen the product has or will have, what each is for, and whether it works. Spine document: every entry carries its own status and holds both horizons, what ships now and what is intended later. The future version of a surface is a status on its entry here, not a second description elsewhere. Replaces community-platform.md.
 layer: what
 status: active
 owns:
@@ -14,7 +14,7 @@ owns:
 
 > **One of three tracking documents**, with [`../foundation/nouns.md`](../foundation/nouns.md) (what things are) and [`../foundation/verbs.md`](../foundation/verbs.md) (what may be done to each). **Together they track what this app does and will do — not only what ships on 30 October.**
 >
-> **A screen is never called a Page.** **Page is an entity** — the person or people behind a listing. **A screen is a surface.** The document this replaces broke that rule throughout and said so in its own banner. Compound forms that name a screen for a specific noun — *the Item page*, *the venue page* — are the one exception and are avoided here anyway.
+> **A screen is not called a Page.** **Page is an entity** — the person or people behind a listing. **A screen is a surface.** The document this replaces broke that rule throughout and said so in its own banner. Compound forms that name a screen for a specific noun — *the Item page*, *the venue page* — are the one exception and are avoided here anyway.
 >
 > **This document is where things show. `nouns.md` is what things are.** Conflating them is how the Sell door became the only create path.
 
@@ -37,7 +37,7 @@ owns:
 
 **The two-tab merge is rescinded** *(2026-09-12)*. Don: *"we rescinded that decision to make the launch date."* **A scope cut for 30 October, not a design conclusion** — the merge was not judged wrong on its merits. Anyone reviving it needs that context. `../../DECISIONS.md`.
 
-**One thing in the nav is still missing: the create action.** Three tabs ship; the `+` does not. That was the half of the two-tab decision that was never about tab count.
+**One thing in the nav is still missing: the create action.** Three tabs ship; the `+` does not. That was the half of the two-tab decision that was not about tab count.
 
 | Slot | Job | The question it answers |
 |---|---|---|
@@ -50,7 +50,7 @@ owns:
 
 **Undecided: what address Browse lives at.** The merge would have put it at `/`; that is rescinded. It sits at `/explore` today. Whether it stays there, moves to `/browse`, or takes `/` with Home moving is **open, and nothing has ruled on it.** It is a naming and URL question, not a structural one — all three shapes ship the same three tabs.
 
-**Home and Browse are two surfaces with two jobs** *(ruled 2026-09-12)*: **Browse is complete and not ranked by the member's interests; Home is personal.** The second exists so a member's interests are not buried in the first. `../foundation/model.md` § Why Home and Browse both exist, its one home — including the hard line that *personalized* means declared interests and place, never engagement.
+**Home and Browse are two surfaces with two jobs** *(ruled 2026-09-12)*: **Browse is complete and not ranked by the member's interests; Home is personal.** The second exists so a member's interests are not buried in the first. `../foundation/model.md` § Why Home and Browse both exist, its one home — including the hard line that *personalized* means declared interests and place, not engagement.
 
 **What browse indexes is everything the platform holds** *(ruled 2026-09-12)* — Pages and posts, flat, with posts as an instance rather than a separate rule. `../foundation/model.md` § Browse is everything.
 
@@ -88,7 +88,7 @@ owns:
 
 | Route | Surface | State |
 |---|---|---|
-| `/you` | You | ◑ **The one to fix.** It renders the Sell CTA, which is live and correct. **Its own data layer queries seven tables that do not exist** — `businesses`, `user_preferences`, `supports`, `follows`, `vendor_categories`, `markets`, `market_vendors`. Consequences: the Your Market row, the follows list and the category rails are fed by dead reads, and **the "Switch to vendor mode" link is gated on a condition derived from the dead `businesses` query, so it can never render.** That gate is the only thing keeping the residue below unreachable. [platform store=privacy gap: no privacy policy or terms page exists anywhere in the app] |
+| `/you` | You | ◑ **The one to fix.** It renders the Sell CTA, which is live and correct. **Its own data layer queries seven tables that do not exist** — `businesses`, `user_preferences`, `supports`, `follows`, `vendor_categories`, `markets`, `market_vendors`. Consequences: the Your Market row, the follows list and the category rails are fed by dead reads, and **the "Switch to vendor mode" link is gated on a condition derived from the dead `businesses` query, so it cannot render.** That gate is the only thing keeping the residue below unreachable. [platform store=privacy gap: no privacy policy or terms page exists anywhere in the app] |
 
 ### Residue
 
@@ -146,21 +146,21 @@ owns:
 
 Carried forward with their ratification intact. **These bind whatever the surfaces become.**
 
-**Browse is everything.** *(Ratified 2026-09-12.)* Browse is the universal surface and carries everything the platform holds. **The default is inclusion; anything excluded needs a reason, recorded.** Stated in [`../foundation/model.md`](../foundation/model.md) § Browse is everything, which is its one home. What remains open is how a mixed result list reads and orders — never what may enter it.
+**Browse is everything.** *(Ratified 2026-09-12.)* Browse is the universal surface and carries everything the platform holds. **The default is inclusion; anything excluded needs a reason, recorded.** Stated in [`../foundation/model.md`](../foundation/model.md) § Browse is everything, which is its one home. What remains open is how a mixed result list reads and orders — not what may enter it.
 
 **Anonymous browse — no signup wall.** *(Ratified 2026-09-04.)* Browsing works without authentication: no redirect, no wall, **no gated or truncated result set.**
 
-> **Intent:** The landing surface has to be readable by someone who has never signed up, because the platform's first job is to show a stranger that their neighbourhood is already on it. A wall in front of an empty-looking catalog converts nobody and costs the only demonstration the product has. **The signup banner stays a banner, above the results, never in front of them.** Overturned by: evidence that anonymous browse suppresses rather than seeds signup.
+> **Intent:** The landing surface has to be readable by someone who has not signed up, because the platform's first job is to show a stranger that their neighbourhood is already on it. A wall in front of an empty-looking catalog converts nobody and costs the only demonstration the product has. **The signup banner stays a banner, above the results, not in front of them.** Overturned by: evidence that anonymous browse suppresses rather than seeds signup.
 
 **Ordering is locality and recency, with the Member's own declared interest tags as a boost — and may also carry genuine community response.** *(Amended 2026-09-12 on Don's instruction; see `DECISIONS.md`.)* **Ordering doesn't favour a member because of payment, size or follower count** (2026-09-30).
 
-> **Removed from this entry, 2026-09-12:** the "No engagement-derived ranking" commitment that stood here. Don's ruling is that earned attention is the intended mechanism, not a loophole — *"if they're doing well in the community and the community loves them then we need to share that."* The provenance of the removed commitment is in the PR that removed it. What survives from it, and is not in dispute, is the foundation wording: ranking may use where you are and what you said you like; **it may never use what keeps you scrolling.**
+> **Removed from this entry, 2026-09-12:** the "No engagement-derived ranking" commitment that stood here. Don's ruling is that earned attention is the intended mechanism, not a loophole — *"if they're doing well in the community and the community loves them then we need to share that."* The provenance of the removed commitment is in the PR that removed it. What survives from it, and is not in dispute, is the foundation wording: ranking may use where you are and what you said you like; **it doesn't use what keeps you scrolling.**
 
 **Distance is out.** *(Ratified 2026-09-03.)* **Nothing in the product measures or displays miles.** No radius filter, no mile count, no distance sort. Ordering is hood → metro → wider → online. **How "how far is it" gets answered: hand off** — the address opens in the phone's map app on mobile and is copyable on web, because the map app knows the roads. **That affordance is load-bearing; it is the only path to a distance answer.**
 
 **Location is entered once, at creation, and resolved to a stored hierarchy.** *(Ratified 2026-09-03.)* Coordinate math runs when an address is entered. Nothing computes distance at read time.
 
-**Online is a first-class location option, and the warning rides with it.** *(Ratified 2026-09-03.)* The composer **must warn at the point of choice that online ranks last**, and **online Items never render on the map** — no pin, no fallback coordinate. **The warning is the honesty mechanism that makes ranking-last acceptable**, not a nice-to-have.
+**Online is a first-class location option, and the warning rides with it.** *(Ratified 2026-09-03.)* The composer **must warn at the point of choice that online ranks last**, and **online Items don't render on the map** — no pin, no fallback coordinate. **The warning is the honesty mechanism that makes ranking-last acceptable**, not a nice-to-have.
 
 **Metro is the feed's vantage point.** *(Ratified 2026-09-03; amended 2026-09-04 — v1 filters by metro.)* The feed is scoped to one metro at a time. **No cross-metro union feed.** The browse switcher is a metro switcher. **Metro scoping is written and unbuilt** — displaced by neighbourhood mode, which carries the launch market on its own; it returns when there is a second metro.
 

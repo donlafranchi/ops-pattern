@@ -15,7 +15,7 @@ Rae finds a repair café three streets away on Saturday morning, but the page gi
 1. Tapping the response control writes a response row and its event row in the same transaction; the count updates.
 2. Tapping again withdraws the response with no confirmation dialog; a double-tap is a no-op enforced by a database constraint.
 3. A signed-out tap survives the sign-in round trip and is recorded on return.
-4. The count reflects distinct people, never rows.
+4. The count reflects distinct people, not rows.
 
 ## Not this
 

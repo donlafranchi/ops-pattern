@@ -11,7 +11,7 @@ A run club with nothing scheduled isn't at a street corner on Tuesday afternoon 
 
 ## Acceptance
 
-1. A neighbourhood with ≥1 area-placed Page renders as one shaded polygon (never one per Page), carrying a count.
+1. A neighbourhood with ≥1 area-placed Page renders as one shaded polygon (not one per Page), carrying a count.
 2. Tapping a shaded area lists the Pages placed there.
 3. A neighbourhood with no area Pages isn't drawn at all.
 4. Point-placed Pages render exactly as they do today — unaffected.

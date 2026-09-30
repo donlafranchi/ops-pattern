@@ -24,7 +24,7 @@ a place to enforce privacy. The same publishable key ships inside the app bundle
 What a native build or a store review needs and the code does not have today. Each is marked `gap`
 where it is true; the gap is gone when its marker is.
 
-- **GAP** · no path exists; `members.deleted_at` is never set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
+- **GAP** · no path exists; `members.deleted_at` is not set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
 - **GAP** · redirects are built from `window.location.origin` and the PKCE verifier is a host-only cookie, so neither a magic link nor a Google sign-in can return to an app — [product/ui/surfaces.md](product/ui/surfaces.md)
 - **GAP** · Continue with Google is offered and Sign in with Apple is not — [product/ui/surfaces.md](product/ui/surfaces.md)
 - **GAP** · signup asks no age and states no minimum, and there are no terms — [product/ui/surfaces.md](product/ui/surfaces.md)
@@ -35,7 +35,7 @@ where it is true; the gap is gone when its marker is.
 ## App Store review
 
 **account-deletion** · App Review 5.1.1(v): an app that lets people create an account must let them delete it from inside the app.
-- **GAP** · no path exists; `members.deleted_at` is never set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
+- **GAP** · no path exists; `members.deleted_at` is not set, and nothing calls the auth deletion — [product/foundation/verbs.md](product/foundation/verbs.md)
 
 **sign-in** · App Review 4.8: an app offering a third-party sign-in such as Google must also offer Sign in with Apple, or an equivalent privacy-preserving option.
 - **GAP** · Continue with Google is offered and Sign in with Apple is not — [product/ui/surfaces.md](product/ui/surfaces.md)
