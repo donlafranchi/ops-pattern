@@ -45,3 +45,5 @@ Don: *"At the very minimum I'd like to only offer TikTok and Instagram for now o
 ### What this supersedes
 
 The current social-links field takes a full `https://` URL and refuses everything else — a real handle typed into it is rejected. That is a live bug, fixed separately; this scenario is what the field becomes, not the fix.
+
+[open-question owner=don raised=2026-09-30] Does criterion 7 hold for F096's consented imports, whose events link back to the owner's own site? Criterion 7 publishes a destination only when the owner typed it, and rules out imported ones; the 2026-09-30 symbiosis ruling puts a link back on everything pulled in. A) **Consent counts as typing:** restate criterion 7 as "the owner typed or authorised it", where connecting a source is the authorisation. B) Import events but not links: the only link back is one the owner typed. *Recommend A;* the link back is what the symbiosis ruling requires, and `[member-data-disclosure]` holds because the owner chose to show it.
