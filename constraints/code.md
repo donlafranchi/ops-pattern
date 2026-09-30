@@ -10,6 +10,7 @@
 > **216 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-29** · pages, membership, announcements — A member is a more involved follower. The difference is involvement, not Page kind
 - **2026-09-29** · signup, onboarding, business-registration, locality — The metro is what determines "local"; a zip is only the lookup that finds it
 - **2026-09-29** · rls, business-registration — A business registration is collected and never displayed; its public artifact is a badge
 - **2026-09-27** · explore, announcements, copy — The signed-out announcement card is one card per Page, and it shows the Page's photo
