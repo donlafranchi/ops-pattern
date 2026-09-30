@@ -51,6 +51,11 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Treatment-review surface (reviews the treatment, never the person) and member references.
 - Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
 
+**Speculative, not ruled**
+- Vouching: a neighbour chooses to vouch for a service provider *(Don, 2026-09-30; F095)*.
+- Page components not offered at launch *(Don, 2026-09-30: a Page is composed of components any owner can add)*: RSVP on a single post; transactions and one-on-one meetings; visibility levels on a Page that isn't a group Page; switching following or joining off.
+- When in-app purchasing exists, producer and purchaser see each other as far as the transaction needs *(Don, 2026-09-30)*.
+
 ## Cut — taken off the launch list, dated and reasoned
 
 *Not the same as Won't. A cut thing is still wanted; it lost a trade against the deadline and may come back. A Won't thing is refused on principle and never comes back. Recorded here rather than quietly deleted, because a line that vanishes from Next leaves no trace of who decided or why.*
@@ -66,7 +71,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Engagement-optimized ranking, infinite feeds, streaks, pull-back notifications.
 - Venture capital funding.
 - Legal or tax language between members or in Page creation; legal-entity information from anyone without a legal entity (2026-09-30).
-- Full e-commerce catalog (variants, SKUs, cart), automated/dynamic pricing, inventory or warehouse management, POS/checkout, appointment-booking or calendar sync — the platform coordinates, it isn't a storefront or a booking system.
+- Full e-commerce catalog (variants, SKUs, cart), automated/dynamic pricing, inventory or warehouse management, POS/checkout, appointment-booking or calendar sync, as full-featured products. SocialUs isn't a fully built-out platform of any kind except for discovery and support of locals; basic in-platform versions, so people can transact and connect, are possible (Don, 2026-09-30).
 - Automated government-API verification of producer claims — the trust ladder is human-driven (self-attest → community-attest → document-upload) only.
 - Mass-email marketing tooling, push notifications to non-followers, individual visitor-tracking analytics for a producer.
 - Platform-custodied funds held for the platform's own benefit, lending, or credit.

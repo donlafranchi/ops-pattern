@@ -10,6 +10,23 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · scope, booking, payments, storefront — SocialUs is currently not a fully built-out platform of any kind — booking, storefront, payments or other — except for helping with discovery and support of locals. It may offer basic versions of these, so people can transact in the platform and connect
+- **2026-09-30** · pages, vouching — In F095, "I have clients in these neighbourhoods" is the provider's own statement, not a customer list, and a neighbour can vouch for a provider by their own choice
+- **2026-09-30** · pages, explore — Page owners can currently state the neighbourhoods they work in as plain text on their Page; "near me" discovery stays deferred
+- **2026-09-30** · pages, groups, rls, nouns, copy — A Page is currently composed of components any owner can add for any reason: followers, members (with join approval), announcements and RSVP gatherings, and later RSVP on a single post and transactions or one-on-ones. Each comes with a short explanation of how it can be used. Visibility is defined per component and relationship, not per Page type
+- **2026-09-30** · rls, rsvp, posts — An RSVP to a gathering currently shows that gathering and the others party to it, not what a member sees. Membership is its own component. An RSVP on a single post, when it exists, covers that post only
+- **2026-09-30** · rsvp, transactions — A one-on-one meeting or a transaction is currently visible only to its parties, as far as it needs, on any Page
+- **2026-09-30** · nouns — "Consumer" is currently an ontology noun: the other side from the creator, producer or organizer (the Page's owner or founder), that is, a party to an RSVP or a transaction. A follower only watches. It is derived, not stored, and internal only
+- **2026-09-30** · rls, groups, follows — A community-only Page can currently have followers; a private Page can't
+- **2026-09-30** · rls, groups, pages — Membership is currently scoped to the Page someone is a member of. There is no MSA-wide "community" audience: a signed-in member of an MSA sees a Page's front door plus whatever its owner makes visible to the MSA
+- **2026-09-30** · rls, pages, announcements, copy — A Page's front door currently doesn't show its founder or seller: it is a business closed for the night. A signed-out visitor sees the Page's name, default photo and description, and the withheld-announcements card, worded like "Sign up to see what's happening"
+- **2026-09-30** · members, purchases, rsvp — Limiting what people see of each other currently applies only to transactions, where the parties see each other as far as the transaction needs. Without a transaction, it can be visible
+- **2026-09-30** · rls, visibility — Visibility currently defaults to social norms: what people would expect socially
+- **2026-09-30** · rls, rsvp — Whoever is party to an RSVP currently sees it. For a gathering of many, they all do; for a one-on-one, only the two parties
+- **2026-09-30** · rls, pages, groups, announcements — Signed-out visitors and signed-in non-participants currently see a Page's front door, private group Pages included
+- **2026-09-30** · purchases — Purchasing in the app is deferred, and with it who sees a purchase
+- **2026-09-30** · announcements — A public announcement from a community-only or private group Page currently reaches everyone
+- **2026-09-30** · rls — A member with several relationships to a Page currently sees the union of what each allows, and nothing extra
 - **2026-09-30** · business-registration, page-publish, copy — The app doesn't use legal language between members. Legal-entity information (entity type, legal entity name, state) is asked only at business registration, and only of members who have a legal entity
 - **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
 - **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
@@ -39,9 +56,7 @@
 - **2026-09-30** · rls, follows — Nobody sees who follows whom. A Page's owner sees who follows their Page, by name
 - **2026-09-30** · announcements — An announcement has no third audience. The 2026-09-21 public/followers switch stands
 - **2026-09-30** · rls, members — A member's interest tags are not public
-- **2026-09-30** · rls, rsvp, purchases — Group members see who RSVP'd. Only a business's owners see who bought, and they may see avatars
 - **2026-09-30** · rls, pages — A stranger does not see a Page's roster
-- **2026-09-30** · pages — A founder or seller is part of a Page's front door, by display name
 - **2026-09-30** · rsvp, purchases, names — A completed sale or attendance is a purchase or RSVP that the seller or organiser has confirmed, with a date and both members on it
 - **2026-09-30** · pages, location — A residence's address is public if given, at launch. The protection is the existing option to give a neighbourhood instead of a street
 - **2026-09-29** · pages, membership, announcements — A member is a more involved follower. The difference is involvement, not Page kind
