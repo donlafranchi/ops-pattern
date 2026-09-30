@@ -10,6 +10,7 @@
 > **216 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-29** · rls, business-registration — A business registration is collected and never displayed; its public artifact is a badge
 - **2026-09-27** · explore, announcements, copy — The signed-out announcement card is one card per Page, and it shows the Page's photo
 - **2026-09-27** · process — A ruling that changes because of something a member did or said carries an `[evidence …]` tag; a ruling Don makes on judgement carries none
 - **2026-09-27** · process — When a newer decision contradicts an older one, the newer one wins and work continues. Agents do not stop to ask Don which is true
