@@ -12,10 +12,10 @@ Maya lives in Midtown and makes hot sauce. Devon runs a Tuesday run club out of 
 ## Acceptance
 
 1. **Every member-facing surface that scopes, ranks or defaults by locality scopes to the metro** — never to a neighbourhood, a city, or a fixed radius. Each row in *Why § Scope* is changed or struck with a reason; none is left silent.
-2. **No member-facing string presents locality as tighter than the metro** ("near you", "nearby", "your neighbourhood", "your neighbors") where it is scoping rather than describing. Replacement copy is Don's ([public-is-draft]).
+2. **No member-facing string presents locality as tighter than the metro** ("near you", "nearby", "your neighbourhood", "your neighbors") where it is scoping rather than describing. Until a second metro the replacement is *"in Sacramento"* (Don, 2026-09-30; [public-is-draft]).
 3. **Local means where a thing is, and stays as fine-grained as its owner gave it** — an address, a neighbourhood label, a service area, or where it usually shows up. **Who sees a Page is the Page's own setting**, not its locality (Don, 2026-09-30).
 4. A member's home is their metro (F081 criterion 7). Nothing reads a home place finer than it for scoping.
-5. **The metro is the unit; a zip is only the lookup that finds it.** A zip is resolved to a metro once, and the metro is what is stored, scoped to and read. Nothing scopes, ranks, badges or compares by zip. *(Replaces the 2026-09-27 wording that a zip determines the metro; DECISIONS 2026-09-29.)*
+5. **The metro is the unit; a zip is only the lookup that finds it.** The zip is kept, never shown, and re-resolved when the member changes it on `/you`; the metro is what every surface scopes to and reads. Nothing member-facing scopes, ranks, badges or compares by zip. *(Replaces the 2026-09-27 wording that a zip determines the metro; DECISIONS 2026-09-29.)*
 6. **No distance is shown anywhere.** A Page with no address is in the Pages directory and not on the map.
 
 ## Not this
@@ -53,10 +53,4 @@ Choosing replacement copy. Nearness of any kind ("near you", a radius, a distanc
 
 **The metro is the MSA** (Don, 2026-09-30, on F081): Sacramento is MSA 40900. The metro polygon is still CSA 472 (six counties), so it is what has to change, not the crosswalk. Places stay county/city/neighbourhood.
 
-### Open
-
-[open-question owner=don raised=2026-09-27] Do the existing "near you" strings come out now, and what replaces them? Don ruled 2026-09-30 there is no "near you" while there is one metro; the strings are live in `src/app/layout.tsx`, `HomeFeed.tsx`, `MarketSelector.tsx`, `FeedEmptyState.tsx` and `useMapPages.ts`, and in `voice.md`'s samples ("near you", "Browse nearby", "Someone nearby will see it"). A) **Yes, replace with "in Sacramento"** until a second metro. B) Leave them until the copy pass (Fortnight 4). *Recommend A:* each one tells a member something the product does not do. Replacement copy is Don's ([public-is-draft]).
-
-[open-question owner=don raised=2026-09-29] Is this the right reading of "zip is the wrong shape; the metro is what determines local": a zip is used once to resolve a metro, is not kept as a locality attribute and is not exposed anywhere? If so, a member's signup zip is discarded once resolved, which would supersede the 2026-09-14 "the zip is stored". The reading is Cowork's, not Don's.
-
-**Draft, not approved,** until the zip and "near you" questions above are answered. Criterion 3 is Don's words as of 2026-09-30, no longer this document's reading.
+**Draft, not approved.** Every question it raised was answered 2026-09-30, so it is ready for `review`; approval is Don's.

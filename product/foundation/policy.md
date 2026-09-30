@@ -24,13 +24,7 @@ The platform pushes back on complaint-only content by offering — never forcing
 
 ## Who sees who is involved
 
-*(Don, 2026-09-30, on `socialus-web` #246.)*
-
-- **Members of a group see who RSVP'd.** Involvement is the qualification, and membership is what makes someone involved.
-- **Only a business's owners see who bought**, and they may see avatars.
-- **Nobody else sees who is involved.** A stranger reads no member field at all; they see what a member posts, and a Page creator may show a display name and avatar to anyone who views the Page.
-
-`member_place_interests` and `member_saved_searches` remain owner-only with no exception. A member's legal name reaches a counterparty only through F077's confirmed interaction.
+**Involvement is the qualification, and membership is what makes someone involved.** Group members see who RSVP'd; only a business's owners see who bought; nobody else sees who is involved (Don, 2026-09-30). The full table: `nouns.md` § Who sees what. `member_place_interests` and `member_saved_searches` remain owner-only with no exception.
 
 ## Uploaded images — two standing constraints
 

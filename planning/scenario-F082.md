@@ -6,7 +6,7 @@ gates: launch
 date: 2026-09-14
 depends: [F081]
 approved: 2026-09-14 — Don's ruling; self-attestation only, selling and hosting alike
-amended: 2026-09-30 — Don: fixed statements framed as rules, and agreeing is the attestation; the rules are one click away and versioned, and members agree again when they change; existing Page owners take the step before their next new Page. Story and criteria 2 and 6 restated, 7 added. (2026-09-27: at publish, not at draft.)
+amended: 2026-09-30 — Don: fixed statements framed as rules, and agreeing is the attestation; the rules are one click away and versioned, and members agree again when they change; every new Page asks, including an existing owner's next one. Story and criteria 1, 2, 4 and 6 restated, 7 added. (2026-09-27: at publish, not at draft.)
 ---
 ## Story
 
@@ -14,12 +14,12 @@ Devon signed up a month ago like everyone else. He makes hot sauce, and today he
 
 ## Acceptance
 
-1. A member becomes a creator by completing one step before their first Page. Creator status derives from that attestation record plus what they have authored — **no account type, no stored role column, no mode flag.**
+1. A member becomes a creator by completing one step before publishing a Page, **and takes it again before every new Page.** Creator status derives from that attestation record plus what they have authored — **no account type, no stored role column, no mode flag.**
 2. **The step is fixed statements, presented as rules with the reason for each, which the member agrees to abide by. Agreeing is the attestation;** nothing is typed and no free text is stored. Self-attestation only: **no document upload, no ID, no selfie, no photo, no third-party lookup, no automated check, no human approval queue.**
 3. Nothing attested renders to peers as a badge, tier, score, label, or public claim.
-4. The step gates **publishing** a member's first Page, not creating it — **selling and hosting alike**, because the test is whether other people show up for the thing, not whether it is sold. **Creating and editing a draft never asks for it.** Browsing, responding, following and attending are untouched by it. *(Amended 2026-09-27: the story had put the step before the first Page was created.)*
+4. The step gates **publishing** each new Page, not creating it — **selling and hosting alike**, because the test is whether other people show up for the thing, not whether it is sold. **Creating and editing a draft never asks for it.** Browsing, responding, following and attending are untouched by it. *(Amended 2026-09-27: the story had put the step before the first Page was created.)*
 5. No string in the step asks the member to classify themselves as a business, or collects entity type, formation date, or legal or tax language.
-6. **The rules are versioned.** A member who agreed to an earlier version reads the new one and agrees again before they next publish. How often the step is asked otherwise is open (Why § Open).
+6. **The rules are versioned.** A member who agreed to an earlier version reads the new one and agrees again before they next publish.
 7. **The rules are viewable with one click**, whether or not the member is taking the step.
 
 ## Not this
@@ -40,11 +40,7 @@ ID plus selfie verification — not planned; F080 no longer names an unlock (202
 
 **Reading, Cowork's, not Don's:** criterion 6's "before they next publish" is when a re-agreement falls due. Don said only that members must re-read and agree.
 
-**Existing Page owners** take the step before their next new Page (Don: *"A new Page gets the attestation."*). Nobody is treated as having taken a step that did not exist when they published.
-
-### Open
-
-[open-question owner=don raised=2026-09-30] Is the rules agreement asked before every new Page, or only before the first — then again on each rules update? A) **First Page only, plus each update:** the least friction, and versioning already brings everyone back when something changes. B) Every new Page: a reminder each time, at the cost of a step a busy creator learns to click through. *Recommend A.* Criteria 1 and 4 say "first Page" until this is answered.
+**Every new Page gets the agreement** (Don: *"A new Page gets the attestation"*, and on 2026-09-30, every new Page and every rules update). An existing owner takes it before their next new Page.
 
 ### Why at publish, not at draft
 

@@ -6,7 +6,7 @@ gates: launch
 date: 2026-09-14
 depends: [F076, F077]
 approved: 2026-09-14 — Don's ruling; legal name, email, zip, display name, zip suggests the metro
-amended: 2026-09-30 — Don: every US zip known before launch, an unknown one refused; the metro is the MSA; no "we never sell" line, a placeholder about what the app is for instead. Story and criterion 5 restated, 8 added. (2026-09-27: the zip determines the metro; no silent default place.)
+amended: 2026-09-30 — Don: every US zip known before launch, an unknown one refused; the metro is the MSA; the zip is kept and changed on /you, and the metro follows it; no "we never sell" line, a placeholder about what the app is for instead. Story and criteria 4 and 5 restated, 8 added. (2026-09-27: the zip determines the metro; no silent default place.)
 ---
 ## Story
 
@@ -17,11 +17,11 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 1. Signup collects a zip code, alongside the legal name, email and display name F077 already requires. No field beyond those four exists in the flow.
 2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map. **The counterparty disclosure of F077 criterion 6 covers the legal name only; it never carries the zip.**
 3. **The zip determines the metro**, and the screen shows the person which metro that is. **Nothing else determines it** — not IP, not a pre-filled default, not a nearest match. *(Amended 2026-09-27: this read "the zip produces a shortlist… the person selects one"; Don ruled the zip decides.)*
-4. Every US metro stays reachable from the same control, so a person whose shortlist is wrong is never stuck (F076 criterion 1 holds).
+4. **Nobody picks a metro at signup.** A member who moves changes their zip on `/you`, and their metro follows from it. It is never one-and-done.
 5. The screen carries a line saying what the app is for, **and no line about not selling member information.** Placeholder, Don's words ([public-is-draft]): *"This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."* It states no date, feature, or promise about the future.
 6. No field, control, or string in signup asks or records whether the person makes things or finds them.
 7. **Onboarding assigns no place the person did not give.** A member's home is the metro their zip determined; no default place is written on their behalf, seen or unseen. *(Added 2026-09-27. Today `DEFAULT_HOME_PLACE_ID` sets every new member's home to a fictional city whose box sits inside Sacramento, which is why every member resolves to Sacramento.)*
-8. **Every US zip resolves, before launch, through the national HUD-USPS crosswalk, to the MSA that contains it.** A zip the crosswalk does not know is refused with *"We don't recognize that zip, try again."* A person whose zip is in no MSA chooses a metro to view.
+8. **Every US zip resolves, before launch, through the national HUD-USPS crosswalk, to the MSA that contains it.** A zip the crosswalk does not know is refused with *"We don't recognize that zip, try again."* A person whose zip is in no MSA chooses a metro to view; their zip is kept, to tell them when their own MSA opens.
 
 ## Not this
 
@@ -35,9 +35,9 @@ Any verification, document, ID, or identity check — that is F082, and it happe
 
 **The metro is the MSA** (Don, 2026-09-30): Sacramento is MSA 40900, not CSA 472. Yuba and Sutter are not their own MSA and are not covered at launch. A member whose zip is in no MSA can choose a metro to view; the value is kept for records and to tell them when their own MSA opens.
 
-[open-question owner=don raised=2026-09-27] May a person override the metro their zip decided, through criterion 4's every-metro control?
+**The zip is kept** (Don, 2026-09-30): *"How will we know what's going on in their area without it."* So criterion 2 stands, and changing the zip is how a member changes metro.
 
-[open-question owner=don raised=2026-09-30] Where does the real-names disclosure live, now that Don rejected the signup line? The 2026-09-14 ruling says it is stated plainly at signup. A) **One line in the rules members agree to** (F082), e.g. *"When you RSVP, members of that group see who you are."* B) A line at signup after all, in new words. C) At the moment of interacting — the RSVP or purchase screen says who will see the name. *Recommend A:* it sits with the other terms a member agrees to, and keeps signup to what the app is for. Note A reaches only creators unless the rules are also shown to everyone.
+[open-question owner=don raised=2026-09-30] Is a member's legal name disclosed to the people they actually dealt with (the 2026-09-14 counterparty ruling, `socialus-web` #219), and if so, where is it stated now that Don rejected the signup line? Seeing who RSVP'd needs no disclosure: Don, 2026-09-30, *people who RSVP obviously agree to be seen.* A) Keep the disclosure and state it in the rules members agree to (F082). B) Keep it and state it at the moment of the confirmed interaction. C) Drop legal-name disclosure; counterparties see display names. *Recommend A* if it stays. Don is considering this.
 
 ### Who sees a real name
 

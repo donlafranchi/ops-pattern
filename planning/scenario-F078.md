@@ -6,7 +6,7 @@ gates: launch
 date: 2026-09-14
 depends: [F058, F077]
 approved: 2026-09-14 — Don's ruling
-amended: 2026-09-30 — Don: everything a member posts is reportable; "threat of harm" is a seventh category that hides at any bar; the bar rises when his daily review passes 30 minutes; the reporter picks a reason the poster sees and can rebut, and is told misuse has consequences. Criteria 1, 3, 5 and 8 restated, 9–11 added. (2026-09-27: the hide bar is per-metro data starting at zero.)
+amended: 2026-09-30 — Don: everything a member posts is reportable; "threat of harm" is a seventh category that hides at any bar; the bar rises when his daily review passes 30 minutes; the reporter picks a reason the poster sees and can rebut, and is told misuse costs a strike (after three, their reports stop auto-hiding). Criteria 1, 3, 5 and 8 restated, 9–11 added. (2026-09-27: the hide bar is per-metro data starting at zero.)
 ---
 ## Story
 
@@ -23,7 +23,7 @@ A photo gets reported. The reporter picks a reason, and is told kindly that repo
 7. **The hide bar is configurable per metro without a migration or a deploy**, the way F076 criterion 11 makes the waitlist thresholds — a value on the metro, changed as data. **Its starting value is zero: every report hides, exactly as the 2026-09-13 hide-on-report behaviour does today.** Content whose metro cannot be resolved uses zero.
 8. **A children or threat-of-harm flag hides regardless of the bar.** Pictures of children are not permitted (F080), and a threat of harm cannot wait on a score, so no bar setting may leave either up.
 9. **A report cannot be sent without a reason the reporter chose.**
-10. **Before sending, the reporter is told that misusing reports has consequences.** What they are is open (Why § Open).
+10. **Before sending, the reporter is told that misusing reports has consequences: each report Don rejects is a strike, and after three, that person's reports stop hiding anything and go to his queue.**
 11. **Every string in the report path, to reporter and poster alike, is kind and gracious** — Don: *"help us all be good to one another."* Wording is Don's ([public-is-draft]).
 
 ## Not this
@@ -48,6 +48,6 @@ Don delegated what a credible threat is to Cowork. **A seventh category, not a s
 
 ### Open
 
-[open-question owner=don raised=2026-09-30] What are the consequences of misusing reports, which criterion 10 tells the reporter about? A) **Strikes:** each report Don rejects is a strike; after three, that person's reports stop auto-hiding and go to his queue, and the warning says so. B) A warning only, with no mechanism behind it. C) Suspension of the reporter after repeated rejected reports. *Recommend A:* it protects posters from a serial reporter without touching anyone's account, and it is a count, not a judgement.
+[open-question owner=don raised=2026-09-30] Should misusing reports later carry a peer consequence as well as strikes: the misusing reporter's identity is shared with the person they reported, while good-faith reporters stay anonymous? Don raised it 2026-09-30 as a possible later mechanism, not final. A) Adopt after launch, triggered by the same rejected-report count. B) Strikes only. *Recommend deciding after launch, on real rejected-report volume:* disclosure to the reported person is a safety risk if the report was misjudged as bad faith.
 
 **Unresolvable metro uses zero** so the fallback leans toward hiding, never toward leaving something up.

@@ -10,12 +10,15 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · signup, onboarding, you, locality — The zip is kept. Nobody picks a metro: the zip decides it at signup, and a member who moves changes their zip on `/you` and the metro follows
+- **2026-09-30** · reports, moderation — Misusing reports: three strikes
+- **2026-09-30** · copy, explore, venue — "Near you", "Browse nearby" and "mi away" come out. "In Sacramento" stands in until there is a second metro
 - **2026-09-30** · page-photos, posting, moderation — A picture of a child is caught by a message at posting and by reports. There is no attestation and no detection
 - **2026-09-30** · reports, moderation — Anything a member can post that could cause offence is reportable at launch: photos, Pages, announcements and posts
 - **2026-09-30** · reports, moderation — "Threat of harm" is a seventh report category. It hides the content at once, whatever the metro's bar, and texts Don
 - **2026-09-30** · reports, moderation, copy — Don raises a metro's hide bar when his daily review runs past 30 minutes
 - **2026-09-30** · page-publish, copy — The become-a-creator step is fixed statements, framed as rules rather than an attestation
-- **2026-09-30** · page-publish — A member who already owns a live Page takes the step before their next new Page
+- **2026-09-30** · page-publish — The rules agreement comes before every new Page, including an existing owner's next one
 - **2026-09-30** · signup, onboarding — Every US zip is known before launch, and an unrecognised zip gets "We don't recognize that zip, try again."
 - **2026-09-30** · signup, onboarding, locality — The metro for a zip is the MSA: Sacramento is MSA 40900, not CSA 472
 - **2026-09-30** · signup, copy — Signup does not say "we never sell". It says what the app is for
@@ -26,7 +29,7 @@
 - **2026-09-30** · rls, pages, groups — Private, community-members-only and public describe group Pages, not business Pages, and have nothing to do with metro
 - **2026-09-30** · rls, members — A signed-in stranger can read no member field
 - **2026-09-30** · rls, follows — Nobody sees who follows whom. A Page's owner sees who follows their Page, by name
-- **2026-09-30** · announcements — There is no followers-only announcement audience
+- **2026-09-30** · announcements — An announcement has no third audience. The 2026-09-21 public/followers switch stands
 - **2026-09-30** · rls, members — A member's interest tags are not public
 - **2026-09-30** · rls, rsvp, purchases — Group members see who RSVP'd. Only a business's owners see who bought, and they may see avatars
 - **2026-09-30** · rls, pages — A stranger does not see a Page's roster

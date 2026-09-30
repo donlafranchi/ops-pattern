@@ -38,7 +38,7 @@ This app is meant to get people together in person. It is not another feed to lo
 
 Nobody just posts here. Every listing is a creation: something to trade, something to teach, a meet up, a volunteer ask. Never write about it the way Facebook, Instagram, or TikTok write about posting or sharing.
 
-"Corner" (as in "your corner of it") reads as forced. Say "near you," "here," or name the thing plainly instead.
+"Corner" (as in "your corner of it") reads as forced. Say "here," "in Sacramento," or name the thing plainly instead. No "near you" or "nearby" while there is one metro (Don, 2026-09-30).
 
 **The standard behind these rules** *(ratified 2026-09-21)*: **plainlanguage.gov**, for short sentences, common words, the active voice, and addressing the reader as *you*. **Where it and this file differ, this file wins** — the mechanics below are house style and plainlanguage.gov has no opinion on em dashes. `../ui/design-language.md` principle 11 also overrides it: never show someone a zero counter on their own work, whatever plainness would suggest.
 
@@ -66,9 +66,9 @@ Set your area
 Everything here starts local. Tell us where you are.
 Where you are decides what you see.
 
-Browse nearby
+Browse in Sacramento
 Here's what's around you right now.
-This is what's near you. Have a look.
+This is what's in Sacramento. Have a look.
 
 Join or start a group
 Find people already doing what you love, or start it yourself.
@@ -79,10 +79,10 @@ This is real people, in real life. You'll see their name, they'll see yours, bec
 Real names lead to real relationships. That's how this works here.
 
 Empty states
-No listings nearby: Nothing created near you yet. Be the first.
-No groups nearby: No groups here yet. Start the first one.
+No listings yet: Nothing created in Sacramento yet. Be the first.
+No groups yet: No groups here yet. Start the first one.
 No RSVPs on your own event: Nobody's in yet. Give it time.
-No messages: Nothing here yet. Say hello to someone nearby.
+No messages: Nothing here yet. Say hello to someone here.
 Blank profile: You haven't created anything yet. Trade something, teach something, or bring people together.
 
 Buttons and labels
@@ -90,14 +90,14 @@ Create something
 Start a group
 Say hello
 Join in
-See what's near
+See what's in Sacramento
 
 Errors
 That didn't go through. Mind trying again?
-That name's taken nearby. Try another.
+That name's taken here. Try another.
 
 Confirmations and toasts
-Created. Someone nearby will see it soon.
+Created. Someone in Sacramento will see it soon.
 You're in.
 
 Emails
