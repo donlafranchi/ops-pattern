@@ -39,7 +39,7 @@ The one thing refused, categorically: **extraction** — taking value from peopl
 
 Guidelines, a tier below promises — depart only with a dated reason in `DECISIONS.md`:
 - Visibility isn't sold by default.
-- Fees follow success; they never gate entry.
+- Fees serve the platform and its members, and favour no member over another (2026-09-30).
 
 ## Still open
 

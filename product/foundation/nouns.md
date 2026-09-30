@@ -114,7 +114,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **A Page's address is public if given** *(ratified 2026-09-09)* — a street address if it has a specific location, a neighbourhood otherwise; having premises decides it, not the Page kind. It's a public location, not a private one — the platform won't stop someone entering a home address, but it's shown to anyone who views the Page. The field must say so before anyone types into it.
 
-[open-question owner=don raised=2026-09-21] Is a private residence's address withheld, and from whom? *(Raised 2026-09-21 while scoping the answering layer, which was about to be told to enforce a rule that does not exist.)* **What is ratified says addresses are shown**: `nouns.md` (2026-09-09) *a Page's address is public if given*, and `model.md` *"Never a home address, and if someone enters one anyway, it is shown publicly."* **There is no rule withholding a residence from anyone.** A) **Leave it** — the address is public if given, and the protection is the neighbourhood-instead-of-street option already offered at the composer. B) **Withhold a residence address** from anyone who is not invited or has not responded, showing a neighbourhood until then — needs a residence flag the schema does not have, and a response concept that is F063. C) **Refuse residence addresses outright** and store only a neighbourhood for them. *Recommend A for launch and B as the considered version*, because B's protection is real but its substrate is two unbuilt things. **Why it is being asked now:** the answering layer must hold whatever the Page surface holds, and it cannot enforce a boundary nobody has drawn. **This governs the Page surface first; the answering layer only inherits it.**
+**A residence's address is public too, at launch** *(Don, 2026-09-30)*. The protection is the option to give a neighbourhood instead of a street. **Revisit** withholding a residence address from anyone not invited or responding once RSVPs (F063) and a residence flag exist. The answering layer inherits whatever the Page surface holds.
 
 ## The nouns that ship
 
@@ -133,6 +133,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
   - **Later** — four states: coming · not coming · seen and undecided · declined. A state column replacing a row's existence — a migration and a rewrite of every read, **not an increment**.
   - **Blocked** — `members.avatar_url` has no write path. The list shows faces; no member has one.
   - **Trigger** — an organizer saying the yes-list alone isn't enough to plan with.
+  - **Later** — **confirmed by the organiser**, which makes a response an interaction for F077 *(2026-09-30)*.
 - **Tag** ● *(2026-09-12, made the only vocabulary 2026-09-13; status corrected to live 2026-09-19)* — a creator's own word for what their Page is. **Created, not picked from a fixed list, and public.**
   - **Now** — **shipped.** `tags` and `page_tags` exist and are written by `group.activate`; `browse_feed` matches a lens on `tags.normalized` and excludes any tag whose `status` is not `visible`, so a tag taken down stops steering discovery rather than merely disappearing from display. **The only vocabulary a creator authors, and the only thing search matches.**
   - **Later** — editing tags on a live Page. **Written once, at activation** — there is no tag editing after that.
@@ -141,6 +142,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 - **Announcement** ● *(status corrected to live 2026-09-19; named the only word 2026-09-21)* — a Page says what is on. **One noun, one word, everywhere** — in the model, the docs and the product, with no creator-facing synonym and no per-kind vocabulary. **Its audience is a field on it, not a second noun**: public, or only people who get updates. **The post appears in browse** *(ruled 2026-09-12 — flat, not only the dated ones)*. Table is `page_posts`, not `bulletins` (2026-09-09) — the Page is the board, an announcement is the first kind of post. **Editable after posting** *(ruled 2026-09-13 — reverses the earlier no-edit rule)*; **delete still refused**; no inbox, no unread state.
   - **Now** — **shipped.** `page_posts` exists, `group.post_create` and `group.post_edit` write it, and `browse_feed` returns posts and Pages in one result set. **`group_id` is `NOT NULL`** — a post has no existence apart from its Page, which is what lets one query return both without inventing a second identity for the poster.
   - **Later** — a date, a time and its own address on a post (F072), and a series that repeats (F074, unruled). **`ends_at` does not exist** on the table; `starts_at` does, as `timestamptz`, indexed.
+- **Purchase** ○ *(2026-09-30)* — a member bought something from a business Page, confirmed by the seller, dated, with both members on it. **Not tracked yet; parked.** F077's sale half waits on it. Only the business's owners see who bought.
 - **Discussion message** ○ — a reply on a Page's board, one level deep (not a tree). Member-authored top-level posts are a later increment and need an operator concept that doesn't exist yet.
 - **Direct message** ○ — one person to another. No substrate exists at all. Never Location-scoped — the accountable-participation commitment is honoured by absence.
 - **Idea** `○` *(schema `wonder`)* — someone puts a new thing to the neighbourhood and others signal interest before it exists.
@@ -171,11 +173,69 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **Why no Business entity, concretely:** the closest construct is a `kind='business'` Page — itself a group of Members, not a corporate record. Maya doesn't *have* a business; she's the sole owner-role member of a business Page, and what she files belongs to her. "Business name" on any surface is a business-Page label, not a separate record. This keeps the platform people-first structurally, not rhetorically, and makes cooperative formation a first-class outcome rather than a new entity type. Test for future proposals: does this give a business Page ownership of what is filed under it, or of other Pages, even indirectly? If yes, refuse.
 
+## Who sees what
+
+**The one place for visibility between people.** Filled from the rulings, 2026-09-30 winning; every cell with no ruling behind it is a lettered question below. `verbs.md` and `policy.md` point here.
+
+**Viewers.** *Signed out* — the general public. *Stranger* — signed in, no relation to the Page. *Follower* and *member* of the Page (a member gets everything a follower does, 2026-09-29). *Consumer* — RSVP'd to or bought from the Page, and neither follower nor member. *Runner* — the Page's creator, owner or steward.
+
+● sees · ✕ not currently · ◐ partly, as noted · — cannot arise · **(x)** open, below
+
+| What | Signed out | Stranger | Follower | Member | Consumer | Runner |
+|---|---|---|---|---|---|---|
+| A member's fields: legal name, zip, interests, follows, profile | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
+| A member's interest tags | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
+| Front door of a business, public or community-only Page | ● **(e)** | ● | ● | ● | ● | ● |
+| Front door of a private group Page | ✕ nothing | **(a)** | — | ● | **(b)** | ● |
+| The Page's founder or seller, by display name | **(f)** | **(f)** | **(f)** | ● | **(f)** | ● |
+| Contents: business Page | ◐ front door only | ● | ● | ● | ● | ● |
+| Contents: public group Page | ◐ front door only | ● | ● | ● | ● | ● |
+| Contents: community-only group Page | ◐ front door only | **(c)** | **(c)** | ● | **(b)** | ● |
+| Contents: private group Page | ✕ | ✕ | — | ● | **(b)** | ● |
+| Roster: who the members are | ✕ | ✕ | ✕ | ● current members | **(b)** | ● |
+| Follow graph: who follows whom | ✕ | ✕ | ✕ | ✕ | ✕ | ◐ their own Page's followers, by name |
+| Who RSVP'd, on a group Page | ✕ | ✕ | ✕ | ● | **(b)** | ● |
+| Who RSVP'd, on a business Page | ✕ | ✕ | ✕ | **(d)** | **(b)** | **(d)** |
+| How many RSVP'd | **(e)** | ● | ● | ● | ● | ● |
+| Who bought | ✕ | ✕ | ✕ | ✕ | ◐ their own purchase | ◐ business owners only, avatars allowed |
+| A member's legal name | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
+| Public announcement | ◐ one withheld card per Page (F093) | ● **(g)** | ● | ● | ● **(g)** | ● |
+| Followers announcement | ◐ the same withheld card | ✕ | ● | ● | ✕ | ● |
+
+**Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door and contents: private, community-only and public are group-Page levels for signed-in members; business Pages take none; a signed-out visitor gets the front door and nothing for a private group (2026-09-30); a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs and purchases: group members see who RSVP'd; only a business's owners see who bought (2026-09-30); the count is the Response entry above. Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
+
+**Combinations** are the open question (h). Someone who runs one Page is a stranger to another. Visibility between creators and consumers as people, not through a Page, is parked (i).
+
+[open-question owner=don raised=2026-09-30] **(a)** Does a signed-in stranger see a private group Page's front door, so they can find it and ask to join? A) **Yes, the front door only:** the Page decides whether membership needs approval (2026-09-29), and nobody can ask to join a Page they cannot find. B) No: a private Page is invisible to non-members. *Recommend A.*
+
+[open-question owner=don raised=2026-09-30] **(b)** Does a consumer — someone who RSVP'd or bought, and is neither follower nor member — see anything a signed-in stranger does not, beyond their own RSVP or purchase? A) **No.** Taking part once does not make someone involved. B) Yes: the other people who RSVP'd to the same thing. *Recommend A;* involvement is membership, and joining is one tap.
+
+[open-question owner=don raised=2026-09-30] **(c)** What does "community-members-only" mean: the Page's own members, or every signed-in SocialUs member? A) **Every signed-in member:** a Page open to the community and closed to the internet, distinct from private. B) The Page's members only, which makes it private in all but whether the front door is findable. *Recommend A,* because B leaves two levels that differ only in the front door.
+
+[open-question owner=don raised=2026-09-30] **(d)** Who sees who RSVP'd to a business Page's gathering? The 2026-09-30 ruling names group members. A) **The business's owners only**, like who bought. B) Its members too, as on a group Page. *Recommend A.*
+
+[open-question owner=don raised=2026-09-30] **(e)** What is on a Page's front door for someone signed out, besides its name, photo and where it shows up — an RSVP count, upcoming dates, its tags? A) **Name, photo, where, tags, and F093's withheld announcement card; no counts or dates.** B) Also the RSVP count. *Recommend A:* the front door says what the thing is, and joining says what is on.
+
+[open-question owner=don raised=2026-09-30] **(f)** Does a Page's front door show its founder or seller? Two same-day answers conflict: *"Is a founder or seller part of the front door? Yes, by display name"* and *"May a stranger see a Page's roster or founder? No."* A) **Yes, by display name**, and the "no" was about the roster: a stranger sees who runs the thing, not who belongs to it. B) Not to a stranger; the creator may still choose to show a display name and avatar. *Recommend A.* Nothing that shows a founder to a non-member is built until this is answered.
+
+[open-question owner=don raised=2026-09-30] **(g)** Does a public announcement on a community-only or private group Page reach people who cannot see the Page's contents? A) **Yes:** public is public, which is what it is for (*come join our run club*, 2026-09-21). B) No: the Page's level caps its announcements. *Recommend A.*
+
+[open-question owner=don raised=2026-09-30] **(h)** A viewer holding two relations — a follower who bought, a member who RSVP'd, a runner who follows another Page — sees what? A) **The union of their columns, and nothing more.** B) Something a combination unlocks on its own, e.g. a follower who bought sees other buyers. *Recommend A;* it adds no new cell to rule on.
+
+[open-question owner=don raised=2026-09-30] **(i)** Visibility between people directly — creator and consumer, creator and creator, consumer and consumer — and a consumer's own visibility setting, which comes with direct messaging. **Parked by Don 2026-09-30, not launch.** Marked so it stays in the index. `stakeholder_visibility` is the creator's setting today.
+
+### Nouns this needs
+
+- **Consumer.** Don's word on 2026-09-30 for the other side from Page creators. [open-question owner=don raised=2026-09-30] **(j)** Is "consumer" a new internal word for what this file calls patron — everyone who is not publishing — or the narrower sense this table uses, someone who RSVP'd or bought? A) **The narrow sense, derived from a confirmed RSVP or purchase and not stored**, beside patron. B) A rename of patron. *Recommend A;* patron already names the broad side, and a third person-noun needs a dated ruling either way. Internal only: not a user-facing word.
+- **Purchase** — ○ below: a confirmed purchase is not tracked yet.
+- **Confirmed interaction** — a Response confirmed by the organiser, or a Purchase confirmed by the seller, dated, with both members on it (F077, out of scope for now). A state on those two nouns, not a noun of its own.
+- **A Page's visibility level** — a field on a group Page, not a noun. It sits on members today and moves (`socialus-web` #246).
+
 ## The relationships
 
 **Retired as prose, 2026-09-19. The link model lives in one place and this is not it:** `src/ontology/links.ts` in `socialus-web`, generated to `src/ontology/registry.json` (schema 2) and checked against the handlers by `scripts/ontology-drift.ts`, which runs daily.
 
-[open-question owner=don raised=2026-09-16] Which noun does the paused ontology spike model first — Item or Page? Its other question, the address rule, is the residence question in § Page. The spike lives outside this repo, at `../socialus-ontology-spike/INTENT.md`.
+[open-question owner=don raised=2026-09-16] Which noun does the paused ontology spike model first — Item or Page? The spike lives outside this repo, at `../socialus-ontology-spike/INTENT.md`.
 
 **Why the paragraph that stood here is gone rather than corrected.** It was the second description of the link model and the one people read to be right, while **nothing checked it** — the failure this repo is named for. It had already drifted: it listed *"Person↔Page: founder/steward/owner/member of"* as one relation, and those are **two links with different meanings**. Ownership is `groups.founder_member_id` — who *started* the Page, which **no permission consults**. Authority is `group_memberships.role` — `owner` or `steward`, which is what every managing check actually reads. They coincide today only because one handler writes both, and **a steward who did not found a Page holds authority under the second and appears under neither of the others**. That link was undeclared until 2026-09-19.
 

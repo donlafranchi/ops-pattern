@@ -188,17 +188,7 @@ A verb is not one rule — it's a rule per noun it acts on. Following a Page, a 
 
 ## Who can see whom
 
-A second matrix — visibility between people is a rule per pair, not per verb.
-
-| Viewer → sees | Followers of a business | Members of a social group | That group's conversations |
-|---|---|---|---|
-| The business itself | ● its own audience, numbers only | — | — |
-| Follower of a business | ✕ forbidden | — | — |
-| Member of a group | — | ● current members only | allowed, when built |
-| Follower of a group | — | ✕ forbidden | ✕ forbidden |
-| Anyone else, anonymous included | ✕ forbidden | ✕ | ✕ |
-
-**A business Page never shows its followers publicly, to anyone** *(ratified 2026-09-08)* — a follower list on a business is a customer list, published; the business sees its own audience, nobody else has a reason to. This is stronger than "followers don't see each other." "Group" in this table means a social group, not a business — the two are routinely blurred in older docs and are different nouns with different rules. Rules: F067.
+**The table lives in `nouns.md` § Who sees what** — every viewer against every thing, one place. What stays here is why.
 
 A follower of a business is a customer, and customers aren't an audience for each other — following a bakery tells the bakery something, it doesn't put you in a room with its other customers. A member of a social group has joined something, and knowing who else is in it is most of the reason to join.
 

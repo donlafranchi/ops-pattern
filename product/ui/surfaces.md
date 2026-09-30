@@ -152,7 +152,7 @@ Carried forward with their ratification intact. **These bind whatever the surfac
 
 > **Intent:** The landing surface has to be readable by someone who has never signed up, because the platform's first job is to show a stranger that their neighbourhood is already on it. A wall in front of an empty-looking catalog converts nobody and costs the only demonstration the product has. **The signup banner stays a banner, above the results, never in front of them.** Overturned by: evidence that anonymous browse suppresses rather than seeds signup.
 
-**Ordering is locality and recency, with the Member's own declared interest tags as a boost — and may also carry genuine community response.** *(Amended 2026-09-12 on Don's instruction; see `DECISIONS.md`.)* What ordering may never carry is **payment**: nobody buys placement.
+**Ordering is locality and recency, with the Member's own declared interest tags as a boost — and may also carry genuine community response.** *(Amended 2026-09-12 on Don's instruction; see `DECISIONS.md`.)* **Ordering doesn't favour a member because of payment, size or follower count** (2026-09-30).
 
 > **Removed from this entry, 2026-09-12:** the "No engagement-derived ranking" commitment that stood here. Don's ruling is that earned attention is the intended mechanism, not a loophole — *"if they're doing well in the community and the community loves them then we need to share that."* The provenance of the removed commitment is in the PR that removed it. What survives from it, and is not in dispute, is the foundation wording: ranking may use where you are and what you said you like; **it may never use what keeps you scrolling.**
 

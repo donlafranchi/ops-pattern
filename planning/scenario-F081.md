@@ -6,25 +6,26 @@ gates: launch
 date: 2026-09-14
 depends: [F076, F077]
 approved: 2026-09-14 — Don's ruling; legal name, email, zip, display name, zip suggests the metro
-amended: 2026-09-27 — Don: the zip determines the metro, and onboarding stops silently assigning a place. Criterion 3 restated, 7 added. The wider ruling that local means the whole metro is F094.
+amended: 2026-09-30 — Don: every US zip known before launch, an unknown one refused; the metro is the MSA; the zip is kept and changed on /you; every member is verified as a person, method open; no "we never sell" line, a placeholder about what the app is for instead. Story and criteria 1, 4 and 5 restated, 8 added.
 ---
 ## Story
 
-Maya follows a neighbour's link and signs up. One screen: her legal name, her email, her zip, and the display name everyone else will see. The screen tells her plainly that the platform does not sell her information, and that not doing that is the point of it. Her zip decides her metro, and the screen says which one — Sacramento — so she can see it rather than have it happen to her. Nothing is placed for her that she did not give. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
+Maya follows a neighbour's link and signs up. One screen: her legal name, her email, her zip, and the display name everyone else will see. The screen tells her what the app is for: good and decent people finding, connecting with and supporting each other. Her zip decides her metro, and the screen says which one — Sacramento — so she can see it rather than have it happen to her. Nothing is placed for her that she did not give. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
 
 ## Acceptance
 
-1. Signup collects a zip code, alongside the legal name, email and display name F077 already requires. No field beyond those four exists in the flow.
-2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map. **The counterparty disclosure of F077 criterion 6 covers the legal name only; it never carries the zip.**
+1. **Signup collects legal name, email, zip and display name, and verifies the email.** Every member is verified as a person; how is open (Why). No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently handed over only under a court order (2026-09-30).
+2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map.
 3. **The zip determines the metro**, and the screen shows the person which metro that is. **Nothing else determines it** — not IP, not a pre-filled default, not a nearest match. *(Amended 2026-09-27: this read "the zip produces a shortlist… the person selects one"; Don ruled the zip decides.)*
-4. Every US metro stays reachable from the same control, so a person whose shortlist is wrong is never stuck (F076 criterion 1 holds).
-5. The screen carries a published line stating the platform does not sell member information, **and a second stating that people who interact see each other's real name** — disclosed as a term, not offered as a choice. Neither states a date, a feature, or a promise about the future.
+4. **Nobody picks a metro at signup.** A member who moves changes their zip on `/you`, and their metro follows from it. It is not one-and-done.
+5. The screen carries a line saying what the app is for, **and no line about not selling member information.** Placeholder, Don's words ([public-is-draft]): *"This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."* It states no date, feature, or promise about the future.
 6. No field, control, or string in signup asks or records whether the person makes things or finds them.
 7. **Onboarding assigns no place the person did not give.** A member's home is the metro their zip determined; no default place is written on their behalf, seen or unseen. *(Added 2026-09-27. Today `DEFAULT_HOME_PLACE_ID` sets every new member's home to a fictional city whose box sits inside Sacramento, which is why every member resolves to Sacramento.)*
+8. **Every US zip resolves, before launch, through the national HUD-USPS crosswalk, to the MSA that contains it.** A zip the crosswalk does not know is refused with *"We don't recognize that zip, try again."* A person whose zip is in no MSA chooses a metro to view; their zip is kept, to tell them when their own MSA opens.
 
 ## Not this
 
-Any verification, document, ID, or identity check — that is F082, and it happens later, not here. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro it determined. A home place finer than the metro — local means the whole metro (F094). A street address — `product/systems/member.md` refuses one by default. The exact wording of the no-sale line, which is Don's call ([public-is-draft]).
+Choosing the person-verification method, which is open. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro it determined. A home place finer than the metro — local means the whole metro (F094). A street address — `product/systems/member.md` refuses one by default. Any line about not selling member information (2026-09-30). Covering zips outside every MSA, Yuba and Sutter among them: growing MSA boundaries is parked for a later scenario.
 
 ## Why
 
@@ -32,17 +33,19 @@ Any verification, document, ID, or identity check — that is F082, and it happe
 
 **Don reversed the 2026-09-14 shortlist-and-pick.** A zip is something the person told us, so a metro derived from it is not the platform choosing for them; what F076 criterion 2 forbids is choosing from something they did not give — IP, a default, a nearest match. **The unseen default place was the real violation**, and criterion 7 removes it.
 
-[open-question owner=don raised=2026-09-27] What does a zip the crosswalk does not know do? It holds Sacramento only, and one zip maps to exactly one metro.
+**The metro is the MSA** (Don, 2026-09-30): Sacramento is MSA 40900, not CSA 472. Yuba and Sutter are not their own MSA and are not covered at launch. A member whose zip is in no MSA can choose a metro to view; the value is kept for records and to tell them when their own MSA opens.
 
-[open-question owner=don raised=2026-09-27] Which grain is "the metro" for a zip — the crosswalk's MSA 40900 (four counties) or the polygon's CSA 472 (six)? A Sutter or Yuba zip is inside the polygon and outside the crosswalk.
+**The zip is kept** (Don, 2026-09-30): *"How will we know what's going on in their area without it."* So criterion 2 stands, and changing the zip is how a member changes metro.
 
-[open-question owner=don raised=2026-09-27] May a person override the metro their zip decided, through criterion 4's every-metro control?
-
-[open-question owner=don raised=2026-09-27] What are the exact words of criterion 5's two lines — no sale, and real names between people who interact? Don's words ([public-is-draft]); a builder can wire placeholders only.
+[open-question owner=don raised=2026-09-30] What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and different language is coming. Nothing about legal names goes in it while legal-name disclosure is parked ([public-is-draft]).
 
 ### Who sees a real name
 
-**Settled 2026-09-14, both questions.** It runs **both ways** — two people who interacted each see the other's legal name. And it is **disclosure, not consent** — a term of interacting, stated plainly at signup, which is what criterion 5's copy has to carry alongside the no-sale line. **Interaction is the only path to a name:** nothing is reachable by lookup, search, or browsing. F077 criteria 6–8 carry the rule, the 12-month clock, and the refusals; F077 also states the roster tension and the one open question left (retention).
+**Out of scope 2026-09-30; revisit with legal counsel** (F077). Signup says nothing about showing legal names to anyone.
+
+[open-question owner=don raised=2026-09-30] How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candidate. **Input on timing, if it is phone:** A) at every signup — stops bulk fake accounts and ban evasion, highest friction, on every newcomer; B) before a first Page — stops fake creators, felt only by creators; C) before a first report or RSVP — stops mass-reporting, which hides content at bar zero, and RSVP spam; D) only on risk signals — least friction, reacts after harm. *Recommend B plus C for reports plus D, if phone.* Today the code has no phone field, email-only sign-in, and Supabase SMS and phone MFA switched off.
+
+[open-question owner=don raised=2026-09-30] For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy duties). What must it say, and must it be live before the first signup? Signup collects them from day one (criterion 1).
 
 ### Settled against F076
 

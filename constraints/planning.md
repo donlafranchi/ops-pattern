@@ -7,9 +7,43 @@
 > Every ratified decision whose tag binds the **planning** tier, newest first. `DECISIONS.md` holds
 > only live decisions — a superseded one is deleted — so nothing below conflicts with anything
 > else here. If two lines ever seem to, the newer wins (`[newer-decision-wins]`).
-> **216 older decisions carry no tag yet and are not listed** — tagging is required from
+> **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · business-registration, page-publish, copy — The app doesn't use legal language between members. Legal-entity information (entity type, legal entity name, state) is asked only at business registration, and only of members who have a legal entity
+- **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
+- **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
+- **2026-09-30** · process, product, copy — The platform comes first, then its members, and every ruling can be revisited when the situation changes
+- **2026-09-30** · signup, business-registration, page-publish, reports, rls — What the platform collects for its own protection is seen only by Don and operators, and is currently handed over only under a court order
+- **2026-09-30** · names, members, copy — Between members, we currently show a display name and avatar, and don't show legal names. We don't take part in disputes between members unless a court orders it
+- **2026-09-30** · names, signup, copy — Real names between people who dealt with each other (F077, `socialus-web` #219) are out of scope; revisit with legal counsel
+- **2026-09-30** · business-registration, copy — The local-owner badge is the owner's own claim, and says so: for example "Says locally owned"
+- **2026-09-30** · signup, onboarding, you, locality — The zip is kept. Nobody picks a metro: the zip decides it at signup, and a member who moves changes their zip on `/you` and the metro follows
+- **2026-09-30** · reports, moderation — Misusing reports: three strikes
+- **2026-09-30** · copy, explore, venue — "Near you", "Browse nearby" and "mi away" come out. "In Sacramento" stands in until there is a second metro
+- **2026-09-30** · page-photos, posting, moderation — A picture of a child is caught by a message at posting and by reports. There is no attestation and no detection
+- **2026-09-30** · reports, moderation — Anything a member can post that could cause offence is reportable at launch: photos, Pages, announcements and posts
+- **2026-09-30** · reports, moderation — "Threat of harm" is a seventh report category. It hides the content at once, whatever the metro's bar, and texts Don
+- **2026-09-30** · reports, moderation, copy — Don raises a metro's hide bar when his daily review runs past 30 minutes
+- **2026-09-30** · page-publish, copy — The become-a-creator step is fixed statements, framed as rules rather than an attestation
+- **2026-09-30** · page-publish — The rules agreement comes before every new Page, including an existing owner's next one
+- **2026-09-30** · signup, onboarding — Every US zip is known before launch, and an unrecognised zip gets "We don't recognize that zip, try again."
+- **2026-09-30** · signup, onboarding, locality — The metro for a zip is the MSA: Sacramento is MSA 40900, not CSA 472
+- **2026-09-30** · signup, copy — Signup does not say "we never sell". It says what the app is for
+- **2026-09-30** · pages, venue, locality — "Local" means where a thing is, not who may see it. A Page's own settings decide whether it is open to the public
+- **2026-09-30** · venue, map, pages — No distance is shown anywhere
+- **2026-09-30** · copy, explore — There is no "near you" while there is one metro. Nearness is deferred until there is critical mass
+- **2026-09-30** · rls, members, pages — Visibility has two sides, Page creators and consumers. `stakeholder_visibility` is the creator's setting
+- **2026-09-30** · rls, pages, groups — Private, community-members-only and public describe group Pages, not business Pages, and have nothing to do with metro
+- **2026-09-30** · rls, members — A signed-in stranger can read no member field
+- **2026-09-30** · rls, follows — Nobody sees who follows whom. A Page's owner sees who follows their Page, by name
+- **2026-09-30** · announcements — An announcement has no third audience. The 2026-09-21 public/followers switch stands
+- **2026-09-30** · rls, members — A member's interest tags are not public
+- **2026-09-30** · rls, rsvp, purchases — Group members see who RSVP'd. Only a business's owners see who bought, and they may see avatars
+- **2026-09-30** · rls, pages — A stranger does not see a Page's roster
+- **2026-09-30** · pages — A founder or seller is part of a Page's front door, by display name
+- **2026-09-30** · rsvp, purchases, names — A completed sale or attendance is a purchase or RSVP that the seller or organiser has confirmed, with a date and both members on it
+- **2026-09-30** · pages, location — A residence's address is public if given, at launch. The protection is the existing option to give a neighbourhood instead of a street
 - **2026-09-29** · pages, membership, announcements — A member is a more involved follower. The difference is involvement, not Page kind
 - **2026-09-29** · signup, onboarding, business-registration, locality — The metro is what determines "local"; a zip is only the lookup that finds it
 - **2026-09-29** · rls, business-registration — A business registration is collected and never displayed; its public artifact is a badge
