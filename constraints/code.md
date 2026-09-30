@@ -12,7 +12,7 @@
 
 - **2026-09-30** · business-registration, page-publish, copy — The app doesn't use legal language between members. Legal-entity information (entity type, legal entity name, state) is asked only at business registration, and only of members who have a legal entity
 - **2026-09-30** · page-photos, posting, moderation, copy — While we grow into a platform with staff, we ask members not to post sensitive content: anything that would need a moderation team. Sensitive currently means children, animals and pets, and anyone who can't fend for themselves
-- **2026-09-30** · copy, conduct — We are careful and supportive of our members, and we ask the same of them toward us and each other
+- **2026-09-30** · copy, conduct — We are careful and supportive of our members, and we ask the same of them toward us and each other. We rely on each other to keep the platform kind and decent, and we don't want to subject anyone on our team to unpleasant images or content
 - **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
 - **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
 - **2026-09-30** · process, product, copy — The platform comes first, then its members, and every ruling can be revisited when the situation changes
