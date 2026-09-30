@@ -24,6 +24,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - **Tags on posts, and tag editing any time** (2026-10-01) — **in the launch, Don confirmed 2026-10-01**; new launch scope, **nothing was removed to make room.** Post replaces announcement as the user-facing word; the copy review rides with the copy pass.
 - Follows simplification — one table, three subjects.
 - **What's happening…** — a date, a time and a post-level address on an announcement (F072); **a series that repeats, weekly with optional bounds (F074, ruled 2026-09-20)**; the time lens rows (F091); narrowing in a modal that writes text (F092). The browse query shipped 2026-09-19 **and nothing calls it** — Explore still reads the old Item-grain view client-side. So it needs **two** things, a caller and a de-duplication rule, not the one change this line claimed until 2026-09-20. **The new cost is F073, recurrence, and the parser.** Recurrence is what makes the lens non-empty; Bulletins was cut to pay for it — see § Cut.
+- Optional end time, add-to-calendar, and default alt text from title, date and place on dated announcements and gatherings (F072 criterion 6, 2026-09-30) — **new launch scope**.
 - Onboarding, empty states, copy pass — Fortnight 4.
 - Seed content, synthetic and display-only — Fortnight 4.
 
@@ -55,6 +56,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
 
 **Speculative, not ruled**
+- Price on cards: Free / Donation / Paid *(Don, 2026-09-30)*. F072 criterion 2 stands: an announcement carries no price today.
 - Vouching: a neighbour chooses to vouch for a service provider *(Don, 2026-09-30; F095)*.
 - Page components not offered at launch *(Don, 2026-09-30: a Page is composed of components any owner can add)*: RSVP on a single post; transactions and one-on-one meetings; visibility levels on a Page that isn't a group Page; switching following or joining off.
 - When in-app purchasing exists, producer and purchaser see each other as far as the transaction needs *(Don, 2026-09-30)*.

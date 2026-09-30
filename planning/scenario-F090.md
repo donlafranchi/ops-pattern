@@ -17,7 +17,7 @@ Priya already posts her pottery to TikTok and Instagram every week. She is not g
 4. A recorded destination renders on the public Page as a link out, with the platform named.
 5. Nothing on the Page depends on a third party's script, and nothing breaks visibly when a third party changes or fails.
 6. Removing a destination is one action and leaves nothing behind.
-7. Every rendered destination is an https URL — the value reaches an `href` on a public page, so anything else is a script injection wearing a platform label. `[member-data-disclosure]`: a destination is published only because the owner typed it, never inferred, never imported.
+7. Every rendered destination is an https URL — the value reaches an `href` on a public page, so anything else is a script injection wearing a platform label. `[member-data-disclosure]`: a destination is published only because the owner typed it — and a venue's own consented connection (its Instagram or calendar, F096) counts as typed (2026-09-30). Nothing is inferred.
 8. Copy names platforms in the member's words and never says "creator". `[public-is-draft]` — wording here is Don's.
 
 ## Not this
@@ -45,5 +45,3 @@ Don: *"At the very minimum I'd like to only offer TikTok and Instagram for now o
 ### What this supersedes
 
 The current social-links field takes a full `https://` URL and refuses everything else — a real handle typed into it is rejected. That is a live bug, fixed separately; this scenario is what the field becomes, not the fix.
-
-[open-question owner=don raised=2026-09-30] Does criterion 7 hold for F096's consented imports, whose events link back to the owner's own site? Criterion 7 publishes a destination only when the owner typed it, and rules out imported ones; the 2026-09-30 symbiosis ruling puts a link back on everything pulled in. A) **Consent counts as typing:** restate criterion 7 as "the owner typed or authorised it", where connecting a source is the authorisation. B) Import events but not links: the only link back is one the owner typed. *Recommend A;* the link back is what the symbiosis ruling requires, and `[member-data-disclosure]` holds because the owner chose to show it.

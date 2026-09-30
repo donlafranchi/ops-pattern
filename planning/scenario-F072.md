@@ -6,6 +6,7 @@ date: 2026-09-13
 depends: [F059, F065]
 approved: 2026-09-21 — Don: "I need it built and composed." Composer, time, post address and the audience switch are one piece of work. Absorbs F073.
 supersedes: F066, F073
+amended: 2026-09-30 — Don: an optional end time; add-to-calendar and default alt text are launch scope. Criterion 6 added; the end time leaves Not this.
 ---
 ## Story
 
@@ -18,10 +19,11 @@ Maya's bakery has nothing to say until Thursday, when the sourdough is back. She
 3. The composer takes an **optional date and time** and an **optional address of its own**. With a start time it is returned by a time-windowed read **to the hour, not only to the day**; with none it is still a first-class announcement and is never returned by a time-windowed read. With an address it reads as being there; with none, at its Page's location. **Times are the metro's, never the reader's and never the server's.**
 4. The composer carries **one switch for who it reaches**, defaulting to anyone. The words name the people, never a kind of post, and **neither "announcement" nor "bulletin" appears in any label.** Beside the restricted setting sits a live count of the people it would reach, and **at zero that count reads as words, never as "0".**
 5. An announcement that fails to save leaves nothing behind — no half-made row on the Page, in browse, or in its Page's history.
+6. **An announcement or gathering may carry an optional end time**, after its start. One with a time offers **add-to-calendar**, and its image carries **default alt text built from its title, date and place**. The user-facing label for it stays **"Event"** (2026-09-30).
 
 ## Not this
 
-**An end time.** `page_posts` has `starts_at` and no `ends_at`; Don asked for a date and a time, and the end is a column that does not exist. **Recurrence, which is F074** — approved, separate, and not what is being built today. **No announcement renders on the map, dated or not** — the map shows Pages. Replies, threads, comments or any inbox. Scheduling, or sending to a subset. Images. Responses and any reaction count, which are F063. All-day events, multi-day spans, or a start with no end. Timezone *selection* by a creator: times are the metro's, which is what criterion 3 says. An edit history or a visible "edited" marker — not ruled either way.
+**Recurrence, which is F074** — approved, separate, and not what is being built today. **No announcement renders on the map, dated or not** — the map shows Pages. Replies, threads, comments or any inbox. Scheduling, or sending to a subset. Images. Responses and any reaction count, which are F063. All-day events or multi-day spans. Timezone *selection* by a creator: times are the metro's, which is what criterion 3 says. An edit history or a visible "edited" marker — not ruled either way.
 
 ## Why
 
