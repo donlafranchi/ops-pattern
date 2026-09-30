@@ -27,7 +27,17 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 
 ## Later — deferred past launch, priced
 
-- Real names between people who dealt with each other (F077, `socialus-web` #219) — **out of scope 2026-09-30; revisit with legal counsel.**
+**Speculative, not ruled — taken up when it becomes a concern** *(Don, 2026-09-30)*:
+- Paid visibility, sponsorship and advertising.
+- Regions between MSAs, each MSA grown outward with PostGIS until outlying places fall into one (Yuba and Sutter).
+- A consumer visibility setting, when direct messaging lands.
+- Visibility between creator and consumer, creator and creator, and consumer and consumer.
+- Purchase tracking — F077's sale half waits on it.
+- Sharing a report-misuser's identity with the person they reported.
+- Legal names between members (F077, `socialus-web` #219), and anything else waiting on legal counsel.
+- Nearness and "near you", once there is a second metro.
+- Withholding a residence address from people not invited or responding, once RSVPs and a residence flag exist.
+
 - Bulk actions on the review queue (F079) — written, unscheduled; waits on real volume. *(The ID + selfie tier left this line 2026-09-27: Don ruled none is being built, so F080 names no unlock.)*
 
 - Item-level photos — substrate built, ~half a day when resumed.
