@@ -10,6 +10,9 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · scope, booking, payments, storefront — SocialUs is currently not a fully built-out platform of any kind — booking, storefront, payments or other — except for helping with discovery and support of locals. It may offer basic versions of these, so people can transact in the platform and connect
+- **2026-09-30** · pages, vouching — In F095, "I have clients in these neighbourhoods" is the provider's own statement, not a customer list, and a neighbour can vouch for a provider by their own choice
+- **2026-09-30** · pages, explore — Page owners can currently state the neighbourhoods they work in as plain text on their Page; "near me" discovery stays deferred
 - **2026-09-30** · pages, groups, rls, nouns, copy — A Page is currently composed of components any owner can add for any reason: followers, members (with join approval), announcements and RSVP gatherings, and later RSVP on a single post and transactions or one-on-ones. Each comes with a short explanation of how it can be used. Visibility is defined per component and relationship, not per Page type
 - **2026-09-30** · rls, rsvp, posts — An RSVP to a gathering currently shows that gathering and the others party to it, not what a member sees. Membership is its own component. An RSVP on a single post, when it exists, covers that post only
 - **2026-09-30** · rsvp, transactions — A one-on-one meeting or a transaction is currently visible only to its parties, as far as it needs, on any Page
