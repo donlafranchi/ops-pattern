@@ -11,6 +11,8 @@
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
 - **2026-09-30** · business-registration, page-publish, copy — The app doesn't use legal language between members. Legal-entity information (entity type, legal entity name, state) is asked only at business registration, and only of members who have a legal entity
+- **2026-09-30** · page-photos, posting, moderation, copy — While we grow into a platform with staff, we ask members not to post sensitive content: anything that would need a moderation team. Sensitive currently means children, animals and pets, and anyone who can't fend for themselves
+- **2026-09-30** · copy, conduct — We are careful and supportive of our members, and we ask the same of them toward us and each other
 - **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
 - **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
 - **2026-09-30** · process, product, copy — The platform comes first, then its members, and every ruling can be revisited when the situation changes
@@ -56,7 +58,7 @@
 - **2026-09-27** · signup, onboarding — Onboarding stops silently assigning a place
 - **2026-09-27** · reports, moderation — The F078 hide bar is not a fixed number. It is per-metro configuration that starts at zero — every report hides — and tightens as volume grows, without a code change
 - **2026-09-27** · page-publish — The creator attestation comes before publishing a first Page, not before creating a draft
-- **2026-09-27** · page-photos, moderation — No pictures of children, full stop. It is a photo rule, not a topic rule
+- **2026-09-27** · page-photos, moderation — It is a photo rule, not a topic rule
 - **2026-09-27** · page-photos, verification — Nothing unlocks F080. There is no stronger verification and none is being built
 - **2026-09-23** · waitlist — The waitlist count comes back, CACHED rather than live, and metros sort by it
 - **2026-09-23** · explore, announcements, rls — Who exists is public. What's happening is not — but *that* something is happening is public
