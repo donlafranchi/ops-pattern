@@ -46,8 +46,8 @@ A public-facing appeals board or an SLA promise. Building the classification log
 
 Don delegated what a credible threat is to Cowork. **A seventh category, not a score threshold inside one**, so the text to Don never waits on a confidence number, and the reporter can name it directly.
 
-### Open
+### Misuse (2026-09-30)
 
-[open-question owner=don raised=2026-09-30] Should misusing reports later carry a peer consequence as well as strikes: the misusing reporter's identity is shared with the person they reported, while good-faith reporters stay anonymous? Don raised it 2026-09-30 as a possible later mechanism, not final. A) Adopt after launch, triggered by the same rejected-report count. B) Strikes only. *Recommend deciding after launch, on real rejected-report volume:* disclosure to the reported person is a safety risk if the report was misjudged as bad faith.
+**We don't currently share a misusing reporter's identity with the person they reported** (Don, 2026-09-30): it would make the platform a party to a dispute between members. Three strikes is the consequence. Revisit later.
 
 **Unresolvable metro uses zero** so the fallback leans toward hiding, never toward leaving something up.

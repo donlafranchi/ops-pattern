@@ -6,7 +6,7 @@ date: 2026-09-14
 depends: []
 approved: 2026-09-14 — Don's ruling, replaces member.md "real names encouraged, never required"
 amended: 2026-09-14 — Don's ruling: public-surface ban plus mutual counterparty disclosure, with interaction as the only path to a name
-parked: 2026-09-30 — Don: parked until SocialUs has legal counsel, off launch scope, with `socialus-web` #219. The platform does not arbitrate or disclose legal names, or bring them up to the public.
+out-of-scope: 2026-09-30 — Don: real names between people who dealt with each other are out of scope, with `socialus-web` #219; revisit with legal counsel.
 ---
 ## Story
 
@@ -25,9 +25,9 @@ Rae signs up with her legal name and email; the platform records it and never pu
 
 ## Why
 
-### Parked pending counsel (2026-09-30)
+### Out of scope (2026-09-30)
 
-**Nothing here is built for launch.** Don's standing principle: no decision brings legal liability onto the platform, and anything that asks something legal of members waits for counsel. The rules below keep their intent for when it returns. **Criterion 1's legal-name field is on Don's list to decide separately;** F081 criterion 1 still names it until he does.
+**Nothing here is built for launch; revisit with legal counsel.** We don't currently show legal names to other members or bring them up to the public, and we don't take part in disputes between members unless a court orders it. **What still holds comes from other rulings the same day:** the legal name is collected at signup (F081 criterion 1) and seen only by Don and operators, which carries criteria 1 and 4; members see a display name and avatar, which carries criterion 2. The rules below keep their intent for when this returns.
 
 ### The principle, in Don's words
 
