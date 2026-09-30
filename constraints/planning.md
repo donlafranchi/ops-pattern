@@ -10,6 +10,8 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · explore, pages, map, rls — F093 criterion 8 amended: a signed-out visitor sees a Page's name, default photo, description and the withheld card ("Sign up to see what's happening", placeholder), and no location, tags or founder. Storing a location and showing it are separate: a Page keeps its location regardless, and it scopes the metro and places the Page on the map without being displayed. Signed in, the owner chooses how much location shows; tags show to signed-in visitors only
+- **2026-09-30** · rls, members, pages — The founder and RSVP corrections `socialus-web` #246 flagged are pruned here
 - **2026-09-30** · scope, booking, payments, storefront — SocialUs is currently not a fully built-out platform of any kind — booking, storefront, payments or other — except for helping with discovery and support of locals. It may offer basic versions of these, so people can transact in the platform and connect
 - **2026-09-30** · pages, vouching — In F095, "I have clients in these neighbourhoods" is the provider's own statement, not a customer list, and a neighbour can vouch for a provider by their own choice
 - **2026-09-30** · pages, explore — Page owners can currently state the neighbourhoods they work in as plain text on their Page; "near me" discovery stays deferred
