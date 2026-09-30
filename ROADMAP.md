@@ -65,6 +65,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Geofenced or auto-assigned group membership.
 - Engagement-optimized ranking, infinite feeds, streaks, pull-back notifications.
 - Venture capital funding.
+- Legal or tax language, or entity-type/formation data, in any user-facing copy.
 - Full e-commerce catalog (variants, SKUs, cart), automated/dynamic pricing, inventory or warehouse management, POS/checkout, appointment-booking or calendar sync — the platform coordinates, it isn't a storefront or a booking system.
 - Automated government-API verification of producer claims — the trust ladder is human-driven (self-attest → community-attest → document-upload) only.
 - Mass-email marketing tooling, push notifications to non-followers, individual visitor-tracking analytics for a producer.

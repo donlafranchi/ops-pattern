@@ -44,7 +44,7 @@ A public-facing appeals board or an SLA promise. Building the classification log
 
 ### Threat of harm (2026-09-30)
 
-Don delegated what a credible threat is to Cowork. **A seventh category, not a score threshold inside one**, so the text to Don never waits on a confidence number, and the reporter can name it directly.
+Don delegated what a credible threat is to Cowork. **A seventh category, not a score threshold inside one**, so the text to Don doesn't wait on a confidence number, and the reporter can name it directly.
 
 ### Misuse (2026-09-30)
 

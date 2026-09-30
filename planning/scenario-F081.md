@@ -10,14 +10,14 @@ amended: 2026-09-30 — Don: every US zip known before launch, an unknown one re
 ---
 ## Story
 
-Maya follows a neighbour's link and signs up. One screen: her legal name, her email and phone (both verified), her zip, and the display name everyone else will see. The screen tells her what the app is for: good and decent people finding, connecting with and supporting each other. Her zip decides her metro, and the screen says which one — Sacramento — so she can see it rather than have it happen to her. Nothing is placed for her that she did not give. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
+Maya follows a neighbour's link and signs up. One screen: her legal name, her email and phone, her zip, and the display name everyone else will see. The screen tells her what the app is for: good and decent people finding, connecting with and supporting each other. Her zip decides her metro, and the screen says which one — Sacramento — so she can see it rather than have it happen to her. Nothing is placed for her that she did not give. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
 
 ## Acceptance
 
-1. **Signup collects legal name, email, phone, zip and display name, and verifies the email and phone.** No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently handed over only under a court order (2026-09-30).
+1. **Signup collects legal name, email, phone, zip and display name, and verifies the email.** When the phone is verified is open (Why). No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently handed over only under a court order (2026-09-30).
 2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map.
 3. **The zip determines the metro**, and the screen shows the person which metro that is. **Nothing else determines it** — not IP, not a pre-filled default, not a nearest match. *(Amended 2026-09-27: this read "the zip produces a shortlist… the person selects one"; Don ruled the zip decides.)*
-4. **Nobody picks a metro at signup.** A member who moves changes their zip on `/you`, and their metro follows from it. It is never one-and-done.
+4. **Nobody picks a metro at signup.** A member who moves changes their zip on `/you`, and their metro follows from it. It is not one-and-done.
 5. The screen carries a line saying what the app is for, **and no line about not selling member information.** Placeholder, Don's words ([public-is-draft]): *"This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."* It states no date, feature, or promise about the future.
 6. No field, control, or string in signup asks or records whether the person makes things or finds them.
 7. **Onboarding assigns no place the person did not give.** A member's home is the metro their zip determined; no default place is written on their behalf, seen or unseen. *(Added 2026-09-27. Today `DEFAULT_HOME_PLACE_ID` sets every new member's home to a fictional city whose box sits inside Sacramento, which is why every member resolves to Sacramento.)*
@@ -42,6 +42,8 @@ Any document, ID or identity check beyond verifying email and phone. The waitlis
 ### Who sees a real name
 
 **Out of scope 2026-09-30; revisit with legal counsel** (F077). Signup says nothing about showing legal names to anyone.
+
+[open-question owner=don raised=2026-09-30] Scope of phone verification: when is a member's phone verified? A) At every signup. B) Before publishing a first Page. C) Before a first report or RSVP. D) Only on a risk signal, such as a strike or a suspected second account. *Recommend B, plus C for reports only, plus D:* a report hides content at bar zero, so it is the cheapest thing to abuse, and a Page is what other members show up for. Signup and RSVPs stay light. Don likes phone verification and wants it used judiciously.
 
 [open-question owner=don raised=2026-09-30] For counsel: the privacy policy must disclose that we collect legal names, and verified phones and emails (California privacy duties). What must it say, and must it be live before the first signup? Signup collects them from day one (criterion 1).
 

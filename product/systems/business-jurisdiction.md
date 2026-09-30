@@ -17,6 +17,8 @@ A "locally owned and operated" claim needs to anchor to something more than self
 
 **Document upload (Tier 2)** is the widest tier for sole props with no LLC — an EIN letter or business license, ZIP extracted, document never shown publicly, only the extracted ZIP and the tier label render.
 
+[open-question owner=don raised=2026-09-30] Is a business's entity type (LLC, sole prop, partnership, other) collected, for the platform's protection and seen only by Don and operators? The 2026-09-09 standing rules say no entity type in any user-facing string and nothing may ask, from a 2026-09-07 ruling on Page creation: legal language chills someone at the moment the platform lowers the effort to start. A) **Collect it at business registration only**, not at Page creation, and amend the standing rules to say so. B) Keep the ban; `groups.legal_entity_kind` stays unasked. C) Drop the column. *Recommend A:* registration is already a deliberate legal step, and the chilling-effect rationale was about Page creation. F060 criterion 3 and F082 criterion 5 keep the creation flow clean either way.
+
 ## What this rules out
 
 A parallel locality-derivation path that bypasses both signals — any future third signal (a federation peer's own verification, say) extends the ladder, it doesn't create a side channel around it. Auto-derivation from a Member's home location or affinities — the Member must explicitly declare a jurisdiction; the platform never infers one. Showing the underlying document publicly, ever — only the tier label and the ZIP.
