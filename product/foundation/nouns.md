@@ -219,7 +219,6 @@ Each offered component's explanation, and the way an owner adds one, are new lau
 
 **Combinations.** A member with several relationships to a Page sees the union of their columns, and nothing extra (2026-09-30). Someone who runs one Page is a stranger to another.
 
-[open-question owner=don raised=2026-09-30] Does someone who RSVP'd to a group Page's gathering see what a group member sees, or only what that gathering's parties see? Don ruled the first (*"Rsvp'd suggests part of a group so inside the house"*); dispatch's relationship restatement narrowed it to the second, and the table shows the narrower one. A) **Inside the house:** an RSVP to a group Page's gathering counts as membership for what they see. B) **The gathering only:** membership stays a separate component someone joins. *No recommendation; Don's own ruling says A.*
 
 ### Nouns this needs
 

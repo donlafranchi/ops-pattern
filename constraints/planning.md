@@ -11,7 +11,7 @@
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
 - **2026-09-30** · pages, groups, rls, nouns, copy — A Page is currently composed of components any owner can add for any reason: followers, members (with join approval), announcements and RSVP gatherings, and later RSVP on a single post and transactions or one-on-ones. Each comes with a short explanation of how it can be used. Visibility is defined per component and relationship, not per Page type
-- **2026-09-30** · rls, rsvp, posts — Someone who RSVP'd to a Page's gatherings currently sees what that gathering's parties see. An RSVP on a single post covers that post only
+- **2026-09-30** · rls, rsvp, posts — An RSVP to a gathering currently shows that gathering and the others party to it, not what a member sees. Membership is its own component. An RSVP on a single post, when it exists, covers that post only
 - **2026-09-30** · rsvp, transactions — A one-on-one meeting or a transaction is currently visible only to its parties, as far as it needs, on any Page
 - **2026-09-30** · nouns — "Consumer" is currently an ontology noun: the other side from the creator, producer or organizer (the Page's owner or founder), that is, a party to an RSVP or a transaction. A follower only watches. It is derived, not stored, and internal only
 - **2026-09-30** · rls, groups, follows — A community-only Page can currently have followers; a private Page can't

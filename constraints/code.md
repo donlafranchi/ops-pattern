@@ -10,7 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
-- **2026-09-30** · rls, rsvp, posts — Someone who RSVP'd to a Page's gatherings currently sees what that gathering's parties see. An RSVP on a single post covers that post only
+- **2026-09-30** · rls, rsvp, posts — An RSVP to a gathering currently shows that gathering and the others party to it, not what a member sees. Membership is its own component. An RSVP on a single post, when it exists, covers that post only
 - **2026-09-30** · rls, groups, follows — A community-only Page can currently have followers; a private Page can't
 - **2026-09-30** · rls, groups, pages — Membership is currently scoped to the Page someone is a member of. There is no MSA-wide "community" audience: a signed-in member of an MSA sees a Page's front door plus whatever its owner makes visible to the MSA
 - **2026-09-30** · rls, pages, announcements, copy — A Page's front door currently doesn't show its founder or seller: it is a business closed for the night. A signed-out visitor sees the Page's name, default photo and description, and the withheld-announcements card, worded like "Sign up to see what's happening"
