@@ -175,7 +175,7 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 ## Who sees what
 
-**The one place for visibility between people.** Filled from the rulings of 2026-09-30. `verbs.md` and `policy.md` point here.
+**The one place for visibility between people.** Filled from the rulings of 2026-09-30. **The default is social norms** — what people would expect socially (Don, 2026-09-30); a case the table doesn't cover is settled by that. `verbs.md` and `policy.md` point here.
 
 **Viewers.** *Signed out* — the general public. *Stranger* — signed in, no relation to the Page. *Follower* and *member* of the Page (a member gets everything a follower does, 2026-09-29). *RSVP'd* — RSVP'd to one of the Page's gatherings; part of the group, so they see what a member sees. *Runner* — the Page's creator, owner or steward.
 
@@ -185,8 +185,9 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 |---|---|---|---|---|---|---|
 | A member's fields: legal name, zip, interests, follows, profile | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
 | A member's interest tags | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
-| Front door of any Page, private group Pages included: name, photo, location, tags, withheld-announcements card | ● | ● | ● | ● | ● | ● |
-| The Page's founder or seller, by display name | ● | ● | ● | ● | ● | ● |
+| Front door of any Page, private group Pages included: name, photo, withheld-announcements card | ● | ● | ● | ● | ● | ● |
+| Front door: location and tags | ✕ | ● | ● | ● | ● | ● |
+| The Page's founder or seller, by display name | ✕ | ● | ● | ● | ● | ● |
 | How many RSVP'd | ✕ | ● | ● | ● | ● | ● |
 | Contents: business Page | ◐ front door only | ● | ● | ● | ● | ● |
 | Contents: public group Page | ◐ front door only | ● | ● | ● | ● | ● |
@@ -194,14 +195,13 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 | Contents: private group Page | ◐ front door only | ◐ front door only | — | ● | ● | ● |
 | Roster: who the members are | ✕ | ✕ | ✕ | ● current members | ● | ● |
 | Follow graph: who follows whom | ✕ | ✕ | ✕ | ✕ | ✕ | ◐ their own Page's followers, by name |
-| Who RSVP'd, on a group Page | ✕ | ✕ | ✕ | ● | ● | ● |
-| Who RSVP'd, on a business Page | ✕ | ✕ | ✕ | ✕ | ● | ◐ owners |
+| Who RSVP'd to a gathering | ✕ | ✕ | ✕ | ✕ | ◐ its other parties; a one-on-one, only the two | ◐ as host |
 | Who bought | — no purchasing in the app yet (`ROADMAP.md` § Later) | — | — | — | — | — |
 | A member's legal name | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
 | Public announcement, from any Page | ◐ one withheld card per Page (F093) | ● | ● | ● | ● | ● |
 | Followers announcement | ◐ the same withheld card | ✕ | ● | ● | ✕ | ● |
 
-**Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door: every viewer sees it, private group Pages included, with the founder or seller by display name and no RSVP count or dates for the signed out (2026-09-30). Contents: private, community-only and public are group-Page levels; community-only means every signed-in member; business Pages take none; a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs: someone who RSVP'd is inside the group; group members see who RSVP'd; on a business Page, its owners and the others who RSVP'd do (2026-09-30); the count is the Response entry above. Purchases: deferred until the app has purchasing (2026-09-30). Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), a public one reaches everyone whatever the Page's level (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
+**Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door: every viewer sees it, private group Pages included; signed out gets the minimum — name, photo and the withheld card — and signed in adds location, tags and the founder or seller by display name; no RSVP count or dates for the signed out (2026-09-30). Contents: private, community-only and public are group-Page levels; community-only means every signed-in member; business Pages take none; a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs: someone who RSVP'd is inside the group; whoever is party to an RSVP sees it — everyone at a gathering of many, only the two at a one-on-one — and a member who didn't RSVP is not party (2026-09-30); the count is the Response entry above. Purchases: deferred until the app has purchasing (2026-09-30). Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), a public one reaches everyone whatever the Page's level (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
 
 **Combinations.** A member with several relationships to a Page sees the union of their columns, and nothing extra (2026-09-30). Someone who runs one Page is a stranger to another.
 
