@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-30 · 18:22 UTC
+> ## Generated 2026-09-30 · 21:17 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -13,7 +13,7 @@
 > `bash scripts/status.sh`.
 >
 > **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
-> `8244b14` (2026-09-30); `accepted-risks/*.json`;
+> `399f8fe` (2026-09-30); `accepted-risks/*.json`;
 > `planning/scenario-*.md` frontmatter; `ROADMAP.md`.
 >
 > **Answers "where is this project", not "what tickets exist."** The ticket
@@ -21,7 +21,7 @@
 
 Launch **2026-10-30**, one metro. 30 days out.
 
-**21 of 22 approved and building scenarios are unverified** — no check is marked as discharging any
+**20 of 22 approved and building scenarios are unverified** — no check is marked as discharging any
 of their criteria. Unmarked is unverified, not verified. § Guard coverage.
 
 **Native apps: 7 gaps for iOS, 6 for Android** — `PLATFORM-IOS.md`, `PLATFORM-ANDROID.md`.
@@ -30,7 +30,7 @@ of their criteria. Unmarked is unverified, not verified. § Guard coverage.
 
 | approved | building | draft | deferred |
 |---|---|---|---|
-| 18 | 4 | 17 | 1 |
+| 18 | 4 | 18 | 1 |
 
 **Building:**
 - F060 (Someone starts something without opening a shop)
@@ -43,8 +43,7 @@ branch or a commit.
 
 ## In the code repo
 
-**52 issues open** in `socialus-web`, 8 launch-blocking:
-- #135 bug · A member cannot see the Pages they made
+**50 issues open** in `socialus-web`, 7 launch-blocking:
 - #205 bug · Onboarding assigns every new member a fictional home place, with no picker
 - #219 F077 · Real names only between people who actually interacted; display name everywhere else
 - #220 F078 · Flagged content hides itself on the agent's call, and the poster is told why
@@ -53,12 +52,12 @@ branch or a commit.
 - #223 F082 · One self-attestation before a first Page, selling and hosting alike
 - #246 bug · What one member can read about another: the signed-in half of #241, and four member tables open to anyone
 
-**68 PRs merged in the last fortnight.** The newest five:
+**70 PRs merged in the last fortnight.** The newest five:
+- #251 2026-09-30 F080 #221: Don's short safety line at posting; the full one kept for the rules page
+- #250 2026-09-30 F080 #221: ask members not to post anything sensitive, wherever they post
 - #247 2026-09-30 bug #246: a business registration is never displayed; the badge is a boolean
 - #245 2026-09-29 bug #241 (2 of 2): a public Page does not hand a stranger the member ids behind it
 - #244 2026-09-29 bug #241 (1 of 2): signed-out profile and Page read who is behind them without a member id
-- #243 2026-09-29 chore #242: a guards marker can say it covers only part of a criterion
-- #238 2026-09-28 bug #232: a Page photo can be added from Safari and iPhone
 
 ### Needs a look — not a claim that anything is wrong
 
@@ -110,8 +109,8 @@ counts. Each row needs a look, not a close.*
 ## What CI last said
 
 - **`deploy-health.yml`** — success, 2026-09-30
-  - Database reachable from the deployment: success
   - Ontology declarations still match the code: success
+  - Database reachable from the deployment: success
 - **`ci.yml`** — success, 2026-09-30
   - Lint, types, build: success
   - Unit tests: success
@@ -152,7 +151,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (35)
+**Waiting on Don** (26)
 
 - 26d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 23d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -161,7 +160,7 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 18d · Are public creator tags moderated before or after they appear? A) after — visible immediately, removed on report, which matches how the rest of the platform… — [planning/scenario-F071.md:39](planning/scenario-F071.md#L39)
 - 17d · How does the search dictionary grow? A) from tags creators create — every new tag is a word a real person chose for their own thing. B) from logged zero-resu… — [planning/scenario-F071.md:41](planning/scenario-F071.md#L41)
 - 15d · Where do the premise strings live, given Don expects to update them often? Copy is inline in the components today — roughly 458 user-facing strings across 50… — [planning/scenario-F083.md:37](planning/scenario-F083.md#L37)
-- 14d · Which noun does the paused ontology spike model first — Item or Page? The spike lives outside this repo, at `../socialus-ontology-spike/INTENT.md`. — [product/foundation/nouns.md:238](product/foundation/nouns.md#L238)
+- 14d · Which noun does the paused ontology spike model first — Item or Page? The spike lives outside this repo, at `../socialus-ontology-spike/INTENT.md`. — [product/foundation/nouns.md:233](product/foundation/nouns.md#L233)
 - 11d · What makes a thing "free", now that the free-things lens has nowhere to read from? Surfaced by the browse query rewrite (`socialus-web` T156, 2026-09-19), wh… — [planning/scenario-F059.md:46](planning/scenario-F059.md#L46)
 - 11d · Which ten names are the collections, and does the picker suggest from a Page's tags? *(Narrowed 2026-09-19 — Don ruled membership is owner-set, so what is le… — [product/ui/surfaces.md:61](product/ui/surfaces.md#L61)
 - 11d · Does the collection picker widen step 3 or add a seventh step — and is the six-step composer judged as a set rather than step by step? — [product/ui/surfaces.md:63](product/ui/surfaces.md#L63)
@@ -179,16 +178,7 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 0d · What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and di… — [planning/scenario-F081.md:40](planning/scenario-F081.md#L40)
 - 0d · How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candid… — [planning/scenario-F081.md:46](planning/scenario-F081.md#L46)
 - 0d · For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy dut… — [planning/scenario-F081.md:48](planning/scenario-F081.md#L48)
-- 0d · (a) Does a signed-in stranger see a private group Page's front door, so they can find it and ask to join? A) Yes, the front door only: the Page decides wheth… — [product/foundation/nouns.md:209](product/foundation/nouns.md#L209)
-- 0d · (b) Does a consumer — someone who RSVP'd or bought, and is neither follower nor member — see anything a signed-in stranger does not, beyond their own RSVP or… — [product/foundation/nouns.md:211](product/foundation/nouns.md#L211)
-- 0d · (c) What does "community-members-only" mean: the Page's own members, or every signed-in SocialUs member? A) Every signed-in member: a Page open to the commun… — [product/foundation/nouns.md:213](product/foundation/nouns.md#L213)
-- 0d · (d) Who sees who RSVP'd to a business Page's gathering? The 2026-09-30 ruling names group members. A) The business's owners only, like who bought. B) Its mem… — [product/foundation/nouns.md:215](product/foundation/nouns.md#L215)
-- 0d · (e) What is on a Page's front door for someone signed out, besides its name, photo and where it shows up — an RSVP count, upcoming dates, its tags? A) Name,… — [product/foundation/nouns.md:217](product/foundation/nouns.md#L217)
-- 0d · (f) Does a Page's front door show its founder or seller? Two same-day answers conflict: *"Is a founder or seller part of the front door? Yes, by display name… — [product/foundation/nouns.md:219](product/foundation/nouns.md#L219)
-- 0d · (g) Does a public announcement on a community-only or private group Page reach people who cannot see the Page's contents? A) Yes: public is public, which is… — [product/foundation/nouns.md:221](product/foundation/nouns.md#L221)
-- 0d · (h) A viewer holding two relations — a follower who bought, a member who RSVP'd, a runner who follows another Page — sees what? A) The union of their columns… — [product/foundation/nouns.md:223](product/foundation/nouns.md#L223)
-- 0d · (i) Visibility between people directly — creator and consumer, creator and creator, consumer and consumer — and a consumer's own visibility setting, which co… — [product/foundation/nouns.md:225](product/foundation/nouns.md#L225)
-- 0d · (j) Is "consumer" a new internal word for what this file calls patron — everyone who is not publishing — or the narrower sense this table uses, someone who R… — [product/foundation/nouns.md:229](product/foundation/nouns.md#L229)
+- 0d · When "near me" returns, how does finding by neighbourhood fit "local = the whole metro" and "no distance shown"? A) A place filter the member types, not a ra… — [planning/scenario-F095.md:28](planning/scenario-F095.md#L28)
 
 **Cowork owes an answer** (1)
 
@@ -196,14 +186,15 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 ## Guard coverage
 
-**21 of 22 approved and building scenarios are unverified — no check is marked
+**20 of 22 approved and building scenarios are unverified — no check is marked
 as discharging any criterion of theirs, so a contradiction in them cannot surface here.** Unmarked
 is unverified, not verified: nothing says a check exists, and under `[guard-proves-itself]` that
 counts as absent. A **partial** criterion has checks that cover only part of it, named with what
 they leave out; parts never add up to covered. Full map: `python3 scripts/markers.py coverage`.
 
+- **F080** · 1 of 5 covered · unclaimed: 1, 2, 3, 4
 - **F093** · 4 of 12 covered · **partial: 4, 5, 6, 9** · unclaimed: 8, 10, 11, 12
-- **Unverified — no marked check at all** (21): F056, F057, F058, F059, F060, F061, F063, F064, F065, F069, F070, F072, F074, F076, F077, F078, F080, F081, F082, F091, F092
+- **Unverified — no marked check at all** (20): F056, F057, F058, F059, F060, F061, F063, F064, F065, F069, F070, F072, F074, F076, F077, F078, F081, F082, F091, F092
 
 ## Is `building` backed by code?
 
@@ -228,13 +219,13 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 - **F082** (approved) · #223 open
 - **F093** (approved) · #215 closed
 
-**Rulings that bind code: 63.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 70.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
-- **Nothing to build** (8), by their own tag: 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
+- **Nothing to build** (9), by their own tag: 2026-09-30 Visibility currently defaults to social norms: what people w…; 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
 
 ## What this run could not verify
 
-- **The 17 drafts.** Status alone does not say which are waiting
+- **The 18 drafts.** Status alone does not say which are waiting
   on Don and which are simply unfinished.
 
