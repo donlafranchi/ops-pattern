@@ -10,12 +10,14 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · pages, groups, rls — Pages are currently of two main types, and that is the organising distinction behind who sees what. A business Page has customers (consumers), not members. A social (group) Page has members, not customers
+- **2026-09-30** · nouns — "Consumer" is currently an ontology noun: the other side from the creator, producer or organizer (the Page's owner or founder), that is, a business's customer or a party to a transaction. A follower only watches. It is derived, not stored, and internal only
+- **2026-09-30** · rsvp, transactions — A service business's one-on-one meeting (a therapist, a massage, anyone offering an in-person service) is currently treated as a transaction: only the two parties see each other, as far as the meeting needs
+- **2026-09-30** · rls, groups, follows — Private, community-only and public apply to a social Page's members. A community-only Page can currently have followers; a private Page can't
 - **2026-09-30** · rls, groups, pages — Membership is currently scoped to the Page someone is a member of. There is no MSA-wide "community" audience: a signed-in member of an MSA sees a Page's front door plus whatever its owner makes visible to the MSA
 - **2026-09-30** · rls, rsvp, posts, groups — An RSVP to a group Page's gathering currently makes someone part of the group: they see what a group member sees. An RSVP to a business Page's post makes them a member of that post, not of the Page: they see what is inside the post, including the others party to the RSVP, and not the Page's inside
-- **2026-09-30** · pages, groups — Business Pages currently have no members
 - **2026-09-30** · rls, pages, announcements, copy — A Page's front door currently doesn't show its founder or seller: it is a business closed for the night. A signed-out visitor sees the Page's name, default photo and description, and the withheld-announcements card, worded like "Sign up to see what's happening"
 - **2026-09-30** · members, purchases, rsvp — Limiting what people see of each other currently applies only to transactions, where the parties see each other as far as the transaction needs. Without a transaction, it can be visible
-- **2026-09-30** · nouns — "Consumer" is currently an ontology noun: the other side from the creator, producer or organizer (the Page's owner or founder), that is, someone who RSVP'd or bought. It is derived, not stored, and internal only
 - **2026-09-30** · rls, visibility — Visibility currently defaults to social norms: what people would expect socially
 - **2026-09-30** · rls, rsvp — Whoever is party to an RSVP currently sees it. For a gathering of many, they all do; for a one-on-one, only the two parties
 - **2026-09-30** · rls, pages, groups, announcements — Signed-out visitors and signed-in non-participants currently see a Page's front door, private group Pages included
