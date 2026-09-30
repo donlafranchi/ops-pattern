@@ -52,6 +52,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
 
 **Speculative, not ruled**
+- Page components not offered at launch *(Don, 2026-09-30: a Page is composed of components any owner can add)*: RSVP on a single post; transactions and one-on-one meetings; visibility levels on a Page that isn't a group Page; switching following or joining off.
 - When in-app purchasing exists, producer and purchaser see each other as far as the transaction needs *(Don, 2026-09-30)*.
 
 ## Cut — taken off the launch list, dated and reasoned

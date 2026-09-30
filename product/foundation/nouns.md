@@ -178,17 +178,18 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **The one place for visibility between people.** Filled from the rulings of 2026-09-30. **The default is social norms** — what people would expect socially (Don, 2026-09-30); a case the table doesn't cover is settled by that. `verbs.md` and `policy.md` point here.
 
-**Visibility follows the relationship, not the Page's type** *(dispatch's recommendation, 2026-09-30)*. Don: *"this is a page by page and business by business group by group category that all have some similar overlapping where others don't."* An artist may have followers and no members, or members who buy often, announcements, and events that need RSVPs. **Each Page has whichever of these its owner uses: followers, members, announcements, RSVP gatherings (Page-level or on a single post), and transactions.** Business and social are presets, not rules. A member is a more involved follower, and the Page decides whether joining needs approval (2026-09-29).
+**A Page is composed of components** *(Don, 2026-09-30)*: *"allow these components to be added on to any page for any reason ... with little explanations about how they can be used and how one might use them."* Any owner can add any of them, for any reason, and each comes with a short explanation of how it can be used. **Visibility is defined per component and relationship, not per Page type**; business and social are not rules.
 
-**What a Page can use at launch** — only what is built or ruled; no new scope:
+| Component | At launch |
+|---|---|
+| Followers | ● built, on every Page |
+| Members, with join approval | ● built, on every Page; approval ruled 2026-09-29 |
+| Announcements | ● built, on every Page |
+| RSVP gatherings | ● the Response on an occurrence, above |
+| RSVP on a single post | ○ `ROADMAP.md` § Later, speculative |
+| Transactions and one-on-ones | ○ `ROADMAP.md` § Later, speculative; purchasing deferred |
 
-- **Followers** — built, on every Page (`group.follow` isn't keyed on kind).
-- **Members** — built, on every Page (`group.member_join` isn't keyed on kind); approval is ruled (2026-09-29).
-- **Announcements** — built, on every Page (`page_posts`).
-- **RSVP gatherings** — the Response on an occurrence (● now, above). **Gap:** no RSVP on a single announcement post is built.
-- **Transactions** — none built; purchasing is deferred; one-on-one meetings have no substrate. **Gap.**
-- **Visibility levels** — ruled for group Pages only (2026-09-30). **Gap:** a business Page that uses members has no level.
-- **Switching a capability off** — **Gap:** there is no per-Page switch; follow and join are open on every Page.
+Each offered component's explanation, and the way an owner adds one, are new launch scope (2026-09-30). Levels on a Page that isn't a group Page, and switching following or joining off, also wait in `ROADMAP.md` § Later.
 
 **Viewers.** *Signed out* — the general public, *"the one on the street after all the businesses are closed"* (Don). *Signed in* — no relation to the Page. *Follower* — watches the Page, takes no part. *Member* — of this Page; membership is scoped to the Page and there is no MSA-wide community; a member gets everything a follower does (2026-09-29). *RSVP party* — RSVP'd to one of the Page's gatherings, or to a single post, which covers that post only. *Transaction party* — one side of a one-on-one meeting or a purchase. *Runner* — the Page's creator, owner or steward. A **consumer** is a party to an RSVP or a transaction; a follower only watches.
 
@@ -217,6 +218,8 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 **Where each cell comes from.** Member fields and interest tags: nobody reads anything about a member, only what they post; a creator may show their own display name and avatar on their Page (2026-09-30). Front door: a business closed for the night, the same for every Page, and it doesn't show the founder or seller; the card's words are placeholder copy (2026-09-30). Contents: a signed-in non-member sees the front door plus what the owner makes visible to the MSA; private, community-only and public are levels on group Pages; community-only means the Page's own members and can have followers; a private Page has members, not followers (2026-09-15). Roster: a stranger doesn't see it (2026-09-30); current members see each other (2026-09-08). Follow graph: nobody sees who follows whom, and a runner sees who follows their Page (2026-09-30). RSVPs: whoever is party to an RSVP sees what that gathering's parties see, and a post RSVP covers that post only (2026-09-30); the count is the Response entry above. One-on-one meetings and transactions: only the parties, as far as it needs; without a transaction it can be visible (2026-09-30); purchasing is deferred. Legal name: **we currently show it to no member**; it is collected for the platform's protection and seen only by Don and operators, and real names between people who dealt with each other are out of scope until counsel (F077, 2026-09-30). Announcements: the public/followers switch (2026-09-21), no third audience (2026-09-30), a public one reaches everyone whatever the Page's level (2026-09-30), the signed-out card (F093). Don and operators see what the platform collects for its protection (2026-09-30), outside this table.
 
 **Combinations.** A member with several relationships to a Page sees the union of their columns, and nothing extra (2026-09-30). Someone who runs one Page is a stranger to another.
+
+[open-question owner=don raised=2026-09-30] Does someone who RSVP'd to a group Page's gathering see what a group member sees, or only what that gathering's parties see? Don ruled the first (*"Rsvp'd suggests part of a group so inside the house"*); dispatch's relationship restatement narrowed it to the second, and the table shows the narrower one. A) **Inside the house:** an RSVP to a group Page's gathering counts as membership for what they see. B) **The gathering only:** membership stays a separate component someone joins. *No recommendation; Don's own ruling says A.*
 
 ### Nouns this needs
 
