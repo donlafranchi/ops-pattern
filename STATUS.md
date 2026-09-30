@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-30 · 21:17 UTC
+> ## Generated 2026-09-30 · 23:31 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -13,7 +13,7 @@
 > `bash scripts/status.sh`.
 >
 > **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
-> `399f8fe` (2026-09-30); `accepted-risks/*.json`;
+> `aba449d` (2026-09-30); `accepted-risks/*.json`;
 > `planning/scenario-*.md` frontmatter; `ROADMAP.md`.
 >
 > **Answers "where is this project", not "what tickets exist."** The ticket
@@ -43,7 +43,7 @@ branch or a commit.
 
 ## In the code repo
 
-**50 issues open** in `socialus-web`, 7 launch-blocking:
+**54 issues open** in `socialus-web`, 11 launch-blocking:
 - #205 bug · Onboarding assigns every new member a fictional home place, with no picker
 - #219 F077 · Real names only between people who actually interacted; display name everywhere else
 - #220 F078 · Flagged content hides itself on the agent's call, and the poster is told why
@@ -51,13 +51,17 @@ branch or a commit.
 - #222 F081 · One signup for everyone: four fields, and the zip sets the metro
 - #223 F082 · One self-attestation before a first Page, selling and hosting alike
 - #246 bug · What one member can read about another: the signed-in half of #241, and four member tables open to anyone
+- #252 F093 · T173 · the signed-out front door: name, photo, description and the card; no location or tags
+- #253 bug · T174 · signed in, a visitor still reads founder, seller and host ids, and seller names on item cards
+- #256 F072 · T175 · a timed announcement's card leads with its date and time; an untimed one says when it was posted; its place reads as its Page's
+- #257 F091 · T176 · What's happening, today and this week
 
-**70 PRs merged in the last fortnight.** The newest five:
+**71 PRs merged in the last fortnight.** The newest five:
 - #251 2026-09-30 F080 #221: Don's short safety line at posting; the full one kept for the rules page
 - #250 2026-09-30 F080 #221: ask members not to post anything sensitive, wherever they post
+- #249 2026-09-30 bug #246: nobody reads another member; follows, interests, responses and location owners close
 - #247 2026-09-30 bug #246: a business registration is never displayed; the badge is a boolean
 - #245 2026-09-29 bug #241 (2 of 2): a public Page does not hand a stranger the member ids behind it
-- #244 2026-09-29 bug #241 (1 of 2): signed-out profile and Page read who is behind them without a member id
 
 ### Needs a look — not a claim that anything is wrong
 
@@ -120,7 +124,7 @@ counts. Each row needs a look, not a close.*
 
 - Copy: 584 strings across 118 files — source `docs/copy-inventory.md` on origin/main
 - Routes on origin/main: 23
-- Migrations on origin/main: 62
+- Migrations on origin/main: 63
 
 ## Deferred on purpose — and therefore easy to forget
 
@@ -151,7 +155,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (26)
+**Waiting on Don** (28)
 
 - 26d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 23d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -175,14 +179,21 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 1d · Which of a member's fields may a signed-in stranger read? Today it is all of them, home location and home metro included. — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Is the follow graph (who follows whom) visible to anyone, to signed-in members, or only to the two people in it? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Are a member's interest tags public, and if so, public without their member id? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
+- 0d · Does the widening reach text and reports, or images only? Don's words are *"anything related to children, animals/pets"*; the 2026-09-27 ruling says a photo… — [planning/scenario-F080.md:29](planning/scenario-F080.md#L29)
 - 0d · What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and di… — [planning/scenario-F081.md:40](planning/scenario-F081.md#L40)
 - 0d · How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candid… — [planning/scenario-F081.md:46](planning/scenario-F081.md#L46)
 - 0d · For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy dut… — [planning/scenario-F081.md:48](planning/scenario-F081.md#L48)
 - 0d · When "near me" returns, how does finding by neighbourhood fit "local = the whole metro" and "no distance shown"? A) A place filter the member types, not a ra… — [planning/scenario-F095.md:28](planning/scenario-F095.md#L28)
+- 0d · How is a Page placed on the signed-out map without sending its location? Any pin at the stored point reveals the address. A) Pin at the Page's Place centroid… — [#252](https://github.com/donlafranchi/socialus-web/issues/252)
 
 **Cowork owes an answer** (1)
 
 - 4d · Is the national HUD-USPS crosswalk in scope here, or a data chore first? Today's seed covers Sacramento only. — [#222](https://github.com/donlafranchi/socialus-web/issues/222)
+
+**Code owes an answer** (2)
+
+- 0d · Signed out, browse_feed returns no post rows. Does a signed-out *today* row show withheld cards for Pages posting something today, through announcements_w… — [#257](https://github.com/donlafranchi/socialus-web/issues/257)
+- 0d · Item URLs. An item posted without a Page lives at `/m/<handle>/p/…`, so its URL carries its poster's handle. Removing that is a route change with redirects,… — [#253](https://github.com/donlafranchi/socialus-web/issues/253)
 
 ## Guard coverage
 
@@ -217,12 +228,12 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 - **F080** (approved) · #221 open
 - **F081** (approved) · #222 open
 - **F082** (approved) · #223 open
-- **F093** (approved) · #215 closed
+- **F093** (approved) · #252 open, #215 closed
 
-**Rulings that bind code: 70.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 72.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
-- **Nothing to build** (9), by their own tag: 2026-09-30 Visibility currently defaults to social norms: what people w…; 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
+- **Nothing to build** (10), by their own tag: 2026-09-30 Visibility currently defaults to social norms: what people w…; 2026-09-30 We are careful and supportive of our members, and we ask the…; 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
 
 ## What this run could not verify
 
