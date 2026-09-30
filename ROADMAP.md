@@ -10,7 +10,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Report path + image takedown — approved; no photo goes to production until this ships.
 - Display name in public; flagged content auto-hides with an immediate reason and appeal, anything a member posts is reportable, and the reporter picks a reason the poster can rebut (F078, scope added 2026-09-30); no pictures of children from anyone, stated at posting with reports as the backstop (F080, 2026-09-30) — approved, gates launch alongside the report path.
 - Metro waitlist at signup — pick a metro, say creator or patron, see a count in a popup. **Added 2026-09-14 at Don's direction; nothing was removed to make room.** F076.
-- Patron signup (legal name, verified email and phone, zip; the zip determines the metro, every US zip known before launch; a line on what the app is for, 2026-09-30) and agreeing to the versioned rules before each new Page, selling and hosting alike — F081, F082. **Added 2026-09-14 at Don's direction; nothing was removed to make room. Both approved 2026-09-14.**
+- Patron signup (legal name, verified email, verified as a person — method open, zip; the zip determines the metro, every US zip known before launch; a line on what the app is for, 2026-09-30) and agreeing to the versioned rules before each new Page, selling and hosting alike — F081, F082. **Added 2026-09-14 at Don's direction; nothing was removed to make room. Both approved 2026-09-14.**
 
 ## Next — Fortnights 2–3
 
@@ -65,7 +65,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Geofenced or auto-assigned group membership.
 - Engagement-optimized ranking, infinite feeds, streaks, pull-back notifications.
 - Venture capital funding.
-- Legal or tax language, or entity-type/formation data, in any user-facing copy.
+- Legal or tax language between members or in Page creation; legal-entity information from anyone without a legal entity (2026-09-30).
 - Full e-commerce catalog (variants, SKUs, cart), automated/dynamic pricing, inventory or warehouse management, POS/checkout, appointment-booking or calendar sync — the platform coordinates, it isn't a storefront or a booking system.
 - Automated government-API verification of producer claims — the trust ladder is human-driven (self-attest → community-attest → document-upload) only.
 - Mass-email marketing tooling, push notifications to non-followers, individual visitor-tracking analytics for a producer.

@@ -6,15 +6,15 @@ gates: launch
 date: 2026-09-14
 depends: [F076, F077]
 approved: 2026-09-14 — Don's ruling; legal name, email, zip, display name, zip suggests the metro
-amended: 2026-09-30 — Don: every US zip known before launch, an unknown one refused; the metro is the MSA; the zip is kept and changed on /you; a verified phone joins signup; no "we never sell" line, a placeholder about what the app is for instead. Story and criteria 1, 4 and 5 restated, 8 added.
+amended: 2026-09-30 — Don: every US zip known before launch, an unknown one refused; the metro is the MSA; the zip is kept and changed on /you; every member is verified as a person, method open; no "we never sell" line, a placeholder about what the app is for instead. Story and criteria 1, 4 and 5 restated, 8 added.
 ---
 ## Story
 
-Maya follows a neighbour's link and signs up. One screen: her legal name, her email and phone, her zip, and the display name everyone else will see. The screen tells her what the app is for: good and decent people finding, connecting with and supporting each other. Her zip decides her metro, and the screen says which one — Sacramento — so she can see it rather than have it happen to her. Nothing is placed for her that she did not give. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
+Maya follows a neighbour's link and signs up. One screen: her legal name, her email, her zip, and the display name everyone else will see. The screen tells her what the app is for: good and decent people finding, connecting with and supporting each other. Her zip decides her metro, and the screen says which one — Sacramento — so she can see it rather than have it happen to her. Nothing is placed for her that she did not give. Nobody asks whether she is here to make things or find them — she is a member, and that is the whole question.
 
 ## Acceptance
 
-1. **Signup collects legal name, email, phone, zip and display name, and verifies the email.** When the phone is verified is open (Why). No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently handed over only under a court order (2026-09-30).
+1. **Signup collects legal name, email, zip and display name, and verifies the email.** Every member is verified as a person; how is open (Why). No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently handed over only under a court order (2026-09-30).
 2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map.
 3. **The zip determines the metro**, and the screen shows the person which metro that is. **Nothing else determines it** — not IP, not a pre-filled default, not a nearest match. *(Amended 2026-09-27: this read "the zip produces a shortlist… the person selects one"; Don ruled the zip decides.)*
 4. **Nobody picks a metro at signup.** A member who moves changes their zip on `/you`, and their metro follows from it. It is not one-and-done.
@@ -25,7 +25,7 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 
 ## Not this
 
-Any document, ID or identity check beyond verifying email and phone. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro it determined. A home place finer than the metro — local means the whole metro (F094). A street address — `product/systems/member.md` refuses one by default. Any line about not selling member information (2026-09-30). Covering zips outside every MSA, Yuba and Sutter among them: growing MSA boundaries is parked for a later scenario.
+Choosing the person-verification method, which is open. The waitlist popup and metro counts (F076). Storing anything derived from the zip beyond the metro it determined. A home place finer than the metro — local means the whole metro (F094). A street address — `product/systems/member.md` refuses one by default. Any line about not selling member information (2026-09-30). Covering zips outside every MSA, Yuba and Sutter among them: growing MSA boundaries is parked for a later scenario.
 
 ## Why
 
@@ -43,9 +43,9 @@ Any document, ID or identity check beyond verifying email and phone. The waitlis
 
 **Out of scope 2026-09-30; revisit with legal counsel** (F077). Signup says nothing about showing legal names to anyone.
 
-[open-question owner=don raised=2026-09-30] Scope of phone verification: when is a member's phone verified? A) At every signup. B) Before publishing a first Page. C) Before a first report or RSVP. D) Only on a risk signal, such as a strike or a suspected second account. *Recommend B, plus C for reports only, plus D:* a report hides content at bar zero, so it is the cheapest thing to abuse, and a Page is what other members show up for. Signup and RSVPs stay light. Don likes phone verification and wants it used judiciously.
+[open-question owner=don raised=2026-09-30] How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candidate. **Input on timing, if it is phone:** A) at every signup — stops bulk fake accounts and ban evasion, highest friction, on every newcomer; B) before a first Page — stops fake creators, felt only by creators; C) before a first report or RSVP — stops mass-reporting, which hides content at bar zero, and RSVP spam; D) only on risk signals — least friction, reacts after harm. *Recommend B plus C for reports plus D, if phone.* Today the code has no phone field, email-only sign-in, and Supabase SMS and phone MFA switched off.
 
-[open-question owner=don raised=2026-09-30] For counsel: the privacy policy must disclose that we collect legal names, and verified phones and emails (California privacy duties). What must it say, and must it be live before the first signup? Signup collects them from day one (criterion 1).
+[open-question owner=don raised=2026-09-30] For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy duties). What must it say, and must it be live before the first signup? Signup collects them from day one (criterion 1).
 
 ### Settled against F076
 

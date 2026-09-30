@@ -10,6 +10,9 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-30** · business-registration, page-publish, copy — The app doesn't use legal language between members. Legal-entity information (entity type, legal entity name, state) is asked only at business registration, and only of members who have a legal entity
+- **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
+- **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
 - **2026-09-30** · process, product, copy — The platform comes first, then its members, and every ruling can be revisited when the situation changes
 - **2026-09-30** · signup, business-registration, page-publish, reports, rls — What the platform collects for its own protection is seen only by Don and operators, and is currently handed over only under a court order
 - **2026-09-30** · names, members, copy — Between members, we currently show a display name and avatar, and don't show legal names. We don't take part in disputes between members unless a court orders it

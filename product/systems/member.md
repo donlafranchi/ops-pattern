@@ -13,7 +13,7 @@ A Member is the platform's record of one real human — one row, lifetime-stable
 
 ## A legal name is required to the platform; a display name is what the public sees
 
-**Nobody is anonymous to the platform.** Every Member gives their full legal name at signup, alongside a verified email and phone — self-attested, not document-verified, but required, never optional. This is the accountability floor: content the platform can't trace to a real person is a report-and-takedown path with nothing behind it. (2026-09-14, reverses the earlier "real names encouraged, never required" rule.)
+**Nobody is anonymous to the platform.** Every Member gives their full legal name at signup, alongside a verified email, and is verified as a person (method open) — self-attested, not document-verified, but required, never optional. This is the accountability floor: content the platform can't trace to a real person is a report-and-takedown path with nothing behind it. (2026-09-14, reverses the earlier "real names encouraged, never required" rule.)
 
 **Nobody is required to be identifiable to other members on a public surface.** A separate display name is what a Member's posts, Page, and responses show everyone else — it can be a first name, a nickname, anything. The safety reasoning the old rule was protecting — a domestic-violence survivor, someone whose physical safety depends on not being findable by name — is unchanged: pseudonymity at the peer layer still covers it. What changed is that the platform itself always knows who someone is, even when other members don't.
 

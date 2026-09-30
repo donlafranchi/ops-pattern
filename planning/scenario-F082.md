@@ -18,7 +18,7 @@ Devon signed up a month ago like everyone else. He makes hot sauce, and today he
 2. **The step is fixed statements, presented as rules with the reason for each, which the member agrees to abide by. Agreeing is the attestation;** nothing is typed and no free text is stored. Self-attestation only: **no document upload, no ID, no selfie, no photo, no third-party lookup, no automated check, no human approval queue.**
 3. Nothing attested renders to peers as a badge, tier, score, label, or public claim.
 4. The step gates **publishing** each new Page, not creating it — **selling and hosting alike**, because the test is whether other people show up for the thing, not whether it is sold. **Creating and editing a draft never asks for it.** Browsing, responding, following and attending are untouched by it. *(Amended 2026-09-27: the story had put the step before the first Page was created.)*
-5. No string in the step asks the member to classify themselves as a business, or collects entity type, formation date, or legal or tax language.
+5. No string in the step asks the member to classify themselves as a business, uses legal or tax language, or asks for legal-entity information, which is asked only at business registration (2026-09-30).
 6. **The rules are versioned.** A member who agreed to an earlier version reads the new one and agrees again before they next publish. **Each agreement is recorded with the rules version and a timestamp**, seen only by Don and operators.
 7. **The rules are viewable with one click**, whether or not the member is taking the step.
 
