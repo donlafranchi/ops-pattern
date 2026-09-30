@@ -15,6 +15,7 @@ Maya lives in Midtown and makes hot sauce. Devon runs a Tuesday run club out of 
 2. **No member-facing string presents locality as tighter than the metro** ("near you", "nearby", "your neighbourhood", "your neighbors") where it is scoping rather than describing. Replacement copy is Don's ([public-is-draft]).
 3. **Describing where a thing is stays as fine-grained as its owner gave it** — an address, a neighbourhood label, a service area. Local changes who sees it, not how precisely it is placed.
 4. A member's home is their metro (F081 criterion 7). Nothing reads a home place finer than it for scoping.
+5. **The metro is the unit; a zip is only the lookup that finds it.** A zip is resolved to a metro once, and the metro is what is stored, scoped to and read. Nothing scopes, ranks, badges or compares by zip. *(Replaces the 2026-09-27 wording that a zip determines the metro; DECISIONS 2026-09-29.)*
 
 ## Not this
 
@@ -39,7 +40,7 @@ Choosing replacement copy. Neighbourhoods as a finer lens *inside* the metro —
 | `product/foundation/voice.md` samples ("near you", "Browse nearby", "Someone nearby will see it") | house copy | **ask Don** — the house voice uses these words; criterion 2 may mean amending it |
 | Onboarding default home (`DEFAULT_HOME_PLACE_ID`) | fictional city | **removed by F081** |
 | `member_privacy.locality_precision` | unread by any code | no change; note it exists |
-| Local-owner badge (`zip_is_proximal_to_location`) | same MSA as the zip | already metro-grain; see grain note |
+| Local-owner badge (`zip_is_proximal_to_location`, and `page_local_owner_badge` in `socialus-web` #247) | the registration's **zip** re-resolved to an MSA on every render, compared with the Page anchor's MSA | **change** (5): compare a metro resolved once, not the zip; and at the `metro_polygons` grain, not MSA |
 | Location create, place search, neighbourhood picker, `resolvePagePlacements` label | where a thing is | **no change** — describing (3) |
 | Service radius (`ServiceComposer`) | creator-declared | **no change** — describing (3) |
 | Place URL paths, `/p/[...slug]` | state/city/neighbourhood | **no change** — governed by the 2026-09-21 URL rulings |
@@ -58,6 +59,8 @@ Choosing replacement copy. Neighbourhoods as a finer lens *inside* the metro —
 [open-question owner=don raised=2026-09-27] What replaces the venue page's "X mi away" label once there is no home place finer than the metro — drop it, or measure from something else?
 
 [open-question owner=don raised=2026-09-27] Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is Don's ([public-is-draft]).
+
+[open-question owner=don raised=2026-09-29] Is this the right reading of "zip is the wrong shape; the metro is what determines local": a zip is used once to resolve a metro, is not kept as a locality attribute and is not exposed anywhere? If so, a member's signup zip is discarded once resolved, which would supersede the 2026-09-14 "the zip is stored". The reading is Cowork's, not Don's.
 
 The crosswalk's grain is F081's question, not a second copy here.
 

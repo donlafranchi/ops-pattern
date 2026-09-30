@@ -10,6 +10,7 @@
 > **216 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-09-29** · signup, onboarding, business-registration, locality — The metro is what determines "local"; a zip is only the lookup that finds it
 - **2026-09-29** · rls, business-registration — A business registration is collected and never displayed; its public artifact is a badge
 - **2026-09-27** · explore, announcements, copy — The signed-out announcement card is one card per Page, and it shows the Page's photo
 - **2026-09-27** · process — A ruling that changes because of something a member did or said carries an `[evidence …]` tag; a ruling Don makes on judgement carries none
@@ -18,7 +19,7 @@
 - **2026-09-27** · process, ci — Grep-built, never hand-kept: a fact lives inline where it is true, and anything that spans the project is generated from markers, never maintained
 - **2026-09-27** · process — An open question is an inline marker where it was raised, not an entry in a register. The index is generated
 - **2026-09-27** · explore, venue, onboarding, copy — "Local" means the whole metro, not a neighbourhood or anything tighter
-- **2026-09-27** · signup, onboarding — A member's zip determines their metro, and onboarding stops silently assigning a place
+- **2026-09-27** · signup, onboarding — Onboarding stops silently assigning a place
 - **2026-09-27** · reports, moderation — The F078 hide bar is not a fixed number. It is per-metro configuration that starts at zero — every report hides — and tightens as volume grows, without a code change
 - **2026-09-27** · page-publish — The creator attestation comes before publishing a first Page, not before creating a draft
 - **2026-09-27** · page-photos, moderation — No pictures of children, full stop. It is a photo rule, not a topic rule
