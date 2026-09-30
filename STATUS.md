@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-30 · 03:40 UTC
+> ## Generated 2026-09-30 · 03:42 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -152,7 +152,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (39)
+**Waiting on Don** (38)
 
 - 26d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 23d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -182,7 +182,6 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 3d · Does the house voice drop "near you", "Browse nearby" and "Someone nearby will see it" from `voice.md`'s samples, and what replaces them? Replacement copy is… — [planning/scenario-F094.md:61](planning/scenario-F094.md#L61)
 - 1d · Is this the right reading of "zip is the wrong shape; the metro is what determines local": a zip is used once to resolve a metro, is not kept as a locality a… — [planning/scenario-F094.md:63](planning/scenario-F094.md#L63)
 - 1d · Are the store apps the site in a native shell, or native screens on the same database? A) A shell around the site (Capacitor-style): every screen and server… — [product/ui/surfaces.md:65](product/ui/surfaces.md#L65)
-- 1d · Does joining need the Page's approval? Recommendation (relayed, not Don's): the Page decides, defaulting to open join, using the two approval columns that al… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
 - 1d · May a Page's runner see *who* follows them, or only how many? The 2026-09-08 ruling says "may see its own audience"; the `verbs.md` matrix says numbers only;… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
 - 1d · Is there an audience between "Anyone" and "Members": announcements only followers can read? The recommendation says no, because a followers-only tier makes a… — [#248](https://github.com/donlafranchi/socialus-web/issues/248)
 - 1d · What do `private`, `community_only` and `public` mean to a signed-in member looking at someone else, and who counts as "community" for `community_only`? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
