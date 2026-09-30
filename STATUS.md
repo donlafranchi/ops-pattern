@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-09-30 · 23:31 UTC
+> ## Generated 2026-09-30 · 23:36 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -30,7 +30,7 @@ of their criteria. Unmarked is unverified, not verified. § Guard coverage.
 
 | approved | building | draft | deferred |
 |---|---|---|---|
-| 18 | 4 | 18 | 1 |
+| 18 | 4 | 19 | 1 |
 
 **Building:**
 - F060 (Someone starts something without opening a shop)
@@ -69,6 +69,7 @@ branch or a commit.
 counts. Each row needs a look, not a close.*
 
 - **#84 open, but T159 appears on main** — chore · T159 is two different tickets — renumber one in ops-pattern
+- **#53 open, but T156 appears on main** — F059 · T156 · Browse renders Pages
 - **#52 open, but T155 appears on main** — F059 · T155 · Feed vantage point becomes a metro
 - **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
 - **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
@@ -154,7 +155,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (28)
+**Waiting on Don** (33)
 
 - 26d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 23d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -182,7 +183,12 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 0d · What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and di… — [planning/scenario-F081.md:40](planning/scenario-F081.md#L40)
 - 0d · How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candid… — [planning/scenario-F081.md:46](planning/scenario-F081.md#L46)
 - 0d · For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy dut… — [planning/scenario-F081.md:48](planning/scenario-F081.md#L48)
+- 0d · Does criterion 7 hold for F096's consented imports, whose events link back to the owner's own site? Criterion 7 publishes a destination only when the owner t… — [planning/scenario-F090.md:49](planning/scenario-F090.md#L49)
 - 0d · When "near me" returns, how does finding by neighbourhood fit "local = the whole metro" and "no distance shown"? A) A place filter the member types, not a ra… — [planning/scenario-F095.md:28](planning/scenario-F095.md#L28)
+- 0d · What does "sends traffic back" mean on a card? A) The card's main action opens the venue's own event page; SocialUs keeps the summary. B) A secondary "from t… — [planning/scenario-F096.md:30](planning/scenario-F096.md#L30)
+- 0d · How is a member-shared event marked until claimed? A) "Shared by a neighbour, not yet confirmed by the venue", with no RSVP until claimed. B) The same, with… — [planning/scenario-F096.md:32](planning/scenario-F096.md#L32)
+- 0d · Does imported content follow relationship-based visibility and the signed-out front door like any announcement? A) Yes, exactly: an imported event is a publi… — [planning/scenario-F096.md:34](planning/scenario-F096.md#L34)
+- 0d · What does the platform do when imported content breaks the sensitive-content ask (children, animals and pets, anyone who can't fend for themselves)? A) Repor… — [planning/scenario-F096.md:36](planning/scenario-F096.md#L36)
 - 0d · How is a Page placed on the signed-out map without sending its location? Any pin at the stored point reveals the address. A) Pin at the Page's Place centroid… — [#252](https://github.com/donlafranchi/socialus-web/issues/252)
 
 **Cowork owes an answer** (1)
@@ -236,6 +242,6 @@ the lint fails one that does none of the three — the identity leaks sat eight 
 
 ## What this run could not verify
 
-- **The 18 drafts.** Status alone does not say which are waiting
+- **The 19 drafts.** Status alone does not say which are waiting
   on Don and which are simply unfinished.
 
