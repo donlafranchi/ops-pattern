@@ -10,6 +10,8 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · values, badges, pages — Owner-identity badges are allowed: we don't limit how people say what they're about
+- **2026-10-01** · values, recommendations, ownership — Members can tell other members who owns a business or brand — private equity, B Corp and the like — and those notes steer recommendations by people's values
 - **2026-10-01** · tags, pages, posts, composer — Tags are in the launch: tags on Pages and posts, editable at any time
 - **2026-10-01** · values, pages, badges — Values badges and banners are a few high-level categories, each made up of many values tags
 - **2026-10-01** · answering, crawlers, pages — Outside agents currently see who exists and what they offer — a Page's description — until product listings exist on a Page

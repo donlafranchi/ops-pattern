@@ -5,7 +5,7 @@ status: draft
 date: 2026-10-01
 ---
 
-[open-question owner=don raised=2026-10-01] Are owner-identity badges (Black-owned, women-owned, LGBTQ+-owned, veteran-owned) a category? A) No identity badges. B) One opt-in identity badge, with a plan for moderating feedback. C) **Decide after launch, once private values tags show whether owners use identity words.** *Recommend C;* the research below found harassment and lower ratings follow visible identity badges.
+**Answered 2026-10-01:** owner-identity badges are allowed — Don: *"we don't want to limit how people want to communicate what they're about so identity is fine."* Added as category 15 in `product/foundation/nouns.md` § Badge.
 
 # Values badge categories — research for SocialUs
 
