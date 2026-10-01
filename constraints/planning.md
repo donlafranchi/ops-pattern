@@ -10,6 +10,8 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · tags, pages, posts, composer — Tags are in the launch: tags on Pages and posts, editable at any time
+- **2026-10-01** · values, pages, badges — Values badges and banners are a few high-level categories, each made up of many values tags
 - **2026-10-01** · answering, crawlers, pages — Outside agents currently see who exists and what they offer — a Page's description — until product listings exist on a Page
 - **2026-10-01** · pages, feedback, policy — Feedback on a Page is like a business review: never published, anonymized and aggregated for the Page's owner. The same holds for all feedback
 - **2026-10-01** · values, tags — Values are their own thing, not tags
