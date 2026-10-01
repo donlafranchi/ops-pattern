@@ -10,6 +10,12 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · copy, model, posts, explore — Post is the noun for what a Page says to the metro; an announcement is a kind of post
+- **2026-10-01** · tags, pages, posts, composer — Tags go on Pages and on posts, and can be edited at any time, forever
+- **2026-10-01** · tags, moderation, reports — Tags are moderated after they appear, against a list that marks each tag safe, unsafe or needs review
+- **2026-10-01** · values, recommendations, explore, rls — A member's values are known only to them. Values feed recommendations and are never searchable, by members or producers
+- **2026-10-01** · values, onboarding, recommendations — Members can rank how they choose what to buy — for example price, eco-responsible, fair trade, employee care — and add values tags if values matter to them
+- **2026-10-01** · pages, endorsements — Neighbours' endorsements of a Page count, but are never shown as a number
 - **2026-09-30** · imports, attribution, explore — Our relationship with venues is symbiotic: we send traffic to a venue's own site and channels rather than capturing it, and everything pulled in carries attribution and a link back
 - **2026-09-30** · imports, events, claims — Events reach SocialUs two ways: a venue, artist or group links its Instagram or calendar once, with consent, and we pull its events in (the main path); and members share events they hear about, and the venue is invited to claim them. We don't currently gather public listings without consent
 - **2026-09-30** · explore, pages, map, rls — F093 criterion 8 amended: a signed-out visitor sees a Page's name, default photo, description and the withheld card ("Sign up to see what's happening", placeholder), and no location, tags or founder. Storing a location and showing it are separate: a Page keeps its location regardless, and it scopes the metro and places the Page on the map without being displayed. Signed in, the owner chooses how much location shows; tags show to signed-in visitors only
@@ -86,6 +92,5 @@
 - **2026-09-21** · page-url — A Page's canonical URL is a cosmetic slug plus a short non-sequential ID: `joes-pizza-7k3x`. No geography in it, and no member derivable from it
 - **2026-09-21** · page-url — One canonical address per Page, many indexes onto it. The Place in a URL is never part of a Page's identity
 - **2026-09-21** · copy — plainlanguage.gov governs user-facing copy, alongside `voice.md` and `design-language.md`
-- **2026-09-21** · copy, model — Announcement is the word everywhere: in the model, in the docs, and in the product
 - **2026-09-21** · copy, model — `Bulletin` is refused as a noun: it named a delivery mode, not a thing
 - **2026-09-18** · explore, signed-out — Signed out is read-only: anything that touches another person requires an account

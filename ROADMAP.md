@@ -20,6 +20,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Popularity ordering with a reserved share for new Pages.
 - Metadata rewrite; retired vendor routes redirected or removed.
 - RSVP / response path — one per person.
+- **Tags on posts, and tag editing any time** (2026-10-01) — new launch scope; **nothing was removed to make room.** Post replaces announcement as the user-facing word; the copy review rides with the copy pass.
 - Follows simplification — one table, three subjects.
 - **What's happening…** — a date, a time and a post-level address on an announcement (F072); **a series that repeats, weekly with optional bounds (F074, ruled 2026-09-20)**; the time lens rows (F091); narrowing in a modal that writes text (F092). The browse query shipped 2026-09-19 **and nothing calls it** — Explore still reads the old Item-grain view client-side. So it needs **two** things, a caller and a de-duplication rule, not the one change this line claimed until 2026-09-20. **The new cost is F073, recurrence, and the parser.** Recurrence is what makes the lens non-empty; Bulletins was cut to pay for it — see § Cut.
 - Onboarding, empty states, copy pass — Fortnight 4.
@@ -41,6 +42,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Paid visibility / advertising mechanic — gated on passing the member-benefit test; not designed.
 - Cooperative coordination tooling (voting, distributions) — waits on documented demand.
 - LLM-enhanced natural-language search ("sourdough near me Saturday") and SEO-structured public pages. **In-app answering is the next version after launch, not backlog for 2026-10-30** *(Don, 2026-09-21: "something I'd like to prepare for for the next version after")*. **What is wanted before launch is not building it but not foreclosing it** — five constraints in `planning/AGENT-ANSWERING.md`, each cheap now and expensive to retrofit. Paired with the crawler-blocking and thin-public-tier work in `socialus-web`.
+- **Values-shaped recommendations** (F097, draft) — private values, a ranked buying list, blended recommendations, opt-in badges, endorsements shown as a meter not a number. **Nobody can search values.**
 - Saved-search subscriptions ("notify me: new products in Oak Park").
 - Richer service-listing fields (appointment availability, scope of work), item lifecycle states (draft/paused/archived), stock indicators, bundled items.
 - Community-attested (Tier 1) and document-verified (Tier 2) locality/provenance badges — Tier 0 self-attestation is all that ships at launch.

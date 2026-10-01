@@ -80,7 +80,6 @@
 - **2026-09-21** · page-url — One canonical address per Page, many indexes onto it. The Place in a URL is never part of a Page's identity
 - **2026-09-21** · copy — plainlanguage.gov governs user-facing copy, alongside `voice.md` and `design-language.md`
 - **2026-09-21** · page-location — Where a Page is, is resolved at read time from its Location's geography, never stored on it. Deepest containing Place wins, and "deepest" means the kind rank that already exists
-- **2026-09-21** · copy, model — Announcement is the word everywhere: in the model, in the docs, and in the product
 - **2026-09-21** · copy, model — `Bulletin` is refused as a noun: it named a delivery mode, not a thing
 - **2026-09-18** · explore, signed-out — Signed out is read-only: anything that touches another person requires an account
 - **2026-09-29** · rls — `member_public_group_memberships` is a defect, not accepted risk: a stranger may not read it
