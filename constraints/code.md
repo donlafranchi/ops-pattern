@@ -10,7 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
-- **2026-10-01** · testing, signup, moderation, operators — Build agents get their own account on the live app with operator powers: their own login, no text code, marked as a test account so nothing they make shows to members or counts in numbers, and able to see reports and hide content
+- **2026-10-01** · testing, signup, moderation, operators, explore — Build agents get a set of builder accounts on the live app, one for each test persona (signed out aside: stranger, follower, member, someone who RSVP'd, operator, an owner of each Page kind), so they can see and help build every view
 - **2026-10-01** · posting, reports, moderation, copy — We can't enforce the sensitive-content rule; we rely on reporting. The ask at posting covers anything sensitive, in any form, and the children report category widens to "sensitive content", still hiding at any bar
 - **2026-10-01** · signup, identity — A member is verified as a person by a text-message code to their phone, at signup
 - **2026-09-30** · explore, pages, map, rls — F093 criterion 8 amended: a signed-out visitor sees a Page's name, default photo, description and the withheld card ("Sign up to see what's happening", placeholder), and no location, tags or founder. Storing a location and showing it are separate: a Page keeps its location regardless, and it scopes the metro and places the Page on the map without being displayed. Signed in, the owner chooses how much location shows; tags show to signed-in visitors only
