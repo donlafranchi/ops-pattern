@@ -48,7 +48,7 @@ If a directory isn't listed here, don't read it. Anything not in the tree is not
 
 **Nothing here asks you to remember to run anything.** A skill for this was written and never installed, so it never ran once and `STATUS.md` went stale naming the wrong launch blocker — the whole point is that the refresh does not depend on anyone thinking of it (lesson 27, and lesson 15 before it). To refresh by hand anyway: `bash scripts/status.sh`.
 
-**Reading the code repo needs a token.** Both repos are private, so the workflow cannot see `socialus-web` without the `SOCIALUS_WEB_TOKEN` secret. Without it `STATUS.md` still regenerates and says, at the top and at the bottom, exactly what is missing.
+**Both repos are public for now** (2026-10-01, Actions minutes), so anyone — the workflow included — can read `socialus-web`. If they go private, the workflow needs the `SOCIALUS_WEB_TOKEN` secret. Without it `STATUS.md` still regenerates and says, at the top and at the bottom, exactly what is missing.
 
 ## State
 

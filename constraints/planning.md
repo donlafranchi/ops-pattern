@@ -10,6 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · process, repos — Both repos stay public for now
 - **2026-10-01** · signup, identity — A member is verified as a person by a text-message code to their phone, at signup
 - **2026-10-01** · values, badges, pages — Owner-identity badges are allowed: we don't limit how people say what they're about
 - **2026-10-01** · values, recommendations, ownership — Members can tell other members who owns a business or brand — private equity, B Corp and the like — and those notes steer recommendations by people's values
