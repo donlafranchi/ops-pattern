@@ -10,6 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · signup, identity — A member is verified as a person by a text-message code to their phone, at signup
 - **2026-09-30** · explore, pages, map, rls — F093 criterion 8 amended: a signed-out visitor sees a Page's name, default photo, description and the withheld card ("Sign up to see what's happening", placeholder), and no location, tags or founder. Storing a location and showing it are separate: a Page keeps its location regardless, and it scopes the metro and places the Page on the map without being displayed. Signed in, the owner chooses how much location shows; tags show to signed-in visitors only
 - **2026-09-30** · rls, members, pages — The founder and RSVP corrections `socialus-web` #246 flagged are pruned here
 - **2026-09-30** · rls, rsvp, posts — An RSVP to a gathering currently shows that gathering and the others party to it, not what a member sees. Membership is its own component. An RSVP on a single post, when it exists, covers that post only

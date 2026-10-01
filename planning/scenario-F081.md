@@ -43,7 +43,7 @@ Choosing the person-verification method, which is open. The waitlist popup and m
 
 **Out of scope 2026-09-30; revisit with legal counsel** (F077). Signup says nothing about showing legal names to anyone.
 
-[open-question owner=don raised=2026-09-30] How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candidate. **Input on timing, if it is phone:** A) at every signup — stops bulk fake accounts and ban evasion, highest friction, on every newcomer; B) before a first Page — stops fake creators, felt only by creators; C) before a first report or RSVP — stops mass-reporting, which hides content at bar zero, and RSVP spam; D) only on risk signals — least friction, reacts after harm. *Recommend B plus C for reports plus D, if phone.* Today the code has no phone field, email-only sign-in, and Supabase SMS and phone MFA switched off.
+**A person is verified by a text-message code to their phone, at signup** (Don, 2026-10-01). At signup because every member is verified (2026-09-30). Today the code has no phone field, email-only sign-in, and Supabase SMS switched off — that is the build.
 
 [open-question owner=don raised=2026-09-30] For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy duties). What must it say, and must it be live before the first signup? Signup collects them from day one (criterion 1).
 

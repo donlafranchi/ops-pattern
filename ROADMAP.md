@@ -4,7 +4,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 
 ## Now — Fortnight 1, in build
 
-- Page composer: address-or-neighbourhood location step, category step, photo step + takedown, default art, resume fix. Gated on Don making his own Page.
+- Page composer: address-or-neighbourhood location step, category step, photo step + takedown, default art, resume fix. *(The gate on Don making his own Page is met — he has made several, Sac Floaters among them, 2026-10-01.)*
 - Dead producer page fix — approved, ticketed, buildable today.
 - Producer entry point (`/you/create`, no shop required to host) — reviewed, ticketed.
 - Report path + image takedown — approved; no photo goes to production until this ships.
