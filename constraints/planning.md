@@ -10,6 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · explore, announcements, signed-out — Signed out, the "today" row shows one "Sign up to see what's happening" card for each Page posting something today, matching the signed-out front door
 - **2026-10-01** · testing, signup, moderation, operators, explore — Build agents get a set of builder accounts on the live app, one for each test persona (signed out aside: stranger, follower, member, someone who RSVP'd, operator, an owner of each Page kind), so they can see and help build every view
 - **2026-10-01** · posting, reports, moderation, copy — We can't enforce the sensitive-content rule; we rely on reporting. The ask at posting covers anything sensitive, in any form, and the children report category widens to "sensitive content", still hiding at any bar
 - **2026-10-01** · process, repos — Both repos stay public for now
