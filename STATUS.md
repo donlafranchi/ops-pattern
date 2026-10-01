@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-10-01 · 18:47 UTC
+> ## Generated 2026-10-01 · 19:15 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -154,7 +154,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (31)
+**Waiting on Don** (32)
 
 - 27d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 24d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -187,6 +187,7 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 1d · How is a member-shared event marked until claimed? A) "Shared by a neighbour, not yet confirmed by the venue", with no RSVP until claimed. B) The same, with… — [planning/scenario-F096.md:32](planning/scenario-F096.md#L32)
 - 1d · Does imported content follow relationship-based visibility and the signed-out front door like any announcement? A) Yes, exactly: an imported event is a publi… — [planning/scenario-F096.md:34](planning/scenario-F096.md#L34)
 - 1d · What does the platform do when imported content breaks the sensitive-content ask (children, animals and pets, anyone who can't fend for themselves)? A) Repor… — [planning/scenario-F096.md:36](planning/scenario-F096.md#L36)
+- 0d · Are owner-identity badges (Black-owned, women-owned, LGBTQ+-owned, veteran-owned) a category? A) No identity badges. B) One opt-in identity badge, with a pla… — [planning/values-badges-draft.md:8](planning/values-badges-draft.md#L8)
 
 **Cowork owes an answer** (1)
 
