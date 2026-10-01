@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-10-01 · 17:07 UTC
+> ## Generated 2026-10-01 · 18:47 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -13,7 +13,7 @@
 > `bash scripts/status.sh`.
 >
 > **Derived from:** `scripts/state.sh` against `socialus-web` @ `origin/main`
-> `28027db` (2026-10-01); `accepted-risks/*.json`;
+> `b30d381` (2026-10-01); `accepted-risks/*.json`;
 > `planning/scenario-*.md` frontmatter; `ROADMAP.md`.
 >
 > **Answers "where is this project", not "what tickets exist."** The ticket
@@ -43,7 +43,7 @@ branch or a commit.
 
 ## In the code repo
 
-**54 issues open** in `socialus-web`, 10 launch-blocking:
+**53 issues open** in `socialus-web`, 9 launch-blocking:
 - #205 bug · Onboarding assigns every new member a fictional home place, with no picker
 - #219 F077 · Real names only between people who actually interacted; display name everywhere else
 - #220 F078 · Flagged content hides itself on the agent's call, and the poster is told why
@@ -53,14 +53,13 @@ branch or a commit.
 - #246 bug · What one member can read about another: the signed-in half of #241, and four member tables open to anyone
 - #257 F091 · T176 · What's happening, today and this week
 - #262 F072 · T179 · an optional end time on announcements and gatherings, shown as 7–9pm
-- #269 chore · T182 · a local seeded stack with a persona per role, the browser suite running in CI, and a screenshot matrix
 
-**72 PRs merged in the last fortnight.** The newest five:
+**73 PRs merged in the last fortnight.** The newest five:
 - #277 2026-10-01 bug #276: Page edit asks before Done or leaving discards unsaved changes
 - #275 2026-10-01 bug #274: Create opens the create flow instead of looping back to "Tap Create"
+- #272 2026-10-01 chore #269: personas, the browser suite in CI, and a screenshot matrix
 - #271 2026-10-01 bug #270: signed-in Explore no longer nests a list item inside a list item, so it hydrates
 - #268 2026-10-01 bug #267: an owner sees no Follow or Report on their own Page, and unfollowing never ends their ownership
-- #265 2026-10-01 chore #264: the production apply refuses a stacked branch, and more than one pending migration without an override
 
 ### Needs a look — not a claim that anything is wrong
 
@@ -68,6 +67,7 @@ branch or a commit.
 counts. Each row needs a look, not a close.*
 
 - **#84 open, but T159 appears on main** — chore · T159 is two different tickets — renumber one in ops-pattern
+- **#53 open, but T156 appears on main** — F059 · T156 · Browse renders Pages
 - **#52 open, but T155 appears on main** — F059 · T155 · Feed vantage point becomes a metro
 - **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
 - **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
@@ -114,8 +114,9 @@ counts. Each row needs a look, not a close.*
   - Database reachable from the deployment: success
   - Ontology declarations still match the code: success
 - **`ci.yml`** — success, 2026-10-01
-  - Unit tests: success
   - Lint, types, build: success
+  - Unit tests: success
+  - Browser: success
   - Migrations applied to production: skipped
 
 ## Measured, not estimated
