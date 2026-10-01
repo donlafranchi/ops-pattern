@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-10-01 · 16:54 UTC
+> ## Generated 2026-10-01 · 17:06 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -154,7 +154,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (35)
+**Waiting on Don** (31)
 
 - 27d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 24d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -187,10 +187,6 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 1d · How is a member-shared event marked until claimed? A) "Shared by a neighbour, not yet confirmed by the venue", with no RSVP until claimed. B) The same, with… — [planning/scenario-F096.md:32](planning/scenario-F096.md#L32)
 - 1d · Does imported content follow relationship-based visibility and the signed-out front door like any announcement? A) Yes, exactly: an imported event is a publi… — [planning/scenario-F096.md:34](planning/scenario-F096.md#L34)
 - 1d · What does the platform do when imported content breaks the sensitive-content ask (children, animals and pets, anyone who can't fend for themselves)? A) Repor… — [planning/scenario-F096.md:36](planning/scenario-F096.md#L36)
-- 0d · What do outside agents (ChatGPT, Google) see? A) Who exists, the description and opt-in badges, with a link to SocialUs — no values, prices or posts. B) The… — [planning/scenario-F097.md:36](planning/scenario-F097.md#L36)
-- 0d · Does the meter break the Won't line "the platform never rates, ranks, or labels a person"? A) Narrow the Won't to people, and allow a Page meter worded as wh… — [planning/scenario-F097.md:38](planning/scenario-F097.md#L38)
-- 0d · Recommending by values orders results, and the Tag entry says "never a tag that orders results". A) Values are their own noun, not tags, so the Never stands… — [planning/scenario-F097.md:40](planning/scenario-F097.md#L40)
-- 0d · Values can reveal belief, religion or identity, which California privacy law treats as sensitive. Who checks before build? A) Counsel reviews the values desi… — [planning/scenario-F097.md:42](planning/scenario-F097.md#L42)
 
 **Cowork owes an answer** (1)
 
