@@ -10,6 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · explore, map — Explore's list and map follow the screen width. Under 1024px, phones and tablets get a floating "Map"/"List" pill at bottom centre that stays visible while scrolling. At 1024px and up, list and map sit side by side with no toggle, and a collapse handle on the divider. With the owner panel open at 1024–1439px, the map collapses and a List | Map switch docks in the sticky filter bar
 - **2026-10-01** · signup, copy — The signup line ships as written: "This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."
 - **2026-10-01** · explore, announcements, signed-out — Signed out, the "today" row shows one "Sign up to see what's happening" card for each Page posting something today, matching the signed-out front door
 - **2026-10-01** · testing, signup, moderation, operators, explore — Build agents get a set of builder accounts on the live app, one for each test persona (signed out aside: stranger, follower, member, someone who RSVP'd, operator, an owner of each Page kind), so they can see and help build every view

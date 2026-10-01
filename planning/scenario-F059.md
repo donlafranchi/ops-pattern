@@ -4,7 +4,7 @@ title: A newcomer browses, and finds the neighbourhood
 status: approved
 date: 2026-09-13
 depends: [F061]
-approved: 2026-09-14 — criterion 8 cut, 10 reworded, 6 changed from a named fallback to member choice, address settled at /explore; amended 2026-09-17 — Browse is a showcase, curated lenses replace the ban on category controls
+approved: 2026-09-14 — criterion 8 cut, 10 reworded, 6 changed from a named fallback to member choice, address settled at /explore; amended 2026-09-17 — Browse is a showcase, curated lenses replace the ban on category controls; amended 2026-10-01 — Don: criterion 5, list and map by width
 ---
 ## Story
 
@@ -18,7 +18,7 @@ A newcomer opens Browse and sees what is actually here — the Pages near them a
 2c. **The signed-in half is withheld server-side, never rendered and hidden.** A person's following-derived content is theirs; a surface that ships it to every reader and conceals it with CSS has already disclosed it.
 3. Ordering is locality and recency, and may carry community response. **It doesn't favour a member because of payment, size or follower count, and doesn't use what keeps someone scrolling** (2026-09-30). Lenses vary what is shown so the surface is not the same every visit — **variety without compulsion**, which is the bar: not addicting, and not boring.
 4. **Browse is a showcase, not a catalogue.** It carries **curated lenses** — a small, varying set such as what is on today, local food, household things, art, or free things — each a way to change what is discoverable rather than a filter over one list. A lens is not a taxonomy of item kinds and there is no exhaustive kind picker. **Typed search remains a separate job**: search is for finding something specific, lenses are for being shown something.
-5. A single control alternates between list and map, sitting in the same row as search, with nothing inserted between rows of results.
+5. **List and map, by width** (Don, 2026-10-01; Airbnb's pattern). **Under 1024px:** a floating "Map"/"List" pill at bottom centre, visible while scrolling. **1024px and up:** list and map side by side, no toggle, with a collapse handle on the divider. **With the owner panel open at 1024–1439px:** the map collapses and a List | Map switch docks in the sticky filter bar. Nothing is inserted between rows of results.
 6. Results are scoped to the active metro. A member outside every seeded metro picks one and no metro is picked for them — every US metro is seeded before launch, which is what makes choosing possible.
 7. The metro switcher moves a signed-in member's results, not only a signed-out visitor's.
 8. Past-dated posts drop out on their own.
