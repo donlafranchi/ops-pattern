@@ -26,7 +26,7 @@ Any rule about text, topics, or Pages that serve children. Building any verifica
 
 ## Why
 
-[open-question owner=don raised=2026-09-30] Does the widening reach text and reports, or images only? Don's words are *"anything related to children, animals/pets"*; the 2026-09-27 ruling says a photo rule, not a topic rule, and F078 has a children report category only. A) **The ask covers anything sensitive; the enforced rule and the at-any-bar report stay on images, with the report category widened to "sensitive content".** B) Images only, and the children category stays as it is. C) Text too. *Recommend A;* it asks broadly and enforces only what a report can judge. **Note:** a pet groomer or a dog walker couldn't show their work under criterion 1 as written.
+**We can't enforce this; we rely on reporting** (Don, 2026-10-01, option A). The ask at posting covers anything sensitive — children, animals and pets, anyone who can't fend for themselves — in any form. The report category widens from children to **sensitive content**, and it still hides at any bar. A pet groomer or dog walker can still show their work; the animals part is asked, not enforced.
 
 ### Why a message and reports, not a check (2026-09-30)
 

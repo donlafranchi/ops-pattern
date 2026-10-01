@@ -10,6 +10,8 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · posting, reports, moderation, copy — We can't enforce the sensitive-content rule; we rely on reporting. The ask at posting covers anything sensitive, in any form, and the children report category widens to "sensitive content", still hiding at any bar
+- **2026-10-01** · testing, signup — Build agents sign in as the 13 test people on the throwaway test copy; when text codes ship, a few fixed test phone numbers let agents sign in on preview links
 - **2026-10-01** · process, repos — Both repos stay public for now
 - **2026-10-01** · signup, identity — A member is verified as a person by a text-message code to their phone, at signup
 - **2026-10-01** · values, badges, pages — Owner-identity badges are allowed: we don't limit how people say what they're about
