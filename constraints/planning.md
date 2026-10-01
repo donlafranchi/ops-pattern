@@ -10,13 +10,17 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · answering, crawlers, pages — Outside agents currently see who exists and what they offer — a Page's description — until product listings exist on a Page
+- **2026-10-01** · pages, feedback, policy — Feedback on a Page is like a business review: never published, anonymized and aggregated for the Page's owner. The same holds for all feedback
+- **2026-10-01** · values, tags — Values are their own thing, not tags
+- **2026-10-01** · tags, explore, ordering — "A tag never orders results" is redefined: tags decide what matches, not who comes first
+- **2026-10-01** · values — There is no counsel; values are documented as Don described them, and he adds more defensible detail at build
 - **2026-10-01** · values, tags, pages, rls — Values tags are kept separate from other tags, so some can be shown and others not
 - **2026-10-01** · copy, model, posts, explore — Post is the noun for what a Page says to the metro; an announcement is a kind of post
 - **2026-10-01** · tags, pages, posts, composer — Tags go on Pages and on posts, and can be edited at any time, forever
 - **2026-10-01** · tags, moderation, reports — Tags are moderated after they appear, against a list that marks each tag safe, unsafe or needs review
 - **2026-10-01** · values, recommendations, explore, rls — A member's values are known only to them. Values feed recommendations and are never searchable, by members or producers
 - **2026-10-01** · values, onboarding, recommendations — Members can rank how they choose what to buy — for example price, eco-responsible, fair trade, employee care — and add values tags if values matter to them
-- **2026-10-01** · pages, endorsements — Neighbours' endorsements of a Page count, but are never shown as a number
 - **2026-09-30** · imports, attribution, explore — Our relationship with venues is symbiotic: we send traffic to a venue's own site and channels rather than capturing it, and everything pulled in carries attribution and a link back
 - **2026-09-30** · imports, events, claims — Events reach SocialUs two ways: a venue, artist or group links its Instagram or calendar once, with consent, and we pull its events in (the main path); and members share events they hear about, and the venue is invited to claim them. We don't currently gather public listings without consent
 - **2026-09-30** · explore, pages, map, rls — F093 criterion 8 amended: a signed-out visitor sees a Page's name, default photo, description and the withheld card ("Sign up to see what's happening", placeholder), and no location, tags or founder. Storing a location and showing it are separate: a Page keeps its location regardless, and it scopes the metro and places the Page on the map without being displayed. Signed in, the owner chooses how much location shows; tags show to signed-in visitors only
