@@ -37,7 +37,7 @@ Choosing the person-verification method, which is open. The waitlist popup and m
 
 **The zip is kept** (Don, 2026-09-30): *"How will we know what's going on in their area without it."* So criterion 2 stands, and changing the zip is how a member changes metro.
 
-[open-question owner=don raised=2026-09-30] What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and different language is coming. Nothing about legal names goes in it while legal-name disclosure is parked ([public-is-draft]).
+**Criterion 5's line ships as the placeholder, Don's words** (Don, 2026-10-01). He may change it any time after launch.
 
 ### Who sees a real name
 
