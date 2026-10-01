@@ -14,7 +14,7 @@ Don adds a photo of the counter to his new Page; it's downscaled, re-encoded, an
 1. A photo step is optional; the composer completes without one.
 2. An uploaded photo's stored bytes carry no metadata block (GPS included) — verified against the file, not the code's intent.
 3. A raw upload bypassing the client (wrong format, oversized, wrong path) is rejected by the storage API itself.
-4. A Page with no photo shows generated art derived from its own id — identical on every load, to every viewer.
+4. A Page with no photo shows its kind's default image or icon (Don, 2026-10-01) — identical on every load, to every viewer.
 5. The operator can remove a Page's photo in one action; the object is deleted and an event recorded.
 
 ## Not this

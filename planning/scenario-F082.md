@@ -6,7 +6,7 @@ gates: launch
 date: 2026-09-14
 depends: [F081]
 approved: 2026-09-14 — Don's ruling; self-attestation only, selling and hosting alike
-amended: 2026-09-30 — Don: fixed statements framed as rules, and agreeing is the attestation; the rules are one click away and versioned, and members agree again when they change; every new Page asks, including an existing owner's next one. Story and criteria 1, 2, 4 and 6 restated, 7 added. (2026-09-27: at publish, not at draft.)
+amended: 2026-09-30 — Don: fixed statements framed as rules, and agreeing is the attestation; the rules are one click away and versioned, and members agree again when they change; every new Page asks, including an existing owner's next one. Story and criteria 1, 2, 4 and 6 restated, 7 added. (2026-09-27: at publish, not at draft.) 2026-10-01 — Don: criterion 8, what publishing requires; photo optional.
 ---
 ## Story
 
@@ -21,6 +21,7 @@ Devon signed up a month ago like everyone else. He makes hot sauce, and today he
 5. No string in the step asks the member to classify themselves as a business, uses legal or tax language, or asks for legal-entity information, which is asked only at business registration (2026-09-30).
 6. **The rules are versioned.** A member who agreed to an earlier version reads the new one and agrees again before they next publish. **Each agreement is recorded with the rules version and a timestamp**, seen only by Don and operators.
 7. **The rules are viewable with one click**, whether or not the member is taking the step.
+8. **Publishing a Page requires a name, a location (an address or an area) and a description**, with the rules agreement and at least one tag (2026-09-13). **A photo is optional;** a Page without one shows its kind's default image or icon (Don, 2026-10-01).
 
 ## Not this
 
