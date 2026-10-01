@@ -10,6 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · values, tags, pages, rls — Values tags are kept separate from other tags, so some can be shown and others not
 - **2026-10-01** · copy, model, posts, explore — Post is the noun for what a Page says to the metro; an announcement is a kind of post
 - **2026-10-01** · tags, pages, posts, composer — Tags go on Pages and on posts, and can be edited at any time, forever
 - **2026-10-01** · tags, moderation, reports — Tags are moderated after they appear, against a list that marks each tag safe, unsafe or needs review

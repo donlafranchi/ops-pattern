@@ -14,7 +14,7 @@ Ana cares where her money goes. At signup she is asked how she looks for product
 1. **A member's values and their ranking are visible to that member only,** and never appear on a Page, in a result, in a URL or to an outside agent.
 2. **No search, filter or lens takes a value as input,** for members or for Page owners.
 3. **Recommendations blend values with at least two other signals,** and a recommendation never states which value matched.
-4. **A Page owner may show a value as a badge,** and removing it removes it everywhere.
+4. **Values tags are stored apart from other tags.** A Page owner shows or hides each one separately as a badge; hidden is the default, and hiding one removes it everywhere.
 5. **Onboarding asks one open question about how the member looks for things;** values are offered only when the answer includes them, and adding any is optional.
 6. **Neighbours' endorsements show as a meter, ribbon or banner, never a number.**
 7. **Change in values is counted across the metro, never kept as one member's history.**
