@@ -15,7 +15,7 @@
 - **2026-10-01** · values, tags — Values are their own thing, not tags
 - **2026-10-01** · tags, explore, ordering — "A tag never orders results" is redefined: tags decide what matches, not who comes first
 - **2026-10-01** · values — There is no counsel; values are documented as Don described them, and he adds more defensible detail at build
-- **2026-10-01** · values, tags, pages, rls — Values tags are kept separate from other tags, so some can be shown and others not
+- **2026-10-01** · values, tags, pages, rls — Values tags are kept separate from other tags and are never shown. A values badge or banner, based on a values tag, may be shown at the Page owner's discretion
 - **2026-10-01** · copy, model, posts, explore — Post is the noun for what a Page says to the metro; an announcement is a kind of post
 - **2026-10-01** · tags, pages, posts, composer — Tags go on Pages and on posts, and can be edited at any time, forever
 - **2026-10-01** · tags, moderation, reports — Tags are moderated after they appear, against a list that marks each tag safe, unsafe or needs review
