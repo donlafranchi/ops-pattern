@@ -44,4 +44,6 @@ By community and peer pressure, not platform policing. This is a know-and-suppor
 
 **Peer pressure for good** *(Don, 2026-10-01)*. Members reward good creators and stop rewarding poorly behaving ones. We don't bully and we don't pile on; we press gently for people to do better. **This is how we operate, everywhere.**
 
+**Builders are not members** *(Don, 2026-10-01)*. The rules here are for people using the app as intended. The people and agents building it work under different rules: a build agent has its own account with operator powers, its work never shows to members, and its actions are logged.
+
 **Feedback on a Page is like a business review, and it is not a rating of a person.** It is never published. It is anonymized and aggregated for the Page's owner, so they hear what neighbours like and don't, without knowing who said it and without a crowd watching. The same goes for every kind of feedback the platform collects.
