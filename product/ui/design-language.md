@@ -46,6 +46,7 @@ Full hex/px values live in `globals.css`; if they disagree, `globals.css` is rig
 - **Multi-step composers write progress on advance**, not on final submit — the Member is editing a half-built thing from step one, not filling a buffer. This is what makes "your work is saved" an honest claim rather than a hope.
 - **Trust microcopy next to a primary CTA states what's true right now, in the present tense — never a promise about the future.** ("Listing costs nothing," not "no fees, ever." A recipe that generates promise language generates it on every surface that copies the recipe.)
 - **An owner-only management affordance renders inline on the real public page**, never as a separate "manage" view — the owner should see what everyone else sees, with controls layered on top.
+- **Layout by width** *(Don, 2026-10-01)*. Below 1280px an owner gets the phone owner bar and sheets; the owner panel appears from 1280px. On a phone, a detail page's action bar sits above the nav. The nav moves to the top at 744px. The nav is hidden in wizards and full-height sheets, so the task has the whole screen. Explore's list and map: F059 criterion 5.
 
 ## Anti-patterns
 
