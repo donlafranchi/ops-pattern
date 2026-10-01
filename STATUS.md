@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-10-01 · 19:27 UTC
+> ## Generated 2026-10-01 · 19:31 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -154,7 +154,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (31)
+**Waiting on Don** (30)
 
 - 27d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 24d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -179,7 +179,6 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 2d · Are a member's interest tags public, and if so, public without their member id? — [#246](https://github.com/donlafranchi/socialus-web/issues/246)
 - 1d · Does the widening reach text and reports, or images only? Don's words are *"anything related to children, animals/pets"*; the 2026-09-27 ruling says a photo… — [planning/scenario-F080.md:29](planning/scenario-F080.md#L29)
 - 1d · What are the final words of criterion 5's signup line? B4's placeholder holds until then. Don, 2026-09-30: the 2026-09-14 wording was not good enough, and di… — [planning/scenario-F081.md:40](planning/scenario-F081.md#L40)
-- 1d · How do we verify a person? Every member is verified as a person, to discourage anonymous behaviour (Don, 2026-09-30); the method is open. Phone is one candid… — [planning/scenario-F081.md:46](planning/scenario-F081.md#L46)
 - 1d · For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy dut… — [planning/scenario-F081.md:48](planning/scenario-F081.md#L48)
 - 1d · Does criterion 7 hold for F096's consented imports, whose events link back to the owner's own site? Criterion 7 publishes a destination only when the owner t… — [planning/scenario-F090.md:49](planning/scenario-F090.md#L49)
 - 1d · When "near me" returns, how does finding by neighbourhood fit "local = the whole metro" and "no distance shown"? A) A place filter the member types, not a ra… — [planning/scenario-F095.md:28](planning/scenario-F095.md#L28)
@@ -231,7 +230,7 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 - **F082** (approved) · #223 open
 - **F093** (approved) · #252 closed, #215 closed
 
-**Rulings that bind code: 73.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 74.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
 - **Nothing to build** (10), by their own tag: 2026-09-30 Visibility currently defaults to social norms: what people w…; 2026-09-30 We are careful and supportive of our members, and we ask the…; 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
