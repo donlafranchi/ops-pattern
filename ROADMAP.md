@@ -59,6 +59,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 
 **Speculative, not ruled**
 - Price on cards: Free / Donation / Paid *(Don, 2026-09-30)*. F072 criterion 2 stands: an announcement carries no price today.
+- A public member profile, like a TikTok profile *(Don, 2026-10-01)*. You currently isn't visible to anyone else; someone who wants to be followed creates a Page.
 - An event without an organization: a one-time Page for it *(Don, 2026-10-01: "even though that doesn't really make sense")*. Today an event is a post a Page makes.
 - Vouching: a neighbour chooses to vouch for a service provider *(Don, 2026-09-30; F095)*.
 - Page components not offered at launch *(Don, 2026-09-30: a Page is composed of components any owner can add)*: RSVP on a single post; transactions and one-on-one meetings; visibility levels on a Page that isn't a group Page; switching following or joining off.

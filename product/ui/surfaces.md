@@ -14,7 +14,7 @@ owns:
 
 > **One of three tracking documents**, with [`../foundation/nouns.md`](../foundation/nouns.md) (what things are) and [`../foundation/verbs.md`](../foundation/verbs.md) (what may be done to each). **Together they track what this app does and will do — not only what ships on 30 October.**
 >
-> **A screen is never called a Page.** **Page is an entity** — an organization: a group, a business, or another organization. **A screen is a surface.** The document this replaces broke that rule throughout and said so in its own banner. Compound forms that name a screen for a specific noun — *the Item page*, *the venue page* — are the one exception and are avoided here anyway.
+> **A screen isn't called a Page.** **Page is an entity** — an organization: a group, a business, or another organization. **A screen is a surface.** The document this replaces broke that rule throughout and said so in its own banner. Compound forms that name a screen for a specific noun — *the Item page*, *the venue page* — are the one exception and are avoided here anyway.
 >
 > **This document is where things show. `nouns.md` is what things are.** Conflating them is how the Sell door became the only create path.
 

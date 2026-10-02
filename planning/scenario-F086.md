@@ -7,7 +7,7 @@ depends: [F069, F081]
 ---
 ## Story
 
-Marcus signs in and opens You — his own private place, shown to nobody else (2026-10-01). Nothing on the screen tells him he is anybody. There is no name, no face, no sign of where he is, and the page is mostly asking him to start selling. What he should see is himself: his name, his photo, the metro he chose, and the things he has made — the hot sauce Page and the monthly swap, both of them, neither picked for him. It is the one surface whose job is to say you are in, and this is what you have.
+Marcus signs in and opens You — his own private place, which currently isn't visible to anyone else (2026-10-01). Nothing on the screen tells him he is anybody. There is no name, no face, no sign of where he is, and the page is mostly asking him to start selling. What he should see is himself: his name, his photo, the metro he chose, and the things he has made — the hot sauce Page and the monthly swap, both of them, neither picked for him. It is the one surface whose job is to say you are in, and this is what you have.
 
 ## Acceptance
 
