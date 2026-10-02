@@ -7,9 +7,25 @@
 > Every ratified decision whose tag binds the **planning** tier, newest first. `DECISIONS.md` holds
 > only live decisions — a superseded one is deleted — so nothing below conflicts with anything
 > else here. If two lines ever seem to, the newer wins (`[newer-decision-wins]`).
-> **214 older decisions carry no tag yet and are not listed** — tagging is required from
+> **212 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-02** · posts, explore, pages — A post with no event date drops off Explore after 14 days and moves to an "Earlier" section on its Page. The owner can optionally set a "show until" date. Every undated post shows "Posted <date>"
+- **2026-10-02** · gatherings, data — Gatherings saved with the old 7-hour timezone error are throwaway test data and won't be corrected
+- **2026-10-01** · launch, pages, items — The launch is a rich-context yellow pages: organizations, not people, filled in by their owners, with pictures, links and contact details. Individual product and service listings are postponed until after launch
+- **2026-10-01** · pages, posts, nouns, page-create — A Page is an organization: a group, a business or an organization. An event is a post a Page makes. There is currently no separate Page per event
+- **2026-10-01** · pages, page-edit, contact — A Page may carry an optional public business phone and optional weekly hours, in launch scope. The business phone is separate from the member's private phone and shows only if the owner gives it. Both show to signed-in visitors, not on the signed-out front door
+- **2026-10-01** · nouns, pages, posts — The ontology states how Page, post and event relate: Page is the platform noun for an organization, and group, business and organization are kinds of it; a post is what a Page publishes, and an announcement and an event are kinds of post; an organization holds events, and an event is not an organization. "Event" is the user-facing word; gathering, meetup and occasion are internal
+- **2026-10-01** · you, members, profile — You is private, for managing your own things: the Pages you manage, the Pages you follow, your zip and metro. You currently isn't visible to anyone else. There is currently no public member profile; someone who wants to be followed, such as an artist, creates a Page
+- **2026-10-01** · explore, map — Explore's list and map follow the screen width. Under 1024px, phones and tablets get a floating "Map"/"List" pill at bottom centre that stays visible while scrolling. At 1024px and up, list and map sit side by side with no toggle, and a collapse handle on the divider. With the owner panel open at 1024–1439px, the map collapses and a List | Map switch docks in the sticky filter bar
+- **2026-10-01** · page-create, page-edit, page-publish, tags, copy — Creating a Page is one question: its kind. Each kind is explained — what it's for and which components it has by default — and the screen says this just starts the process. Creation lands the owner on their draft Page, where they fill in everything else, the name included
+- **2026-10-01** · page-publish, page-photos, default-art — Publishing a Page requires a name, a location (an address or an area) and a description. A photo is optional; a Page without one shows its kind's default image or icon
+- **2026-10-01** · owner-panel, layout — Below 1280px the owner gets the phone owner bar and sheets; the owner panel appears from 1280px
+- **2026-10-01** · nav, layout, explore, map — On a phone, a detail page's action bar sits above the nav. The nav moves to the top at 744px. The nav is hidden in wizards and full-height sheets. Signed-out Explore is list only, and the Map pill opens sign-in
+- **2026-10-01** · design-tokens, design-language — Design tokens live in the app code as the single source of truth; the design-language doc keeps only the reasons
+- **2026-10-01** · footer, legal, copy — The footer links to About, Terms and Privacy pages, all in launch scope
+- **2026-10-01** · privacy, legal, copy — We disclose member data only in response to valid legal process: court orders, subpoenas and legal emergencies. Counsel finalises the wording
+- **2026-10-01** · legal, copy, footer — Terms and Privacy ship as plain-language drafts, marked as drafts, before counsel reviews them; counsel reviews after launch
 - **2026-10-01** · signup, copy — The signup line ships as written: "This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."
 - **2026-10-01** · explore, announcements, signed-out — Signed out, the "today" row shows one "Sign up to see what's happening" card for each Page posting something today, matching the signed-out front door
 - **2026-10-01** · testing, signup, moderation, operators, explore — Build agents get a set of builder accounts on the live app, one for each test persona (signed out aside: stranger, follower, member, someone who RSVP'd, operator, an owner of each Page kind), so they can see and help build every view
@@ -62,7 +78,7 @@
 - **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
 - **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
 - **2026-09-30** · process, product, copy — The platform comes first, then its members, and every ruling can be revisited when the situation changes
-- **2026-09-30** · signup, business-registration, page-publish, reports, rls — What the platform collects for its own protection is seen only by Don and operators, and is currently handed over only under a court order
+- **2026-09-30** · signup, business-registration, page-publish, reports, rls — What the platform collects for its own protection is seen only by Don and operators
 - **2026-09-30** · names, members, copy — Between members, we currently show a display name and avatar, and don't show legal names. We don't take part in disputes between members unless a court orders it
 - **2026-09-30** · names, signup, copy — Real names between people who dealt with each other (F077, `socialus-web` #219) are out of scope; revisit with legal counsel
 - **2026-09-30** · business-registration, copy — The local-owner badge is the owner's own claim, and says so: for example "Says locally owned"

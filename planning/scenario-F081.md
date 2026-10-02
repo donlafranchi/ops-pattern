@@ -14,7 +14,7 @@ Maya follows a neighbour's link and signs up. One screen: her legal name, her em
 
 ## Acceptance
 
-1. **Signup collects legal name, email, zip and display name, and verifies the email.** Every member is verified as a person; how is open (Why). No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently handed over only under a court order (2026-09-30).
+1. **Signup collects legal name, email, zip and display name, and verifies the email.** Every member is verified as a person; how is open (Why). No other field exists in the flow. The legal name, email and phone are seen only by Don and operators, and are currently disclosed only in response to valid legal process (2026-10-01).
 2. The zip is stored, and never rendered on any surface another member or visitor can reach — profile, listing, search, map.
 3. **The zip determines the metro**, and the screen shows the person which metro that is. **Nothing else determines it** — not IP, not a pre-filled default, not a nearest match. *(Amended 2026-09-27: this read "the zip produces a shortlist… the person selects one"; Don ruled the zip decides.)*
 4. **Nobody picks a metro at signup.** A member who moves changes their zip on `/you`, and their metro follows from it. It is not one-and-done.
@@ -45,7 +45,7 @@ Choosing the person-verification method, which is open. The waitlist popup and m
 
 **A person is verified by a text-message code to their phone, at signup** (Don, 2026-10-01). At signup because every member is verified (2026-09-30). Today the code has no phone field, email-only sign-in, and Supabase SMS switched off — that is the build.
 
-[open-question owner=don raised=2026-09-30] For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy duties). What must it say, and must it be live before the first signup? Signup collects them from day one (criterion 1).
+**Terms and Privacy ship as plain-language drafts, marked as drafts, before counsel reviews them; counsel reviews after launch** (Don, 2026-10-01). Privacy discloses that we collect legal names, verified phones (the text-message code, 2026-10-01) and verified emails (California privacy duties), and that we disclose member data only in response to valid legal process (2026-10-01). **Path:** adapt GitHub's site-policy (reusable without conditions) and Basecamp's policies (with attribution); drafts by 2026-10-15, live 2026-10-30, counsel review after launch. Don's 14-fact checklist is due 2026-10-08. Starter kit: [Terms & Privacy starter kit](research/terms-privacy-starter.md).
 
 ### Settled against F076
 
