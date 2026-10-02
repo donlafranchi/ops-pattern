@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-10-02 · 16:59 UTC
+> ## Generated 2026-10-02 · 18:20 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -63,6 +63,7 @@ branch or a commit.
 counts. Each row needs a look, not a close.*
 
 - **#84 open, but T159 appears on main** — chore · T159 is two different tickets — renumber one in ops-pattern
+- **#53 open, but T156 appears on main** — F059 · T156 · Browse renders Pages
 - **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
 - **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
 - **#16 open, but T126 appears on main** — F056 · T126 · Edit shop — image, description, values
@@ -182,13 +183,9 @@ they leave out; parts never add up to covered. Full map: `python3 scripts/marker
 - **F059** · 0 of 12 covered · **partial: 5** · unclaimed: 1, 2, 2b, 2c, 3, 4, 6, 7, 8, 9, 10
 - **F080** · 1 of 5 covered · unclaimed: 1, 2, 3, 4
 - **F081** · 1 of 8 covered · unclaimed: 1, 2, 3, 4, 5, 6, 8
-- **F091** · 3 of 6 covered · **partial: 1** · unclaimed: 5, 6
+- **F091** · 3 of 7 covered · **partial: 1, 7** · unclaimed: 5, 6
 - **F093** · 4 of 12 covered · **partial: 4, 5, 6, 8, 9** · unclaimed: 10, 11, 12
 - **Unverified — no marked check at all** (17): F056, F057, F058, F060, F061, F063, F064, F065, F069, F070, F072, F074, F076, F077, F078, F082, F092
-
-**Markers pointing at nothing:**
-
-- [socialus-web src/app/explore/load-withheld.test.ts:205](https://github.com/donlafranchi/socialus-web/blob/main/src/app/explore/load-withheld.test.ts#L205) — F091 has no criterion 7 (it has 1, 2, 3, 4, 5, 6)
 
 ## Is `building` backed by code?
 
