@@ -7,7 +7,7 @@
 > Every ratified decision whose tag binds the **code** tier, newest first. `DECISIONS.md` holds
 > only live decisions — a superseded one is deleted — so nothing below conflicts with anything
 > else here. If two lines ever seem to, the newer wins (`[newer-decision-wins]`).
-> **214 older decisions carry no tag yet and are not listed** — tagging is required from
+> **213 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
 - **2026-10-01** · explore, map — Explore's list and map follow the screen width. Under 1024px, phones and tablets get a floating "Map"/"List" pill at bottom centre that stays visible while scrolling. At 1024px and up, list and map sit side by side with no toggle, and a collapse handle on the divider. With the owner panel open at 1024–1439px, the map collapses and a List | Map switch docks in the sticky filter bar

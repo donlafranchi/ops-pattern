@@ -11,7 +11,7 @@ Priya wants to convene a Tuesday run. Marcus wants to sell hot sauce. Dana is st
 
 ## Acceptance
 
-1. **Every path through the create flow produces a Page** — a one-time gathering included. There is no second entity, no alternative record, and no path that creates something else. *(Confirmed by Don 2026-09-15; `nouns.md`'s "no Page for a single occasion" was overruled the same day.)*
+1. **Every path through the create flow produces a Page.** An event is a post a Page makes, with no Page of its own (2026-10-01). There is no second entity, no alternative record, and no path that creates something else. *(Confirmed by Don 2026-09-15; `nouns.md`'s "no Page for a single occasion" was overruled the same day.)*
 2. **Purpose is chosen first, from a named set**, before any other field. Nothing is pre-selected and nothing is inferred.
 3. **The words shown to the person differ by purpose** — headings, labels, buttons, and the confirmation. Opening a shop, posting a gathering and starting a group read as three different things.
 4. **The tools offered differ by purpose.** A purpose's flow omits steps its thing does not need, rather than showing them disabled or skippable.
@@ -42,6 +42,6 @@ Converting one Page into another — rejected outright since 2026-09-07 and stil
 
 **Don ruled 2026-09-15:** *"We can create a page for every kind. It just doesn't require all of the same tools. It would still require an announcement and perhaps a following list and later messaging etc."*
 
-**A Page for every kind, including a one-off. What differs is the tools.** Every Page gets a baseline — announcing, and a following list — with messaging later. `nouns.md` was amended the same day; criterion 1 stands as written and is no longer in conflict.
+**What differs between Pages is the tools.** *(The one-off Page went 2026-10-01: an event is a post.)* Every Page gets a baseline — announcing, and a following list — with messaging later. `nouns.md` was amended the same day; criterion 1 stands as written and is no longer in conflict.
 
 **What this costs is in `planning/ONE-MODEL.md`** — the baseline is not free, and neither half of it has a writer today.
