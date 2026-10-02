@@ -91,4 +91,4 @@ status: ruled
 
 ## What is not in scope here
 
-Whether members should be publicly addressable at `/m/<handle>` at all. The two leaks above, which need closing whatever is ruled here and should not wait on it.
+Whether members should be publicly addressable at `/m/<handle>` at all — answered 2026-10-01: there is currently no public member profile. The two leaks above, which need closing whatever is ruled here and should not wait on it.

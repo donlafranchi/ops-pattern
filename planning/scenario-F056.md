@@ -25,4 +25,4 @@ Maya's shop has a name and one product, but nothing she can change once the walk
 
 ## Not this
 
-Member profile editing (`/m/[handle]`). A values vocabulary or picker — free text only. Any consumer reaction to the declaration.
+A member profile: there is none (2026-10-01). A values vocabulary or picker — free text only. Any consumer reaction to the declaration.

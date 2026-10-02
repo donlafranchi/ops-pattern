@@ -58,7 +58,6 @@ where it is true; the gap is gone when its marker is.
 - an announcement from a Page the member follows or belongs to; nothing sends email or push today — [product/ui/surfaces.md](product/ui/surfaces.md)
 
 **link** · App Links: `assetlinks.json` served at `/.well-known/` on the site, plus an `autoVerify` intent filter.
-- `/m/<handle>`, a member's public surface — [product/ui/surfaces.md](product/ui/surfaces.md)
 - `/p/<state>/<city>/…`, place addresses; legacy slugs redirect to the canonical Page — [product/ui/surfaces.md](product/ui/surfaces.md)
 - `/g/<slug>-<id>`, the address every share, crawler and withheld-announcement anchor resolves to — [product/ui/surfaces.md](product/ui/surfaces.md)
 - **GAP** · the site serves neither `apple-app-site-association` nor `assetlinks.json`, so no shared link can open an app — [product/ui/surfaces.md](product/ui/surfaces.md)

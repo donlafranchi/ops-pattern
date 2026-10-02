@@ -7,7 +7,7 @@ depends: [F069, F081]
 ---
 ## Story
 
-Marcus signs in and opens You. Nothing on the screen tells him he is anybody. There is no name, no face, no sign of where he is, and the page is mostly asking him to start selling. What he should see is himself: his name, his photo, the metro he chose, and the things he has made — the hot sauce Page and the monthly swap, both of them, neither picked for him. It is the one surface whose job is to say you are in, and this is what you have.
+Marcus signs in and opens You — his own private place, shown to nobody else (2026-10-01). Nothing on the screen tells him he is anybody. There is no name, no face, no sign of where he is, and the page is mostly asking him to start selling. What he should see is himself: his name, his photo, the metro he chose, and the things he has made — the hot sauce Page and the monthly swap, both of them, neither picked for him. It is the one surface whose job is to say you are in, and this is what you have.
 
 ## Acceptance
 
@@ -31,6 +31,5 @@ Editing anything. This scenario makes `/you` say who you are; it does not make i
 ### Open — nobody has ruled on these
 
 - **Can a person change their photo here?** Criterion 2 only requires it be shown. There is no write path for `avatar_url` anywhere in the app, so "show it" and "let them set it" are different sizes of work and only one is in scope.
-- **Is `/you` the same thing as `/m/[handle]`?** One is the signed-in view, the other the public one. Whether they are two renderings of one surface or two surfaces is undecided, and it changes what criterion 4 means.
 - **Does the metro shown here do anything?** F081 has a person pick a metro at signup. Whether `/you` displays it, or is where it gets changed, is unanswered — and changing it is the switcher that `ROADMAP.md` parks until there is a second metro.
 - **Saved and Following.** Both are tabs on `/you` today, both fed by dead reads. Whether they survive here is tied up with the `/you/sell` and `/you/following` question, which is an options note, not a ruling.
