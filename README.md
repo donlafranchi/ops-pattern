@@ -41,11 +41,13 @@
 - Popularity ordering with a reserved share for new Pages.
 - Metadata rewrite; retired vendor routes redirected or removed.
 - RSVP / response path — one per person.
-- Privacy policy live before launch (2026-10-01, Don) — no privacy page exists in the app today; low priority, but due before the first signup.
+- Footer linking About, Terms and Privacy pages (design decision 8, 2026-10-01, Don) — **launch scope**; none of the three pages exists in the app today. Privacy is due before the first signup. Terms and Privacy ship as plain-language drafts, counsel after launch (F081); path: adapt GitHub's and Basecamp's policies, drafts by 2026-10-15, live 2026-10-30, counsel after launch; Don's 14-fact checklist due 2026-10-08 ([starter kit](planning/research/terms-privacy-starter.md)).
+- DMCA designated-agent registration with the US Copyright Office — $6, renewed every 3 years — **before launch**.
 - **Tags on posts, and tag editing any time** (2026-10-01) — **in the launch, Don confirmed 2026-10-01**; new launch scope, **nothing was removed to make room.** Post replaces announcement as the user-facing word; the copy review rides with the copy pass.
 - Follows simplification — one table, three subjects.
 - **What's happening…** — a date, a time and a post-level address on an announcement (F072); **a series that repeats, weekly with optional bounds (F074, ruled 2026-09-20)**; the time lens rows (F091); narrowing in a modal that writes text (F092). The browse query shipped 2026-09-19 **and nothing calls it** — Explore still reads the old Item-grain view client-side. So it needs **two** things, a caller and a de-duplication rule, not the one change this line claimed until 2026-09-20. **The new cost is F073, recurrence, and the parser.** Recurrence is what makes the lens non-empty; Bulletins was cut to pay for it — see § Cut.
 - Optional end time, add-to-calendar, and default alt text from title, date and place on dated announcements and gatherings (F072 criterion 6, 2026-09-30) — **new launch scope**.
+- Optional public business phone and weekly hours on a Page (F056 criterion 9, 2026-10-01) — **new launch scope**.
 - Onboarding, empty states, copy pass — Fortnight 4.
 - Seed content, synthetic and display-only — Fortnight 4.
 
@@ -55,6 +57,7 @@
 - Real names between people who dealt with each other (F077, `socialus-web` #219) — **out of scope 2026-09-30; revisit with legal counsel.**
 - Bulk actions on the review queue (F079) — written, unscheduled; waits on real volume. *(The ID + selfie tier left this line 2026-09-27: Don ruled none is being built, so F080 names no unlock.)*
 
+- Individual product and service listings on a Page — **postponed until after launch** *(Don, 2026-10-01)*.
 - Item-level photos — substrate built, ~half a day when resumed.
 - Volunteering (offer/ask composer) — blocked on messaging, not on the composer.
 - The idea mechanic (wonder composer) — specced and substrate shipped, composer/page missing.
@@ -72,13 +75,15 @@
 - Community-attested (Tier 1) and document-verified (Tier 2) locality/provenance badges — Tier 0 self-attestation is all that ships at launch.
 - Follow-stream notifications, item-level customer inquiry, follower-list management for a producer.
 - Producer growth dashboard, weekly digest email, peer benchmarks.
-- Hours-of-operation display, multi-location/ambulatory-route management, sub-venue support (e.g. "Drake's barn" under Drake's).
+- Multi-location/ambulatory-route management, sub-venue support (e.g. "Drake's barn" under Drake's).
 - On-platform payments — closed-loop ledger + ACH via a chartered partner, zero platform transaction fees on member commerce (the wealth-circulation rubric), a stablecoin path long-horizon.
 - Treatment-review surface (reviews the treatment, never the person) and member references.
 - Multi-owner/partnership business Pages, staff-confirmation flows, community-stewardship-to-business transition.
 
 **Speculative, not ruled**
 - Price on cards: Free / Donation / Paid *(Don, 2026-09-30)*. F072 criterion 2 stands: an announcement carries no price today.
+- A public member profile, like a TikTok profile *(Don, 2026-10-01)*. You currently isn't visible to anyone else; someone who wants to be followed creates a Page.
+- An event without an organization: a one-time Page for it *(Don, 2026-10-01: "even though that doesn't really make sense")*. Today an event is a post a Page makes.
 - Vouching: a neighbour chooses to vouch for a service provider *(Don, 2026-09-30; F095)*.
 - Page components not offered at launch *(Don, 2026-09-30: a Page is composed of components any owner can add)*: RSVP on a single post; transactions and one-on-one meetings; visibility levels on a Page that isn't a group Page; switching following or joining off.
 - When in-app purchasing exists, producer and purchaser see each other as far as the transaction needs *(Don, 2026-09-30)*.

@@ -1,6 +1,6 @@
 # STATUS
 
-> ## Generated 2026-10-02 · 15:45 UTC
+> ## Generated 2026-10-02 · 16:59 UTC
 >
 > **Disposable. Regenerating replaces this file wholesale** — nothing here is
 > hand-maintained, and a hand-edit is lost on the next run. `git log -p
@@ -63,7 +63,6 @@ branch or a commit.
 counts. Each row needs a look, not a close.*
 
 - **#84 open, but T159 appears on main** — chore · T159 is two different tickets — renumber one in ops-pattern
-- **#53 open, but T156 appears on main** — F059 · T156 · Browse renders Pages
 - **#51 open, but T154 appears on main** — F059 · T154 · Browse reads Pages, not Items
 - **#30 open, but T149 appears on main** — chore · T149 · Retire vendor routes for real
 - **#16 open, but T126 appears on main** — F056 · T126 · Edit shop — image, description, values
@@ -108,10 +107,11 @@ counts. Each row needs a look, not a close.*
 - **`deploy-health.yml`** — success, 2026-10-02
   - Ontology declarations still match the code: success
   - Database reachable from the deployment: success
-- **`ci.yml`** — success, 2026-10-01
-  - Unit tests: success
+- **`ci.yml`** — success, 2026-10-02
+  - Browser: success
+  - Migrations applied to production: success
   - Lint, types, build: success
-  - Migrations applied to production: skipped
+  - Unit tests: success
 
 ## Measured, not estimated
 
@@ -148,7 +148,7 @@ Every open-question marker, found by scanning — nobody maintains this list.
 Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 
 
-**Waiting on Don** (18)
+**Waiting on Don** (16)
 
 - 28d · "Neighbours, not strangers or creators" vs. "everyone who posts is a creator." A) the north star's refusal is scoped to the word "creator" as a label only —… — [product/foundation/role-language.md:34](product/foundation/role-language.md#L34)
 - 25d · Promise 1 — what "surplus returns to the community" actually means. A) a fixed percentage, decided annually by the founder. B) a member vote or board process… — [product/foundation/goals.md:46](product/foundation/goals.md#L46)
@@ -156,12 +156,10 @@ Oldest first. Rule and grammar: `process/PIPELINE.md` § Open questions.
 - 20d · What triggers the LLM pass, and who approves its output? A) a scheduled job, proposals landing in a queue Don reviews. B) on demand, run when someone looks.… — [planning/scenario-F071.md:37](planning/scenario-F071.md#L37)
 - 19d · How does the search dictionary grow? A) from tags creators create — every new tag is a word a real person chose for their own thing. B) from logged zero-resu… — [planning/scenario-F071.md:41](planning/scenario-F071.md#L41)
 - 17d · Where do the premise strings live, given Don expects to update them often? Copy is inline in the components today — roughly 458 user-facing strings across 50… — [planning/scenario-F083.md:37](planning/scenario-F083.md#L37)
-- 16d · Which noun does the paused ontology spike model first — Item or Page? The spike lives outside this repo, at `../socialus-ontology-spike/INTENT.md`. — [product/foundation/nouns.md:245](product/foundation/nouns.md#L245)
+- 16d · Which noun does the paused ontology spike model first — Item or Page? The spike lives outside this repo, at `../socialus-ontology-spike/INTENT.md`. — [product/foundation/nouns.md:254](product/foundation/nouns.md#L254)
 - 13d · What makes a thing "free", now that the free-things lens has nowhere to read from? Surfaced by the browse query rewrite (`socialus-web` T156, 2026-09-19), wh… — [planning/scenario-F059.md:46](planning/scenario-F059.md#L46)
 - 13d · Which ten names are the collections, and does the picker suggest from a Page's tags? *(Narrowed 2026-09-19 — Don ruled membership is owner-set, so what is le… — [product/ui/surfaces.md:61](product/ui/surfaces.md#L61)
-- 13d · Does the collection picker widen step 3 or add a seventh step — and is the six-step composer judged as a set rather than step by step? — [product/ui/surfaces.md:63](product/ui/surfaces.md#L63)
-- 3d · Are the store apps the site in a native shell, or native screens on the same database? A) A shell around the site (Capacitor-style): every screen and server… — [product/ui/surfaces.md:65](product/ui/surfaces.md#L65)
-- 2d · For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy dut… — [planning/scenario-F081.md:48](planning/scenario-F081.md#L48)
+- 3d · Are the store apps the site in a native shell, or native screens on the same database? A) A shell around the site (Capacitor-style): every screen and server… — [product/ui/surfaces.md:64](product/ui/surfaces.md#L64)
 - 2d · When "near me" returns, how does finding by neighbourhood fit "local = the whole metro" and "no distance shown"? A) A place filter the member types, not a ra… — [planning/scenario-F095.md:28](planning/scenario-F095.md#L28)
 - 2d · What does "sends traffic back" mean on a card? A) The card's main action opens the venue's own event page; SocialUs keeps the summary. B) A secondary "from t… — [planning/scenario-F096.md:30](planning/scenario-F096.md#L30)
 - 2d · How is a member-shared event marked until claimed? A) "Shared by a neighbour, not yet confirmed by the venue", with no RSVP until claimed. B) The same, with… — [planning/scenario-F096.md:32](planning/scenario-F096.md#L32)
@@ -215,10 +213,10 @@ naming it. Five approved gating scenarios once had none, and nothing noticed.
 - **F082** (approved) · #223 open
 - **F093** (approved) · #252 closed, #215 closed
 
-**Rulings that bind code: 80.** Each names its Issue or scenario, or says it has nothing to build;
+**Rulings that bind code: 90.** Each names its Issue or scenario, or says it has nothing to build;
 the lint fails one that does none of the three — the identity leaks sat eight days with no Issue.
 
-- **Nothing to build** (10), by their own tag: 2026-09-30 Visibility currently defaults to social norms: what people w…; 2026-09-30 We are careful and supportive of our members, and we ask the…; 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
+- **Nothing to build** (13), by their own tag: 2026-10-02 Gatherings saved with the old 7-hour timezone error are thro…; 2026-10-01 Design tokens live in the app code as the single source of t…; 2026-10-01 We disclose member data only in response to valid legal proc…; 2026-09-30 Visibility currently defaults to social norms: what people w…; 2026-09-30 We are careful and supportive of our members, and we ask the…; 2026-09-30 The platform comes first, then its members, and every ruling…; 2026-09-30 Between members, we currently show a display name and avatar…; 2026-09-27 When a newer decision contradicts an older one, the newer on…; 2026-09-27 Cross-cutting documents are generated from inline markers, n…; 2026-09-27 Grep-built, never hand-kept: a fact lives inline where it is…; 2026-09-27 An open question is an inline marker where it was raised, no…; 2026-09-21 [guard-proves-itself] is the sixth process absolute: a check…; 2026-09-21 plainlanguage.gov governs user-facing copy, alongside voice.…
 
 ## What this run could not verify
 
