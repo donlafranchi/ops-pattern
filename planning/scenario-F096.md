@@ -25,7 +25,7 @@ Not launch. Not approved. No scraping of listings without consent (C). No ticket
 
 **Recommend for members before things happen,** from their declared interests: the member works with the platform, not an algorithm (Don, 2026-09-30). It sits inside the existing ordering rule — place, declared interests and genuine community response (`product/ui/surfaces.md` § ordering; DECISIONS 2026-09-12) — and ranks nobody for payment, size or follower count (2026-09-30).
 
-**Links back conflict with F090 criterion 7**, which publishes a destination only when the owner typed it and rules out imported ones. The question is marked in F090, where its answer lands.
+**Links back are the owner's own:** a venue's consented connection counts as links the owner typed, so F090 criterion 7 holds (Don, 2026-09-30).
 
 [open-question owner=don raised=2026-09-30] What does "sends traffic back" mean on a card? A) **The card's main action opens the venue's own event page;** SocialUs keeps the summary. B) A secondary "from the Torch Club" link, with details on SocialUs. *Recommend A.*
 
