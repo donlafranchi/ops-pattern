@@ -10,6 +10,7 @@
 > **214 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · launch, pages, items — The launch is a modern yellow pages: who is here, with links and contact details. Individual product and service listings are postponed until after launch
 - **2026-10-01** · explore, map — Explore's list and map follow the screen width. Under 1024px, phones and tablets get a floating "Map"/"List" pill at bottom centre that stays visible while scrolling. At 1024px and up, list and map sit side by side with no toggle, and a collapse handle on the divider. With the owner panel open at 1024–1439px, the map collapses and a List | Map switch docks in the sticky filter bar
 - **2026-10-01** · page-create, page-edit, page-publish, tags, copy — Creating a Page is one question: its kind. Each kind is explained — what it's for and which components it has by default — and the screen says this just starts the process. Creation lands the owner on their draft Page, where they fill in everything else, the name included
 - **2026-10-01** · page-publish, page-photos, default-art — Publishing a Page requires a name, a location (an address or an area) and a description. A photo is optional; a Page without one shows its kind's default image or icon

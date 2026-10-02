@@ -33,6 +33,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Real names between people who dealt with each other (F077, `socialus-web` #219) — **out of scope 2026-09-30; revisit with legal counsel.**
 - Bulk actions on the review queue (F079) — written, unscheduled; waits on real volume. *(The ID + selfie tier left this line 2026-09-27: Don ruled none is being built, so F080 names no unlock.)*
 
+- Individual product and service listings on a Page — **postponed until after launch** *(Don, 2026-10-01)*.
 - Item-level photos — substrate built, ~half a day when resumed.
 - Volunteering (offer/ask composer) — blocked on messaging, not on the composer.
 - The idea mechanic (wonder composer) — specced and substrate shipped, composer/page missing.
