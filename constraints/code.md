@@ -17,6 +17,7 @@
 - **2026-10-01** · owner-panel, layout — Below 1280px the owner gets the phone owner bar and sheets; the owner panel appears from 1280px
 - **2026-10-01** · nav, layout, explore, map — On a phone, a detail page's action bar sits above the nav. The nav moves to the top at 744px. The nav is hidden in wizards and full-height sheets. Signed-out Explore is list only, and the Map pill opens sign-in
 - **2026-10-01** · design-tokens, design-language — Design tokens live in the app code as the single source of truth; the design-language doc keeps only the reasons
+- **2026-10-01** · privacy, legal, copy — We disclose member data only in response to valid legal process: court orders, subpoenas and legal emergencies. Counsel finalises the wording
 - **2026-10-01** · signup, copy — The signup line ships as written: "This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."
 - **2026-10-01** · explore, announcements, signed-out — Signed out, the "today" row shows one "Sign up to see what's happening" card for each Page posting something today, matching the signed-out front door
 - **2026-10-01** · testing, signup, moderation, operators, explore — Build agents get a set of builder accounts on the live app, one for each test persona (signed out aside: stranger, follower, member, someone who RSVP'd, operator, an owner of each Page kind), so they can see and help build every view
@@ -41,7 +42,7 @@
 - **2026-09-30** · signup, identity — Every member is verified as a person, to discourage anonymous behaviour. The method is open
 - **2026-09-30** · fees, ranking, explore — Fees serve the platform and its members, and favour no member over another. The platform doesn't show favouritism
 - **2026-09-30** · process, product, copy — The platform comes first, then its members, and every ruling can be revisited when the situation changes
-- **2026-09-30** · signup, business-registration, page-publish, reports, rls — What the platform collects for its own protection is seen only by Don and operators, and is currently handed over only under a court order
+- **2026-09-30** · signup, business-registration, page-publish, reports, rls — What the platform collects for its own protection is seen only by Don and operators
 - **2026-09-30** · names, members, copy — Between members, we currently show a display name and avatar, and don't show legal names. We don't take part in disputes between members unless a court orders it
 - **2026-09-30** · names, signup, copy — Real names between people who dealt with each other (F077, `socialus-web` #219) are out of scope; revisit with legal counsel
 - **2026-09-30** · business-registration, copy — The local-owner badge is the owner's own claim, and says so: for example "Says locally owned"
