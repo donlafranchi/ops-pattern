@@ -10,6 +10,8 @@
 > **212 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-02** · posts, explore, pages — A post with no event date drops off Explore after 14 days and moves to an "Earlier" section on its Page. The owner can optionally set a "show until" date. Every undated post shows "Posted <date>"
+- **2026-10-02** · gatherings, data — Gatherings saved with the old 7-hour timezone error are throwaway test data and won't be corrected
 - **2026-10-01** · launch, pages, items — The launch is a rich-context yellow pages: organizations, not people, filled in by their owners, with pictures, links and contact details. Individual product and service listings are postponed until after launch
 - **2026-10-01** · pages, posts, nouns, page-create — A Page is an organization: a group, a business or an organization. An event is a post a Page makes. There is currently no separate Page per event
 - **2026-10-01** · pages, page-edit, contact — A Page may carry an optional public business phone and optional weekly hours, in launch scope. The business phone is separate from the member's private phone and shows only if the owner gives it. Both show to signed-in visitors, not on the signed-out front door

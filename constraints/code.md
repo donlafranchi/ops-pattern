@@ -10,6 +10,8 @@
 > **212 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-02** · posts, explore, pages — A post with no event date drops off Explore after 14 days and moves to an "Earlier" section on its Page. The owner can optionally set a "show until" date. Every undated post shows "Posted <date>"
+- **2026-10-02** · gatherings, data — Gatherings saved with the old 7-hour timezone error are throwaway test data and won't be corrected
 - **2026-10-01** · pages, page-edit, contact — A Page may carry an optional public business phone and optional weekly hours, in launch scope. The business phone is separate from the member's private phone and shows only if the owner gives it. Both show to signed-in visitors, not on the signed-out front door
 - **2026-10-01** · explore, map — Explore's list and map follow the screen width. Under 1024px, phones and tablets get a floating "Map"/"List" pill at bottom centre that stays visible while scrolling. At 1024px and up, list and map sit side by side with no toggle, and a collapse handle on the divider. With the owner panel open at 1024–1439px, the map collapses and a List | Map switch docks in the sticky filter bar
 - **2026-10-01** · page-create, page-edit, page-publish, tags, copy — Creating a Page is one question: its kind. Each kind is explained — what it's for and which components it has by default — and the screen says this just starts the process. Creation lands the owner on their draft Page, where they fill in everything else, the name included
