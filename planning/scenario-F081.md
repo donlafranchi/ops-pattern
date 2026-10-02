@@ -45,7 +45,7 @@ Choosing the person-verification method, which is open. The waitlist popup and m
 
 **A person is verified by a text-message code to their phone, at signup** (Don, 2026-10-01). At signup because every member is verified (2026-09-30). Today the code has no phone field, email-only sign-in, and Supabase SMS switched off — that is the build.
 
-[open-question owner=don raised=2026-09-30] For counsel: the privacy policy must disclose that we collect legal names, verified emails, and whatever person verification collects (California privacy duties). What must it say, and must it be live before the first signup? Signup collects them from day one (criterion 1).
+[open-question owner=don raised=2026-10-01] For counsel: what must the Terms and Privacy pages say? Privacy must disclose that we collect legal names, verified phones (the text-message code, 2026-10-01) and verified emails (California privacy duties); signup collects them from day one (criterion 1), and both pages are launch scope and due before the first signup (2026-10-01). **Can they ship as a plain-language draft before counsel reviews them?** There is no counsel today (2026-10-01). A) **Yes:** a plain-language draft, marked as such, ships at launch and counsel reviews it when engaged. B) No: launch waits on counsel's review. *Recommend A;* an honest plain draft is better than no page, and B puts the launch date on a hire nobody has scheduled.
 
 ### Settled against F076
 
