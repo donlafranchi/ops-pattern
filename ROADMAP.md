@@ -20,7 +20,7 @@ Now / Next / Later / Won't, one line each. Detail and days: `socialus-web` Issue
 - Popularity ordering with a reserved share for new Pages.
 - Metadata rewrite; retired vendor routes redirected or removed.
 - RSVP / response path — one per person.
-- Footer linking About, Terms and Privacy pages (design decision 8, 2026-10-01, Don) — **launch scope**; none of the three pages exists in the app today. Privacy is due before the first signup. Terms and Privacy ship as plain-language drafts, counsel after launch (F081); path: adapt GitHub's and Basecamp's policies, drafts by 2026-10-15, live 2026-10-30, counsel after launch; Don's 14-fact checklist due 2026-10-08 ([starter kit](https://claude.ai/code/artifact/b70649b1-25d9-4027-a9e3-a19f78c9e191)).
+- Footer linking About, Terms and Privacy pages (design decision 8, 2026-10-01, Don) — **launch scope**; none of the three pages exists in the app today. Privacy is due before the first signup. Terms and Privacy ship as plain-language drafts, counsel after launch (F081); path: adapt GitHub's and Basecamp's policies, drafts by 2026-10-15, live 2026-10-30, counsel after launch; Don's 14-fact checklist due 2026-10-08 ([starter kit](planning/research/terms-privacy-starter.md)).
 - DMCA designated-agent registration with the US Copyright Office — $6, renewed every 3 years — **before launch**.
 - **Tags on posts, and tag editing any time** (2026-10-01) — **in the launch, Don confirmed 2026-10-01**; new launch scope, **nothing was removed to make room.** Post replaces announcement as the user-facing word; the copy review rides with the copy pass.
 - Follows simplification — one table, three subjects.

@@ -45,7 +45,7 @@ Choosing the person-verification method, which is open. The waitlist popup and m
 
 **A person is verified by a text-message code to their phone, at signup** (Don, 2026-10-01). At signup because every member is verified (2026-09-30). Today the code has no phone field, email-only sign-in, and Supabase SMS switched off — that is the build.
 
-**Terms and Privacy ship as plain-language drafts, marked as drafts, before counsel reviews them; counsel reviews after launch** (Don, 2026-10-01). Privacy discloses that we collect legal names, verified phones (the text-message code, 2026-10-01) and verified emails (California privacy duties), and that we disclose member data only in response to valid legal process (2026-10-01). **Path:** adapt GitHub's site-policy (reusable without conditions) and Basecamp's policies (with attribution); drafts by 2026-10-15, live 2026-10-30, counsel review after launch. Don's 14-fact checklist is due 2026-10-08. Starter kit: [Terms & Privacy starter kit](https://claude.ai/code/artifact/b70649b1-25d9-4027-a9e3-a19f78c9e191).
+**Terms and Privacy ship as plain-language drafts, marked as drafts, before counsel reviews them; counsel reviews after launch** (Don, 2026-10-01). Privacy discloses that we collect legal names, verified phones (the text-message code, 2026-10-01) and verified emails (California privacy duties), and that we disclose member data only in response to valid legal process (2026-10-01). **Path:** adapt GitHub's site-policy (reusable without conditions) and Basecamp's policies (with attribution); drafts by 2026-10-15, live 2026-10-30, counsel review after launch. Don's 14-fact checklist is due 2026-10-08. Starter kit: [Terms & Privacy starter kit](research/terms-privacy-starter.md).
 
 ### Settled against F076
 
