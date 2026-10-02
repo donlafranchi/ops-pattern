@@ -106,9 +106,9 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 *(Ratified 2026-09-07. The UI name for a `groups` row — the line every other doc is checked against.)*
 
-**A Page is the person or people behind the listing. Page is *who*; Item is *what*.** A Page holds many Items and dates over time and carries identity, a name, a face, followers.
+**A Page is an organization: a group, a business, or another organization** — in Don's words, *"an organizing entity for something that needs more than one of anything"* (2026-09-12, `model.md`). It holds many posts over time and carries identity, a name, a face, followers.
 
-**Amended 2026-10-01, Don: a Page is an organization — a group, a business or an organization — and an event is a post it makes.** There is currently no Page per event; a once-a-year event like BottleRock is still an organization. The launch is a yellow pages of organizations, not a white pages of people. What differs between kinds is the tools the Page offers, not whether it is a Page (2026-09-15). **The `Page is who; Item is what` framing above is disputed and unresolved; see `planning/ITEMS-QUESTION.md`. It is not retired.** Pages have varying lifespans and are created sequentially, never simultaneously — a producer who also hosts makes a second Page, never converts the first. A Page may sell, host, or both, and needs no business record to do either — the business record is a claim about the Page, not a permission.
+The launch is a yellow pages of organizations, not a white pages of people (2026-10-01). What differs between kinds is the tools the Page offers, not whether it is a Page (2026-09-15). Pages have varying lifespans and are created sequentially, never simultaneously — a producer who also hosts makes a second Page, never converts the first. A Page may sell, host, or both, and needs no business record to do either — the business record is a claim about the Page, not a permission.
 
 **Three consequences:** the map's unit is the Page, not the thing filed under it — search sourdough and see the bakers, not individual loaves. One Page is one place — a two-location bakery is two Pages, which is why the map needs no cross-location grouping. A Page with no fixed place is found through the Venues it appears at, never pinned at an address it doesn't have. Anything in the past doesn't appear — time-based, automatic, no manual cleanup.
 
@@ -116,12 +116,19 @@ Three core nouns carry every loop: **Person, Item, Location.** A fourth — **so
 
 **A residence's address is public too, at launch** *(Don, 2026-09-30)*. The protection is the option to give a neighbourhood instead of a street. **Revisit** withholding a residence address from anyone not invited or responding once RSVPs (F063) and a residence flag exist. The answering layer inherits whatever the Page surface holds.
 
+### Page, post and event — how the words relate *(Don, 2026-10-01)*
+
+- **Page** is the platform noun for an organization. **Group, business and organization** are the everyday words for kinds of Page, not separate things: a business Page, a social group's Page, an organization's Page. The `groups` table holds all of them.
+- **Post** is something a Page publishes (`page_posts`). **An announcement is a kind of post, and so is an event** — a post with a time.
+- **An organization holds events; an event is not an organization.** There is currently no event Page: a once-a-year event like BottleRock is still an organization's event. An event without an organization waits in `ROADMAP.md` § Later, speculative.
+- **Which words show.** User-facing: **Page**, and **"Event"** for a post with a time (2026-09-30). Internal: **gathering** (a post or entry kind for something people come back to), **meetup** (an everyday word, not a label), **occasion** (withdrawn). **Shop, service and group** name kinds or presets of Page, shown at creation with what each is for (placeholder copy, [public-is-draft]); business and social are presets, not rules (2026-09-30).
+
 ## The nouns that ship
 
 | Noun | Status | What it is | **What it deliberately does not have** |
 |---|---|---|---|
 | **Member** | ● | One real human, one account | No type, tier, or stored role. No platform-awarded badge, rating, or label it didn't write itself. |
-| **Page** | ● | The person or people behind the listing | No permanent Page kind that gates anything. No permission granted by its business record. No conversion into another Page. **Its owner picks one or more collections from a curated set of about ten** *(2026-09-19 — reverses the 2026-09-13 "no category a creator picks"; a collection is platform vocabulary the owner selects from, not a second vocabulary they author)*. Overlapping, not exclusive. No collection a creator invents. |
+| **Page** | ● | An organization: a group, a business, or another organization | No permanent Page kind that gates anything. No permission granted by its business record. No conversion into another Page. **Its owner picks one or more collections from a curated set of about ten** *(2026-09-19 — reverses the 2026-09-13 "no category a creator picks"; a collection is platform vocabulary the owner selects from, not a second vocabulary they author)*. Overlapping, not exclusive. No collection a creator invents. |
 | **Item** *(umbrella — qualify at use)* | ● | One thing offered, or one occasion | No independent existence off a Page. No response counter shown to its author. No date on a product. |
 | ~~**Venue**~~ | ✕ | **Not a noun** *(2026-09-12)* — a venue is an organization hosting at a Location. The Page is justified by what the organization is; persistence is `locations.kind` (Harlow's `permanent`, a Saturday market `recurring_temporary`). | No entity of its own, and no Page kind. Anything can host — a bakery running a book club is a venue that evening, on the one Page it already had. |
 | **Place** | ● | Platform-curated geography (neighbourhood → state) | No member-facing create surface. Nobody adds a Place. |
@@ -213,6 +220,7 @@ Each offered component's explanation, and the way an owner adds one, are new lau
 | A member's interest tags | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ | ✕ |
 | Front door, the same for every Page, private ones included: name, default photo, description, withheld-announcements card | ● | ● | ● | ● | ● | ● | ● |
 | The Page's founder or seller, by display name | ✕ | ◐ inside the Page, if its creator shows it | ◐ the same | ◐ the same | ◐ the same | ◐ the same | ● |
+| Business phone and weekly hours, if the owner gives them | ✕ | ● | ● | ● | ● | ● | ● |
 | Contents (location, tags, posts): a Page with no level | ✕ | ◐ what the owner makes visible to the MSA | ◐ the same, plus followers announcements | ● | ◐ as signed in, plus the gathering or post | ◐ as signed in | ● |
 | Contents: public Page | ✕ | ● | ● | ● | ● | ● | ● |
 | Contents: community-only Page | ✕ | ✕ | ◐ its announcements | ● | ◐ the gathering or post only | ✕ | ● |

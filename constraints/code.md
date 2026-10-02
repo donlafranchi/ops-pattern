@@ -7,9 +7,10 @@
 > Every ratified decision whose tag binds the **code** tier, newest first. `DECISIONS.md` holds
 > only live decisions — a superseded one is deleted — so nothing below conflicts with anything
 > else here. If two lines ever seem to, the newer wins (`[newer-decision-wins]`).
-> **213 older decisions carry no tag yet and are not listed** — tagging is required from
+> **212 older decisions carry no tag yet and are not listed** — tagging is required from
 > 2026-09-21 onward. Absent here is not the same as not binding.
 
+- **2026-10-01** · pages, page-edit, contact — A Page may carry an optional public business phone and optional weekly hours, in launch scope. The business phone is separate from the member's private phone and shows only if the owner gives it. Both show to signed-in visitors, not on the signed-out front door
 - **2026-10-01** · explore, map — Explore's list and map follow the screen width. Under 1024px, phones and tablets get a floating "Map"/"List" pill at bottom centre that stays visible while scrolling. At 1024px and up, list and map sit side by side with no toggle, and a collapse handle on the divider. With the owner panel open at 1024–1439px, the map collapses and a List | Map switch docks in the sticky filter bar
 - **2026-10-01** · page-create, page-edit, page-publish, tags, copy — Creating a Page is one question: its kind. Each kind is explained — what it's for and which components it has by default — and the screen says this just starts the process. Creation lands the owner on their draft Page, where they fill in everything else, the name included
 - **2026-10-01** · page-publish, page-photos, default-art — Publishing a Page requires a name, a location (an address or an area) and a description. A photo is optional; a Page without one shows its kind's default image or icon
