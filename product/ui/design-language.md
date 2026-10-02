@@ -1,6 +1,6 @@
 ---
 id: what-design-language
-purpose: Design principles and tokens the code can't self-document — why, not what's already in globals.css or the components.
+purpose: Design principles the code can't self-document — the reasons; the tokens themselves live in the app code.
 layer: what
 status: active
 ---
@@ -28,15 +28,14 @@ White canvas + photography + one signature accent. The chrome disappears so the 
 
 11. **Never show someone a zero counter on their own work.** *(Moved here 2026-09-14 from the retired `../foundation/role-language.md`, where it sat among naming rules; it is a UX rule and always was.)* A gathering nobody has joined reads *"No one's in yet. Be first."* to a visitor and *"Nobody's in yet"* to the host — never "0 RSVPs." A zero on your own thing is a small daily failure notice, and the surfaces are nearly all empty at launch. **Confirmed independently by Don in `../foundation/voice.md` 2026-09-15**, in the same words.
 
-## Tokens — the source of truth for what the code should read
+## Tokens — the reasons only
 
-Full hex/px values live in `globals.css`; if they disagree, `globals.css` is right and this file is stale — fix the file, don't trust it blind.
+**Design tokens live in the app code, the single source of truth** *(Don, 2026-10-01, design decision 7)*: `globals.css` and the components hold every value — colour, type, radius, shadow, motion. This section keeps only why, per `process/LIVING-DOCS.md`; a value written here would be a second description that drifts.
 
-- **Brand:** one accent color (Satin Pistachio) at two shades — brand mark and CTA fill. The full ramp is a design-tool resource; product UI reaches for exactly two values from it.
-- **Role tokens:** background (white), surface (neutral gray, never green-tinted), body text (near-black, not brand-colored), muted text, hairline border, focus ring.
-- **Semantic colors** (success/warning/danger/info) appear only in system feedback — toasts, validation, alerts. Never decorative, never on a card.
-- **Ownership-tier spectrum** (badges + map pins only): one semantic axis, green = local, gray/black = extractive. The `pe-corporate` tier desaturates on the card; hover restores full color.
-- **Radius, shadow, motion:** defined once in `globals.css`; this doc doesn't duplicate the scale.
+- **One accent, used sparingly.** The chrome steps back so photographs and what people wrote carry the page.
+- **Body text isn't brand-coloured,** because reading comes first.
+- **Semantic colours mean system feedback only** — toasts, validation, alerts. Colour used as decoration stops meaning anything when it has to.
+- **Ownership colour is one axis, on badges and map pins only,** so a reader learns it once.
 
 ## Rules the components must hold, that the components alone won't tell you why
 

@@ -16,6 +16,7 @@
 - **2026-10-01** · page-publish, page-photos, default-art — Publishing a Page requires a name, a location (an address or an area) and a description. A photo is optional; a Page without one shows its kind's default image or icon
 - **2026-10-01** · owner-panel, layout — Below 1280px the owner gets the phone owner bar and sheets; the owner panel appears from 1280px
 - **2026-10-01** · nav, layout, explore, map — On a phone, a detail page's action bar sits above the nav. The nav moves to the top at 744px. The nav is hidden in wizards and full-height sheets. Signed-out Explore is list only, and the Map pill opens sign-in
+- **2026-10-01** · design-tokens, design-language — Design tokens live in the app code as the single source of truth; the design-language doc keeps only the reasons
 - **2026-10-01** · signup, copy — The signup line ships as written: "This is a community building app. It was made for good and decent people to find, connect with and support other good and decent people. We are here to build a better future together."
 - **2026-10-01** · explore, announcements, signed-out — Signed out, the "today" row shows one "Sign up to see what's happening" card for each Page posting something today, matching the signed-out front door
 - **2026-10-01** · testing, signup, moderation, operators, explore — Build agents get a set of builder accounts on the live app, one for each test persona (signed out aside: stranger, follower, member, someone who RSVP'd, operator, an owner of each Page kind), so they can see and help build every view
