@@ -5,6 +5,7 @@ status: approved
 date: 2026-09-19
 depends: [F059, F072]
 approved: 2026-09-19 — Don named the set and ruled the heading is a sentence stem the lens completes.
+amended: 2026-10-01 — Don: criterion 7, the signed-out today row.
 ---
 ## Story
 
@@ -18,6 +19,7 @@ Rae opens Browse on a Thursday afternoon with no particular plan. Under a headin
 4. **The stem is absent when every row under it is absent.** A heading that opens a sentence no row finishes is a failure, not an empty state.
 5. The same link reopens the same rows.
 6. **A series appears at most once in a row** — its soonest occurrence inside that window — however many times it recurs inside it. A non-recurring post appears as itself. This is the read side of F074 criterion 6 and lands in the same release as the expansion, never after it.
+7. **Signed out, the *today* row shows one "Sign up to see what's happening" card for each Page posting something today**, matching the signed-out front door (F093). (Don, 2026-10-01, on `socialus-web` #257.)
 
 ## Why
 
